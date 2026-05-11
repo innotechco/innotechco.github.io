@@ -32,7 +32,7 @@ function Navbar() {
                 <span className="text-xs">▼</span>
               </a>
 
-              {/* 👇 WRAPPER مهم */}
+              {/* WRAPPER  */}
               <div
                 className="relative"
                 onMouseEnter={() => setIsDropdownOpen(true)}
@@ -75,7 +75,7 @@ function Navbar() {
             </div>
           </div>
 
-          {/* 👇 DROPDOWN + HOVER ZONE */}
+          {/*  DROPDOWN + HOVER ZONE */}
           <div
             onMouseEnter={() => setIsDropdownOpen(true)}
             onMouseLeave={() => setIsDropdownOpen(false)}

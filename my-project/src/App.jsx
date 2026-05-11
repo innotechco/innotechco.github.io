@@ -1,10 +1,10 @@
-import Navbar from "./components/Navbar"; // ← این خط رو چک کن
+import Navbar from "./components/Navbar"; 
 
 function App() {
   return (
     <>
       <Navbar />
-      <main>{/* محتوای بقیه صفحه */}</main>
+      <main></main>
     </>
   );
 }
