@@ -118,7 +118,7 @@ function Navbar() {
             </div>
           </div>
 
-          {/* DROPDOWN - بدون تغییر */}
+          {/* DROPDOWN - unchanged */}
           <div
             onMouseEnter={() => setIsDropdownOpen(true)}
             onMouseLeave={() => setIsDropdownOpen(false)}

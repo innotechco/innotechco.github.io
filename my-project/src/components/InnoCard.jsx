@@ -13,20 +13,11 @@ function InnoCard({children}) {
         transform-gpu
         transition-all duration-300 ease-out
 
-        /* =========================
-           🎯 HOVER STYLE (ACTIVE)
-           ========================= */
-
         hover:scale-[1.03]
         hover:bg-green-500/10
         hover:border-green-400/30
-        hover:shadow-[0_0_45px_rgba(55,180,120,0.25)]
-
-        /* اگر خواستی تست کنی:
-        hover:rotate-[0.8deg]
-        hover:shadow-[0_30px_70px_rgba(0,255,120,0.18)]
-        */
-
+        hover:shadow-[0_0_45px_rgba(55,180,120,0.35)]
+        hover:z-[100]
       "
     >
       {children}

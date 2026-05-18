@@ -6,45 +6,51 @@ import InnoCard from "./components/InnoCard";
 
 function App() {
   return (
-    <div className="relative w-full bg-black overflow-x-hidden">
+    <div className="relative w-full bg-black min-h-screen overflow-x-hidden">
       <Navbar />
+
+      {/* First Page - Hero Section */}
       <FirstPage />
-      <EllipseBlack />
 
-      {/* CENTER IMAGE */}
-      <div className="absolute left-1/2 top-[42.9%] -translate-x-1/2 -translate-y-1/2 z-30">
-        <img
-          src={InnotechEcopic}
-          alt="Innotech Ecosystem"
-          className="w-auto h-auto max-w-[90vw] object-contain"
-        />
-      </div>
+      {/* Ellipse Section */}
+      <div className="relative -mt-20 z-20">
+        <EllipseBlack />
 
-      {/* CARDS */}
-      <div className="absolute left-1/2 top-[54%] -translate-x-1/2 z-40 w-full max-w-[1320px] px-4 translate-y-[10px]">
-        <div className="flex justify-center gap-6 lg:gap-8 flex-nowrap overflow-x-auto pb-6 scrollbar-hide">
-          <InnoCard>
-            <CardContent title="AI AGENT" subtitle="BY INNOTECH" />
-          </InnoCard>
+        {/* Content on top of Ellipse - با ارتفاع واقعی */}
+        <div className="relative z-30 w-full pb-24" style={{marginTop: "-35%"}}>
+          {/* CENTER IMAGE */}
+          <div className="flex justify-center pb-16">
+            <div className="overflow-hidden max-h-[550px]">
+              <img
+                src={InnotechEcopic}
+                alt="Innotech Ecosystem"
+                className="w-auto h-auto max-w-[90vw] object-contain"
+              />
+            </div>
+          </div>
 
-          <InnoCard>
-            <CardContent />
-          </InnoCard>
+          {/* CARDS */}
+          <div className="w-full max-w-[1320px] mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 pb-20">
+              <InnoCard>
+                <CardContent title="AI AGENT" subtitle="BY INNOTECH" />
+              </InnoCard>
 
-          <InnoCard>
-            <CardContent />
-          </InnoCard>
+              <InnoCard>
+                <CardContent />
+              </InnoCard>
 
-          <InnoCard>
-            <CardContent />
-          </InnoCard>
+              <InnoCard>
+                <CardContent />
+              </InnoCard>
+
+              <InnoCard>
+                <CardContent />
+              </InnoCard>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* NEW BLACK SECTION */}
-      <section className="relative z-10 w-full bg-black">
-        <div className="max-w-[1265px] mx-auto min-h-[1200px]" />
-      </section>
     </div>
   );
 }
@@ -68,6 +74,7 @@ function CardContent({title = "INCEPTION", subtitle = "BY INNOTECH"}) {
       </div>
 
       <div className="self-stretch flex flex-col gap-3 text-white">
+        {/* ... بقیه کد CardContent بدون تغییر ... */}
         <div className="flex flex-col gap-1">
           <div className="flex items-start gap-2">
             <div className="mt-1.5 w-4 flex justify-center">
@@ -75,7 +82,6 @@ function CardContent({title = "INCEPTION", subtitle = "BY INNOTECH"}) {
             </div>
             <div className="text-sm">ISO56000 Assistant:</div>
           </div>
-
           <p className="text-xs font-light leading-tight pl-6">
             Innovation Management Maturity
             <br />
@@ -90,7 +96,6 @@ function CardContent({title = "INCEPTION", subtitle = "BY INNOTECH"}) {
             </div>
             <div className="text-sm">ITONICS:</div>
           </div>
-
           <p className="text-xs font-light leading-tight pl-6">
             the End-to-End Innovation
             <br />
@@ -105,7 +110,6 @@ function CardContent({title = "INCEPTION", subtitle = "BY INNOTECH"}) {
             </div>
             <div className="text-sm">BRIGHTIDEA:</div>
           </div>
-
           <p className="text-xs font-light leading-tight pl-6">
             Innovation Cloud
           </p>
