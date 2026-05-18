@@ -2,7 +2,7 @@ import bgImage from "../assets/Firstpagepic.jpg";
 
 function FirstPage() {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden z-10">
+    <section className="relative w-full min-h-[100vh] overflow-hidden z-10">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-125 contrast-110"
