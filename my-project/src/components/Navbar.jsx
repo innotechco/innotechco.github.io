@@ -1,110 +1,100 @@
-import {useState, useEffect, useRef} from "react";
-
-import Logo from "../assets/Frame 154.svg";
+import {useEffect, useMemo, useRef, useState} from "react";
+import {useTheme} from "../components/ThemeContext";
+import Logo from "../assets/NavbarInnoTech.svg";
 import SunMedium from "../assets/SunMedium.svg";
 import Moon from "../assets/Moon.svg";
 import SearchIcon from "../assets/Search.svg";
 import Vector from "../assets/Vector.svg";
 
+const searchItems = [
+  {title: "What we do", type: "Page"},
+  {title: "INSIGHT Store", type: "Page"},
+  {title: "Innovation and Technology Management", type: "Article"},
+  {title: "Digital Transformation Report", type: "Report"},
+  {title: "Market Analytics Report", type: "Report"},
+];
+
 function Navbar() {
-  // Dropdown and search states
+  const {isDarkMode, toggleTheme} = useTheme(); 
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  // Search input and results
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
-  // Theme state
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const navRef = useRef(null);
+  const inputRef = useRef(null);
 
-  // Check if any expandable section is open
   const isAnyDropdownOpen = isDropdownOpen || isSearchOpen;
 
-  // Refs for navbar and search button
-  const navRef = useRef(null);
-  const searchButtonRef = useRef(null);
-
-  // Searchable items
-  const searchItems = [
-    {title: "What we do", type: "Page"},
-    {title: "INSIGHT Store", type: "Page"},
-    {title: "Innovation and Technology Management", type: "Article"},
-    {title: "Digital Transformation Report", type: "Report"},
-    {title: "Market Analytics Report", type: "Report"},
-  ];
-
-  // Filter search results based on query
-  useEffect(() => {
-    const query = searchQuery.trim();
-
-    if (!query) {
-      setSearchResults([]);
-      return;
-    }
-
-    const results = searchItems.filter((item) =>
-      item.title.toLowerCase().includes(query.toLowerCase()),
+  const searchResults = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return [];
+    return searchItems.filter((item) =>
+      item.title.toLowerCase().includes(query),
     );
-
-    setSearchResults(results);
   }, [searchQuery]);
 
-  // Prevent form refresh on submit
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  // Toggle dark/light mode
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  // Close search dropdown when clicking outside navbar
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        isSearchOpen &&
-        navRef.current &&
-        !navRef.current.contains(event.target)
-      ) {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
         setIsSearchOpen(false);
         setSearchQuery("");
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      inputRef.current?.focus();
+    }
   }, [isSearchOpen]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  const handleSearchToggle = () => {
+    setIsSearchOpen((prev) => !prev);
+    setIsDropdownOpen(false);
+  };
 
   return (
     <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 pt-6">
       <div className="w-[1265px] mx-auto">
         <div
-          className={`bg-black/20 backdrop-blur-[3px] border border-white/10 shadow-2xl overflow-hidden transition-all duration-500 ease-in-out ${
+          className={`border shadow-2xl overflow-hidden transition-all duration-500 ease-in-out ${
+            isDarkMode
+              ? "bg-black/20 border-white/10 backdrop-blur-[3px]"
+              : "bg-white/20 border-black/10 backdrop-blur-[2px]"
+          } ${
             isAnyDropdownOpen
-              ? "rounded-[34px] bg-zinc-950/80"
+              ? isDarkMode
+                ? "rounded-[34px] bg-zinc-950/80"
+                : "rounded-[34px] bg-white/85"
               : "rounded-[50px]"
           }`}
         >
-          {/* ================= TOP NAVBAR ================= */}
           <div className="h-[73px] flex items-center px-8">
-            {/* ================= LEFT SECTION - LOGO ================= */}
             <div className="flex items-center shrink-0">
-              <img src={Logo} alt="InnoTech Logo" className="h-9 w-auto" />
+              <img
+                src={Logo}
+                alt="InnoTech Logo"
+                className={`h-9 w-auto ${isDarkMode ? "" : "brightness-0"}`}
+              />
             </div>
 
-            {/* ================= CENTER SECTION - MENU ================= */}
             <div className="flex-1 flex justify-center">
               <div className="hidden md:flex items-center gap-10">
                 <a
                   href="#"
-                  className="flex items-center gap-1 text-white font-['Gotham'] text-base hover:text-emerald-400 transition-colors"
+                  className={`flex items-center gap-1 ${
+                    isDarkMode ? "text-white" : "text-black"
+                  } font-['Gotham'] text-base hover:text-emerald-400 transition-colors`}
                 >
                   <span>Who we are</span>
-
-                  {/* Optional dropdown icon */}
                   <img
                     src={NaN}
                     alt=""
@@ -112,7 +102,6 @@ function Navbar() {
                   />
                 </a>
 
-                {/* What we do dropdown trigger */}
                 <div
                   className="relative"
                   onMouseEnter={() => {
@@ -121,48 +110,60 @@ function Navbar() {
                   }}
                   onMouseLeave={() => setIsDropdownOpen(false)}
                 >
-                  <button className="flex items-center gap-1 text-white font-['Gotham'] text-base hover:text-emerald-400 transition-colors">
+                  <button
+                    type="button"
+                    className={`flex items-center gap-1 ${
+                      isDarkMode ? "text-white" : "text-black"
+                    } font-['Gotham'] text-base hover:text-emerald-400 transition-colors`}
+                  >
                     <span>What we do</span>
-
                     <img
                       src={Vector}
                       alt=""
-                      className={`w-[9px] h-[9px] object-contain translate-y-[1px] transition-transform duration-300 ${
+                      className={`w-[12px] h-[12px] object-contain translate-y-[1px] translate-x-[5px] transition-transform duration-300 ${
                         isDropdownOpen ? "rotate-180" : "rotate-0"
-                      }`}
+                      } ${isDarkMode ? "" : "brightness-0"}`}
                     />
                   </button>
                 </div>
 
                 <a
                   href="#"
-                  className="text-white font-['Gotham'] text-base hover:text-emerald-400 transition-colors"
+                  className={`${
+                    isDarkMode ? "text-white" : "text-black"
+                  } font-['Gotham'] text-base hover:text-emerald-400 transition-colors`}
                 >
                   What we think
                 </a>
 
                 <a
                   href="#"
-                  className="text-white font-['Gotham'] text-base hover:text-emerald-400 transition-colors"
+                  className={`${
+                    isDarkMode ? "text-white" : "text-black"
+                  } font-['Gotham'] text-base hover:text-emerald-400 transition-colors`}
                 >
                   INLEARN Academy
                 </a>
 
                 <a
                   href="#"
-                  className="text-white font-['Gotham'] text-base hover:text-emerald-400 transition-colors"
+                  className={`${
+                    isDarkMode ? "text-white" : "text-black"
+                  } font-['Gotham'] text-base hover:text-emerald-400 transition-colors`}
                 >
                   INSIGHT Store
                 </a>
               </div>
             </div>
 
-            {/* ================= RIGHT SECTION ================= */}
             <div className="flex items-center gap-5">
-              {/* Language switcher */}
-              <button className="flex items-center gap-1 text-white font-['Gotham'] text-base leading-none hover:text-emerald-400 transition-colors">
+              <button
+                type="button"
+                className={`flex items-center gap-1 ${
+                  isDarkMode ? "text-white" : "text-black"
+                } font-['Gotham'] text-base leading-none hover:text-emerald-400 transition-colors`}
+              >
                 <span>En</span>
-
                 <img
                   src={Vector}
                   alt=""
@@ -170,53 +171,49 @@ function Navbar() {
                 />
               </button>
 
-              {/* Divider */}
-              <div className="w-[1.5px] h-[21px] bg-white/40" />
+              <div
+                className={`w-[1.5px] h-[21px] ${
+                  isDarkMode ? "bg-white/40" : "bg-black/20"
+                }`}
+              />
 
-              {/* Theme toggle button */}
               <button
-                onClick={toggleTheme}
+                type="button"
+                onClick={toggleTheme} // 👈 استفاده از toggleTheme
                 className="group flex items-center justify-center w-[30px] h-[30px] transition-all duration-300 hover:scale-110 active:scale-95"
               >
                 <img
-                  src={isDarkMode ? Moon : SunMedium}
-                  alt={isDarkMode ? "Moon" : "Sun"}
-                  className="w-[30px] h-[30px] object-contain transition-all duration-500 ease-in-out transform hover:rotate-12"
-                  style={{
-                    animation: isDarkMode
-                      ? "moonAppear 0.5s ease-in-out"
-                      : "sunAppear 0.5s ease-in-out",
-                  }}
+                  src={isDarkMode ? SunMedium : Moon}
+                  alt={isDarkMode ? "Sun" : "Moon"}
+                  className={`w-[30px] h-[30px] object-contain transition-all duration-500 ease-in-out transform hover:rotate-12 ${
+                    isDarkMode ? "" : "brightness-0"
+                  }`}
                 />
               </button>
 
-              {/* Divider */}
-              <div className="w-[1.5px] h-[21px] bg-white/40" />
+              <div
+                className={`w-[1.5px] h-[21px] ${
+                  isDarkMode ? "bg-white/40" : "bg-black/20"
+                }`}
+              />
 
-              {/* Search button */}
               <button
-                ref={searchButtonRef}
                 type="button"
-                onClick={() => {
-                  setIsSearchOpen((prev) => !prev);
-                  setIsDropdownOpen(false);
-
-                  if (!isSearchOpen) {
-                    setSearchQuery("");
-                  }
-                }}
+                onClick={handleSearchToggle}
                 className="flex items-center justify-center w-6 h-6 transition-all duration-200"
               >
                 <img
                   src={SearchIcon}
                   alt="Search"
-                  className="w-6 h-6 object-contain transition-transform duration-200 hover:scale-125 active:scale-90"
+                  className={`w-6 h-6 object-contain transition-transform duration-200 hover:scale-125 active:scale-90 ${
+                    isDarkMode ? "" : "brightness-0"
+                  }`}
                 />
               </button>
             </div>
           </div>
 
-          {/* ================= WHAT WE DO DROPDOWN ================= */}
+          {/* Dropdown and Search sections - همین طور که هستن، بدون تغییر */}
           <div
             onMouseEnter={() => {
               setIsDropdownOpen(true);
@@ -229,80 +226,97 @@ function Navbar() {
                 : "max-h-0 opacity-0 -translate-y-2 pb-0 pt-0"
             }`}
           >
-            {/* Dropdown content */}
             <div className="px-10 flex justify-center items-start gap-28">
-              {/* Capability section */}
               <div className="py-2 flex justify-center items-start gap-12">
-                <div className="text-white text-base font-['Gotham']">
+                <div
+                  className={`${
+                    isDarkMode ? "text-white" : "text-black"
+                  } text-base font-['Gotham']`}
+                >
                   Capability:
                 </div>
-
                 <div className="w-52 inline-flex flex-col justify-start items-start gap-5">
                   <div className="self-stretch flex flex-col justify-start items-start">
-                    <div className="text-white text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer">
+                    <div
+                      className={`${
+                        isDarkMode ? "text-white" : "text-black"
+                      } text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer`}
+                    >
                       INCEPTION
                     </div>
-
-                    <div className="self-stretch text-white/70 text-xs font-['Gotham'] leading-5">
+                    <div
+                      className={`${
+                        isDarkMode ? "text-white/70" : "text-black/60"
+                      } self-stretch text-xs font-['Gotham'] leading-5`}
+                    >
                       Innovation and Technology Management
                     </div>
                   </div>
-
                   <div className="self-stretch flex flex-col justify-start items-start">
-                    <div className="text-white text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer">
+                    <div
+                      className={`${
+                        isDarkMode ? "text-white" : "text-black"
+                      } text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer`}
+                    >
                       INSIGHT
                     </div>
-
-                    <div className="self-stretch text-white/70 text-xs font-['Gotham'] leading-5">
+                    <div
+                      className={`${
+                        isDarkMode ? "text-white/70" : "text-black/60"
+                      } self-stretch text-xs font-['Gotham'] leading-5`}
+                    >
                       Science, Technology, Innovation and Market Analytics
                       Reports
                     </div>
                   </div>
-
                   <div className="self-stretch flex flex-col justify-start items-start">
-                    <div className="text-white text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer">
+                    <div
+                      className={`${
+                        isDarkMode ? "text-white" : "text-black"
+                      } text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer`}
+                    >
                       INFINITY
                     </div>
-
-                    <div className="self-stretch text-white/70 text-xs font-['Gotham'] leading-5">
+                    <div
+                      className={`${
+                        isDarkMode ? "text-white/70" : "text-black/60"
+                      } self-stretch text-xs font-['Gotham'] leading-5`}
+                    >
                       Digital Transformation
                     </div>
                   </div>
                 </div>
               </div>
-
-              {/* Industry section */}
               <div className="py-2 flex justify-center items-start gap-12">
-                <div className="text-white text-base font-['Gotham']">
+                <div
+                  className={`${
+                    isDarkMode ? "text-white" : "text-black"
+                  } text-base font-['Gotham']`}
+                >
                   Industry:
                 </div>
-
                 <div className="w-52 inline-flex flex-col justify-start items-start gap-5">
-                  <div className="text-white text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer">
-                    Oil, Gas & Petrochemical
-                  </div>
-
-                  <div className="text-white text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer">
-                    Health
-                  </div>
-
-                  <div className="text-white text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer">
-                    Mining
-                  </div>
-
-                  <div className="text-white text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer">
-                    AI & Digital
-                  </div>
-
-                  <div className="text-white text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer">
-                    Automotive
-                  </div>
+                  {[
+                    "Oil, Gas & Petrochemical",
+                    "Health",
+                    "Mining",
+                    "AI & Digital",
+                    "Automotive",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className={`${
+                        isDarkMode ? "text-white" : "text-black"
+                      } text-base font-normal font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer`}
+                    >
+                      {item}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* ================= SEARCH DROPDOWN ================= */}
           <div
             className={`overflow-hidden transition-all duration-500 ease-in-out ${
               isSearchOpen
@@ -311,36 +325,44 @@ function Navbar() {
             }`}
           >
             <div className="w-full px-8">
-              {/* Search form */}
               <form
                 onSubmit={handleSubmit}
                 className="w-full p-2 flex items-center gap-2.5"
               >
-                {/* Search input container */}
-                <div className="flex-1 px-4 py-3 bg-white/10 rounded-[40px] outline outline-1 outline-offset-[-1px] outline-white/20 flex items-center gap-2.5 overflow-hidden">
+                <div
+                  className={`flex-1 px-4 py-3 rounded-[40px] outline outline-1 outline-offset-[-1px] flex items-center gap-2.5 overflow-hidden ${
+                    isDarkMode
+                      ? "bg-white/10 outline-white/20"
+                      : "bg-black/5 outline-black/10"
+                  }`}
+                >
                   <input
+                    ref={inputRef}
                     type="text"
                     value={searchQuery}
                     onChange={(event) => setSearchQuery(event.target.value)}
                     placeholder="search pages, articles, and report"
-                    className="w-full bg-transparent border-none outline-none text-white text-base font-light font-['Gotham'] placeholder:text-white/50"
-                    autoFocus={isSearchOpen}
+                    className={`w-full bg-transparent border-none outline-none ${
+                      isDarkMode
+                        ? "text-white placeholder:text-white/50"
+                        : "text-black placeholder:text-black/40"
+                    } text-base font-light font-['Gotham']`}
                   />
-
-                  {/* Clear search button */}
                   {searchQuery ? (
                     <button
                       type="button"
                       onClick={() => setSearchQuery("")}
-                      className="text-white/70 hover:text-white transition-colors"
+                      className={`${
+                        isDarkMode
+                          ? "text-white/70 hover:text-white"
+                          : "text-black/50 hover:text-black"
+                      } transition-colors`}
                       aria-label="Clear search"
                     >
                       ×
                     </button>
                   ) : null}
                 </div>
-
-                {/* Submit search button */}
                 <button
                   type="submit"
                   className="px-4 py-2 bg-[#37B478] hover:bg-[#22C55E] active:bg-[#16A34A]
@@ -351,33 +373,52 @@ function Navbar() {
                   Search
                 </button>
               </form>
-
-              {/* Search results section */}
-              <div className="mt-4 text-sm text-white/80 font-['Gotham']">
-                {/* No results state */}
+              <div
+                className={`mt-4 text-sm ${
+                  isDarkMode ? "text-white/80" : "text-black/80"
+                } font-['Gotham']`}
+              >
                 {searchQuery && searchResults.length === 0 ? (
-                  <div className="rounded-[32px] border border-white/10 bg-white/5 px-5 py-4 break-words">
+                  <div
+                    className={`rounded-[32px] border px-5 py-4 break-words ${
+                      isDarkMode
+                        ? "border-white/10 bg-white/5"
+                        : "border-black/10 bg-black/5"
+                    }`}
+                  >
                     <div>No results found for:</div>
-
-                    <div className="text-white break-words">
+                    <div
+                      className={`${
+                        isDarkMode ? "text-white" : "text-black"
+                      } break-words`}
+                    >
                       "{searchQuery}"
                     </div>
                   </div>
                 ) : null}
-
-                {/* Results list */}
                 {searchResults.length > 0 ? (
                   <div className="space-y-2">
-                    {searchResults.map((result, index) => (
+                    {searchResults.map((result) => (
                       <div
-                        key={index}
-                        className="rounded-[32px] border border-white/10 bg-white/5 px-5 py-4 transition-colors duration-300 hover:bg-white/10 cursor-pointer break-words"
+                        key={`${result.title}-${result.type}`}
+                        className={`rounded-[32px] border px-5 py-4 transition-colors duration-300 cursor-pointer break-words ${
+                          isDarkMode
+                            ? "border-white/10 bg-white/5 hover:bg-white/10"
+                            : "border-black/10 bg-black/5 hover:bg-black/10"
+                        }`}
                       >
-                        <div className="text-white text-sm font-semibold font-['Gotham'] break-words whitespace-normal">
+                        <div
+                          className={`${
+                            isDarkMode ? "text-white" : "text-black"
+                          } text-sm font-semibold font-['Gotham'] break-words whitespace-normal`}
+                        >
                           {result.title}
                         </div>
-
-                        <div className="text-white/70 text-xs font-light font-['Gotham']">
+                        <div
+                          className={`${
+                            isDarkMode ? "text-white/70" : "text-black/60"
+                          } text-xs font-light font-['Gotham']`}
+                        >
                           {result.type}
                         </div>
                       </div>

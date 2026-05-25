@@ -1,6 +1,9 @@
+import {useTheme} from "../components/ThemeContext"; 
 import bgImage from "../assets/Firstpagepic.jpg";
 
 function FirstPage() {
+  const {isDarkMode} = useTheme(); 
+
   return (
     <section className="relative w-full min-h-[100vh] overflow-hidden z-10">
       {/* Background Image */}
@@ -11,20 +14,34 @@ function FirstPage() {
 
       {/* Glass card section */}
       <div className="absolute z-10" style={{left: "120px", top: "205px"}}>
-        <div className="w-[577px] h-[477px] px-[110px] py-16 bg-black/20 backdrop-blur-[3px] border border-white/10 rounded-[40px] flex flex-col overflow-hidden">
+        <div
+          className={`w-[577px] h-[477px] px-20 py-16 relative rounded-[40px] inline-flex flex-col justify-start items-start gap-6 overflow-hidden backdrop-blur-[3px] border transition-all duration-500 ease-in-out ${
+            isDarkMode
+              ? "bg-black/20 border-white/10"
+              : "bg-white/30 border-black/20"
+          }`}
+        >
           {/* AI Agent title */}
           <div className="w-64 h-20 relative mb-6">
             <div className="w-20 h-20 left-0 top-0 absolute rounded-full border-2 border-[#37B478]" />
             <div className="w-3 h-3 left-[4.72px] top-[7.08px] absolute bg-[#37B478] rounded-full" />
-            <div className="left-[27px] top-4 absolute text-white text-5xl font-bold font-['Gotham'] leading-none">
+            <div
+              className={`left-[27px] top-4 absolute text-5xl font-bold font-['Gotham'] leading-none transition-colors duration-500 ease-in-out ${
+                isDarkMode ? "text-white" : "text-black"
+              }`}
+            >
               AI Agent
             </div>
           </div>
 
           {/* Description text */}
-          <div className="text-white text-2xl place-self-auto justify-start font-medium font-['Gotham'] leading-tight mt-6 pr-8">
-            We leverage the advances in disruptive technologies to
-            enhance business.
+          <div
+            className={`text-2xl place-self-auto justify-start font-medium font-['Gotham'] leading-tight mt-6 pr-8 transition-colors duration-500 ease-in-out ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+          >
+            We leverage the advances in disruptive technologies to enhance
+            business.
           </div>
 
           {/* Read more button and underline */}
@@ -34,7 +51,11 @@ function FirstPage() {
               onClick={() => {}}
               className="group flex w-fit flex-col items-start cursor-pointer transition-all duration-300"
             >
-              <div className="text-white text-base font-normal font-['Gotham'] transition-colors duration-300 group-hover:text-[#37B478]">
+              <div
+                className={`text-base font-normal font-['Gotham'] transition-colors duration-300 group-hover:text-[#37B478] ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+              >
                 Read more
               </div>
               <div className="mt-1 h-0.5 w-20 rounded-full bg-[#37B478] transition-all duration-300 group-hover:w-24" />

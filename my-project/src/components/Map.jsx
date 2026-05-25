@@ -1,4 +1,3 @@
-import React from "react";
 import MapImage from "../assets/Map.png";
 
 function Map() {
