@@ -89,7 +89,7 @@ function Navbar() {
                 >
                   <span>Who we are</span>
                   <img
-                    src={Vector}
+                    src={NaN}
                     alt=""
                     className="w-[9px] h-[9px] object-contain translate-y-[1px]"
                   />
