@@ -5,6 +5,7 @@ import SunMedium from "../../assets/icons/SunMedium.svg";
 import Moon from "../../assets/icons/Moon.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
 import Vector from "../../assets/icons/Vector.svg";
+import { Link } from "react-router-dom";
 
 const searchItems = [
   {title: "What we do", type: "Page"},
@@ -79,11 +80,13 @@ function Navbar() {
         >
           <div className="h-[73px] flex items-center px-8">
             <div className="flex items-center shrink-0">
-              <img
-                src={Logo}
-                alt="InnoTech Logo"
-                className={`h-9 w-auto ${isDarkMode ? "" : "brightness-0"}`}
-              />
+                <Link to="/">
+                      <img
+                        src={Logo}
+                        alt="InnoTech Logo"
+                        className={`h-9 w-auto ${isDarkMode ? "" : "brightness-0"}`}
+                      />
+                  </Link>
             </div>
 
             <div className="flex-1 flex justify-center">
@@ -296,23 +299,36 @@ function Navbar() {
                   Industries:
                 </div>
                 <div className="w-52 inline-flex flex-col justify-start items-start gap-5">
-                  {[
-                    "Automotive",
-                    "Energy & Materials ",
-                    "Health",
-                    "High Tech",
-                    "Metals & Mining",
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className={`${
-                        isDarkMode ? "text-white" : "text-black"
-                      } text-base font-bold font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer`}
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
+  {[
+    "Automotive",
+    "Energy & Materials ",
+    "Health",
+    "High Tech",
+    "Metals & Mining",
+  ].map((item) =>
+    item === "Automotive" ? (
+      <Link
+        key={item}
+        to="/automotive"
+        onClick={() => setIsDropdownOpen(false)}
+        className={`${
+          isDarkMode ? "text-white" : "text-black"
+        } text-base font-bold font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer`}
+      >
+        {item}
+      </Link>
+    ) : (
+      <div
+        key={item}
+        className={`${
+          isDarkMode ? "text-white" : "text-black"
+        } text-base font-bold font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer`}
+      >
+        {item}
+      </div>
+    )
+  )}
+</div>
               </div>
             </div>
           </div>
