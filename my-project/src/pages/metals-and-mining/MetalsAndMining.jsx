@@ -1,16 +1,16 @@
-import AutomotiveSection from "./sections/AutomotivePicCard";
-import Introduction from "./sections/Introduction";
+import MetalsAndMiningPicCard from "./sections/MetalsAndMiningPicCard";
+import Acceleration from "./sections/Acceleration.jsx";
 import OurExpert from "./sections/OurExpert";
-import OurServicesIn from "./sections/OurServicesIn";
-import WhatWeThink from "../home/sections/WhatWeThink";
+import OurCapabilities from "./sections/OurCapabilities.jsx";
+import LiveMetalsInsights from "./sections/LiveMetalsInsights";
 
 function MetalsAndMining() {
   return (
     <>
-      <AutomotiveSection />
-      <Introduction />
-      <OurServicesIn />
-      <WhatWeThink />
+      <MetalsAndMiningPicCard />
+      <Acceleration />
+      <OurCapabilities />
+      <LiveMetalsInsights />
       <OurExpert />
     </>
   );

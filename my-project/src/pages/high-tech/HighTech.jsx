@@ -1,16 +1,16 @@
-import AutomotiveSection from "./sections/AutomotivePicCard";
+import HighTechPicCard from "./sections/HighTechPicCard";
 import Introduction from "./sections/Introduction";
 import OurExpert from "./sections/OurExpert";
 import OurServicesIn from "./sections/OurServicesIn";
-import WhatWeThink from "../home/sections/WhatWeThink";
+import LiveTechInsights from "./sections/LiveTechInsights";
 
 function HighTech() {
   return (
     <>
-      <AutomotiveSection />
+      <HighTechPicCard />
       <Introduction />
       <OurServicesIn />
-      <WhatWeThink />
+      <LiveTechInsights />
       <OurExpert />
     </>
   );

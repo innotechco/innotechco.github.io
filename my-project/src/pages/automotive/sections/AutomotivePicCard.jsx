@@ -3,7 +3,7 @@ import automotiveImage from "../../../assets/images/industries/automotive.png";
 function BreadcrumbChevron() {
   return (
     <div className="relative size-4 shrink-0 overflow-hidden">
-      <div className="absolute left-[6px] top-[4px] h-2 w-1 rotate-[-45deg] border-b border-r border-[#37B478]" />
+      <div className="absolute  left-[6px] top-[6px] h-1 w-1 rotate-[-45deg] border-b-1 border-r-1 border-[#37B478]" />
     </div>
   );
 }
@@ -32,11 +32,11 @@ function Automotive() {
             </span>
             <BreadcrumbChevron />
             <span className="font-['Gotham'] text-sm font-light text-white">
-              Industry
+              Industries
             </span>
             <BreadcrumbChevron />
             <span className="font-['Gotham'] text-sm font-light text-white">
-              Energy
+              Automotive
             </span>
           </nav>
 

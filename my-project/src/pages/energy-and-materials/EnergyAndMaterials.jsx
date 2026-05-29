@@ -1,17 +1,17 @@
-import AutomotiveSection from "./sections/AutomotivePicCard";
-import Introduction from "./sections/Introduction";
-import OurExpert from "./sections/OurExpert";
-import OurServicesIn from "./sections/OurServicesIn";
-import WhatWeThink from "../home/sections/WhatWeThink";
+import EnergyAndMaterialsection from "./sections/EnergyAndMaterialPicCard";
+import Acceleration from "./sections/Acceleration";
+import OurEcosystem from "./sections/OurEcosystem";
+import OurCapabilities from "./sections/OurCapabilities";
+import LiveEnergyInsights from "./sections/LiveEnergyInsights";
 
 function EnergyAndMaterials() {
   return (
     <>
-      <AutomotiveSection />
-      <Introduction />
-      <OurServicesIn />
-      <WhatWeThink />
-      <OurExpert />
+      <EnergyAndMaterialsection />
+      <Acceleration />
+      <OurCapabilities />
+      <LiveEnergyInsights />
+      <OurEcosystem />
     </>
   );
 }
