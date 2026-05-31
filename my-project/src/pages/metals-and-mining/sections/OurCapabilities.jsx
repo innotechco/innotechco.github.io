@@ -89,7 +89,7 @@ function ServiceCard({title, description, isWide = false, isDarkMode}) {
       />
 
       <article
-        className={`relative z-10 flex min-w-0 items-start justify-end gap-3 overflow-hidden rounded-[25px] border border-[#1D5F3F] px-8 py-8 shadow-[inset_1px_-1px_2px_0px_rgba(29,95,63,1)] md:px-9 md:py-8 ${
+        className={`relative z-10 flex min-w-0 items-start justify-end gap-3 overflow-hidden rounded-[25px] border border-[#37B478] px-8 py-8 md:px-9 md:py-8 ${
           isDarkMode ? "bg-[#050505]" : "bg-white"
         } ${
           isWide ? "w-full" : "min-h-[230px] w-full"

@@ -1,9 +1,14 @@
 import {useState} from "react";
 import {useTheme} from "../../../context/useTheme";
 import HowWeThinkImage from "../../../assets/images/home/HowWeThink.jpg";
+import insightExcludeImage from "../../../assets/icons/InsightExclude.png";
+import insightExcludeBlackImage from "../../../assets/icons/InsightExcludeBlack.png";
 
 function LiveMobilityInsights() {
   const {isDarkMode} = useTheme();
+  const insightExclude = isDarkMode
+    ? insightExcludeImage
+    : insightExcludeBlackImage;
 
   /* For first card (left side) */
   const [pos1, setPos1] = useState({x: 0, y: 0, active: false});
@@ -57,6 +62,18 @@ function LiveMobilityInsights() {
         isDarkMode ? "bg-black" : "bg-white"
       }`}
     >
+      <img
+        src={insightExclude}
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute left-[-300px] top-[180px] z-0 max-w-none"
+        style={{
+          width: "2147.087px",
+          height: "2851.58px",
+          transform: "rotate(73.001deg)",
+          transformOrigin: "top left",
+        }}
+      />
       <div className="flex flex-col gap-8 relative z-10">
         {/* TITLE section */}
         <div className="relative inline-flex items-center gap-3.5">

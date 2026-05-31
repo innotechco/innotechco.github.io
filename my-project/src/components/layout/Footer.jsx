@@ -22,7 +22,9 @@ const Footer = ({
 
   return (
     <section
-      className={`relative w-full overflow-hidden ${topSpacingClassName} z-20`}
+      className={`relative w-full overflow-hidden ${
+        isLightMode ? "bg-white" : "bg-black"
+      } ${topSpacingClassName} z-20`}
     >
       <div className="relative w-full">
         <img

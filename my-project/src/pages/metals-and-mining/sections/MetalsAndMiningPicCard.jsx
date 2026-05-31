@@ -13,7 +13,7 @@ function BreadcrumbChevron() {
 
 function MetalsAndMiningPicCard() {
   const {isDarkMode} = useTheme();
-  const textColor = isDarkMode ? "text-white" : "text-black";
+  const textColor = "text-white";
   const industriesExclude = isDarkMode
     ? industriesExcludeImage
     : industriesExcludeBlackImage;
@@ -34,7 +34,9 @@ function MetalsAndMiningPicCard() {
           />
           <div className="absolute inset-0 bg-gradient-to-l from-black/0 via-black/40 to-black/80" />
           <img
-            className="pointer-events-none absolute left-0 top-0 h-full w-[85%] object-fill mix-blend-screen"
+            className={`pointer-events-none absolute left-0 top-0 h-full w-[85%] object-fill ${
+              isDarkMode ? "mix-blend-screen" : ""
+            }`}
             src={industriesExclude}
             alt=""
             aria-hidden
