@@ -1,11 +1,11 @@
 import {useEffect, useMemo, useRef, useState} from "react";
-import { useTheme } from "../../context/useTheme";
+import {useTheme} from "../../context/useTheme";
 import Logo from "../../assets/logos/NavbarInnoTech.svg";
 import SunMedium from "../../assets/icons/SunMedium.svg";
 import Moon from "../../assets/icons/Moon.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
 import Vector from "../../assets/icons/Vector.svg";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const searchItems = [
   {title: "What we do", type: "Page"},
@@ -30,6 +30,7 @@ function Navbar() {
   const searchResults = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     if (!query) return [];
+
     return searchItems.filter((item) =>
       item.title.toLowerCase().includes(query),
     );
@@ -43,7 +44,9 @@ function Navbar() {
         setSearchQuery("");
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
@@ -60,6 +63,11 @@ function Navbar() {
   const handleSearchToggle = () => {
     setIsSearchOpen((prev) => !prev);
     setIsDropdownOpen(false);
+  };
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen((prev) => !prev);
+    setIsSearchOpen(false);
   };
 
   return (
@@ -80,13 +88,13 @@ function Navbar() {
         >
           <div className="h-[73px] flex items-center px-8">
             <div className="flex items-center shrink-0">
-                <Link to="/">
-                      <img
-                        src={Logo}
-                        alt="InnoTech Logo"
-                        className={`h-9 w-auto ${isDarkMode ? "" : "brightness-0"}`}
-                      />
-                </Link>
+              <Link to="/">
+                <img
+                  src={Logo}
+                  alt="InnoTech Logo"
+                  className={`h-9 w-auto ${isDarkMode ? "" : "brightness-0"}`}
+                />
+              </Link>
             </div>
 
             <div className="flex-1 flex justify-center">
@@ -100,21 +108,16 @@ function Navbar() {
                   <span>Who we are</span>
                 </a>
 
-                <div
-                  className="relative"
-                  onMouseEnter={() => {
-                    setIsDropdownOpen(true);
-                    setIsSearchOpen(false);
-                  }}
-                  onMouseLeave={() => setIsDropdownOpen(false)}
-                >
+                <div className="relative">
                   <button
                     type="button"
+                    onClick={handleDropdownToggle}
                     className={`flex items-center gap-1 ${
                       isDarkMode ? "text-white" : "text-black"
                     } font-['Gotham'] text-base hover:text-emerald-400 transition-colors`}
                   >
                     <span>What we do</span>
+
                     <img
                       src={Vector}
                       alt=""
@@ -162,6 +165,7 @@ function Navbar() {
                 } font-['Gotham'] text-base leading-none hover:text-emerald-400 transition-colors`}
               >
                 <span>En</span>
+
                 <img
                   src={Vector}
                   alt=""
@@ -177,7 +181,7 @@ function Navbar() {
 
               <button
                 type="button"
-                onClick={toggleTheme} // 👈 استفاده از toggleTheme
+                onClick={toggleTheme}
                 className="group flex items-center justify-center w-[30px] h-[30px] transition-all duration-300 hover:scale-110 active:scale-95"
               >
                 <img
@@ -211,13 +215,8 @@ function Navbar() {
             </div>
           </div>
 
-          {/* Dropdown and Search sections - همین طور که هستن، بدون تغییر */}
+          {/* Dropdown */}
           <div
-            onMouseEnter={() => {
-              setIsDropdownOpen(true);
-              setIsSearchOpen(false);
-            }}
-            onMouseLeave={() => setIsDropdownOpen(false)}
             className={`overflow-hidden transition-all duration-500 ease-in-out ${
               isDropdownOpen
                 ? "max-h-[400px] opacity-100 translate-y-0 pb-10 pt-2"
@@ -233,6 +232,7 @@ function Navbar() {
                 >
                   Services:
                 </div>
+
                 <div className="w-52 inline-flex flex-col justify-start items-start gap-5">
                   <div className="self-stretch flex flex-col justify-start items-start">
                     <div
@@ -242,6 +242,7 @@ function Navbar() {
                     >
                       INCEPTION
                     </div>
+
                     <div
                       className={`${
                         isDarkMode ? "text-white/70" : "text-black/60"
@@ -250,6 +251,7 @@ function Navbar() {
                       Innovation and Technology Management
                     </div>
                   </div>
+
                   <div className="self-stretch flex flex-col justify-start items-start">
                     <div
                       className={`${
@@ -258,6 +260,7 @@ function Navbar() {
                     >
                       INSIGHT
                     </div>
+
                     <div
                       className={`${
                         isDarkMode ? "text-white/70" : "text-black/60"
@@ -267,6 +270,7 @@ function Navbar() {
                       Reports
                     </div>
                   </div>
+
                   <div className="self-stretch flex flex-col justify-start items-start">
                     <div
                       className={`${
@@ -275,6 +279,7 @@ function Navbar() {
                     >
                       INFINITY
                     </div>
+
                     <div
                       className={`${
                         isDarkMode ? "text-white/70" : "text-black/60"
@@ -285,7 +290,8 @@ function Navbar() {
                   </div>
                 </div>
               </div>
-              <div className="py-2 flex justify-center items-start gap-12 ">
+
+              <div className="py-2 flex justify-center items-start gap-12">
                 <div
                   className={`${
                     isDarkMode ? "text-white" : "text-black"
@@ -293,31 +299,38 @@ function Navbar() {
                 >
                   Industries:
                 </div>
+
                 <div className="w-52 inline-flex flex-col justify-start items-start gap-5">
-  {[
-    {label: "Automotive", to: "/automotive"},
-    {label: "Energy & Materials ", to: "/energy-and-materials"},
-    {label: "Health", to: "/health"},
-    {label: "High Tech", to: "/high-tech"},
-    {label: "Metals & Mining", to: "/metals-and-mining"},
-  ].map((item) => (
-      <Link
-        key={item.label}
-        to={item.to}
-        onClick={() => setIsDropdownOpen(false)}
-        className={`${
-          isDarkMode ? "text-white" : "text-black"
-        } text-base font-bold font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer`}
-      >
-        {item.label}
-      </Link>
-    )
-  )}
-</div>
+                  {[
+                    {label: "Automotive", to: "/automotive"},
+                    {
+                      label: "Energy & Materials",
+                      to: "/energy-and-materials",
+                    },
+                    {label: "Health", to: "/health"},
+                    {label: "High Tech", to: "/high-tech"},
+                    {
+                      label: "Metals & Mining",
+                      to: "/metals-and-mining",
+                    },
+                  ].map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.to}
+                      onClick={() => setIsDropdownOpen(false)}
+                      className={`${
+                        isDarkMode ? "text-white" : "text-black"
+                      } text-base font-bold font-['Gotham'] hover:text-emerald-400 transition-colors cursor-pointer`}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
+          {/* Search */}
           <div
             className={`overflow-hidden transition-all duration-500 ease-in-out ${
               isSearchOpen
@@ -349,6 +362,7 @@ function Navbar() {
                         : "text-black placeholder:text-black/40"
                     } text-base font-light font-['Gotham']`}
                   />
+
                   {searchQuery ? (
                     <button
                       type="button"
@@ -364,6 +378,7 @@ function Navbar() {
                     </button>
                   ) : null}
                 </div>
+
                 <button
                   type="submit"
                   className="px-4 py-2 bg-[#37B478] hover:bg-[#22C55E] active:bg-[#16A34A]
@@ -374,6 +389,7 @@ function Navbar() {
                   Search
                 </button>
               </form>
+
               <div
                 className={`mt-4 text-sm ${
                   isDarkMode ? "text-white/80" : "text-black/80"
@@ -388,6 +404,7 @@ function Navbar() {
                     }`}
                   >
                     <div>No results found for:</div>
+
                     <div
                       className={`${
                         isDarkMode ? "text-white" : "text-black"
@@ -397,6 +414,7 @@ function Navbar() {
                     </div>
                   </div>
                 ) : null}
+
                 {searchResults.length > 0 ? (
                   <div className="space-y-2">
                     {searchResults.map((result) => (
@@ -415,6 +433,7 @@ function Navbar() {
                         >
                           {result.title}
                         </div>
+
                         <div
                           className={`${
                             isDarkMode ? "text-white/70" : "text-black/60"
