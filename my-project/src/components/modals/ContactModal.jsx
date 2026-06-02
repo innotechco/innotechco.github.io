@@ -338,6 +338,7 @@ function ContactModal({isOpen, onClose}) {
     errors[field]
       ? "outline-red-500"
       : inputOutline;
+  const fieldFrameClassName = `w-full px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] inline-flex justify-start items-start gap-2.5`;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
@@ -396,7 +397,7 @@ function ContactModal({isOpen, onClose}) {
 
         {/* Name */}
         <div
-          className={`self-stretch px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] ${inputOutline} inline-flex justify-start items-start gap-2.5`}
+          className={`self-stretch ${fieldFrameClassName} ${inputOutline}`}
         >
           <input
             type="text"
@@ -410,7 +411,7 @@ function ContactModal({isOpen, onClose}) {
         {/* Email */}
         <div className="relative self-stretch">
           <div
-            className={`self-stretch px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] ${getFieldOutline("email")} inline-flex justify-start items-start gap-2.5`}
+            className={`${fieldFrameClassName} ${getFieldOutline("email")}`}
           >
             <input
               type="email"
@@ -461,7 +462,7 @@ function ContactModal({isOpen, onClose}) {
         {/* Region */}
         <div className="relative self-stretch" ref={regionRef}>
           <div
-            className={`self-stretch px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] ${getFieldOutline("region")} inline-flex justify-between items-center`}
+            className={`${fieldFrameClassName} ${getFieldOutline("region")}`}
           >
             <input
               type="text"
@@ -510,7 +511,7 @@ function ContactModal({isOpen, onClose}) {
             <div
               id="region-listbox"
               role="listbox"
-              className={`absolute left-0 right-0 top-[52px] z-[120] max-h-64 overflow-y-auto rounded-3xl border p-2 shadow-2xl ${
+              className={`absolute left-0 right-0 top-[calc(100%+8px)] z-[120] max-h-64 overflow-y-auto rounded-3xl border p-2 shadow-2xl ${
                 isDarkMode
                   ? "border-white/15 bg-zinc-950 text-white"
                   : "border-black/15 bg-white text-black"
