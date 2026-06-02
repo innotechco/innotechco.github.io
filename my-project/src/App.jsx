@@ -6,6 +6,7 @@ import {ThemeProvider} from "./context/ThemeContext";
 import ContactModal from "./components/modals/ContactModal";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
+import ScrollToTop from "./components/layout/ScrollToTop";
 
 import Home from "./pages/home/Home";
 import AiAgent from "./pages/ai-agent/AiAgent";
@@ -39,6 +40,7 @@ function App() {
   return (
     <ThemeProvider>
       <div className="relative w-full min-h-screen overflow-x-hidden">
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
