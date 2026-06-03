@@ -10,8 +10,6 @@ import LinkedInDark from "../../assets/icons/LinkdinDark.svg";
 import WhatsApp from "../../assets/icons/WhatsApp.svg";
 import WhatsAppDark from "../../assets/icons/WhatsAppDark.svg";
 
-const legalLinks = ["Legal Notice", "GDPR", "Cookie Policy"];
-
 const Footer = ({
   onContactClick,
   topSpacingClassName = "-mt-30 md:-mt-40 lg:-mt-24",
@@ -19,20 +17,6 @@ const Footer = ({
   const {isDarkMode} = useTheme();
 
   const isLightMode = !isDarkMode;
-  const socialLinks = [
-    {
-      label: "Instagram",
-      icon: isLightMode ? InstagramDark : Instagram,
-    },
-    {
-      label: "LinkedIn",
-      icon: isLightMode ? LinkedInDark : LinkedIn,
-    },
-    {
-      label: "WhatsApp",
-      icon: isLightMode ? WhatsAppDark : WhatsApp,
-    },
-  ];
 
   return (
     <section
@@ -82,9 +66,10 @@ const Footer = ({
                   isLightMode ? "text-white" : "text-black"
                 }`}
               >
-                {legalLinks.map((item) => (
+                {["Legal Notice", "Legal Notice", "GDPR", "Cookie Policy"].map(
+                  (item, i) => (
                     <div
-                      key={item}
+                      key={i}
                       className="relative cursor-pointer px-4 py-1 rounded-full transition-all duration-300 group hover:-translate-y-0.5 active:scale-95 overflow-hidden"
                     >
                       <div className="absolute inset-0 bg-green-500 rounded-full scale-75 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 active:scale-110 active:opacity-70" />
@@ -96,23 +81,33 @@ const Footer = ({
                         {item}
                       </span>
                     </div>
-                  ))}
+                  ),
+                )}
               </div>
 
               {/* Social links */}
               <div className="flex justify-end items-center gap-5">
-                {socialLinks.map((item) => (
-                  <div
-                    key={item.label}
-                    className="size-8 relative cursor-pointer hover:scale-110 transition-transform"
-                  >
-                    <img
-                      src={item.icon}
-                      alt={item.label}
-                      className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
-                    />
-                  </div>
-                ))}
+                <div className="size-8 relative cursor-pointer hover:scale-110 transition-transform">
+                  <img
+                    src={isLightMode ? InstagramDark : Instagram}
+                    alt="Instagram"
+                    className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
+                  />
+                </div>
+                <div className="size-8 relative cursor-pointer hover:scale-110 transition-transform">
+                  <img
+                    src={isLightMode ? LinkedInDark : LinkedIn}
+                    alt="LinkedIn"
+                    className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
+                  />
+                </div>
+                <div className="size-8 relative cursor-pointer hover:scale-110 transition-transform">
+                  <img
+                    src={isLightMode ? WhatsAppDark : WhatsApp}
+                    alt="WhatsApp"
+                    className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
+                  />
+                </div>
               </div>
             </div>
           </div>
