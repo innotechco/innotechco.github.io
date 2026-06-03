@@ -14,14 +14,6 @@ const defaultContactValues = {
   message: "",
 };
 
-const industryOptions = [
-  "Automotive",
-  "Energy and Materials",
-  "Health",
-  "High Tech",
-  "Metals and Mining",
-];
-
 function ContactModal({isOpen, onClose}) {
   const {isDarkMode} = useTheme();
   const [shouldRender, setShouldRender] = useState(isOpen);
@@ -129,7 +121,8 @@ function ContactModal({isOpen, onClose}) {
       }
     };
 
-    if (isRegionOpen) document.addEventListener("mousedown", handleClickOutside);
+    if (isRegionOpen)
+      document.addEventListener("mousedown", handleClickOutside);
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isRegionOpen]);
@@ -159,9 +152,7 @@ function ContactModal({isOpen, onClose}) {
   const submitTextColor = "text-white";
   const errorColor = isDarkMode ? "text-red-300" : "text-red-600";
   const getFieldOutline = (field) =>
-    errors[field]
-      ? "outline-red-500"
-      : inputOutline;
+    errors[field] ? "outline-red-500" : inputOutline;
   const fieldFrameClassName = `w-full px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] inline-flex justify-start items-start gap-2.5`;
 
   return (
@@ -185,254 +176,246 @@ function ContactModal({isOpen, onClose}) {
           onSubmit={handleSubmit}
           noValidate
         >
-        {/* Header */}
-        <div className="self-stretch inline-flex justify-between items-center">
-          <div className="w-[787px] px-4 relative flex justify-between items-end">
-            {/* Decorative circle */}
-            <div className="size-11 left-0 top-[-15px] absolute rounded-full border border-[#37B478]" />
-            <div
-              className={`w-[725px] justify-start ${textColor} text-2xl font-normal font-['Gotham']`}
-            >
-              Contact Us
+          {/* Header */}
+          <div className="self-stretch inline-flex justify-between items-center">
+            <div className="w-[787px] px-4 relative flex justify-between items-end">
+              {/* Decorative circle */}
+              <div className="size-11 left-0 top-[-15px] absolute rounded-full border border-[#37B478]" />
+              <div
+                className={`w-[725px] justify-start ${textColor} text-2xl font-normal font-['Gotham']`}
+              >
+                Contact Us
+              </div>
             </div>
-          </div>
 
-          {/* Close Button */}
-          <button
-            type="button"
-            onClick={handleClose}
-            aria-label="Close modal"
-            className="size-6 relative overflow-hidden flex items-center justify-center"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className={`size-5 ${closeIconColor}`}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M6 6L18 18" />
-              <path d="M18 6L6 18" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Name */}
-        <div
-          className={`self-stretch ${fieldFrameClassName} ${inputOutline}`}
-        >
-          <input
-            type="text"
-            value={values.name}
-            onChange={(event) => updateValue("name", event.target.value)}
-            className={`flex-1 bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
-            placeholder="Name"
-          />
-        </div>
-
-        {/* Email */}
-        <div className="relative self-stretch">
-          <div
-            className={`${fieldFrameClassName} ${getFieldOutline("email")}`}
-          >
-            <input
-              type="email"
-              value={values.email}
-              onChange={(event) => updateValue("email", event.target.value)}
-              onBlur={() => validate("email")}
-              className={`flex-1 bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
-              placeholder="Email"
-              aria-invalid={Boolean(errors.email)}
-            />
-          </div>
-          {errors.email ? (
-            <p
-              className={`pointer-events-none absolute left-4 top-full mt-1 text-xs font-['Gotham'] ${errorColor}`}
-            >
-              {errors.email}
-            </p>
-          ) : null}
-        </div>
-
-        {/* Title + Company */}
-        <div className="self-stretch inline-flex justify-start items-start gap-5">
-          <div
-            className={`flex-1 px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] ${inputOutline}`}
-          >
-            <input
-              type="text"
-              value={values.title}
-              onChange={(event) => updateValue("title", event.target.value)}
-              className={`w-full bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
-              placeholder="Title"
-            />
-          </div>
-
-          <div
-            className={`flex-1 px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] ${inputOutline}`}
-          >
-            <input
-              type="text"
-              value={values.company}
-              onChange={(event) => updateValue("company", event.target.value)}
-              className={`w-full bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
-              placeholder="Company"
-            />
-          </div>
-        </div>
-
-        {/* Region */}
-        <div className="relative self-stretch" ref={regionRef}>
-          <div
-            className={`${fieldFrameClassName} ${getFieldOutline("region")}`}
-          >
-            <input
-              type="text"
-              value={values.region}
-              onChange={(event) => {
-                updateValue("region", event.target.value);
-                setIsRegionOpen(true);
-              }}
-              onFocus={() => setIsRegionOpen(true)}
-              onBlur={() => {
-                if (values.region.trim()) validate("region");
-              }}
-              className={`flex-1 bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
-              placeholder="Select your region"
-              autoComplete="off"
-              role="combobox"
-              aria-autocomplete="list"
-              aria-expanded={isRegionOpen}
-              aria-controls="region-listbox"
-              aria-invalid={Boolean(errors.region)}
-            />
-
+            {/* Close Button */}
             <button
               type="button"
-              onClick={() => setIsRegionOpen((current) => !current)}
-              className="shrink-0"
-              aria-label="Open country list"
+              onClick={handleClose}
+              aria-label="Close modal"
+              className="size-6 relative overflow-hidden flex items-center justify-center"
             >
               <svg
                 viewBox="0 0 24 24"
-                className={`size-4 ${closeIconColor} transition-transform duration-200 ${
-                  isRegionOpen ? "rotate-180" : "rotate-0"
-                }`}
+                className={`size-5 ${closeIconColor}`}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <path d="M6 9l6 6 6-6" />
+                <path d="M6 6L18 18" />
+                <path d="M18 6L6 18" />
               </svg>
             </button>
           </div>
 
-          {isRegionOpen ? (
+          {/* Name */}
+          <div
+            className={`self-stretch ${fieldFrameClassName} ${inputOutline}`}
+          >
+            <input
+              type="text"
+              value={values.name}
+              onChange={(event) => updateValue("name", event.target.value)}
+              className={`flex-1 bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
+              placeholder="Name"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="relative self-stretch">
             <div
-              id="region-listbox"
-              role="listbox"
-              className={`absolute left-0 right-0 top-[calc(100%+8px)] z-[120] max-h-64 overflow-y-auto rounded-3xl border p-2 shadow-2xl ${
-                isDarkMode
-                  ? "border-white/15 bg-zinc-950 text-white"
-                  : "border-black/15 bg-white text-black"
+              className={`${fieldFrameClassName} ${getFieldOutline("email")}`}
+            >
+              <input
+                type="email"
+                value={values.email}
+                onChange={(event) => updateValue("email", event.target.value)}
+                onBlur={() => validate("email")}
+                className={`flex-1 bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
+                placeholder="Email"
+                aria-invalid={Boolean(errors.email)}
+              />
+            </div>
+            {errors.email ? (
+              <p
+                className={`pointer-events-none absolute left-4 top-full mt-1 text-xs font-['Gotham'] ${errorColor}`}
+              >
+                {errors.email}
+              </p>
+            ) : null}
+          </div>
+
+          {/* Title + Company */}
+          <div className="self-stretch inline-flex justify-start items-start gap-5">
+            <div
+              className={`flex-1 px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] ${inputOutline}`}
+            >
+              <input
+                type="text"
+                value={values.title}
+                onChange={(event) => updateValue("title", event.target.value)}
+                className={`w-full bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
+                placeholder="Title"
+              />
+            </div>
+
+            <div
+              className={`flex-1 px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] ${inputOutline}`}
+            >
+              <input
+                type="text"
+                value={values.company}
+                onChange={(event) => updateValue("company", event.target.value)}
+                className={`w-full bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
+                placeholder="Company"
+              />
+            </div>
+          </div>
+
+          {/* Region */}
+          <div className="relative self-stretch" ref={regionRef}>
+            <div
+              className={`${fieldFrameClassName} ${getFieldOutline("region")}`}
+            >
+              <input
+                type="text"
+                value={values.region}
+                onChange={(event) => {
+                  updateValue("region", event.target.value);
+                  setIsRegionOpen(true);
+                }}
+                onFocus={() => setIsRegionOpen(true)}
+                onBlur={() => {
+                  if (values.region.trim()) validate("region");
+                }}
+                className={`flex-1 bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham']`}
+                placeholder="Select your region"
+                autoComplete="off"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded={isRegionOpen}
+                aria-controls="region-listbox"
+                aria-invalid={Boolean(errors.region)}
+              />
+
+              <button
+                type="button"
+                onClick={() => setIsRegionOpen((current) => !current)}
+                className="shrink-0"
+                aria-label="Open country list"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className={`size-4 ${closeIconColor} transition-transform duration-200 ${
+                    isRegionOpen ? "rotate-180" : "rotate-0"
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+            </div>
+
+            {isRegionOpen ? (
+              <div
+                id="region-listbox"
+                role="listbox"
+                className={`absolute left-0 right-0 top-[calc(100%+8px)] z-[120] max-h-64 overflow-y-auto rounded-3xl border p-2 shadow-2xl ${
+                  isDarkMode
+                    ? "border-white/15 bg-zinc-950 text-white"
+                    : "border-black/15 bg-white text-black"
+                }`}
+              >
+                {filteredCountries.length ? (
+                  filteredCountries.map((country) => (
+                    <button
+                      key={country}
+                      type="button"
+                      role="option"
+                      onMouseDown={(event) => event.preventDefault()}
+                      onClick={() => {
+                        updateValue("region", country);
+                        setIsRegionOpen(false);
+                      }}
+                      className={`block w-full rounded-2xl px-4 py-2 text-left text-sm font-['Gotham'] transition-colors ${
+                        isDarkMode ? "hover:bg-white/10" : "hover:bg-black/5"
+                      }`}
+                    >
+                      {country}
+                    </button>
+                  ))
+                ) : (
+                  <p className="px-4 py-3 text-sm font-['Gotham'] opacity-70">
+                    No matching country
+                  </p>
+                )}
+              </div>
+            ) : null}
+            {errors.region ? (
+              <p
+                className={`pointer-events-none absolute left-4 top-full mt-1 text-xs font-['Gotham'] ${errorColor}`}
+              >
+                {errors.region}
+              </p>
+            ) : null}
+          </div>
+
+          {/* Industry */}
+          <div
+            className={`self-stretch px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] ${inputOutline} inline-flex justify-between items-center`}
+          >
+            <div
+              className={`flex-1 text-sm font-['Gotham'] ${
+                isDarkMode ? "text-white" : "text-black/50"
               }`}
             >
-              {filteredCountries.length ? (
-                filteredCountries.map((country) => (
-                  <button
-                    key={country}
-                    type="button"
-                    role="option"
-                    onMouseDown={(event) => event.preventDefault()}
-                    onClick={() => {
-                      updateValue("region", country);
-                      setIsRegionOpen(false);
-                    }}
-                    className={`block w-full rounded-2xl px-4 py-2 text-left text-sm font-['Gotham'] transition-colors ${
-                      isDarkMode ? "hover:bg-white/10" : "hover:bg-black/5"
-                    }`}
-                  >
-                    {country}
-                  </button>
-                ))
-              ) : (
-                <p className="px-4 py-3 text-sm font-['Gotham'] opacity-70">
-                  No matching country
-                </p>
-              )}
+              Select industry
             </div>
-          ) : null}
-          {errors.region ? (
-            <p
-              className={`pointer-events-none absolute left-4 top-full mt-1 text-xs font-['Gotham'] ${errorColor}`}
+
+            <svg
+              viewBox="0 0 24 24"
+              className={`size-4 ${closeIconColor} shrink-0`}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              {errors.region}
-            </p>
-          ) : null}
-        </div>
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </div>
 
-        {/* Industry */}
-        <div
-          className={`self-stretch px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] ${inputOutline} inline-flex justify-between items-center`}
-        >
-          <select
-            value={values.industry}
-            onChange={(event) => updateValue("industry", event.target.value)}
-            className={`flex-1 appearance-none bg-transparent outline-none ${textColor} text-sm font-['Gotham'] ${
-              values.industry ? "" : isDarkMode ? "text-white" : "text-black/50"
-            }`}
-            aria-label="Select industry"
+          {/* Message */}
+          <div
+            className={`self-stretch h-36 p-4 ${inputBg} rounded-3xl outline outline-1 outline-offset-[-1px] ${inputOutline} inline-flex justify-start items-start`}
           >
-            <option value="">Select industry</option>
-            {industryOptions.map((industry) => (
-              <option key={industry} value={industry}>
-                {industry}
-              </option>
-            ))}
-          </select>
+            <textarea
+              value={values.message}
+              onChange={(event) => updateValue("message", event.target.value)}
+              className={`flex-1 bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham'] resize-none h-full`}
+              placeholder="Message"
+            />
+          </div>
 
-          <svg
-            viewBox="0 0 24 24"
-            className={`size-4 ${closeIconColor} shrink-0`}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </div>
-
-        {/* Message */}
-        <div
-          className={`self-stretch h-36 p-4 ${inputBg} rounded-3xl outline outline-1 outline-offset-[-1px] ${inputOutline} inline-flex justify-start items-start`}
-        >
-          <textarea
-            value={values.message}
-            onChange={(event) => updateValue("message", event.target.value)}
-            className={`flex-1 bg-transparent outline-none ${textColor} ${placeholderColor} text-sm font-['Gotham'] resize-none h-full`}
-            placeholder="Message"
-          />
-        </div>
-
-        {/* Submit Button */}
-        <div className="self-end">
-          <button
-            type="submit"
-            className={`px-8 py-3 ${submitBtnBg} hover:bg-[#22C55E] active:scale-95 transition-all duration-200 rounded-[50px] flex items-center gap-2.5`}
-          >
-            <span
-              className={`${submitTextColor} text-2xl font-normal font-['Gotham']`}
+          {/* Submit Button */}
+          <div className="self-end">
+            <button
+              type="submit"
+              className={`px-8 py-3 ${submitBtnBg} hover:bg-[#22C55E] active:scale-95 transition-all duration-200 rounded-[50px] flex items-center gap-2.5`}
             >
-              Submit
-            </span>
-          </button>
-        </div>
+              <span
+                className={`${submitTextColor} text-2xl font-normal font-['Gotham']`}
+              >
+                Submit
+              </span>
+            </button>
+          </div>
         </form>
       </div>
     </div>
