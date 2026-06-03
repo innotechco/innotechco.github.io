@@ -1,9 +1,9 @@
 import {useState} from "react";
 
 import {useTheme} from "../../context/useTheme";
-import AIHumanFace from "../../assets/images/home/AIHumanFace.png";
-import BlackWhatAreAiAgentImage from "../../assets/images/home/BlackWhatAreAiAgent.png";
-import WhatAreAiAgentImage from "../../assets/images/home/WhatAreAiAgent.png";
+import AIHumanFace from "../../assets/images/ai-agent/AIHumanFace.png";
+import BlackWhatAreAiAgentImage from "../../assets/images/ai-agent/BlackWhatAreAiAgent.png";
+import WhatAreAiAgentImage from "../../assets/images/ai-agent/WhatAreAiAgent.png";
 
 const marketingSteps = [
   {

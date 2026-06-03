@@ -1,11 +1,11 @@
 import CareersImage from "../../assets/images/who-we-are/Careers.png";
 import CirclePlayIcon from "../../assets/images/who-we-are/CirclePlay.svg";
-import BackgroundMiddleLight from "../../assets/images/who-we-are/background/WhoWeAreExcludeMiddle.png";
-import BackgroundTopLight from "../../assets/images/who-we-are/background/WhoWeAreExcludeTop.png";
-import BackgroundTop2Light from "../../assets/images/who-we-are/background/WhoWeAreExcludeTop2.png";
-import BackgroundTopDark from "../../assets/images/who-we-are/background/WhoWeAreExcludeTopBlack.png";
-import BackgroundTop2Dark from "../../assets/images/who-we-are/background/WhoWeAreExcludeTopBlack2.png";
-import BackgroundMiddleDark from "../../assets/images/who-we-are/background/WhoWeAreExcludeTopMiddle.png";
+import BackgroundMiddleLight from "../../assets/images/excludes/who-we-are/WhoWeAreExcludeMiddle.png";
+import BackgroundTopLight from "../../assets/images/excludes/who-we-are/WhoWeAreExcludeTop.png";
+import BackgroundTop2Light from "../../assets/images/excludes/who-we-are/WhoWeAreExcludeTop2.png";
+import BackgroundTopDark from "../../assets/images/excludes/who-we-are/WhoWeAreExcludeTopBlack.png";
+import BackgroundTop2Dark from "../../assets/images/excludes/who-we-are/WhoWeAreExcludeTopBlack2.png";
+import BackgroundMiddleDark from "../../assets/images/excludes/who-we-are/WhoWeAreExcludeTopMiddle.png";
 import HistoryCurve from "../../assets/images/who-we-are/HistoryCurve.png";
 import HistoryCurveLight from "../../assets/images/who-we-are/HistoryCurveLight.png";
 import OurExpertPerson from "../../assets/images/who-we-are/OurExpertPerson.png";
@@ -35,13 +35,13 @@ export const stats = [
     id: "experts-primary",
     icon: EmployeesIcon,
     label: "Expert",
-    value: 45,
+    value: 35,
   },
   {
     id: "experts-secondary",
     icon: FactoryIcon,
     label: "Expert",
-    value: 12,
+    value: 20,
   },
   {
     id: "partners",

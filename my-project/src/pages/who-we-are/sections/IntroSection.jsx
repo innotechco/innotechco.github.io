@@ -13,17 +13,15 @@ function IntroSection({image, textColor}) {
           <p
             className={`min-w-px flex-1 whitespace-pre-wrap font-['Gotham'] text-lg font-light leading-normal ${textColor}`}
           >
-            The world needs energy&mdash;affordable, reliable, and sustainable
-            energy. But meeting the world&rsquo;s energy requirements with
-            net-zero climate impact is one of today&rsquo;s most complex
-            challenges.
+            Modern organizations need sharper technology intelligence, faster
+            innovation cycles, and operating models that can absorb constant
+            change.
             <br />
             <br />
-            Energy companies need to leverage the latest technologies,
-            re-engineer processes, and rethink business models to drive change.
-            BCG works with clients to build{" "}
-            <span className="underline">sustainable</span>, competitive energy
-            solutions to achieve a net-zero energy world for all.
+            Innotech works with teams to build{" "}
+            <span className="underline">sustainable</span>, competitive
+            innovation systems across strategy, analytics, digital
+            transformation, and AI automation.
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 
-const countDuration = 500;
+const countDuration = 1000;
 
 function useCountUp(target, isActive) {
   const [count, setCount] = useState(0);
@@ -36,7 +36,7 @@ function StatCard({stat, isVisible, isDarkMode}) {
 
   return (
     <div
-      className={`group relative flex h-44 min-w-[220px] flex-col items-center justify-center rounded-[32px] p-5 transition-all duration-500 ease-out hover:-translate-y-2 ${
+      className={`group relative flex h-44 min-w-[220px] flex-col items-center justify-center rounded-[32px] bg-[#37B478]/0 p-5 transition-all duration-1000 ease-out hover:-translate-y-2 hover:bg-[#37B478] hover:shadow-[0_18px_45px_-24px_rgba(55,180,120,0.9)] ${
         isVisible
           ? "translate-y-0 opacity-100 blur-0"
           : "translate-y-7 opacity-0 blur-sm"
@@ -46,12 +46,12 @@ function StatCard({stat, isVisible, isDarkMode}) {
         src={stat.icon}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute h-36 w-auto object-contain opacity-90 transition-transform duration-500 group-hover:scale-105"
+        className="pointer-events-none absolute h-36 w-auto object-contain opacity-90 transition-transform duration-3000 group-hover:scale-105"
       />
-      <div className="relative z-10 mt-8 font-['Gotham'] text-3xl font-bold leading-none text-[#37B478]">
+      <div className="relative z-10 mt-8 font-['Gotham'] text-3xl font-bold leading-none text-[#37B478] transition-colors duration-300 group-hover:text-white">
         +{count}
       </div>
-      <div className={`relative z-10 mt-1 font-['Gotham'] text-sm font-bold ${labelColor}`}>
+      <div className={`relative z-10 mt-1 font-['Gotham'] text-sm font-bold transition-colors duration-300 group-hover:text-white ${labelColor}`}>
         {stat.label}
       </div>
     </div>

@@ -8,10 +8,10 @@ function HeroSection({textColor}) {
       <p
         className={`w-[700px] text-center font-['Gotham'] text-xl leading-[1.35] ${textColor}`}
       >
-        Energy is life. It powers industries, empowers communities, and builds
-        societies. As the traditional boundaries of the industry continue to
-        blur, BCG&rsquo;s energy consultants light the way to the future of energy
-        for our clients.
+        Innotech helps organizations turn technology signals into practical
+        strategy, innovation systems, and AI-enabled transformation. We connect
+        industry insight with execution so teams can move from uncertainty to
+        measurable progress.
       </p>
     </section>
   );

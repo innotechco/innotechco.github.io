@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {lazy, Suspense, useState} from "react";
 import {Routes, Route, useLocation} from "react-router-dom";
 
 import {ThemeProvider} from "./context/ThemeContext";
@@ -8,33 +8,34 @@ import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import ScrollToTop from "./components/layout/ScrollToTop";
 
-import Home from "./pages/home/Home";
-import AiAgent from "./pages/ai-agent/AiAgent";
-import Archives from "./pages/archives/Archives";
-import WhatWeThink from "./pages/what-we-think/WhatWeThink";
-import WhoWeAre from "./pages/who-we-are/WhoWeAre";
+import {industryRoutes, routes} from "./routes";
 
-import Automotive from "./pages/automotive/Automotive";
-import EnergyAndMaterials from "./pages/energy-and-materials/EnergyAndMaterials";
-import Health from "./pages/health/Health";
-import HighTech from "./pages/high-tech/HighTech";
-import MetalsAndMining from "./pages/metals-and-mining/MetalsAndMining";
+const Home = lazy(() => import("./pages/home/Home"));
+const AiAgent = lazy(() => import("./pages/ai-agent/AiAgent"));
+const Archives = lazy(() => import("./pages/archives/Archives"));
+const WhatWeThink = lazy(() => import("./pages/what-we-think/WhatWeThink"));
+const WhoWeAre = lazy(() => import("./pages/who-we-are/WhoWeAre"));
+const Automotive = lazy(() => import("./pages/automotive/Automotive"));
+const EnergyAndMaterials = lazy(
+  () => import("./pages/energy-and-materials/EnergyAndMaterials"),
+);
+const Health = lazy(() => import("./pages/health/Health"));
+const HighTech = lazy(() => import("./pages/high-tech/HighTech"));
+const MetalsAndMining = lazy(
+  () => import("./pages/metals-and-mining/MetalsAndMining"),
+);
 
 function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const {pathname} = useLocation();
   const footerTopSpacing =
-    pathname === "/what-we-think"
+    pathname === routes.whatWeThink
       ? "-mt-10"
       : [
-          "/automotive",
-          "/energy-and-materials",
-          "/health",
-          "/high-tech",
-          "/metals-and-mining",
-          "/ai-agent",
-          "/archives",
-          "/who-we-are",
+          ...industryRoutes,
+          routes.aiAgent,
+          routes.archives,
+          routes.whoWeAre,
         ].includes(pathname)
         ? "mt-0"
         : undefined;
@@ -44,18 +45,26 @@ function App() {
       <div className="relative w-full min-h-screen overflow-x-hidden">
         <ScrollToTop />
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/ai-agent" element={<AiAgent />} />
-          <Route path="/archives" element={<Archives />} />
-          <Route path="/what-we-think" element={<WhatWeThink />} />
-          <Route path="/who-we-are" element={<WhoWeAre />} />
-          <Route path="/automotive" element={<Automotive />} />
-          <Route path="/energy-and-materials" element={<EnergyAndMaterials />} />
-          <Route path="/health" element={<Health />} />
-          <Route path="/high-tech" element={<HighTech />} />
-          <Route path="/metals-and-mining" element={<MetalsAndMining />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path={routes.home} element={<Home />} />
+            <Route path={routes.aiAgent} element={<AiAgent />} />
+            <Route path={routes.archives} element={<Archives />} />
+            <Route path={routes.whatWeThink} element={<WhatWeThink />} />
+            <Route path={routes.whoWeAre} element={<WhoWeAre />} />
+            <Route path={routes.automotive} element={<Automotive />} />
+            <Route
+              path={routes.energyAndMaterials}
+              element={<EnergyAndMaterials />}
+            />
+            <Route path={routes.health} element={<Health />} />
+            <Route path={routes.highTech} element={<HighTech />} />
+            <Route
+              path={routes.metalsAndMining}
+              element={<MetalsAndMining />}
+            />
+          </Routes>
+        </Suspense>
         <Footer
           onContactClick={() => setIsContactOpen(true)}
           topSpacingClassName={footerTopSpacing}

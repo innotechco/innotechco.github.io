@@ -10,15 +10,29 @@ import LinkedInDark from "../../assets/icons/LinkdinDark.svg";
 import WhatsApp from "../../assets/icons/WhatsApp.svg";
 import WhatsAppDark from "../../assets/icons/WhatsAppDark.svg";
 
+const legalLinks = ["Legal Notice", "GDPR", "Cookie Policy"];
+
 const Footer = ({
   onContactClick,
   topSpacingClassName = "-mt-30 md:-mt-40 lg:-mt-24",
 }) => {
   const {isDarkMode} = useTheme();
 
-  // در لایت مود (isDarkMode = false) می‌خواهیم فوتر مشکی باشد
-  // پس باید از فایل‌های Dark استفاده کنیم وقتی لایت مود فعال است!
   const isLightMode = !isDarkMode;
+  const socialLinks = [
+    {
+      label: "Instagram",
+      icon: isLightMode ? InstagramDark : Instagram,
+    },
+    {
+      label: "LinkedIn",
+      icon: isLightMode ? LinkedInDark : LinkedIn,
+    },
+    {
+      label: "WhatsApp",
+      icon: isLightMode ? WhatsAppDark : WhatsApp,
+    },
+  ];
 
   return (
     <section
@@ -33,7 +47,7 @@ const Footer = ({
           className="w-full h-auto block transition-opacity duration-500 ease-in-out"
         />
 
-        {/* InnoTech logo + Contact Us button */}
+        {/* Brand lockup and contact action */}
         <div className="absolute inset-0 flex items-center justify-between px-[150px] mb-35">
           <div>
             <img
@@ -47,7 +61,7 @@ const Footer = ({
             onClick={onContactClick}
             className="px-4 py-2 
              bg-[#22C55E] hover:bg-[#16A34A] 
-             text-white text-2xl font-bold 
+             text-white text-2xl 
              font-['Gotham'] 
              rounded-[50px] 
              inline-flex items-center justify-center
@@ -58,20 +72,19 @@ const Footer = ({
           </button>
         </div>
 
-        {/* Footer bottom bar  */}
+        {/* Footer bottom bar */}
         <div className="absolute bottom-0 left-0 right-0 px-6 pb-8 lg:pb-12 lg:px-[145px]">
           <div className="max-w-[1440px] mx-auto">
             <div className="self-stretch inline-flex justify-between items-center w-full">
-              {/* Left side - links */}
+              {/* Legal links */}
               <div
                 className={`flex justify-start items-center gap-6 md:gap-8 lg:gap-5 transition-colors duration-500 ease-in-out ${
                   isLightMode ? "text-white" : "text-black"
                 }`}
               >
-                {["Legal Notice", "Legal Notice", "GDPR", "Cookie Policy"].map(
-                  (item, i) => (
+                {legalLinks.map((item) => (
                     <div
-                      key={i}
+                      key={item}
                       className="relative cursor-pointer px-4 py-1 rounded-full transition-all duration-300 group hover:-translate-y-0.5 active:scale-95 overflow-hidden"
                     >
                       <div className="absolute inset-0 bg-green-500 rounded-full scale-75 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 active:scale-110 active:opacity-70" />
@@ -83,33 +96,23 @@ const Footer = ({
                         {item}
                       </span>
                     </div>
-                  ),
-                )}
+                  ))}
               </div>
 
-              {/* Social Media */}
+              {/* Social links */}
               <div className="flex justify-end items-center gap-5">
-                <div className="size-8 relative cursor-pointer hover:scale-110 transition-transform">
-                  <img
-                    src={isLightMode ? InstagramDark : Instagram}
-                    alt="Instagram"
-                    className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
-                  />
-                </div>
-                <div className="size-8 relative cursor-pointer hover:scale-110 transition-transform">
-                  <img
-                    src={isLightMode ? LinkedInDark : LinkedIn}
-                    alt="LinkedIn"
-                    className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
-                  />
-                </div>
-                <div className="size-8 relative cursor-pointer hover:scale-110 transition-transform">
-                  <img
-                    src={isLightMode ? WhatsAppDark : WhatsApp}
-                    alt="WhatsApp"
-                    className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
-                  />
-                </div>
+                {socialLinks.map((item) => (
+                  <div
+                    key={item.label}
+                    className="size-8 relative cursor-pointer hover:scale-110 transition-transform"
+                  >
+                    <img
+                      src={item.icon}
+                      alt={item.label}
+                      className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

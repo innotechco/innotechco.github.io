@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+﻿import {useEffect, useMemo, useRef, useState} from "react";
 import {useTheme} from "../../context/useTheme";
 import Logo from "../../assets/logos/NavbarInnoTech.svg";
 import SunMedium from "../../assets/icons/SunMedium.svg";
@@ -6,6 +6,7 @@ import Moon from "../../assets/icons/Moon.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
 import Vector from "../../assets/icons/Vector.svg";
 import {Link} from "react-router-dom";
+import {routes} from "../../routes";
 
 const searchItems = [
   {title: "Who we are", type: "Page"},
@@ -90,7 +91,7 @@ function Navbar() {
 
   return (
     <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 pt-6">
-      <div className="w-[1265px] mx-auto">
+      <div className="mx-auto w-[min(1265px,calc(100%-32px))]">
         <div
           className={`border shadow-2xl ${
             isLanguageOpen ? "overflow-visible" : "overflow-hidden"
@@ -108,7 +109,7 @@ function Navbar() {
         >
           <div className="h-[73px] flex items-center px-8">
             <div className="flex items-center shrink-0">
-              <Link to="/">
+              <Link to={routes.home}>
                 <img
                   src={Logo}
                   alt="InnoTech Logo"
@@ -120,7 +121,7 @@ function Navbar() {
             <div className="flex-1 flex justify-center">
               <div className="hidden md:flex items-center gap-10">
                 <Link
-                  to="/who-we-are"
+                  to={routes.whoWeAre}
                   onClick={() => {
                     setIsDropdownOpen(false);
                     setIsLanguageOpen(false);
@@ -154,7 +155,7 @@ function Navbar() {
                 </div>
 
                 <Link
-                  to="/what-we-think"
+                  to={routes.whatWeThink}
                   onClick={() => {
                     setIsDropdownOpen(false);
                     setIsLanguageOpen(false);
@@ -167,23 +168,21 @@ function Navbar() {
                   What we think
                 </Link>
 
-                <a
-                  href="#"
+                <span
                   className={`${
                     isDarkMode ? "text-white" : "text-black"
-                  } font-['Gotham'] text-base hover:text-emerald-400 transition-colors`}
+                  } font-['Gotham'] text-base opacity-70`}
                 >
                   INLEARN Academy
-                </a>
+                </span>
 
-                <a
-                  href="#"
+                <span
                   className={`${
                     isDarkMode ? "text-white" : "text-black"
-                  } font-['Gotham'] text-base hover:text-emerald-400 transition-colors`}
+                  } font-['Gotham'] text-base opacity-70`}
                 >
                   INSIGHT Store
-                </a>
+                </span>
               </div>
             </div>
 
@@ -222,7 +221,7 @@ function Navbar() {
                   {[
                     {label: "En", name: "English"},
                     {label: "Tr", name: "Türkçe"},
-                    {label: "Ar", name: "العربية"},
+                    {label: "Ar", name: "\u0627\u0644\u0639\u0631\u0628\u064a\u0629"},
                   ].map((language) => (
                     <button
                       key={language.label}
@@ -372,16 +371,16 @@ function Navbar() {
 
                 <div className="w-52 inline-flex flex-col justify-start items-start gap-5">
                   {[
-                    {label: "Automotive", to: "/automotive"},
+                    {label: "Automotive", to: routes.automotive},
                     {
                       label: "Energy & Materials",
-                      to: "/energy-and-materials",
+                      to: routes.energyAndMaterials,
                     },
-                    {label: "Health", to: "/health"},
-                    {label: "High Tech", to: "/high-tech"},
+                    {label: "Health", to: routes.health},
+                    {label: "High Tech", to: routes.highTech},
                     {
                       label: "Metals & Mining",
-                      to: "/metals-and-mining",
+                      to: routes.metalsAndMining,
                     },
                   ].map((item) => (
                     <Link

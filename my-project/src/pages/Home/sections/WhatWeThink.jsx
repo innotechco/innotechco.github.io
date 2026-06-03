@@ -1,21 +1,9 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import ReadMoreLink from "../../../components/ui/ReadMoreLink";
 import {useTheme} from "../../../context/useTheme";
-import HowWeThinkImage from "../../../assets/images/home/HowWeThink.jpg";
-
-function ReadMoreLink({isDarkMode}) {
-  return (
-    <Link
-      to="/ai-agent"
-      className={`group mt-1 flex w-fit flex-col items-start text-base transition-colors duration-300 hover:text-[#37B478] ${
-        isDarkMode ? "text-white" : "text-black"
-      }`}
-    >
-      <span>Read more</span>
-      <span className="mt-1 h-[2px] w-0 rounded-full bg-[#37B478] transition-all duration-300 group-hover:w-full" />
-    </Link>
-  );
-}
+import {routes} from "../../../routes";
+const HowWeThinkImage = "/assets/shared/how-we-think.jpg";
 
 function HowWeThink() {
   const {isDarkMode} = useTheme();
@@ -89,7 +77,7 @@ function HowWeThink() {
         <div className="flex items-start gap-11 relative">
           {/* LEFT BIG CARD with its own neon glow */}
           <div className="relative">
-            {/* 🌟 NEON GLOW BEHIND LEFT CARD */}
+            {/* Neon glow behind left card */}
             <div
               className="pointer-events-none absolute transition-opacity duration-300"
               style={{
@@ -167,7 +155,7 @@ function HowWeThink() {
           <div className="flex-1 h-[702px] flex flex-col justify-center gap-8">
             {/* CARD 1 (right - top) with its own neon glow */}
             <div className="relative flex-1">
-              {/* 🌟 NEON GLOW BEHIND RIGHT CARD 1 */}
+              {/* Neon glow behind right card 1 */}
               <div
                 className="pointer-events-none absolute transition-opacity duration-300"
                 style={{
@@ -236,7 +224,7 @@ function HowWeThink() {
 
             {/* CARD 2 (right - bottom) with its own neon glow */}
             <div className="relative flex-1">
-              {/* 🌟 NEON GLOW BEHIND RIGHT CARD 2 */}
+              {/* Neon glow behind right card 2 */}
               <div
                 className="pointer-events-none absolute transition-opacity duration-300"
                 style={{
@@ -309,7 +297,7 @@ function HowWeThink() {
         {/* CTA button */}
         <div className="flex justify-end">
           <Link
-            to="/ai-agent"
+            to={routes.aiAgent}
             className="group flex flex-col items-end transition-all duration-900"
           >
             <div

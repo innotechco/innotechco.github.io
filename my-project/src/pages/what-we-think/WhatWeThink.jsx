@@ -1,25 +1,14 @@
 import {useState} from "react";
-import {Link} from "react-router-dom";
-
+import ReadMoreLink from "../../components/ui/ReadMoreLink";
 import {useTheme} from "../../context/useTheme";
-import BlackExcludeLeftWhatWeThink from "../../assets/images/home/BlackExcludeLeftWhatWeThink.png";
-import BlackExcludeRightWhatWeThink from "../../assets/images/home/BlackExcludeRightWhatWeThink.png";
-import ExcludeLeftWhatWeThink from "../../assets/images/home/ExcludeLeftWhatWeThink.png";
-import ExcludeRightWhatWeThink from "../../assets/images/home/ExcludeRightWhatWeThink.png";
-import HowWeThinkImage from "../../assets/images/home/HowWeThink.jpg";
+import BlackExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/BlackExcludeLeftWhatWeThink.png";
+import BlackExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-think/BlackExcludeRightWhatWeThink.png";
+import ExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeLeftWhatWeThink.png";
+import ExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeRightWhatWeThink.png";
+import {article, compactTitle, featuredTitle} from "./data";
+import {routes} from "../../routes";
 
-const article = {
-  date: "November 15, 2025",
-  readTime: "2 minutes read",
-  shortDescription:
-    "InnotechCo introduced INCEPTION, a modular innovation management system that helps R&D and strategy",
-  longDescription:
-    "InnotechCo introduced INCEPTION, a modular innovation management system that helps R&D and strategy teams map their innovation processes, run maturity assessments, and connect AI agents to real business workflows.",
-};
-
-const featuredTitle =
-  "InnotechCo launches INCEPTION \u2014 an AI-powered innovation management system";
-const compactTitle = "InnotechCo launches INCEPTION";
+const HowWeThinkImage = "/assets/shared/how-we-think.jpg";
 
 function HoverCard({children, className = "", isDarkMode}) {
   const [position, setPosition] = useState({x: 0, y: 0, active: false});
@@ -114,13 +103,7 @@ function ArticleCopy({
         {description}
       </p>
 
-      <Link
-        to="/ai-agent"
-        className={`group mt-1 flex w-fit flex-col items-start text-base transition-colors duration-300 hover:text-[#37B478] ${textColor}`}
-      >
-        <span>Read more</span>
-        <span className="mt-1 h-[2px] w-0 rounded-full bg-[#37B478] transition-all duration-300 group-hover:w-full" />
-      </Link>
+      <ReadMoreLink isDarkMode={isDarkMode} className="mt-1 text-base" />
     </div>
   );
 }
@@ -276,13 +259,13 @@ function WhatWeThink() {
         />
 
         <div className="flex w-full justify-end pb-10 pt-4">
-          <Link
-            to="/archives"
-            className={`group flex flex-col items-end font-['Gotham'] text-lg transition-colors duration-300 hover:text-[#37B478] ${titleColor}`}
-          >
-            <span>see all archives</span>
-            <span className="mt-1 h-[2px] w-0 rounded-full bg-[#37B478] transition-all duration-300 group-hover:w-full" />
-          </Link>
+          <ReadMoreLink
+            to={routes.archives}
+            label="see all archives"
+            isDarkMode={isDarkMode}
+            align="end"
+            className="font-['Gotham'] text-lg"
+          />
         </div>
       </section>
     </main>

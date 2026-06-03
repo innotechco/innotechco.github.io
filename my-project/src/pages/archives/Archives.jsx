@@ -1,32 +1,9 @@
 import {useMemo, useState} from "react";
-import {Link} from "react-router-dom";
 
+import ReadMoreLink from "../../components/ui/ReadMoreLink";
 import {useTheme} from "../../context/useTheme";
-import HowWeThinkImage from "../../assets/images/home/HowWeThink.jpg";
-
-const sortOptions = [
-  {label: "Most popular", value: "popular"},
-  {label: "Newest", value: "newest"},
-  {label: "Oldest", value: "oldest"},
-  {label: "Longest read", value: "longest"},
-];
-
-const archiveItems = Array.from({length: 40}, (_, index) => {
-  const month = (index % 12) + 1;
-  const day = (index % 27) + 1;
-  const year = 2026 - (index % 4);
-  const readMinutes = 2 + (index % 9);
-
-  return {
-    id: index + 1,
-    title: "InnotechCo launches INCEPTION — an AI-powered innovation management system",
-    description:
-      "A compact look at innovation workflows, AI agents, market intelligence, and digital transformation for industrial teams.",
-    date: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
-    popularity: 1000 - index * 17,
-    readMinutes,
-  };
-});
+const HowWeThinkImage = "/assets/shared/how-we-think.jpg";
+import {archiveItems, sortOptions} from "./data";
 
 function ArchiveCard({item, isDarkMode}) {
   const [position, setPosition] = useState({x: 0, y: 0, active: false});
@@ -82,13 +59,7 @@ function ArchiveCard({item, isDarkMode}) {
           <p className={`text-sm leading-[1.45] ${textColor}`}>
             {item.description}
           </p>
-          <Link
-            to="/ai-agent"
-            className={`group mt-auto flex w-fit flex-col items-start text-sm transition-colors duration-300 hover:text-[#37B478] ${textColor}`}
-          >
-            <span>Read more</span>
-            <span className="mt-1 h-[2px] w-0 rounded-full bg-[#37B478] transition-all duration-300 group-hover:w-full" />
-          </Link>
+          <ReadMoreLink isDarkMode={isDarkMode} className="mt-auto text-sm" />
         </div>
       </article>
     </div>

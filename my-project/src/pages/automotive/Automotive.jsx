@@ -1,19 +1,8 @@
-import AutomotiveSection from "./sections/AutomotivePicCard";
-import Acceleration from "./sections/Acceleration";
-import OurExpert from "./sections/OurExpert";
-import OurCapabilities from "./sections/OurCapabilities";
-import LiveMobilityInsights from "./sections/LiveMobilityInsights";
+import IndustryPage from "../industries/components/IndustryPage";
+import {industryConfig} from "../industries/data/industryConfig";
 
 function Automotive() {
-  return (
-    <>
-      <AutomotiveSection />
-      <Acceleration />
-      <OurCapabilities />
-      <LiveMobilityInsights />
-      <OurExpert />
-    </>
-  );
+  return <IndustryPage config={industryConfig.automotive} />;
 }
 
 export default Automotive;

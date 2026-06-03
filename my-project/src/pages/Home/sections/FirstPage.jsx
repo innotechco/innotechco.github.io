@@ -1,9 +1,10 @@
 import {Link} from "react-router-dom";
 
 import {useTheme} from "../../../context/useTheme";
+import {routes} from "../../../routes";
 import bgImage from "../../../assets/images/home/Firstpagepic.jpg";
-import aiAgentExcludeImage from "../../../assets/images/home/AIagentExclude.png";
-import aiAgentExcludeWhiteImage from "../../../assets/images/home/AIagentExcludeWhite.png";
+import aiAgentExcludeImage from "../../../assets/images/excludes/home/AIagentExclude.png";
+import aiAgentExcludeWhiteImage from "../../../assets/images/excludes/home/AIagentExcludeWhite.png";
 
 function FirstPage() {
   const {isDarkMode} = useTheme();
@@ -61,7 +62,7 @@ function FirstPage() {
           {/* Read more button and underline */}
           <div className="relative z-10 mt-4">
             <Link
-              to="/ai-agent"
+              to={routes.aiAgent}
               className="group flex w-fit flex-col items-start cursor-pointer transition-all duration-300"
             >
               <div

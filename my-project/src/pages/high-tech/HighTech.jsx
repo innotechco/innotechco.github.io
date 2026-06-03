@@ -1,19 +1,8 @@
-import HighTechPicCard from "./sections/HighTechPicCard";
-import Acceleration from "./sections/Acceleration";
-import OurEcosystem from "./sections/OurEcosystem";
-import OurCapabilities from "./sections/OurCapabilities";
-import LiveTechInsights from "./sections/LiveTechInsights";
+import IndustryPage from "../industries/components/IndustryPage";
+import {industryConfig} from "../industries/data/industryConfig";
 
 function HighTech() {
-  return (
-    <>
-      <HighTechPicCard />
-      <Acceleration />
-      <OurCapabilities />
-      <LiveTechInsights />
-      <OurEcosystem />
-    </>
-  );
+  return <IndustryPage config={industryConfig.highTech} />;
 }
 
 export default HighTech;

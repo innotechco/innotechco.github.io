@@ -1,19 +1,8 @@
-import MetalsAndMiningPicCard from "./sections/MetalsAndMiningPicCard";
-import Acceleration from "./sections/Acceleration.jsx";
-import OurEcosystem from "./sections/OurEcosystem.jsx";
-import OurCapabilities from "./sections/OurCapabilities.jsx";
-import LiveMetalsInsights from "./sections/LiveMetalsInsights";
+import IndustryPage from "../industries/components/IndustryPage";
+import {industryConfig} from "../industries/data/industryConfig";
 
 function MetalsAndMining() {
-  return (
-    <>
-      <MetalsAndMiningPicCard />
-      <Acceleration />
-      <OurCapabilities />
-      <LiveMetalsInsights />
-      <OurEcosystem />
-    </>
-  );
+  return <IndustryPage config={industryConfig.metals} />;
 }
 
 export default MetalsAndMining;

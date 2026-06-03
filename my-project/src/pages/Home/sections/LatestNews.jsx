@@ -1,5 +1,5 @@
-import {Link} from "react-router-dom";
 import {useTheme} from "../../../context/useTheme";
+import ReadMoreLink from "../../../components/ui/ReadMoreLink";
 import LatestNewsImage from "../../../assets/images/home/LatestNews.jpg";
 
 function LatestNews() {
@@ -19,7 +19,7 @@ function LatestNews() {
         >
           {/* LEFT CONTENT */}
           <div className="flex-1 self-stretch px-[68px] py-[68px] flex flex-col">
-            {/* TITLE section */}
+            {/* Title */}
             <div className="relative inline-flex items-center">
               <div className="absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
 
@@ -32,10 +32,9 @@ function LatestNews() {
               </div>
             </div>
 
-            {/* 32px spacer */}
             <div className="h-8" />
 
-            {/* HEADLINE text */}
+            {/* Headline */}
             <div
               className={`max-w-[690px] text-3xl font-medium font-['Gotham'] leading-[1.28] transition-colors duration-500 ease-in-out ${
                 isDarkMode ? "text-black" : "text-white"
@@ -44,10 +43,9 @@ function LatestNews() {
               InnotechCo launches regional collaboration with Cleannconnect.ai
             </div>
 
-            {/* 32px spacer */}
             <div className="h-8" />
 
-            {/* META info (date + read time) */}
+            {/* Date and read time */}
             <div className="flex items-center gap-8">
               <div
                 className={`text-base font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
@@ -62,7 +60,7 @@ function LatestNews() {
               </div>
             </div>
 
-            {/* DESCRIPTION text */}
+            {/* Summary */}
             <div
               className={`mt-10 max-w-[690px] text-base font-medium font-['Gotham'] leading-[1.35] transition-colors duration-500 ease-in-out ${
                 isDarkMode ? "text-black" : "text-white"
@@ -74,27 +72,16 @@ function LatestNews() {
               sustainability and operational efficiency for industrial clients.
             </div>
 
-            {/* Exact spacing like Figma */}
             <div className="h-8" />
 
-            {/* READ MORE button */}
-            <Link
-              to="/ai-agent"
-              className="group flex w-fit flex-col items-start cursor-pointer transition-all duration-300"
-            >
-              <div
-                className={`text-base font-['Gotham'] transition-colors duration-300 group-hover:text-[#37B478] mt-8 ${
-                  isDarkMode ? "text-black" : "text-white"
-                }`}
-              >
-                Read more
-              </div>
-
-              <div className="mt-[2px] h-[2px] w-20 rounded-full bg-[#37B478] opacity-75 blur-[0.5px] transition-all duration-300 group-hover:w-24" />
-            </Link>
+            {/* Read-more link */}
+            <ReadMoreLink
+              isDarkMode={!isDarkMode}
+              className="mt-8 cursor-pointer text-base font-['Gotham']"
+            />
           </div>
 
-          {/* RIGHT IMAGE - بدون تغییر */}
+          {/* Featured image */}
           <div className="w-full lg:w-[496px] shrink-0 self-stretch overflow-hidden">
             <img
               src={LatestNewsImage}

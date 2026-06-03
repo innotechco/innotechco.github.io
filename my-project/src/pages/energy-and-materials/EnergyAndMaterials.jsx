@@ -1,19 +1,8 @@
-import EnergyAndMaterialsection from "./sections/EnergyAndMaterialPicCard";
-import Acceleration from "./sections/Acceleration";
-import OurEcosystem from "./sections/OurEcosystem";
-import OurCapabilities from "./sections/OurCapabilities";
-import LiveEnergyInsights from "./sections/LiveEnergyInsights";
+import IndustryPage from "../industries/components/IndustryPage";
+import {industryConfig} from "../industries/data/industryConfig";
 
 function EnergyAndMaterials() {
-  return (
-    <>
-      <EnergyAndMaterialsection />
-      <Acceleration />
-      <OurCapabilities />
-      <LiveEnergyInsights />
-      <OurEcosystem />
-    </>
-  );
+  return <IndustryPage config={industryConfig.energy} />;
 }
 
 export default EnergyAndMaterials;
