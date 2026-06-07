@@ -22,11 +22,11 @@ function Map() {
 
         {/* Main heading */}
         <div
-          className={`self-stretch justify-start text-4xl font-normal font-['Gotham'] transition-colors duration-500 ease-in-out ${
+          className={`self-stretch justify-start text-4xl font-bold font-['Gotham'] transition-colors duration-500 ease-in-out ${
             isDarkMode ? "text-white" : "text-black"
           }`}
         >
-          Explore our global footprint.
+          EXPLORE OUR GLOBAL FOOTPRINT
         </div>
 
         {/* Subheading */}
@@ -36,7 +36,7 @@ function Map() {
           }`}
         >
           Explore our global footprint and connect directly with the
-          representative that can support your needs fastest.
+          representative that can support your needs fastest
         </div>
       </div>
 

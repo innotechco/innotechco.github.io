@@ -8,16 +8,17 @@ function CareersSection({image, invertedTextColor, inverseCardBackground}) {
       >
         <div className="flex flex-1 flex-col items-start justify-start gap-8 self-stretch p-16">
           <SectionTitle textColor={invertedTextColor} weight="font-bold">
-            Careers
+            Join Our Team
           </SectionTitle>
           <div className="flex w-full flex-col items-start gap-4">
             <div className="flex w-full items-start gap-3">
               <span className="mt-3 size-2.5 shrink-0 rounded-full bg-[#37B478]" />
               <h3
-                className={`w-full font-['Gotham'] text-3xl font-normal leading-[1.2] ${invertedTextColor}`}
+                className={`w-full font-['Gotham'] text-3xl font-medium leading-[1.2] ${invertedTextColor}`}
               >
-                InnotechCo launches INCEPTION &mdash; an AI-powered innovation
-                management system
+                We are looking for talented professionals ready to contribute to
+                large-scale projects, implement structured innovation systems,
+                and drive measurable impact across industries.
               </h3>
             </div>
           </div>
@@ -25,7 +26,7 @@ function CareersSection({image, invertedTextColor, inverseCardBackground}) {
             type="button"
             className="inline-flex items-center justify-center rounded-[50px] bg-[#22C55E] px-4 py-2 font-['Gotham'] text-2xl font-bold text-white shadow-lg transition-all duration-200 hover:bg-[#16A34A] hover:shadow-xl active:scale-95"
           >
-            Go to store
+            Explore Careers
           </button>
         </div>
         <div className="flex w-[496px] items-end justify-end self-stretch overflow-hidden">

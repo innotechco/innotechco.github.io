@@ -2,7 +2,9 @@ import {Link} from "react-router-dom";
 import ReadMoreLink from "../../../components/ui/ReadMoreLink";
 import {useTheme} from "../../../context/useTheme";
 import {routes} from "../../../routes";
-import HowWeThinkImage from "../../../assets/images/shared/how-we-think.jpg";
+import HealthImage from "../../../assets/images/industries/health/health1.png";
+import EnergyAndMaterialsImage from "../../../assets/images/industries/energy-and-materials/energyandmaterials1.png";
+import MetalsAndMiningImage from "../../../assets/images/industries/metals-and-mining/metalsandmining1.png";
 import {usePointerGlow} from "../../../hooks/usePointerGlow";
 
 function HowWeThink() {
@@ -64,19 +66,18 @@ function HowWeThink() {
               {...glow1}
             >
               <img
-                src={HowWeThinkImage}
+                src={HealthImage}
                 alt="How We Think"
                 className="w-full h-96 object-cover"
               />
 
               <div className="flex min-h-0 w-[500px] flex-1 flex-col justify-center gap-3 px-10 py-7">
                 <div
-                  className={`text-2xl font-['Gotham'] leading-[1.25] transition-colors duration-500 ease-in-out ${
+                  className={`text-3xl font-['Gotham'] leading-[1.25] font-medium transition-colors duration-500 ease-in-out ${
                     isDarkMode ? "text-white" : "text-black"
                   }`}
                 >
-                  InnotechCo launches INCEPTION - an AI-powered innovation
-                  management system
+                  AI-Driven Drug Discovery
                 </div>
 
                 <div className="inline-flex items-center gap-8">
@@ -97,10 +98,11 @@ function HowWeThink() {
                     isDarkMode ? "text-white" : "text-black"
                   }`}
                 >
-                  InnotechCo introduced INCEPTION, a modular innovation
-                  management system that helps R&D and strategy teams map their
-                  innovation processes, run maturity assessments, and connect AI
-                  agents to real business workflows.
+                  Inventions combining AI and biotechnology have grown
+                  significantly in recent years. Specifically, the number of
+                  inventions in this field has increased twelvefold over the
+                  past 20 years, far outpacing the general growth rate across
+                  all other technology sectors.
                 </div>
 
                 <ReadMoreLink isDarkMode={isDarkMode} />
@@ -109,9 +111,9 @@ function HowWeThink() {
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="flex-1 h-[702px] flex flex-col justify-center gap-8">
+          <div className="grid h-[702px] flex-1 grid-rows-2 gap-8">
             {/* CARD 1 (right - top) with its own neon glow */}
-            <div className="relative flex-1">
+            <div className="relative min-h-0">
               {/* Neon glow behind right card 1 */}
               <div
                 className="pointer-events-none absolute transition-opacity duration-300"
@@ -141,36 +143,40 @@ function HowWeThink() {
                 {...glow2}
               >
                 <img
-                  src={HowWeThinkImage}
-                  className="w-[55%] h-full object-cover"
+                  src={EnergyAndMaterialsImage}
+                  alt="Hydrogen Generation from Natural Gas"
+                  className="h-full w-[45%] shrink-0 object-cover"
                 />
-                <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 self-stretch px-6 py-6">
+                <div className="flex min-w-0 flex-1 flex-col justify-center gap-2 self-stretch px-5 py-4">
                   <div
-                    className={`text-2xl font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
+                    className={`text-xl font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >
-                    InnotechCo launches INCEPTION
+                    Hydrogen Generation
+                    <br /> from Natural Gas
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
                     <div
-                      className={`text-base font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
+                      className={`text-sm font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
                         isDarkMode ? "text-white" : "text-black"
                       }`}
                     >
                       June 1, 2026
                     </div>
-                    <div className="text-[#37B478] text-base font-['Gotham']">
+                    <div className="text-sm font-['Gotham'] text-[#37B478]">
                       2 minutes read
                     </div>
                   </div>
                   <div
-                    className={`text-base font-['Gotham'] leading-[1.45] transition-colors duration-500 ease-in-out ${
+                    className={`text-sm font-['Gotham'] leading-[1.35] font-extralight transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >
-                    InnotechCo introduced INCEPTION, a modular innovation
-                    management system that helps R&D and strategy
+                    The Hydrogen Generation from Natural Gas Patent Landscape
+                    Report provides an in-depth patent landscape analysis,
+                    covering 3,006 patents from 2010 to 2026, collected across
+                    major global jurisdictions.
                   </div>
 
                   <ReadMoreLink isDarkMode={isDarkMode} />
@@ -179,7 +185,7 @@ function HowWeThink() {
             </div>
 
             {/* CARD 2 (right - bottom) with its own neon glow */}
-            <div className="relative flex-1">
+            <div className="relative min-h-0">
               {/* Neon glow behind right card 2 */}
               <div
                 className="pointer-events-none absolute transition-opacity duration-300"
@@ -209,31 +215,32 @@ function HowWeThink() {
                 {...glow3}
               >
                 <img
-                  src={HowWeThinkImage}
-                  className="w-[55%] h-full object-cover"
+                  src={MetalsAndMiningImage}
+                  alt="Smart Carbon Technology"
+                  className="h-full w-[45%] shrink-0 object-cover"
                 />
-                <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 self-stretch px-6 py-6">
+                <div className="flex min-w-0 flex-1 flex-col justify-center gap-2 self-stretch px-5 py-4">
                   <div
-                    className={`text-2xl font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
+                    className={`text-xl font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >
-                    InnotechCo launches INCEPTION
+                    Smart Carbon Technology
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
                     <div
-                      className={`text-base font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
+                      className={`text-sm font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
                         isDarkMode ? "text-white" : "text-black"
                       }`}
                     >
                       June 1, 2026
                     </div>
-                    <div className="text-[#37B478] text-base font-['Gotham']">
+                    <div className="text-sm font-['Gotham'] text-[#37B478]">
                       2 minutes read
                     </div>
                   </div>
                   <div
-                    className={`text-base font-['Gotham'] leading-[1.45] transition-colors duration-500 ease-in-out ${
+                    className={`text-sm font-['Gotham'] leading-[1.35] transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >

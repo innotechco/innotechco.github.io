@@ -8,7 +8,7 @@ import BackgroundTop2Dark from "../../assets/images/excludes/who-we-are/WhoWeAre
 import BackgroundMiddleDark from "../../assets/images/excludes/who-we-are/WhoWeAreExcludeTopMiddle.png";
 import HistoryCurve from "../../assets/images/who-we-are/HistoryCurve.png";
 import HistoryCurveLight from "../../assets/images/who-we-are/HistoryCurveLight.png";
-import OurExpertPerson from "../../assets/images/who-we-are/OurExpertPerson.png";
+import InceptionIcon from "../../assets/icons/Inception-Icon 1.svg";
 import WindTurbines from "../../assets/images/who-we-are/WindTurbines.png";
 import CubeIcon from "../../assets/images/who-we-are/stats/CubeIcon.svg";
 import DealHandshake from "../../assets/images/who-we-are/stats/DealHandshake.svg";
@@ -26,7 +26,7 @@ export const whoWeAreImages = {
   circlePlay: CirclePlayIcon,
   historyDark: HistoryCurve,
   historyLight: HistoryCurveLight,
-  expert: OurExpertPerson,
+  expert: InceptionIcon,
   intro: WindTurbines,
 };
 
@@ -52,13 +52,40 @@ export const stats = [
   {
     id: "program",
     icon: CubeIcon,
-    label: "Program",
-    value: 20,
+    label: "Projects Delivered",
+    value: +100,
   },
 ];
 
-export const experts = Array.from({length: 6}, (_, index) => ({
-  id: index,
-  name: "Golam reza Jamshidi",
-  role: "CEO of Nouri Petrochemical Company",
-}));
+export const experts = [
+  {
+    id: "petrochemical-innovation-system",
+    name: "Petrochemical Innovation System",
+    role: "2023 | 40+ Complexes",
+  },
+  {
+    id: "national-gas-roadmap",
+    name: "National Gas Roadmap",
+    role: "2020 | Three Horizons",
+  },
+  {
+    id: "petrochemical-digital-roadmap",
+    name: "Petrochemical Digital Roadmap",
+    role: "2022 | RDI Integration",
+  },
+  {
+    id: "steel-technology-roadmap",
+    name: "Steel Technology Roadmap",
+    role: "2021 | Industrial Modernization",
+  },
+  {
+    id: "biotech-priority-matrix",
+    name: "Biotech Priority Matrix",
+    role: "2023 | MCDM and AHP",
+  },
+  {
+    id: "telecom-process-mapping",
+    name: "Telecom Process Mapping",
+    role: "2024 | eTOM Alignment",
+  },
+];

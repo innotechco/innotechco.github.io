@@ -53,7 +53,7 @@ function StepItem({title, body, textColor}) {
     <div className="flex flex-1 items-start gap-2">
       <Bullet />
       <div className="flex flex-1 flex-col items-start gap-2">
-        <h3 className={`font-['Gotham'] text-2xl ${textColor}`}>{title}</h3>
+        <h3 className={`font-['Gotham'] text-2xl font-bold ${textColor}`}>{title}</h3>
         <p className={`font-['Gotham'] text-2xl leading-[1.25] ${textColor}`}>
           {body}
         </p>

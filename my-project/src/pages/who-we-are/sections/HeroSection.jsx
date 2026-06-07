@@ -8,10 +8,12 @@ function HeroSection({textColor}) {
       <p
         className={`w-[700px] text-center font-['Gotham'] text-xl leading-[1.35] ${textColor}`}
       >
-        Innotech helps organizations turn technology signals into practical
-        strategy, innovation systems, and AI-enabled transformation. We connect
-        industry insight with execution so teams can move from uncertainty to
-        measurable progress.
+        InnotechCo is a Dubai-based innovation and transformation partner
+        helping organizations turn complex ideas, technologies, and market
+        signals into measurable growth. Through INSIGHT, INCEPTION, INFINITY,
+        and INLEARN Academy, we deliver intelligence analytics, innovation
+        management, digital transformation, and capability-building programs
+        that connect strategy with execution.
       </p>
     </section>
   );
