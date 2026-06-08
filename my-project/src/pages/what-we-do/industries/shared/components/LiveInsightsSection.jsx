@@ -116,7 +116,7 @@ function LiveInsightsSection({title, cards, alt}) {
                 <img
                   src={featuredCard.image}
                   alt={alt}
-                  className={`size-full object-cover ${
+                  className={`size-full object-cover object-bottom   ${
                     featuredCard.imageClassName ?? ""
                   }`}
                 />
