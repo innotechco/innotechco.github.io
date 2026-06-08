@@ -2,7 +2,13 @@ import excludeBlackShape from "../../../assets/images/excludes/shared/ExcludeBla
 import excludeShape from "../../../assets/images/excludes/shared/Exclude.svg";
 import {usePointerGlow} from "../../../hooks/usePointerGlow";
 
-function ExpertCard({image, title, subtitle, isDarkMode}) {
+function ExpertCard({
+  image,
+  iconClassName = "translate-x-7 -translate-y-2",
+  title,
+  subtitle,
+  isDarkMode,
+}) {
   const {position, handlers} = usePointerGlow();
 
   return (
@@ -32,10 +38,10 @@ function ExpertCard({image, title, subtitle, isDarkMode}) {
           aria-hidden
         />
         <div className="relative z-10 flex w-full items-end justify-between gap-4">
-          <div className="relative size-[94px] shrink-0 overflow-hidden rounded-bl-[25px] rounded-br-[100px] rounded-tl-[25px] rounded-tr-[100px]">
+          <div className="relative size-[94px] shrink-0">
             <span
               aria-hidden
-              className="absolute left-0 top-0 size-9 bg-[#22C55E]"
+              className={`absolute left-0 top-0 size-9 bg-[#22C55E] ${iconClassName}`}
               style={{
                 WebkitMask: `url("${image}") center / contain no-repeat`,
                 mask: `url("${image}") center / contain no-repeat`,

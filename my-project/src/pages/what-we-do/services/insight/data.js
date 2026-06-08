@@ -12,7 +12,7 @@ export const partners = [
 export const showcase = {
   title: "SAMPLES AND TRIALS",
   icon: insightIcon,
-  iconClassName: "translate-x-0 translate-y-0",
+  iconClassName: "translate-x-7 -translate-y-2",
   cards: [
     {id: "insight-lpg", buttonLabel: "Free Access", title: "Liquefied Petroleum Gas", subtitle: "Market Research Report"},
     {id: "insight-monitoring", buttonLabel: "Free Access", title: "Condition Monitoring", subtitle: "Science Landscape Report"},

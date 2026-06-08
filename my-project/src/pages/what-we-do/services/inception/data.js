@@ -9,7 +9,7 @@ export const partners = [
 export const showcase = {
   title: "INCEPTION SHOWROOM",
   icon: inceptionIcon,
-  iconClassName: "translate-x-0 translate-y-0",
+  iconClassName: "translate-x-7 -translate-y-2",
   cards: [
     {id: "inception-maturity", buttonLabel: "Free Diagnosis", title: "Innovation Maturity Snapshot", subtitle: "Run Assessment"},
     {id: "inception-pipeline", buttonLabel: "See Flow", title: "Idea Pipeline Simulation", subtitle: "Ideation Best Practice"},

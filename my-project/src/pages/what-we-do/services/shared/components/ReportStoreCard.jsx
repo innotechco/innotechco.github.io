@@ -24,7 +24,7 @@ function ReportStoreCard() {
           <div className="flex w-full items-start gap-3">
             <span className="mt-3 size-2.5 shrink-0 rounded-full bg-[#37B478]" />
             <h3
-              className={`w-full font-['Gotham'] text-3xl leading-[1.2] ${cardText}`}
+              className={`w-full font-['Gotham'] text-3xl font-medium leading-[1.2] ${cardText}`}
             >
               PLRs, MRRs, and SLRs provide precise, data-driven intelligence for
               technology and market decision-making.
@@ -32,7 +32,7 @@ function ReportStoreCard() {
           </div>
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-[50px] bg-[#22C55E] px-6 py-3.5 font-['Gotham'] text-2xl font-normal text-white shadow-lg transition-all duration-200 hover:bg-[#16A34A] hover:shadow-xl active:scale-95"
+            className="inline-flex items-center justify-center rounded-[50px] bg-[#22C55E] px-6 py-3.5 font-['Gotham'] text-2xl font-bold text-white shadow-lg transition-all duration-200 hover:bg-[#16A34A] hover:shadow-xl active:scale-95"
           >
             Go to store
           </button>

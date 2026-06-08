@@ -33,6 +33,8 @@ function useCountUp(target, isActive) {
 function StatCard({stat, isVisible, isDarkMode}) {
   const count = useCountUp(stat.value, isVisible);
   const labelColor = isDarkMode ? "text-white" : "text-black";
+  const lightIconFilter =
+    "[filter:brightness(0)_saturate(100%)_invert(56%)_sepia(51%)_saturate(599%)_hue-rotate(96deg)_brightness(94%)_contrast(88%)]";
 
   return (
     <div
@@ -46,7 +48,11 @@ function StatCard({stat, isVisible, isDarkMode}) {
         src={stat.icon}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute h-36 w-auto object-contain opacity-90 transition-transform duration-3000 group-hover:scale-105"
+        className={`pointer-events-none absolute h-36 w-auto object-contain transition-all duration-300 group-hover:scale-105 ${
+          isDarkMode ? "opacity-90" : "opacity-15 group-hover:opacity-90"
+        } ${
+          isDarkMode ? "" : `${lightIconFilter} group-hover:[filter:none]`
+        }`}
       />
       <div className="relative z-10 mt-8 font-['Gotham'] text-3xl font-bold leading-none text-[#37B478] transition-colors duration-300 group-hover:text-white">
         +{count}

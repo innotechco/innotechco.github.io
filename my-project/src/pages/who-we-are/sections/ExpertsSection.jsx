@@ -13,6 +13,7 @@ function ExpertsSection({experts, image, isDarkMode, textColor}) {
             <ExpertCard
               key={expert.id}
               image={image}
+              iconClassName={expert.iconClassName}
               title={expert.name}
               subtitle={expert.role}
               isDarkMode={isDarkMode}

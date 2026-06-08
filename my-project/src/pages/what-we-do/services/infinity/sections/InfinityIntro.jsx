@@ -1,19 +1,21 @@
 import {useTheme} from "../../../../../context/useTheme";
 import infinityIcon from "../../../../../assets/icons/Subtract.svg";
 import infinityExclude from "../../../../../assets/images/excludes/infinity/Exclude.png";
+import infinityExcludeBlack from "../../../../../assets/images/excludes/infinity/ExcludeBlack.png";
 
 function InfinityIntro() {
   const {isDarkMode} = useTheme();
 
   const pageBg = isDarkMode ? "bg-black" : "bg-white";
   const textColor = isDarkMode ? "text-white" : "text-black";
+  const excludeImage = isDarkMode ? infinityExclude : infinityExcludeBlack;
 
   return (
     <main
       className={`relative flex min-h-screen w-full items-center justify-center overflow-hidden px-6 pt-28 ${pageBg}`}
     >
       <img
-        src={infinityExclude}
+        src={excludeImage}
         alt=""
         aria-hidden
         className="pointer-events-none absolute left-1/2 bottom-[-42vw] z-10 w-[min(1280px,150vw)] max-w-none -translate-x-1/2 select-none md:bottom-[-20px]"
