@@ -7,14 +7,6 @@ import {expertImages} from "../../../../assets/images/shared";
 const {itonics: itonicsImage, statista: statistaImage, trex: trexImage} =
   expertImages;
 
-const inceptionCard = {
-  title: "InnotechCo launches INCEPTION",
-  date: "November 15, 2025",
-  readTime: "2 minutes read",
-  description:
-    "InnotechCo introduced INCEPTION, a modular innovation management system that helps R&D and strategy.",
-};
-
 export const hero = {
   image: healthHero,
   breadcrumbLabel: "Health",
@@ -37,17 +29,17 @@ export const capabilities = [
   {
     title: "Diagnostics Analytics (Forecasting)",
     description:
-      "Our analytics frameworks map diagnostic technologies, biomedical signals, clinical workflows, and patient-care trends to help healthcare organizations identify emerging opportunities and operational risks.",
+      "Our healthcare analytics frameworks process biomedical datasets, diagnostics pipelines, and clinical intelligence models to enhance predictive diagnostics, operational visibility, and precision medicine deployment.",
   },
   {
     title: "Biomedical Strategy (Research)",
     description:
-      "We support biomedical research strategy through evidence mapping, technology scouting, translational research analysis, and structured innovation roadmaps for life sciences and care delivery teams.",
+      "We evaluate biotechnology ecosystems, translational medicine trends, and biomedical innovation infrastructures to support strategic healthcare transformation and accelerate high-impact clinical commercialization pathways.",
   },
   {
     title: "MedTech Systems (Infrastructure)",
     description:
-      "We design connected MedTech operating models that combine device ecosystems, data infrastructure, compliance-aware workflows, and scalable digital health platforms.",
+      "We engineer digital healthcare architectures integrating connected MedTech environments, cloud-enabled care systems, interoperable platforms, and scalable healthcare operations modernization frameworks.",
   },
   {
     title: "AI Automation (Enhancement)",
@@ -63,22 +55,31 @@ export const liveInsights = {
     {
       id: "health-featured",
       image: healthInsightLeft,
-      title: "AI and Biotechnology Invention Trends",
+      title: "AI-Driven Drug Discovery",
       date: "June 4, 2026",
       readTime: "2 minutes read",
       description:
-        "Inventions combining AI and biotechnology continue to grow faster than many other technology sectors.",
+        "Inventions combining AI and biotechnology have grown significantly in recent years. Specifically, the number of inventions in this field has increased twelvefold over the past 20 years, far outpacing the general growth rate across all other technology sectors.",
     },
     {
       id: "health-top",
       image: healthInsightTop,
+      compactTight: true,
       title: "Mental Health Diagnostics Using Audio Data",
       date: "November 15, 2025",
       readTime: "2 minutes read",
       description:
-        "Audio-driven analysis can help clinical teams identify signals from patient interactions.",
+        "AI-Powered Audio Analysis utilizes artificial intelligence to analyze vocal patterns, speech cadence, and tone from patient interactions to identify potential mental health conditions.",
     },
-    {id: "health-bottom", image: healthInsightBottom, ...inceptionCard},
+    {
+      id: "health-bottom",
+      image: healthInsightBottom,
+      title: "Probiotics",
+      date: "June 4, 2026",
+      readTime: "2 minutes read",
+      description:
+        "China leads globally in patent registrations, demonstrating a remarkable volume of patents registered each year in the Probiotics sector.",
+    },
   ],
 };
 
@@ -86,6 +87,7 @@ export const ecosystemCards = [
   {
     id: "statista",
     image: statistaImage,
+    imageClassName: "scale-[1] translate-y-[20px]",
     title: "Cord Blood Technology",
     subtitle: "Copyrighted collaborative data ",
   },

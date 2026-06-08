@@ -7,14 +7,6 @@ import {ecosystemImages, expertImages} from "../../../../assets/images/shared";
 const {brightidea: BrightIdea, idc: IDC} = ecosystemImages;
 const {itonics: itonicsImage} = expertImages;
 
-const inceptionCard = {
-  title: "InnotechCo launches INCEPTION",
-  date: "November 15, 2025",
-  readTime: "2 minutes read",
-  description:
-    "InnotechCo introduced INCEPTION, a modular innovation management system that helps R&D and strategy.",
-};
-
 export const hero = {
   image: highTechHero,
   breadcrumbLabel: "High Tech",
@@ -52,7 +44,7 @@ export const capabilities = [
   {
     title: "Digital Intelligence (Optimization)",
     description:
-      "The INFINITY platform automates technology monitoring, innovation analytics, AI research synthesis, and digital operations mapping to accelerate enterprise-level strategic intelligence environments.",
+      "The Innogene platform automates technology monitoring, innovation analytics, AI research synthesis, and digital operations mapping to accelerate enterprise-level strategic intelligence environments.",
   },
 ];
 
@@ -67,10 +59,27 @@ export const liveInsights = {
       date: "June 4, 2026",
       readTime: "2 minutes read",
       description:
-        "A practical look at AI systems, model orchestration, and enterprise technology intelligence.",
+        "The amount of patent registration of companies in the last 5 years can indicate the possible business strategies of these companies in the coming years. Google Inc is the leader in patent registration in this Sector.",
     },
-    {id: "tech-top", image: techInsightTop, ...inceptionCard},
-    {id: "tech-bottom", image: techInsightBottom, ...inceptionCard},
+    {
+      id: "tech-top",
+      image: techInsightTop,
+      imageClassName: "object-left",
+      title: "IBM Visual Insights",
+      date: "November 15, 2025",
+      readTime: "2 minutes read",
+      description:
+        "IBM aims to enhance the capabilities of Visual Insights by incorporating more sophisticated AI algorithms and expanding its applications across more industries.",
+    },
+    {
+      id: "tech-bottom",
+      image: techInsightBottom,
+      title: "Dynamic Spectrum Access System",
+      date: "November 15, 2025",
+      readTime: "2 minutes read",
+      description:
+        "Building on the success of initial feasibility tests, Sony and Mitsui plan to further refine the DSA system by incorporating machine learning techniques to enhance predictive interference management.",
+    },
   ],
 };
 

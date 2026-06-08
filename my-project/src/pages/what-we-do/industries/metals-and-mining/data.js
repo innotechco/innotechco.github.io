@@ -7,14 +7,6 @@ import {ecosystemImages, expertImages} from "../../../../assets/images/shared";
 const {brightidea: BrightIdea, idc: IDC} = ecosystemImages;
 const {itonics: itonicsImage} = expertImages;
 
-const inceptionCard = {
-  title: "InnotechCo launches INCEPTION",
-  date: "November 15, 2025",
-  readTime: "2 minutes read",
-  description:
-    "InnotechCo introduced INCEPTION, a modular innovation management system that helps R&D and strategy.",
-};
-
 export const hero = {
   image: metalsHero,
   breadcrumbLabel: "Metals and Mining",
@@ -32,7 +24,7 @@ export const capabilities = [
   {
     title: "Innovation Systems (Governance)",
     description:
-      "We build mining innovation systems that align governance, operational priorities, capital planning, and technology scouting across metals, minerals, and extraction value chains.",
+      "The energy transition is one of the world’s greatest collective challenges. BCG develops solutions with clients by integrating financial, technological, economical, and societal considerations to ensure a just energy transition.",
   },
   {
     title: "Mining Analytics (Forecasting)",
@@ -67,10 +59,26 @@ export const liveInsights = {
       date: "June 4, 2026",
       readTime: "2 minutes read",
       description:
-        "Industrial operators are scaling carbon technology across global operations and mining value chains.",
+        "The future of Smart Carbon looks promising, especially as global pressure to decarbonize intensifies. ArcelorMittal plans to scale this technology across its global operations, targeting reductions of up to 30% in CO2 emissions by 2030.",
     },
-    {id: "metals-top", image: metalsInsightTop, ...inceptionCard},
-    {id: "metals-bottom", image: metalsInsightBottom, ...inceptionCard},
+    {
+      id: "metals-top",
+      image: metalsInsightTop,
+      title: "Digital Transformation in Steel Industry",
+      date: "June 4, 2026",
+      readTime: "2 minutes read",
+      description:
+        "The number of inventions in DT have increased eleven times over the last 20 years, which is much higher than the general growth any other key topic.",
+    },
+    {
+      id: "metals-bottom",
+      image: metalsInsightBottom,
+      title: "Green Steel Transition",
+      date: "November 15, 2025",
+      readTime: "2 minutes read",
+      description:
+        "Steel operators are accelerating decarbonization initiatives through hydrogen-integrated production systems, industrial intelligence frameworks, and predictive metallurgy optimization infrastructures.",
+    },
   ],
 };
 

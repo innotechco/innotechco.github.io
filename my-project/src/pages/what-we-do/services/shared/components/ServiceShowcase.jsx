@@ -1,11 +1,17 @@
-import inceptionIcon from "../../../../../assets/icons/Inception-Icon 1.svg";
 import excludeShape from "../../../../../assets/images/excludes/shared/Exclude.svg";
 import excludeBlackShape from "../../../../../assets/images/excludes/shared/ExcludeBlack.svg";
 import {useTheme} from "../../../../../context/useTheme";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
 
-function ShowcaseCard({buttonLabel, title, subtitle, isDarkMode}) {
+function ShowcaseCard({
+  buttonLabel,
+  icon,
+  iconClassName = "",
+  title,
+  subtitle,
+  isDarkMode,
+}) {
   const {position: glowPosition, handlers} = usePointerGlow();
 
   return (
@@ -42,13 +48,13 @@ function ShowcaseCard({buttonLabel, title, subtitle, isDarkMode}) {
         />
 
         <div className="relative z-10 flex w-full items-end justify-between gap-4">
-          <div className="relative size-[94px] shrink-0 overflow-hidden rounded-bl-[25px] rounded-br-[100px] rounded-tl-[25px] rounded-tr-[100px]">
+          <div className="relative size-[90px] shrink-0">
             <span
               aria-hidden
-              className="absolute left-0 top-0 size-9 bg-[#22C55E]"
+              className={`absolute left-0 top-0 size-9 bg-[#22C55E] ${iconClassName}`}
               style={{
-                WebkitMask: `url("${inceptionIcon}") center / contain no-repeat`,
-                mask: `url("${inceptionIcon}") center / contain no-repeat`,
+                WebkitMask: `url("${icon}") center / contain no-repeat`,
+                mask: `url("${icon}") center / contain no-repeat`,
               }}
             />
           </div>
@@ -80,7 +86,7 @@ function ShowcaseCard({buttonLabel, title, subtitle, isDarkMode}) {
   );
 }
 
-function ServiceShowcase({title, cards}) {
+function ServiceShowcase({title, cards, icon, iconClassName}) {
   const {isDarkMode} = useTheme();
 
   return (
@@ -96,7 +102,13 @@ function ServiceShowcase({title, cards}) {
 
         <div className="grid w-full grid-cols-1 items-stretch gap-8 overflow-visible lg:grid-cols-3">
           {cards.map((card) => (
-            <ShowcaseCard key={card.id} {...card} isDarkMode={isDarkMode} />
+            <ShowcaseCard
+              key={card.id}
+              {...card}
+              icon={icon}
+              iconClassName={iconClassName}
+              isDarkMode={isDarkMode}
+            />
           ))}
         </div>
       </div>

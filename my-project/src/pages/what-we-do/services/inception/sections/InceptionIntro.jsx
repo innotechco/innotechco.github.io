@@ -40,10 +40,10 @@ function Inception() {
         <p
           className={`font-['Gotham'] text-base font-normal leading-tight md:text-xl ${textColor}`}
         >
-          Energy is life. It powers industries, empowers communities, and builds
-          societies. As the traditional boundaries of the industry continue to
-          blur, BCG&apos;s energy consultants light the way to the future of
-          energy for our clients.
+          Innovation does not fail because companies lack ideas. It fails when
+          ideas move through unclear roles, scattered channels, weak governance,
+          and invisible value. INCEPTION turns innovation into a measurable
+          management system.
         </p>
       </section>
     </main>

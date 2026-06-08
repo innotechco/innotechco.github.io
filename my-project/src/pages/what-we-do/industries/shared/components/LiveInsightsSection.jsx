@@ -37,18 +37,26 @@ function CardCopy({card, isDarkMode, compact = false}) {
 
   return (
     <div
-      className={`flex min-w-0 flex-1 flex-col justify-center gap-3 ${
-        compact ? "min-h-60 px-6 py-6" : "w-[500px] px-10 py-8"
+      className={`flex min-h-0 min-w-0 flex-1 flex-col ${
+        compact
+          ? card.compactTight
+            ? "h-full gap-1 p-4"
+            : "h-full gap-2 p-6"
+          : "w-full gap-4 p-9"
       }`}
     >
       <h3
-        className={`font-['Gotham'] text-2xl font-bold leading-tight transition-colors duration-500 ease-in-out ${textColor}`}
+        className={`font-['Gotham'] leading-tight transition-colors duration-500 ease-in-out ${textColor} ${
+          compact ? "text-2xl font-medium" : "text-2xl font-bold"
+        }`}
       >
         {card.title}
       </h3>
       <div
         className={`${
-          compact ? "flex items-center justify-between" : "inline-flex items-center gap-8"
+          compact
+            ? "flex flex-col items-start"
+            : "inline-flex items-center gap-8"
         }`}
       >
         <p
@@ -61,11 +69,16 @@ function CardCopy({card, isDarkMode, compact = false}) {
         </p>
       </div>
       <p
-        className={`font-['Gotham'] text-base leading-[1.4] transition-colors duration-500 ease-in-out ${textColor}`}
+        className={`font-['Gotham'] text-base transition-colors duration-500 ease-in-out ${textColor} ${
+          compact ? "leading-[1.3]" : "leading-[1.4]"
+        }`}
       >
         {card.description}
       </p>
-      <ReadMoreLink isDarkMode={isDarkMode} className="mt-1 text-base" />
+      <ReadMoreLink
+        isDarkMode={isDarkMode}
+        className="mt-auto shrink-0 text-base"
+      />
     </div>
   );
 }
@@ -96,32 +109,40 @@ function LiveInsightsSection({title, cards, alt}) {
           {title}
         </SectionTitle>
 
-        <div className="relative flex items-start gap-11">
-          <GlowCard className="h-[702px] w-[542px]" isDarkMode={isDarkMode}>
+        <div className="relative grid w-full grid-cols-1 items-start gap-9 xl:grid-cols-2">
+          <GlowCard className="h-[702px] min-w-0" isDarkMode={isDarkMode}>
             <div className="flex size-full flex-col">
-              <img
-                src={featuredCard.image}
-                alt={alt}
-                className="h-96 w-full object-cover"
-              />
+              <div className="min-h-0 flex-1 overflow-hidden">
+                <img
+                  src={featuredCard.image}
+                  alt={alt}
+                  className={`size-full object-cover ${
+                    featuredCard.imageClassName ?? ""
+                  }`}
+                />
+              </div>
               <CardCopy card={featuredCard} isDarkMode={isDarkMode} />
             </div>
           </GlowCard>
 
-          <div className="flex h-[702px] flex-1 flex-col justify-center gap-8">
+          <div className="flex min-w-0 flex-col justify-center gap-9 md:h-[702px]">
             {[topCard, bottomCard].map((card) => (
               <GlowCard
                 key={card.id}
-                className="h-[335px]"
+                className="h-[702px] min-h-0 md:h-auto md:flex-1"
                 isDarkMode={isDarkMode}
               >
-                <div className="flex size-full items-center">
-                  <img
-                    src={card.image}
-                    alt=""
-                    aria-hidden
-                    className="h-[335px] w-[55%] self-start object-cover"
-                  />
+                <div className="flex size-full min-w-0 flex-col items-center md:grid md:grid-cols-2">
+                  <div className="h-1/2 w-full min-w-0 overflow-hidden md:size-full">
+                    <img
+                      src={card.image}
+                      alt=""
+                      aria-hidden
+                      className={`size-full object-cover ${
+                        card.imageClassName ?? ""
+                      }`}
+                    />
+                  </div>
                   <CardCopy card={card} isDarkMode={isDarkMode} compact />
                 </div>
               </GlowCard>

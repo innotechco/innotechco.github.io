@@ -5,7 +5,7 @@ import industriesExcludeBlackImage from "../../../../../assets/images/excludes/i
 function BreadcrumbChevron() {
   return (
     <div className="relative size-4 shrink-0 overflow-hidden">
-      <div className="absolute left-[6px] top-[4px] h-2 w-1 rotate-[-45deg] border-b border-r border-[#37B478]" />
+      <div className="absolute left-[6px] top-[4px] h-2 w-2 rotate-[-45deg] border-b border-r border-[#37B478]" />
     </div>
   );
 }

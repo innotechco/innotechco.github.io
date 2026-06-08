@@ -1,4 +1,5 @@
 import {partnerImages} from "../../../../assets/images/shared";
+import inceptionIcon from "../../../../assets/icons/Inception-Icon 1.svg";
 
 export const partners = [
   {name: "ITONICS", image: partnerImages.itonics},
@@ -7,6 +8,8 @@ export const partners = [
 
 export const showcase = {
   title: "INCEPTION SHOWROOM",
+  icon: inceptionIcon,
+  iconClassName: "translate-x-0 translate-y-0",
   cards: [
     {id: "inception-maturity", buttonLabel: "Free Diagnosis", title: "Innovation Maturity Snapshot", subtitle: "Run Assessment"},
     {id: "inception-pipeline", buttonLabel: "See Flow", title: "Idea Pipeline Simulation", subtitle: "Ideation Best Practice"},

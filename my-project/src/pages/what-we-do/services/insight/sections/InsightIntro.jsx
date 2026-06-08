@@ -40,7 +40,8 @@ function InsightIntro() {
         >
           Turning intelligence into action. INSIGHT combines AI-driven analysis,
           patent monitoring, market research, and science analytics to empower
-          R&D and strategy teams.
+          R&D and strategy teams. Shape product roadmaps, prioritize
+          investments, and unlock measurable innovation value across industries.
         </p>
       </section>
     </main>

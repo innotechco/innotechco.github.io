@@ -4,7 +4,14 @@ import {useTheme} from "../../../../../context/useTheme";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
 
-function EcosystemCard({image, title, subtitle, isDarkMode, titleClassName = ""}) {
+function EcosystemCard({
+  image,
+  title,
+  subtitle,
+  isDarkMode,
+  titleClassName = "",
+  imageClassName = "",
+}) {
   const {position: glowPosition, handlers} = usePointerGlow();
 
   return (
@@ -40,8 +47,12 @@ function EcosystemCard({image, title, subtitle, isDarkMode, titleClassName = ""}
           aria-hidden="true"
         />
         <div className="relative z-10 flex w-full items-end justify-between gap-4">
-          <div className="relative size-[94px] shrink-0 overflow-hidden rounded-bl-[25px] rounded-br-[100px] rounded-tl-[25px] rounded-tr-[100px]">
-            <img className="block size-full" src={image} alt="" />
+          <div className="relative size-[80px] top-[-27px] shrink-0 overflow-hidden rounded-bl-[25px] rounded-br-[100px] rounded-tl-[25px] rounded-tr-[100px]">
+            <img
+              className={`block size-full object-contain ${imageClassName}`}
+              src={image}
+              alt=""
+            />
           </div>
 
           <button

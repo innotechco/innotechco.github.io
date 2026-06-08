@@ -1,4 +1,5 @@
 import {partnerImages} from "../../../../assets/images/shared";
+import insightIcon from "../../../../assets/icons/Subtract2.svg";
 
 export const partners = [
   {name: "Sharjah", image: partnerImages.sharjah},
@@ -10,6 +11,8 @@ export const partners = [
 
 export const showcase = {
   title: "SAMPLES AND TRIALS",
+  icon: insightIcon,
+  iconClassName: "translate-x-0 translate-y-0",
   cards: [
     {id: "insight-lpg", buttonLabel: "Free Access", title: "Liquefied Petroleum Gas", subtitle: "Market Research Report"},
     {id: "insight-monitoring", buttonLabel: "Free Access", title: "Condition Monitoring", subtitle: "Science Landscape Report"},

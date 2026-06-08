@@ -7,14 +7,6 @@ import {ecosystemImages, expertImages} from "../../../../assets/images/shared";
 const {brightidea: BrightIdea, idc: IDC} = ecosystemImages;
 const {itonics: itonicsImage} = expertImages;
 
-const inceptionCard = {
-  title: "InnotechCo launches INCEPTION",
-  date: "November 15, 2025",
-  readTime: "2 minutes read",
-  description:
-    "InnotechCo introduced INCEPTION, a modular innovation management system that helps R&D and strategy.",
-};
-
 export const hero = {
   image: energyHero,
   breadcrumbLabel: "Energy And Materials",
@@ -63,14 +55,30 @@ export const liveInsights = {
     {
       id: "energy-featured",
       image: energyInsightLeft,
-      title: "Global Energy Materials Outlook",
-      date: "June 4, 2026",
+      title: "Hydrogen Generation from Natural Gas",
+      date: "November 15, 2025",
       readTime: "2 minutes read",
       description:
-        "A technology and market view on energy materials, infrastructure demand, and regional industrial opportunities.",
+        "The Hydrogen Generation from Natural Gas Patent Landscape Report provides an in-depth patent landscape analysis, covering 3,006 patents from 2010 to 2026, collected across major global jurisdictions.",
     },
-    {id: "energy-top", image: energyInsightTop, ...inceptionCard},
-    {id: "energy-bottom", image: energyInsightBottom, ...inceptionCard},
+    {
+      id: "energy-top",
+      image: energyInsightTop,
+      title: "Polypropylene (PP)",
+      date: "November 15, 2025",
+      readTime: "2 minutes read",
+      description:
+        "This market analysis delves into commercial trends in polypropylene, examining global sales volume, market valuations, and growth forecasts.",
+    },
+    {
+      id: "energy-bottom",
+      image: energyInsightBottom,
+      title: "Peak Shaving by Gas Reservation",
+      date: "November 15, 2025",
+      readTime: "2 minutes read",
+      description:
+        "Key industry players such as Daewoo Shipbuilding & Marine and Samsung Heavy Industries (South Korea), ExxonMobil (U.S.), and Chinese companies like CNOOC are pivotal in advancing the field.",
+    },
   ],
 };
 

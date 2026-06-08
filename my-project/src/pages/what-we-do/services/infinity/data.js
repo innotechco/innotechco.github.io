@@ -1,4 +1,5 @@
 import {partnerImages} from "../../../../assets/images/shared";
+import infinityIcon from "../../../../assets/icons/Subtract.svg";
 
 export const partners = [
   {name: "TREX", image: partnerImages.trex},
@@ -10,6 +11,8 @@ export const partners = [
 
 export const showcase = {
   title: "TEST THE ENGINE",
+  icon: infinityIcon,
+  iconClassName: "translate-x-7 -translate-y-2",
   cards: [
     {id: "infinity-readiness", buttonLabel: "Try It Now", title: "Digital Readiness Snapshot"},
     {id: "infinity-workflow", buttonLabel: "Explore Demo", title: "AI Workflow Simulation"},
@@ -21,10 +24,10 @@ export const road = {
   title: "Digital Transformation System",
   items: [
     {title: "Module 1", subtitle: "Maturity Assessment", bold: true},
-    {title: "Module 2", subtitle: "Digital Architecture"},
-    {title: "Module 3", subtitle: "Value-Estimation"},
-    {title: "Module 4", subtitle: "Solution Design"},
-    {title: "Implementation", bold: true},
+    {title: "Module 2", subtitle: "Digital Architecture", bold: true},
+    {title: "Module 3", subtitle: "Value-Estimation", bold: true},
+    {title: "Module 4", subtitle: "Solution Design", bold: true},
+    {title: "Module 5", subtitle: "Implementation", bold: true},
   ],
 };
 
@@ -34,8 +37,8 @@ export const stats = [
     value: 8,
     prefix: "",
     label: "Industries",
-    valueWeight: "normal",
-    labelWeight: "normal",
+    valueWeight: "bold",
+    labelWeight: "bold",
   },
   {value: 40, prefix: "+", label: "Process Mapping & Dashboards"},
   {value: 30, prefix: "+", label: "AI &\nAutomation\nInitiatives"},

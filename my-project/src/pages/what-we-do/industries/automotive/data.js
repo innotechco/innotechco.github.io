@@ -1,17 +1,11 @@
 import automotiveHero from "../../../../assets/images/industries/automotive/automotive.png";
+import bottomRightInsightImage from "../../../../assets/images/industries/automotive/BottomRight.png";
+import leftInsightImage from "../../../../assets/images/industries/automotive/left.png";
+import topRightInsightImage from "../../../../assets/images/industries/automotive/TopRight.png";
 import {expertImages} from "../../../../assets/images/shared";
-import HowWeThinkImage from "../../../../assets/images/shared/how-we-think.jpg";
 
 const {itonics: itonicsImage, statista: statistaImage, trex: trexImage} =
   expertImages;
-
-const inceptionCard = {
-  title: "InnotechCo launches INCEPTION",
-  date: "November 15, 2025",
-  readTime: "2 minutes read",
-  description:
-    "InnotechCo introduced INCEPTION, a modular innovation management system that helps R&D and strategy.",
-};
 
 export const hero = {
   image: automotiveHero,
@@ -35,12 +29,12 @@ export const capabilities = [
   {
     title: "Vehicle Analytics (Forecasting)",
     description:
-      "Our technology intelligence frameworks analyze mobility patents, automotive innovation systems, connected vehicle technologies, and transportation infrastructure signals to strengthen strategic automotive foresight.  ",
+      "Our technology intelligence frameworks analyze mobility patents, automotive innovation systems, connected vehicle technologies, and transportation infrastructure signals to strengthen strategic automotive foresight.",
   },
   {
     title: "Smart Platforms (Infrastructure)",
     description:
-      "We connect mobility data platforms, fleet infrastructure, and intelligent transportation systems so automotive teams can monitor operations, model demand, and coordinate decisions across connected environments.",
+      "The energy transition is one of the world’s greatest collective challenges. BCG develops solutions with clients by integrating financial, technological, economical, and societal considerations to ensure a just energy transition.",
   },
   {
     title: "Innovation Governance (Transformation)",
@@ -60,15 +54,31 @@ export const liveInsights = {
   cards: [
     {
       id: "automotive-featured",
-      image: HowWeThinkImage,
+      image: leftInsightImage,
       title: "Engine Technologies For Improving Fuel Efficiency",
       date: "June 4, 2026",
       readTime: "2 minutes read",
       description:
-        "Toyota Motor Co has the largest number of highly-cited patents, a sign of the high value of this company's patent portfolio.",
+        "Toyota Motor Co has the largest number of highly-cited patents, which is a sign of the high value of this company's patents. The main themes of the patents represent the thematic focus of patents on areas such as injection , fuel , gas , exhust , engine , pressure.",
     },
-    {id: "automotive-top", image: HowWeThinkImage, ...inceptionCard},
-    {id: "automotive-bottom", image: HowWeThinkImage, ...inceptionCard},
+    {
+      id: "automotive-top",
+      image: topRightInsightImage,
+      title: "Ford Intelligent Mobility Ecosystem",
+      date: "June 4, 2026",
+      readTime: "2 minutes read",
+      description:
+        "The Ford Intelligent Mobility Ecosystem's primary innovation lies in its integrated approach to urban mobility.",
+    },
+    {
+      id: "automotive-bottom",
+      image: bottomRightInsightImage,
+      title: "Hyundai Hydrogen Mobility Review",
+      date: "November 15, 2025",
+      readTime: "2 minutes read",
+      description:
+        "Hyundai integrates vehicle technology, infrastructure, and energy partnerships to drive hydrogen mobility",
+    },
   ],
 };
 
@@ -76,8 +86,8 @@ export const ecosystemCards = [
   {
     id: "trex",
     image: trexImage,
-    title: "Golam reza Jamshidi",
-    subtitle: "CEO of Nouri Petrochemical Company",
+    title: "Achieve 60% reduction in energy use ",
+    subtitle: "trex Smart Station",
   },
   {
     id: "itonics",
@@ -88,7 +98,8 @@ export const ecosystemCards = [
   {
     id: "statista",
     image: statistaImage,
-    title: "Golam reza Jamshidi",
-    subtitle: "CEO of Nouri Petrochemical Company",
+    imageClassName: "scale-[1] translate-y-[10px] ",
+    title: "Global Transportation ",
+    subtitle: "Copyrighted collaborative data ",
   },
 ];

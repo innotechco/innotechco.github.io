@@ -9,7 +9,7 @@ import BackgroundMiddleDark from "../../assets/images/excludes/who-we-are/WhoWeA
 import HistoryCurve from "../../assets/images/who-we-are/HistoryCurve.png";
 import HistoryCurveLight from "../../assets/images/who-we-are/HistoryCurveLight.png";
 import InceptionIcon from "../../assets/icons/Inception-Icon 1.svg";
-import WindTurbines from "../../assets/images/who-we-are/WindTurbines.png";
+import WindTurbines from "../../assets/images/who-we-are/Innotechisin.png";
 import CubeIcon from "../../assets/images/who-we-are/stats/CubeIcon.svg";
 import DealHandshake from "../../assets/images/who-we-are/stats/DealHandshake.svg";
 import EmployeesIcon from "../../assets/images/who-we-are/stats/EmployeesIcon.svg";
@@ -35,19 +35,19 @@ export const stats = [
     id: "experts-primary",
     icon: EmployeesIcon,
     label: "Expert",
-    value: 35,
+    value: +32,
   },
   {
     id: "experts-secondary",
     icon: FactoryIcon,
-    label: "Expert",
-    value: 20,
+    label: "Industries",
+    value: 8,
   },
   {
     id: "partners",
     icon: DealHandshake,
     label: "partners",
-    value: 32,
+    value: +35,
   },
   {
     id: "program",

@@ -36,10 +36,10 @@ function InfinityIntro() {
         <p
           className={`font-['Gotham'] text-base font-normal leading-tight md:text-xl ${textColor}`}
         >
-          Energy is life. It powers industries, empowers communities, and builds
-          societies. As the traditional boundaries of the industry continue to
-          blur, BCG&apos;s energy consultants light the way to the future of
-          energy for our clients.
+          Digital transformation is not software installation. It is the
+          redesign of how organizations sense problems, connect processes,
+          automate decisions, and scale intelligent operations across teams,
+          assets, and business units.
         </p>
       </section>
     </main>

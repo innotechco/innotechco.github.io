@@ -16,21 +16,23 @@ function IntroSection({image, textColor}) {
               “Innotech Is In” captures both our product architecture and our
               operating <br /> mindset. It represents four connected
               capabilities—innovation management, intelligence analytics,
-              digital transformation, and structured implementation<br />—brought
-              together as one system. <br /> <br />
-              It also means full commitment to
-              execution. We stay involved from<br />diagnosis and design through
-              deployment, adoption, and measurable results.
+              digital transformation, and structured implementation
+              <br />
+              —brought together as one system. <br /> <br />
+              It also means full commitment to execution. We stay involved from
+              <br />
+              diagnosis and design through deployment, adoption, and measurable
+              results.
             </p>
           </div>
         </div>
 
-        <div className="relative h-[387px] w-[403px] shrink-0 overflow-hidden rounded-[50px] px-[130px] py-[144px]">
+        <div className="relative size-96 shrink-0 overflow-hidden rounded-[50px]">
           <img
             src={image}
             alt=""
             aria-hidden
-            className="absolute left-[-168px] top-[-17px] h-[404px] w-[706px] max-w-none object-cover"
+            className="absolute left-0 top-0 h-[404px] w-[706px]"
           />
         </div>
       </div>
@@ -39,3 +41,5 @@ function IntroSection({image, textColor}) {
 }
 
 export default IntroSection;
+
+
