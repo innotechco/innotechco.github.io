@@ -1,6 +1,7 @@
 import {useTheme} from "../../../../../context/useTheme";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
+import PlayToggleButton from "../../../../../components/ui/PlayToggleButton";
 
 function CapabilityCard({title, description, isDarkMode}) {
   const {position: glowPosition, handlers} = usePointerGlow();
@@ -32,9 +33,7 @@ function CapabilityCard({title, description, isDarkMode}) {
             {description}
           </p>
         </div>
-        <span aria-hidden className="relative z-10 mt-1 flex size-8 shrink-0 items-center justify-center">
-          <span className="h-0 w-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-[#37B478]" />
-        </span>
+        <PlayToggleButton label={`Toggle ${title}`} />
       </article>
     </div>
   );

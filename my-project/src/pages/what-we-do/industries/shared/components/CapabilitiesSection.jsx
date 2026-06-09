@@ -1,6 +1,7 @@
 import {useTheme} from "../../../../../context/useTheme";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
+import PlayToggleButton from "../../../../../components/ui/PlayToggleButton";
 
 function ServiceTitle({title}) {
   const match = title.match(/^(.*?)(\s*\([^)]*\))$/);
@@ -20,7 +21,7 @@ function ServiceTitle({title}) {
   );
 }
 
-function ServiceCard({title, description, href, isWide = false, isDarkMode}) {
+function ServiceCard({title, description, isWide = false, isDarkMode}) {
   const {position: glowPosition, handlers} = usePointerGlow();
 
   return (
@@ -69,25 +70,7 @@ function ServiceCard({title, description, href, isWide = false, isDarkMode}) {
           </p>
         </div>
 
-        {href ? (
-          <a
-            href={href}
-            aria-label={`Open ${title}`}
-            className="relative z-10 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full transition-transform duration-200 hover:scale-110 active:scale-95"
-          >
-            <span
-              aria-hidden="true"
-              className="h-0 w-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-[#37B478]"
-            />
-          </a>
-        ) : (
-          <span
-            aria-hidden="true"
-            className="relative z-10 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full opacity-70"
-          >
-            <span className="h-0 w-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-[#37B478]" />
-          </span>
-        )}
+        <PlayToggleButton label={`Toggle ${title}`} />
       </article>
     </div>
   );

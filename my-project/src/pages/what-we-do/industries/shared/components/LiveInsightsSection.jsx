@@ -152,7 +152,7 @@ function LiveInsightsSection({title, cards, alt}) {
 
         <div className="flex justify-end">
           <ReadMoreLink
-            to={routes.aiAgent}
+            to={routes.archives}
             label="Read all insights"
             isDarkMode={isDarkMode}
             align="end"
