@@ -4,7 +4,6 @@ import InfinityIcon from "../../../../assets/icons/Subtract.svg";
 import InsightIcon from "../../../../assets/icons/Subtract2.svg";
 import InlearnIcon from "../../../../assets/icons/Subtract3.svg";
 
-// Adjust all InnoCard typography from this single section-local object.
 const INNO_CARD_TEXT_STYLES = {
   title: "text-base font-bold leading-none",
   subtitle: "mt-1 text-xs font-normal",
