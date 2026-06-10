@@ -1,0 +1,1 @@
+var e=`/InnoTech-Website/assets/Exclude-6zZcL_8s.png`,t=`/InnoTech-Website/assets/BlackExclude-DF52zYrT.png`;export{e as n,t};

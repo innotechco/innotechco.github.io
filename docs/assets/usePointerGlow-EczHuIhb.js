@@ -1,0 +1,1 @@
+import{i as e,s as t}from"./useTheme-DXElH-K3.js";var n=t(e(),1);function r(){let[e,t]=(0,n.useState)({x:0,y:0,active:!1});return{position:e,handlers:{onMouseMove:e=>{let n=e.currentTarget.getBoundingClientRect();t({x:e.clientX-n.left,y:e.clientY-n.top,active:!0})},onMouseLeave:()=>{t(e=>({...e,active:!1}))}}}}export{r as t};
