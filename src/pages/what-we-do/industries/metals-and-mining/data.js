@@ -93,6 +93,7 @@ export const ecosystemCards = [
     id: "itonics",
     image: itonicsImage,
     title: "Minerals and mining",
+    imageClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
     subtitle: "The complete list of all 160+ trends",
   },
   {

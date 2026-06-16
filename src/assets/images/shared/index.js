@@ -36,7 +36,7 @@ export const partnerImages = {
   lean,
   lensorg,
   sharjah,
-  startin,
-  statista: statista2,
+  statista,
+  statistaLight: statista2,
   trex: trex2,
 };

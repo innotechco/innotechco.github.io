@@ -93,6 +93,7 @@ export const ecosystemCards = [
     image: statistaImage,
     imageLight: statistaLightImage,
     imageClassName: "scale-[1] translate-y-[20px]",
+    imageLightClassName: "scale-[1] translate-y-[2px]",
     title: "Cord Blood Technology",
     subtitle: "Copyrighted collaborative data ",
   },
@@ -100,6 +101,7 @@ export const ecosystemCards = [
     id: "itonics",
     image: itonicsImage,
     title: "Report: Pharma R&D in 2026",
+    imageClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
     subtitle: "Practical actions to modernize your Pharma R&D operation",
   },
   {

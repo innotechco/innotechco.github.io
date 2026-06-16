@@ -94,6 +94,7 @@ export const ecosystemCards = [
     id: "itonics",
     image: itonicsImage,
     title: "The Workshop Wizard ",
+    imageClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
     subtitle: "Plan your workshops with AI assistant",
   },
   {

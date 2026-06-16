@@ -12,8 +12,13 @@ function EcosystemCard({
   isDarkMode,
   titleClassName = "",
   imageClassName = "",
+  imageLightClassName,
 }) {
   const {position: glowPosition, handlers} = usePointerGlow();
+  const activeImageClassName =
+    !isDarkMode && imageLight
+      ? imageLightClassName ?? imageClassName
+      : imageClassName;
 
   return (
     <div
@@ -50,7 +55,7 @@ function EcosystemCard({
         <div className="relative z-10 flex w-full items-end justify-between gap-3">
           <div className="relative size-[80px] top-[-27px] shrink-0 overflow-hidden rounded-bl-[25px] rounded-br-[100px] rounded-tl-[25px] rounded-tr-[100px]">
             <img loading="lazy"
-              className={`block size-full object-contain ${imageClassName}`}
+              className={`block size-full object-contain ${activeImageClassName}`}
               src={!isDarkMode && imageLight ? imageLight : image}
               alt=""
             />

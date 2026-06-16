@@ -87,6 +87,7 @@ export const ecosystemCards = [
     id: "itonics",
     image: itonicsImage,
     title: "How AI Agents Augment  Innovation Ecosystem",
+    imageClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
     subtitle: "A Siemens and ITONICS joint study",
   },
   {
