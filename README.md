@@ -1,30 +1,27 @@
 # React + Vite
 
-## Deploying to GitHub Pages with `innotech.global`
+## Deploying to GitHub Pages with a custom domain
 
 The GitHub Actions workflow in `.github/workflows/deploy-pages.yml` builds and
-deploys the site after each push to `main`. It is configured for the custom
-domain `innotech.global`; the deployed artifact includes `CNAME` and uses `/`
-as its Vite base path.
+deploys the site after each push to `main`. It uses `/` as its Vite base path,
+which is required when a custom domain serves the site from its root.
 
 One-time GitHub setup:
 
 1. Open **Settings → Pages** in `rdfco/innotech-website`.
 2. Set **Source** to **GitHub Actions**.
-3. Enter `innotech.global` under **Custom domain**, save it, and enable
+3. Enter the company's chosen domain under **Custom domain**, save it, and enable
    **Enforce HTTPS** once GitHub verifies the DNS records.
 
 DNS setup (at the domain's DNS provider):
 
-- Remove the existing `A` records for `innotech.global` that point to the old
-  host.
 - Add these four `A` records for `@`:
   `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and
   `185.199.111.153`.
 - Optionally add `www` as a `CNAME` pointing to `rdfco.github.io`.
 
 After DNS propagation, GitHub Pages will serve the site at
-`https://innotech.global`.
+the custom domain configured in GitHub Pages.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
