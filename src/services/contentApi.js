@@ -4,7 +4,7 @@ import inlearnAcademyPage from "../content/en/pages/inlearn-academy.json";
 import archivesPage from "../content/en/pages/what-we-think/archives.json";
 import whatWeThinkPage from "../content/en/pages/what-we-think/what-we-think.json";
 import whoWeArePage from "../content/en/pages/who-we-are/who-we-are.json";
-import alleanitaPartnerPage from "../content/en/partners/alleanita/alleanita.json";
+import allentiaPartnerPage from "../content/en/partners/allentia/allentia.json";
 import brightideaPartnerPage from "../content/en/partners/brightidea/brightidea.json";
 import gartnerPartnerPage from "../content/en/partners/gartner/gartner.json";
 import idcPartnerPage from "../content/en/partners/idc/idc.json";
@@ -47,7 +47,7 @@ const serviceContent = {
 };
 
 const partnerContent = {
-  alleanita: alleanitaPartnerPage,
+  allentia: allentiaPartnerPage,
   brightidea: brightideaPartnerPage,
   gartner: gartnerPartnerPage,
   idc: idcPartnerPage,
@@ -113,7 +113,7 @@ function buildPartnerPage(content, config = {}) {
 
   return {
     ...content,
-    assets: config.assets,
+    assets: config.assets ?? {},
     theme: config.theme,
   };
 }

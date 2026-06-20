@@ -1,80 +1,42 @@
-import alleanitaLogo from "../assets/images/shared/partners/alleanita.svg";
 import archeryIcon from "../assets/images/partners/shared/cards/archery.svg";
-import brightideaHeroImage from "../assets/images/partners/brightidea/brightidea.webp";
-import brightideaLogo from "../assets/images/shared/partners/brightidea-partner.svg";
+import excludeDark from "../assets/images/partners/shared/backgrounds/PartnerStatsExclude.png";
+import excludeLight from "../assets/images/partners/shared/backgrounds/PartnerStatsExcludeBlack.png";
+import heroImage from "../assets/images/partners/shared/backgrounds/PartnerIntroImage.webp";
 import circleIcon from "../assets/images/partners/shared/circles/circles.webp";
-import gartnerLogo from "../assets/images/shared/partners/gartner.svg";
 import globeIcon from "../assets/images/partners/shared/cards/globe.svg";
-import idcLogo from "../assets/images/shared/partners/idc-partner.svg";
-import itonicsExclude from "../assets/images/partners/itonics/Exclude.png";
-import itonicsExcludeBlack from "../assets/images/partners/itonics/ExcludeBlack.png";
-import itonicsHeroImage from "../assets/images/partners/itonics/image-41.webp";
-import itonicsLogo from "../assets/images/shared/partners/Itonics.svg";
-import leanLogo from "../assets/images/shared/partners/lean.svg";
-import lensorgLogo from "../assets/images/shared/partners/lens-org.svg";
 import puzzleIcon from "../assets/images/partners/shared/cards/puzzle.svg";
-import sharjahLogo from "../assets/images/shared/partners/sharjah.svg";
-import startinLogo from "../assets/images/shared/partners/startin.svg";
-import statistaLogo from "../assets/images/shared/partners/statista-partner.svg";
-import trexLogo from "../assets/images/shared/partners/trex-partner.svg";
+import {allentiaAssets} from "../pages/what-we-do/services/partners/allentia/data";
+import {brightideaAssets} from "../pages/what-we-do/services/partners/brightidea/data";
+import {gartnerAssets} from "../pages/what-we-do/services/partners/gartner/data";
+import {idcAssets} from "../pages/what-we-do/services/partners/idc/data";
+import {itonicsAssets} from "../pages/what-we-do/services/partners/itonics/data";
+import {leanAssets} from "../pages/what-we-do/services/partners/lean/data";
+import {lensorgAssets} from "../pages/what-we-do/services/partners/lensorg/data";
+import {sharjahAssets} from "../pages/what-we-do/services/partners/sharjah/data";
+import {startinAssets} from "../pages/what-we-do/services/partners/startin/data";
+import {statistaAssets} from "../pages/what-we-do/services/partners/statista/data";
+import {trexAssets} from "../pages/what-we-do/services/partners/trex/data";
 
 const sharedAssets = {
-  cardIcons: {
-    archery: archeryIcon,
-    globe: globeIcon,
-    puzzle: puzzleIcon,
-  },
+  cardIcons: {archery: archeryIcon, globe: globeIcon, puzzle: puzzleIcon},
   circleIcon,
+  excludeDark,
+  excludeLight,
+  heroImage,
 };
 
-function partnerAssets(logo, heroImage = itonicsHeroImage, extra = {}) {
-  return {
-    ...sharedAssets,
-    heroImage,
-    logo,
-    ...extra,
-  };
-}
+const withSharedAssets = (assets) => ({...sharedAssets, ...assets});
 
 export const partnerConfig = {
-  alleanita: {
-    assets: partnerAssets(alleanitaLogo),
-  },
-  brightidea: {
-    assets: partnerAssets(brightideaLogo, brightideaHeroImage, {
-      logoClassName: "max-h-24 max-w-[360px]",
-      lightLogoClassName: "brightness-0",
-    }),
-  },
-  gartner: {
-    assets: partnerAssets(gartnerLogo),
-  },
-  idc: {
-    assets: partnerAssets(idcLogo),
-  },
-  itonics: {
-    assets: partnerAssets(itonicsLogo, itonicsHeroImage, {
-      excludeDark: itonicsExclude,
-      excludeLight: itonicsExcludeBlack,
-      logoClassName: "max-h-[212px] max-w-[406px]",
-    }),
-  },
-  lean: {
-    assets: partnerAssets(leanLogo),
-  },
-  lensorg: {
-    assets: partnerAssets(lensorgLogo),
-  },
-  sharjah: {
-    assets: partnerAssets(sharjahLogo),
-  },
-  startin: {
-    assets: partnerAssets(startinLogo),
-  },
-  statista: {
-    assets: partnerAssets(statistaLogo),
-  },
-  trex: {
-    assets: partnerAssets(trexLogo),
-  },
+  allentia: {assets: withSharedAssets(allentiaAssets)},
+  brightidea: {assets: withSharedAssets(brightideaAssets)},
+  gartner: {assets: withSharedAssets(gartnerAssets)},
+  idc: {assets: withSharedAssets(idcAssets)},
+  itonics: {assets: withSharedAssets(itonicsAssets)},
+  lean: {assets: withSharedAssets(leanAssets)},
+  lensorg: {assets: withSharedAssets(lensorgAssets)},
+  sharjah: {assets: withSharedAssets(sharjahAssets)},
+  startin: {assets: withSharedAssets(startinAssets)},
+  statista: {assets: withSharedAssets(statistaAssets)},
+  trex: {assets: withSharedAssets(trexAssets)},
 };

@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 
 import {useTheme} from "../../../../../context/useTheme";
+import {routes} from "../../../../../routes";
 
 function ChevronRight() {
   return (
@@ -25,18 +26,22 @@ function ChevronRight() {
 function PartnerCard({partner, isDarkMode}) {
   const imageClassName = partner.imageClassName ?? "max-h-14 max-w-[137px]";
   const greenButtonTextColor = isDarkMode ? "text-black" : "text-white";
+  const logoImage = isDarkMode ? partner.darkImage ?? partner.image : partner.image;
+  const cardSurfaceClassName = isDarkMode
+    ? partner.darkCardClassName ?? "bg-white"
+    : partner.lightCardClassName ?? "bg-white";
 
   return (
     <Link
-      to={`/partners/${partner.id}`}
-      className={`group relative h-[68px] w-[172px] overflow-hidden rounded-2xl bg-white ${
+      to={routes.partner.replace(":slug", partner.id)}
+      className={`group relative h-[68px] w-[172px] overflow-hidden rounded-2xl ${cardSurfaceClassName} ${
         isDarkMode ? "" : "border border-black"
       }`}
       title={partner.name}
     >
       <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-center transition-all duration-300 ease-out group-hover:right-11 group-hover:-translate-x-1 group-hover:scale-90">
         <img loading="lazy"
-          src={partner.image}
+          src={logoImage}
           alt={partner.name}
           className={`object-contain ${imageClassName}`}
         />

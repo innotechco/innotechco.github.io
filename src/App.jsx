@@ -17,7 +17,9 @@ const InlearnAcademy = lazy(() =>
 );
 const Archives = lazy(() => import("./pages/what-we-think/archives/Archives"));
 const ArticlePage = lazy(() => import("./pages/articles/ArticlePage"));
-const PartnerPage = lazy(() => import("./pages/partners/PartnerPage"));
+const PartnerPage = lazy(() =>
+  import("./pages/what-we-do/services/partners/PartnerPage"),
+);
 const WhatWeThink = lazy(() => import("./pages/what-we-think/WhatWeThink"));
 const WhoWeAre = lazy(() => import("./pages/who-we-are/WhoWeAre"));
 const Inception = lazy(() =>

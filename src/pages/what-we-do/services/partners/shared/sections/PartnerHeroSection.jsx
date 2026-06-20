@@ -1,13 +1,8 @@
 function PartnerHeroSection({assets, content, isDarkMode}) {
   const greenButtonTextColor = isDarkMode ? "text-black" : "text-white";
-  const logoToneClass =
-    content.variant === "brightidea"
-      ? isDarkMode
-        ? "brightness-0 invert"
-        : "brightness-0"
-      : isDarkMode
-        ? ""
-        : assets.lightLogoClassName ?? "brightness-0";
+  const logoToneClass = isDarkMode
+    ? assets.darkLogoClassName ?? ""
+    : assets.lightLogoClassName ?? "brightness-0";
 
   return (
     <section className="px-6 pb-12 pt-36 md:px-16 md:pb-16 md:pt-40 xl:px-[120px]">

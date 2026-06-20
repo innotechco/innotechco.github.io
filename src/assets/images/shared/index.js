@@ -1,19 +1,16 @@
-import brightidea from "./partners/brightidea-partner.svg";
-import alleanita from "./partners/alleanita.svg";
-import brightidea2 from "./partners/brightidea-partner.svg";
-import gartner from "./partners/gartner.svg";
-import idc from "./partners/idc-partner.svg";
-import idc2 from "./partners/idc-partner.svg";
-import itonics from "./partners/Itonics.svg";
-import itonics2 from "./partners/itonics-partner.svg";
-import lean from "./partners/lean.svg";
-import lensorg from "./partners/lens-org.svg";
-import sharjah from "./partners/sharjah.svg";
-import startin from "./partners/startin.svg";
-import statista from "./partners/statista.webp";
-import statista2 from "./partners/statista-partner.svg";
-import trex from "./partners/trex-partner.svg";
-import trex2 from "./partners/trex-partner.svg";
+import allentia from "../partners/allentia/allentia.svg";
+import brightidea from "../partners/brightidea/brightidea-partner.svg";
+import gartner from "../partners/gartner/gartner.svg";
+import idc from "../partners/idc/idc-partner.svg";
+import itonics from "../partners/itonics/Itonics.svg";
+import itonicsPartner from "../partners/itonics/itonics-partner.svg";
+import lean from "../partners/lean/lean.svg";
+import lensorg from "../partners/lensorg/lens-org.svg";
+import sharjah from "../partners/sharjah/sharjah.svg";
+import startin from "../partners/startin/startin.svg";
+import statistaOnDark from "../partners/statista/statista.webp";
+import statistaOnLight from "../partners/statista/statista-partner.svg";
+import trex from "../partners/trex/trex-partner.svg";
 
 export const ecosystemImages = {
   brightidea,
@@ -22,22 +19,23 @@ export const ecosystemImages = {
 
 export const expertImages = {
   itonics,
-  statista,
-  statistaLight: statista2,
+  statista: statistaOnDark,
+  statistaLight: statistaOnLight,
   trex,
 };
 
 export const partnerImages = {
-  alleanita,
-  brightidea: brightidea2,
+  allentia,
+  brightidea,
   gartner,
-  idc: idc2,
-  itonics: itonics2,
+  idc,
+  itonics: itonicsPartner,
   lean,
   lensorg,
   sharjah,
   startin,
-  statista,
-  statistaLight: statista2,
-  trex: trex2,
+  statista: statistaOnDark,
+  statistaOnDark,
+  statistaOnLight,
+  trex,
 };

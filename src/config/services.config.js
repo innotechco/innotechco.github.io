@@ -31,8 +31,8 @@ export const serviceConfig = {
         image: partnerImages.idc,
         imageClassName: "max-h-18 ma-w-[130px] pb-1",
       },
-      alleanita: {
-        image: partnerImages.alleanita,
+      allentia: {
+        image: partnerImages.allentia,
         imageClassName: "max-h-12 max-w-[120px]",
       },
       startin: {
@@ -52,7 +52,11 @@ export const serviceConfig = {
         imageClassName: "max-h-11 max-w-[137px]",
       },
       itonics: {image: partnerImages.itonics},
-      statista: {image: partnerImages.statista},
+      statista: {
+        image: partnerImages.statistaOnLight,
+        darkImage: partnerImages.statistaOnLight,
+        imageClassName: "max-h-10 max-w-[137px]",
+      },
       gartner: {image: partnerImages.gartner},
       lensorg: {image: partnerImages.lensorg},
     },

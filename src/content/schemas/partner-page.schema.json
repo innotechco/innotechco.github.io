@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Partner page",
+  "type": "object",
+  "required": ["slug", "name", "hero", "intro", "stats", "tools"],
+  "properties": {
+    "slug": {"type": "string"},
+    "name": {"type": "string"},
+    "hero": {
+      "type": "object",
+      "required": ["tagline", "buttonLabel"],
+      "properties": {
+        "tagline": {"type": "string"},
+        "buttonLabel": {"type": "string"}
+      }
+    },
+    "intro": {
+      "type": "object",
+      "required": ["title", "body"],
+      "properties": {
+        "title": {"type": "string"},
+        "body": {"type": "string"}
+      }
+    },
+    "stats": {"type": "array"},
+    "tools": {"type": "object"}
+  }
+}

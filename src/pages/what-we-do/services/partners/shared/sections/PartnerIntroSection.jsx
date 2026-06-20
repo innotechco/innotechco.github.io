@@ -20,13 +20,15 @@ function PartnerIntroSection({assets, content, isDarkMode}) {
           </p>
         </div>
         <div className="relative h-[260px] w-full shrink-0 overflow-hidden md:h-[382px] xl:w-[600px]">
-          <img
-            loading="lazy"
-            src={assets.heroImage}
-            alt=""
-            aria-hidden
-            className="size-full object-cover"
-          />
+          {assets.heroImage ? (
+            <img
+              loading="lazy"
+              src={assets.heroImage}
+              alt=""
+              aria-hidden
+              className="size-full object-cover"
+            />
+          ) : null}
         </div>
       </div>
     </section>
