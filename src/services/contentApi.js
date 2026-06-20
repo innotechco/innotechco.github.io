@@ -151,27 +151,6 @@ function buildWhoWeArePage(content, config = {}) {
   };
 }
 
-function buildArchiveItems(seed) {
-  return Array.from({length: seed.count}, (_, index) => {
-    const month = (index % 12) + 1;
-    const day = (index % 27) + 1;
-    const year = seed.startYear - (index % seed.yearSpan);
-    const readMinutes = seed.baseReadMinutes + (index % seed.readMinuteSpan);
-
-    return {
-      id: index + 1,
-      title: seed.title,
-      description: seed.description,
-      date: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(
-        2,
-        "0",
-      )}`,
-      popularity: seed.basePopularity - index * seed.popularityStep,
-      readMinutes,
-    };
-  });
-}
-
 async function fetchJsonFromApi(path) {
   if (!contentApiBaseUrl) return null;
 
@@ -200,10 +179,7 @@ export function getWhatWeThinkPage() {
 }
 
 export function getArchivesPage() {
-  return {
-    ...archivesPage,
-    archiveItems: buildArchiveItems(archivesPage.seed),
-  };
+  return archivesPage;
 }
 
 export function getWhoWeArePage() {

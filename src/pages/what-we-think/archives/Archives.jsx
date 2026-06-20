@@ -1,53 +1,40 @@
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 
 import ReadMoreLink from "../../../components/ui/ReadMoreLink";
 import {useTheme} from "../../../context/useTheme";
-import HowWeThinkImage from "../../../assets/images/shared/how-we-think.webp";
-import {archiveItems, sortOptions} from "./data";
+import SearchIcon from "../../../assets/icons/Search.svg";
+import ArchiveLightDecoration from "../../../assets/images/archives/WhoWeAreExcludeTopMiddle.webp";
+import ArchiveDarkDecoration from "../../../assets/images/archives/WhoWeAreExcludeMiddle.webp";
+import {archiveItems, archivePage} from "./data";
 import {usePointerGlow} from "../../../hooks/usePointerGlow";
+
+const INITIAL_CARD_COUNT = 9;
+const LOAD_MORE_DELAY = 700;
 
 function ArchiveCard({item, isDarkMode}) {
   const {position, handlers} = usePointerGlow();
-  const textColor = isDarkMode ? "text-white" : "text-black";
 
   return (
-    <div
-      className="relative min-w-0"
-      {...handlers}
-    >
+    <div className="archive-card-shell" {...handlers}>
       <div
-        className="pointer-events-none absolute inset-0 rounded-[28px] transition-opacity duration-300"
+        className="archive-card-glow"
         style={{
           opacity: position.active ? 1 : 0,
-          background: `radial-gradient(420px circle at ${position.x}px ${position.y}px, rgba(55, 180, 120, 0.55), transparent 75%)`,
-          filter: "blur(18px)",
+          background: `radial-gradient(340px circle at ${position.x}px ${position.y}px, rgba(55, 180, 120, 0.46), transparent 72%)`,
         }}
       />
-      <article
-        className={`relative z-10 flex h-full min-h-[410px] flex-col overflow-hidden rounded-[28px] border border-[#37B478] transition-colors duration-500 ${
-          isDarkMode ? "bg-black" : "bg-white"
-        }`}
-      >
-        <div className="h-40 overflow-hidden">
-          <img loading="lazy"
-            src={HowWeThinkImage}
-            alt=""
-            aria-hidden
-            className="size-full object-cover transition-transform duration-500 hover:scale-105"
-          />
+      <article className={`archive-card ${isDarkMode ? "is-dark" : "is-light"}`}>
+        <div className="archive-card-image">
+          <img src={item.image} alt="" aria-hidden="true" loading="lazy" />
         </div>
-        <div className="flex flex-1 flex-col gap-3 p-5 font-['Gotham']">
-          <h2 className={`text-lg font-bold leading-tight ${textColor}`}>
-            {item.title}
-          </h2>
-          <div className="flex items-center justify-between gap-3 text-sm">
-            <span className={textColor}>{item.date}</span>
-            <span className="text-[#37B478]">{item.readMinutes} min read</span>
+        <div className="archive-card-copy">
+          <h2>{item.title}</h2>
+          <p>{item.description}</p>
+          <div className="archive-card-meta">
+            <span className="archive-read-time">{item.readMinutes} minutes read</span>
+            <span>{item.date}</span>
+            <ReadMoreLink isDarkMode={isDarkMode} className="archive-card-read-more" />
           </div>
-          <p className={`text-sm leading-[1.45] ${textColor}`}>
-            {item.description}
-          </p>
-          <ReadMoreLink isDarkMode={isDarkMode} className="mt-auto text-sm" />
         </div>
       </article>
     </div>
@@ -57,73 +44,119 @@ function ArchiveCard({item, isDarkMode}) {
 function Archives() {
   const {isDarkMode} = useTheme();
   const [query, setQuery] = useState("");
-  const [sortBy, setSortBy] = useState("newest");
-  const pageBackground = isDarkMode ? "bg-[#050505]" : "bg-white";
-  const textColor = isDarkMode ? "text-white" : "text-black";
-  const fieldSurface = isDarkMode
-    ? "border-white/15 bg-white/5 text-white placeholder:text-white/45"
-    : "border-black/15 bg-black/5 text-black placeholder:text-black/45";
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [visibleCount, setVisibleCount] = useState(INITIAL_CARD_COUNT);
+  const [isLoading, setIsLoading] = useState(false);
+  const tagsRailRef = useRef(null);
+
+  useEffect(() => {
+    const rail = tagsRailRef.current;
+    if (!rail) return undefined;
+
+    const initialOffset = 48;
+    rail.scrollLeft = initialOffset;
+    return undefined;
+  }, []);
 
   const filteredItems = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    const matches = normalizedQuery
-      ? archiveItems.filter(
-          (item) =>
-            item.title.toLowerCase().includes(normalizedQuery) ||
-            item.description.toLowerCase().includes(normalizedQuery),
-        )
-      : archiveItems;
+    return archiveItems.filter(({title, description, categories}) => {
+      const matchesQuery = !normalizedQuery ||
+        `${title} ${description}`.toLowerCase().includes(normalizedQuery);
+      const matchesCategory = selectedCategory === "all" || categories.includes(selectedCategory);
 
-    return [...matches].sort((a, b) => {
-      if (sortBy === "popular") return b.popularity - a.popularity;
-      if (sortBy === "oldest") return new Date(a.date) - new Date(b.date);
-      if (sortBy === "longest") return b.readMinutes - a.readMinutes;
-      return new Date(b.date) - new Date(a.date);
+      return matchesQuery && matchesCategory;
     });
-  }, [query, sortBy]);
+  }, [query, selectedCategory]);
+
+  const visibleItems = filteredItems.slice(0, visibleCount);
+  const canShowMore = visibleCount < filteredItems.length;
+
+  function handleSearch(event) {
+    setQuery(event.target.value);
+    setVisibleCount(INITIAL_CARD_COUNT);
+  }
+
+  function handleShowMore() {
+    setIsLoading(true);
+    window.setTimeout(() => {
+      setVisibleCount((count) => Math.min(count + 6, filteredItems.length));
+      setIsLoading(false);
+    }, LOAD_MORE_DELAY);
+  }
+
+  function handleCategorySelect(categoryId, event) {
+    setSelectedCategory(categoryId);
+    setVisibleCount(INITIAL_CARD_COUNT);
+
+    const rail = tagsRailRef.current;
+    if (!rail) return;
+
+    if (categoryId === "all" || categoryId === "insight") {
+      rail.scrollTo({left: 0, behavior: "smooth"});
+      return;
+    }
+
+    if (categoryId === "foresight") {
+      rail.scrollTo({left: rail.scrollWidth - rail.clientWidth, behavior: "smooth"});
+      return;
+    }
+
+    event.currentTarget.scrollIntoView({behavior: "smooth", block: "nearest", inline: "center"});
+  }
+
+  const pageClass = isDarkMode ? "archive-page is-dark" : "archive-page is-light";
+  const decoration = isDarkMode ? ArchiveDarkDecoration : ArchiveLightDecoration;
 
   return (
-    <main
-      className={`min-h-screen w-full overflow-hidden px-7 pb-24 pt-36 transition-colors duration-500 lg:px-35 ${pageBackground}`}
-    >
-      <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-10">
-        <section className="flex flex-col items-center gap-3 text-center">
-          <div className="size-6 rounded-full bg-[#37B478]" />
-          <h1 className={`font-['Gotham'] text-5xl font-bold ${textColor}`}>
-            Archives
-          </h1>
-        </section>
+    <main className={pageClass}>
+      <img className="archive-decoration" src={decoration} alt="" aria-hidden="true" />
+      <div className="archive-content">
+        <header className="archive-heading">
+          <span>{archivePage.eyebrow}</span>
+          <h1>{archivePage.title}</h1>
+          <p>{archivePage.description}</p>
+          <label className="archive-search" aria-label="Search archive cards">
+            <img src={SearchIcon} alt="" aria-hidden="true" />
+            <input type="search" value={query} onChange={handleSearch} placeholder={archivePage.searchPlaceholder} />
+            <span>Search</span>
+          </label>
+        </header>
 
-        <section className="flex flex-col gap-4 md:flex-row">
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search archives"
-            className={`min-h-14 flex-1 rounded-[50px] border px-6 font-['Gotham'] text-base outline-none transition-colors ${fieldSurface}`}
-          />
-          <select
-            value={sortBy}
-            onChange={(event) => setSortBy(event.target.value)}
-            className={`min-h-14 rounded-[50px] border px-6 font-['Gotham'] text-base outline-none transition-colors md:w-64 ${fieldSurface}`}
-          >
-            {sortOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </section>
+        <div className="archive-tags" aria-label="Archive categories">
+          <div className="archive-tags-rail" ref={tagsRailRef}>
+            <div className="archive-tags-track">
+              {archivePage.categories.map((category) => (
+                <button
+                  key={category.id}
+                  type="button"
+                  className={`archive-tag ${selectedCategory === category.id ? "is-active" : ""}`}
+                  onClick={(event) => handleCategorySelect(category.id, event)}
+                  aria-pressed={selectedCategory === category.id}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
 
-        <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
-          {filteredItems.map((item) => (
-            <ArchiveCard
-              key={item.id}
-              item={item}
-              isDarkMode={isDarkMode}
-            />
-          ))}
-        </section>
+        {visibleItems.length ? (
+          <section className="archive-grid" aria-label="Archive articles">
+            {visibleItems.map((item) => <ArchiveCard key={item.id} item={item} isDarkMode={isDarkMode} />)}
+          </section>
+        ) : (
+          <p className="archive-empty">No insights match your search.</p>
+        )}
+
+        {canShowMore && (
+          <div className="archive-load-more">
+            <button type="button" onClick={handleShowMore} disabled={isLoading} aria-busy={isLoading}>
+              {isLoading && <span className="archive-spinner" aria-hidden="true" />}
+              <span>{isLoading ? archivePage.loadingLabel : archivePage.showMoreLabel}</span>
+            </button>
+          </div>
+        )}
       </div>
     </main>
   );
