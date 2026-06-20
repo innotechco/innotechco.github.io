@@ -34,7 +34,7 @@ jobs:
         env:
           # Defaults to the project Pages URL. Set the repository variable
           # PAGES_BASE_PATH to / when a custom domain is connected.
-          VITE_BASE_PATH: "https://innotech.global/"
+          VITE_BASE_PATH: "http://innotech.global/"
         run: npm run build
 
       - name: Add SPA fallback
