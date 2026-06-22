@@ -32,20 +32,18 @@ jobs:
 
       - name: Build
         env:
-          # The company repo serves from its custom-domain root; the personal
-          # repo serves from its GitHub Pages project path.
-          VITE_BASE_PATH: ${{ github.repository == 'rdfco/innotech-website' && '/' || format('/{0}/', github.event.repository.name) }}
+          # innotechco.github.io is an organization site and is served from /.
+          VITE_BASE_PATH: /
         run: npm run build
 
       - name: Add SPA fallback
         run: cp dist/index.html dist/404.html
 
-      - name: Add custom-domain file
-        if: github.repository == 'rdfco/innotech-website'
-        run: printf '%s\n' 'innotech.global' > dist/CNAME
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          # Create the Pages site automatically when it has not been enabled yet.
+          enablement: true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

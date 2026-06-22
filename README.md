@@ -1,30 +1,19 @@
 # React + Vite
 
-## Deploying to GitHub Pages with a custom domain
+## Deploying to GitHub Pages
 
 The GitHub Actions workflow in `.github/workflows/deploy-pages.yml` builds and
-deploys the site after each push to `main`. Until a custom domain is selected,
-it uses the repository's default Pages URL. When a custom domain is ready, set
-the repository Actions variable `PAGES_BASE_PATH` to `/` before deploying.
+deploys the site after each push to `main`. Because this repository is named
+`innotechco.github.io`, it is an organization site and is built for the root URL:
+https://innotechco.github.io/.
 
 One-time GitHub setup:
 
-1. Open **Settings → Pages** in `rdfco/innotech-website`.
-2. Set **Source** to **GitHub Actions**.
-3. Enter the company's chosen domain under **Custom domain**, save it, and enable
-   **Enforce HTTPS** once GitHub verifies the DNS records.
-4. In **Settings → Secrets and variables → Actions → Variables**, create
-   `PAGES_BASE_PATH` with the value `/`, then re-run the Pages workflow.
-
-DNS setup (at the domain's DNS provider):
-
-- Add these four `A` records for `@`:
-  `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and
-  `185.199.111.153`.
-- Optionally add `www` as a `CNAME` pointing to `rdfco.github.io`.
-
-After DNS propagation, GitHub Pages will serve the site at
-the custom domain configured in GitHub Pages.
+1. Push the workflow to `main` or run **Deploy to GitHub Pages** manually. The
+   workflow requests Pages enablement when the site does not exist yet.
+2. If organization policy prevents automatic enablement, open **Settings →
+   Pages** in `innotechco/innotechco.github.io` and set **Source** to **GitHub
+   Actions**, then re-run the workflow.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
