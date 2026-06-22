@@ -11,7 +11,6 @@ import ScrollToTop from "./components/layout/ScrollToTop";
 import {industryRoutes, serviceRoutes, routes} from "./routes";
 
 const Home = lazy(() => import("./pages/home/Home"));
-const AiAgent = lazy(() => import("./pages/ai-agent/AiAgent"));
 const InlearnAcademy = lazy(() =>
   import("./pages/inlearn-academy/InlearnAcademy"),
 );
@@ -56,7 +55,7 @@ function App() {
       : [
           ...serviceRoutes,
           ...industryRoutes,
-          routes.aiAgent,
+          routes.featuredArticle,
           routes.inlearnAcademy,
           routes.archives,
           routes.whoWeAre,
@@ -72,7 +71,6 @@ function App() {
         <Suspense fallback={null}>
           <Routes>
             <Route path={routes.home} element={<Home />} />
-            <Route path={routes.aiAgent} element={<AiAgent />} />
             <Route path={routes.inlearnAcademy} element={<InlearnAcademy />} />
             <Route path={routes.archives} element={<Archives />} />
             <Route path={routes.article} element={<ArticlePage />} />

@@ -11,6 +11,9 @@
     "date": {"type": "string"},
     "readTime": {"type": "string"},
     "category": {"type": "string"},
+    "heroAssetKey": {"type": "string"},
+    "contentAssetKey": {"type": "string"},
+    "related": {"type": "array"},
     "seo": {
       "type": "object",
       "required": ["title", "description"],
@@ -34,7 +37,12 @@
             "enum": ["text", "quote", "image", "stats", "cards", "cta"]
           },
           "heading": {"type": "string"},
+          "id": {"type": "string"},
           "content": {"type": "string"},
+          "paragraphs": {"type": "array", "items": {"type": "string"}},
+          "subheading": {"type": "string"},
+          "after": {"type": "array", "items": {"type": "string"}},
+          "caption": {"type": "string"},
           "items": {"type": "array"},
           "assetKey": {"type": "string"}
         }

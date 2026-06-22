@@ -1,4 +1,3 @@
-import aiAgentPage from "../content/en/pages/ai-agent.json";
 import homePage from "../content/en/pages/home/home.json";
 import inlearnAcademyPage from "../content/en/pages/inlearn-academy.json";
 import archivesPage from "../content/en/pages/what-we-think/archives.json";
@@ -164,10 +163,6 @@ async function fetchJsonFromApi(path) {
 
 export function getHomePage() {
   return buildHomePage(homePage, homeConfig);
-}
-
-export function getAiAgentPage() {
-  return aiAgentPage;
 }
 
 export function getInlearnAcademyPage() {

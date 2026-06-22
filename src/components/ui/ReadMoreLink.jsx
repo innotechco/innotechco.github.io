@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {routes} from "../../routes";
 
 function ReadMoreLink({
-  to = routes.aiAgent,
+  to = routes.featuredArticle,
   label = "Read more",
   isDarkMode,
   className = "",

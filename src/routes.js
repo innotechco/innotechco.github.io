@@ -1,12 +1,12 @@
 export const routes = {
   home: "/",
-  aiAgent: "/ai-agent",
   inlearnAcademy: "/inlearn-academy",
   archives: "/archives",
   whatWeThink: "/what-we-think",
   whoWeAre: "/who-we-are",
   article: "/articles/:slug",
   articles: "/articles",
+  featuredArticle: "/articles/product-portfolio-management",
   partner: "/what-we-do/partners/:slug",
   partners: "/what-we-do/partners",
   inception: "/what-we-do/inception",
