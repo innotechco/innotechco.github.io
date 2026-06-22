@@ -131,15 +131,17 @@ test("Gotham uses the original CDN stylesheet", () => {
   assert.doesNotMatch(html, /GothamRegular\.woff/);
 });
 
-test("GitHub Pages deployment supports the organization site URL", () => {
+test("GitHub Pages deployment supports organization and project site URLs", () => {
   const workflow = fs.readFileSync(
     path.join(root, ".github", "workflows", "deploy-pages.yml"),
     "utf8",
   );
 
-  assert.match(workflow, /VITE_BASE_PATH:\s*\//);
+  assert.match(workflow, /github\.event\.repository\.name\s*==\s*format\('\{0\}\.github\.io'/);
+  assert.match(workflow, /format\('\/\{0\}\/',\s*github\.event\.repository\.name\)/);
   assert.match(workflow, /cp dist\/index\.html dist\/404\.html/);
   assert.match(workflow, /cancel-in-progress:\s*true/);
   assert.match(workflow, /enablement:\s*true/);
-  assert.doesNotMatch(workflow, /rdfco\/innotech-website/);
+  assert.match(workflow, /if:\s*github\.repository\s*==\s*'innotechco\/innotechco\.github\.io'/);
+  assert.match(workflow, /build_type=workflow/);
 });

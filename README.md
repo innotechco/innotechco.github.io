@@ -10,10 +10,15 @@ https://innotechco.github.io/.
 One-time GitHub setup:
 
 1. Push the workflow to `main` or run **Deploy to GitHub Pages** manually. The
-   workflow requests Pages enablement when the site does not exist yet.
+   workflow requests Pages enablement and selects **GitHub Actions** as the
+   publication source for `innotechco/innotechco.github.io`.
 2. If organization policy prevents automatic enablement, open **Settings →
    Pages** in `innotechco/innotechco.github.io` and set **Source** to **GitHub
    Actions**, then re-run the workflow.
+
+The base path is calculated per repository. The organization site uses `/`,
+while a project site such as `IconicCerberrus/InnoTech-Website` uses
+`/InnoTech-Website/`; deploying one does not replace or redirect the other.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
