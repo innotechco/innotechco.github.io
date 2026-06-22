@@ -142,6 +142,5 @@ test("GitHub Pages deployment supports organization and project site URLs", () =
   assert.match(workflow, /cp dist\/index\.html dist\/404\.html/);
   assert.match(workflow, /cancel-in-progress:\s*true/);
   assert.match(workflow, /enablement:\s*true/);
-  assert.match(workflow, /if:\s*github\.repository\s*==\s*'innotechco\/innotechco\.github\.io'/);
-  assert.match(workflow, /build_type=workflow/);
+  assert.doesNotMatch(workflow, /gh api/);
 });

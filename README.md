@@ -10,11 +10,10 @@ https://innotechco.github.io/.
 One-time GitHub setup:
 
 1. Push the workflow to `main` or run **Deploy to GitHub Pages** manually. The
-   workflow requests Pages enablement and selects **GitHub Actions** as the
-   publication source for `innotechco/innotechco.github.io`.
-2. If organization policy prevents automatic enablement, open **Settings →
-   Pages** in `innotechco/innotechco.github.io` and set **Source** to **GitHub
-   Actions**, then re-run the workflow.
+   workflow requests Pages enablement when the site does not exist yet.
+2. Open **Settings → Pages** in `innotechco/innotechco.github.io`, set **Source**
+   to **GitHub Actions**, and then re-run the workflow. GitHub does not allow the
+   workflow's built-in token to change this repository setting.
 
 The base path is calculated per repository. The organization site uses `/`,
 while a project site such as `IconicCerberrus/InnoTech-Website` uses
