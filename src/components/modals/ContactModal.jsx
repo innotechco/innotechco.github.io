@@ -153,60 +153,67 @@ function ContactModal({isOpen, onClose}) {
   const fieldFrameClassName = `w-full px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] inline-flex justify-start items-start gap-2.5`;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto px-3 pb-6 pt-[calc(env(safe-area-inset-top)+88px)] sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+104px)] lg:items-center lg:overflow-hidden lg:py-6">
-      {/* Overlay */}
-      <div
-        className={`absolute inset-0 ${overlayBg} backdrop-blur-sm transition-opacity duration-1000 ease-out ${
-          visible ? "opacity-100" : "opacity-0"
-        }`}
-        onClick={handleClose}
-      />
+  <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto px-3 pb-6 pt-[calc(env(safe-area-inset-top)+88px)] sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+104px)] lg:items-center lg:overflow-hidden lg:py-6">
+    {/* Overlay */}
+    <div
+      className={`absolute inset-0 ${overlayBg} backdrop-blur-sm transition-opacity duration-1000 ease-out ${
+        visible ? "opacity-100" : "opacity-0"
+      }`}
+      onClick={handleClose}
+    />
 
-      {/* Modal */}
-      <div
-        className={`relative inline-flex max-h-[calc(100svh-112px)] w-full max-w-[929px] flex-col items-end justify-end gap-4 overflow-y-auto rounded-[24px] p-4 shadow-2xl outline outline-1 outline-offset-[-1px] sm:max-h-[calc(100svh-132px)] sm:gap-5 sm:rounded-[34px] sm:p-6 lg:max-h-[calc(100svh-48px)] lg:rounded-[40px] lg:p-11 ${modalBg} ${modalOutline} transform transition-all duration-1000 ease-out ${
-          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24"
-        }`}
-      >
+    {/* Modal */}
+    <div
+      className={`relative flex h-[calc(100svh-112px)] w-full max-w-[929px] flex-col overflow-hidden rounded-[24px]
+      sm:h-[calc(100svh-132px)]
+      lg:h-[calc(100svh-48px)]
+      ${modalBg} ${modalOutline}
+      transform transition-all duration-1000 ease-out ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24"
+      }`}
+    >
+      {/* Header */}
+      <div className="shrink-0 p-4 sm:p-6 lg:px-11 lg:pt-11">
+        <div className="inline-flex items-center justify-between self-stretch gap-4 w-full">
+          <div className="relative flex min-w-0 flex-1 items-end justify-between px-4">
+            <div className="absolute left-0 top-[-10px] size-9 rounded-full border border-[#37B478] sm:top-[-15px] sm:size-11" />
+
+            <div
+              className={`min-w-0 justify-start font-['Gotham'] text-lg font-normal sm:text-xl lg:text-2xl ${textColor}`}
+            >
+              {contactContent.title}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleClose}
+            aria-label={contactContent.closeLabel}
+            className="relative flex size-11 shrink-0 items-center justify-center overflow-hidden"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className={`size-5 ${closeIconColor}`}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 6L18 18" />
+              <path d="M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Scroll Area */}
+      <div className="flex-1 overflow-y-auto px-4 pb-4 sm:px-6 lg:px-11">
         <form
           className="flex w-full flex-col items-end gap-5"
           onSubmit={handleSubmit}
           noValidate
         >
-          {/* Header */}
-          <div className="inline-flex items-center justify-between self-stretch gap-4">
-            <div className="relative flex min-w-0 flex-1 items-end justify-between px-4">
-              {/* Decorative circle */}
-              <div className="absolute left-0 top-[-10px] size-9 rounded-full border border-[#37B478] sm:top-[-15px] sm:size-11" />
-              <div
-                className={`min-w-0 justify-start font-['Gotham'] text-lg font-normal sm:text-xl lg:text-2xl ${textColor}`}
-              >
-                {contactContent.title}
-              </div>
-            </div>
-
-            {/* Close Button */}
-            <button
-              type="button"
-              onClick={handleClose}
-              aria-label={contactContent.closeLabel}
-              className="relative flex size-11 shrink-0 items-center justify-center overflow-hidden"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                className={`size-5 ${closeIconColor}`}
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M6 6L18 18" />
-                <path d="M18 6L6 18" />
-              </svg>
-            </button>
-          </div>
-
           <ContactFormFields
             closeIconColor={closeIconColor}
             errorColor={errorColor}
@@ -229,7 +236,8 @@ function ContactModal({isOpen, onClose}) {
         </form>
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default ContactModal;
