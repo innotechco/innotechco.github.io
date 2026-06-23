@@ -44,7 +44,7 @@ function EcosystemCard({
       />
 
       <article
-        className={`relative z-10 flex h-[250px] min-w-0 flex-col overflow-hidden rounded-[25px] border border-[#37B478] p-6 ${
+        className={`relative z-10 flex min-h-[230px] min-w-0 flex-col overflow-hidden rounded-[25px] border border-[#37B478] p-4 sm:h-[250px] sm:p-6 ${
           isDarkMode ? "bg-[#050505]" : "bg-white"
         }`}
       >
@@ -54,8 +54,8 @@ function EcosystemCard({
           alt=""
           aria-hidden="true"
         />
-        <div className="relative z-10 flex w-full items-end justify-between gap-3">
-          <div className="relative size-[80px] top-[-27px] shrink-0 overflow-hidden rounded-bl-[25px] rounded-br-[100px] rounded-tl-[25px] rounded-tr-[100px]">
+        <div className="relative z-10 flex w-full flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="relative size-[62px] shrink-0 overflow-hidden rounded-bl-[20px] rounded-br-[70px] rounded-tl-[20px] rounded-tr-[70px] sm:top-[-27px] sm:size-[80px]">
             <img loading="lazy"
               className={`block size-full object-contain ${activeImageClassName}`}
               src={!isDarkMode && imageLight ? imageLight : image}
@@ -64,7 +64,7 @@ function EcosystemCard({
           </div>
 
           <button
-            className={`shrink-0 rounded-bl-[30px] rounded-br-[20px] rounded-tr-[20px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-sm font-bold leading-none ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
+            className={`min-h-11 shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-xs font-bold leading-tight sm:text-sm ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
             type="button"
           >
             {actionLabel}
@@ -77,11 +77,11 @@ function EcosystemCard({
           }`}
         >
           <h3
-            className={`font-['Gotham'] text-2xl font-bold leading-none ${titleClassName}`}
+            className={`font-['Gotham'] text-lg font-bold leading-tight sm:text-2xl sm:leading-none ${titleClassName}`}
           >
             {title}
           </h3>
-          <p className="mt-1 font-['Gotham'] text-base font-normal leading-none">
+          <p className="mt-1 font-['Gotham'] text-sm font-normal leading-tight sm:text-base sm:leading-none">
             {subtitle}
           </p>
         </div>
@@ -109,7 +109,7 @@ function EcosystemCardsSection({
           {title}
         </SectionTitle>
 
-        <div className="grid w-full grid-cols-1 items-stretch gap-8 overflow-visible lg:grid-cols-3">
+        <div className="grid w-full grid-cols-2 items-stretch gap-4 overflow-visible md:gap-8 lg:grid-cols-3">
           {cards.map((card) => (
             <EcosystemCard
               key={card.id}

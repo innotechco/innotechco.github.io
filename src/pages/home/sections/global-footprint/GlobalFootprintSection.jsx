@@ -8,13 +8,9 @@ function GlobalFootprintSection() {
 
   return (
     <div
-      className={`self-stretch min-h-[972px] py-14 pb-56 relative z-10 transition-colors duration-500 ease-in-out ${
+      className={`relative z-10 self-stretch px-4 py-14 pb-24 transition-colors duration-500 ease-in-out sm:px-6 md:px-16 lg:min-h-[972px] lg:pb-56 xl:px-[120px] ${
         isDarkMode ? "bg-black" : "bg-white"
       }`}
-      style={{
-        paddingLeft: "120px",
-        paddingRight: "120px",
-      }}
     >
       {/* ================= SECTION HEADER ================= */}
       <div className="self-stretch relative flex flex-col justify-center items-start gap-2 mb-12">
@@ -23,7 +19,7 @@ function GlobalFootprintSection() {
 
         {/* Main heading */}
         <div
-          className={`self-stretch justify-start text-4xl font-bold font-['Gotham'] transition-colors duration-500 ease-in-out ${
+          className={`self-stretch justify-start font-['Gotham'] text-[clamp(2rem,6vw,2.25rem)] font-bold transition-colors duration-500 ease-in-out ${
             isDarkMode ? "text-white" : "text-black"
           }`}
         >
@@ -32,7 +28,7 @@ function GlobalFootprintSection() {
 
         {/* Subheading */}
         <div
-          className={`self-stretch justify-start text-lg font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
+          className={`max-w-[75ch] justify-start font-['Gotham'] text-base font-light transition-colors duration-500 ease-in-out sm:text-lg ${
             isDarkMode ? "text-white" : "text-black"
           }`}
         >
@@ -45,7 +41,7 @@ function GlobalFootprintSection() {
         <img loading="lazy"
           src={isDarkMode ? MapImage : MapLightImage}
           alt={globalFootprint.imageAlt}
-          className="w-full max-w-[1100px] object-contain transition-opacity duration-500 ease-in-out"
+          className="h-auto w-full max-w-[1100px] object-contain transition-opacity duration-500 ease-in-out"
         />
       </div>
     </div>

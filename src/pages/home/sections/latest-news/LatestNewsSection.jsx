@@ -8,24 +8,24 @@ function LatestNewsSection() {
 
   return (
     <section
-      className={`relative w-full px-7 py-[60px] lg:px-35 transition-colors duration-500 ease-in-out ${
+      className={`relative w-full px-4 py-[60px] sm:px-6 lg:px-35 transition-colors duration-500 ease-in-out ${
         isDarkMode ? "bg-black" : "bg-white"
       }`}
     >
       <div className="mx-auto w-full max-w-[1600px]">
         <div
-          className={`flex h-[570px] flex-col overflow-hidden rounded-[50px] transition-colors duration-500 ease-in-out lg:flex-row ${
+          className={`flex flex-col overflow-hidden rounded-[32px] transition-colors duration-500 ease-in-out lg:h-[570px] lg:flex-row lg:rounded-[50px] ${
             isDarkMode ? "bg-white" : "bg-black"
           }`}
         >
           {/* LEFT CONTENT */}
-          <div className="flex-1 self-stretch px-[68px] py-[68px] flex flex-col">
+          <div className="flex flex-1 flex-col self-stretch px-6 py-8 sm:px-10 lg:px-[68px] lg:py-[68px]">
             {/* Title */}
             <div className="relative inline-flex items-center">
               <div className="absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
 
               <div
-                className={`relative z-10 text-4xl font-bold font-['Gotham'] leading-none transition-colors duration-500 ease-in-out ${
+                className={`relative z-10 font-['Gotham'] text-[clamp(2rem,6vw,2.25rem)] font-bold leading-none transition-colors duration-500 ease-in-out ${
                   isDarkMode ? "text-black" : "text-white"
                 }`}
               >
@@ -37,7 +37,7 @@ function LatestNewsSection() {
 
             {/* Headline */}
             <div
-              className={`max-w-[690px] text-3xl font-medium font-['Gotham'] leading-[1.28] transition-colors duration-500 ease-in-out ${
+              className={`max-w-[690px] font-['Gotham'] text-[clamp(1.4rem,6vw,1.875rem)] font-medium leading-[1.28] transition-colors duration-500 ease-in-out ${
                 isDarkMode ? "text-black" : "text-white"
               }`}
             >
@@ -80,7 +80,7 @@ function LatestNewsSection() {
           </div>
 
           {/* Featured image */}
-          <div className="w-full lg:w-[496px] shrink-0 self-stretch overflow-hidden">
+          <div className="h-72 w-full shrink-0 self-stretch overflow-hidden lg:h-auto lg:w-[496px]">
             <img loading="lazy"
               src={LatestNewsImage}
               alt="Latest news"

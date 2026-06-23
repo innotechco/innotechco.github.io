@@ -82,7 +82,7 @@ function ServiceRoad({title, items}) {
   return (
     <section
       ref={sectionRef}
-      className={`w-full overflow-hidden px-6 pb-[180px] pt-[220px] md:px-16 xl:px-[120px] ${pageBg}`}
+      className={`w-full overflow-hidden px-4 pb-28 pt-32 sm:px-6 md:px-16 md:pb-[180px] md:pt-[220px] xl:px-[120px] ${pageBg}`}
     >
       <style>
         {`
@@ -95,10 +95,11 @@ function ServiceRoad({title, items}) {
       </style>
 
       <div className="flex flex-col items-center gap-12">
-        <h2 className={`${textColor} font-['Gotham'] text-4xl font-bold`}>
+        <h2 className={`${textColor} text-center font-['Gotham'] text-[clamp(2rem,6vw,2.25rem)] font-bold`}>
           {title}
         </h2>
 
+        <div className="w-full overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="relative h-[360px] w-[1166px] shrink-0">
             <div
               className={`absolute left-[1px] top-[4px] overflow-hidden transition-all duration-[1800ms] ease-out ${
@@ -177,6 +178,7 @@ function ServiceRoad({title, items}) {
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </section>

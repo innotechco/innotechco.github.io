@@ -36,7 +36,7 @@ function StatCard({stat, isVisible, isDarkMode}) {
 
   return (
     <div
-      className={`group relative flex h-44 min-w-[220px] flex-col items-center justify-center rounded-[32px] bg-[#37B478]/0 p-5 transition-all duration-1000 ease-out hover:-translate-y-2 hover:bg-[#37B478] hover:shadow-[0_18px_45px_-24px_rgba(55,180,120,0.9)] ${
+      className={`group relative flex h-40 min-w-0 flex-col items-center justify-center rounded-[28px] bg-[#37B478]/0 p-4 text-center transition-all duration-1000 ease-out hover:-translate-y-2 hover:bg-[#37B478] hover:shadow-[0_18px_45px_-24px_rgba(55,180,120,0.9)] sm:h-44 sm:p-5 ${
         isVisible
           ? "translate-y-0 opacity-100 blur-0"
           : "translate-y-7 opacity-0 blur-sm"
@@ -46,16 +46,16 @@ function StatCard({stat, isVisible, isDarkMode}) {
         src={stat.icon}
         alt=""
         aria-hidden
-        className={`pointer-events-none absolute h-36 w-auto object-contain transition-all duration-300 group-hover:scale-105 ${
+        className={`pointer-events-none absolute h-24 w-auto object-contain transition-all duration-300 group-hover:scale-105 sm:h-36 ${
           isDarkMode ? "opacity-90" : "opacity-15 group-hover:opacity-90"
         } ${
           isDarkMode ? "" : `${lightIconFilter} group-hover:[filter:none]`
         }`}
       />
-      <div className="relative z-10 mt-8 font-['Gotham'] text-3xl font-bold leading-none text-[#37B478] transition-colors duration-300 group-hover:text-white">
+      <div className="relative z-10 mt-8 font-['Gotham'] text-2xl font-bold leading-none text-[#37B478] transition-colors duration-300 group-hover:text-white sm:text-3xl">
         +{count}
       </div>
-      <div className={`relative z-10 mt-1 font-['Gotham'] text-sm font-bold transition-colors duration-300 group-hover:text-white ${labelColor}`}>
+      <div className={`relative z-10 mt-1 font-['Gotham'] text-xs font-bold transition-colors duration-300 group-hover:text-white sm:text-sm ${labelColor}`}>
         {stat.label}
       </div>
     </div>
@@ -90,7 +90,7 @@ function StatsSection({stats, isDarkMode}) {
       ref={sectionRef}
       className="relative px-6 py-24 md:px-16 xl:px-[120px]"
     >
-      <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between">
+      <div className="mx-auto grid w-full max-w-[720px] grid-cols-2 items-stretch gap-4 md:max-w-[1600px] xl:flex xl:items-center xl:justify-between">
         {stats.map((stat) => (
           <StatCard
             key={stat.id}

@@ -79,10 +79,10 @@ function InnoCard({title, subtitle, items = []}) {
   return (
     <div
       className={`
-        relative -mt-14 
-        w-65 h-100 
-        px-8 py-6 
-        rounded-[50px]
+        relative 
+        w-full min-h-[390px] sm:min-h-[400px] lg:-mt-14 lg:w-65 lg:h-100
+        px-4 py-5 sm:px-6 lg:px-8 lg:py-6
+        rounded-[30px] lg:rounded-[50px]
         border 
         ${cardBg}
         ${cardShadow}
@@ -101,7 +101,7 @@ function InnoCard({title, subtitle, items = []}) {
         before:to-transparent
         before:opacity-0 hover:before:opacity-100 
         before:transition-opacity before:duration-500
-        before:rounded-[50px] before:-z-10
+        before:rounded-[30px] lg:before:rounded-[50px] before:-z-10
       `}
     >
       <div className="flex flex-col justify-start items-center gap-4">
@@ -136,7 +136,7 @@ function InnoCard({title, subtitle, items = []}) {
         </div>
 
         <div
-          className={`w-44 h-0 rounded-[50px] outline-2 -outline-offset-1 ${lineColor} ${lineBlur} transition-all duration-500 ease-in-out`}
+          className={`h-0 w-full max-w-44 rounded-[50px] outline-2 -outline-offset-1 ${lineColor} ${lineBlur} transition-all duration-500 ease-in-out`}
         />
       </div>
 

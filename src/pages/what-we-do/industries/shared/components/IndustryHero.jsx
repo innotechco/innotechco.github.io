@@ -22,15 +22,15 @@ function IndustryHero({image, breadcrumbLabel, title, description}) {
         isDarkMode ? "bg-[#050505]" : "bg-white"
       }`}
     >
-      <article className="relative isolate min-h-[480px] w-full max-w-[1253px] overflow-hidden rounded-[50px] md:min-h-[601px]">
-        <div className="absolute inset-0 overflow-hidden rounded-[50px]">
+      <article className="relative isolate min-h-[520px] w-full max-w-[1253px] overflow-hidden rounded-[32px] md:min-h-[601px] md:rounded-[50px]">
+        <div className="absolute inset-0 overflow-hidden rounded-[32px] bg-black md:rounded-[50px]">
           <img
-            className="absolute inset-0 size-full object-cover object-center brightness-120"
+            className="absolute inset-0 size-full object-contain object-center brightness-120 md:object-cover"
             src={image}
             alt=""
             aria-hidden
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-black/0 via-black/40 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10 md:bg-gradient-to-l md:from-black/0 md:via-black/40 md:to-black/80" />
           <img
             className={`pointer-events-none absolute left-0 top-0 h-full w-[85%] object-fill ${
               isDarkMode ? "mix-blend-screen" : ""
@@ -41,7 +41,7 @@ function IndustryHero({image, breadcrumbLabel, title, description}) {
           />
         </div>
 
-        <div className="relative z-10 flex flex-col items-start justify-start gap-4 px-8 py-12 md:px-32 md:py-36">
+        <div className="relative z-10 flex flex-col items-start justify-start gap-4 px-6 py-10 md:px-32 md:py-36">
           <nav className="inline-flex items-center gap-2" aria-label="Breadcrumb">
             <span className="font-['Gotham'] text-sm font-light text-white">
               what we do
@@ -56,11 +56,11 @@ function IndustryHero({image, breadcrumbLabel, title, description}) {
             </span>
           </nav>
 
-          <h1 className="font-['Gotham'] text-5xl font-bold leading-none text-white md:text-7xl">
+          <h1 className="font-['Gotham'] text-[clamp(2.5rem,13vw,4.5rem)] font-bold leading-none text-white">
             {title}
           </h1>
 
-          <p className="max-w-[631px] font-['Gotham'] text-xl leading-relaxed text-white">
+          <p className="max-w-[631px] font-['Gotham'] text-base leading-relaxed text-white sm:text-xl">
             {description}
           </p>
         </div>

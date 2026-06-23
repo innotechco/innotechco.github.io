@@ -153,7 +153,7 @@ function ContactModal({isOpen, onClose}) {
   const fieldFrameClassName = `w-full px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] inline-flex justify-start items-start gap-2.5`;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6">
       {/* Overlay */}
       <div
         className={`absolute inset-0 ${overlayBg} backdrop-blur-sm transition-opacity duration-1000 ease-out ${
@@ -164,7 +164,7 @@ function ContactModal({isOpen, onClose}) {
 
       {/* Modal */}
       <div
-        className={`relative w-full max-w-[929px] p-11 ${modalBg} rounded-[40px] outline outline-1 outline-offset-[-1px] ${modalOutline} inline-flex flex-col justify-end items-end gap-5 overflow-visible shadow-2xl transform transition-all duration-1000 ease-out ${
+        className={`relative inline-flex max-h-[calc(100svh-24px)] w-full max-w-[929px] flex-col items-end justify-end gap-5 overflow-y-auto rounded-[28px] p-5 shadow-2xl outline outline-1 outline-offset-[-1px] sm:max-h-[calc(100svh-48px)] sm:rounded-[40px] sm:p-8 lg:p-11 ${modalBg} ${modalOutline} transform transition-all duration-1000 ease-out ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24"
         }`}
       >
@@ -174,12 +174,12 @@ function ContactModal({isOpen, onClose}) {
           noValidate
         >
           {/* Header */}
-          <div className="self-stretch inline-flex justify-between items-center">
-            <div className="w-[787px] px-4 relative flex justify-between items-end">
+          <div className="inline-flex items-center justify-between self-stretch gap-4">
+            <div className="relative flex min-w-0 flex-1 items-end justify-between px-4">
               {/* Decorative circle */}
               <div className="size-11 left-0 top-[-15px] absolute rounded-full border border-[#37B478]" />
               <div
-                className={`w-[725px] justify-start ${textColor} text-2xl font-normal font-['Gotham']`}
+                className={`min-w-0 justify-start font-['Gotham'] text-xl font-normal sm:text-2xl ${textColor}`}
               >
                 {contactContent.title}
               </div>
@@ -190,7 +190,7 @@ function ContactModal({isOpen, onClose}) {
               type="button"
               onClick={handleClose}
               aria-label={contactContent.closeLabel}
-              className="size-6 relative overflow-hidden flex items-center justify-center"
+              className="relative flex size-11 shrink-0 items-center justify-center overflow-hidden"
             >
               <svg
                 viewBox="0 0 24 24"

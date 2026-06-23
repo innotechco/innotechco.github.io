@@ -48,7 +48,7 @@ function ServiceCard({title, description, isWide = false, isDarkMode}) {
       />
 
       <article
-        className={`relative z-10 flex min-w-0 items-start justify-end gap-3 overflow-hidden rounded-[25px] border border-[#37B478] px-8 py-8 md:px-9 md:py-8 ${
+        className={`relative z-10 flex min-w-0 items-start justify-end gap-3 overflow-hidden rounded-[25px] border border-[#37B478] px-4 py-5 sm:px-8 sm:py-8 md:px-9 ${
           isDarkMode ? "bg-[#050505]" : "bg-white"
         } ${isWide ? "w-full" : "min-h-[230px] w-full"}`}
       >
@@ -62,10 +62,10 @@ function ServiceCard({title, description, isWide = false, isDarkMode}) {
             isDarkMode ? "text-white" : "text-black"
           }`}
         >
-          <h3 className="font-['Gotham'] text-2xl font-bold leading-tight">
+          <h3 className="font-['Gotham'] text-lg font-bold leading-tight sm:text-2xl">
             <ServiceTitle title={title} />
           </h3>
-          <p className="font-['Gotham'] text-base leading-[1.4]">
+          <p className="font-['Gotham'] text-sm leading-[1.35] sm:text-base sm:leading-[1.4]">
             {description}
           </p>
         </div>
@@ -91,7 +91,7 @@ function CapabilitiesSection({services}) {
         </SectionTitle>
 
         <div className="flex w-full flex-col items-start gap-[42px]">
-          <div className="grid w-full grid-cols-1 gap-[42px] overflow-visible lg:grid-cols-2">
+          <div className="grid w-full grid-cols-2 gap-4 overflow-visible md:gap-[42px] lg:grid-cols-2">
             {services.slice(0, 4).map((service, index) => (
               <ServiceCard
                 key={`${service.title}-${index}`}

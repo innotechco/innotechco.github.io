@@ -104,12 +104,12 @@ function NavbarMainBar({
       </div>
 
       <div className="flex items-center gap-2 sm:gap-3 lg:gap-5">
-        <div className="relative hidden sm:block">
+        <div className="relative block">
           <button
             type="button"
             onClick={handleLanguageToggle}
             aria-expanded={isLanguageOpen}
-            className={`flex items-center gap-1 font-['Gotham'] text-base leading-none transition-colors hover:text-emerald-400 ${textColor}`}
+            className={`flex min-h-11 items-center gap-1 font-['Gotham'] text-sm leading-none transition-colors hover:text-emerald-400 sm:text-base ${textColor}`}
           >
             <span>{selectedLanguage}</span>
             <img
@@ -158,7 +158,7 @@ function NavbarMainBar({
           type="button"
           onClick={toggleTheme}
           aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-          className="group flex h-7 w-7 items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 lg:h-[30px] lg:w-[30px]"
+          className="group flex size-11 items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 lg:size-[44px]"
         >
           <img
             src={isDarkMode ? SunMedium : Moon}
@@ -177,7 +177,7 @@ function NavbarMainBar({
           type="button"
           onClick={handleSearchToggle}
           aria-label="Open search"
-          className="flex h-6 w-6 items-center justify-center transition-all duration-200"
+          className="hidden size-11 items-center justify-center transition-all duration-200 sm:flex"
         >
           <img
             src={SearchIcon}
@@ -193,7 +193,7 @@ function NavbarMainBar({
           onClick={handleMobileMenuToggle}
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
-          className={`flex h-9 items-center gap-2 rounded-full border px-3 font-['Gotham'] text-sm transition-colors lg:hidden ${
+          className={`flex min-h-11 items-center gap-2 rounded-full border px-3 font-['Gotham'] text-sm transition-colors lg:hidden ${
             isDarkMode
               ? "border-white/15 text-white hover:bg-white/10"
               : "border-black/15 text-black hover:bg-black/5"

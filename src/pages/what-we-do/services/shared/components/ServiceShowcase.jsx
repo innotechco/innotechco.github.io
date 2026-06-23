@@ -37,7 +37,7 @@ function ShowcaseCard({
       />
 
       <article
-        className={`relative z-10 flex h-[250px] min-w-0 flex-col overflow-hidden rounded-[25px] border border-[#37B478] p-6 sm:p-9 ${
+        className={`relative z-10 flex min-h-[230px] min-w-0 flex-col overflow-hidden rounded-[25px] border border-[#37B478] p-4 sm:h-[250px] sm:p-7 xl:p-9 ${
           isDarkMode ? "bg-[#050505]" : "bg-white"
         }`}
       >
@@ -48,8 +48,8 @@ function ShowcaseCard({
           aria-hidden="true"
         />
 
-        <div className="relative z-10 flex w-full items-end justify-between gap-4">
-          <div className="relative size-[90px] shrink-0">
+        <div className="relative z-10 flex w-full flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+          <div className="relative size-[58px] shrink-0 sm:size-[90px]">
             <span
               aria-hidden
               className={`absolute left-0 top-0 size-9 bg-[#22C55E] ${iconClassName}`}
@@ -61,7 +61,7 @@ function ShowcaseCard({
           </div>
 
           <button
-            className={`shrink-0 rounded-bl-[30px] rounded-br-[20px] rounded-tr-[20px] bg-[#22C55E] px-4 py-2 font-['Gotham'] text-base font-bold leading-none ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
+            className={`min-h-11 shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-xs font-bold leading-tight sm:px-4 sm:text-base sm:leading-none ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
             type="button"
           >
             {buttonLabel}
@@ -73,11 +73,11 @@ function ShowcaseCard({
             isDarkMode ? "text-white" : "text-black"
           }`}
         >
-          <h3 className="font-['Gotham'] text-2xl font-bold leading-none">
+          <h3 className="font-['Gotham'] text-lg font-bold leading-tight sm:text-2xl sm:leading-none">
             {title}
           </h3>
           {subtitle && (
-            <p className="mt-1 font-['Gotham'] text-base font-normal leading-none">
+            <p className="mt-1 font-['Gotham'] text-sm font-normal leading-tight sm:text-base sm:leading-none">
               {subtitle}
             </p>
           )}
@@ -101,7 +101,7 @@ function ServiceShowcase({title, cards, icon, iconClassName}) {
           {title}
         </SectionTitle>
 
-        <div className="grid w-full grid-cols-1 items-stretch gap-8 overflow-visible lg:grid-cols-3">
+        <div className="grid w-full grid-cols-2 items-stretch gap-4 overflow-visible md:gap-8 lg:grid-cols-3">
           {cards.map((card) => (
             <ShowcaseCard
               key={card.id}

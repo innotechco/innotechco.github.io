@@ -41,13 +41,13 @@ function Stat({item, isVisible, textColor, delay}) {
 
   return (
     <div
-      className={`flex min-w-0 flex-1 flex-col items-center justify-start text-center transition-all duration-700 ease-out hover:scale-110 ${
+      className={`flex min-w-0 flex-1 flex-col items-center justify-start text-center transition-all duration-700 ease-out hover:scale-105 md:hover:scale-110 ${
         isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
       }`}
       style={{transitionDelay: `${delay}ms`}}
     >
       <div
-        className={`font-['Gotham'] text-4xl leading-none md:text-5xl ${
+        className={`font-['Gotham'] text-3xl leading-none sm:text-4xl md:text-5xl ${
           item.valueWeight === "normal" ? "font-normal" : "font-bold"
         } ${textColor}`}
       >
@@ -55,7 +55,7 @@ function Stat({item, isVisible, textColor, delay}) {
         {count}
       </div>
       <div
-        className={`mt-1 max-w-48 whitespace-pre-line font-['Gotham'] text-lg leading-none md:text-2xl ${
+        className={`mt-1 max-w-36 whitespace-pre-line font-['Gotham'] text-sm leading-tight sm:text-lg md:max-w-48 md:text-2xl md:leading-none ${
           item.labelWeight === "normal" ? "font-normal" : "font-medium"
         } ${textColor}`}
       >
@@ -95,7 +95,7 @@ function ServiceStats({stats}) {
   return (
     <section
       ref={sectionRef}
-      className={`relative h-[517px] w-full overflow-hidden ${pageBg}`}
+      className={`relative min-h-[517px] w-full overflow-hidden ${pageBg}`}
     >
       <img loading="lazy"
         src={unionImage}
@@ -108,22 +108,22 @@ function ServiceStats({stats}) {
         src={leftImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-[-100px] top-[-40px] z-20 h-[637px] w-auto max-w-none rotate-[20deg] select-none"
+        className="pointer-events-none absolute left-[-160px] top-[-40px] z-20 h-[637px] w-auto max-w-none rotate-[20deg] select-none md:left-[-100px]"
       />
       <img loading="lazy"
         src={middleImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-[750px] top-[-580px] z-20 h-[1275px] w-auto max-w-none rotate-[9deg] select-none"
+        className="pointer-events-none absolute left-1/2 top-[-580px] z-20 h-[1275px] w-auto max-w-none -translate-x-1/2 rotate-[9deg] select-none lg:left-[750px] lg:translate-x-0"
       />
       <img loading="lazy"
         src={rightImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute right-78 top-[-120px] z-20 h-[650px] w-[2900px] object-contain object-center select-none"
+        className="pointer-events-none absolute right-[-1100px] top-[-120px] z-20 h-[650px] w-[2900px] object-contain object-center select-none lg:right-78"
       />
 
-      <div className="absolute left-1/2 top-[184px] z-30 flex w-full max-w-[1440px] -translate-x-1/2 items-start justify-between gap-80 px-6 md:px-16 xl:px-[120px]">
+      <div className="absolute left-1/2 top-[145px] z-30 grid w-full max-w-[720px] -translate-x-1/2 grid-cols-2 items-start gap-x-8 gap-y-12 px-6 md:px-16 lg:top-[184px] lg:flex lg:max-w-[1440px] lg:justify-between lg:gap-20 xl:gap-80 xl:px-[120px]">
         {stats.map((item, index) => (
           <Stat
             key={`${item.label}-${isVisible ? "visible" : "hidden"}`}

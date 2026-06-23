@@ -92,15 +92,15 @@ function ContactFormFields({
         ) : null}
       </div>
 
-      <div className="inline-flex items-start gap-5 self-stretch">
+      <div className="grid grid-cols-1 gap-4 self-stretch sm:grid-cols-2 sm:gap-5">
         <TextField
-          className={`flex-1 rounded-[50px] px-4 py-3 outline outline-1 outline-offset-[-1px] ${inputBg} ${inputOutline} ${inputTextClassName}`}
+          className={`rounded-[50px] px-4 py-3 outline outline-1 outline-offset-[-1px] ${inputBg} ${inputOutline} ${inputTextClassName}`}
           value={values.title}
           onChange={(event) => updateValue("title", event.target.value)}
           placeholder={content.fields.title}
         />
         <TextField
-          className={`flex-1 rounded-[50px] px-4 py-3 outline outline-1 outline-offset-[-1px] ${inputBg} ${inputOutline} ${inputTextClassName}`}
+          className={`rounded-[50px] px-4 py-3 outline outline-1 outline-offset-[-1px] ${inputBg} ${inputOutline} ${inputTextClassName}`}
           value={values.company}
           onChange={(event) => updateValue("company", event.target.value)}
           placeholder={content.fields.company}
@@ -236,7 +236,7 @@ function ContactFormFields({
         {isIndustryOpen ? (
           <div
             role="listbox"
-            className={`absolute left-0 right-0 top-[calc(100%+8px)] z-[120] rounded-3xl border p-2 shadow-2xl ${
+            className={`absolute left-0 right-0 top-[calc(100%+8px)] z-[120] max-h-72 overflow-y-auto rounded-3xl border p-2 shadow-2xl ${
               isDarkMode
                 ? "border-white/15 bg-zinc-950 text-white"
                 : "border-black/15 bg-white text-black"
@@ -280,9 +280,9 @@ function ContactFormFields({
 
       <button
         type="submit"
-        className="self-end rounded-[50px] bg-[#37B478] px-8 py-3 transition-all duration-200 hover:bg-[#22C55E] active:scale-95"
+        className="min-h-11 self-end rounded-[50px] bg-[#37B478] px-8 py-3 transition-all duration-200 hover:bg-[#22C55E] active:scale-95"
       >
-        <span className={`font-['Gotham'] text-2xl font-normal ${greenButtonTextColor}`}>
+        <span className={`font-['Gotham'] text-xl font-normal sm:text-2xl ${greenButtonTextColor}`}>
           {content.labels.submit}
         </span>
       </button>

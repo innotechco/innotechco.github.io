@@ -118,9 +118,9 @@ function HistorySection({content, image, textColor}) {
   return (
     <section className="relative flex flex-col items-start gap-8 py-14">
       <style>{historyRangeStyles}</style>
-      <div className="flex w-full flex-col items-center gap-2 px-28">
+      <div className="flex w-full flex-col items-center gap-2 px-4 sm:px-6 lg:px-28">
         <div className="size-6 rounded-full bg-[#37B478]" />
-        <h2 className={`font-['Gotham'] text-4xl font-bold ${textColor}`}>
+        <h2 className={`font-['Gotham'] text-[clamp(2rem,6vw,2.25rem)] font-bold ${textColor}`}>
           {content.title}
         </h2>
       </div>
@@ -146,7 +146,7 @@ function HistorySection({content, image, textColor}) {
         />
       </div>
 
-      <div className="flex w-full justify-center px-28">
+      <div className="flex w-full justify-center px-4 sm:px-6 lg:px-28">
         <input
           aria-label={content.rangeLabel}
           type="range"

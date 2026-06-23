@@ -1,9 +1,56 @@
 import {Link} from "react-router-dom";
 import ReadMoreLink from "../../../../components/ui/ReadMoreLink";
+import ResponsiveCarousel from "../../../../components/ui/ResponsiveCarousel";
 import {useTheme} from "../../../../context/useTheme";
 import {routes} from "../../../../routes";
 import {usePointerGlow} from "../../../../hooks/usePointerGlow";
 import {liveInsights} from "./data";
+
+function MobileInsightCard({insight, isDarkMode}) {
+  return (
+    <article
+      className={`flex min-h-[520px] flex-col overflow-hidden rounded-[32px] border border-[#37B478] ${
+        isDarkMode ? "bg-black" : "bg-white"
+      }`}
+    >
+      <img
+        loading="lazy"
+        src={insight.image}
+        alt={insight.imageAlt || ""}
+        className="h-56 w-full object-cover"
+      />
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <h3
+          className={`font-['Gotham'] text-[clamp(1.25rem,5vw,1.75rem)] font-medium leading-tight ${
+            isDarkMode ? "text-white" : "text-black"
+          }`}
+        >
+          {insight.title}
+        </h3>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <span
+            className={`font-['Gotham'] text-sm font-light ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+          >
+            {insight.date}
+          </span>
+          <span className="font-['Gotham'] text-sm text-[#37B478]">
+            {insight.readTime}
+          </span>
+        </div>
+        <p
+          className={`font-['Gotham'] text-sm leading-relaxed ${
+            isDarkMode ? "text-white" : "text-black"
+          }`}
+        >
+          {insight.description}
+        </p>
+        <ReadMoreLink isDarkMode={isDarkMode} className="mt-auto" />
+      </div>
+    </article>
+  );
+}
 
 function LiveInsightsSection() {
   const {isDarkMode} = useTheme();
@@ -24,7 +71,7 @@ function LiveInsightsSection() {
         <div className="relative inline-flex items-center gap-3.5">
           <div className="absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
           <div
-            className={`relative z-10 text-4xl font-bold font-['Gotham'] transition-colors duration-500 ease-in-out ${
+            className={`relative z-10 font-['Gotham'] text-[clamp(2rem,6vw,2.25rem)] font-bold transition-colors duration-500 ease-in-out ${
               isDarkMode ? "text-white" : "text-black"
             }`}
           >
@@ -33,7 +80,22 @@ function LiveInsightsSection() {
         </div>
 
         {/* CONTENT section */}
-        <div className="flex items-start gap-11 relative">
+        <div className="xl:hidden">
+          <ResponsiveCarousel
+            ariaLabel={liveInsights.title}
+            isDarkMode={isDarkMode}
+          >
+            {liveInsights.cards.map((insight) => (
+              <MobileInsightCard
+                key={insight.title}
+                insight={insight}
+                isDarkMode={isDarkMode}
+              />
+            ))}
+          </ResponsiveCarousel>
+        </div>
+
+        <div className="relative hidden items-start gap-11 xl:flex">
           {/* LEFT BIG CARD with its own neon glow */}
           <div className="relative">
             {/* Neon glow behind left card */}

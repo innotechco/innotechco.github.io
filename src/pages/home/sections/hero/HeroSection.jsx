@@ -14,17 +14,19 @@ function HeroSection() {
     : aiAgentExcludeWhiteImage;
 
   return (
-    <section className="relative w-full min-h-[100vh] overflow-hidden z-10">
+    <section className="relative z-10 min-h-[100svh] w-full overflow-hidden">
       {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-125 contrast-110"
-        style={{backgroundImage: `url(${bgImage})`}}
+      <img
+        src={bgImage}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 size-full bg-black object-contain object-center brightness-125 contrast-110 md:object-cover"
       />
 
       {/* Glass card section */}
-      <div className="absolute z-10" style={{left: "120px", top: "205px"}}>
+      <div className="absolute inset-x-4 top-[clamp(92px,18vh,205px)] z-10 md:left-[clamp(40px,8vw,120px)] md:right-auto">
         <div
-          className={`w-[577px] h-[477px] px-20 py-16 relative rounded-[40px] inline-flex flex-col justify-start items-start gap-6 overflow-hidden backdrop-blur-[3px] border transition-all duration-500 ease-in-out ${
+          className={`relative inline-flex min-h-[360px] w-full max-w-[577px] flex-col items-start justify-start gap-4 overflow-hidden rounded-[28px] border px-6 py-8 backdrop-blur-[3px] transition-all duration-500 ease-in-out sm:min-h-[430px] sm:gap-6 sm:rounded-[40px] sm:px-12 sm:py-12 lg:h-[477px] lg:px-20 lg:py-16 ${
             isDarkMode
               ? "bg-black/20 border-white/10"
               : "bg-white/30 border-black/20"
@@ -38,11 +40,11 @@ function HeroSection() {
           />
 
           {/* AI Agent title */}
-          <div className="relative z-10 w-64 h-20 mb-6">
+          <div className="relative z-10 mb-2 h-20 w-64 sm:mb-6">
             <div className="w-20 h-20 left-0 top-0 absolute rounded-full border-2 border-[#37B478]" />
             <div className="w-3 h-3 left-[4.72px] top-[7.08px] absolute bg-[#37B478] rounded-full" />
             <div
-              className={`left-[27px] top-4 absolute text-5xl font-bold font-['Gotham'] leading-none transition-colors duration-500 ease-in-out ${
+                className={`absolute left-[27px] top-4 font-['Gotham'] text-[clamp(2.5rem,10vw,3rem)] font-bold leading-none transition-colors duration-500 ease-in-out ${
                 isDarkMode ? "text-white" : "text-black"
               }`}
             >
@@ -52,7 +54,7 @@ function HeroSection() {
 
           {/* Description text */}
           <div
-            className={`relative z-10 text-2xl place-self-auto justify-start font-medium font-['Gotham'] leading-tight mt-6 pr-8 transition-colors duration-500 ease-in-out ${
+            className={`relative z-10 mt-2 place-self-auto justify-start pr-0 font-['Gotham'] text-[clamp(1.15rem,4.6vw,1.5rem)] font-medium leading-tight transition-colors duration-500 ease-in-out sm:mt-6 sm:pr-8 ${
               isDarkMode ? "text-white" : "text-black"
             }`}
           >

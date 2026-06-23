@@ -1,4 +1,5 @@
 import ReadMoreLink from "../../../../../components/ui/ReadMoreLink";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
 import {useTheme} from "../../../../../context/useTheme";
 import insightExcludeImage from "../../../../../assets/images/excludes/live-insights/InsightExclude.webp";
 import insightExcludeBlackImage from "../../../../../assets/images/excludes/live-insights/InsightExcludeBlack.webp";
@@ -90,6 +91,26 @@ function LiveInsightsSection({title, cards, alt}) {
     : insightExcludeBlackImage;
   const textColor = isDarkMode ? "text-white" : "text-black";
   const [featuredCard, topCard, bottomCard] = cards;
+  const renderCarouselCard = (card) => (
+    <GlowCard
+      key={card.id}
+      className="min-h-[540px]"
+      isDarkMode={isDarkMode}
+    >
+      <div className="flex size-full min-h-[540px] flex-col">
+        <div className="h-60 w-full overflow-hidden">
+          <img
+            loading="lazy"
+            src={card.image}
+            alt={card === featuredCard ? alt : ""}
+            aria-hidden={card === featuredCard ? undefined : true}
+            className={`size-full object-cover ${card.imageClassName ?? ""}`}
+          />
+        </div>
+        <CardCopy card={card} isDarkMode={isDarkMode} />
+      </div>
+    </GlowCard>
+  );
 
   return (
     <section
@@ -109,7 +130,13 @@ function LiveInsightsSection({title, cards, alt}) {
           {title}
         </SectionTitle>
 
-        <div className="relative grid w-full grid-cols-1 items-start gap-9 xl:grid-cols-2">
+        <div className="xl:hidden">
+          <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
+            {cards.map(renderCarouselCard)}
+          </ResponsiveCarousel>
+        </div>
+
+        <div className="relative hidden w-full grid-cols-1 items-start gap-9 xl:grid xl:grid-cols-2">
           <GlowCard className="h-[702px] min-w-0" isDarkMode={isDarkMode}>
             <div className="flex size-full flex-col">
               <div className="min-h-0 flex-1 overflow-hidden">

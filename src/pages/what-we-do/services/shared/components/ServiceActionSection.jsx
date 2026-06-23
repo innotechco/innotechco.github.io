@@ -20,22 +20,22 @@ function ActionCard({item, isDarkMode}) {
       />
 
       <article
-        className={`relative z-10 flex h-full min-w-0 flex-col gap-6 overflow-hidden rounded-[25px] border border-[#37B478] p-7 shadow-[inset_1px_-1px_2px_0px_#1d5f3f] md:p-9 ${
+        className={`relative z-10 flex h-full min-w-0 flex-col gap-4 overflow-hidden rounded-[25px] border border-[#37B478] p-4 shadow-[inset_1px_-1px_2px_0px_#1d5f3f] sm:gap-6 md:p-9 ${
           isDarkMode ? "bg-[#050505] text-white" : "bg-white text-black"
         }`}
       >
         <div aria-hidden className="pointer-events-none absolute inset-0 rounded-[25px] bg-[#37B478]/5" />
 
         <header className="relative z-10 min-w-0">
-          <h3 className="font-['Gotham'] text-2xl font-bold leading-tight">
+          <h3 className="font-['Gotham'] text-lg font-bold leading-tight sm:text-2xl">
             {item.title}
           </h3>
-          <p className="font-['Gotham'] text-base font-normal leading-tight">
+          <p className="font-['Gotham'] text-sm font-normal leading-tight sm:text-base">
             {item.subtitle}
           </p>
         </header>
 
-        <div className="relative z-10 flex min-w-0 flex-1 flex-col justify-center gap-3 px-0 font-['Gotham'] text-base font-normal leading-[1.35] md:px-4 xl:px-8">
+        <div className="relative z-10 flex min-w-0 flex-1 flex-col justify-center gap-3 px-0 font-['Gotham'] text-sm font-normal leading-[1.35] sm:text-base md:px-4 xl:px-8">
           {item.paragraphs.map((paragraph) => (
             <p key={paragraph} className="min-w-0 wrap-break-words text-left">
               {paragraph}
@@ -57,7 +57,7 @@ function ServiceActionSection({title, items}) {
           {title}
         </SectionTitle>
 
-        <div className="grid w-full grid-cols-1 items-stretch gap-8 lg:grid-cols-3">
+        <div className="grid w-full grid-cols-2 items-stretch gap-4 md:gap-8 lg:grid-cols-3">
           {items.map((item) => (
             <ActionCard key={item.title} item={item} isDarkMode={isDarkMode} />
           ))}
