@@ -177,7 +177,7 @@ function NavbarMainBar({
           type="button"
           onClick={handleSearchToggle}
           aria-label="Open search"
-          className="hidden size-11 items-center justify-center transition-all duration-200 sm:flex"
+          className="flex size-11 items-center justify-center transition-all duration-200"
         >
           <img
             src={SearchIcon}
