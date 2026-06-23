@@ -23,7 +23,7 @@ function EcosystemSection() {
 
       <div className="relative z-20 mt-[-18%] pb-16 sm:mt-[-25%] min-[1400px]:mt-[-33%] min-[1400px]:pb-28">
         <div className="hidden justify-center px-4 pb-16 min-[1400px]:flex">
-          <div className="overflow-hidden max-h-">
+          <div className="overflow-hidden max-h-">دحئ قعد
             <img loading="lazy"
               src={isDarkMode ? InnotechEcopic : InnotechEcopicLight}
               alt="Innotech Ecosystem"

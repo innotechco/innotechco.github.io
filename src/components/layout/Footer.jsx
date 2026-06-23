@@ -12,7 +12,7 @@ import WhatsAppDark from "../../assets/icons/WhatsAppDark.svg";
 
 const Footer = ({
   onContactClick,
-  topSpacingClassName = "mt-20 md:mt-28 lg:mt-36",
+  topSpacingClassName = "mt-0 md:mt-0 lg:mt-0",
 }) => {
   const {isDarkMode} = useTheme();
 
@@ -25,16 +25,15 @@ const Footer = ({
         isLightMode ? "bg-white" : "bg-black"
       } ${topSpacingClassName} z-20`}
     >
-      <div className="relative min-h-[300px] w-full overflow-hidden sm:min-h-[340px] lg:min-h-0">
+      <div className="relative w-full overflow-hidden">
         <img loading="lazy"
           src={isLightMode ? FooterSVGDark : FooterSVG}
           alt="Footer Background"
-          className="absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-500 ease-in-out lg:relative lg:block lg:h-auto"
+          className="h-auto w-full"
         />
 
         {/* Brand lockup and contact action */}
-        <div className="relative z-10 mx-auto flex min-h-[190px] w-full max-w-[1440px] items-center justify-between gap-8 px-6 pt-10 sm:px-10 lg:absolute lg:inset-x-0 lg:top-0 lg:min-h-0 lg:px-[145px] lg:pt-[9%]">
-          <div className="shrink-0">
+        <div className="absolute inset-x-0 top-0 z-10 mx-auto flex w-full max-w-[1440px] items-center justify-between gap-8 px-6 pt-[9%] sm:px-10 lg:px-[145px]">          <div className="shrink-0">
             <img loading="lazy"
               src={isLightMode ? FooterInnoTechDark : FooterInnoTech}
               alt="InnoTech Logo"
@@ -58,8 +57,7 @@ const Footer = ({
         </div>
 
         {/* Footer bottom bar */}
-        <div className="relative z-10 px-6 pb-8 pt-8 sm:px-10 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-[145px] lg:pb-12 lg:pt-0">
-          <div className="max-w-[1440px] mx-auto">
+        <div className="absolute inset-x-0 bottom-0 z-10 px-6 pb-8 sm:px-10 lg:px-[145px] lg:pb-12">          <div className="max-w-[1440px] mx-auto">
             <div className="flex w-full items-center justify-between gap-12">
               {/* Legal links */}
               <div

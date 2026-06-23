@@ -1,10 +1,10 @@
-import {useTheme} from "../../../../context/useTheme";
+import { useTheme } from "../../../../context/useTheme";
 import MapImage from "../../../../assets/images/home/Map.webp";
 import MapLightImage from "../../../../assets/images/home/MapLight.webp";
-import {globalFootprint} from "./data";
+import { globalFootprint } from "./data";
 
 function GlobalFootprintSection() {
-  const {isDarkMode} = useTheme();
+  const { isDarkMode } = useTheme();
 
   return (
     <div
@@ -37,11 +37,14 @@ function GlobalFootprintSection() {
       </div>
 
       {/* ================= MAP IMAGE ================= */}
-      <div className="w-full flex justify-center">
-        <img loading="lazy"
+      <div className="w-full flex justify-center overflow-hidden">
+        <img
+          loading="lazy"
           src={isDarkMode ? MapImage : MapLightImage}
           alt={globalFootprint.imageAlt}
-          className="h-auto w-full max-w-[1100px] object-contain transition-opacity duration-500 ease-in-out"
+          className={`h-auto w-full max-w-[1100px] object-contain transition-all duration-500 ${
+            isDarkMode ? "" : "bg-white"   // مطمئن شدن از بک‌گراند سفید
+          }`}
         />
       </div>
     </div>

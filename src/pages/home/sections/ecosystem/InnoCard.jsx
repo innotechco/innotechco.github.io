@@ -72,9 +72,9 @@ function InnoCard({title, subtitle, items = []}) {
     <div
       className={`
         relative 
-        w-full min-h-[330px] sm:min-h-[360px] lg:-mt-14 lg:w-65 lg:h-100
-        px-4 py-5 sm:px-5 lg:px-8 lg:py-6
-        rounded-[26px] sm:rounded-[30px] lg:rounded-[50px]
+        w-full min-w-0 min-h-[330px] sm:min-h-[360px] min-[1400px]:-mt-14 min-[1400px]:h-100 min-[1400px]:w-65
+        px-4 py-5 sm:px-5 min-[1400px]:px-8 min-[1400px]:py-6
+        rounded-[26px] sm:rounded-[30px] min-[1400px]:rounded-[50px]
         border 
         ${cardBg}
         ${cardShadow}
@@ -93,7 +93,7 @@ function InnoCard({title, subtitle, items = []}) {
         before:to-transparent
         before:opacity-0 hover:before:opacity-100 
         before:transition-opacity before:duration-500
-        before:rounded-[26px] sm:before:rounded-[30px] lg:before:rounded-[50px] before:-z-10
+        before:rounded-[26px] sm:before:rounded-[30px] min-[1400px]:before:rounded-[50px] before:-z-10
       `}
     >
       <div className="flex flex-col justify-start items-center gap-4">
