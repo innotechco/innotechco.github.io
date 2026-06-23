@@ -20,13 +20,13 @@ function HeroSection() {
         src={bgImage}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 size-full bg-black object-contain object-center brightness-125 contrast-110 md:object-cover"
+        className="absolute inset-0 size-full bg-black object-cover object-top brightness-125 contrast-110"
       />
 
       {/* Glass card section */}
-      <div className="absolute inset-x-4 top-[clamp(92px,18vh,205px)] z-10 md:left-[clamp(40px,8vw,120px)] md:right-auto">
+      <div className="absolute left-4 top-[clamp(96px,18vh,205px)] z-10 w-[min(300px,calc(100vw-32px))] sm:left-8 sm:w-[380px] md:left-[clamp(40px,8vw,120px)] md:w-[min(577px,44vw)]">
         <div
-          className={`relative inline-flex min-h-[360px] w-full max-w-[577px] flex-col items-start justify-start gap-4 overflow-hidden rounded-[28px] border px-6 py-8 backdrop-blur-[3px] transition-all duration-500 ease-in-out sm:min-h-[430px] sm:gap-6 sm:rounded-[40px] sm:px-12 sm:py-12 lg:h-[477px] lg:px-20 lg:py-16 ${
+          className={`relative inline-flex min-h-[260px] w-full flex-col items-start justify-start gap-3 overflow-hidden rounded-[24px] border px-5 py-6 backdrop-blur-[3px] transition-all duration-500 ease-in-out sm:min-h-[330px] sm:gap-4 sm:rounded-[34px] sm:px-8 sm:py-9 lg:h-[477px] lg:gap-6 lg:rounded-[40px] lg:px-20 lg:py-16 ${
             isDarkMode
               ? "bg-black/20 border-white/10"
               : "bg-white/30 border-black/20"
@@ -36,15 +36,15 @@ function HeroSection() {
             src={aiAgentExclude}
             alt=""
             aria-hidden
-            className="pointer-events-none absolute inset-0 z-0 size-full object-fill left-[-90px]"
+            className="pointer-events-none absolute inset-0 left-[-52px] z-0 size-full object-fill sm:left-[-70px] lg:left-[-90px]"
           />
 
           {/* AI Agent title */}
-          <div className="relative z-10 mb-2 h-20 w-64 sm:mb-6">
-            <div className="w-20 h-20 left-0 top-0 absolute rounded-full border-2 border-[#37B478]" />
-            <div className="w-3 h-3 left-[4.72px] top-[7.08px] absolute bg-[#37B478] rounded-full" />
+          <div className="relative z-10 h-16 w-full sm:h-18 lg:mb-6 lg:h-20">
+            <div className="absolute left-0 top-0 size-16 rounded-full border-2 border-[#37B478] sm:size-18 lg:size-20" />
+            <div className="absolute left-[4px] top-[6px] size-2.5 rounded-full bg-[#37B478] lg:left-[4.72px] lg:top-[7.08px] lg:size-3" />
             <div
-                className={`absolute left-[27px] top-4 font-['Gotham'] text-[clamp(2.5rem,10vw,3rem)] font-bold leading-none transition-colors duration-500 ease-in-out ${
+                className={`absolute left-[22px] top-3 font-['Gotham'] text-[clamp(2.25rem,9vw,3rem)] font-bold leading-none transition-colors duration-500 ease-in-out sm:left-[25px] lg:left-[27px] lg:top-4 ${
                 isDarkMode ? "text-white" : "text-black"
               }`}
             >
@@ -54,7 +54,7 @@ function HeroSection() {
 
           {/* Description text */}
           <div
-            className={`relative z-10 mt-2 place-self-auto justify-start pr-0 font-['Gotham'] text-[clamp(1.15rem,4.6vw,1.5rem)] font-medium leading-tight transition-colors duration-500 ease-in-out sm:mt-6 sm:pr-8 ${
+            className={`relative z-10 mt-2 place-self-auto justify-start pr-0 font-['Gotham'] text-[clamp(0.95rem,4vw,1.5rem)] font-medium leading-tight transition-colors duration-500 ease-in-out sm:mt-4 lg:mt-6 lg:pr-8 ${
               isDarkMode ? "text-white" : "text-black"
             }`}
           >
@@ -62,13 +62,13 @@ function HeroSection() {
           </div>
 
           {/* Read more button and underline */}
-          <div className="relative z-10 mt-4">
+          <div className="relative z-10 mt-2 lg:mt-4">
             <Link
               to={routes.aiAgent}
               className="group flex w-fit flex-col items-start cursor-pointer transition-all duration-300"
             >
               <div
-                className={`text-base font-light font-['Gotham'] transition-colors duration-300 group-hover:text-[#37B478] ${
+                className={`font-['Gotham'] text-sm font-light transition-colors duration-300 group-hover:text-[#37B478] sm:text-base ${
                   isDarkMode ? "text-white" : "text-black"
                 }`}
               >

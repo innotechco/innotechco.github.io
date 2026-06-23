@@ -51,7 +51,7 @@ function App() {
   const {pathname} = useLocation();
   const footerTopSpacing =
     pathname === routes.whatWeThink
-      ? "-mt-10"
+      ? "mt-20 md:mt-28"
       : [
           ...serviceRoutes,
           ...industryRoutes,

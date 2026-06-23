@@ -18,8 +18,17 @@ function LatestNewsSection() {
             isDarkMode ? "bg-white" : "bg-black"
           }`}
         >
+          {/* Featured image */}
+          <div className="order-1 h-64 w-full shrink-0 self-stretch overflow-hidden lg:order-2 lg:h-auto lg:w-[496px]">
+            <img loading="lazy"
+              src={LatestNewsImage}
+              alt="Latest news"
+              className="h-full w-full object-cover object-center lg:min-h-[640px]"
+            />
+          </div>
+
           {/* LEFT CONTENT */}
-          <div className="flex flex-1 flex-col self-stretch px-6 py-8 sm:px-10 lg:px-[68px] lg:py-[68px]">
+          <div className="order-2 flex flex-1 flex-col self-stretch px-6 py-8 sm:px-10 lg:order-1 lg:px-[68px] lg:py-[68px]">
             {/* Title */}
             <div className="relative inline-flex items-center">
               <div className="absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
@@ -76,15 +85,6 @@ function LatestNewsSection() {
             <ReadMoreLink
               isDarkMode={!isDarkMode}
               className="mt-8 cursor-pointer text-base font-['Gotham']"
-            />
-          </div>
-
-          {/* Featured image */}
-          <div className="h-72 w-full shrink-0 self-stretch overflow-hidden lg:h-auto lg:w-[496px]">
-            <img loading="lazy"
-              src={LatestNewsImage}
-              alt="Latest news"
-              className="h-full w-full object-cover lg:min-h-[640px]"
             />
           </div>
         </div>

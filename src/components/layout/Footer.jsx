@@ -12,7 +12,7 @@ import WhatsAppDark from "../../assets/icons/WhatsAppDark.svg";
 
 const Footer = ({
   onContactClick,
-  topSpacingClassName = "-mt-30 md:-mt-40 lg:-mt-24",
+  topSpacingClassName = "mt-20 md:mt-28 lg:mt-36",
 }) => {
   const {isDarkMode} = useTheme();
 
@@ -25,28 +25,28 @@ const Footer = ({
         isLightMode ? "bg-white" : "bg-black"
       } ${topSpacingClassName} z-20`}
     >
-      <div className="relative w-full">
+      <div className="relative min-h-[300px] w-full overflow-hidden sm:min-h-[340px] lg:min-h-0">
         <img loading="lazy"
           src={isLightMode ? FooterSVGDark : FooterSVG}
           alt="Footer Background"
-          className="w-full h-auto block transition-opacity duration-500 ease-in-out"
+          className="absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-500 ease-in-out lg:relative lg:block lg:h-auto"
         />
 
         {/* Brand lockup and contact action */}
-        <div className="absolute inset-0 flex items-center justify-between px-[150px] mb-35">
-          <div>
+        <div className="relative z-10 mx-auto flex min-h-[190px] w-full max-w-[1440px] items-center justify-between gap-8 px-6 pt-10 sm:px-10 lg:absolute lg:inset-x-0 lg:top-0 lg:min-h-0 lg:px-[145px] lg:pt-[9%]">
+          <div className="shrink-0">
             <img loading="lazy"
               src={isLightMode ? FooterInnoTechDark : FooterInnoTech}
               alt="InnoTech Logo"
-              className="w-[125px] h-auto transition-opacity duration-500 ease-in-out"
+              className="h-auto w-[86px] transition-opacity duration-500 ease-in-out sm:w-[105px] lg:w-[125px]"
             />
           </div>
 
           <button
             onClick={onContactClick}
-            className={`px-4 py-2 
+            className={`min-h-10 px-4 py-2 
              bg-[#22C55E] hover:bg-[#16A34A] 
-             ${greenButtonTextColor} text-2xl 
+             ${greenButtonTextColor} text-sm sm:text-base lg:text-2xl
              font-['Gotham'] 
              rounded-[50px] 
              inline-flex items-center justify-center
@@ -58,12 +58,12 @@ const Footer = ({
         </div>
 
         {/* Footer bottom bar */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 pb-8 lg:pb-12 lg:px-[145px]">
+        <div className="relative z-10 px-6 pb-8 pt-8 sm:px-10 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-[145px] lg:pb-12 lg:pt-0">
           <div className="max-w-[1440px] mx-auto">
-            <div className="self-stretch inline-flex justify-between items-center w-full">
+            <div className="flex w-full items-center justify-between gap-12">
               {/* Legal links */}
               <div
-                className={`flex justify-start items-center gap-6 md:gap-8 lg:gap-5 transition-colors duration-500 ease-in-out ${
+                className={`flex min-w-0 flex-wrap items-center justify-start gap-x-5 gap-y-3 transition-colors duration-500 ease-in-out sm:gap-x-8 lg:gap-5 ${
                   isLightMode ? "text-white" : "text-black"
                 }`}
               >
@@ -71,11 +71,11 @@ const Footer = ({
                   (item, i) => (
                     <div
                       key={i}
-                      className="relative cursor-pointer px-4 py-1 rounded-full transition-all duration-300 group hover:-translate-y-0.5 active:scale-95 overflow-hidden"
+                      className="relative cursor-pointer overflow-hidden rounded-full px-0 py-1 transition-all duration-300 group hover:-translate-y-0.5 active:scale-95 sm:px-2 lg:px-4"
                     >
                       <div className="absolute inset-0 bg-green-500 rounded-full scale-75 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 active:scale-110 active:opacity-70" />
                       <span
-                        className={`relative z-10 font-['Gotham'] text-base transition-colors duration-300 group-hover:text-white ${
+                        className={`relative z-10 font-['Gotham'] text-xs transition-colors duration-300 group-hover:text-white sm:text-sm lg:text-base ${
                           isLightMode ? "text-white" : "text-black"
                         }`}
                       >
@@ -87,22 +87,22 @@ const Footer = ({
               </div>
 
               {/* Social links */}
-              <div className="flex justify-end items-center gap-5">
-                <div className="size-8 relative cursor-pointer hover:scale-110 transition-transform">
+              <div className="flex shrink-0 items-center justify-end gap-4 sm:gap-5">
+                <div className="relative size-6 cursor-pointer transition-transform hover:scale-110 sm:size-7 lg:size-8">
                   <img loading="lazy"
                     src={isLightMode ? InstagramDark : Instagram}
                     alt="Instagram"
                     className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
                   />
                 </div>
-                <div className="size-8 relative cursor-pointer hover:scale-110 transition-transform">
+                <div className="relative size-6 cursor-pointer transition-transform hover:scale-110 sm:size-7 lg:size-8">
                   <img loading="lazy"
                     src={isLightMode ? LinkedInDark : LinkedIn}
                     alt="LinkedIn"
                     className="w-full h-full object-contain transition-opacity duration-500 ease-in-out"
                   />
                 </div>
-                <div className="size-8 relative cursor-pointer hover:scale-110 transition-transform">
+                <div className="relative size-6 cursor-pointer transition-transform hover:scale-110 sm:size-7 lg:size-8">
                   <img loading="lazy"
                     src={isLightMode ? WhatsAppDark : WhatsApp}
                     alt="WhatsApp"

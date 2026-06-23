@@ -153,7 +153,7 @@ function ContactModal({isOpen, onClose}) {
   const fieldFrameClassName = `w-full px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] inline-flex justify-start items-start gap-2.5`;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6">
+    <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto px-3 pb-6 pt-[calc(env(safe-area-inset-top)+88px)] sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+104px)] lg:items-center lg:overflow-hidden lg:py-6">
       {/* Overlay */}
       <div
         className={`absolute inset-0 ${overlayBg} backdrop-blur-sm transition-opacity duration-1000 ease-out ${
@@ -164,7 +164,7 @@ function ContactModal({isOpen, onClose}) {
 
       {/* Modal */}
       <div
-        className={`relative inline-flex max-h-[calc(100svh-24px)] w-full max-w-[929px] flex-col items-end justify-end gap-5 overflow-y-auto rounded-[28px] p-5 shadow-2xl outline outline-1 outline-offset-[-1px] sm:max-h-[calc(100svh-48px)] sm:rounded-[40px] sm:p-8 lg:p-11 ${modalBg} ${modalOutline} transform transition-all duration-1000 ease-out ${
+        className={`relative inline-flex max-h-[calc(100svh-112px)] w-full max-w-[929px] flex-col items-end justify-end gap-4 overflow-y-auto rounded-[24px] p-4 shadow-2xl outline outline-1 outline-offset-[-1px] sm:max-h-[calc(100svh-132px)] sm:gap-5 sm:rounded-[34px] sm:p-6 lg:max-h-[calc(100svh-48px)] lg:rounded-[40px] lg:p-11 ${modalBg} ${modalOutline} transform transition-all duration-1000 ease-out ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24"
         }`}
       >
@@ -177,9 +177,9 @@ function ContactModal({isOpen, onClose}) {
           <div className="inline-flex items-center justify-between self-stretch gap-4">
             <div className="relative flex min-w-0 flex-1 items-end justify-between px-4">
               {/* Decorative circle */}
-              <div className="size-11 left-0 top-[-15px] absolute rounded-full border border-[#37B478]" />
+              <div className="absolute left-0 top-[-10px] size-9 rounded-full border border-[#37B478] sm:top-[-15px] sm:size-11" />
               <div
-                className={`min-w-0 justify-start font-['Gotham'] text-xl font-normal sm:text-2xl ${textColor}`}
+                className={`min-w-0 justify-start font-['Gotham'] text-lg font-normal sm:text-xl lg:text-2xl ${textColor}`}
               >
                 {contactContent.title}
               </div>
