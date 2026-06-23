@@ -2,6 +2,7 @@ import {useTheme} from "../../../../../context/useTheme";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
 import PlayToggleButton from "../../../../../components/ui/PlayToggleButton";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
 
 function CapabilityCard({title, description, isDarkMode}) {
   const {position: glowPosition, handlers} = usePointerGlow();
@@ -49,7 +50,19 @@ function ServiceCapabilities({title, items}) {
           {title}
         </SectionTitle>
 
-        <div className="grid w-full grid-cols-2 gap-4 overflow-visible md:gap-[42px] lg:grid-cols-2">
+        <div className="w-full min-[1400px]:hidden">
+          <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
+            {items.map((item) => (
+              <CapabilityCard
+                key={item.title}
+                {...item}
+                isDarkMode={isDarkMode}
+              />
+            ))}
+          </ResponsiveCarousel>
+        </div>
+
+        <div className="hidden w-full grid-cols-2 gap-[42px] overflow-visible min-[1400px]:grid">
           {items.map((item, index) => (
             <div
               key={item.title}

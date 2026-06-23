@@ -2,6 +2,7 @@ import excludeShape from "../../../../../assets/images/excludes/shared/Exclude.s
 import excludeBlackShape from "../../../../../assets/images/excludes/shared/ExcludeBlack.svg";
 import {useTheme} from "../../../../../context/useTheme";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
 
 function EcosystemCard({
@@ -109,7 +110,21 @@ function EcosystemCardsSection({
           {title}
         </SectionTitle>
 
-        <div className="grid w-full grid-cols-2 items-stretch gap-4 overflow-visible md:gap-8 lg:grid-cols-3">
+        <div className="w-full min-[1400px]:hidden">
+          <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
+            {cards.map((card) => (
+              <EcosystemCard
+                key={card.id}
+                {...card}
+                actionLabel={actionLabel}
+                isDarkMode={isDarkMode}
+                titleClassName={titleClassName}
+              />
+            ))}
+          </ResponsiveCarousel>
+        </div>
+
+        <div className="hidden w-full grid-cols-3 items-stretch gap-8 overflow-visible min-[1400px]:grid">
           {cards.map((card) => (
             <EcosystemCard
               key={card.id}

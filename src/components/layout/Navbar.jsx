@@ -66,8 +66,8 @@ function Navbar() {
     isDropdownOpen || isLanguageOpen || isSearchOpen || isMobileMenuOpen;
 
   return (
-    <nav ref={navRef} className="fixed inset-x-0 top-0 z-50 pt-3 lg:pt-6">
-      <div className="mx-auto w-[min(1265px,calc(100%-24px))] lg:w-[min(1265px,calc(100%-32px))]">
+    <nav ref={navRef} className="fixed inset-x-0 top-0 z-50 pt-3 min-[1400px]:pt-6">
+      <div className="mx-auto w-[min(1265px,calc(100%-24px))] min-[1400px]:w-[min(1265px,calc(100%-32px))]">
         <div
           className={`border shadow-2xl transition-all duration-500 ease-in-out ${
             isLanguageOpen ? "overflow-visible" : "overflow-hidden"
@@ -78,9 +78,9 @@ function Navbar() {
           } ${
             isAnyPanelOpen
               ? isDarkMode
-                ? "rounded-[24px] bg-zinc-950/80 lg:rounded-[34px]"
-                : "rounded-[24px] bg-white/85 lg:rounded-[34px]"
-              : "rounded-[28px] lg:rounded-[50px]"
+                ? "rounded-[24px] bg-zinc-950/80 min-[1400px]:rounded-[34px]"
+                : "rounded-[24px] bg-white/85 min-[1400px]:rounded-[34px]"
+              : "rounded-[28px] min-[1400px]:rounded-[50px]"
           }`}
         >
           <NavbarMainBar

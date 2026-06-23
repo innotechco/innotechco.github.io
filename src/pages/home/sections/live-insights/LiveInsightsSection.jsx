@@ -80,7 +80,7 @@ function LiveInsightsSection() {
         </div>
 
         {/* CONTENT section */}
-        <div className="xl:hidden">
+        <div className="min-[1400px]:hidden">
           <ResponsiveCarousel
             ariaLabel={liveInsights.title}
             isDarkMode={isDarkMode}
@@ -95,7 +95,7 @@ function LiveInsightsSection() {
           </ResponsiveCarousel>
         </div>
 
-        <div className="relative hidden items-start gap-11 xl:flex">
+        <div className="relative hidden items-start gap-11 min-[1400px]:flex">
           {/* LEFT BIG CARD with its own neon glow */}
           <div className="relative">
             {/* Neon glow behind left card */}

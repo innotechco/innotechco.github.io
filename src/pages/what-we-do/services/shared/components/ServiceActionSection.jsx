@@ -1,6 +1,7 @@
 import {useTheme} from "../../../../../context/useTheme";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
 
 function ActionCard({item, isDarkMode}) {
   const {position: glow, handlers} = usePointerGlow();
@@ -57,7 +58,15 @@ function ServiceActionSection({title, items}) {
           {title}
         </SectionTitle>
 
-        <div className="grid w-full grid-cols-2 items-stretch gap-4 md:gap-8 lg:grid-cols-3">
+        <div className="w-full min-[1400px]:hidden">
+          <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
+            {items.map((item) => (
+              <ActionCard key={item.title} item={item} isDarkMode={isDarkMode} />
+            ))}
+          </ResponsiveCarousel>
+        </div>
+
+        <div className="hidden w-full grid-cols-3 items-stretch gap-8 min-[1400px]:grid">
           {items.map((item) => (
             <ActionCard key={item.title} item={item} isDarkMode={isDarkMode} />
           ))}

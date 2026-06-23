@@ -1,5 +1,6 @@
 import {useTheme} from "../../../../../context/useTheme";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
 import PlayToggleButton from "../../../../../components/ui/PlayToggleButton";
 
@@ -90,8 +91,20 @@ function CapabilitiesSection({services}) {
           OUR CAPABILITIES
         </SectionTitle>
 
-        <div className="flex w-full flex-col items-start gap-[42px]">
-          <div className="grid w-full grid-cols-2 gap-4 overflow-visible md:gap-[42px] lg:grid-cols-2">
+        <div className="w-full min-[1400px]:hidden">
+          <ResponsiveCarousel ariaLabel="OUR CAPABILITIES" isDarkMode={isDarkMode}>
+            {services.map((service, index) => (
+              <ServiceCard
+                key={`${service.title}-${index}`}
+                {...service}
+                isDarkMode={isDarkMode}
+              />
+            ))}
+          </ResponsiveCarousel>
+        </div>
+
+        <div className="hidden w-full flex-col items-start gap-[42px] min-[1400px]:flex">
+          <div className="grid w-full grid-cols-2 gap-[42px] overflow-visible">
             {services.slice(0, 4).map((service, index) => (
               <ServiceCard
                 key={`${service.title}-${index}`}

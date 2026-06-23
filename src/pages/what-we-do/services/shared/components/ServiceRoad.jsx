@@ -20,9 +20,11 @@ const RESET_HOLD_DURATION = 1200;
 function ServiceRoad({title, items}) {
   const {isDarkMode} = useTheme();
   const sectionRef = useRef(null);
+  const roadWrapRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
   const [lineVisible, setLineVisible] = useState(false);
   const [animationPhase, setAnimationPhase] = useState(-1);
+  const [roadScale, setRoadScale] = useState(1);
   const activeLineVisible = isInView && lineVisible;
   const activeAnimationPhase = isInView ? animationPhase : -1;
 
@@ -46,6 +48,25 @@ function ServiceRoad({title, items}) {
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const element = roadWrapRef.current;
+    if (!element) return undefined;
+
+    const updateScale = () => {
+      setRoadScale(Math.min(1, element.clientWidth / 1166));
+    };
+
+    updateScale();
+    const observer = new ResizeObserver(updateScale);
+    observer.observe(element);
+    window.addEventListener("resize", updateScale);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateScale);
+    };
   }, []);
 
   useEffect(() => {
@@ -99,8 +120,18 @@ function ServiceRoad({title, items}) {
           {title}
         </h2>
 
-        <div className="w-full overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="relative h-[360px] w-[1166px] shrink-0">
+        <div
+          ref={roadWrapRef}
+          className="relative w-full max-w-[1166px]"
+          style={{height: `${360 * roadScale}px`}}
+        >
+        <div
+          className="absolute left-1/2 top-0 h-[360px] w-[1166px] shrink-0"
+          style={{
+            transform: `translateX(-50%) scale(${roadScale})`,
+            transformOrigin: "top center",
+          }}
+        >
             <div
               className={`absolute left-[1px] top-[4px] overflow-hidden transition-all duration-[1800ms] ease-out ${
                 activeLineVisible ? "w-[1164px]" : "w-0"

@@ -14,21 +14,21 @@ function LatestNewsSection() {
     >
       <div className="mx-auto w-full max-w-[1600px]">
         <div
-          className={`flex flex-col overflow-hidden rounded-[32px] transition-colors duration-500 ease-in-out lg:h-[570px] lg:flex-row lg:rounded-[50px] ${
+          className={`flex flex-col overflow-hidden rounded-[32px] transition-colors duration-500 ease-in-out min-[1400px]:h-[570px] min-[1400px]:flex-row min-[1400px]:rounded-[50px] ${
             isDarkMode ? "bg-white" : "bg-black"
           }`}
         >
           {/* Featured image */}
-          <div className="order-1 h-64 w-full shrink-0 self-stretch overflow-hidden lg:order-2 lg:h-auto lg:w-[496px]">
+          <div className="order-1 h-64 w-full shrink-0 self-stretch overflow-hidden min-[1400px]:order-2 min-[1400px]:h-auto min-[1400px]:w-[496px]">
             <img loading="lazy"
               src={LatestNewsImage}
               alt="Latest news"
-              className="h-full w-full object-cover object-center lg:min-h-[640px]"
+              className="h-full w-full object-cover object-center min-[1400px]:min-h-[640px]"
             />
           </div>
 
           {/* LEFT CONTENT */}
-          <div className="order-2 flex flex-1 flex-col self-stretch px-6 py-8 sm:px-10 lg:order-1 lg:px-[68px] lg:py-[68px]">
+          <div className="order-2 flex flex-1 flex-col self-stretch px-6 py-8 sm:px-10 min-[1400px]:order-1 min-[1400px]:px-[68px] min-[1400px]:py-[68px]">
             {/* Title */}
             <div className="relative inline-flex items-center">
               <div className="absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />

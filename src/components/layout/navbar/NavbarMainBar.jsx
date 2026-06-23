@@ -35,23 +35,23 @@ function NavbarMainBar({
   const textColor = isDarkMode ? "text-white" : "text-black";
 
   return (
-    <div className="flex h-14 items-center px-4 lg:h-[73px] lg:px-8">
+    <div className="flex h-14 items-center px-4 min-[1400px]:h-[73px] min-[1400px]:px-8">
       <div className="flex shrink-0 items-center">
         <Link to={routes.home}>
           <img
             src={Logo}
             alt="InnoTech Logo"
-            className={`h-8 w-auto lg:h-9 ${isDarkMode ? "" : "brightness-0"}`}
+            className={`h-8 w-auto min-[1400px]:h-9 ${isDarkMode ? "" : "brightness-0"}`}
           />
         </Link>
       </div>
 
       <div className="flex flex-1 justify-center">
-        <div className="hidden items-center gap-10 lg:flex">
+        <div className="hidden items-center gap-8 min-[1400px]:flex min-[1500px]:gap-10">
           <Link
             to={routes.whoWeAre}
             onClick={closePanels}
-            className={`font-['Gotham'] text-base transition-colors hover:text-emerald-400 ${textColor}`}
+            className={`font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
           >
             Who we are
           </Link>
@@ -59,7 +59,7 @@ function NavbarMainBar({
           <button
             type="button"
             onClick={handleDropdownToggle}
-            className={`flex items-center gap-1 font-['Gotham'] text-base transition-colors hover:text-emerald-400 ${textColor}`}
+            className={`flex items-center gap-1 font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
             aria-expanded={isDropdownOpen}
           >
             <span className="relative inline-flex pb-0">
@@ -84,7 +84,7 @@ function NavbarMainBar({
           <Link
             to={routes.whatWeThink}
             onClick={closePanels}
-            className={`font-['Gotham'] text-base transition-colors hover:text-emerald-400 ${textColor}`}
+            className={`font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
           >
             What we think
           </Link>
@@ -92,12 +92,12 @@ function NavbarMainBar({
           <Link
             to={routes.inlearnAcademy}
             onClick={closePanels}
-            className={`font-['Gotham'] text-base transition-colors hover:text-emerald-400 ${textColor}`}
+            className={`font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
           >
             INLEARN Academy
           </Link>
 
-          <span className={`font-['Gotham'] text-base opacity-70 ${textColor}`}>
+          <span className={`font-['Gotham'] text-sm opacity-70 min-[1500px]:text-base ${textColor}`}>
             INSIGHT Store
           </span>
         </div>
@@ -158,12 +158,12 @@ function NavbarMainBar({
           type="button"
           onClick={toggleTheme}
           aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-          className="group flex size-11 items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 lg:size-[44px]"
+          className="group flex size-11 items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 min-[1400px]:size-[44px]"
         >
           <img
             src={isDarkMode ? SunMedium : Moon}
             alt=""
-            className={`h-7 w-7 object-contain transition-all duration-500 ease-in-out hover:rotate-12 lg:h-[30px] lg:w-[30px] ${
+            className={`h-7 w-7 object-contain transition-all duration-500 ease-in-out hover:rotate-12 min-[1400px]:h-[30px] min-[1400px]:w-[30px] ${
               isDarkMode ? "" : "brightness-0"
             }`}
           />
@@ -193,7 +193,7 @@ function NavbarMainBar({
           onClick={handleMobileMenuToggle}
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
-          className={`flex min-h-11 items-center gap-2 rounded-full border px-3 font-['Gotham'] text-sm transition-colors lg:hidden ${
+          className={`flex min-h-11 items-center gap-2 rounded-full border px-3 font-['Gotham'] text-sm transition-colors min-[1400px]:hidden ${
             isDarkMode
               ? "border-white/15 text-white hover:bg-white/10"
               : "border-black/15 text-black hover:bg-black/5"
