@@ -33,43 +33,43 @@
     }
   ],
   "tools": {
-    "title": "Products on Cloud",
+    "title": "Cloud Based Products",
     "cards": [
       {
         "id": "idea-box",
-        "icon": "archery",
+        "icon": "Idea",
         "title": "Idea Box",
         "description": "Idea Box helps organizations capture, manage, evaluate, and track ideas across departments and teams of any size."
       },
       {
         "id": "program",
-        "icon": "globe",
+        "icon": "Program",
         "title": "Program",
-        "description": "Create forms, launch campaigns, or build complete HTML websites directly within ITONICS."
+        "description": "Program helps organizations drive innovative thinking, engage employees, and deliver business impact with minimal resources."
       },
       {
         "id": "hackathon",
-        "icon": "puzzle",
+        "icon": "Hackathon",
         "title": "Hackathon",
-        "description": "Plan innovation strategies and track project tasks over time with the ITONICS Roadmap."
+        "description": "Hackathon helps organizations coordinate stakeholders, execute flawless events, and deliver engagement and innovation the business values."
       },
       {
-        "id": "pipeline",
-        "icon": "archery",
-        "title": "Pipeline",
-        "description": "Move concepts from intake to prioritization with a clear innovation workflow."
+        "id": "Transformation",
+        "icon": "Transformation",
+        "title": "Transformation",
+        "description": "Transformation helps organizations drive cultural, digital, or organizational change and embed it across the company."
       },
       {
         "id": "labs",
-        "icon": "globe",
+        "icon": "Transformation",
         "title": "Labs",
-        "description": "Give teams a shared space to test, validate, and scale innovation programs."
+        "description": "Labs helps organizations nurture higher-risk ideas outside core operations and fund only the most promising projects."
       },
       {
-        "id": "analytics",
-        "icon": "puzzle",
-        "title": "Analytics",
-        "description": "Track participation, quality, value, and progress across every campaign."
+        "id": "Ecosystem",
+        "icon": "Ecosystem",
+        "title": "Ecosystem",
+        "description": "Ecosystem helps organizations connect external resources and integrate them into a broader innovation strategy."
       }
     ]
   },
