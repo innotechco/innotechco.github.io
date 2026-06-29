@@ -11,20 +11,63 @@
     "body": "ITONICS provides innovation management solutions to a global customer base of more than 500 organizations. In Gartner's 2024 Hype Cycle for Innovation Practices, the company was recognized across four innovation-related categories. Supported by a worldwide team of over 150 professionals, ITONICS works with major international companies, including Amazon, adidas, Johnson & Johnson, Toyota, Mondelez International, and Siemens."
   },
   "stats": [
-    {"id": "users", "value": "+1.25M", "label": "Trusted by users across the globe."},
-    {"id": "experts", "value": "+160", "label": "Innovation Experts Across five continents."},
-    {"id": "nationalities", "value": "17", "label": "Representing diverse nationalities worldwide."},
-    {"id": "trends", "value": "+14K", "label": "Trends & Technologies Continuously Monitored"}
+    {
+      "id": "users",
+      "value": "+1.25M",
+      "label": "Trusted by users across the globe."
+    },
+    {
+      "id": "experts",
+      "value": "+160",
+      "label": "Innovation Experts Across five continents."
+    },
+    {
+      "id": "nationalities",
+      "value": "17",
+      "label": "Representing diverse nationalities worldwide."
+    },
+    {
+      "id": "trends",
+      "value": "+14K",
+      "label": "Trends & Technologies Continuously Monitored"
+    }
   ],
   "tools": {
     "title": "Unified OS Tools",
     "cards": [
-      {"id": "insight", "icon": "archery", "title": "Insight", "description": "ITONICS analyzes news, research publications, and patent data to uncover timely insights across markets, topics, and regions."},
-      {"id": "sites", "icon": "globe", "title": "Sites", "description": "Create forms, launch campaigns, or build complete HTML websites directly within ITONICS."},
-      {"id": "roadmap", "icon": "puzzle", "title": "Roadmap", "description": "Plan innovation strategies and track project tasks over time with the ITONICS Roadmap."},
-      {"id": "portfolio", "icon": "archery", "title": "Portfolio", "description": "Structure innovation portfolios and move opportunities through measurable decision stages."},
-      {"id": "radar", "icon": "globe", "title": "Radar", "description": "Monitor weak signals, trends, technologies, and competitors in one shared workspace."}
+      {
+        "id": "insight",
+        "icon": "insight",
+        "title": "Insight",
+        "description": "ITONICS analyzes news, research publications, and patent data to uncover timely insights across markets, topics, and regions."
+      },
+      {
+        "id": "sites",
+        "icon": "sites",
+        "title": "Sites",
+        "description": "Create forms, launch campaigns, or build complete HTML websites directly within ITONICS."
+      },
+      {
+        "id": "roadmap",
+        "icon": "roadmap",
+        "title": "Roadmap",
+        "description": "Plan innovation strategies and track project tasks over time with the ITONICS Roadmap."
+      },
+      {
+        "id": "reports",
+        "icon": "reports",
+        "title": "Reports",
+        "description": "Monitor key characteristics and KPIs through Reports, Dashboards, and Tables, enabling focused and productive leadership discussions."
+      },
+      {
+        "id": "processes",
+        "icon": "processes",
+        "title": "Processes",
+        "description": "Create structured, step-by-step workflows for ideas, startups, projects, and other element types. Guide users through defined phases and approvals while strengthening governance and transparency."
+      }
     ]
   },
-  "contact": {"label": "contact us"}
+  "contact": {
+    "label": "contact us"
+  }
 }
