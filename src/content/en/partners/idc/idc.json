@@ -2,21 +2,72 @@
   "slug": "idc",
   "name": "IDC",
   "variant": "default",
-  "hero": {"tagline": "Manage Innovation with Confidence", "buttonLabel": "Book a Demo"},
-  "intro": {"title": "World's #1 Innovation Cloud", "body": "Founded in 1999, Brightidea launched its first online innovation platform in 2000 and has since supported more than 300 global brands, including Accenture, Bayer, Cisco, GE, and Mastercard, in generating substantial financial value through innovation. Recognized by G2 as a leading Idea Management platform and featured by outlets such as Business Wire, ZDNET, The Wall Street Journal, and GigaOm, Brightidea now offers a comprehensive software suite covering the entire innovation journey."},
+  "hero": {
+    "tagline": "Manage Innovation with Confidence",
+    "buttonLabel": "Book a Demo"
+  },
+  "intro": {
+    "title": "World's #1 Innovation Cloud",
+    "body": "Founded in 1999, Brightidea launched its first online innovation platform in 2000 and has since supported more than 300 global brands, including Accenture, Bayer, Cisco, GE, and Mastercard, in generating substantial financial value through innovation. Recognized by G2 as a leading Idea Management platform and featured by outlets such as Business Wire, ZDNET, The Wall Street Journal, and GigaOm, Brightidea now offers a comprehensive software suite covering the entire innovation journey."
+  },
   "stats": [
-    {"id": "impact", "value": "+$250M", "label": "Client business impact generated."},
-    {"id": "experience", "value": "+70", "label": "Combined years of global experience."},
-    {"id": "rank", "value": "28", "label": "Consecutive quarters ranked #1."},
-    {"id": "roi", "value": "92%", "label": "Of customers achieved positive ROI within 12 months."}
+    {
+      "id": "impact",
+      "value": "+$250M",
+      "label": "Client business impact generated."
+    },
+    {
+      "id": "experience",
+      "value": "+70",
+      "label": "Combined years of global experience."
+    },
+    {
+      "id": "rank",
+      "value": "28",
+      "label": "Consecutive quarters ranked #1."
+    },
+    {
+      "id": "roi",
+      "value": "92%",
+      "label": "Of customers achieved positive ROI within 12 months."
+    }
   ],
-  "tools": {"title": "Products on Cloud", "cards": [
-    {"id": "idea-box", "icon": "archery", "title": "Idea Box", "description": "Idea Box helps organizations capture, manage, evaluate, and track ideas across departments and teams of any size."},
-    {"id": "program", "icon": "globe", "title": "Program", "description": "Create forms, launch campaigns, or build complete HTML websites directly within ITONICS."},
-    {"id": "hackathon", "icon": "puzzle", "title": "Hackathon", "description": "Plan innovation strategies and track project tasks over time with the ITONICS Roadmap."},
-    {"id": "pipeline", "icon": "archery", "title": "Pipeline", "description": "Move concepts from intake to prioritization with a clear innovation workflow."},
-    {"id": "labs", "icon": "globe", "title": "Labs", "description": "Give teams a shared space to test, validate, and scale innovation programs."},
-    {"id": "analytics", "icon": "puzzle", "title": "Analytics", "description": "Track participation, quality, value, and progress across every campaign."}
-  ]},
-  "contact": {"label": "contact us"}
+  "tools": {
+    "title": "Products on Cloud",
+    "cards": [
+      {
+        "id": "idea-box",
+        "icon": "archery",
+        "title": "Idea Box",
+        "description": "Idea Box helps organizations capture, manage, evaluate, and track ideas across departments and teams of any size."
+      },
+      {
+        "id": "program",
+        "icon": "globe",
+        "title": "Program",
+        "description": "Create forms, launch campaigns, or build complete HTML websites directly within ITONICS."
+      },
+      {
+        "id": "hackathon",
+        "icon": "puzzle",
+        "title": "Hackathon",
+        "description": "Plan innovation strategies and track project tasks over time with the ITONICS Roadmap."
+      },
+      {
+        "id": "pipeline",
+        "icon": "archery",
+        "title": "Pipeline",
+        "description": "Move concepts from intake to prioritization with a clear innovation workflow."
+      },
+      {
+        "id": "analytics",
+        "icon": "puzzle",
+        "title": "Analytics",
+        "description": "Track participation, quality, value, and progress across every campaign."
+      }
+    ]
+  },
+  "contact": {
+    "label": "contact us"
+  }
 }
