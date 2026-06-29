@@ -3,67 +3,67 @@
   "name": "TREX",
   "variant": "default",
   "hero": {
-    "tagline": "Manage Innovation with Confidence",
+    "tagline": "Digital Manufacturing, Productivity & Production Monitoring Technologies",
     "buttonLabel": "Book a Demo"
   },
   "intro": {
-    "title": "World's #1 Innovation Cloud",
-    "body": "Founded in 1999, Brightidea launched its first online innovation platform in 2000 and has since supported more than 300 global brands, including Accenture, Bayer, Cisco, GE, and Mastercard, in generating substantial financial value through innovation. Recognized by G2 as a leading Idea Management platform and featured by outlets such as Business Wire, ZDNET, The Wall Street Journal, and GigaOm, Brightidea now offers a comprehensive software suite covering the entire innovation journey."
+    "title": "28 years of Digital Manufacturing Experience in Production",
+    "body": "trexDCAS connects shop-floor machines, operators, and production systems within a unified MES/MOM environment built for real-time manufacturing control. Its industrial IoT architecture, OEE monitoring, paperless workflows, traceability, ERP integration, anomaly detection, and advanced reporting turn fragmented production data into clear operational insight. Deployed across multiple industries and facilities, trexDCAS helps manufacturers identify hidden losses, improve capacity and operator efficiency, reduce scrap and downtime, and manage production with greater speed, visibility, and consistency."
   },
   "stats": [
     {
       "id": "impact",
-      "value": "+$250M",
-      "label": "Client business impact generated."
+      "value": "+55k",
+      "label": "Operator experience supported."
     },
     {
       "id": "experience",
-      "value": "+70",
-      "label": "Combined years of global experience."
+      "value": "+350",
+      "label": "Manufacturing facilities served."
     },
     {
       "id": "rank",
       "value": "28",
-      "label": "Consecutive quarters ranked #1."
+      "label": "Countries reached."
     },
     {
       "id": "roi",
-      "value": "92%",
-      "label": "Of customers achieved positive ROI within 12 months."
+      "value": "+15",
+      "label": "Industrial sectors covered."
     }
   ],
   "tools": {
-    "title": "Products on Cloud",
+    "title": "Digital Manufacturing Solutions",
     "cards": [
       {
-        "id": "idea-box",
+        "id": "trexDCAS MES / MOM",
         "icon": "archery",
-        "title": "Idea Box",
-        "description": "Idea Box helps organizations capture, manage, evaluate, and track ideas across departments and teams of any size."
+        "title": "trexDCAS MES / MOM",
+        "description": "trexDCAS MES/MOM monitors production, measures OEE, tracks work orders, and reveals losses across machines, shifts, and lines."
       },
       {
-        "id": "program",
+        "id": "Industrial IoT Platform",
         "icon": "globe",
-        "title": "Program",
-        "description": "Create forms, launch campaigns, or build complete HTML websites directly within ITONICS."
+        "title": "Industrial IoT Platform",
+        "description": "Alleantia Insights transforms machine data into dashboards, KPIs, anomaly alerts, and actionable performance insights for operational decisions."
       },
       {
-        "id": "hackathon",
+        "id": "Integration Management System",
         "icon": "puzzle",
-        "title": "Hackathon",
-        "description": "Plan innovation strategies and track project tasks over time with the ITONICS Roadmap."
+        "title": "Integration Management System",
+        "description": "Integration Management System connects ERP and shop-floor systems, automating production orders, confirmations, and manufacturing-data exchange."
       },
       {
-        "id": "pipeline",
+        "id": "Anomaly Assessment System",
         "icon": "archery",
-        "title": "Pipeline",
-        "description": "Move concepts from intake to prioritization with a clear innovation workflow."
+        "title": "Anomaly Assessment System",
+        "description": "Anomaly Assessment System detects abnormal trends in breakdowns, scrap, OEE, and operational KPIs, then alerts responsible teams."
       },
       {
-        "id": "labs",
+        "id": "Maintenance Management System",
         "icon": "globe",
-        "title": "Labs",
-        "description": "Give teams a shared space to test, validate, and scale innovation programs."
+        "title": "Maintenance Management System",
+        "description": "Maintenance Management System schedules asset maintenance, manages repair orders, tracks costs, and preserves technical instructions for authorized personnel."
       }
     ]
   },
