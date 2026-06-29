@@ -10,7 +10,7 @@ function PartnerHeroSection({assets, content, isDarkMode}) {
         <img
           src={assets.logo}
           alt={content.name}
-          className={`h-auto w-[min(406px,78vw)] object-contain ${assets.logoClassName ?? "max-h-[212px]"} ${logoToneClass}`}
+          className={`h-auto w-[min(1000px,78vw)] object-contain ${assets.logoClassName ?? "max-h-[212px]"} ${logoToneClass}`}
         />
         <p
           className={`max-w-[518px] font-['Gotham'] text-xl font-normal md:text-2xl ${
