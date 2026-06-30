@@ -1,0 +1,7 @@
+<svg width="600" height="360" viewBox="0 0 600 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="360" rx="32" fill="#EC4899"/>
+  <circle cx="130" cy="100" r="84" fill="#fff" opacity="0.14"/>
+  <rect x="260" y="160" width="220" height="110" rx="24" fill="#fff" opacity="0.12"/>
+  <path d="M120 240L230 140L340 240L450 140" stroke="#fff" stroke-width="14" stroke-linecap="round" opacity="0.18"/>
+  <text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-family="Gotham, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="32" font-weight="700" fill="#fff">Cross</text>
+</svg>

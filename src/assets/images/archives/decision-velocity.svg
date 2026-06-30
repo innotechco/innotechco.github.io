@@ -1,0 +1,6 @@
+<svg width="600" height="360" viewBox="0 0 600 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="360" rx="32" fill="#14B8A6"/>
+  <circle cx="110" cy="90" r="74" fill="#fff" opacity="0.14"/>
+  <path d="M120 240L210 160L290 220L360 140L460 230" stroke="#fff" stroke-width="16" stroke-linecap="round" opacity="0.18"/>
+  <text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-family="Gotham, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="700" fill="#fff">Velocity</text>
+</svg>

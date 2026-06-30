@@ -1,0 +1,7 @@
+<svg width="600" height="360" viewBox="0 0 600 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="360" rx="32" fill="#22C55E"/>
+  <circle cx="140" cy="110" r="68" fill="#fff" opacity="0.14"/>
+  <rect x="330" y="100" width="170" height="130" rx="30" fill="#fff" opacity="0.12"/>
+  <path d="M90 230L160 180L230 220L300 160L370 210L440 170" stroke="#fff" stroke-width="14" stroke-linecap="round" opacity="0.16"/>
+  <text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-family="Gotham, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="700" fill="#fff">Metrics</text>
+</svg>

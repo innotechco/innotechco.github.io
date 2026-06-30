@@ -58,11 +58,15 @@ body {
 .article-page.is-light .article-hero-media img { background: #fff; }
 
 .article-body-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: clamp(46px, 7vw, 112px); align-items: start; }
-.article-toc { position: sticky; top: 130px; padding-top: 3px; }
+.article-toc { position: sticky; top: 110px; padding-top: 3px; z-index: 2; }
 .article-toc h2 { margin: 0 0 22px; font-size: 16px; font-weight: 700; }
 .article-toc ol { display: flex; flex-direction: column; gap: 18px; margin: 0; padding: 0; list-style: none; }
 .article-toc a { color: inherit; font-size: 14px; font-weight: 300; line-height: 1.12; text-decoration: none; transition: color 180ms ease; }
 .article-toc a:hover, .article-toc a:focus-visible { color: var(--article-accent); }
+
+.article-scroll-progress { position: fixed; inset-inline: 0; bottom: 0; height: 4px; background: rgba(55, 180, 120, 0.16); z-index: 100; }
+.article-scroll-progress__fill { height: 100%; width: 0%; background: #37b478; transition: width 160ms ease; }
+.article-page.is-light .article-scroll-progress { background: rgba(55, 180, 120, 0.22); }
 
 .article-copy { max-width: 860px; min-width: 0; }
 .article-lede { margin: 0 0 12px; font-size: 15px; font-weight: 500; line-height: 1.25; }
@@ -113,7 +117,7 @@ body {
   .article-hero h1 { font-size: 34px; }
   .article-hero-media { min-height: 220px; }
   .article-body-layout { display: block; }
-  .article-toc { position: static; margin-bottom: 42px; padding: 22px; border-left: 1px solid var(--article-accent); }
+  .article-toc { position: sticky; top: 104px; margin-bottom: 42px; padding: 22px; border-left: 1px solid var(--article-accent); background: inherit; }
   .article-toc ol { gap: 13px; }
   .article-section h2 { font-size: 29px; }
   .related-news { margin-top: 66px; }
