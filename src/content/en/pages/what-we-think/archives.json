@@ -1,9 +1,9 @@
 {
   "page": {
-    "eyebrow": "INNOTECH News",
-    "title": "What's new at Fara",
-    "description": "Stay up to date with the latest announcements, product updates, company news, and insights from the Fara team.",
-    "searchPlaceholder": "What do you need?",
+    "eyebrow": "Live Insights",
+    "title": "Discover what’s new in your ecosystem",
+    "description": "Stay up to date with the latest announcements, product updates, company news, and insights.",
+    "searchPlaceholder": "What do you need know?",
     "showMoreLabel": "Show more",
     "loadingLabel": "Loading more insights...",
     "categories": [
