@@ -21,7 +21,7 @@ import metalsInsightTop from "../assets/images/industries/metals-and-mining/meta
 import {ecosystemImages, expertImages} from "../assets/images/shared";
 
 const {brightidea, idc} = ecosystemImages;
-const {itonics, statista, statistaLight, trex} = expertImages;
+const {itonics, itonicsPartner, statista, statistaLight, trex} = expertImages;
 
 export const industryConfig = {
   automotive: {
@@ -37,7 +37,9 @@ export const industryConfig = {
       trex: {image: trex},
       itonics: {
         image: itonics,
+        imageLight: itonicsPartner,
         imageClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
+        imageLightClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
       },
       statista: {
         image: statista,
@@ -59,7 +61,9 @@ export const industryConfig = {
     ecosystemCards: {
       itonics: {
         image: itonics,
+        imageLight: itonicsPartner,
         imageClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
+        imageLightClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
       },
       brightidea: {image: brightidea},
       idc: {image: idc},
@@ -83,7 +87,9 @@ export const industryConfig = {
       },
       itonics: {
         image: itonics,
+        imageLight: itonicsPartner,
         imageClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
+        imageLightClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
       },
       trex: {image: trex},
     },
@@ -104,7 +110,9 @@ export const industryConfig = {
       idc: {image: idc},
       itonics: {
         image: itonics,
+        imageLight: itonicsPartner,
         imageClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
+        imageLightClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
       },
       brightidea: {image: brightidea},
     },
@@ -122,7 +130,9 @@ export const industryConfig = {
       idc: {image: idc},
       itonics: {
         image: itonics,
+        imageLight: itonicsPartner,
         imageClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
+        imageLightClassName: "scale-[1] -translate-y-[10px] translate-x-[0px] ",
       },
       brightidea: {image: brightidea},
     },

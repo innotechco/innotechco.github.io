@@ -9,6 +9,7 @@ import ProcessesWorkflow from "../../../../../assets/images/partners/shared/card
 export const itonicsAssets = {
   logo,
   logoClassName: "max-h-[212px] max-w-[406px]",
+  lightLogoClassName: "brightness-0",
   cardIcons: {
     insight: InsightGrowthAudience,
     sites: SettingsWindow,

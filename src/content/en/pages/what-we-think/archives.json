@@ -7,37 +7,258 @@
     "showMoreLabel": "Show more",
     "loadingLabel": "Loading more insights...",
     "categories": [
-      {"id":"all", "label":"Show all"},
-      {"id":"insight", "label":"Insight"},
-      {"id":"inception", "label":"Inception"},
-      {"id":"infinity", "label":"Infinity"},
-      {"id":"automotive", "label":"Automotive"},
-      {"id":"energy-materials", "label":"Energy & Materials"},
-      {"id":"health", "label":"Health"},
-      {"id":"high-tech", "label":"High Tech"},
-      {"id":"metals-mining", "label":"Metals & Mining"},
-      {"id":"ai-agents", "label":"AI Agents"},
-      {"id":"market-research", "label":"Market Research"},
-      {"id":"digital-transformation", "label":"Digital Transformation"},
-      {"id":"sustainability", "label":"Sustainability"},
-      {"id":"foresight", "label":"Strategic Foresight"}
+      {
+        "id": "all",
+        "label": "Show all"
+      },
+      {
+        "id": "insight",
+        "label": "Insight"
+      },
+      {
+        "id": "inception",
+        "label": "Inception"
+      },
+      {
+        "id": "infinity",
+        "label": "Infinity"
+      },
+      {
+        "id": "automotive",
+        "label": "Automotive"
+      },
+      {
+        "id": "energy-materials",
+        "label": "Energy & Materials"
+      },
+      {
+        "id": "health",
+        "label": "Health"
+      },
+      {
+        "id": "high-tech",
+        "label": "High Tech"
+      },
+      {
+        "id": "metals-mining",
+        "label": "Metals & Mining"
+      },
+      {
+        "id": "ai-agents",
+        "label": "AI Agents"
+      },
+      {
+        "id": "market-research",
+        "label": "Market Research"
+      },
+      {
+        "id": "digital-transformation",
+        "label": "Digital Transformation"
+      },
+      {
+        "id": "sustainability",
+        "label": "Sustainability"
+      },
+      {
+        "id": "foresight",
+        "label": "Strategic Foresight"
+      }
     ]
   },
   "items": [
-    {"id":"portfolio-decisions","title":"Product Portfolio Management Fails When Meetings Replace Decisions","description":"A practical look at how innovation teams can turn scattered portfolio conversations into sharper, evidence-led decisions.","date":"June 1, 2026","readMinutes":2,"image":"/images/archives/default.webp","categories":["inception","insight","market-research"]},
-    {"id":"ai-innovation","title":"How AI Agents Are Changing the Innovation Playbook","description":"The emerging role of AI agents in research, prioritisation, and the day-to-day rhythm of innovation teams.","date":"May 22, 2026","readMinutes":4,"image":"/images/archives/default.webp","categories":["inception","high-tech","ai-agents"]},
-    {"id":"market-signals","title":"From Market Signals to Confident Strategic Moves","description":"A concise framework for moving from weak signals and noisy data to opportunities leaders can actually act on.","date":"May 11, 2026","readMinutes":5,"image":"/images/archives/default.webp","categories":["insight","infinity","market-research"]},
-    {"id":"scale-experiments","title":"Why the Best Innovation Experiments Start Small","description":"Small, deliberate experiments can reveal the path to scale while protecting focus, budgets, and momentum.","date":"April 28, 2026","readMinutes":3,"image":"/images/archives/default.webp","categories":["inception","automotive"]},
-    {"id":"industrial-ai","title":"Designing AI for the Realities of Industrial Teams","description":"What makes AI useful on the ground: trusted inputs, clear ownership, and workflows designed around people.","date":"April 16, 2026","readMinutes":6,"image":"/images/archives/default.webp","categories":["high-tech","infinity","ai-agents","digital-transformation"]},
-    {"id":"innovation-portfolio","title":"A Healthier Way to Review Your Innovation Portfolio","description":"Replace status-heavy meetings with a review cadence that exposes trade-offs, progress, and the next decision.","date":"April 3, 2026","readMinutes":4,"image":"/images/archives/default.webp","categories":["inception","health"]},
-    {"id":"future-ready","title":"Building a Future-Ready Innovation Operating Model","description":"The systems, rituals, and capabilities that help ambitious teams make innovation repeatable without making it rigid.","date":"March 20, 2026","readMinutes":7,"image":"/images/archives/default.webp","categories":["infinity","energy-materials","digital-transformation"]},
-    {"id":"customer-insight","title":"Customer Insight Is a Team Sport","description":"Great customer intelligence becomes more valuable when product, strategy, and delivery teams can use it together.","date":"March 8, 2026","readMinutes":3,"image":"/images/archives/default.webp","categories":["insight","health","market-research"]},
-    {"id":"strategic-foresight","title":"Making Strategic Foresight Useful on Monday Morning","description":"A grounded approach to foresight that connects long-term scenarios to the decisions already on your calendar.","date":"February 24, 2026","readMinutes":5,"image":"/images/archives/default.webp","categories":["insight","metals-mining","foresight"]},
-    {"id":"innovation-metrics","title":"The Innovation Metrics That Actually Change Behaviour","description":"Measure learning, momentum, and value creation in ways that encourage good choices instead of vanity reporting.","date":"February 12, 2026","readMinutes":4,"image":"/images/archives/default.webp","categories":["infinity","automotive","digital-transformation"]},
-    {"id":"cross-functional","title":"Cross-Functional Teams Need a Shared Innovation Language","description":"Shared vocabulary creates faster alignment when a complex opportunity passes between teams and disciplines.","date":"January 30, 2026","readMinutes":3,"image":"/images/archives/default.webp","categories":["health","energy-materials","sustainability"]},
-    {"id":"opportunity-spaces","title":"How to Find Opportunity Spaces Before Your Competitors Do","description":"Combine market intelligence and internal expertise to recognise the spaces that are beginning to open up.","date":"January 18, 2026","readMinutes":6,"image":"/images/archives/default.webp","categories":["insight","metals-mining","foresight"]},
-    {"id":"decision-velocity","title":"Decision Velocity Is an Innovation Advantage","description":"The goal is not more decisions. It is creating the clarity, context, and confidence for the right ones to happen sooner.","date":"December 19, 2025","readMinutes":4,"image":"/images/archives/default.webp","categories":["inception","automotive"]},
-    {"id":"responsible-ai","title":"Responsible AI Starts With Better Questions","description":"The questions innovation leaders should ask before introducing AI into a high-impact workflow or decision.","date":"December 5, 2025","readMinutes":5,"image":"/images/archives/default.webp","categories":["high-tech","energy-materials","ai-agents","sustainability"]},
-    {"id":"ecosystem","title":"Growing an Innovation Ecosystem That Can Deliver","description":"Partnerships create value when the ecosystem has a clear shared problem, a cadence, and room to learn together.","date":"November 21, 2025","readMinutes":6,"image":"/images/archives/default.webp","categories":["metals-mining","infinity","sustainability"]}
+    {
+      "id": "portfolio-decisions",
+      "title": "Product Portfolio Management Fails When Meetings Replace Decisions",
+      "description": "A practical look at how innovation teams can turn scattered portfolio conversations into sharper, evidence-led decisions.",
+      "date": "June 1, 2026",
+      "readMinutes": 2,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "inception",
+        "insight",
+        "market-research"
+      ]
+    },
+    {
+      "id": "ai-innovation",
+      "title": "How AI Agents Are Changing the Innovation Playbook",
+      "description": "The emerging role of AI agents in research, prioritisation, and the day-to-day rhythm of innovation teams.",
+      "date": "May 22, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "inception",
+        "high-tech",
+        "ai-agents"
+      ]
+    },
+    {
+      "id": "market-signals",
+      "title": "From Market Signals to Confident Strategic Moves",
+      "description": "A concise framework for moving from weak signals and noisy data to opportunities leaders can actually act on.",
+      "date": "May 11, 2026",
+      "readMinutes": 5,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "insight",
+        "infinity",
+        "market-research"
+      ]
+    },
+    {
+      "id": "scale-experiments",
+      "title": "Why the Best Innovation Experiments Start Small",
+      "description": "Small, deliberate experiments can reveal the path to scale while protecting focus, budgets, and momentum.",
+      "date": "April 28, 2026",
+      "readMinutes": 3,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "inception",
+        "automotive"
+      ]
+    },
+    {
+      "id": "industrial-ai",
+      "title": "Designing AI for the Realities of Industrial Teams",
+      "description": "What makes AI useful on the ground: trusted inputs, clear ownership, and workflows designed around people.",
+      "date": "April 16, 2026",
+      "readMinutes": 6,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "high-tech",
+        "infinity",
+        "ai-agents",
+        "digital-transformation"
+      ]
+    },
+    {
+      "id": "innovation-portfolio",
+      "title": "A Healthier Way to Review Your Innovation Portfolio",
+      "description": "Replace status-heavy meetings with a review cadence that exposes trade-offs, progress, and the next decision.",
+      "date": "April 3, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "inception",
+        "health"
+      ]
+    },
+    {
+      "id": "future-ready",
+      "title": "Building a Future-Ready Innovation Operating Model",
+      "description": "The systems, rituals, and capabilities that help ambitious teams make innovation repeatable without making it rigid.",
+      "date": "March 20, 2026",
+      "readMinutes": 7,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "infinity",
+        "energy-materials",
+        "digital-transformation"
+      ]
+    },
+    {
+      "id": "customer-insight",
+      "title": "Customer Insight Is a Team Sport",
+      "description": "Great customer intelligence becomes more valuable when product, strategy, and delivery teams can use it together.",
+      "date": "March 8, 2026",
+      "readMinutes": 3,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "insight",
+        "health",
+        "market-research"
+      ]
+    },
+    {
+      "id": "strategic-foresight",
+      "title": "Making Strategic Foresight Useful on Monday Morning",
+      "description": "A grounded approach to foresight that connects long-term scenarios to the decisions already on your calendar.",
+      "date": "February 24, 2026",
+      "readMinutes": 5,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "insight",
+        "metals-mining",
+        "foresight"
+      ]
+    },
+    {
+      "id": "innovation-metrics",
+      "title": "The Innovation Metrics That Actually Change Behaviour",
+      "description": "Measure learning, momentum, and value creation in ways that encourage good choices instead of vanity reporting.",
+      "date": "February 12, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "infinity",
+        "automotive",
+        "digital-transformation"
+      ]
+    },
+    {
+      "id": "cross-functional",
+      "title": "Cross-Functional Teams Need a Shared Innovation Language",
+      "description": "Shared vocabulary creates faster alignment when a complex opportunity passes between teams and disciplines.",
+      "date": "January 30, 2026",
+      "readMinutes": 3,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "health",
+        "energy-materials",
+        "sustainability"
+      ]
+    },
+    {
+      "id": "opportunity-spaces",
+      "title": "How to Find Opportunity Spaces Before Your Competitors Do",
+      "description": "Combine market intelligence and internal expertise to recognise the spaces that are beginning to open up.",
+      "date": "January 18, 2026",
+      "readMinutes": 6,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "insight",
+        "metals-mining",
+        "foresight"
+      ]
+    },
+    {
+      "id": "decision-velocity",
+      "title": "Decision Velocity Is an Innovation Advantage",
+      "description": "The goal is not more decisions. It is creating the clarity, context, and confidence for the right ones to happen sooner.",
+      "date": "December 19, 2025",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "inception",
+        "automotive"
+      ]
+    },
+    {
+      "id": "responsible-ai",
+      "title": "Responsible AI Starts With Better Questions",
+      "description": "The questions innovation leaders should ask before introducing AI into a high-impact workflow or decision.",
+      "date": "December 5, 2025",
+      "readMinutes": 5,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "high-tech",
+        "energy-materials",
+        "ai-agents",
+        "sustainability"
+      ]
+    },
+    {
+      "id": "ecosystem",
+      "title": "Growing an Innovation Ecosystem That Can Deliver",
+      "description": "Partnerships create value when the ecosystem has a clear shared problem, a cadence, and room to learn together.",
+      "date": "November 21, 2025",
+      "readMinutes": 6,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "metals-mining",
+        "infinity",
+        "sustainability"
+      ]
+    }
   ]
 }

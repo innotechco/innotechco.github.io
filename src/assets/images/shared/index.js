@@ -19,6 +19,7 @@ export const ecosystemImages = {
 
 export const expertImages = {
   itonics,
+  itonicsPartner,
   statista: statistaOnDark,
   statistaLight: statistaOnLight,
   trex,

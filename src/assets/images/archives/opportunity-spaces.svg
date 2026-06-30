@@ -1,0 +1,7 @@
+<svg width="600" height="360" viewBox="0 0 600 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="360" rx="32" fill="#0EA5E9"/>
+  <circle cx="180" cy="120" r="92" fill="#fff" opacity="0.1"/>
+  <circle cx="470" cy="90" r="52" fill="#fff" opacity="0.14"/>
+  <rect x="110" y="200" width="380" height="90" rx="18" fill="#fff" opacity="0.12"/>
+  <text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-family="Gotham, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="700" fill="#fff">Opportunity</text>
+</svg>

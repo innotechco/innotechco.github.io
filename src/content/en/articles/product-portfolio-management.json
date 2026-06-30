@@ -14,7 +14,11 @@
   "seo": {
     "title": "Product Portfolio Management Fails When Meetings Replace Decisions",
     "description": "Why meeting-driven product portfolio management fails and how decision gates restore strategic focus.",
-    "keywords": ["product portfolio management", "product development", "decision gates"]
+    "keywords": [
+      "product portfolio management",
+      "product development",
+      "decision gates"
+    ]
   },
   "sections": [
     {
@@ -52,7 +56,7 @@
     {
       "type": "text",
       "id": "governance-stalls",
-      "heading": "Why product management teams keep scheduling alignment meetings",
+      "heading": "How broken portfolio governance stalls the strategic portfolio",
       "tocLabel": "How broken portfolio governance stalls the strategic portfolio",
       "paragraphs": [
         "Portfolio governance determines who decides what, when, and using which data. Most organizations have governance bodies in name but lack decision architecture in practice.",
@@ -113,8 +117,17 @@
     }
   ],
   "related": [
-    {"title": "Product Portfolio Management Fails When Meetings Replace Decisions", "description": "Inventions combining AI and biotechnology have grown significantly..."},
-    {"title": "Product Portfolio Management Fails When Meetings Replace Decisions", "description": "Inventions combining AI and biotechnology have grown significantly..."},
-    {"title": "Product Portfolio Management Fails When Meetings Replace Decisions", "description": "Inventions combining AI and biotechnology have grown significantly..."}
+    {
+      "title": "Product Portfolio Management Fails When Meetings Replace Decisions",
+      "description": "Inventions combining AI and biotechnology have grown significantly..."
+    },
+    {
+      "title": "Product Portfolio Management Fails When Meetings Replace Decisions",
+      "description": "Inventions combining AI and biotechnology have grown significantly..."
+    },
+    {
+      "title": "Product Portfolio Management Fails When Meetings Replace Decisions",
+      "description": "Inventions combining AI and biotechnology have grown significantly..."
+    }
   ]
 }
