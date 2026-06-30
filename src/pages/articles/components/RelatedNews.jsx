@@ -9,7 +9,8 @@ function RelatedNews({article, image}) {
       <div className="related-news-grid">
         {article.related.map((item, index) => (
           <a className="related-card" href="#article-top" key={`${item.title}-${index}`}>
-            <div className="related-card-image"><img loading="lazy" src={image} alt="" aria-hidden="true" /></div>
+            <div className="related-card-image">
+              <img loading="lazy" src={image} alt="" aria-hidden="true" /></div>
             <div className="related-card-copy">
               <h3>{item.title}</h3>
               <p>{item.description}</p>

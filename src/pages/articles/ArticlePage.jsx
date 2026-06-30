@@ -7,6 +7,7 @@ import {fetchArticle} from "../../services/contentApi";
 import ArticleBody from "./components/ArticleBody";
 import ArticleHero from "./components/ArticleHero";
 import RelatedNews from "./components/RelatedNews";
+import ScrollProgress from "./components/ScrollProgress";
 
 function ArticlePage() {
   const {slug} = useParams();
@@ -37,28 +38,31 @@ function ArticlePage() {
   }, [slug]);
 
   return (
-    <main
-      id="article-top"
-      className={`article-page ${isDarkMode ? "is-dark" : "is-light"}`}
-    >
-      {status === "loading" ? <p className="article-status">Loading article...</p> : null}
-      {status === "not-found" ? (
-        <section className="article-status">
-          <h1>Article not found</h1>
-          <p>The requested article is not available yet.</p>
-        </section>
-      ) : null}
-      {article ? (
-        <article>
-          <ArticleHero
-            article={article}
-            image={articleAssets[article.heroAssetKey]}
-          />
-          <ArticleBody article={article} assets={articleAssets} />
-          <RelatedNews article={article} image={articleAssets[article.heroAssetKey]} />
-        </article>
-      ) : null}
-    </main>
+    <>
+      <ScrollProgress />
+      <main
+        id="article-top"
+        className={`article-page ${isDarkMode ? "is-dark" : "is-light"}`}
+      >
+        {status === "loading" ? <p className="article-status">Loading article...</p> : null}
+        {status === "not-found" ? (
+          <section className="article-status">
+            <h1>Article not found</h1>
+            <p>The requested article is not available yet.</p>
+          </section>
+        ) : null}
+        {article ? (
+          <article>
+            <ArticleHero
+              article={article}
+              image={articleAssets[article.heroAssetKey]}
+            />
+            <ArticleBody article={article} assets={articleAssets} />
+            <RelatedNews article={article} image={articleAssets[article.heroAssetKey]} />
+          </article>
+        ) : null}
+      </main>
+    </>
   );
 }
 
