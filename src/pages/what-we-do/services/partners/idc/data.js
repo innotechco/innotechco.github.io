@@ -1,5 +1,5 @@
 import logo from "../../../../../assets/images/partners/idc/idc-partner.svg";
-import heroImage from "../../../../../assets/images/partners/idc/idc.webp";
+import heroImage from "../../../../../assets/images/partners/idc/IDC.webp";
 import archeryIcon from "../../../../../assets/images/partners/shared/cards/archery.svg";
 import globeIcon from "../../../../../assets/images/partners/shared/cards/globe.svg";
 import puzzleIcon from "../../../../../assets/images/partners/shared/cards/puzzle.svg";
