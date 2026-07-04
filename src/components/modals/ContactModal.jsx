@@ -16,8 +16,9 @@ const defaultContactValues = {
   message: "",
 };
 
-function ContactModal({isOpen, onClose}) {
+function ContactModal({isOpen, onClose, contentOverrides = {}}) {
   const {isDarkMode} = useTheme();
+  const content = {...contactContent, ...contentOverrides};
   const [shouldRender, setShouldRender] = useState(isOpen);
   const [visible, setVisible] = useState(false);
   const [isRegionOpen, setIsRegionOpen] = useState(false);
@@ -181,7 +182,7 @@ function ContactModal({isOpen, onClose}) {
             <div
               className={`min-w-0 justify-start font-['Gotham'] text-lg font-normal sm:text-xl lg:text-2xl ${textColor}`}
             >
-              {contactContent.title}
+              {content.title}
             </div>
           </div>
 
@@ -231,7 +232,7 @@ function ContactModal({isOpen, onClose}) {
             updateValue={updateValue}
             validate={validate}
             values={values}
-            content={contactContent}
+            content={content}
           />
         </form>
       </div>

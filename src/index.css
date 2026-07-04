@@ -67,7 +67,9 @@ body {
 
 /* ========== TABLE OF CONTENTS ========== */
 .article-toc-shell {
-  /* Container - position مدیریت شده توسط JavaScript */
+  position: relative;
+  align-self: stretch;
+  min-width: 0;
 }
 
 .article-toc {
@@ -116,9 +118,11 @@ body {
 
 .article-scroll-progress__fill { 
   height: 100%; 
-  width: 0%; 
+  width: 100%;
   background: #37b478; 
-  transition: width 160ms ease; 
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
 }
 
 .article-page.is-light .article-scroll-progress { 

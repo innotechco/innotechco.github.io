@@ -1,109 +1,101 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef} from "react";
 
-function TableOfContents({ sections }) {
-  const visibleSections = sections.filter((section) => section.showInBody !== false);
+const relatedNewsGap = 32;
 
-  const [tocStyle, setTocStyle] = useState({});
-  const [isStuck, setIsStuck] = useState(false);
+function TableOfContents({sections}) {
+  const visibleSections = sections.filter(
+    (section) => section.showInBody !== false,
+  );
   const tocRef = useRef(null);
   const shellRef = useRef(null);
 
   useEffect(() => {
     const toc = tocRef.current;
     const shell = shellRef.current;
-    if (!toc || !shell) return;
-
-    const nav = document.querySelector("nav");
-    const article = document.querySelector("article");
+    const navbar = document.querySelector("nav.fixed");
     const relatedNews = document.querySelector(".related-news");
 
-    if (!nav || !article || !relatedNews) return;
+    if (!toc || !shell || !navbar || !relatedNews) return undefined;
+
+    let frameId = 0;
+
+    const applyStyle = (styles) => {
+      Object.assign(toc.style, styles);
+    };
 
     const update = () => {
-      const navHeight = nav.getBoundingClientRect().height || 0;
-      const scrollY = window.scrollY;
-      
-      const shellRect = shell.getBoundingClientRect();
-      const articleRect = article.getBoundingClientRect();
-      const relatedNewsRect = relatedNews.getBoundingClientRect();
-      
-      const tocHeight = toc.offsetHeight;
-      const stickyTop = navHeight + 20;
+      frameId = 0;
 
-      // موقعیت اولیه shell در scroll
-      const shellAbsoluteTop = shellRect.top + scrollY;
-
-      // چک کن آیا هنوز به نقطه چسبیدن رسیده
-      if (scrollY < shellAbsoluteTop - stickyTop) {
-        setTocStyle({ 
-          position: "static",
-          visibility: "visible",
-          opacity: 1,
-        });
-        setIsStuck(false);
+      if (window.matchMedia("(max-width: 700px)").matches) {
+        toc.removeAttribute("style");
         return;
       }
 
-      // فاصله شروع Related News تا viewport
-      const relatedNewsTop = relatedNewsRect.top;
-      
-      // اگر Related News شروع شده - TOC را متوقف کن
-      if (relatedNewsTop < tocHeight + stickyTop + 50) {
-        // TOC ثابت می‌ماند
-        setTocStyle({
-          position: "absolute",
-          top: `${stickyTop}px`,
-          left: `${shellRect.left}px`,
-          width: `${shellRect.width}px`,
-          height: `${tocHeight}px`,
-          visibility: "visible",
-          opacity: 1,
-          zIndex: 100,
-          overflow: "hidden",
+      const scrollY = window.scrollY;
+      const navbarHeight = navbar.getBoundingClientRect().height || 0;
+      const stickyTop = navbarHeight + 20;
+      const shellRect = shell.getBoundingClientRect();
+      const shellTop = shellRect.top + scrollY;
+      const relatedNewsTop = relatedNews.getBoundingClientRect().top + scrollY;
+      const tocHeight = toc.offsetHeight;
+      const stopTop = relatedNewsTop - tocHeight - relatedNewsGap;
+
+      if (scrollY < shellTop - stickyTop) {
+        applyStyle({
+          position: "static",
+          top: "auto",
+          left: "auto",
+          width: "auto",
+          zIndex: "auto",
         });
-        setIsStuck(true);
-      } else {
-        // TOC عادی fixed
-        setTocStyle({
-          position: "fixed",
-          top: `${stickyTop}px`,
-          left: `${shellRect.left}px`,
-          width: `${shellRect.width}px`,
-          height: `${tocHeight}px`,
-          visibility: "visible",
-          opacity: 1,
-          zIndex: 100,
-          overflow: "hidden",
-        });
-        setIsStuck(false);
+        return;
       }
+
+      if (scrollY + stickyTop >= stopTop) {
+        applyStyle({
+          position: "absolute",
+          top: `${Math.max(0, stopTop - shellTop)}px`,
+          left: "0px",
+          width: `${shellRect.width}px`,
+          zIndex: "20",
+        });
+        return;
+      }
+
+      applyStyle({
+        position: "fixed",
+        top: `${stickyTop}px`,
+        left: `${shellRect.left}px`,
+        width: `${shellRect.width}px`,
+        zIndex: "20",
+      });
     };
 
-    // اولین اجرا
-    setTimeout(update, 100);
+    const scheduleUpdate = () => {
+      if (!frameId) frameId = requestAnimationFrame(update);
+    };
 
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    scheduleUpdate();
+    window.addEventListener("scroll", scheduleUpdate, {passive: true});
+    window.addEventListener("resize", scheduleUpdate, {passive: true});
 
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      cancelAnimationFrame(frameId);
     };
   }, [sections]);
 
   return (
     <div className="article-toc-shell" ref={shellRef}>
-      <nav
-        ref={tocRef}
-        className="article-toc"
-        aria-label="Table of contents"
-        style={tocStyle}
-      >
+      <nav ref={tocRef} className="article-toc" aria-label="Table of contents">
         <h2>Table of Contents</h2>
         <ol>
           {visibleSections.map((section) => (
             <li key={section.id}>
-              <a href={`#${section.id}`}>{section.tocLabel ?? section.heading}</a>
+              <a href={`#${section.id}`}>
+                {section.tocLabel ?? section.heading}
+              </a>
             </li>
           ))}
         </ol>
