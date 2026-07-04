@@ -27,7 +27,7 @@ function CareersSection({
           </div>
           <button
             type="button"
-            className={`inline-flex min-h-11 items-center justify-center rounded-[50px] bg-[#22C55E] px-4 py-2 font-['Gotham'] text-xl font-bold sm:text-2xl ${invertedTextColor} shadow-lg transition-all duration-200 hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
+            className={`inline-flex min-h-11 items-center justify-center rounded-[50px] bg-[#22C55E] px-4 py-2 font-['Gotham'] text-xl font-medium sm:text-2xl ${invertedTextColor} shadow-lg transition-all duration-200 hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
           >
             {content.buttonLabel}
           </button>

@@ -4,6 +4,8 @@ import {Routes, Route, useLocation} from "react-router-dom";
 import {ThemeProvider} from "./context/ThemeContext";
 
 import ContactModal from "./components/modals/ContactModal";
+import contactActionContent from "./content/en/contact-actions/contact-actions.json";
+import {ContactActionsProvider} from "./context/ContactActionsProvider";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import ScrollToTop from "./components/layout/ScrollToTop";
@@ -48,6 +50,7 @@ const MetalsAndMining = lazy(() =>
 
 function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [contactActionId, setContactActionId] = useState("default");
   const {pathname} = useLocation();
   const footerTopSpacing =
     pathname === routes.whatWeThink
@@ -63,9 +66,20 @@ function App() {
       ? "mt-0"
       : undefined;
 
+  const openContact = (actionId = "default") => {
+    setContactActionId(actionId);
+    setIsContactOpen(true);
+  };
+
+  const activeContactContent = {
+    ...contactActionContent.default,
+    ...(contactActionContent[contactActionId] ?? {}),
+  };
+
   return (
     <ThemeProvider>
-      <div className="relative w-full min-h-screen overflow-x-hidden">
+      <ContactActionsProvider onOpen={openContact}>
+        <div className="relative w-full min-h-screen overflow-x-hidden">
         <ScrollToTop />
         <Navbar />
         <Suspense fallback={null}>
@@ -94,14 +108,16 @@ function App() {
           </Routes>
         </Suspense>
         <Footer
-          onContactClick={() => setIsContactOpen(true)}
+          onContactClick={() => openContact("default")}
           topSpacingClassName={footerTopSpacing}
         />
         <ContactModal
           isOpen={isContactOpen}
           onClose={() => setIsContactOpen(false)}
+          contentOverrides={activeContactContent}
         />
-      </div>
+        </div>
+      </ContactActionsProvider>
     </ThemeProvider>
   );
 }

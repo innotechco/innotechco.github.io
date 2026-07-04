@@ -4,6 +4,7 @@ import {useTheme} from "../../../../../context/useTheme";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
 import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
+import {useContactAction} from "../../../../../context/useContactAction";
 
 function ShowcaseCard({
   buttonLabel,
@@ -12,9 +13,11 @@ function ShowcaseCard({
   title,
   subtitle,
   isDarkMode,
+  contactActionId,
 }) {
   const {position: glowPosition, handlers} = usePointerGlow();
   const greenButtonTextColor = isDarkMode ? "text-black" : "text-white";
+  const openContact = useContactAction();
 
   return (
     <div
@@ -62,6 +65,7 @@ function ShowcaseCard({
           </div>
 
           <button
+            onClick={() => openContact(contactActionId)}
             className={`min-h-11 shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-xs font-bold leading-tight sm:px-4 sm:text-base sm:leading-none ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
             type="button"
           >
@@ -90,6 +94,11 @@ function ShowcaseCard({
 
 function ServiceShowcase({title, cards, icon, iconClassName}) {
   const {isDarkMode} = useTheme();
+  const contactActionId = title === "INCEPTION SHOWROOM"
+    ? "inception-showroom"
+    : title === "SAMPLES AND TRIALS"
+      ? "insight-samples"
+      : "infinity-engine";
 
   return (
     <section
@@ -111,6 +120,7 @@ function ServiceShowcase({title, cards, icon, iconClassName}) {
                 icon={icon}
                 iconClassName={iconClassName}
                 isDarkMode={isDarkMode}
+                contactActionId={contactActionId}
               />
             ))}
           </ResponsiveCarousel>
@@ -124,6 +134,7 @@ function ServiceShowcase({title, cards, icon, iconClassName}) {
               icon={icon}
               iconClassName={iconClassName}
               isDarkMode={isDarkMode}
+              contactActionId={contactActionId}
             />
           ))}
         </div>

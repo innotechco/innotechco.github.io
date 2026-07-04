@@ -1,4 +1,7 @@
+import {useContactAction} from "../../../../../../context/useContactAction";
+
 function PartnerHeroSection({assets, content, isDarkMode}) {
+  const openContact = useContactAction();
   const greenButtonTextColor = isDarkMode ? "text-black" : "text-white";
   const logoToneClass = isDarkMode
     ? assets.darkLogoClassName ?? ""
@@ -20,6 +23,7 @@ function PartnerHeroSection({assets, content, isDarkMode}) {
           {content.hero.tagline}
         </p>
         <button
+          onClick={() => openContact(content.hero.buttonLabel === "Book a Meeting" ? "partner-meeting" : "partner-demo")}
           type="button"
           className={`rounded-[50px] bg-[#37B478] px-5 py-2 font-['Gotham'] text-xl font-bold ${greenButtonTextColor} transition-all duration-200 hover:scale-[1.03] hover:bg-[#22C55E] active:scale-95 md:text-2xl`}
         >

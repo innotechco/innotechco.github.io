@@ -1,6 +1,7 @@
 import excludeBlackShape from "../../../assets/images/excludes/shared/ExcludeBlack.svg";
 import excludeShape from "../../../assets/images/excludes/shared/Exclude.svg";
 import {usePointerGlow} from "../../../hooks/usePointerGlow";
+import {useContactAction} from "../../../context/useContactAction";
 
 function ExpertCard({
   image,
@@ -10,6 +11,7 @@ function ExpertCard({
   isDarkMode,
 }) {
   const {position, handlers} = usePointerGlow();
+  const openContact = useContactAction();
   const greenButtonTextColor = isDarkMode ? "text-black" : "text-white";
 
   return (
@@ -51,6 +53,7 @@ function ExpertCard({
           </div>
 
           <button
+            onClick={() => openContact("selected-project")}
             className={`shrink-0 rounded-bl-[30px] rounded-br-[20px] rounded-tr-[20px] bg-[#22C55E] px-4 py-2 font-['Gotham'] text-base font-bold leading-none ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
             type="button"
           >
