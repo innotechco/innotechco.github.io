@@ -58,7 +58,7 @@ function ServiceActionSection({title, items}) {
           {title}
         </SectionTitle>
 
-        <div className="w-full min-[1400px]:hidden">
+        <div className="w-full lg:hidden">
           <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
             {items.map((item) => (
               <ActionCard key={item.title} item={item} isDarkMode={isDarkMode} />
@@ -66,7 +66,7 @@ function ServiceActionSection({title, items}) {
           </ResponsiveCarousel>
         </div>
 
-        <div className="hidden w-full grid-cols-3 items-stretch gap-8 min-[1400px]:grid">
+        <div className="hidden w-full grid-cols-3 items-stretch gap-8 lg:grid">
           {items.map((item) => (
             <ActionCard key={item.title} item={item} isDarkMode={isDarkMode} />
           ))}

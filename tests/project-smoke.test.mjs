@@ -65,6 +65,24 @@ test("theme contract exposes light and dark mode", () => {
   assert.match(provider, /setIsDarkMode/);
 });
 
+test("card-style sections use the same responsive breakpoint as selected projects", () => {
+  const cardSectionFiles = [
+    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "CapabilitiesSection.jsx"),
+    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "LiveInsightsSection.jsx"),
+    path.join(srcRoot, "pages", "what-we-do", "services", "shared", "components", "ServiceActionSection.jsx"),
+    path.join(srcRoot, "pages", "what-we-do", "services", "shared", "components", "ServiceCapabilities.jsx"),
+  ];
+
+  const sources = cardSectionFiles.map((file) => fs.readFileSync(file, "utf8"));
+
+  for (const source of sources) {
+    assert.match(source, /lg:hidden/);
+    assert.match(source, /lg:grid/);
+    assert.doesNotMatch(source, /min-\[1400px\]:hidden/);
+    assert.doesNotMatch(source, /min-\[1400px\]:grid/);
+  }
+});
+
 test("large interactive surfaces stay split into focused components", () => {
   const navbar = fs.readFileSync(
     path.join(srcRoot, "components", "layout", "Navbar.jsx"),

@@ -133,7 +133,7 @@ function HistorySection({content, image, textColor, isDarkMode}) {
         onPointerUp={stopHistoryDrag}
         onPointerCancel={stopHistoryDrag}
         onPointerLeave={stopHistoryDrag}
-        className={`history-scroll-area relative z-10 h-[770px] w-full select-none overflow-x-auto overflow-y-hidden ${isDarkMode ? "bg-black" : "bg-white"} ${
+        className={`history-scroll-area relative z-10 h-[770px] w-full select-none overflow-x-auto overflow-y-hidden ${
           isHistoryDragging ? "cursor-grabbing" : "cursor-grab"
         }`}
       >
@@ -142,7 +142,7 @@ function HistorySection({content, image, textColor, isDarkMode}) {
           alt=""
           aria-hidden
           draggable={false}
-          className="h-[770px] w-[2200px] max-w-none object-fill"
+          className="h-[770px] w-[2500px] max-w-none object-fill"
         />
       </div>
 
