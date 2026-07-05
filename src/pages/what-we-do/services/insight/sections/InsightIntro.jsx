@@ -13,16 +13,16 @@ function InsightIntro() {
 
   return (
     <main
-      className={`relative flex min-h-[720px] w-full items-start justify-center overflow-hidden px-6 pt-36 md:min-h-[820px] md:pt-40 lg:min-h-screen lg:items-center lg:pt-28 ${pageBg}`}
+      className={`relative z-20 flex min-h-[640px] w-full items-start justify-center overflow-visible px-6 pt-44 md:min-h-[720px] md:pt-48 lg:min-h-screen lg:items-center lg:pt-28 ${pageBg}`}
     >
       <img loading="lazy"
         src={excludeImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[52%] z-10 w-[min(620px,94vw)] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:w-[min(700px,135vw)] lg:-translate-y-[250px]"
+        className="pointer-events-none absolute left-1/2 top-[350px] z-10 w-[min(700px,92vw)] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:top-1/2 lg:w-[min(700px,135vw)] lg:-translate-y-[250px]"
       />
 
-      <section className="relative z-20 flex w-[min(466px,calc(100vw-48px))] flex-col items-center justify-start gap-4 text-center">
+      <section className="relative z-20 flex w-[min(440px,calc(100vw-64px))] flex-col items-center justify-start gap-3 text-center">
         <img loading="lazy"
           src={insightIcon}
           alt=""
@@ -33,14 +33,14 @@ function InsightIntro() {
         <IntroRevealText
           as="h1"
           variant="heading"
-          className={`font-['Gotham'] text-5xl font-normal leading-none md:text-7xl ${textColor}`}
+          className={`font-['Gotham'] text-4xl font-normal leading-none sm:text-5xl md:text-7xl ${textColor}`}
         >
           INSIGHT
         </IntroRevealText>
 
         <IntroRevealText
           variant="copy"
-          className={`font-['Gotham'] text-base font-normal leading-tight md:text-xl ${textColor}`}
+          className={`font-['Gotham'] text-sm font-normal leading-tight sm:text-base md:text-xl ${textColor}`}
         >
           Turning intelligence into action. INSIGHT combines AI-driven analysis,
           patent monitoring, market research, and science analytics to empower

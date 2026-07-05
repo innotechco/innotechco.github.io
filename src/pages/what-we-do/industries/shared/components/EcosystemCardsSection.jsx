@@ -110,7 +110,7 @@ function EcosystemCardsSection({
           {title}
         </SectionTitle>
 
-        <div className="w-full min-[1400px]:hidden">
+        <div className="w-full lg:hidden">
           <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
             {cards.map((card) => (
               <EcosystemCard
@@ -124,7 +124,7 @@ function EcosystemCardsSection({
           </ResponsiveCarousel>
         </div>
 
-        <div className="hidden w-full grid-cols-3 items-stretch gap-8 overflow-visible min-[1400px]:grid">
+        <div className="hidden w-full grid-cols-3 items-stretch gap-8 overflow-visible lg:grid">
           {cards.map((card) => (
             <EcosystemCard
               key={card.id}

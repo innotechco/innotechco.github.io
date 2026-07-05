@@ -2,7 +2,7 @@ import IntroRevealText from "../../../components/ui/IntroRevealText";
 
 function HeroSection({content, textColor}) {
   return (
-    <section className="flex min-h-[360px] flex-col items-center justify-start gap-2 px-4 text-center sm:px-6 lg:h-[430px] lg:px-28 lg:-translate-y-30">
+    <section className="flex h-[430px] min-h-[430px] flex-col items-center justify-center gap-2 px-4 pb-6 text-center sm:px-6 lg:px-28">
       <div className="size-6 rounded-full bg-[#37B478]" />
       <IntroRevealText
         as="h1"

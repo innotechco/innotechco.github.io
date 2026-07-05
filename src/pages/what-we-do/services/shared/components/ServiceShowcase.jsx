@@ -52,8 +52,8 @@ function ShowcaseCard({
           aria-hidden="true"
         />
 
-        <div className="relative z-10 flex w-full flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-          <div className="relative size-[58px] shrink-0 sm:size-[90px]">
+        <div className="relative z-10 flex w-full items-end justify-between gap-4">
+          <div className="relative size-[94px] shrink-0">
             <span
               aria-hidden
               className={`absolute left-0 top-0 size-9 bg-[#22C55E] ${iconClassName}`}
@@ -111,7 +111,7 @@ function ServiceShowcase({title, cards, icon, iconClassName}) {
           {title}
         </SectionTitle>
 
-        <div className="w-full min-[1400px]:hidden">
+        <div className="w-full lg:hidden">
           <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
             {cards.map((card) => (
               <ShowcaseCard
@@ -126,7 +126,7 @@ function ServiceShowcase({title, cards, icon, iconClassName}) {
           </ResponsiveCarousel>
         </div>
 
-        <div className="hidden w-full grid-cols-3 items-stretch gap-8 overflow-visible min-[1400px]:grid">
+        <div className="hidden w-full grid-cols-3 items-stretch gap-8 overflow-visible lg:grid">
           {cards.map((card) => (
             <ShowcaseCard
               key={card.id}

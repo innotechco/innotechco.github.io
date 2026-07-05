@@ -94,10 +94,10 @@ function LiveInsightsSection({title, cards, alt}) {
   const renderCarouselCard = (card) => (
     <GlowCard
       key={card.id}
-      className="min-h-[540px]"
+      className="h-[620px]"
       isDarkMode={isDarkMode}
     >
-      <div className="flex size-full min-h-[540px] flex-col">
+      <div className="flex size-full flex-col overflow-hidden">
         <div className="h-60 w-full overflow-hidden">
           <img
             loading="lazy"

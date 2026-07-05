@@ -12,9 +12,9 @@ function WhoWeAreBackground({images, isDarkMode}) {
       };
 
   const positions = {
-    top: "top-[-50px]",
-    top2: "top-[-10px]",
-    middle: "top-[2180px]",
+    top: "top-[10px] xl:top-[-0px] sm:top-[10px] md:top-[10px]",
+    top2: "top-[180px] 2xl:top-[20px] xl:top-[90px] sm:top-[200px] md:top-[300px]",
+    middle: "top-[3200px] md:top-[3050px] xl:top-[2900px]",
   };
 
   return (
@@ -25,12 +25,12 @@ function WhoWeAreBackground({images, isDarkMode}) {
       <img
         src={backgroundImages.top}
         alt=""
-        className={`absolute inset-x-0 ${positions.top} h-auto w-full`}
+        className={`absolute left-1/2 ${positions.top} h-auto w-full min-w-[1024px] -translate-x-1/2`}
       />
       <img
         src={backgroundImages.top2}
         alt=""
-        className={`absolute inset-x-0 ${positions.top2} h-auto w-full`}
+        className={`absolute left-1/2 ${positions.top2} h-auto w-full min-w-[1024px] -translate-x-1/2`}
       />
       <img
         src={backgroundImages.middle}

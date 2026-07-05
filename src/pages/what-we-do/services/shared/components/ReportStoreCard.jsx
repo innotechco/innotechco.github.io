@@ -42,12 +42,12 @@ function ReportStoreCard() {
             <img loading="lazy"
               src={randMLogo}
               alt="R and M"
-              className="relative z-10 h-16 w-auto max-w-[180px] object-contain transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110"
+              className="relative z-10 h-10 w-auto max-w-[125px] object-contain transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110 sm:h-12"
             />
             <img loading="lazy"
               src={marketResearchLogo}
               alt="Market Research"
-              className="relative z-10 h-16 w-auto max-w-[180px] object-contain transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110"
+              className="relative z-10 h-10 w-auto max-w-[125px] object-contain transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110 sm:h-12"
             />
           </div>
         </div>

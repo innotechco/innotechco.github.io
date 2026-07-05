@@ -24,7 +24,7 @@
     const trackRef = useRef(null);
     const swipeStartRef = useRef(null);
     const cards = content.tools.cards;
-    const visibleCount = Math.min(1, cards.length);
+    const visibleCount = Math.min(3, cards.length);
     const textColor = isDarkMode ? "text-white" : "text-black";
     const greenButtonHoverTextColor = isDarkMode
       ? "hover:text-black"
@@ -162,13 +162,13 @@
             {content.tools.title}
           </SectionHeading>
 
-          <div className="grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
+          <div className="relative w-full">
             <button
               type="button"
               onClick={() => move("prev")}
               disabled={isAnimating}
               aria-label="Previous partner tool"
-              className={`flex size-10 shrink-0 items-center justify-center rounded-full border border-[#37B478] text-[#37B478] transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 ${greenButtonHoverTextColor}`}
+              className={`absolute left-0 top-1/2 z-20 flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#37B478] bg-black/70 text-[#37B478] backdrop-blur transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 sm:size-10 ${greenButtonHoverTextColor}`}
             >
               <PartnerArrow direction="left" />
             </button>
@@ -187,7 +187,7 @@
                   if (Math.abs(delta) >= 48) move(delta < 0 ? "next" : "prev");
                 }}
                 onPointerCancel={() => { swipeStartRef.current = null; }}
-                className={`partner-tools-track grid min-w-0 touch-pan-y grid-cols-1 gap-8 ${
+                className={`partner-tools-track grid min-w-0 touch-pan-y grid-cols-3 gap-3 md:gap-6 xl:gap-8 ${
                   isAnimating ? "partner-tools-track--animating" : ""
                 }`}
                 style={trackHeight ? { height: `${trackHeight}px` } : undefined}
@@ -197,19 +197,19 @@
                     key={key}
                     data-partner-tool-card
                     style={style ?? undefined}
-                    className={`partner-tools-card group h-[380px] min-h-[380px] min-w-0 rounded-3xl border border-[#37B478]/20 bg-green-500/5 p-9 shadow-[inset_1px_-1px_2px_0px_rgba(29,95,63,1)] transition-all duration-500 ease-out hover:-translate-y-3 hover:border-[#37B478]/80 hover:bg-[#37B478]/10 hover:shadow-[inset_1px_-1px_2px_0px_rgba(55,180,120,1),0_24px_55px_-32px_rgba(55,180,120,0.9)] flex flex-col`}   // ← اضافه شد
+                    className={`partner-tools-card group flex h-[380px] min-h-[380px] min-w-0 flex-col overflow-hidden rounded-3xl border border-[#37B478]/20 bg-green-500/5 p-3 shadow-[inset_1px_-1px_2px_0px_rgba(29,95,63,1)] transition-all duration-500 ease-out hover:-translate-y-3 hover:border-[#37B478]/80 hover:bg-[#37B478]/10 hover:shadow-[inset_1px_-1px_2px_0px_rgba(55,180,120,1),0_24px_55px_-32px_rgba(55,180,120,0.9)] sm:p-5 xl:p-9`}
                   >
                     <img
                       loading="lazy"
                       src={assets.cardIcons[card.icon]}
                       alt=""
                       aria-hidden
-                      className="size-24 object-contain transition-transform duration-500 ease-out group-hover:scale-105 [filter:brightness(0)_saturate(100%)_invert(56%)_sepia(51%)_saturate(599%)_hue-rotate(96deg)_brightness(94%)_contrast(88%)] flex-shrink-0" 
+                      className="size-12 max-w-full flex-shrink-0 object-contain transition-transform duration-500 ease-out group-hover:scale-105 [filter:brightness(0)_saturate(100%)_invert(56%)_sepia(51%)_saturate(599%)_hue-rotate(96deg)_brightness(94%)_contrast(88%)] sm:size-16 xl:size-24"
                     />
-                    <h3 className={`mt-4 font-['Gotham'] text-2xl font-bold ${textColor}`}>
+                    <h3 className={`mt-4 break-words font-['Gotham'] text-sm font-bold sm:text-lg xl:text-2xl ${textColor}`}>
                       {card.title}
                     </h3>
-                    <p className={`mt-4 font-['Gotham'] text-base leading-normal ${textColor} flex-grow`}>
+                    <p className={`mt-3 flex-grow overflow-hidden break-words font-['Gotham'] text-[10px] leading-snug sm:text-sm xl:mt-4 xl:text-base xl:leading-normal ${textColor}`}>
                       {card.description}
                     </p>
                   </article>
@@ -221,7 +221,7 @@
               onClick={() => move("next")}
               disabled={isAnimating}
               aria-label="Next partner tool"
-              className={`flex size-10 shrink-0 items-center justify-center rounded-full border border-[#37B478] text-[#37B478] transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 ${greenButtonHoverTextColor}`}
+              className={`absolute right-0 top-1/2 z-20 flex size-9 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#37B478] bg-black/70 text-[#37B478] backdrop-blur transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 sm:size-10 ${greenButtonHoverTextColor}`}
             >
               <PartnerArrow />
             </button>

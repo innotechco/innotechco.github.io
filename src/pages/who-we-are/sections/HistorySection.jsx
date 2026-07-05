@@ -47,7 +47,7 @@ const historyRangeStyles = `
   }
 `;
 
-function HistorySection({content, image, textColor}) {
+function HistorySection({content, image, textColor, isDarkMode}) {
   const historyScrollRef = useRef(null);
   const historyDragRef = useRef({active: false, startX: 0, scrollLeft: 0});
   const [historyScrollProgress, setHistoryScrollProgress] = useState(0);
@@ -133,7 +133,7 @@ function HistorySection({content, image, textColor}) {
         onPointerUp={stopHistoryDrag}
         onPointerCancel={stopHistoryDrag}
         onPointerLeave={stopHistoryDrag}
-        className={`history-scroll-area relative h-[770px] w-screen select-none overflow-x-auto overflow-y-hidden ${
+        className={`history-scroll-area relative z-10 h-[770px] w-full select-none overflow-x-auto overflow-y-hidden ${isDarkMode ? "bg-black" : "bg-white"} ${
           isHistoryDragging ? "cursor-grabbing" : "cursor-grab"
         }`}
       >
