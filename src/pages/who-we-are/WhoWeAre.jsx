@@ -24,12 +24,13 @@ function WhoWeAre() {
       className={`relative isolate w-full overflow-hidden pt-36 font-['Gotham'] transition-colors duration-500 ${pageBackground}`}
     >
       <WhoWeAreBackground images={whoWeAreImages} isDarkMode={isDarkMode} />
-      <div className="relative z-10 pt-25">
+      <div className="relative z-10">
         <HeroSection content={whoWeAreContent.hero} textColor={textColor} />
         <IntroSection
           content={whoWeAreContent.intro}
           image={whoWeAreImages.intro}
           textColor={textColor}
+          isDarkMode={isDarkMode}
         />
         <HistorySection
           content={whoWeAreContent.history}

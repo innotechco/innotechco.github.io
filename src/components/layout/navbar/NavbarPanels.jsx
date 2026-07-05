@@ -212,6 +212,7 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
 }
 
 function SearchPanel({
+  closePanels,
   inputRef,
   isDarkMode,
   isOpen,
@@ -301,8 +302,11 @@ function SearchPanel({
           {searchResults.length > 0 ? (
             <div className="space-y-2">
               {searchResults.map((result) => (
-                <div
+                <Link
                   key={`${result.title}-${result.type}`}
+                  data-search-result={result.title}
+                  to={result.to}
+                  onClick={closePanels}
                   className={`cursor-pointer break-words rounded-[32px] border px-5 py-4 transition-colors duration-300 ${
                     isDarkMode
                       ? "border-white/10 bg-white/5 hover:bg-white/10"
@@ -323,7 +327,7 @@ function SearchPanel({
                   >
                     {result.type}
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           ) : null}

@@ -8,7 +8,7 @@ function PartnerHeroSection({assets, content, isDarkMode}) {
     : assets.lightLogoClassName ?? "brightness-0";
 
   return (
-    <section className="px-6 pb-12 pt-36 md:px-16 md:pb-16 md:pt-40 xl:px-[120px]">
+    <section className="relative z-20 px-6 pb-20 pt-36 md:px-16 md:pb-24 md:pt-40 xl:px-[120px]">
       <div className="mx-auto flex w-full max-w-[760px] flex-col items-center gap-8 text-center">
         <img
           src={assets.logo}

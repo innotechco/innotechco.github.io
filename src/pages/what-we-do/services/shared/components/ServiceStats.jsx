@@ -108,19 +108,19 @@ function ServiceStats({stats}) {
         src={leftImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-[-160px] top-[-40px] z-20 hidden h-[637px] w-auto max-w-none rotate-[20deg] select-none lg:left-[-100px] lg:block"
+        className="pointer-events-none absolute left-[-100px] top-[-40px] z-20 hidden h-[637px] w-auto max-w-none rotate-[20deg] select-none min-[1445px]:block min-[1601px]:hidden"
       />
       <img loading="lazy"
         src={middleImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-580px] z-20 hidden h-[1275px] w-auto max-w-none -translate-x-1/2 rotate-[9deg] select-none lg:left-[750px] lg:block lg:translate-x-0"
+        className="pointer-events-none absolute left-[750px] top-[-580px] z-20 hidden h-[1275px] w-auto max-w-none rotate-[9deg] select-none min-[1445px]:block min-[1601px]:hidden"
       />
       <img loading="lazy"
         src={rightImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute right-[-1100px] top-[-120px] z-20 hidden h-[650px] w-[2900px] object-contain object-center select-none lg:right-78 lg:block"
+        className="pointer-events-none absolute right-78 top-[-120px] z-20 hidden h-[650px] w-[2900px] object-contain object-center select-none min-[1445px]:block min-[1601px]:hidden"
       />
 
       <div className="absolute left-1/2 top-[145px] z-30 grid w-full max-w-[720px] -translate-x-1/2 grid-cols-2 items-start gap-x-8 gap-y-12 px-6 md:px-16 lg:top-[184px] lg:flex lg:max-w-[1440px] lg:justify-between lg:gap-20 xl:gap-80 xl:px-[120px]">

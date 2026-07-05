@@ -36,7 +36,7 @@ const Footer = ({ onContactClick }) => {
         <div className="absolute inset-0 flex flex-col justify-between z-10">
 
           {/* TOP */}
-          <div className="flex justify-between items-start px-6 sm:px-10 lg:px-[125px] pt-[6%]">
+          <div className="flex justify-between items-start px-6 sm:px-10 lg:px-[125px] pt-[6%] lg:pt-[8%]">
             {/* Logo */}
             <img
               src={isLightMode ? FooterInnoTechDark : FooterInnoTech}

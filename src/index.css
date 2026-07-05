@@ -1063,6 +1063,23 @@ body {
   .what-we-think-card--text .what-we-think-meta { font-size: 11px; line-height: 1.25; }
 }
 
+.what-we-think-archives-link {
+  grid-column: 1 / -1;
+  justify-content: center;
+  padding-block: 36px 72px;
+}
+
+.what-we-think-archives-link > a {
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #37b478;
+  padding: 0 24px;
+  color: #06160e;
+  font-weight: 700;
+}
+
 @media (max-width: 520px) {
   .what-we-think-grid { gap: 10px; }
   .what-we-think-card-shell,

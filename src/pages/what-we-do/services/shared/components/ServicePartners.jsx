@@ -34,7 +34,7 @@ function PartnerCard({partner, isDarkMode}) {
   return (
     <Link
       to={routes.partner.replace(":slug", partner.id)}
-      className={`group relative h-[64px] w-full max-w-[172px] overflow-hidden rounded-2xl ${cardSurfaceClassName} ${
+      className={`group relative h-[68px] w-full max-w-[172px] basis-[calc(33.333%-12px)] overflow-hidden rounded-2xl ${cardSurfaceClassName} ${
         isDarkMode ? "" : "border border-black"
       }`}
       title={partner.name}
@@ -43,7 +43,7 @@ function PartnerCard({partner, isDarkMode}) {
         <img loading="lazy"
           src={logoImage}
           alt={partner.name}
-          className={`object-contain ${imageClassName}`}
+          className={`max-h-[72%] max-w-[78%] object-contain ${imageClassName}`}
         />
       </div>
 
@@ -75,7 +75,7 @@ function ServicePartners({service, partners}) {
           </h2>
         </header>
 
-        <div className="grid w-full grid-cols-3 place-items-center gap-4 sm:gap-7 lg:gap-[46px]">
+        <div className="flex w-full flex-wrap items-center justify-center gap-4 sm:gap-7 lg:gap-[46px]">
           {partners.map((partner) => (
             <PartnerCard
               key={partner.name}

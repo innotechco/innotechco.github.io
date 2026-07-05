@@ -47,7 +47,6 @@ function StatCard({assets, isDarkMode, isVisible, stat}) {
 function PartnerStatsSection({assets, content, isDarkMode}) {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const partnerExclude = isDarkMode ? assets.excludeDark : assets.excludeLight;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -72,16 +71,7 @@ function PartnerStatsSection({assets, content, isDarkMode}) {
       ref={sectionRef}
       className="relative isolate overflow-visible px-6 py-16 md:px-16 md:py-[60px] xl:px-[120px]"
     >
-      {partnerExclude ? (
-        <div className="pointer-events-none absolute inset-y-0 left-1/2 z-20 flex w-screen -translate-x-1/2 items-center justify-center">
-          <img
-            aria-hidden
-            src={partnerExclude}
-            alt=""
-            className="max-h-[890px] w-full max-w-[1600px] translate-y-72 object-fill object-center md:translate-y-64 xl:translate-y-55 -translate-x-1"
-          />
-        </div>
-      ) : (
+      {!assets.excludeDark || !assets.excludeLight ? (
         <>
           <div
             aria-hidden
@@ -98,7 +88,7 @@ function PartnerStatsSection({assets, content, isDarkMode}) {
             className="pointer-events-none absolute left-[calc(120px+36px)] top-[25px] z-0 hidden h-px w-[calc(100%-260px)] bg-[#37B478] md:block"
           />
         </>
-      )}
+      ) : null}
       <div className="relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-4 md:gap-8 xl:grid-cols-4">
         {content.stats.map((stat) => (
           <StatCard

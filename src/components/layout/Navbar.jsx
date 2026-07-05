@@ -106,6 +106,7 @@ function Navbar() {
             isOpen={isDropdownOpen}
           />
           <SearchPanel
+            closePanels={closePanels}
             inputRef={inputRef}
             isDarkMode={isDarkMode}
             isOpen={isSearchOpen}

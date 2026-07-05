@@ -13,16 +13,16 @@ function InfinityIntro() {
 
   return (
     <main
-      className={`relative flex min-h-[720px] w-full items-start justify-center overflow-hidden px-6 pt-36 md:min-h-[820px] md:pt-40 lg:min-h-screen lg:items-center lg:pt-28 ${pageBg}`}
+      className={`relative flex min-h-[700px] w-full items-start justify-center overflow-hidden px-6 pt-44 md:min-h-[780px] md:pt-48 lg:min-h-screen lg:items-center lg:pt-28 ${pageBg}`}
     >
       <img loading="lazy"
         src={excludeImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[56%] z-10 w-[min(940px,130vw)] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:bottom-[-20px] lg:top-auto lg:w-[min(1280px,150vw)] lg:translate-y-0"
+        className="pointer-events-none absolute left-1/2 top-[80px] z-10 w-[min(940px,130vw)] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:bottom-[-20px] lg:top-auto lg:w-[min(1280px,150vw)] lg:translate-y-0"
       />
 
-      <section className="relative z-20 flex w-[min(466px,calc(100vw-48px))] flex-col items-center justify-start gap-4 text-center">
+      <section className="relative z-20 flex w-[min(466px,calc(100vw-64px))] flex-col items-center justify-start gap-4 text-center">
         <img loading="lazy"
           src={infinityIcon}
           alt=""
