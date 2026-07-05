@@ -39,13 +39,14 @@ function ArticleCard({
   metaLayout = "stack",
   image = true,
   isDarkMode,
+  className = "",
 }) {
   const {position, handlers} = usePointerGlow();
 
   return (
     <div
       {...handlers}
-      className={`what-we-think-card-shell what-we-think-card-shell--${variant}`}
+      className={`what-we-think-card-shell what-we-think-card-shell--${variant} ${className}`}
     >
       <div
         className="what-we-think-card-glow"
@@ -111,8 +112,8 @@ function WhatWeThink() {
           <div className="what-we-think-stack">
             <ArticleCard card={cards.smallMiddleLeft} variant="small" isDarkMode={isDarkMode} />
             <div className="what-we-think-text-row">
-              <ArticleCard card={cards.textCard1} variant="text" image={false} isDarkMode={isDarkMode} />
-              <ArticleCard card={cards.textCard2} variant="text" image={false} isDarkMode={isDarkMode} />
+              <ArticleCard card={cards.textCard1} variant="text" image={false} isDarkMode={isDarkMode} className="hide-mobile" />
+              <ArticleCard card={cards.textCard2} variant="text" image={false} isDarkMode={isDarkMode} className="hide-mobile" />
             </div>
           </div>
           <ArticleCard card={cards.tallRight} variant="tall" metaLayout="row" isDarkMode={isDarkMode} />

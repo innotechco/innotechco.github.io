@@ -1055,34 +1055,40 @@ body {
   .what-we-think-stack,
   .what-we-think-text-row { display: contents; }
   .what-we-think-card-shell,
-  .what-we-think-card { width: 100%; height: 430px; min-height: 0; }
+  .what-we-think-card { width: 100%; min-height: 0; height: auto; }
   .what-we-think-card { flex-direction: column; border-radius: 28px; }
   .what-we-think-card--tall .what-we-think-image,
   .what-we-think-card--horizontal .what-we-think-image,
   .what-we-think-card--small .what-we-think-image {
     width: 100%; height: 42%; min-height: 150px;
   }
+  .hide-mobile { display: none !important; }
   .what-we-think-copy,
   .what-we-think-card--small .what-we-think-copy,
   .what-we-think-card--text .what-we-think-copy {
-    min-height: 0; flex: 1; gap: 8px; overflow: hidden; padding: 16px;
+    min-height: 0; flex: 1; gap: 10px; overflow: visible; padding: 16px;
   }
   .what-we-think-copy h2,
   .what-we-think-card--small .what-we-think-copy h2,
-  .what-we-think-card--text .what-we-think-copy h2 { font-size: 17px; line-height: 1.15; }
-  .what-we-think-copy > p {
-    display: -webkit-box;
-    overflow: hidden;
-    overflow-wrap: anywhere;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+  .what-we-think-card--text .what-we-think-copy h2 {
+    font-size: clamp(16px, 3vw, 20px);
+    line-height: 1.12;
   }
   .what-we-think-copy p,
-  .what-we-think-meta,
   .what-we-think-card--small .what-we-think-copy p,
+  .what-we-think-card--text .what-we-think-copy p {
+    font-size: clamp(11px, 2.3vw, 13px);
+    line-height: 1.3;
+    overflow: visible;
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+  .what-we-think-meta,
   .what-we-think-card--small .what-we-think-meta,
-  .what-we-think-card--text .what-we-think-copy p,
-  .what-we-think-card--text .what-we-think-meta { font-size: 11px; line-height: 1.25; }
+  .what-we-think-card--text .what-we-think-meta {
+    font-size: clamp(10px, 2.2vw, 12px);
+    line-height: 1.3;
+  }
 }
 
 .what-we-think-archives-link {

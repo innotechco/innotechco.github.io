@@ -8,7 +8,7 @@ function ResponsiveCarousel({
   isDarkMode,
 }) {
   const trackRef = useRef(null);
-  const dragRef = useRef({active: false, startX: 0, startIndex: 0});
+  const dragRef = useRef({active: false, startX: 0, startY: 0, startIndex: 0, horizontal: null, captured: false});
   const [activeIndex, setActiveIndex] = useState(0);
   const items = Array.isArray(children) ? children : [children];
 
@@ -54,26 +54,55 @@ function ResponsiveCarousel({
     dragRef.current = {
       active: true,
       startX: event.clientX,
+      startY: event.clientY,
       startIndex: activeIndex,
+      horizontal: null,
+      captured: false,
     };
-    track.setPointerCapture?.(event.pointerId);
   };
 
   const handlePointerMove = (event) => {
     const track = trackRef.current;
-    if (!track || !dragRef.current.active) return;
+    const drag = dragRef.current;
+    if (!track || !drag.active) return;
+
+    const deltaX = event.clientX - drag.startX;
+    const deltaY = event.clientY - drag.startY;
+
+    if (drag.horizontal === null) {
+      if (Math.abs(deltaX) < 8 && Math.abs(deltaY) < 8) return;
+      drag.horizontal = Math.abs(deltaX) > Math.abs(deltaY);
+      if (!drag.horizontal) {
+        drag.active = false;
+        return;
+      }
+      track.setPointerCapture?.(event.pointerId);
+      drag.captured = true;
+    }
+
+    if (!drag.horizontal) return;
 
     event.preventDefault();
   };
 
   const stopDrag = (event) => {
     const track = trackRef.current;
-    if (!track || !dragRef.current.active) return;
+    const drag = dragRef.current;
+    if (!track || !drag.active) {
+      if (drag.captured) {
+        track.releasePointerCapture?.(event.pointerId);
+      }
+      return;
+    }
 
-    const delta = event.clientX - dragRef.current.startX;
-    const startIndex = dragRef.current.startIndex;
-    dragRef.current.active = false;
-    track.releasePointerCapture?.(event.pointerId);
+    const delta = event.clientX - drag.startX;
+    const startIndex = drag.startIndex;
+    drag.active = false;
+    if (drag.captured) {
+      track.releasePointerCapture?.(event.pointerId);
+      drag.captured = false;
+    }
+
     const threshold = Math.min(72, track.clientWidth * 0.14);
     const nextIndex = Math.max(0, Math.min(
       items.length - 1,
