@@ -83,6 +83,20 @@ test("card-style sections use the same responsive breakpoint as selected project
   }
 });
 
+test("card action controls stay anchored at the top-right with fixed decorative shapes", () => {
+  const cardFiles = [
+    path.join(srcRoot, "pages", "who-we-are", "components", "ExpertCard.jsx"),
+    path.join(srcRoot, "pages", "what-we-do", "services", "shared", "components", "ServiceShowcase.jsx"),
+    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "EcosystemCardsSection.jsx"),
+  ];
+
+  for (const file of cardFiles) {
+    const source = fs.readFileSync(file, "utf8");
+    assert.match(source, /absolute right-4 top-4/);
+    assert.match(source, /absolute left-\[-34px\] top-\[-52px\]/);
+  }
+});
+
 test("large interactive surfaces stay split into focused components", () => {
   const navbar = fs.readFileSync(
     path.join(srcRoot, "components", "layout", "Navbar.jsx"),

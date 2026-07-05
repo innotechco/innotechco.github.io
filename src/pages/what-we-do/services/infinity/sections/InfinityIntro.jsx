@@ -19,7 +19,7 @@ function InfinityIntro() {
         src={excludeImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[80px] z-10 w-[min(940px,130vw)] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:bottom-[-20px] lg:top-auto lg:w-[min(1280px,150vw)] lg:translate-y-0"
+        className="pointer-events-none absolute left-1/2 top-[250px] z-10 w-[min(940px,130vw)] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:bottom-[-20px] lg:top-auto lg:w-[min(1280px,150vw)] lg:translate-y-0"
       />
 
       <section className="relative z-20 flex w-[min(466px,calc(100vw-64px))] flex-col items-center justify-start gap-4 text-center">
