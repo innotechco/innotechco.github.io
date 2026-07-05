@@ -82,7 +82,7 @@ function WhatWeThink() {
         src={leftExclude}
         alt=""
         aria-hidden="true"
-        className="what-we-think-decoration what-we-think-decoration--left -translate-y-45"
+        className="what-we-think-decoration what-we-think-decoration--left -translate-y-75"
       />
       <img loading="lazy"
         src={rightExclude}
