@@ -476,8 +476,8 @@ body {
 .what-we-think-image {
   position: relative;
   min-width: 0;
-  min-height: 0;
-  flex: 1;
+  min-height: 240px;
+  flex: 0 0 auto;
   overflow: hidden;
   z-index: 1;
 }
@@ -1097,7 +1097,7 @@ body {
   .what-we-think-card--tall .what-we-think-image,
   .what-we-think-card--horizontal .what-we-think-image,
   .what-we-think-card--small .what-we-think-image {
-    width: 100%; height: 42%; min-height: 150px;
+    width: 100%; min-height: 240px;
   }
   .hide-mobile { display: none !important; }
   .what-we-think-copy,
@@ -1171,7 +1171,7 @@ body {
   .what-we-think-card--horizontal .what-we-think-image,
   .what-we-think-card--small .what-we-think-image {
     width: 100%;
-    min-height: 260px;
+    min-height: 240px;
   }
 
   .what-we-think-copy,
@@ -1210,5 +1210,21 @@ body {
 
   .what-we-think-read-more {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 580px) {
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    min-height: 145px;
+  }
+}
+
+@media (max-width: 360px) {
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    min-height: 128px;
   }
 }
