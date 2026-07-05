@@ -72,7 +72,7 @@ function InnoCard({title, subtitle, items = []}) {
     <div
       className={`
         relative 
-        w-full min-w-0 min-h-[330px] sm:min-h-[360px] min-[1400px]:-mt-14 min-[1400px]:h-100 min-[1400px]:w-65
+        w-full min-w-0 min-h-[330px] sm:min-h-[360px] lg:min-h-[390px] lg:-mt-10 min-[1400px]:-mt-14 min-[1400px]:h-100 min-[1400px]:w-65
         px-4 py-5 sm:px-5 min-[1400px]:px-8 min-[1400px]:py-6
         rounded-[26px] sm:rounded-[30px] min-[1400px]:rounded-[50px]
         border 
@@ -146,13 +146,13 @@ function InnoCard({title, subtitle, items = []}) {
               </div>
 
               <div
-                className={`flex-1 justify-start ${textColor} font-['Gotham'] text-xs font-normal leading-tight sm:text-sm whitespace-pre-line transition-colors duration-500 ease-in-out`}
+                className={`min-w-0 flex-1 break-words ${textColor} font-['Gotham'] text-[10px] font-normal leading-tight sm:text-xs xl:text-sm whitespace-pre-line transition-colors duration-500 ease-in-out`}
                 dangerouslySetInnerHTML={{__html: renderBoldText(item.label)}}
               />
             </div>
 
             <div
-              className={`self-stretch text-left ${textColor} font-['Gotham'] text-[11px] font-light leading-tight sm:text-xs whitespace-pre-line transition-colors duration-500 ease-in-out`}
+              className={`self-stretch break-words text-left ${textColor} font-['Gotham'] text-[9px] font-light leading-tight sm:text-[11px] xl:text-xs whitespace-pre-line transition-colors duration-500 ease-in-out`}
               dangerouslySetInnerHTML={{
                 __html: renderBoldText(item.description),
               }}

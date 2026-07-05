@@ -18,7 +18,7 @@ function ReportStoreCard() {
       <div
         className={`mx-auto flex w-full max-w-[1600px] flex-1 flex-col items-start justify-center gap-6 overflow-hidden rounded-[32px] transition-colors duration-500 lg:flex-row lg:rounded-[50px] ${cardBackground}`}
       >
-        <div className="flex flex-1 flex-col items-start justify-start gap-8 self-stretch p-6 sm:p-10 xl:p-16">
+        <div className="order-2 flex flex-1 flex-col items-start justify-start gap-8 self-stretch p-6 sm:p-10 lg:order-1 xl:p-16">
           <h2 className={`font-['Gotham'] text-[clamp(2rem,6vw,2.25rem)] font-bold ${cardText}`}>
             Report Store
           </h2>
@@ -51,7 +51,7 @@ function ReportStoreCard() {
             />
           </div>
         </div>
-        <div className="flex h-72 w-full items-end justify-end self-stretch overflow-hidden lg:h-auto lg:w-[496px]">
+        <div className="order-1 flex h-72 w-full items-end justify-end self-stretch overflow-hidden lg:order-2 lg:h-auto lg:w-[496px]">
           <img loading="lazy"
             src={careersImage}
             alt=""

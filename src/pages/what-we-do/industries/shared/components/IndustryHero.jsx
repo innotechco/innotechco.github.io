@@ -25,14 +25,14 @@ function IndustryHero({image, breadcrumbLabel, title, description}) {
       <article className="relative isolate min-h-[520px] w-full max-w-[1253px] overflow-hidden rounded-[32px] md:min-h-[601px] md:rounded-[50px]">
         <div className="absolute inset-0 overflow-hidden rounded-[32px] bg-black md:rounded-[50px]">
           <img
-            className="absolute inset-0 size-full object-contain object-center brightness-120 md:object-cover"
+            className="absolute inset-0 size-full object-cover object-center brightness-120"
             src={image}
             alt=""
             aria-hidden
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10 md:bg-gradient-to-l md:from-black/0 md:via-black/40 md:to-black/80" />
           <img
-            className={`pointer-events-none absolute left-0 top-0 h-full w-[85%] object-fill ${
+            className={`pointer-events-none absolute left-0 top-0 hidden h-full w-[85%] object-fill lg:block ${
               isDarkMode ? "mix-blend-screen" : ""
             }`}
             src={industriesExclude}

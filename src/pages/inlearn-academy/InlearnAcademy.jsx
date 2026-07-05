@@ -17,7 +17,7 @@ function InlearnAcademy() {
         src={isDarkMode ? darkCircle : lightCircle}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-[520px] z-10 w-[min(760px,145vw)] max-w-none -translate-x-1/2 -translate-y-1/2 select-none"
+        className="pointer-events-none absolute left-1/2 top-[500px] z-10 w-[min(760px,92vw)] max-w-none -translate-x-1/2 -translate-y-1/2 select-none"
       />
 
       <section className="relative z-20 mt-[220px] flex w-[min(680px,calc(100vw-48px))] flex-col items-center justify-center gap-7 text-center">

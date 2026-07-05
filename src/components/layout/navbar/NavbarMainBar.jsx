@@ -47,11 +47,11 @@ function NavbarMainBar({
       </div>
 
       <div className="flex flex-1 justify-center">
-        <div className="hidden items-center gap-8 min-[1400px]:flex min-[1500px]:gap-10">
+        <div className="hidden items-center gap-3 lg:flex xl:gap-5 min-[1400px]:gap-8 min-[1500px]:gap-10">
           <Link
             to={routes.whoWeAre}
             onClick={closePanels}
-            className={`font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
+            className={`whitespace-nowrap font-['Gotham'] text-[11px] transition-colors hover:text-emerald-400 xl:text-xs min-[1400px]:text-sm min-[1500px]:text-base ${textColor}`}
           >
             Who we are
           </Link>
@@ -59,7 +59,7 @@ function NavbarMainBar({
           <button
             type="button"
             onClick={handleDropdownToggle}
-            className={`flex items-center gap-1 font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
+            className={`flex items-center gap-1 whitespace-nowrap font-['Gotham'] text-[11px] transition-colors hover:text-emerald-400 xl:text-xs min-[1400px]:text-sm min-[1500px]:text-base ${textColor}`}
             aria-expanded={isDropdownOpen}
           >
             <span className="relative inline-flex pb-0">
@@ -84,7 +84,7 @@ function NavbarMainBar({
           <Link
             to={routes.whatWeThink}
             onClick={closePanels}
-            className={`font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
+            className={`whitespace-nowrap font-['Gotham'] text-[11px] transition-colors hover:text-emerald-400 xl:text-xs min-[1400px]:text-sm min-[1500px]:text-base ${textColor}`}
           >
             What we think
           </Link>
@@ -92,12 +92,12 @@ function NavbarMainBar({
           <Link
             to={routes.inlearnAcademy}
             onClick={closePanels}
-            className={`font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
+            className={`whitespace-nowrap font-['Gotham'] text-[11px] transition-colors hover:text-emerald-400 xl:text-xs min-[1400px]:text-sm min-[1500px]:text-base ${textColor}`}
           >
             INLEARN Academy
           </Link>
 
-          <span className={`font-['Gotham'] text-sm opacity-70 min-[1500px]:text-base ${textColor}`}>
+          <span className={`whitespace-nowrap font-['Gotham'] text-[11px] opacity-70 xl:text-xs min-[1400px]:text-sm min-[1500px]:text-base ${textColor}`}>
             INSIGHT Store
           </span>
         </div>
@@ -193,7 +193,7 @@ function NavbarMainBar({
           onClick={handleMobileMenuToggle}
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
-          className={`flex min-h-11 items-center gap-2 rounded-full border px-3 font-['Gotham'] text-sm transition-colors min-[1400px]:hidden ${
+          className={`flex min-h-11 items-center gap-2 rounded-full border px-3 font-['Gotham'] text-sm transition-colors lg:hidden ${
             isDarkMode
               ? "border-white/15 text-white hover:bg-white/10"
               : "border-black/15 text-black hover:bg-black/5"
