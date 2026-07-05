@@ -34,16 +34,16 @@ function PartnerCard({partner, isDarkMode}) {
   return (
     <Link
       to={routes.partner.replace(":slug", partner.id)}
-      className={`group relative h-[68px] w-full max-w-[172px] basis-[calc(33.333%-12px)] overflow-hidden rounded-2xl ${cardSurfaceClassName} ${
+      className={`group relative h-[58px] w-full max-w-[132px] basis-[calc(45%-12px)] overflow-hidden rounded-2xl ${cardSurfaceClassName} ${
         isDarkMode ? "" : "border border-black"
-      }`}
+      } sm:h-[68px] sm:max-w-[172px] sm:basis-[calc(33.333%-12px)] max-[490px]:h-[50px] max-[490px]:max-w-[110px] max-[490px]:basis-[calc(50%-12px)] max-[390px]:h-[46px] max-[390px]:max-w-[100px] max-[390px]:basis-[calc(47%-12px)]`}
       title={partner.name}
     >
       <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-center transition-all duration-300 ease-out group-hover:right-11 group-hover:-translate-x-1 group-hover:scale-90">
         <img loading="lazy"
           src={logoImage}
           alt={partner.name}
-          className={`max-h-[72%] max-w-[78%] object-contain ${imageClassName}`}
+          className={`block max-h-[52%] max-w-[52%] sm:max-h-[60%] sm:max-w-[60%] md:max-h-[72%] md:max-w-[78%] object-contain ${imageClassName}`}
         />
       </div>
 
