@@ -28,7 +28,7 @@ function ServiceCard({title, description, isWide = false, isDarkMode}) {
   return (
     <div
       className={`relative isolate w-full overflow-visible ${
-        isWide ? "" : "min-h-[230px]"
+        isWide ? "h-full" : "h-full min-h-[230px]"
       }`}
       {...handlers}
     >
@@ -49,7 +49,7 @@ function ServiceCard({title, description, isWide = false, isDarkMode}) {
       />
 
       <article
-        className={`relative z-10 flex min-w-0 items-start justify-end gap-3 overflow-hidden rounded-[25px] border border-[#37B478] px-4 py-5 sm:px-8 sm:py-8 md:px-9 ${
+        className={`relative z-10 flex h-full min-w-0 items-start justify-end gap-3 overflow-hidden rounded-[25px] border border-[#37B478] px-4 py-5 sm:px-8 sm:py-8 md:px-9 ${
           isDarkMode ? "bg-[#050505]" : "bg-white"
         } ${isWide ? "w-full" : "min-h-[230px] w-full"}`}
       >
@@ -104,7 +104,7 @@ function CapabilitiesSection({services}) {
         </div>
 
         <div className="hidden w-full flex-col items-start gap-[42px] lg:flex">
-          <div className="grid w-full grid-cols-2 gap-[42px] overflow-visible">
+          <div className="grid w-full grid-cols-2 gap-[42px] overflow-visible items-stretch lg:auto-rows-fr">
             {services.slice(0, 4).map((service, index) => (
               <ServiceCard
                 key={`${service.title}-${index}`}
