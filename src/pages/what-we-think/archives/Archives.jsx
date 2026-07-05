@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useMemo, useRef, useState} from "react";
 
 import ReadMoreLink from "../../../components/ui/ReadMoreLink";
 import {useTheme} from "../../../context/useTheme";
@@ -48,15 +48,6 @@ function Archives() {
   const [visibleCount, setVisibleCount] = useState(INITIAL_CARD_COUNT);
   const [isLoading, setIsLoading] = useState(false);
   const tagsRailRef = useRef(null);
-
-  useEffect(() => {
-    const rail = tagsRailRef.current;
-    if (!rail) return undefined;
-
-    const initialOffset = 48;
-    rail.scrollLeft = initialOffset;
-    return undefined;
-  }, []);
 
   const filteredItems = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();

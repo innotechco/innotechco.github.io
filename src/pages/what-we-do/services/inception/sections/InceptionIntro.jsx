@@ -19,19 +19,19 @@ function Inception() {
 
   return (
     <main
-      className={`relative flex min-h-screen w-full items-center justify-center overflow-hidden px-6 pt-28 ${pageBg}`}
+      className={`relative flex min-h-[720px] w-full items-start justify-center overflow-hidden px-6 pt-36 md:min-h-[820px] md:pt-40 lg:min-h-screen lg:items-center lg:pt-28 ${pageBg}`}
     >
       <img loading="lazy"
         src={leftExcludeImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-[-160px] top-1/2 z-10 h-[min(850px,110vh)] max-w-none -translate-y-1/2 select-none md:left-[0px]"
+        className="pointer-events-none absolute left-[-55px] top-1/2 z-10 h-[min(640px,82vh)] max-w-none -translate-y-1/2 select-none md:left-0 lg:h-[min(850px,110vh)]"
       />
       <img loading="lazy"
         src={rightExcludeImage}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute right-[-260px] top-1/2 z-10 h-[min(850px,110vh)] max-w-none -translate-y-1/2 select-none md:right-[0px]"
+        className="pointer-events-none absolute right-[-55px] top-1/2 z-10 h-[min(640px,82vh)] max-w-none -translate-y-1/2 select-none md:right-0 lg:h-[min(850px,110vh)]"
       />
 
       <section className="relative z-20 flex w-[min(466px,calc(100vw-48px))] flex-col items-center justify-start gap-4 text-center">

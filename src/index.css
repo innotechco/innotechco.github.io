@@ -1020,3 +1020,64 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .archive-card, .archive-card-image img, .archive-load-more button, .archive-spinner { animation: none; transition: none; }
 }
+
+/* Responsive editorial cards: always two columns on tablet and phone. */
+@media (max-width: 900px) {
+  .what-we-think-grid {
+    display: grid;
+    height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .what-we-think-row,
+  .what-we-think-stack,
+  .what-we-think-text-row { display: contents; }
+  .what-we-think-card-shell,
+  .what-we-think-card { width: 100%; height: 430px; min-height: 0; }
+  .what-we-think-card { flex-direction: column; border-radius: 28px; }
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    width: 100%; height: 42%; min-height: 150px;
+  }
+  .what-we-think-copy,
+  .what-we-think-card--small .what-we-think-copy,
+  .what-we-think-card--text .what-we-think-copy {
+    min-height: 0; flex: 1; gap: 8px; overflow: hidden; padding: 16px;
+  }
+  .what-we-think-copy h2,
+  .what-we-think-card--small .what-we-think-copy h2,
+  .what-we-think-card--text .what-we-think-copy h2 { font-size: 17px; line-height: 1.15; }
+  .what-we-think-copy > p {
+    display: -webkit-box;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+  .what-we-think-copy p,
+  .what-we-think-meta,
+  .what-we-think-card--small .what-we-think-copy p,
+  .what-we-think-card--small .what-we-think-meta,
+  .what-we-think-card--text .what-we-think-copy p,
+  .what-we-think-card--text .what-we-think-meta { font-size: 11px; line-height: 1.25; }
+}
+
+@media (max-width: 520px) {
+  .what-we-think-grid { gap: 10px; }
+  .what-we-think-card-shell,
+  .what-we-think-card { height: 350px; border-radius: 22px; }
+  .what-we-think-copy,
+  .what-we-think-card--small .what-we-think-copy,
+  .what-we-think-card--text .what-we-think-copy { gap: 5px; padding: 10px; }
+  .what-we-think-copy h2,
+  .what-we-think-card--small .what-we-think-copy h2,
+  .what-we-think-card--text .what-we-think-copy h2 { font-size: 13px; }
+  .what-we-think-copy p,
+  .what-we-think-meta,
+  .what-we-think-card--small .what-we-think-copy p,
+  .what-we-think-card--small .what-we-think-meta,
+  .what-we-think-card--text .what-we-think-copy p,
+  .what-we-think-card--text .what-we-think-meta { font-size: 9px; }
+  .what-we-think-read-more { font-size: 9px; }
+}

@@ -78,7 +78,7 @@ function PartnerStatsSection({assets, content, isDarkMode}) {
             aria-hidden
             src={partnerExclude}
             alt=""
-            className=" max-h-[890px] w-full max-w-[1600px] object-fill object-center translate-y-55 -translate-x-1"
+            className="max-h-[890px] w-full max-w-[1600px] translate-y-72 object-fill object-center md:translate-y-64 xl:translate-y-55 -translate-x-1"
           />
         </div>
       ) : (
@@ -99,7 +99,7 @@ function PartnerStatsSection({assets, content, isDarkMode}) {
           />
         </>
       )}
-      <div className="relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-2 gap-4 md:gap-8 xl:grid-cols-4">
         {content.stats.map((stat) => (
           <StatCard
             key={stat.id}

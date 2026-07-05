@@ -22,8 +22,9 @@
     const [trackHeight, setTrackHeight] = useState(null);
     const animationTimeoutRef = useRef(null);
     const trackRef = useRef(null);
+    const swipeStartRef = useRef(null);
     const cards = content.tools.cards;
-    const visibleCount = Math.min(3, cards.length);
+    const visibleCount = Math.min(1, cards.length);
     const textColor = isDarkMode ? "text-white" : "text-black";
     const greenButtonHoverTextColor = isDarkMode
       ? "hover:text-black"
@@ -174,7 +175,19 @@
 
             <div
                 ref={trackRef}
-                className={`partner-tools-track grid min-w-0 grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 ${
+                onPointerDown={(event) => {
+                  swipeStartRef.current = event.clientX;
+                  event.currentTarget.setPointerCapture?.(event.pointerId);
+                }}
+                onPointerUp={(event) => {
+                  const startX = swipeStartRef.current;
+                  swipeStartRef.current = null;
+                  if (startX == null) return;
+                  const delta = event.clientX - startX;
+                  if (Math.abs(delta) >= 48) move(delta < 0 ? "next" : "prev");
+                }}
+                onPointerCancel={() => { swipeStartRef.current = null; }}
+                className={`partner-tools-track grid min-w-0 touch-pan-y grid-cols-1 gap-8 ${
                   isAnimating ? "partner-tools-track--animating" : ""
                 }`}
                 style={trackHeight ? { height: `${trackHeight}px` } : undefined}

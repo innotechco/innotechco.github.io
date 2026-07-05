@@ -8,7 +8,7 @@ function ResponsiveCarousel({
   isDarkMode,
 }) {
   const trackRef = useRef(null);
-  const dragRef = useRef({active: false, startX: 0, scrollLeft: 0});
+  const dragRef = useRef({active: false, startX: 0, startIndex: 0});
   const [activeIndex, setActiveIndex] = useState(0);
   const items = Array.isArray(children) ? children : [children];
 
@@ -54,7 +54,7 @@ function ResponsiveCarousel({
     dragRef.current = {
       active: true,
       startX: event.clientX,
-      scrollLeft: track.scrollLeft,
+      startIndex: activeIndex,
     };
     track.setPointerCapture?.(event.pointerId);
   };
@@ -63,17 +63,23 @@ function ResponsiveCarousel({
     const track = trackRef.current;
     if (!track || !dragRef.current.active) return;
 
-    track.scrollLeft =
-      dragRef.current.scrollLeft - (event.clientX - dragRef.current.startX);
+    event.preventDefault();
   };
 
   const stopDrag = (event) => {
     const track = trackRef.current;
     if (!track || !dragRef.current.active) return;
 
+    const delta = event.clientX - dragRef.current.startX;
+    const startIndex = dragRef.current.startIndex;
     dragRef.current.active = false;
     track.releasePointerCapture?.(event.pointerId);
-    updateActiveIndex();
+    const threshold = Math.min(72, track.clientWidth * 0.14);
+    const nextIndex = Math.max(0, Math.min(
+      items.length - 1,
+      startIndex + (Math.abs(delta) >= threshold ? (delta < 0 ? 1 : -1) : 0),
+    ));
+    scrollToIndex(nextIndex);
   };
 
   useEffect(() => {
@@ -100,7 +106,7 @@ function ResponsiveCarousel({
     <div className={`w-full ${className}`} aria-label={ariaLabel}>
       <div
         ref={trackRef}
-        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex touch-pan-y snap-x snap-mandatory gap-4 overflow-x-hidden pb-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={stopDrag}
