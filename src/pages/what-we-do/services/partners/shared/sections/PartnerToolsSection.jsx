@@ -22,7 +22,7 @@
     const [trackHeight, setTrackHeight] = useState(null);
     const animationTimeoutRef = useRef(null);
     const trackRef = useRef(null);
-    const swipeStartRef = useRef(null);
+    const swipeStartRef = useRef({active: false, startX: 0, startY: 0, horizontal: null, captured: false});
     const cards = content.tools.cards;
     const [visibleCount, setVisibleCount] = useState(() => {
       if (typeof window === "undefined") return 1;
@@ -197,17 +197,60 @@
             <div
                 ref={trackRef}
                 onPointerDown={(event) => {
-                  swipeStartRef.current = event.clientX;
-                  event.currentTarget.setPointerCapture?.(event.pointerId);
+                  swipeStartRef.current = {
+                    active: true,
+                    startX: event.clientX,
+                    startY: event.clientY,
+                    horizontal: null,
+                    captured: false,
+                  };
+                }}
+                onPointerMove={(event) => {
+                  const swipe = swipeStartRef.current;
+                  if (!swipe.active) return;
+
+                  const deltaX = event.clientX - swipe.startX;
+                  const deltaY = event.clientY - swipe.startY;
+
+                  if (swipe.horizontal === null) {
+                    if (Math.abs(deltaX) < 8 && Math.abs(deltaY) < 8) return;
+                    swipe.horizontal = Math.abs(deltaX) > Math.abs(deltaY);
+                    if (!swipe.horizontal) {
+                      swipe.active = false;
+                      return;
+                    }
+                    event.currentTarget.setPointerCapture?.(event.pointerId);
+                    swipe.captured = true;
+                  }
+
+                  if (!swipe.horizontal) return;
+
+                  event.preventDefault();
                 }}
                 onPointerUp={(event) => {
-                  const startX = swipeStartRef.current;
-                  swipeStartRef.current = null;
-                  if (startX == null) return;
-                  const delta = event.clientX - startX;
+                  const swipe = swipeStartRef.current;
+                  if (!swipe.active) {
+                    if (swipe.captured) {
+                      event.currentTarget.releasePointerCapture?.(event.pointerId);
+                    }
+                    swipeStartRef.current = {active: false, startX: 0, startY: 0, horizontal: null, captured: false};
+                    return;
+                  }
+
+                  const delta = event.clientX - swipe.startX;
+                  swipeStartRef.current = {active: false, startX: 0, startY: 0, horizontal: null, captured: false};
+                  if (swipe.captured) {
+                    event.currentTarget.releasePointerCapture?.(event.pointerId);
+                  }
                   if (Math.abs(delta) >= 48) move(delta < 0 ? "next" : "prev");
                 }}
-                onPointerCancel={() => { swipeStartRef.current = null; }}
+                onPointerCancel={(event) => {
+                  const swipe = swipeStartRef.current;
+                  if (swipe.captured) {
+                    event.currentTarget.releasePointerCapture?.(event.pointerId);
+                  }
+                  swipeStartRef.current = {active: false, startX: 0, startY: 0, horizontal: null, captured: false};
+                }}
                 className={`partner-tools-track grid min-w-0 touch-pan-y grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 px-14 sm:px-16 md:px-20 lg:px-24 xl:px-28 2xl:px-32 justify-items-center ${
                   isAnimating ? "partner-tools-track--animating" : ""
                 }`}
