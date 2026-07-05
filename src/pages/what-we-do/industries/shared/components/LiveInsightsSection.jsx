@@ -48,37 +48,37 @@ function CardCopy({card, isDarkMode, compact = false}) {
     >
       <h3
         className={`font-['Gotham'] leading-tight transition-colors duration-500 ease-in-out ${textColor} ${
-          compact ? "text-2xl font-medium" : "text-2xl font-bold"
-        }`}
+          compact ? "text-base sm:text-lg md:text-xl font-medium" : "text-base sm:text-lg md:text-xl font-bold"
+        } break-words whitespace-normal`}
       >
         {card.title}
       </h3>
       <div
         className={`${
           compact
-            ? "flex flex-col items-start"
-            : "inline-flex items-center gap-8"
+            ? "flex flex-col items-start gap-2"
+            : "inline-flex flex-wrap items-center gap-4"
         }`}
       >
         <p
-          className={`font-['Gotham'] text-base font-light transition-colors duration-500 ease-in-out ${textColor}`}
+          className={`font-['Gotham'] text-[10px] sm:text-xs md:text-sm lg:text-sm font-light transition-colors duration-500 ease-in-out ${textColor}`}
         >
           {card.date}
         </p>
-        <p className="font-['Gotham'] text-base text-[#37B478]">
+        <p className="font-['Gotham'] text-[10px] sm:text-xs md:text-sm lg:text-sm text-[#37B478]">
           {card.readTime}
         </p>
       </div>
       <p
-        className={`font-['Gotham'] text-base transition-colors duration-500 ease-in-out ${textColor} ${
+        className={`font-['Gotham'] text-[10px] sm:text-xs md:text-sm lg:text-sm transition-colors duration-500 ease-in-out ${textColor} ${
           compact ? "leading-[1.3]" : "leading-[1.4]"
-        }`}
+        } break-words whitespace-normal`}
       >
         {card.description}
       </p>
       <ReadMoreLink
         isDarkMode={isDarkMode}
-        className="mt-auto shrink-0 text-base"
+        className="mt-auto shrink-0 text-[10px] sm:text-[11px] md:text-sm"
       />
     </div>
   );
@@ -91,14 +91,16 @@ function LiveInsightsSection({title, cards, alt}) {
     : insightExcludeBlackImage;
   const textColor = isDarkMode ? "text-white" : "text-black";
   const [featuredCard, topCard, bottomCard] = cards;
-  const renderCarouselCard = (card) => (
+const renderCarouselCard = (card) => (
     <GlowCard
       key={card.id}
-      className="h-[620px]"
+      // تغییر ارتفاع به h-full برای تبعیت از ارتفاع کل اسلایدر
+      className="h-full" 
       isDarkMode={isDarkMode}
     >
-      <div className="flex size-full flex-col overflow-hidden">
-        <div className="h-60 w-full overflow-hidden">
+      <div className="flex h-full flex-col overflow-hidden">
+        <div className="h-48 w-full shrink-0 overflow-hidden sm:h-60 "> 
+          {/* کمی ارتفاع تصویر را در موبایل کمتر کردیم تا فضای بیشتری به متن برسد */}
           <img
             loading="lazy"
             src={card.image}

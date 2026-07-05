@@ -55,22 +55,23 @@ function EcosystemCard({
           alt=""
           aria-hidden="true"
         />
-        <div className="relative z-10 flex w-full flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div className="relative size-[62px] shrink-0 overflow-hidden rounded-bl-[20px] rounded-br-[70px] rounded-tl-[20px] rounded-tr-[70px] sm:top-[-27px] sm:size-[80px]">
-            <img loading="lazy"
-              className={`block size-full object-contain ${activeImageClassName}`}
-              src={!isDarkMode && imageLight ? imageLight : image}
-              alt=""
+        {/* تغییر این خط: کلاس‌های flex-col و sm:flex-row را حذف کردیم و از همان ابتدا آن را flex و justify-between کردیم */}
+      <div className="relative z-10 flex w-full items-center justify-between gap-3 sm:items-end">
+        <div className="relative size-[62px] shrink-0 overflow-hidden rounded-bl-[20px] rounded-br-[70px] rounded-tl-[20px] rounded-tr-[70px] sm:top-[-27px] sm:size-[90px]">
+          <img loading="lazy"
+            className={`block size-full object-contain ${activeImageClassName}`}
+            src={!isDarkMode && imageLight ? imageLight : image}
+            alt=""
             />
-          </div>
-
-          <button
-            className={`min-h-11 shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-xs font-bold leading-tight sm:text-sm ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
-            type="button"
-          >
-            {actionLabel}
-          </button>
         </div>
+
+        <button
+          className={`min-h-9 shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-[10px] sm:text-[11px] md:text-xs font-bold leading-tight ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95 translate-y-20 sm:translate-y-7 md:translate-y-6`}
+          type="button"
+          >
+          {actionLabel}
+        </button>
+      </div>
 
         <div
           className={`relative z-10 mt-auto flex w-full flex-col ${
@@ -78,11 +79,11 @@ function EcosystemCard({
           }`}
         >
           <h3
-            className={`font-['Gotham'] text-lg font-bold leading-tight sm:text-2xl sm:leading-none ${titleClassName}`}
+            className={`font-['Gotham'] text-xs sm:text-sm md:text-sm lg:text-base xl:text-base font-bold leading-tight sm:leading-snug break-words whitespace-normal ${titleClassName}`}
           >
             {title}
           </h3>
-          <p className="mt-1 font-['Gotham'] text-sm font-normal leading-tight sm:text-base sm:leading-none">
+          <p className="mt-1 font-['Gotham'] text-[10px] sm:text-[11px] md:text-sm lg:text-sm xl:text-base font-normal leading-tight sm:leading-snug break-words whitespace-normal">
             {subtitle}
           </p>
         </div>
