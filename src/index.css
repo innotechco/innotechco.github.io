@@ -216,6 +216,27 @@ body {
   will-change: opacity, transform;
 }
 
+.partner-tools-card h3,
+.partner-tools-card p {
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  max-width: 100%;
+  margin: 0;
+}
+
+.partner-tools-card h3 {
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.2;
+}
+
+.partner-tools-card p {
+  font-size: clamp(0.75rem, 1vw, 0.95rem);
+  line-height: 1.4;
+}
+
 .partner-tools-track--animating {
   position: relative;
   overflow: visible;

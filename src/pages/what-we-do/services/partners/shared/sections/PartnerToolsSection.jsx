@@ -218,7 +218,7 @@
                     key={key}
                     data-partner-tool-card
                     style={style ?? undefined}
-                    className={`partner-tools-card group flex w-full aspect-square h-[220px] sm:h-[260px] md:h-[300px] lg:h-[340px] xl:h-[360px] min-h-0 min-w-0 flex-col overflow-hidden rounded-3xl border border-[#37B478]/20 bg-green-500/5 p-3 sm:p-4 xl:p-6 shadow-[inset_1px_-1px_2px_0px_rgba(29,95,63,1)] transition-all duration-500 ease-out hover:-translate-y-2 hover:border-[#37B478]/80 hover:bg-[#37B478]/10 hover:shadow-[inset_1px_-1px_2px_0px_rgba(55,180,120,1),0_24px_55px_-32px_rgba(55,180,120,0.9)] lg:max-w-[360px] max-w-[320px] mx-auto lg:mx-0 lg:items-start items-center`}
+                    className={`partner-tools-card group flex w-full aspect-square h-[220px] sm:h-[260px] md:h-[300px] lg:h-[340px] xl:h-[360px] min-h-0 min-w-0 flex-col gap-4 overflow-hidden rounded-3xl border border-[#37B478]/20 bg-green-500/5 p-3 sm:p-4 xl:p-6 shadow-[inset_1px_-1px_2px_0px_rgba(29,95,63,1)] transition-all duration-500 ease-out hover:-translate-y-2 hover:border-[#37B478]/80 hover:bg-[#37B478]/10 hover:shadow-[inset_1px_-1px_2px_0px_rgba(55,180,120,1),0_24px_55px_-32px_rgba(55,180,120,0.9)] lg:max-w-[360px] max-w-[320px] mx-auto lg:mx-0 lg:items-start items-center`}
                   >
                     <img
                       loading="lazy"
@@ -227,10 +227,10 @@
                       aria-hidden
                       className="size-12 max-w-full flex-shrink-0 self-center object-contain transition-transform duration-500 ease-out group-hover:scale-105 [filter:brightness(0)_saturate(100%)_invert(56%)_sepia(51%)_saturate(599%)_hue-rotate(96deg)_brightness(94%)_contrast(88%)] sm:size-16 xl:size-24"
                     />
-                    <h3 className={`mt-4 text-center lg:text-left break-words font-['Gotham'] text-sm font-bold sm:text-base xl:text-xl ${textColor}`}>
+                    <h3 className={`text-center lg:text-left break-words font-['Gotham'] text-sm font-bold sm:text-base xl:text-xl ${textColor}`}>
                       {card.title}
                     </h3>
-                    <p className={`mt-3 flex-grow min-h-0 overflow-hidden break-words whitespace-normal font-['Gotham'] text-[12px] leading-snug sm:text-[13px] md:text-[14px] xl:text-[15px] xl:mt-4 xl:leading-normal ${textColor}`}>
+                    <p className={`flex-grow min-h-0 overflow-hidden break-words whitespace-normal font-['Gotham'] text-[12px] leading-snug sm:text-[13px] md:text-[14px] xl:text-[15px] xl:leading-normal ${textColor}`}>
                       {card.description}
                     </p>
                   </article>
