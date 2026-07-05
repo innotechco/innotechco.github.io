@@ -130,13 +130,13 @@ function LiveInsightsSection({title, cards, alt}) {
           {title}
         </SectionTitle>
 
-        <div className="min-[1400px]:hidden">
+        <div className="lg:hidden">
           <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
             {cards.map(renderCarouselCard)}
           </ResponsiveCarousel>
         </div>
 
-        <div className="relative hidden w-full grid-cols-1 items-start gap-9 min-[1400px]:grid min-[1400px]:grid-cols-2">
+        <div className="relative hidden w-full grid-cols-1 items-start gap-9 lg:grid lg:grid-cols-2">
           <GlowCard className="h-[702px] min-w-0" isDarkMode={isDarkMode}>
             <div className="flex size-full flex-col">
               <div className="min-h-0 flex-1 overflow-hidden">

@@ -50,7 +50,7 @@ function ServiceCapabilities({title, items}) {
           {title}
         </SectionTitle>
 
-        <div className="w-full min-[1400px]:hidden">
+        <div className="w-full lg:hidden">
           <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
             {items.map((item) => (
               <CapabilityCard
@@ -62,7 +62,7 @@ function ServiceCapabilities({title, items}) {
           </ResponsiveCarousel>
         </div>
 
-        <div className="hidden w-full grid-cols-2 gap-[42px] overflow-visible min-[1400px]:grid">
+        <div className="hidden w-full grid-cols-2 gap-[42px] overflow-visible lg:grid">
           {items.map((item, index) => (
             <div
               key={item.title}

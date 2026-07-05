@@ -91,7 +91,7 @@ function CapabilitiesSection({services}) {
           OUR CAPABILITIES
         </SectionTitle>
 
-        <div className="w-full min-[1400px]:hidden">
+        <div className="w-full lg:hidden">
           <ResponsiveCarousel ariaLabel="OUR CAPABILITIES" isDarkMode={isDarkMode}>
             {services.map((service, index) => (
               <ServiceCard
@@ -103,7 +103,7 @@ function CapabilitiesSection({services}) {
           </ResponsiveCarousel>
         </div>
 
-        <div className="hidden w-full flex-col items-start gap-[42px] min-[1400px]:flex">
+        <div className="hidden w-full flex-col items-start gap-[42px] lg:flex">
           <div className="grid w-full grid-cols-2 gap-[42px] overflow-visible">
             {services.slice(0, 4).map((service, index) => (
               <ServiceCard
