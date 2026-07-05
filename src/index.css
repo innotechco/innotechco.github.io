@@ -219,6 +219,7 @@ body {
 .partner-tools-track--animating {
   position: relative;
   overflow: visible;
+  display: block;
 }
 
 .partner-tools-track--animating .partner-tools-card {

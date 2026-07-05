@@ -24,7 +24,12 @@
     const trackRef = useRef(null);
     const swipeStartRef = useRef(null);
     const cards = content.tools.cards;
-    const visibleCount = Math.min(3, cards.length);
+    const [visibleCount, setVisibleCount] = useState(() => {
+      if (typeof window === "undefined") return 1;
+      if (window.innerWidth >= 1280) return 3;
+      if (window.innerWidth >= 1024) return 2;
+      return 1;
+    });
     const textColor = isDarkMode ? "text-white" : "text-black";
     const greenButtonHoverTextColor = isDarkMode
       ? "hover:text-black"
@@ -33,6 +38,22 @@
       () => getVisibleCards(cards, activeIndex, visibleCount),
       [activeIndex, cards, visibleCount],
     );
+
+    useEffect(() => {
+      const updateVisibleCount = () => {
+        if (window.innerWidth >= 1280) {
+          setVisibleCount(3);
+        } else if (window.innerWidth >= 1024) {
+          setVisibleCount(2);
+        } else {
+          setVisibleCount(1);
+        }
+      };
+
+      updateVisibleCount();
+      window.addEventListener("resize", updateVisibleCount);
+      return () => window.removeEventListener("resize", updateVisibleCount);
+    }, []);
     const displayedCards =
       transitionCards ??
       visibleCards.map((card) => ({
@@ -162,13 +183,13 @@
             {content.tools.title}
           </SectionHeading>
 
-          <div className="relative w-full">
+          <div className="relative w-full overflow-hidden">
             <button
               type="button"
               onClick={() => move("prev")}
               disabled={isAnimating}
               aria-label="Previous partner tool"
-              className={`absolute left-0 top-1/2 z-20 flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#37B478] bg-black/70 text-[#37B478] backdrop-blur transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 sm:size-10 ${greenButtonHoverTextColor}`}
+              className={`absolute left-4 top-1/2 z-20 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#37B478] bg-black/70 text-[#37B478] backdrop-blur transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 sm:left-6 sm:size-10 md:left-8 lg:left-10 xl:left-12 2xl:left-14 ${greenButtonHoverTextColor}`}
             >
               <PartnerArrow direction="left" />
             </button>
@@ -187,7 +208,7 @@
                   if (Math.abs(delta) >= 48) move(delta < 0 ? "next" : "prev");
                 }}
                 onPointerCancel={() => { swipeStartRef.current = null; }}
-                className={`partner-tools-track grid min-w-0 touch-pan-y grid-cols-3 gap-3 md:gap-6 xl:gap-8 ${
+                className={`partner-tools-track grid min-w-0 touch-pan-y grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 px-14 sm:px-16 md:px-20 lg:px-24 xl:px-28 2xl:px-32 justify-items-center ${
                   isAnimating ? "partner-tools-track--animating" : ""
                 }`}
                 style={trackHeight ? { height: `${trackHeight}px` } : undefined}
@@ -197,19 +218,19 @@
                     key={key}
                     data-partner-tool-card
                     style={style ?? undefined}
-                    className={`partner-tools-card group flex h-[380px] min-h-[380px] min-w-0 flex-col overflow-hidden rounded-3xl border border-[#37B478]/20 bg-green-500/5 p-3 shadow-[inset_1px_-1px_2px_0px_rgba(29,95,63,1)] transition-all duration-500 ease-out hover:-translate-y-3 hover:border-[#37B478]/80 hover:bg-[#37B478]/10 hover:shadow-[inset_1px_-1px_2px_0px_rgba(55,180,120,1),0_24px_55px_-32px_rgba(55,180,120,0.9)] sm:p-5 xl:p-9`}
+                    className={`partner-tools-card group flex w-full aspect-square h-[220px] sm:h-[260px] md:h-[300px] lg:h-[340px] xl:h-[360px] min-h-0 min-w-0 flex-col overflow-hidden rounded-3xl border border-[#37B478]/20 bg-green-500/5 p-3 sm:p-4 xl:p-6 shadow-[inset_1px_-1px_2px_0px_rgba(29,95,63,1)] transition-all duration-500 ease-out hover:-translate-y-2 hover:border-[#37B478]/80 hover:bg-[#37B478]/10 hover:shadow-[inset_1px_-1px_2px_0px_rgba(55,180,120,1),0_24px_55px_-32px_rgba(55,180,120,0.9)] lg:max-w-[360px] max-w-[320px] mx-auto lg:mx-0 lg:items-start items-center`}
                   >
                     <img
                       loading="lazy"
                       src={assets.cardIcons[card.icon]}
                       alt=""
                       aria-hidden
-                      className="size-12 max-w-full flex-shrink-0 object-contain transition-transform duration-500 ease-out group-hover:scale-105 [filter:brightness(0)_saturate(100%)_invert(56%)_sepia(51%)_saturate(599%)_hue-rotate(96deg)_brightness(94%)_contrast(88%)] sm:size-16 xl:size-24"
+                      className="size-12 max-w-full flex-shrink-0 self-center object-contain transition-transform duration-500 ease-out group-hover:scale-105 [filter:brightness(0)_saturate(100%)_invert(56%)_sepia(51%)_saturate(599%)_hue-rotate(96deg)_brightness(94%)_contrast(88%)] sm:size-16 xl:size-24"
                     />
-                    <h3 className={`mt-4 break-words font-['Gotham'] text-sm font-bold sm:text-lg xl:text-2xl ${textColor}`}>
+                    <h3 className={`mt-4 text-center lg:text-left break-words font-['Gotham'] text-sm font-bold sm:text-base xl:text-xl ${textColor}`}>
                       {card.title}
                     </h3>
-                    <p className={`mt-3 flex-grow overflow-hidden break-words font-['Gotham'] text-[10px] leading-snug sm:text-sm xl:mt-4 xl:text-base xl:leading-normal ${textColor}`}>
+                    <p className={`mt-3 flex-grow min-h-0 overflow-hidden break-words whitespace-normal font-['Gotham'] text-[12px] leading-snug sm:text-[13px] md:text-[14px] xl:text-[15px] xl:mt-4 xl:leading-normal ${textColor}`}>
                       {card.description}
                     </p>
                   </article>
@@ -221,7 +242,7 @@
               onClick={() => move("next")}
               disabled={isAnimating}
               aria-label="Next partner tool"
-              className={`absolute right-0 top-1/2 z-20 flex size-9 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#37B478] bg-black/70 text-[#37B478] backdrop-blur transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 sm:size-10 ${greenButtonHoverTextColor}`}
+              className={`absolute right-4 top-1/2 z-20 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#37B478] bg-black/70 text-[#37B478] backdrop-blur transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 sm:right-6 sm:size-10 md:right-8 lg:right-10 xl:right-12 2xl:right-14 ${greenButtonHoverTextColor}`}
             >
               <PartnerArrow />
             </button>
