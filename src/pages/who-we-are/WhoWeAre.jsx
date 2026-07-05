@@ -21,7 +21,7 @@ function WhoWeAre() {
 
   return (
     <main
-      className={`relative isolate w-full overflow-hidden pt-36 font-['Gotham'] transition-colors duration-500 ${pageBackground}`}
+      className={`relative isolate w-full overflow-hidden pt-30 font-['Gotham'] transition-colors duration-500 ${pageBackground}`}
     >
       <WhoWeAreBackground images={whoWeAreImages} isDarkMode={isDarkMode} />
       <div className="relative z-10">
