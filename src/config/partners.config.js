@@ -12,6 +12,8 @@ import {idcAssets} from "../pages/what-we-do/services/partners/idc/data";
 import {itonicsAssets} from "../pages/what-we-do/services/partners/itonics/data";
 import {leanAssets} from "../pages/what-we-do/services/partners/lean/data";
 import {lensorgAssets} from "../pages/what-we-do/services/partners/lensorg/data";
+import {marketResearchAssets} from "../pages/what-we-do/services/partners/market-research/data";
+import {randMAssets} from "../pages/what-we-do/services/partners/r-and-m/data";
 import {sharjahAssets} from "../pages/what-we-do/services/partners/sharjah/data";
 import {startinAssets} from "../pages/what-we-do/services/partners/startin/data";
 import {statistaAssets} from "../pages/what-we-do/services/partners/statista/data";
@@ -35,6 +37,8 @@ export const partnerConfig = {
   itonics: {assets: withSharedAssets(itonicsAssets)},
   lean: {assets: withSharedAssets(leanAssets)},
   lensorg: {assets: withSharedAssets(lensorgAssets)},
+  "market-research": {assets: withSharedAssets(marketResearchAssets)},
+  "r-and-m": {assets: withSharedAssets(randMAssets)},
   sharjah: {assets: withSharedAssets(sharjahAssets)},
   startin: {assets: withSharedAssets(startinAssets)},
   statista: {assets: withSharedAssets(statistaAssets)},

@@ -65,6 +65,41 @@ test("theme contract exposes light and dark mode", () => {
   assert.match(provider, /setIsDarkMode/);
 });
 
+test("report store cards link to dedicated partner-style pages", () => {
+  const reportStoreCard = fs.readFileSync(
+    path.join(
+      srcRoot,
+      "pages",
+      "what-we-do",
+      "services",
+      "shared",
+      "components",
+      "ReportStoreCard.jsx",
+    ),
+    "utf8",
+  );
+
+  assert.match(reportStoreCard, /market-research/);
+  assert.match(reportStoreCard, /r-and-m/);
+  assert.ok(
+    fs.existsSync(
+      path.join(
+        srcRoot,
+        "content",
+        "en",
+        "partners",
+        "market-research",
+        "market-research.json",
+      ),
+    ),
+  );
+  assert.ok(
+    fs.existsSync(
+      path.join(srcRoot, "content", "en", "partners", "r-and-m", "r-and-m.json"),
+    ),
+  );
+});
+
 test("card-style sections use the same responsive breakpoint as selected projects", () => {
   const cardSectionFiles = [
     path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "CapabilitiesSection.jsx"),
