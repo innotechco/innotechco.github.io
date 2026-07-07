@@ -3,67 +3,55 @@
     "name": "Market Research",
     "variant": "default",
     "hero": {
-        "tagline": "Research-led insight for sharper market decisions and growth planning.",
-        "buttonLabel": "Book a Meeting"
+        "tagline": "Delivering Technology Intelligence to Global Decision-Makers",
+        "buttonLabel": "Explore Reports"
     },
     "intro": {
-        "title": "Data-backed market intelligence",
-        "body": "This page is intentionally isolated so you can update the content, logo, and imagery independently without touching the shared partner layout. Replace the imported assets or edit this JSON whenever you want to refresh the message."
+        "title": "Global Access to Strategic Intelligence",
+        "body": "Through MarketResearch.com, Innotech makes its AI-powered patent landscape and technology intelligence reports available to decision-makers worldwide. Our portfolio spans materials, manufacturing, energy, software, telecommunications, life sciences, agriculture, and consumer markets. This relationship expands the commercial reach of our research while connecting specialized industrial intelligence with organizations seeking timely, evidence-based strategic direction."
     },
     "stats": [
         {
             "id": "coverage",
-            "value": "120+",
-            "label": "Markets covered across key verticals."
+            "value": "+50",
+            "label": "Listed Reports"
         },
         {
             "id": "speed",
-            "value": "24/7",
-            "label": "Decision support with rapid insight delivery."
+            "value": "+10",
+            "label": "Industries"
         },
         {
             "id": "accuracy",
-            "value": "95%",
-            "label": "Confidence in the insights delivered."
+            "value": "+12",
+            "label": "Portfolio Additions"
         },
         {
             "id": "reach",
-            "value": "50+",
-            "label": "Countries represented in the research network."
+            "value": "+3",
+            "label": "CouLicense Options"
         }
     ],
     "tools": {
-        "title": "Research capabilities",
+        "title": "Our Listed Intelligence Capabilities",
         "cards": [
             {
                 "id": "market-trends",
                 "icon": "archery",
-                "title": "Market Trends",
-                "description": "Track evolving demand signals and emerging opportunities with sector-specific intelligence."
+                "title": "Patent Landscape Analysis",
+                "description": "We analyze global patent activity to identify innovation trends, leading applicants, emerging technologies, and competitive positioning."
             },
             {
                 "id": "growth-planning",
                 "icon": "globe",
-                "title": "Growth Planning",
-                "description": "Turn research into a practical roadmap for product expansion and market entry."
+                "title": "Market and Competitor Intelligence",
+                "description": "We combine patent, market, company, and industry data to reveal market dynamics, competitor strategies, and growth opportunities."
             },
             {
                 "id": "decision-support",
                 "icon": "puzzle",
-                "title": "Decision Support",
-                "description": "Give leadership the evidence required for confident, high-stakes decisions."
-            },
-            {
-                "id": "customer-intelligence",
-                "icon": "archery",
-                "title": "Customer Intelligence",
-                "description": "Map buyer behavior and uncover the signals that shape product and messaging decisions."
-            },
-            {
-                "id": "competitive-analysis",
-                "icon": "globe",
-                "title": "Competitive Analysis",
-                "description": "Benchmark market positioning and identify where growth opportunities are emerging."
+                "title": "Technology Trend Mapping",
+                "description": "We track the evolution, maturity, momentum, and commercial direction of technologies across industries and application areas."
             }
         ]
     },
