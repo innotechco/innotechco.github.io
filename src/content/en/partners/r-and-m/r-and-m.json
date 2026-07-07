@@ -3,67 +3,55 @@
     "name": "R and M",
     "variant": "default",
     "hero": {
-        "tagline": "Strategy and insight that help teams move faster with better context.",
-        "buttonLabel": "Book a Meeting"
+        "tagline": "Taking Innotech Insights to Global Markets",
+        "buttonLabel": "Explore Reports"
     },
     "intro": {
-        "title": "Independent insights, built for action",
-        "body": "This page is isolated from the main partner collection so you can adjust its copy, visuals, or structure independently. Swap the logo import in the data file or edit this JSON to tailor the experience."
+        "title": "Global Distribution for Technology & Market Intelligence",
+        "body": "Research and Markets provides our Insight service with an established international channel for listing, promoting, and distributing our patent landscape reports. Through its marketplace and publisher portal, our research becomes accessible to buyers across industries and regions. The relationship expands the visibility of our portfolio while supporting structured submissions, product updates, commercial discovery, and selected media promotion."
     },
     "stats": [
         {
             "id": "focus",
-            "value": "12",
-            "label": "Core focus areas across strategy and research."
+            "value": "+30",
+            "label": "Listed Reports"
         },
         {
             "id": "response",
-            "value": "< 48h",
-            "label": "Fast response for urgent decision cycles."
+            "value": "+20",
+            "label": "Industries"
         },
         {
             "id": "adoption",
-            "value": "88%",
-            "label": "Client adoption rate for recurring insight programs."
+            "value": "+25",
+            "label": "Portfolio Additions"
         },
         {
             "id": "impact",
-            "value": "4x",
-            "label": "Faster alignment between strategy and execution."
+            "value": "+3",
+            "label": "License Options"
         }
     ],
     "tools": {
-        "title": "Core services",
+        "title": "Our Listed Intelligence Capabilities",
         "cards": [
             {
                 "id": "analysis",
                 "icon": "archery",
-                "title": "Analysis",
-                "description": "Structure complex themes into practical signals that decision-makers can act on."
+                "title": "Patent Landscape Analysis",
+                "description": "We analyze global patent activity to identify innovation trends, leading applicants, emerging technologies, and competitive positioning."
             },
             {
                 "id": "roadmaps",
                 "icon": "globe",
-                "title": "Roadmaps",
-                "description": "Translate uncertainty into a clear, phased view of next moves."
+                "title": "Market and Competitor Intelligence",
+                "description": "We combine patent, market, company, and industry data to reveal market dynamics, competitor strategies, and growth opportunities."
             },
             {
                 "id": "enablement",
                 "icon": "puzzle",
-                "title": "Enablement",
-                "description": "Equip teams with the insight and frameworks needed to move with confidence."
-            },
-            {
-                "id": "strategy-sprints",
-                "icon": "archery",
-                "title": "Strategy Sprints",
-                "description": "Accelerate alignment with focused workshops that turn insight into clear next actions."
-            },
-            {
-                "id": "executive-reports",
-                "icon": "globe",
-                "title": "Executive Reports",
-                "description": "Deliver concise summaries that help leadership make decisions with confidence."
+                "title": "Technology Trend Mapping",
+                "description": "We track the evolution, maturity, momentum, and commercial direction of technologies across industries and application areas."
             }
         ]
     },
