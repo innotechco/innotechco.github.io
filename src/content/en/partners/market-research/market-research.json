@@ -1,0 +1,73 @@
+{
+    "slug": "market-research",
+    "name": "Market Research",
+    "variant": "default",
+    "hero": {
+        "tagline": "Research-led insight for sharper market decisions and growth planning.",
+        "buttonLabel": "Book a Meeting"
+    },
+    "intro": {
+        "title": "Data-backed market intelligence",
+        "body": "This page is intentionally isolated so you can update the content, logo, and imagery independently without touching the shared partner layout. Replace the imported assets or edit this JSON whenever you want to refresh the message."
+    },
+    "stats": [
+        {
+            "id": "coverage",
+            "value": "120+",
+            "label": "Markets covered across key verticals."
+        },
+        {
+            "id": "speed",
+            "value": "24/7",
+            "label": "Decision support with rapid insight delivery."
+        },
+        {
+            "id": "accuracy",
+            "value": "95%",
+            "label": "Confidence in the insights delivered."
+        },
+        {
+            "id": "reach",
+            "value": "50+",
+            "label": "Countries represented in the research network."
+        }
+    ],
+    "tools": {
+        "title": "Research capabilities",
+        "cards": [
+            {
+                "id": "market-trends",
+                "icon": "archery",
+                "title": "Market Trends",
+                "description": "Track evolving demand signals and emerging opportunities with sector-specific intelligence."
+            },
+            {
+                "id": "growth-planning",
+                "icon": "globe",
+                "title": "Growth Planning",
+                "description": "Turn research into a practical roadmap for product expansion and market entry."
+            },
+            {
+                "id": "decision-support",
+                "icon": "puzzle",
+                "title": "Decision Support",
+                "description": "Give leadership the evidence required for confident, high-stakes decisions."
+            },
+            {
+                "id": "customer-intelligence",
+                "icon": "archery",
+                "title": "Customer Intelligence",
+                "description": "Map buyer behavior and uncover the signals that shape product and messaging decisions."
+            },
+            {
+                "id": "competitive-analysis",
+                "icon": "globe",
+                "title": "Competitive Analysis",
+                "description": "Benchmark market positioning and identify where growth opportunities are emerging."
+            }
+        ]
+    },
+    "contact": {
+        "label": "contact us"
+    }
+}

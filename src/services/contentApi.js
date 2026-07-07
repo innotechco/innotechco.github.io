@@ -10,6 +10,8 @@ import idcPartnerPage from "../content/en/partners/idc/idc.json";
 import itonicsPartnerPage from "../content/en/partners/itonics/itonics.json";
 import leanPartnerPage from "../content/en/partners/lean/lean.json";
 import lensorgPartnerPage from "../content/en/partners/lensorg/lensorg.json";
+import marketResearchPartnerPage from "../content/en/partners/market-research/market-research.json";
+import randMPartnerPage from "../content/en/partners/r-and-m/r-and-m.json";
 import sharjahPartnerPage from "../content/en/partners/sharjah/sharjah.json";
 import startinPartnerPage from "../content/en/partners/startin/startin.json";
 import statistaPartnerPage from "../content/en/partners/statista/statista.json";
@@ -53,6 +55,8 @@ const partnerContent = {
   itonics: itonicsPartnerPage,
   lean: leanPartnerPage,
   lensorg: lensorgPartnerPage,
+  "market-research": marketResearchPartnerPage,
+  "r-and-m": randMPartnerPage,
   sharjah: sharjahPartnerPage,
   startin: startinPartnerPage,
   statista: statistaPartnerPage,

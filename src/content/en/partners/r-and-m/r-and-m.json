@@ -1,0 +1,73 @@
+{
+    "slug": "r-and-m",
+    "name": "R and M",
+    "variant": "default",
+    "hero": {
+        "tagline": "Strategy and insight that help teams move faster with better context.",
+        "buttonLabel": "Book a Meeting"
+    },
+    "intro": {
+        "title": "Independent insights, built for action",
+        "body": "This page is isolated from the main partner collection so you can adjust its copy, visuals, or structure independently. Swap the logo import in the data file or edit this JSON to tailor the experience."
+    },
+    "stats": [
+        {
+            "id": "focus",
+            "value": "12",
+            "label": "Core focus areas across strategy and research."
+        },
+        {
+            "id": "response",
+            "value": "< 48h",
+            "label": "Fast response for urgent decision cycles."
+        },
+        {
+            "id": "adoption",
+            "value": "88%",
+            "label": "Client adoption rate for recurring insight programs."
+        },
+        {
+            "id": "impact",
+            "value": "4x",
+            "label": "Faster alignment between strategy and execution."
+        }
+    ],
+    "tools": {
+        "title": "Core services",
+        "cards": [
+            {
+                "id": "analysis",
+                "icon": "archery",
+                "title": "Analysis",
+                "description": "Structure complex themes into practical signals that decision-makers can act on."
+            },
+            {
+                "id": "roadmaps",
+                "icon": "globe",
+                "title": "Roadmaps",
+                "description": "Translate uncertainty into a clear, phased view of next moves."
+            },
+            {
+                "id": "enablement",
+                "icon": "puzzle",
+                "title": "Enablement",
+                "description": "Equip teams with the insight and frameworks needed to move with confidence."
+            },
+            {
+                "id": "strategy-sprints",
+                "icon": "archery",
+                "title": "Strategy Sprints",
+                "description": "Accelerate alignment with focused workshops that turn insight into clear next actions."
+            },
+            {
+                "id": "executive-reports",
+                "icon": "globe",
+                "title": "Executive Reports",
+                "description": "Deliver concise summaries that help leadership make decisions with confidence."
+            }
+        ]
+    },
+    "contact": {
+        "label": "contact us"
+    }
+}

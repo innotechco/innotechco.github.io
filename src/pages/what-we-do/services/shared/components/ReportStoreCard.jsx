@@ -1,7 +1,10 @@
+import {Link} from "react-router-dom";
+
 import careersImage from "../../../../../assets/images/who-we-are/Careers.webp";
 import marketResearchLogo from "../../../../../assets/icons/MarketResearch.svg";
 import randMLogo from "../../../../../assets/icons/RandM.svg";
 import {useTheme} from "../../../../../context/useTheme";
+import {routes} from "../../../../../routes";
 
 function ReportStoreCard() {
   const {isDarkMode} = useTheme();
@@ -39,16 +42,30 @@ function ReportStoreCard() {
           </button>
 
           <div className="mt-auto grid w-full grid-cols-2 items-center justify-center gap-6 sm:gap-14">
-            <img loading="lazy"
-              src={randMLogo}
-              alt="R and M"
-              className="relative z-10 h-10 w-auto max-w-[125px] object-contain transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110 sm:h-12"
-            />
-            <img loading="lazy"
-              src={marketResearchLogo}
-              alt="Market Research"
-              className="relative z-10 h-10 w-auto max-w-[125px] object-contain transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110 sm:h-12"
-            />
+            <Link
+              to={routes.partner.replace(":slug", "r-and-m")}
+              className="relative z-10 flex items-center justify-center transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110"
+              aria-label="Go to R and M partner page"
+            >
+              <img
+                loading="lazy"
+                src={randMLogo}
+                alt="R and M"
+                className="h-10 w-auto max-w-[125px] object-contain sm:h-12"
+              />
+            </Link>
+            <Link
+              to={routes.partner.replace(":slug", "market-research")}
+              className="relative z-10 flex items-center justify-center transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110"
+              aria-label="Go to Market Research partner page"
+            >
+              <img
+                loading="lazy"
+                src={marketResearchLogo}
+                alt="Market Research"
+                className="h-10 w-auto max-w-[125px] object-contain sm:h-12"
+              />
+            </Link>
           </div>
         </div>
         <div className="order-1 flex h-72 w-full items-end justify-end self-stretch overflow-hidden lg:order-2 lg:h-auto lg:w-[496px]">
