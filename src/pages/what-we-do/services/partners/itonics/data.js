@@ -1,4 +1,5 @@
 import logo from "../../../../../assets/images/partners/itonics/Itonics.svg";
+import heroImage from "../../../../../assets/images/partners/shared/backgrounds/PartnerIntroImage.webp";
 
 import InsightGrowthAudience from "../../../../../assets/images/partners/shared/cards/InsightGrowthAudience.svg";
 import SettingsWindow from "../../../../../assets/images/partners/shared/cards/SettingsWindow.svg";
@@ -8,6 +9,7 @@ import ProcessesWorkflow from "../../../../../assets/images/partners/shared/card
 
 export const itonicsAssets = {
   logo,
+  heroImage,
   logoClassName: "max-h-[212px] max-w-[406px]",
   lightLogoClassName: "brightness-0",
   cardIcons: {
