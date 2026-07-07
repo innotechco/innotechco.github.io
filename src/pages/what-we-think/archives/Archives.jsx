@@ -31,7 +31,9 @@ function ArchiveCard({item, isDarkMode}) {
           <h2>{item.title}</h2>
           <p>{item.description}</p>
           <div className="archive-card-meta">
-            <span className="archive-read-time">{item.readMinutes} minutes read</span>
+            <span className="archive-read-time" dir="ltr">
+              {item.readMinutes} minutes read
+            </span>
             <span>{item.date}</span>
             <ReadMoreLink isDarkMode={isDarkMode} className="archive-card-read-more" />
           </div>
@@ -105,7 +107,7 @@ function Archives() {
       <div className="archive-content">
         <header className="archive-heading">
           <span>{archivePage.eyebrow}</span>
-          <h1>{archivePage.title}</h1>
+          <h1 className="whitespace-nowrap">{archivePage.title}</h1>
           <p>{archivePage.description}</p>
           <label className="archive-search" aria-label="Search archive cards">
             <img src={SearchIcon} alt="" aria-hidden="true" />
