@@ -3,7 +3,7 @@
   "name": "Sharjah",
   "variant": "default",
   "hero": {
-    "tagline": "Manage Innovation with Confidence",
+    "tagline": "Empowering Innovators to Launch, Scale and Lead",
     "buttonLabel": "Book a Demo"
   },
   "intro": {
@@ -14,22 +14,22 @@
     {
       "id": "impact",
       "value": "+5",
-      "label": "Service Packages."
+      "label": "Service Packages"
     },
     {
       "id": "experience",
       "value": "6",
-      "label": "Industries."
+      "label": "Industries"
     },
     {
       "id": "rank",
       "value": "30%",
-      "label": "Client Benefit."
+      "label": "Client Benefit"
     },
     {
       "id": "roi",
       "value": "+10k",
-      "label": "Ecosystem Companies."
+      "label": "Ecosystem Companies"
     }
   ],
   "tools": {
