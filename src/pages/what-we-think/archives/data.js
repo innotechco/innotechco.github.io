@@ -1,5 +1,5 @@
 import {getArchivesPage} from "../../../services/contentApi";
-import customerInsight from "../../../assets/images/archives/customer-insight.svg";
+import customerInsight from "../../../assets/images/archives/1.webp";
 import crossFunctional from "../../../assets/images/archives/cross-functional.svg";
 import decisionVelocity from "../../../assets/images/archives/decision-velocity.svg";
 import ecosystem from "../../../assets/images/archives/ecosystem.svg";
