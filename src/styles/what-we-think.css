@@ -1,0 +1,680 @@
+.what-we-think-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 144px clamp(28px, 8.333vw, 120px) 60px;
+  transition: background-color 0.5s ease;
+}
+
+.what-we-think-page.is-dark { background: #050505; }
+.what-we-think-page.is-light { background: #fff; }
+
+.what-we-think-decoration {
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+  max-width: none;
+}
+
+.what-we-think-decoration--left {
+  left: -450px;
+  top: 360px;
+  width: 1300px;
+}
+
+.what-we-think-decoration--right {
+  right: 0;
+  top: -40px;
+  width: 430px;
+}
+
+.what-we-think-heading {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 64px;
+}
+
+.what-we-think-heading div {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #37b478;
+}
+
+.what-we-think-heading h1 {
+  margin: 0;
+  color: inherit;
+  font-family: "Gotham", sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.what-we-think-page.is-light .what-we-think-heading h1 {
+  color: #000;
+}
+
+.what-we-think-grid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 36px;
+}
+
+.what-we-think-row,
+.what-we-think-text-row {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+  gap: 36px;
+}
+
+.what-we-think-row,
+.what-we-think-stack {
+  height: 702px;
+}
+
+.what-we-think-stack {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.what-we-think-text-row {
+  min-height: 0;
+  flex: 1;
+}
+
+.what-we-think-card-shell {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  overflow: visible;
+}
+
+.what-we-think-card-shell--horizontal {
+  width: 100%;
+  min-height: 252px;
+}
+
+.what-we-think-card-shell--tall,
+.what-we-think-card-shell--small,
+.what-we-think-card-shell--text {
+  min-height: 0;
+  flex: 1;
+}
+
+.what-we-think-card {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #37b478;
+  border-radius: 50px;
+  color: #fff;
+  background: #000;
+}
+
+.what-we-think-card-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  border-radius: 50px;
+  filter: blur(28px);
+  transition: opacity 0.3s ease;
+}
+
+.what-we-think-card-tint {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50px;
+  background: rgba(55, 180, 120, 0.05);
+}
+
+.is-light .what-we-think-card {
+  color: #000;
+  background: #fff;
+}
+
+.what-we-think-card--horizontal {
+  width: 100%;
+  min-height: 252px;
+}
+
+.what-we-think-card--tall {
+  flex: 1;
+  flex-direction: column;
+}
+
+.what-we-think-card--small,
+.what-we-think-card--text {
+  min-height: 0;
+  flex: 1;
+}
+
+.what-we-think-image {
+  position: relative;
+  min-width: 0;
+  min-height: 240px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.what-we-think-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.what-we-think-card--tall .what-we-think-image {
+  width: 100%;
+}
+
+.what-we-think-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 36px;
+  font-family: "Gotham", sans-serif;
+  line-height: normal;
+  text-align: left;
+  word-break: break-word;
+  z-index: 1;
+}
+
+.what-we-think-card--tall .what-we-think-copy {
+  width: 100%;
+}
+
+.what-we-think-card--small .what-we-think-copy,
+.what-we-think-card--text .what-we-think-copy {
+  gap: 9px;
+  padding: 24px;
+}
+
+.what-we-think-card--small .what-we-think-copy h2,
+.what-we-think-card--text .what-we-think-copy h2 {
+  font-size: 22px;
+  line-height: 1.05;
+}
+
+.what-we-think-card--small .what-we-think-copy p,
+.what-we-think-card--small .what-we-think-meta,
+.what-we-think-card--text .what-we-think-copy p,
+.what-we-think-card--text .what-we-think-meta {
+  font-size: 12px;
+  line-height: 1.18;
+}
+
+.what-we-think-card--tall .what-we-think-copy p {
+  line-height: 1.35;
+}
+
+.what-we-think-copy h2,
+.what-we-think-copy p {
+  width: 100%;
+  margin: 0;
+}
+
+.what-we-think-copy h2 {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.what-we-think-copy p,
+.what-we-think-meta {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.what-we-think-meta {
+  display: flex;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.what-we-think-meta span:first-child { font-weight: 300; }
+.what-we-think-meta span:last-child { color: #37b478; }
+.what-we-think-meta--between { align-items: center; justify-content: space-between; }
+.what-we-think-meta--row { align-items: center; gap: 32px; }
+.what-we-think-meta--stack { flex-direction: column; align-items: flex-start; }
+
+.what-we-think-read-more {
+  flex-shrink: 0;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.what-we-think-archives-link {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 16px 0 40px;
+}
+
+.what-we-think-card--small .what-we-think-read-more,
+.what-we-think-card--text .what-we-think-read-more {
+  font-size: 12px;
+}
+
+@media (max-width: 1400px) {
+  .what-we-think-copy {
+    gap: 10px;
+    padding: 24px;
+  }
+
+  .what-we-think-copy h2 {
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.08;
+  }
+
+  .what-we-think-copy p,
+  .what-we-think-meta {
+    font-size: clamp(11px, 1.15vw, 14px);
+    line-height: 1.12;
+  }
+}
+
+@media (max-width: 900px) {
+  .what-we-think-page { padding: 112px 20px 32px; }
+  .what-we-think-heading { padding-bottom: 40px; }
+
+  .what-we-think-grid,
+  .what-we-think-row,
+  .what-we-think-stack,
+  .what-we-think-text-row {
+    height: auto;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .what-we-think-card {
+    width: 100%;
+    min-height: 0;
+    flex: none;
+    border-radius: 32px;
+  }
+
+  .what-we-think-card-shell {
+    width: 100%;
+    min-height: 0;
+    flex: none;
+  }
+
+  .what-we-think-card--horizontal,
+  .what-we-think-card--small {
+    flex-direction: column;
+  }
+
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    width: 100%;
+    min-height: 260px;
+  }
+
+  .what-we-think-copy { flex: none; padding: 28px; }
+  .what-we-think-copy h2 { font-size: 24px; }
+
+  .what-we-think-copy p,
+  .what-we-think-meta,
+  .what-we-think-card--small .what-we-think-copy p,
+  .what-we-think-card--small .what-we-think-meta,
+  .what-we-think-card--text .what-we-think-copy p,
+  .what-we-think-card--text .what-we-think-meta {
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  .what-we-think-card--small .what-we-think-copy,
+  .what-we-think-card--text .what-we-think-copy {
+    gap: 12px;
+    padding: 28px;
+  }
+
+  .what-we-think-card--small .what-we-think-copy h2,
+  .what-we-think-card--text .what-we-think-copy h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .what-we-think-page { padding: 100px 14px 20px; }
+  .what-we-think-heading h1 { font-size: 30px; }
+  .what-we-think-grid,
+  .what-we-think-row,
+  .what-we-think-stack,
+  .what-we-think-text-row { gap: 18px; }
+
+  .what-we-think-card-shell,
+  .what-we-think-card { width: 100%; min-height: 520px; height: auto !important; }
+  .what-we-think-card { flex-direction: column; border-radius: 28px; }
+
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    width: 100%; min-height: 260px;
+  }
+
+  .what-we-think-copy,
+  .what-we-think-card--small .what-we-think-copy,
+  .what-we-think-card--text .what-we-think-copy {
+    min-height: 0;
+    flex: 1;
+    gap: 10px;
+    overflow: visible;
+    padding: 16px;
+  }
+
+  .what-we-think-copy h2,
+  .what-we-think-card--small .what-we-think-copy h2,
+  .what-we-think-card--text .what-we-think-copy h2 {
+    font-size: clamp(16px, 3vw, 20px);
+    line-height: 1.15;
+  }
+
+  .what-we-think-copy p,
+  .what-we-think-card--small .what-we-think-copy p,
+  .what-we-think-card--text .what-we-think-copy p {
+    font-size: clamp(11px, 2.3vw, 13px);
+    line-height: 1.3;
+    overflow: visible;
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+
+  .what-we-think-meta,
+  .what-we-think-card--small .what-we-think-meta,
+  .what-we-think-card--text .what-we-think-meta {
+    font-size: clamp(10px, 2.2vw, 12px);
+    line-height: 1.3;
+  }
+
+  .what-we-think-meta--between,
+  .what-we-think-meta--row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}
+
+
+/* Responsive editorial cards: always two columns on tablet and phone. */
+@media (max-width: 900px) {
+  .what-we-think-grid {
+    display: grid;
+    height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .what-we-think-row,
+  .what-we-think-stack,
+  .what-we-think-text-row { display: contents; }
+  .what-we-think-card-shell,
+  .what-we-think-card { width: 100%; min-height: 520px; height: auto !important; }
+  .what-we-think-card { flex-direction: column; border-radius: 28px; }
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    width: 100%; min-height: 240px;
+  }
+  .hide-mobile { display: none !important; }
+  .what-we-think-copy,
+  .what-we-think-card--small .what-we-think-copy,
+  .what-we-think-card--text .what-we-think-copy {
+    min-height: 0; flex: 1; gap: 10px; overflow: visible; padding: 16px;
+  }
+  .what-we-think-copy h2,
+  .what-we-think-card--small .what-we-think-copy h2,
+  .what-we-think-card--text .what-we-think-copy h2 {
+    font-size: clamp(16px, 3vw, 20px);
+    line-height: 1.12;
+  }
+  .what-we-think-copy p,
+  .what-we-think-card--small .what-we-think-copy p,
+  .what-we-think-card--text .what-we-think-copy p {
+    font-size: clamp(11px, 2.3vw, 13px);
+    line-height: 1.3;
+    overflow: visible;
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+  .what-we-think-meta,
+  .what-we-think-card--small .what-we-think-meta,
+  .what-we-think-card--text .what-we-think-meta {
+    font-size: clamp(10px, 2.2vw, 12px);
+    line-height: 1.3;
+  }
+}
+
+.what-we-think-archives-link {
+  grid-column: 1 / -1;
+  justify-content: center;
+  padding-block: 36px 72px;
+}
+
+.what-we-think-archives-link > a {
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #37b478;
+  padding: 0 24px;
+  color: #06160e;
+  font-weight: 700;
+}
+
+@media (max-width: 520px) {
+  .what-we-think-grid {
+    display: grid;
+    height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .what-we-think-row,
+  .what-we-think-stack,
+  .what-we-think-text-row { display: contents; }
+
+  .what-we-think-card-shell,
+  .what-we-think-card {
+    width: 100%;
+    min-height: 520px;
+    height: auto !important;
+    border-radius: 28px;
+  }
+
+  .what-we-think-card { flex-direction: column; }
+
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    width: 100%;
+    min-height: 240px;
+  }
+
+  .what-we-think-copy,
+  .what-we-think-card--small .what-we-think-copy,
+  .what-we-think-card--text .what-we-think-copy {
+    min-height: 0;
+    flex: 1;
+    gap: 10px;
+    overflow: visible;
+    padding: 16px;
+  }
+
+  .what-we-think-copy h2,
+  .what-we-think-card--small .what-we-think-copy h2,
+  .what-we-think-card--text .what-we-think-copy h2 {
+    font-size: clamp(16px, 3vw, 20px);
+    line-height: 1.15;
+  }
+
+  .what-we-think-copy p,
+  .what-we-think-card--small .what-we-think-copy p,
+  .what-we-think-card--text .what-we-think-copy p {
+    font-size: clamp(11px, 2.3vw, 13px);
+    line-height: 1.3;
+    overflow: visible;
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+
+  .what-we-think-meta,
+  .what-we-think-card--small .what-we-think-meta,
+  .what-we-think-card--text .what-we-think-meta {
+    font-size: clamp(10px, 2.2vw, 12px);
+    line-height: 1.3;
+  }
+
+  .what-we-think-read-more {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 580px) {
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    min-height: 145px;
+  }
+}
+
+@media (max-width: 360px) {
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    min-height: 128px;
+  }
+}
+
+/* What we think layout stability: keep images visible and copy readable. */
+@media (min-width: 901px) {
+  .what-we-think-row,
+  .what-we-think-stack {
+    height: auto;
+  }
+
+  .what-we-think-card-shell--horizontal {
+    min-height: 252px;
+  }
+
+  .what-we-think-card--horizontal {
+    min-height: 252px;
+    flex-direction: row;
+  }
+
+  .what-we-think-card--horizontal .what-we-think-image {
+    width: 42%;
+    min-width: 420px;
+    min-height: 252px;
+    flex: 0 0 42%;
+  }
+
+  .what-we-think-card-shell--tall,
+  .what-we-think-card--tall {
+    min-height: 702px;
+  }
+
+  .what-we-think-card-shell--small,
+  .what-we-think-card--small,
+  .what-we-think-card-shell--text,
+  .what-we-think-card--text {
+    min-height: 333px;
+  }
+
+  .what-we-think-card--small .what-we-think-image {
+    width: 48%;
+    min-height: 100%;
+    flex: 0 0 48%;
+  }
+
+  .what-we-think-card--small {
+    flex-direction: row;
+  }
+}
+
+.what-we-think-copy {
+  justify-content: flex-start;
+}
+
+.what-we-think-copy p {
+  overflow: visible;
+}
+
+.what-we-think-read-more {
+  margin-top: auto;
+}
+
+@media (max-width: 900px) {
+  .what-we-think-card-shell,
+  .what-we-think-card {
+    height: auto !important;
+    min-height: 0;
+  }
+
+  .what-we-think-card {
+    align-self: stretch;
+  }
+
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+  }
+
+  .what-we-think-copy,
+  .what-we-think-card--small .what-we-think-copy,
+  .what-we-think-card--text .what-we-think-copy {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .what-we-think-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .what-we-think-card,
+  .what-we-think-image,
+  .what-we-think-copy {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .what-we-think-image {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .what-we-think-copy h2,
+  .what-we-think-copy p,
+  .what-we-think-meta {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}

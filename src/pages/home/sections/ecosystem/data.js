@@ -1,3 +1,3 @@
-import {getHomePage} from "../../../../services/contentApi";
+import {getHomePage} from "../../../../services/content/homeContent";
 
 export const {ecosystemCards} = getHomePage();

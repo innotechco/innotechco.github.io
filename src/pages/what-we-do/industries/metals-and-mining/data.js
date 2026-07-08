@@ -1,4 +1,4 @@
-import {getIndustryPage} from "../../../../services/contentApi";
+import {getIndustryPage} from "../../../../services/content/industryContent";
 
 export const {
   hero,

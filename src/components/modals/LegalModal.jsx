@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
-import {createPortal} from "react-dom";
 
 import {useTheme} from "../../context/useTheme";
+import AnimatedModalShell from "./AnimatedModalShell";
 
 const legalContent = {
   cookies: {
@@ -68,77 +68,41 @@ const legalContent = {
 
 function LegalModal({type, onClose}) {
   const {isDarkMode} = useTheme();
-  const [shouldRender, setShouldRender] = useState(Boolean(type));
-  const [visible, setVisible] = useState(false);
   const [activeType, setActiveType] = useState(type);
   const content = activeType ? legalContent[activeType] : null;
 
   const handleClose = useCallback(() => {
-    setVisible(false);
-    window.setTimeout(onClose, 1000);
+    onClose();
   }, [onClose]);
 
   useEffect(() => {
-    let renderFrame;
-    let visibleFrame;
-    let closeTimer;
+    if (!type) return undefined;
 
-    if (type) {
-      renderFrame = requestAnimationFrame(() => {
-        setActiveType(type);
-        setShouldRender(true);
-        visibleFrame = requestAnimationFrame(() => setVisible(true));
-      });
-    } else {
-      visibleFrame = requestAnimationFrame(() => setVisible(false));
-      closeTimer = window.setTimeout(() => {
-        setShouldRender(false);
-        setActiveType(null);
-      }, 1000);
-    }
-
+    const frame = requestAnimationFrame(() => setActiveType(type));
     return () => {
-      cancelAnimationFrame(renderFrame);
-      cancelAnimationFrame(visibleFrame);
-      clearTimeout(closeTimer);
+      cancelAnimationFrame(frame);
     };
   }, [type]);
 
-  useEffect(() => {
-    if (!shouldRender) return undefined;
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") handleClose();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleClose, shouldRender]);
-
-  if (!shouldRender || !content) return null;
+  if (!content) return null;
 
   const modalBg = isDarkMode ? "bg-black text-white" : "bg-white text-black";
   const overlayBg = isDarkMode ? "bg-black/70" : "bg-white/70";
   const borderColor = isDarkMode ? "border-white/15" : "border-black/15";
 
-  return createPortal(
-    <div className="fixed inset-0 z-[120] flex items-center justify-center px-4 py-6 sm:px-6">
-      <button
-        type="button"
-        aria-label="Close legal information"
-        onClick={handleClose}
-        className={`absolute inset-0 ${overlayBg} cursor-default backdrop-blur-sm transition-opacity duration-1000 ease-out ${
-          visible ? "opacity-100" : "opacity-0"
-        }`}
-      />
-      <section
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="legal-modal-title"
-        className={`relative flex max-h-[min(760px,calc(100svh-48px))] w-full max-w-[760px] flex-col overflow-hidden rounded-[28px] border ${borderColor} ${modalBg} shadow-[0_32px_90px_rgba(0,0,0,0.38)] transition-all duration-1000 ease-out ${
-          visible ? "translate-y-0 scale-100 opacity-100" : "translate-y-24 scale-[0.98] opacity-0"
-        }`}
-      >
+  return (
+    <AnimatedModalShell
+      isOpen={Boolean(type)}
+      onRequestClose={handleClose}
+      onExited={() => setActiveType(null)}
+      closeDurationMs={500}
+      ariaLabelledBy="legal-modal-title"
+      containerClassName="fixed inset-0 z-[120] flex items-center justify-center px-4 py-6 sm:px-6"
+      overlayClassName={`absolute inset-0 ${overlayBg} cursor-default backdrop-blur-sm transition-opacity duration-500 ease-out`}
+      panelClassName={`relative flex max-h-[min(760px,calc(100svh-48px))] w-full max-w-[760px] flex-col overflow-hidden rounded-[28px] border ${borderColor} ${modalBg} shadow-[0_32px_90px_rgba(0,0,0,0.38)] transition-all duration-500 ease-out`}
+      hiddenClassName="translate-y-24 scale-[0.98] opacity-0"
+      visibleClassName="translate-y-0 scale-100 opacity-100"
+    >
         <div className="flex shrink-0 items-start justify-between gap-5 border-b border-[#37B478]/25 px-6 py-5 sm:px-8 sm:py-6">
           <div className="min-w-0">
             <span className="mb-3 block size-5 rounded-full bg-[#37B478]" />
@@ -171,9 +135,7 @@ function LegalModal({type, onClose}) {
             ))}
           </div>
         </div>
-      </section>
-    </div>,
-    document.body,
+    </AnimatedModalShell>
   );
 }
 

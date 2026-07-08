@@ -2,6 +2,7 @@ import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import contactContent from "../../content/en/contact.json";
 import {useTheme} from "../../context/useTheme";
 import {countries} from "../../data/countries";
+import AnimatedModalShell from "./AnimatedModalShell";
 import ContactFormFields from "./contact/ContactFormFields";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -19,8 +20,6 @@ const defaultContactValues = {
 function ContactModal({isOpen, onClose, contentOverrides = {}}) {
   const {isDarkMode} = useTheme();
   const content = {...contactContent, ...contentOverrides};
-  const [shouldRender, setShouldRender] = useState(isOpen);
-  const [visible, setVisible] = useState(false);
   const [isRegionOpen, setIsRegionOpen] = useState(false);
   const [values, setValues] = useState(defaultContactValues);
   const [errors, setErrors] = useState({});
@@ -92,34 +91,6 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
   };
 
   useEffect(() => {
-    let closeTimer;
-    let renderFrame;
-    let visibleFrame;
-
-    if (isOpen) {
-      renderFrame = requestAnimationFrame(() => {
-        setShouldRender(true);
-        visibleFrame = requestAnimationFrame(() => {
-          setVisible(true);
-        });
-      });
-    } else {
-      visibleFrame = requestAnimationFrame(() => {
-        setVisible(false);
-      });
-      closeTimer = setTimeout(() => {
-        setShouldRender(false);
-      }, 1000);
-    }
-
-    return () => {
-      cancelAnimationFrame(renderFrame);
-      cancelAnimationFrame(visibleFrame);
-      clearTimeout(closeTimer);
-    };
-  }, [isOpen]);
-
-  useEffect(() => {
     const handleClickOutside = (event) => {
       if (regionRef.current && !regionRef.current.contains(event.target)) {
         setIsRegionOpen(false);
@@ -131,17 +102,6 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isRegionOpen]);
-
-  useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === "Escape") handleClose();
-    };
-
-    if (isOpen) window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, [isOpen, handleClose]);
-
-  if (!shouldRender) return null;
 
   const modalBg = isDarkMode ? "bg-black" : "bg-white";
   const modalOutline = isDarkMode ? "outline-white/25" : "outline-black/25";
@@ -156,25 +116,18 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
   const fieldFrameClassName = `w-full px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] inline-flex justify-start items-start gap-2.5`;
 
   return (
-  <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto px-3 pb-6 pt-[calc(env(safe-area-inset-top)+88px)] sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+104px)] lg:items-center lg:overflow-hidden lg:py-6">
-    {/* Overlay */}
-    <div
-      className={`absolute inset-0 ${overlayBg} backdrop-blur-sm transition-opacity duration-1000 ease-out ${
-        visible ? "opacity-100" : "opacity-0"
-      }`}
-      onClick={handleClose}
-    />
-
-    {/* Modal */}
-    <div
-      className={`relative flex h-[calc(100svh-112px)] w-full max-w-[929px] flex-col overflow-hidden rounded-[24px]
+  <AnimatedModalShell
+    isOpen={isOpen}
+    onRequestClose={handleClose}
+    closeDurationMs={1000}
+    containerClassName="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto px-3 pb-6 pt-[calc(env(safe-area-inset-top)+88px)] sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+104px)] lg:items-center lg:overflow-hidden lg:py-6"
+    overlayClassName={`absolute inset-0 ${overlayBg} backdrop-blur-sm transition-opacity duration-1000 ease-out`}
+    panelClassName={`relative flex h-[calc(100svh-112px)] w-full max-w-[929px] flex-col overflow-hidden rounded-[24px]
       sm:h-[calc(100svh-132px)]
       lg:h-[calc(100svh-48px)]
       ${modalBg} ${modalOutline}
-      transform transition-all duration-1000 ease-out ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-24"
-      }`}
-    >
+      transform transition-all duration-1000 ease-out`}
+  >
       {/* Header */}
       <div className="shrink-0 p-4 sm:p-6 lg:px-11 lg:pt-11">
         <div className="inline-flex items-center justify-between self-stretch gap-4 w-full">
@@ -238,8 +191,7 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
           />
         </form>
       </div>
-    </div>
-  </div>
+  </AnimatedModalShell>
 );
 }
 
