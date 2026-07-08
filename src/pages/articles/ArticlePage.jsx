@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 
 import {articleAssets} from "../../config/articles.config";
 import {useTheme} from "../../context/useTheme";
-import {fetchArticle} from "../../services/contentApi";
+import {fetchArticle} from "../../services/content/articleContent";
 import ArticleBody from "./components/ArticleBody";
 import ArticleHero from "./components/ArticleHero";
 import RelatedNews from "./components/RelatedNews";

@@ -1,4 +1,4 @@
-import {getArchivesPage} from "../../../services/contentApi";
+import {getArchivesPage} from "../../../services/content/whatWeThinkContent";
 import customerInsight from "../../../assets/images/archives/customer-insight.svg";
 import crossFunctional from "../../../assets/images/archives/cross-functional.svg";
 import decisionVelocity from "../../../assets/images/archives/decision-velocity.svg";

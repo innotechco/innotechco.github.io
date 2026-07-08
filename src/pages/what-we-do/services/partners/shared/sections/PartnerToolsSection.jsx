@@ -1,6 +1,7 @@
   import {useEffect, useMemo, useRef, useState} from "react";
 
-  import PartnerArrow from "../components/PartnerArrow";
+  import PartnerToolCard from "../components/PartnerToolCard";
+  import PartnerToolsControls from "../components/PartnerToolsControls";
   import SectionHeading from "../components/SectionHeading";
 
   function getVisibleCards(cards, activeIndex, count) {
@@ -30,7 +31,6 @@
       if (window.innerWidth >= 1024) return 2;
       return 1;
     });
-    const textColor = isDarkMode ? "text-white" : "text-black";
     const greenButtonHoverTextColor = isDarkMode
       ? "hover:text-black"
       : "hover:text-white";
@@ -184,15 +184,12 @@
           </SectionHeading>
 
           <div className="relative w-full overflow-visible">
-            <button
-              type="button"
-              onClick={() => move("prev")}
+            <PartnerToolsControls
               disabled={isAnimating}
-              aria-label="Previous partner tool"
-              className={`absolute left-4 top-1/2 z-20 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#37B478] bg-black/70 text-[#37B478] backdrop-blur transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 sm:left-6 sm:size-10 md:left-8 lg:left-10 xl:left-12 2xl:left-14 ${greenButtonHoverTextColor}`}
-            >
-              <PartnerArrow direction="left" />
-            </button>
+              onNext={() => move("next")}
+              onPrevious={() => move("prev")}
+              textColorClassName={greenButtonHoverTextColor}
+            />
 
             <div
                 ref={trackRef}
@@ -257,38 +254,15 @@
                 style={trackHeight ? { height: `${trackHeight}px` } : undefined}
               >
                 {displayedCards.map(({ card, key, style }) => (
-                  <article
+                  <PartnerToolCard
                     key={key}
-                    data-partner-tool-card
-                    style={style ?? undefined}
-                    className={`partner-tools-card group flex w-full aspect-square h-[220px] sm:h-[260px] md:h-[300px] lg:h-[340px] xl:h-[360px] min-h-0 min-w-0 flex-col gap-4 overflow-hidden rounded-3xl border border-[#37B478]/20 bg-green-500/5 p-3 sm:p-4 xl:p-6 shadow-[inset_1px_-1px_2px_0px_rgba(29,95,63,1)] transition-all duration-500 ease-out hover:-translate-y-2 hover:border-[#37B478]/80 hover:bg-[#37B478]/10 hover:shadow-[inset_1px_-1px_2px_0px_rgba(55,180,120,1),0_24px_55px_-32px_rgba(55,180,120,0.9)] lg:max-w-[360px] max-w-[320px] mx-auto lg:mx-0 items-start`}
-                  >
-                    <img
-                      loading="lazy"
-                      src={assets.cardIcons[card.icon]}
-                      alt=""
-                      aria-hidden
-                      className="size-12 max-w-full flex-shrink-0 self-center object-contain transition-transform duration-500 ease-out group-hover:scale-105 [filter:brightness(0)_saturate(100%)_invert(56%)_sepia(51%)_saturate(599%)_hue-rotate(96deg)_brightness(94%)_contrast(88%)] sm:size-16 xl:size-24"
-                    />
-                    <h3 className={`w-full text-center lg:text-left break-words font-['Gotham'] font-bold ${textColor}`}>
-                      {card.title}
-                    </h3>
-                    <p className={`flex-grow min-h-0 w-full overflow-hidden break-words whitespace-normal font-['Gotham'] leading-snug ${textColor}`}>
-                      {card.description}
-                    </p>
-                  </article>
+                    assets={assets}
+                    card={card}
+                    isDarkMode={isDarkMode}
+                    style={style}
+                  />
                 ))}
             </div>
-
-            <button
-              type="button"
-              onClick={() => move("next")}
-              disabled={isAnimating}
-              aria-label="Next partner tool"
-              className={`absolute right-4 top-1/2 z-20 flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#37B478] bg-black/70 text-[#37B478] backdrop-blur transition-colors hover:bg-[#37B478] disabled:pointer-events-none disabled:opacity-50 sm:right-6 sm:size-10 md:right-8 lg:right-10 xl:right-12 2xl:right-14 ${greenButtonHoverTextColor}`}
-            >
-              <PartnerArrow />
-            </button>
           </div>
         </div>
       </section>

@@ -1,3 +1,3 @@
-import {getInlearnAcademyPage} from "../../services/contentApi";
+import {getInlearnAcademyPage} from "../../services/content/homeContent";
 
 export const inlearnAcademyContent = getInlearnAcademyPage();

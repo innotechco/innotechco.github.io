@@ -1,4 +1,4 @@
-import {getServicePage} from "../../../../services/contentApi";
+import {getServicePage} from "../../../../services/content/serviceContent";
 
 const page = getServicePage("infinity");
 

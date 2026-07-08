@@ -1,4 +1,4 @@
-import {getWhoWeArePage} from "../../services/contentApi";
+import {getWhoWeArePage} from "../../services/content/whoWeAreContent";
 
 export const whoWeAreContent = getWhoWeArePage();
 export const whoWeAreImages = whoWeAreContent.images;

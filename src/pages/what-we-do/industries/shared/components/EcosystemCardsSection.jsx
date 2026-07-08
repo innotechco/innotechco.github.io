@@ -3,6 +3,7 @@ import excludeBlackShape from "../../../../../assets/images/excludes/shared/Excl
 import {useTheme} from "../../../../../context/useTheme";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
 import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
+import {useContactAction} from "../../../../../context/useContactAction";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
 
 function EcosystemCard({
@@ -17,6 +18,7 @@ function EcosystemCard({
   imageLightClassName,
 }) {
   const {position: glowPosition, handlers} = usePointerGlow();
+  const openContact = useContactAction();
   const greenButtonTextColor = isDarkMode ? "text-black" : "text-white";
   const activeImageClassName =
     !isDarkMode && imageLight
@@ -66,9 +68,10 @@ function EcosystemCard({
         </div>
 
         <button
-          className={`absolute right-4 top-4 min-h-9 shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-[10px] sm:text-[11px] md:text-xs font-bold leading-tight ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
+          className={`absolute right-4 top-4 min-h-9 shrink-0 translate-y-8 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-[10px] font-bold leading-tight shadow-lg transition-all duration-200 hover:translate-y-8 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:translate-y-8 active:scale-95 sm:translate-y-10 sm:text-[11px] sm:hover:translate-y-10 sm:active:translate-y-10 md:text-xs ${greenButtonTextColor}`}
+          onClick={() => openContact("selected-project")}
           type="button"
-          >
+        >
           {actionLabel}
         </button>
       </div>
