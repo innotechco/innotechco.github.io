@@ -41,7 +41,7 @@ function ReportStoreCard() {
             Go to store
           </button>
 
-          <div className="mt-auto grid w-full grid-cols-2 items-center justify-center gap-6 sm:gap-14">
+          <div className="mt-auto grid w-full max-w-[360px] grid-cols-2 items-center justify-center gap-4 sm:gap-6">
             <Link
               to={routes.partner.replace(":slug", "r-and-m")}
               className="relative z-10 flex items-center justify-center transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110"
@@ -51,7 +51,7 @@ function ReportStoreCard() {
                 loading="lazy"
                 src={randMLogo}
                 alt="R and M"
-                className="h-10 w-auto max-w-[125px] object-contain sm:h-12"
+                className="h-11 w-[132px] object-contain sm:h-12 sm:w-[148px]"
               />
             </Link>
             <Link
@@ -63,7 +63,7 @@ function ReportStoreCard() {
                 loading="lazy"
                 src={marketResearchLogo}
                 alt="Market Research"
-                className="h-10 w-auto max-w-[125px] object-contain sm:h-12"
+                className="h-11 w-[132px] object-contain sm:h-12 sm:w-[148px]"
               />
             </Link>
           </div>

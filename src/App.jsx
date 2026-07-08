@@ -48,13 +48,24 @@ const MetalsAndMining = lazy(() =>
   import("./pages/what-we-do/industries/metals-and-mining/MetalsAndMining"),
 );
 
+function RouteFallback() {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-[#050505] px-6 pt-28 text-white">
+      <div className="flex items-center gap-3 font-['Gotham'] text-sm uppercase tracking-[0.18em] text-white/70">
+        <span className="size-3 rounded-full bg-[#37B478]" />
+        <span>Loading</span>
+      </div>
+    </main>
+  );
+}
+
 function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [contactActionId, setContactActionId] = useState("default");
   const {pathname} = useLocation();
   const footerTopSpacing =
     pathname === routes.whatWeThink
-      ? "mt-20 md:mt-28"
+      ? "mt-0"
       : [
           ...serviceRoutes,
           ...industryRoutes,
@@ -82,7 +93,7 @@ function App() {
         <div className="relative w-full min-h-screen overflow-x-hidden">
         <ScrollToTop />
         <Navbar />
-        <Suspense fallback={null}>
+        <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path={routes.home} element={<Home />} />
             <Route path={routes.inlearnAcademy} element={<InlearnAcademy />} />

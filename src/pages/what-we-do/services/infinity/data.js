@@ -1,11 +1,11 @@
 import {getServicePage} from "../../../../services/contentApi";
 
-export const {
-  actions,
-  capabilities,
-  partners,
-  road,
-  sectionLabels,
-  showcase,
-  stats,
-} = getServicePage("infinity");
+const page = getServicePage("infinity");
+
+export const road = page.road;
+export const stats = page.stats;
+export const capabilities = page.capabilities;
+export const actions = page.actions;
+export const partners = page.partners;
+export const showcase = page.showcase;
+export const sectionLabels = page.sectionLabels;

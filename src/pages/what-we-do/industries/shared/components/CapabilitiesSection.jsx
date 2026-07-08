@@ -103,7 +103,7 @@ function CapabilitiesSection({services}) {
           </ResponsiveCarousel>
         </div>
 
-        <div className="hidden w-full flex-col items-start gap-[42px] lg:flex">
+        <div className="hidden w-full grid-cols-1 items-start gap-[42px] lg:grid">
           <div className="grid w-full grid-cols-2 gap-[42px] overflow-visible items-stretch lg:auto-rows-fr">
             {services.slice(0, 4).map((service, index) => (
               <ServiceCard

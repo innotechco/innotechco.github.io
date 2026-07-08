@@ -47,7 +47,7 @@ const historyRangeStyles = `
   }
 `;
 
-function HistorySection({content, image, textColor, isDarkMode}) {
+function HistorySection({content, image, textColor}) {
   const historyScrollRef = useRef(null);
   const historyDragRef = useRef({active: false, startX: 0, scrollLeft: 0});
   const [historyScrollProgress, setHistoryScrollProgress] = useState(0);
