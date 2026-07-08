@@ -56,7 +56,7 @@ function WhatWeDoPanel({closePanels, isDarkMode, isOpen}) {
 
   return (
     <div
-      className={`hidden overflow-hidden transition-all duration-500 ease-in-out min-[1400px]:block ${
+      className={`hidden overflow-hidden transition-all duration-500 ease-in-out lg:block ${
         isOpen
           ? "max-h-[400px] translate-y-0 pb-10 pt-2 opacity-100"
           : "max-h-0 -translate-y-2 pb-0 pt-0 opacity-0"

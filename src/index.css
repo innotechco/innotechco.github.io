@@ -129,3 +129,10 @@ body {
   }
 }
 
+@media (min-width: 380px) and (max-width: 450px) {
+  .footer-legal-links {
+    row-gap: 3px;
+    transform: translateY(10px);
+  }
+}
+
