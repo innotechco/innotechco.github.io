@@ -14,7 +14,7 @@ function WhoWeAreBackground({images, isDarkMode}) {
   const positions = {
     top: "top-[10px] xl:top-[-0px] sm:top-[10px] md:top-[10px]",
     top2: "top-[180px] 2xl:top-[20px] xl:top-[90px] sm:top-[200px] md:top-[300px]",
-    middle: "top-[3200px] md:top-[3050px] xl:top-[2900px]",
+    middle: "top-[2600px] lg:top-[2180px] md:top-[2680px] sm:top-[2550px] xl:top-[2050px] [@media(min-width:1280px)_and_(max-width:1411px)]:top-[2150px] 2xl:top-[2030px]",
   };
 
   return (
