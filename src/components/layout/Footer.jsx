@@ -1,5 +1,4 @@
 import {useState} from "react";
-import {Link} from "react-router-dom";
 
 import FooterSVG from "../../assets/logos/FooterFirstPage.svg";
 import FooterSVGDark from "../../assets/logos/FooterFirstPageDark.svg";
@@ -10,7 +9,6 @@ import LinkedInDark from "../../assets/icons/LinkdinDark.svg";
 import WhatsApp from "../../assets/icons/WhatsApp.svg";
 import WhatsAppDark from "../../assets/icons/WhatsAppDark.svg";
 import {useTheme} from "../../context/useTheme";
-import {routes} from "../../routes";
 import LegalModal from "../modals/LegalModal";
 
 function EmailIcon({className = ""}) {
@@ -30,7 +28,7 @@ const legalLinks = [
 ];
 
 const footerTextLinkClassName =
-  "whitespace-nowrap rounded-full px-3 py-1 text-xs transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-[#00C965] hover:text-black hover:shadow-[0_10px_24px_rgba(0,201,101,0.34)] active:translate-y-0.5 active:scale-95 sm:text-sm lg:text-base";
+  "inline-flex h-7 w-[92px] items-center justify-center whitespace-nowrap rounded-full px-2 text-center text-[10px] leading-none transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-[#00C965] hover:text-black hover:shadow-[0_10px_24px_rgba(0,201,101,0.34)] active:translate-y-0.5 active:scale-95 sm:w-[108px] sm:text-xs lg:h-8 lg:w-[118px] lg:text-sm";
 
 const footerIconClassName =
   "flex size-8 items-center justify-center rounded-full text-current transition-transform duration-300 hover:scale-110 active:scale-95 lg:size-10";
@@ -75,7 +73,7 @@ const Footer = ({onContactClick, topSpacingClassName = ""}) => {
           </div>
 
           <div className="flex items-end justify-between px-6 pb-5 sm:px-10 sm:pb-6 lg:px-[125px] lg:pb-14">
-            <div className={`flex max-w-[68%] flex-wrap gap-2 sm:gap-3 lg:gap-4 ${textColor}`}>
+            <div className={`footer-legal-links grid max-w-[58%] grid-cols-2 place-items-center gap-x-4 gap-y-2 sm:max-w-[54%] sm:gap-x-6 md:max-w-none md:grid-cols-4 md:gap-x-4 md:gap-y-0 lg:gap-x-5 xl:gap-x-6 2xl:gap-x-8 ${textColor}`}>
               {legalLinks.map((item) => (
                 <button
                   key={item.type}
@@ -86,9 +84,6 @@ const Footer = ({onContactClick, topSpacingClassName = ""}) => {
                   {item.label}
                 </button>
               ))}
-              <Link to={routes.whoWeAre} className={footerTextLinkClassName}>
-                Who we are
-              </Link>
             </div>
 
             <div className={`flex gap-3 sm:gap-4 ${textColor}`}>
