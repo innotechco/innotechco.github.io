@@ -35,7 +35,7 @@ function ExpertCard({
         }`}
       >
         <img loading="lazy"
-          className="pointer-events-none absolute left-[-34px] top-[-72px] h-[242px] w-[234px] rotate-[10deg] opacity-100"
+          className="pointer-events-none absolute left-[-34px] top-[-52px] h-[242px] w-[234px] rotate-[10deg] opacity-100"
           src={isDarkMode ? excludeShape : excludeBlackShape}
           alt=""
           aria-hidden
@@ -54,7 +54,7 @@ function ExpertCard({
 
           <button
             onClick={() => openContact("selected-project")}
-            className={`shrink-0 rounded-bl-[30px] rounded-br-[20px] rounded-tr-[20px] bg-[#22C55E] px-4 py-2 font-['Gotham'] text-base font-bold leading-none ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
+            className={`absolute right-4 top-4 shrink-0 rounded-bl-[30px] rounded-br-[20px] rounded-tr-[20px] bg-[#22C55E] px-4 py-2 font-['Gotham'] text-base font-bold leading-none ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
             type="button"
           >
             View Project

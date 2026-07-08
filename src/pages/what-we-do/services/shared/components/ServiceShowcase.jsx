@@ -46,7 +46,7 @@ function ShowcaseCard({
         }`}
       >
         <img loading="lazy"
-          className="pointer-events-none absolute left-[-34px] top-[-72px] h-[242px] w-[234px] rotate-[10deg] opacity-100"
+          className="pointer-events-none absolute left-[-34px] top-[-52px] h-[242px] w-[234px] rotate-[10deg] opacity-100"
           src={isDarkMode ? excludeShape : excludeBlackShape}
           alt=""
           aria-hidden="true"
@@ -66,7 +66,7 @@ function ShowcaseCard({
 
           <button
             onClick={() => openContact(contactActionId)}
-            className={`min-h-11 shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-xs font-bold leading-tight sm:px-4 sm:text-base sm:leading-none ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
+            className={`absolute right-4 top-4 min-h-11 shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-2 font-['Gotham'] text-xs font-bold leading-tight sm:px-4 sm:text-base sm:leading-none ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
             type="button"
           >
             {buttonLabel}

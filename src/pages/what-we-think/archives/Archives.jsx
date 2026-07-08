@@ -3,8 +3,8 @@ import {useMemo, useRef, useState} from "react";
 import ReadMoreLink from "../../../components/ui/ReadMoreLink";
 import {useTheme} from "../../../context/useTheme";
 import SearchIcon from "../../../assets/icons/Search.svg";
-import ArchiveLightDecoration from "../../../assets/images/archives/WhoWeAreExcludeTopMiddle.webp";
-import ArchiveDarkDecoration from "../../../assets/images/archives/WhoWeAreExcludeMiddle.webp";
+import ArchiveLightDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeTopMiddle.webp";
+import ArchiveDarkDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeMiddle.webp";
 import {archiveItems, archivePage} from "./data";
 import {usePointerGlow} from "../../../hooks/usePointerGlow";
 
@@ -103,14 +103,14 @@ function Archives() {
 
   return (
     <main className={pageClass}>
-      <img className="archive-decoration" src={decoration} alt="" aria-hidden="true" />
+      <img loading="lazy" className="archive-decoration" src={decoration} alt="" aria-hidden="true" />
       <div className="archive-content">
         <header className="archive-heading">
           <span>{archivePage.eyebrow}</span>
           <h1 className="whitespace-nowrap">{archivePage.title}</h1>
           <p>{archivePage.description}</p>
           <label className="archive-search" aria-label="Search archive cards">
-            <img src={SearchIcon} alt="" aria-hidden="true" />
+            <img loading="lazy" src={SearchIcon} alt="" aria-hidden="true" />
             <input type="search" value={query} onChange={handleSearch} placeholder={archivePage.searchPlaceholder} />
             <span>Search</span>
           </label>

@@ -12,22 +12,22 @@
     },
     "stats": [
         {
-            "id": "coverage",
+            "id": "listed-reports",
             "value": "+50",
             "label": "Listed Reports"
         },
         {
-            "id": "speed",
+            "id": "industries",
             "value": "+10",
             "label": "Industries"
         },
         {
-            "id": "accuracy",
+            "id": "portfolio-additions",
             "value": "+12",
             "label": "Portfolio Additions"
         },
         {
-            "id": "reach",
+            "id": "license-options",
             "value": "+3",
             "label": "CouLicense Options"
         }
@@ -36,19 +36,19 @@
         "title": "Our Listed Intelligence Capabilities",
         "cards": [
             {
-                "id": "market-trends",
+                "id": "patent-landscape-analysis",
                 "icon": "archery",
                 "title": "Patent Landscape Analysis",
                 "description": "We analyze global patent activity to identify innovation trends, leading applicants, emerging technologies, and competitive positioning."
             },
             {
-                "id": "growth-planning",
+                "id": "market-and-competitor-intelligence",
                 "icon": "globe",
                 "title": "Market and Competitor Intelligence",
                 "description": "We combine patent, market, company, and industry data to reveal market dynamics, competitor strategies, and growth opportunities."
             },
             {
-                "id": "decision-support",
+                "id": "technology-trend-mapping",
                 "icon": "puzzle",
                 "title": "Technology Trend Mapping",
                 "description": "We track the evolution, maturity, momentum, and commercial direction of technologies across industries and application areas."

@@ -11,6 +11,7 @@ function PartnerHeroSection({assets, content, isDarkMode}) {
     <section className="relative z-20 px-6 pb-20 pt-36 md:px-16 md:pb-24 md:pt-40 xl:px-[120px]">
       <div className="mx-auto flex w-full max-w-[760px] flex-col items-center gap-8 text-center">
         <img
+          loading="lazy"
           src={assets.logo}
           alt={content.name}
           className={`h-auto w-[min(1000px,90vw)] object-contain ${assets.logoClassName ?? "max-h-[280px]"} ${logoToneClass}`}

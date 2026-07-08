@@ -92,28 +92,30 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
   };
 
   useEffect(() => {
-    let renderTimer;
-    let visibleTimer;
+    let closeTimer;
+    let renderFrame;
+    let visibleFrame;
 
     if (isOpen) {
-      renderTimer = setTimeout(() => {
+      renderFrame = requestAnimationFrame(() => {
         setShouldRender(true);
-        visibleTimer = setTimeout(() => {
+        visibleFrame = requestAnimationFrame(() => {
           setVisible(true);
-        }, 10);
-      }, 0);
+        });
+      });
     } else {
-      visibleTimer = setTimeout(() => {
+      visibleFrame = requestAnimationFrame(() => {
         setVisible(false);
-      }, 0);
-      renderTimer = setTimeout(() => {
+      });
+      closeTimer = setTimeout(() => {
         setShouldRender(false);
       }, 1000);
     }
 
     return () => {
-      clearTimeout(renderTimer);
-      clearTimeout(visibleTimer);
+      cancelAnimationFrame(renderFrame);
+      cancelAnimationFrame(visibleFrame);
+      clearTimeout(closeTimer);
     };
   }, [isOpen]);
 

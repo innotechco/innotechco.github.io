@@ -7,7 +7,7 @@ function ArticleHero({article, image}) {
         <div className="article-meta"><time>{article.date}</time><span>{article.readTime}</span></div>
       </div>
       <div className="article-hero-media">
-        <img src={image} alt="Strategic product portfolio planning" />
+        <img loading="lazy" src={image} alt="Strategic product portfolio planning" />
       </div>
     </header>
   );

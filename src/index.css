@@ -1228,3 +1228,111 @@ body {
     min-height: 128px;
   }
 }
+
+/* What we think layout stability: keep images visible and copy readable. */
+@media (min-width: 901px) {
+  .what-we-think-row,
+  .what-we-think-stack {
+    height: auto;
+  }
+
+  .what-we-think-card-shell--horizontal {
+    min-height: 252px;
+  }
+
+  .what-we-think-card--horizontal {
+    min-height: 252px;
+    flex-direction: row;
+  }
+
+  .what-we-think-card--horizontal .what-we-think-image {
+    width: 42%;
+    min-width: 420px;
+    min-height: 252px;
+    flex: 0 0 42%;
+  }
+
+  .what-we-think-card-shell--tall,
+  .what-we-think-card--tall {
+    min-height: 702px;
+  }
+
+  .what-we-think-card-shell--small,
+  .what-we-think-card--small,
+  .what-we-think-card-shell--text,
+  .what-we-think-card--text {
+    min-height: 333px;
+  }
+
+  .what-we-think-card--small .what-we-think-image {
+    width: 48%;
+    min-height: 100%;
+    flex: 0 0 48%;
+  }
+
+  .what-we-think-card--small {
+    flex-direction: row;
+  }
+}
+
+.what-we-think-copy {
+  justify-content: flex-start;
+}
+
+.what-we-think-copy p {
+  overflow: visible;
+}
+
+.what-we-think-read-more {
+  margin-top: auto;
+}
+
+@media (max-width: 900px) {
+  .what-we-think-card-shell,
+  .what-we-think-card {
+    height: auto !important;
+    min-height: 0;
+  }
+
+  .what-we-think-card {
+    align-self: stretch;
+  }
+
+  .what-we-think-card--tall .what-we-think-image,
+  .what-we-think-card--horizontal .what-we-think-image,
+  .what-we-think-card--small .what-we-think-image {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+  }
+
+  .what-we-think-copy,
+  .what-we-think-card--small .what-we-think-copy,
+  .what-we-think-card--text .what-we-think-copy {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .what-we-think-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .what-we-think-card,
+  .what-we-think-image,
+  .what-we-think-copy {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .what-we-think-image {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .what-we-think-copy h2,
+  .what-we-think-copy p,
+  .what-we-think-meta {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}

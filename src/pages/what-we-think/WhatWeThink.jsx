@@ -28,7 +28,13 @@ function ArticleCopy({card, metaLayout = "stack", isDarkMode}) {
 function ImagePane({card}) {
   return (
     <div className="what-we-think-image">
-      <img loading="lazy" src={card.image} alt="" aria-hidden="true" />
+      <img
+        loading="lazy"
+        src={card.image}
+        alt=""
+        aria-hidden="true"
+        style={{objectPosition: card.imagePosition ?? "center center"}}
+      />
     </div>
   );
 }

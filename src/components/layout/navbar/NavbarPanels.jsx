@@ -8,6 +8,7 @@ import {routes} from "../../../routes";
 function PanelArrow({isDarkMode, isOpen}) {
   return (
     <img
+      loading="lazy"
       src={Vector}
       alt=""
       className={`h-3 w-3 object-contain transition-transform duration-300 ${
