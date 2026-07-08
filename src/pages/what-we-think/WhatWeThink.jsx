@@ -79,18 +79,46 @@ function WhatWeThink() {
 
   return (
     <main className={`what-we-think-page ${isDarkMode ? "is-dark" : "is-light"}`}>
-      <img loading="lazy"
-        src={leftExclude}
-        alt=""
-        aria-hidden="true"
-        className="what-we-think-decoration what-we-think-decoration--left -translate-y-75"
-      />
-      <img loading="lazy"
-        src={rightExclude}
-        alt=""
-        aria-hidden="true"
-        className="what-we-think-decoration what-we-think-decoration--right"
-      />
+<img loading="lazy"
+  src={leftExclude}
+  alt=""
+  aria-hidden="true"
+  className="
+    what-we-think-decoration what-we-think-decoration--left
+    md:translate-x-0
+    md:translate-y-0
+    sm:-translate-x-20
+    sm:translate-y-0
+    -translate-x-50 translate-y-0 
+    lg:-translate-x-50
+    lg:-translate-y-20
+    xl:translate-x-0
+    xl:translate-y-0 
+    2xl:translate-x-0
+    2xl:translate-y-0 
+    [@media(min-width:1280px)_and_(max-width:1411px)]:-translate-y-40
+  "
+/>
+<img loading="lazy"
+  src={rightExclude}
+  alt=""
+  aria-hidden="true"
+  className="
+    what-we-think-decoration what-we-think-decoration--right
+    md:translate-x-50
+    md:translate-y-0
+    sm:translate-x-90
+    sm:translate-y-0
+    translate-x-80 translate-y-50 
+    lg:translate-x-10
+    lg:translate-y-0
+    xl:translate-x-0
+    xl:translate-y-0 
+    2xl:translate-x-0
+    2xl:translate-y-0 
+    [@media(min-width:1280px)_and_(max-width:1411px)]:-translate-y-15
+  "
+/>
 
       <header className="what-we-think-heading">
         <div />
