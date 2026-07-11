@@ -9,7 +9,6 @@ import {ContactActionsProvider} from "./context/ContactActionsProvider";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import ScrollToTop from "./components/layout/ScrollToTop";
-import Logo from "./assets/logos/NavbarInnoTech.svg";
 
 import {industryRoutes, serviceRoutes, routes} from "./routes";
 
@@ -101,16 +100,8 @@ function LoadingMark({fullScreen = true}) {
         fullScreen ? "min-h-screen pt-28" : "h-full min-h-48"
       }`}
     >
-      <div className="flex flex-col items-center gap-5">
-        <div className="relative flex size-20 items-center justify-center">
-          <span className="absolute inset-0 rounded-full border border-[#37B478]/40" />
-          <span className="absolute inset-1 animate-ping rounded-full bg-[#37B478]/15" />
-          <img
-            src={Logo}
-            alt="INNOTECH loading"
-            className="relative h-10 w-auto animate-pulse"
-          />
-        </div>
+      <div className="flex items-center gap-3 font-['Gotham'] text-sm uppercase tracking-[0.18em] text-white/70">
+        <span className="size-3 animate-pulse rounded-full bg-[#37B478]" />
         <span className="font-['Gotham'] text-sm uppercase tracking-[0.18em] text-white/70">
           Loading
         </span>
