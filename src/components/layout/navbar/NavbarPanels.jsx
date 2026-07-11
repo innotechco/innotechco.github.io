@@ -312,29 +312,52 @@ function SearchPanel({
                   : "border-black/10 bg-black/5"
               }`}
             >
-              {searchResults.map((result) => (
-                <Link
-                  key={`${result.title}-${result.type}`}
-                  data-search-result={result.title}
-                  to={result.to}
-                  state={{searchHighlight: result.matchText ?? result.title}}
-                  onClick={closePanels}
-                  className={`block w-full cursor-pointer rounded-[24px] px-4 py-3 transition-colors duration-300 ${
-                    isDarkMode
-                      ? "text-white hover:bg-white/10"
-                      : "text-black hover:bg-black/10"
-                  }`}
-                >
-                  <div className="whitespace-normal break-words font-['Gotham'] text-sm font-semibold">
-                    {result.title}
-                  </div>
-                  <div className={`font-['Gotham'] text-xs font-light ${
-                    isDarkMode ? "text-white/70" : "text-black/60"
-                  }`}>
-                    {result.type}
-                  </div>
-                </Link>
-              ))}
+              {searchResults.map((result) => {
+                const resultClassName = `block w-full cursor-pointer rounded-[24px] px-4 py-3 transition-colors duration-300 ${
+                  isDarkMode
+                    ? "text-white hover:bg-white/10"
+                    : "text-black hover:bg-black/10"
+                }`;
+                const resultContent = (
+                  <>
+                    <div className="whitespace-normal break-words font-['Gotham'] text-sm font-semibold">
+                      {result.title}
+                    </div>
+                    <div
+                      className={`font-['Gotham'] text-xs font-light ${
+                        isDarkMode ? "text-white/70" : "text-black/60"
+                      }`}
+                    >
+                      {result.type}
+                    </div>
+                  </>
+                );
+
+                return result.isExternal ? (
+                  <a
+                    key={`${result.title}-${result.type}`}
+                    data-search-result={result.title}
+                    href={result.to}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={closePanels}
+                    className={resultClassName}
+                  >
+                    {resultContent}
+                  </a>
+                ) : (
+                  <Link
+                    key={`${result.title}-${result.type}`}
+                    data-search-result={result.title}
+                    to={result.to}
+                    state={{searchHighlight: result.matchText ?? result.title}}
+                    onClick={closePanels}
+                    className={resultClassName}
+                  >
+                    {resultContent}
+                  </Link>
+                );
+              })}
             </div>
           ) : null}
         </div>
