@@ -127,7 +127,7 @@ function NavbarMainBar({
           </button>
 
           <div
-            className={`absolute right-[-10px] top-10 w-32 overflow-hidden rounded-[18px] border shadow-xl transition-all duration-300 sm:right-0 sm:top-9 ${
+            className={`absolute right-[-10px] top-10 w-32 overflow-hidden rounded-[18px] border shadow-xl transition-all duration-300 max-[500px]:right-[-56px] max-[500px]:top-14 sm:right-0 sm:top-9 ${
               isLanguageOpen
                 ? "translate-y-0 opacity-100"
                 : "pointer-events-none -translate-y-2 opacity-0"
