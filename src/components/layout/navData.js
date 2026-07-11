@@ -28,10 +28,13 @@ const searchRoutes = {
   "What we do": routes.inception,
   "What we think": routes.whatWeThink,
   "INLEARN Academy": routes.inlearnAcademy,
-  "INSIGHT Store": routes.insight,
   "Innovation and Technology Management": routes.inception,
   "Digital Transformation Report": routes.infinity,
   "Market Analytics Report": routes.insight,
+};
+
+const externalSearchRoutes = {
+  "INSIGHT Store": "https://stimanalytics.ai",
 };
 
 const serviceRoutesBySlug = {
@@ -209,7 +212,8 @@ const pageRouteByPath = {
 
 const manualSearchItems = navigationContent.searchItems.map((item) => ({
   ...item,
-  to: searchRoutes[item.title] ?? routes.home,
+  to: externalSearchRoutes[item.title] ?? searchRoutes[item.title] ?? routes.home,
+  isExternal: Boolean(externalSearchRoutes[item.title]),
   matchText: item.title,
   searchParts: [item.title, item.type],
   searchText: normalizeSearchText(`${item.title} ${item.type}`),
