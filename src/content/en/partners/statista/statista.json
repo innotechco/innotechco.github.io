@@ -1,6 +1,6 @@
 {
   "slug": "statista",
-  "name": "Statista",
+  "name": "STATISTA",
   "variant": "default",
   "hero": {
     "tagline": "Turning Innovation Data into Global Intelligence",
@@ -8,7 +8,7 @@
   },
   "intro": {
     "title": "Connecting Specialized Research with Global Data",
-    "body": "We transform patent, market, technology, and innovation research into structured, reliable, and publication-ready data for use across Statista’s global intelligence ecosystem. Our capabilities span data collection, validation, benchmarking, trend analysis, and insight development—helping convert complex evidence into clear statistics, comparative studies, and decision-ready intelligence."
+    "body": "We transform patent, market, technology, and innovation research into structured, reliable, and publication-ready data for use across STATISTA’s global intelligence ecosystem. Our capabilities span data collection, validation, benchmarking, trend analysis, and insight development—helping convert complex evidence into clear statistics, comparative studies, and decision-ready intelligence."
   },
   "stats": [
     {

@@ -1,9 +1,9 @@
 {
   "slug": "lensorg",
-  "name": "Lens.org",
+  "name": "LENS.ORG",
   "variant": "default",
   "hero": {"tagline": "Manage Innovation with Confidence", "buttonLabel": "Book a Demo"},
-  "intro": {"title": "World's #1 Innovation Cloud", "body": "Founded in 1999, Brightidea launched its first online innovation platform in 2000 and has since supported more than 300 global brands, including Accenture, Bayer, Cisco, GE, and Mastercard, in generating substantial financial value through innovation. Recognized by G2 as a leading Idea Management platform and featured by outlets such as Business Wire, ZDNET, The Wall Street Journal, and GigaOm, Brightidea now offers a comprehensive software suite covering the entire innovation journey."},
+  "intro": {"title": "World's #1 Innovation Cloud", "body": "Founded in 1999, BRIGHTIDEA launched its first online innovation platform in 2000 and has since supported more than 300 global brands, including Accenture, Bayer, Cisco, GE, and Mastercard, in generating substantial financial value through innovation. Recognized by G2 as a leading Idea Management platform and featured by outlets such as Business Wire, ZDNET, The Wall Street Journal, and GigaOm, BRIGHTIDEA now offers a comprehensive software suite covering the entire innovation journey."},
   "stats": [
     {"id": "impact", "value": "+$250M", "label": "Client business impact generated."},
     {"id": "experience", "value": "+70", "label": "Combined years of global experience."},
