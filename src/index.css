@@ -18,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 112px;
 }
 
 body {
@@ -36,6 +37,15 @@ body {
 ::selection {
   background: rgba(55, 180, 120, 0.25);
   color: white;
+}
+
+.search-result-highlight {
+  border-radius: 12px;
+  background: rgba(55, 180, 120, 0.28);
+  box-shadow: 0 0 0 6px rgba(55, 180, 120, 0.22);
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .partner-tools-card {
@@ -126,6 +136,13 @@ body {
     transform: none;
     animation: none;
     transition: none;
+  }
+}
+
+@media (max-height: 740px) and (max-width: 480px) {
+  main > section:first-child,
+  main > main:first-child {
+    padding-top: max(8.5rem, calc(env(safe-area-inset-top) + 7.25rem));
   }
 }
 

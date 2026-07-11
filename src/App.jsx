@@ -1,4 +1,4 @@
-import {lazy, Suspense, useState} from "react";
+import {lazy, Suspense, useEffect, useState} from "react";
 import {Routes, Route, useLocation} from "react-router-dom";
 
 import {ThemeProvider} from "./context/ThemeContext";
@@ -59,6 +59,50 @@ function RouteFallback() {
   );
 }
 
+function SearchHighlightManager() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const highlightText = location.state?.searchHighlight;
+    if (!highlightText) return undefined;
+
+    let highlightedElement;
+    const clearHighlight = () => {
+      highlightedElement?.classList.remove("search-result-highlight");
+      highlightedElement = undefined;
+    };
+
+    const timeoutId = window.setTimeout(() => {
+      const normalizedHighlight = highlightText.toLowerCase().replace(/\s+/g, " ");
+      const candidates = document.querySelectorAll(
+        "main h1, main h2, main h3, main p, main li, main span",
+      );
+
+      highlightedElement = Array.from(candidates).find((element) =>
+        element.textContent
+          ?.toLowerCase()
+          .replace(/\s+/g, " ")
+          .includes(normalizedHighlight),
+      );
+
+      if (!highlightedElement) return;
+
+      highlightedElement.classList.add("search-result-highlight");
+      highlightedElement.scrollIntoView({behavior: "smooth", block: "center"});
+      window.addEventListener("mousedown", clearHighlight, {once: true});
+      window.history.replaceState({}, "", location.pathname);
+    }, 120);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      window.removeEventListener("mousedown", clearHighlight);
+      clearHighlight();
+    };
+  }, [location.key, location.pathname, location.state]);
+
+  return null;
+}
+
 function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [contactActionId, setContactActionId] = useState("default");
@@ -92,6 +136,7 @@ function App() {
       <ContactActionsProvider onOpen={openContact}>
         <div className="relative w-full min-h-screen overflow-x-hidden">
         <ScrollToTop />
+        <SearchHighlightManager />
         <Navbar />
         <Suspense fallback={<RouteFallback />}>
           <Routes>

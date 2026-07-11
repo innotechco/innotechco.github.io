@@ -7,7 +7,7 @@ const legalContent = {
   cookies: {
     title: "Cookie Policy",
     intro:
-      "Innotech uses essential cookies to keep the website reliable and may use analytics-style signals to understand how visitors move through our pages.",
+      "INNOTECH uses essential cookies to keep the website reliable and may use analytics-style signals to understand how visitors move through our pages.",
     sections: [
       {
         heading: "What cookies support",
@@ -22,7 +22,7 @@ const legalContent = {
   gdpr: {
     title: "GDPR",
     intro:
-      "Innotech treats personal data as limited business contact information and handles it with transparency, purpose limitation, and reasonable security controls.",
+      "INNOTECH treats personal data as limited business contact information and handles it with transparency, purpose limitation, and reasonable security controls.",
     sections: [
       {
         heading: "Data we may process",
@@ -37,7 +37,7 @@ const legalContent = {
   privacy: {
     title: "Privacy Policy",
     intro:
-      "This policy explains how Innotech uses information submitted through the website to respond to business requests and improve our services.",
+      "This policy explains how INNOTECH uses information submitted through the website to respond to business requests and improve our services.",
     sections: [
       {
         heading: "How information is used",
@@ -52,7 +52,7 @@ const legalContent = {
   terms: {
     title: "Terms of Use",
     intro:
-      "By using this website, you agree to use Innotech content, services, and report information for lawful business evaluation purposes.",
+      "By using this website, you agree to use INNOTECH content, services, and report information for lawful business evaluation purposes.",
     sections: [
       {
         heading: "Website content",

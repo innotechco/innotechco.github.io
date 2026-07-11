@@ -26,14 +26,14 @@ function EcosystemSection() {
           <div className="overflow-hidden max-h-">
             <img loading="lazy"
               src={isDarkMode ? InnotechEcopic : InnotechEcopicLight}
-              alt="Innotech Ecosystem"
+              alt="INNOTECH Ecosystem"
               className="w-auto h-auto max-w-[90vw] object-contain"
             />
           </div>
         </div>
 
         <div className="mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8 min-[1400px]:px-35">
-          <div className="mx-auto grid max-w-[900px] grid-cols-2 items-stretch gap-4 lg:max-w-none lg:grid-cols-4 lg:gap-5 min-[1400px]:flex min-[1400px]:justify-between min-[1400px]:items-start xl:mx-auto">
+          <div className="mx-auto grid max-w-[900px] grid-cols-2 items-stretch gap-4 lg:max-w-none lg:grid-cols-4 lg:gap-5 min-[1400px]:flex min-[1400px]:items-stretch min-[1400px]:justify-between xl:mx-auto">
             {ecosystemCards.map((card) => (
               <InnoCard
                 key={card.title}

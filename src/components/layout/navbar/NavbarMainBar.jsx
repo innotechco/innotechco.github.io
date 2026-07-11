@@ -40,8 +40,8 @@ function NavbarMainBar({
         <Link to={routes.home}>
           <img
             src={Logo}
-            alt="InnoTech Logo"
-            className={`h-8 w-auto min-[1400px]:h-9 ${isDarkMode ? "" : "brightness-0"}`}
+            alt="INNOTECH Logo"
+            className={`h-8 w-auto transition-transform duration-300 ease-out lg:hover:translate-x-2 min-[1400px]:h-9 ${isDarkMode ? "" : "brightness-0"}`}
           />
         </Link>
       </div>
@@ -97,9 +97,14 @@ function NavbarMainBar({
             INLEARN Academy
           </Link>
 
-          <span className={`whitespace-nowrap font-['Gotham'] text-sm opacity-70 min-[1500px]:text-base ${textColor}`}>
+          <a
+            href="https://stimanalytics.ai"
+            target="_blank"
+            rel="noreferrer"
+            className={`whitespace-nowrap font-['Gotham'] text-sm opacity-70 transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
+          >
             INSIGHT Store
-          </span>
+          </a>
         </div>
       </div>
 
@@ -122,7 +127,7 @@ function NavbarMainBar({
           </button>
 
           <div
-            className={`absolute right-0 top-9 w-32 overflow-hidden rounded-[18px] border shadow-xl transition-all duration-300 ${
+            className={`absolute right-[-10px] top-10 w-32 overflow-hidden rounded-[18px] border shadow-xl transition-all duration-300 sm:right-0 sm:top-9 ${
               isLanguageOpen
                 ? "translate-y-0 opacity-100"
                 : "pointer-events-none -translate-y-2 opacity-0"

@@ -34,7 +34,7 @@
     ]
   },
   "road": {
-    "title": "Inception Road",
+    "title": "INCEPTION Road",
     "items": [
       {
         "title": "Module 1",
@@ -82,58 +82,52 @@
   ],
   "capabilities": [
     {
-      "title": "Automotive & Mobility",
+      "title": "Automotive",
       "description": "We support mobility organizations with structured idea management, technology monitoring, product innovation processes, and portfolio governance. INCEPTION helps connect market signals, engineering ideas, supplier opportunities, and transformation priorities into one managed innovation flow."
     },
     {
-      "title": "Energy & Materials",
+      "title": "Oil, Gas and Petrochemical",
       "description": "We design innovation management systems for oil, gas, energy, petrochemical, and materials companies. INCEPTION structures idea intake, technology roadmaps, process ownership, portfolio prioritization, and measurable innovation KPIs across complex industrial environments."
     },
     {
-      "title": "Healthcare & Life Sciences",
+      "title": "Healthcare and Life Sciences",
       "description": "We assist healthcare, biotech, vaccine, and diagnostics organizations with R&D prioritization, commercialization workflows, innovation governance, and evidence-based project evaluation. INCEPTION helps scientific teams move from scattered opportunities to structured innovation portfolios."
     },
     {
-      "title": "High Tech & AI",
+      "title": "High Tech and AI",
       "description": "We help technology, telecom, AI, and digital infrastructure organizations organize innovation around weak signals, emerging technologies, business model options, and product development priorities. INCEPTION turns rapid change into governed strategic execution."
     },
     {
-      "title": "Metals & Mining",
+      "title": "Steel and Mining",
       "description": "We enhance steel, mining, alumina, and mineral companies with technology needs identification, innovation process design, technology roadmapping, carbon foresight, and portfolio governance. INCEPTION helps industrial teams prioritize what to build, adopt, or scale."
     }
   ],
   "actions": [
     {
-      "title": "Professional ",
-      "subtitle": "ISO 56000 Training",
+      "title": "ISO 56000 Compliance",
+      "subtitle": "",
       "paragraphs": [
-        "Participants learn the principles, terminology, structures, and tools of the ISO 56000 family and understand how they apply inside real organizations.",
-        "The program covers innovation strategy, leadership, opportunity and idea management, portfolio governance, measurement, collaboration, and continual improvement. Practical exercises connect the standards to actual decisions, processes, and implementation challenges.",
-        "Participating individuals receive documented training and qualification based on the completed program."
+        "All services and products related to INCEPTION are compliant with the International Innovation Management Standard (ISO 56000). INNOTECH's ecosystem runs from the stage of assessing the readiness and maturity of innovation management in the organization to formulating processes, implementing software and implementing it. Implementing numerous projects with the best companies in the world makes INNOTECH a strategic partner for the development of innovation and technology in leading companies in the GCC and Turkey."
       ]
     },
     {
-      "title": "Team ",
-      "subtitle": "Applied Innovation Practice",
+      "title": "Using Artificial Intelligence in Big Data Analysis",
+      "subtitle": "",
       "paragraphs": [
-        "We assess current capability, identify knowledge and process gaps, and build a focused learning path around the teams responsibilities within the innovation management system.",
-        "Workshops use real organizational cases to develop common language, clarify roles, strengthen decision routines, and improve how opportunities, ideas, projects, and portfolios move between functions. Teams practice evaluation, prioritization, governance, measurement, and cross-functional handovers.",
-        "The outcome is a qualified and implementation-ready team with clearer ownership, stronger collaboration, and the practical capability to operate, monitor, and improve the organizations innovation processes."
+        "INNOTECH, as one of the leading consulting companies in the GCC and Turkey, uses big data analysis tools through artificial intelligence. This unique capability, beyond human capabilities, allows INNOTECH to accurately and in real time identify past, present and future trends in the market, technology, product and innovation and present them to leading companies in the GCC and Türkiye."
       ]
     },
     {
-      "title": "Organization",
-      "subtitle": "Global Standardization",
+      "title": "Implementing 5-Star innovation management softwares in the World",
+      "subtitle": "",
       "paragraphs": [
-        "We evaluate the existing innovation management system, review documented information, identify compliance gaps, and determine whether processes are implemented consistently across the organization.",
-        "The engagement covers organizational context, leadership, planning, support, operations, performance evaluation, and improvement. We develop the required process architecture, governance model, roles, KPIs, documentation, internal audit routines, and management-review structure.",
-        "The outcome is a prioritized readiness roadmap, supported implementation, and pre-assessment preparation. "
+        "INNOTECH has been providing a global and differentiated service in the GCC and Turkey region since 2024, in collaboration with the world's largest innovation and idea management software providers. The ITONICS innovation management operating system and Bright Idea innovation and idea management software are implemented in leading companies in the GCC and Turkey with different and outstanding features and with the support of INNOTECH experts."
       ]
     }
   ],
   "sectionLabels": {
     "capabilities": "WHERE INCEPTION BUILDS",
-    "actions": "QUALIFICATION AT EVERY LEVEL",
-    "partnersServiceName": "Inception"
+    "actions": "WHY INCEPTION",
+    "partnersServiceName": "INCEPTION"
   }
 }

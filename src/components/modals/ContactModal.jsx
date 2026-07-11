@@ -127,6 +127,8 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
       lg:h-[calc(100svh-48px)]
       ${modalBg} ${modalOutline}
       transform transition-all duration-1000 ease-out`}
+    hiddenClassName="translate-y-32 scale-[0.98] opacity-0"
+    visibleClassName="translate-y-0 scale-100 opacity-100"
   >
       {/* Header */}
       <div className="shrink-0 p-4 sm:p-6 lg:px-11 lg:pt-11">

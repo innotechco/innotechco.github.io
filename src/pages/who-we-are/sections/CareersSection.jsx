@@ -1,4 +1,5 @@
 import SectionTitle from "../../../components/ui/SectionTitle";
+import {useContactAction} from "../../../context/useContactAction";
 
 function CareersSection({
   content,
@@ -6,6 +7,8 @@ function CareersSection({
   invertedTextColor,
   inverseCardBackground,
 }) {
+  const openContact = useContactAction();
+
   return (
     <section className="flex flex-col items-start gap-2.5 overflow-hidden px-6 py-14 md:px-16 xl:min-h-[640px] xl:px-[120px]">
       <div
@@ -27,6 +30,7 @@ function CareersSection({
           </div>
           <button
             type="button"
+            onClick={() => openContact("career")}
             className={`inline-flex min-h-11 items-center justify-center rounded-[50px] bg-[#22C55E] px-4 py-2 font-['Gotham'] text-xl font-medium sm:text-2xl ${invertedTextColor} shadow-lg transition-all duration-200 hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
           >
             {content.buttonLabel}

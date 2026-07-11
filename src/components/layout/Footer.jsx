@@ -90,7 +90,7 @@ const Footer = ({onContactClick, topSpacingClassName = ""}) => {
               <a
                 href="mailto:Info@innotech.global"
                 className={footerIconClassName}
-                aria-label="Email Innotech"
+                aria-label="Email INNOTECH"
               >
                 <EmailIcon className="size-6 lg:size-8" />
               </a>
@@ -99,7 +99,7 @@ const Footer = ({onContactClick, topSpacingClassName = ""}) => {
                 target="_blank"
                 rel="noreferrer"
                 className={footerIconClassName}
-                aria-label="Open Innotech on LinkedIn"
+                aria-label="Open INNOTECH on LinkedIn"
               >
                 <img loading="lazy" src={isLightMode ? LinkedInDark : LinkedIn} className="size-6 lg:size-8" alt="" />
               </a>

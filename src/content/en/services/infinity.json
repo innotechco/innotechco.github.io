@@ -98,23 +98,23 @@
   ],
   "capabilities": [
     {
-      "title": "Automotive & Mobility",
+      "title": "Automotive",
       "description": "We support automotive and mobility companies with digital innovation roadmaps, technology trend mapping, AI use-case identification, product and business model innovation, and connected operating-model design. INFINITY helps turn fragmented mobility initiatives into governed digital transformation portfolios."
     },
     {
-      "title": "Energy & Materials",
+      "title": "Oil, Gas and Petrochemical",
       "description": "We design technology and innovation management systems, digital transformation roadmaps, AI strategies, technology monitoring processes, and R&D governance models for oil, gas, energy, petrochemical, and industrial materials companies. INFINITY connects strategy, operations, and digital execution."
     },
     {
-      "title": "Healthcare & Life Sciences",
+      "title": "Healthcare and Life Sciences",
       "description": "We support biotech, vaccine, diagnostics, and healthcare organizations with commercialization workflows, R&D prioritization, digital innovation systems, technology transfer models, and innovation portfolio governance. INFINITY helps scientific organizations structure knowledge, projects, and transformation decisions."
     },
     {
-      "title": "High Tech & AI",
+      "title": "High Tech and AI",
       "description": "We help telecom, software, digital infrastructure, and technology-driven organizations redesign business processes, map business-to-technology dependencies, build AI-enabled workflows, and optimize operating models. INFINITY connects digital architecture, process intelligence, and transformation execution."
     },
     {
-      "title": "Metals & Mining",
+      "title": "Steel and Mining",
       "description": "We support steel, mining, alumina, and mineral companies with technology roadmapping, technology needs identification, digital maturity assessment, carbon management foresight, technology monitoring, and innovation management systems. INFINITY helps industrial teams scale transformation with governance and measurable priorities."
     }
   ],
@@ -150,6 +150,6 @@
   "sectionLabels": {
     "capabilities": "TRANSFORMATION DOMAINS",
     "actions": "INFINITY IN ACTION",
-    "partnersServiceName": "Infinity"
+    "partnersServiceName": "INFINITY"
   }
 }

@@ -99,23 +99,23 @@
   ],
   "capabilities": [
     {
-      "title": "Automotive & Mobility",
+      "title": "Automotive",
       "description": "Market and technology intelligence for automotive manufacturers, mobility platforms, smart vehicles, and transportation ecosystems. We analyze connected mobility, electrification, automation, and digital engineering trends to guide future-ready decisions."
     },
     {
-      "title": "Energy & Materials",
+      "title": "Oil, Gas and Petrochemical",
       "description": "AI-enabled intelligence for oil, gas, petrochemicals, utilities, and low-carbon energy systems. We map technologies, markets, patents, and operating signals to guide investment timing, portfolio focus, and industrial growth decisions."
     },
     {
-      "title": "Healthcare & Life Sciences",
+      "title": "Healthcare and Life Sciences",
       "description": "Data-driven insight for healthcare systems, MedTech, biotechnology, diagnostics, and precision medicine. We identify scientific trends, technology white spaces, market shifts, and innovation opportunities across clinical and biomedical ecosystems."
     },
     {
-      "title": "High Tech & AI",
+      "title": "High Tech and AI",
       "description": "Energy development has a whole new meaning today, as companies search for the right strategies, investments, and operating models to deliver low-carbon solutions and renewable energy. BCG's approach equips companies to maximize value from participation."
     },
     {
-      "title": "Metals & Mining",
+      "title": "Steel and Mining",
       "description": "Strategic analytics for steel, mining, alumina, and mineral industries. We support technology roadmapping, carbon foresight, operational intelligence, and innovation governance across complex industrial ecosystems."
     }
   ],
@@ -151,6 +151,6 @@
   "sectionLabels": {
     "capabilities": " INDUSTRIAL SCOPES",
     "actions": "THE INSIGHT TRINITY",
-    "partnersServiceName": "Insight"
+    "partnersServiceName": "INSIGHT"
   }
 }

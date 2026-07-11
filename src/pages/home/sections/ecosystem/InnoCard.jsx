@@ -19,10 +19,11 @@ function InnoCard({title, subtitle, items = []}) {
 
   const boldKeywords = [
     "INCEPTION",
-    "ISO56000 Standard",
+    "Innovation management system",
+    "ISO 56000 Standard",
     "ITONICS",
     "BRIGHTIDEA",
-    "Digital Transformation",
+    "Digital and AI Transformation",
     "AI Agent",
     "INSIGHT",
     "INFINITY",
@@ -72,13 +73,13 @@ function InnoCard({title, subtitle, items = []}) {
     <div
       className={`
         relative 
-        w-full min-w-0 min-h-[330px] sm:min-h-[360px] lg:min-h-[390px] lg:-mt-10 min-[1400px]:-mt-14 min-[1400px]:h-100 min-[1400px]:w-65
+        h-[520px] w-full min-w-0 sm:h-[560px] lg:h-[500px] lg:-mt-10 min-[1400px]:h-[545px] min-[1400px]:w-65 min-[1400px]:-mt-14
         px-4 py-5 sm:px-5 min-[1400px]:px-8 min-[1400px]:py-6
         rounded-[26px] sm:rounded-[30px] min-[1400px]:rounded-[50px]
         border 
         ${cardBg}
         ${cardShadow}
-        inline-flex flex-col justify-start items-center gap-3 sm:gap-4
+        inline-flex flex-col justify-start items-center gap-4 sm:gap-5 lg:gap-6 min-[1400px]:gap-7
         overflow-hidden flex-shrink-0 cursor-pointer
         transition-all duration-500 ease-out
 
@@ -132,11 +133,11 @@ function InnoCard({title, subtitle, items = []}) {
         />
       </div>
 
-      <div className="self-stretch flex flex-col justify-start items-start gap-2 sm:gap-3">
+      <div className="self-stretch flex flex-1 flex-col justify-evenly items-start gap-3 sm:gap-4 lg:gap-5 min-[1400px]:gap-6">
         {items.map((item, index) => (
           <div
             key={index}
-            className="self-stretch flex flex-col justify-start items-start gap-1"
+            className="self-stretch flex flex-col justify-start items-start gap-1.5 sm:gap-2"
           >
             <div className="self-stretch inline-flex justify-start items-start gap-1">
               <div className="w-4 self-stretch flex justify-center items-center gap-2.5">

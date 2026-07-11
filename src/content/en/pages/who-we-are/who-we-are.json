@@ -1,11 +1,11 @@
 {
   "hero": {
     "title": "Who we are",
-    "description": "InnotechCo is a Dubai-based innovation and transformation partner helping organizations turn complex ideas, technologies, and market signals into measurable growth. Through INSIGHT, INCEPTION, INFINITY, and INLEARN Academy, we deliver intelligence analytics, innovation management, digital transformation, and capability-building programs that connect strategy with execution."
+    "description": "INNOTECH is an innovation and technology management ecosystem serving the GCC region and Turkey. Through consulting, advanced systems, edge technologies, and data-driven insight, we help leading organizations connect strategy with execution across INSIGHT, INCEPTION, INFINITY, and INLEARN Academy."
   },
   "intro": {
     "title": "INNOTECH IS IN",
-    "body": "Innotech Is In captures both our product architecture and our operating \nmindset. It represents four connected capabilitiesinnovation management, intelligence analytics, digital transformation, and structured implementation\nbrought together as one system.\n\nIt also means full commitment to execution. We stay involved from\ndiagnosis and design through deployment, adoption, and measurable results."
+    "body": "INNOTECH Is In captures both our product architecture and our operating mindset. It represents four connected capabilities: innovation management, intelligence analytics, digital and AI transformation, and structured implementation brought together as one system.\n\nIt also means full commitment to execution. We stay involved from diagnosis and design through deployment, adoption, and measurable results."
   },
   "history": {
     "title": "History",
@@ -23,55 +23,55 @@
   "stats": [
     {
       "id": "experts-primary",
-      "label": "Expert",
-      "value": 32
+      "label": "Specialists",
+      "value": 150
     },
     {
       "id": "experts-secondary",
       "label": "Industries",
-      "value": 8
+      "value": 5
     },
     {
       "id": "partners",
-      "label": "partners",
-      "value": 35
+      "label": "Ecosystem Players",
+      "value": 12
     },
     {
       "id": "program",
-      "label": "Projects Delivered",
-      "value": 100
+      "label": "Projects",
+      "value": 450
     }
   ],
   "experts": [
     {
       "id": "petrochemical-innovation-system",
-      "name": "Petrochemical Innovation System",
-      "role": "2023 | 40+ Complexes"
+      "name": "Innovation Management System for a Petrochemical Company",
+      "role": ""
     },
     {
       "id": "national-gas-roadmap",
-      "name": "National Gas Roadmap",
-      "role": "2020 | Three Horizons"
+      "name": "Innovation Management System for a Steel Company",
+      "role": ""
     },
     {
       "id": "petrochemical-digital-roadmap",
-      "name": "Petrochemical Digital Roadmap",
-      "role": "2022 | RDI Integration"
+      "name": "AI Agent for Technology and Innovation Management",
+      "role": ""
     },
     {
       "id": "steel-technology-roadmap",
-      "name": "Steel Technology Roadmap",
-      "role": "2021 | Industrial Modernization"
+      "name": "Digital Transformation Roadmap for an Oil, Gas and Petrochemical Company",
+      "role": ""
     },
     {
       "id": "biotech-priority-matrix",
-      "name": "Biotech Priority Matrix",
-      "role": "2023 | MCDM and AHP"
+      "name": "Implementation of ITONICS Innovation Operating System",
+      "role": ""
     },
     {
       "id": "telecom-process-mapping",
-      "name": "Telecom Process Mapping",
-      "role": "2024 | eTOM Alignment"
+      "name": "Brightidea Innovation and Idea Management Software",
+      "role": ""
     }
   ]
 }

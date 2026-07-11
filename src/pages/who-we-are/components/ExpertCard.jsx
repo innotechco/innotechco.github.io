@@ -40,7 +40,7 @@ function ExpertCard({
           alt=""
           aria-hidden
         />
-        <div className="relative z-10 flex w-full items-end justify-between gap-4">
+        <div className="z-10 flex w-full items-end justify-between gap-4">
           <div className="relative size-[94px] shrink-0">
             <span
               aria-hidden
@@ -51,27 +51,29 @@ function ExpertCard({
               }}
             />
           </div>
-
-          <button
-            onClick={() => openContact("selected-project")}
-            className={`absolute right-4 top-4 min-h-8 shrink-0 translate-x-2 translate-y-12 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3.5 py-1.5 font-['Gotham'] text-xs font-bold leading-tight shadow-lg transition-all duration-200 hover:translate-x-2 hover:translate-y-12 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:translate-x-2 active:translate-y-12 active:scale-95 sm:translate-y-14 sm:px-4 sm:text-sm sm:hover:translate-y-14 sm:active:translate-y-14 ${greenButtonTextColor}`}
-            type="button"
-          >
-            View Project
-          </button>
         </div>
 
+        <button
+          onClick={() => openContact("selected-project")}
+          className={`absolute right-1 top-[102px] z-20 min-h-8 w-[132px] shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-1.5 font-['Gotham'] text-xs font-bold leading-tight shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95 sm:right-2 sm:top-[112px] sm:w-[142px] sm:text-sm lg:right-3 ${greenButtonTextColor}`}
+          type="button"
+        >
+          View Project
+        </button>
+
         <div
-          className={`relative z-10 mt-auto flex w-full flex-col ${
+          className={`relative z-10 mt-auto flex w-full min-w-0 flex-col ${
             isDarkMode ? "text-white" : "text-black"
           }`}
         >
-          <h3 className="font-['Gotham'] text-2xl font-bold leading-none">
+          <h3 className="min-w-0 break-words font-['Gotham'] text-[clamp(0.88rem,3.5vw,1.02rem)] font-bold leading-[1.12] [overflow-wrap:anywhere] sm:text-[clamp(0.95rem,2.4vw,1.08rem)] lg:text-[clamp(0.9rem,1.28vw,1.04rem)] min-[1500px]:text-[1.12rem]">
             {title}
           </h3>
-          <p className="mt-1 font-['Gotham'] text-base font-normal leading-none">
-            {subtitle}
-          </p>
+          {subtitle ? (
+            <p className="mt-1 min-w-0 break-words font-['Gotham'] text-sm font-normal leading-tight [overflow-wrap:anywhere]">
+              {subtitle}
+            </p>
+          ) : null}
         </div>
       </article>
     </div>

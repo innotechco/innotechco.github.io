@@ -10,12 +10,16 @@
       "subtitle": "BY INNOTECH",
       "items": [
         {
-          "label": "ISO56000 Standard:",
-          "description": "Innovation management\nmaturity assessment and\n system design"
+          "label": "Innovation management system",
+          "description": "Design and implementation of innovation management systems and processes based on the latest international standards and in accordance with ISO 56000"
+        },
+        {
+          "label": "ISO 56000 Standard:",
+          "description": "Assessing maturity and readiness in innovation management to receive the ISO 56000 standard"
         },
         {
           "label": "ITONICS:",
-          "description": "Gartner's 4 star End-to-End innovation operating systems (OS)"
+          "description": "Gartner's 5 star End-to-End innovation operating systems (OS)"
         },
         {
           "label": "BRIGHTIDEA:",
@@ -29,14 +33,14 @@
       "subtitle": "BY INNOTECH",
       "items": [
         {
-          "label": "Digital Transformation:",
+          "label": "Digital and AI Transformation:",
           "labelWeight": "medium",
-          "description": "Transitioning from intuition to data-driven intelligence\nthrough structured human-centric empowerment."
+          "description": "Transitioning from intuition to data-driven intelligence and increasing the efficiency and innovation through digital and AI transformation."
         },
         {
           "label": "AI Agent:",
           "labelWeight": "medium",
-          "description": "Prescriptive digital assistant converting real-time production data into actionable operational intelligence.."
+          "description": "Prescriptive digital assistant converting real-time market, service and production data into actionable operational intelligence."
         }
       ]
     },
@@ -79,7 +83,7 @@
   ],
   "latestNews": {
     "sectionTitle": "Our latest news",
-    "headline": "InnotechCo launches regional collaboration with Cleannconnect.ai",
+    "headline": "INNOTECH launches regional collaboration with Cleannconnect.ai",
     "date": "June 1, 2026",
     "readTime": "2 minutes read",
     "summary": "The partnership, sparked at ADIPEC 2025, integrates AI-driven\nclean tech solutions across regional supply chains, accelerating sustainability and operational efficiency for industrial clients."
@@ -109,7 +113,7 @@
         "title": "Smart Carbon Technology",
         "date": "June 1, 2026",
         "readTime": "2 minutes read",
-        "description": "InnotechCo introduced INCEPTION, processes, run maturity assessments, and connect AI agents to real business workflows.",
+        "description": "INNOTECH introduced INCEPTION, processes, run maturity assessments, and connect AI agents to real business workflows.",
         "imageAlt": "Smart Carbon Technology"
       }
     ]

@@ -146,7 +146,7 @@ function HistorySection({content, image, textColor}) {
         />
       </div>
 
-      <div className="relative z-20 -mt-12 flex w-full justify-center px-4 sm:-mt-16 sm:px-6 lg:px-28">
+      <div className="relative z-20 flex w-full justify-center px-4 sm:px-6 lg:px-28">
         <input
           aria-label={content.rangeLabel}
           type="range"

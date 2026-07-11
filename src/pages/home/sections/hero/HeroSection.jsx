@@ -64,7 +64,7 @@ function HeroSection() {
           {/* Read more button and underline */}
           <div className="relative z-10 mt-2 lg:mt-4">
             <Link
-              to={routes.aiAgent}
+              to={routes.featuredArticle}
               className="group flex w-fit flex-col items-start cursor-pointer transition-all duration-300"
             >
               <div

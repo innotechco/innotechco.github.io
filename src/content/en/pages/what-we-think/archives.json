@@ -13,15 +13,15 @@
       },
       {
         "id": "insight",
-        "label": "Insight"
+        "label": "INSIGHT"
       },
       {
         "id": "inception",
-        "label": "Inception"
+        "label": "INCEPTION"
       },
       {
         "id": "infinity",
-        "label": "Infinity"
+        "label": "INFINITY"
       },
       {
         "id": "automotive",
@@ -29,19 +29,19 @@
       },
       {
         "id": "energy-materials",
-        "label": "Energy & Materials"
+        "label": "Oil, Gas and Petrochemical"
       },
       {
         "id": "health",
-        "label": "Health"
+        "label": "Healthcare and Life Sciences"
       },
       {
         "id": "high-tech",
-        "label": "High Tech"
+        "label": "High Tech and AI"
       },
       {
         "id": "metals-mining",
-        "label": "Metals & Mining"
+        "label": "Steel and Mining"
       },
       {
         "id": "ai-agents",
