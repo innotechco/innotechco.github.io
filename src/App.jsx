@@ -72,7 +72,10 @@ function SearchHighlightManager() {
       highlightedElement = undefined;
     };
 
-    const timeoutId = window.setTimeout(() => {
+    let retryCount = 0;
+    let timeoutId;
+
+    const findAndHighlight = () => {
       const normalizedHighlight = highlightText.toLowerCase().replace(/\s+/g, " ");
       const candidates = document.querySelectorAll(
         "main h1, main h2, main h3, main p, main li, main span",
@@ -85,13 +88,21 @@ function SearchHighlightManager() {
           .includes(normalizedHighlight),
       );
 
+      if (!highlightedElement && retryCount < 12) {
+        retryCount += 1;
+        timeoutId = window.setTimeout(findAndHighlight, 120);
+        return;
+      }
+
       if (!highlightedElement) return;
 
       highlightedElement.classList.add("search-result-highlight");
       highlightedElement.scrollIntoView({behavior: "smooth", block: "center"});
       window.addEventListener("mousedown", clearHighlight, {once: true});
       window.history.replaceState({}, "", location.pathname);
-    }, 120);
+    };
+
+    timeoutId = window.setTimeout(findAndHighlight, 120);
 
     return () => {
       window.clearTimeout(timeoutId);

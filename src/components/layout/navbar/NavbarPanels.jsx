@@ -207,7 +207,7 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
           target="_blank"
           rel="noreferrer"
           onClick={closePanels}
-          className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold opacity-70 ${textColor}`}
+          className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
         >
           INSIGHT Store
         </a>

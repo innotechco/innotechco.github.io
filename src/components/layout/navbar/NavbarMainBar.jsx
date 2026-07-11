@@ -101,7 +101,7 @@ function NavbarMainBar({
             href="https://stimanalytics.ai"
             target="_blank"
             rel="noreferrer"
-            className={`whitespace-nowrap font-['Gotham'] text-sm opacity-70 transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
+            className={`whitespace-nowrap font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
           >
             INSIGHT Store
           </a>

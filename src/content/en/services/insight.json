@@ -11,15 +11,15 @@
     },
     {
       "id": "statista",
-      "name": "Statista"
+      "name": "STATISTA"
     },
     {
       "id": "gartner",
-      "name": "Gartner"
+      "name": "GARTNER"
     },
     {
       "id": "lensorg",
-      "name": "Lens.org"
+      "name": "LENS.ORG"
     }
   ],
   "showcase": {

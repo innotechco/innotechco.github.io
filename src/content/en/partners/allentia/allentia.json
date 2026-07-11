@@ -1,6 +1,6 @@
 {
   "slug": "allentia",
-  "name": "Allentia",
+  "name": "ALLEANTIA",
   "variant": "default",
   "hero": {
     "tagline": "AI-Ready Continuous connectivity. Real-Time Data. Optimized operations",
@@ -8,7 +8,7 @@
   },
   "intro": {
     "title": "Industrial Intelligence from Machine Data",
-    "body": "Alleantia connects industrial machines, equipment, and legacy systems with enterprise applications, cloud platforms, and AI environments through a scalable OT/IT integration platform. Its no-code architecture, machine-driver library, edge analytics, and AI orchestration capabilities transform raw shop-floor data into standardized, actionable information. With deployments across production control, performance monitoring, predictive maintenance, and quality analytics, Alleantia enables manufacturers to improve visibility, accelerate digitalization, and generate measurable business value from industrial data."
+    "body": "ALLEANTIA connects industrial machines, equipment, and legacy systems with enterprise applications, cloud platforms, and AI environments through a scalable OT/IT integration platform. Its no-code architecture, machine-driver library, edge analytics, and AI orchestration capabilities transform raw shop-floor data into standardized, actionable information. With deployments across production control, performance monitoring, predictive maintenance, and quality analytics, ALLEANTIA enables manufacturers to improve visibility, accelerate digitalization, and generate measurable business value from industrial data."
   },
   "stats": [
     {
@@ -38,14 +38,14 @@
       {
         "id": "Alleantia-Core",
         "icon": "archery",
-        "title": "Alleantia Core",
-        "description": "Alleantia Core connects industrial machines, standardizes data, and securely delivers it to enterprise, cloud, and analytics applications."
+        "title": "ALLEANTIA Core",
+        "description": "ALLEANTIA Core connects industrial machines, standardizes data, and securely delivers it to enterprise, cloud, and analytics applications."
       },
       {
         "id": "Alleantia-Insights",
         "icon": "globe",
-        "title": "Alleantia Insights",
-        "description": "Alleantia Insights transforms machine data into dashboards, KPIs, anomaly alerts, and actionable performance insights for operational decisions."
+        "title": "ALLEANTIA Insights",
+        "description": "ALLEANTIA Insights transforms machine data into dashboards, KPIs, anomaly alerts, and actionable performance insights for operational decisions."
       },
       {
         "id": "Machine-Drivers-Library",
