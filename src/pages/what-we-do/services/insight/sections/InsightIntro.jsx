@@ -43,9 +43,10 @@ function InsightIntro() {
           className={`font-['Gotham'] text-sm font-normal leading-tight sm:text-base md:text-xl ${textColor}`}
         >
           Turning intelligence into action. INSIGHT combines AI-driven analysis,
-          patent monitoring, market research, and science analytics to empower
-          R&D and strategy teams. Shape product roadmaps, prioritize
-          investments, and unlock measurable innovation value across industries.
+          patent landscape, market research, and science analytics to empower
+          R&D, marketing and strategy teams. Shape product roadmaps, prioritize
+          investments, and unlock measurable innovation and market value across
+          industries.
         </IntroRevealText>
       </section>
     </main>

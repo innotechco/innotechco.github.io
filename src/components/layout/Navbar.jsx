@@ -21,9 +21,55 @@ function Navbar() {
   const inputRef = useRef(null);
 
   const searchResults = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-    if (!query) return [];
-    return searchItems.filter((item) => item.title.toLowerCase().includes(query));
+    const normalizedQuery = searchQuery
+      .trim()
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const queryTokens = normalizedQuery
+      .split(" ")
+      .filter((token) => token && token !== "and");
+
+    if (queryTokens.length === 0) return [];
+
+    return searchItems
+      .map((item) => {
+        const matchedPart = item.searchParts?.find((part) => {
+          const normalizedPart = part
+            .toLowerCase()
+            .replace(/&/g, " and ")
+            .replace(/[^a-z0-9]+/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+
+          return queryTokens.every((token) => normalizedPart.includes(token));
+        });
+
+        if (!matchedPart) return null;
+
+        const normalizedTitle = item.title
+          .toLowerCase()
+          .replace(/&/g, " and ")
+          .replace(/[^a-z0-9]+/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+
+        return {
+          ...item,
+          matchText: matchedPart,
+          rank:
+            normalizedTitle === normalizedQuery
+              ? 0
+              : normalizedTitle.includes(normalizedQuery)
+                ? 1
+                : 2,
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.rank - b.rank)
+      .slice(0, 10);
   }, [searchQuery]);
 
   const closePanels = () => {

@@ -28,14 +28,14 @@
     {
       "id": "infinity",
       "label": "INFINITY",
-      "description": "Digital Transformation and Industry 4.0"
+      "description": "Digital and AI Transformation and Industry 4.0"
     }
   ],
   "industryMenuItems": [
-    {"id": "automotive", "label": "Automotive"},
-    {"id": "energyAndMaterials", "label": "Energy & Materials"},
-    {"id": "health", "label": "Health"},
-    {"id": "highTech", "label": "High Tech"},
-    {"id": "metalsAndMining", "label": "Metals & Mining"}
+    {"id": "energyAndMaterials", "label": "Oil, Gas and Petrochemical"},
+    {"id": "metalsAndMining", "label": "Steel and Mining"},
+    {"id": "highTech", "label": "High Tech and AI"},
+    {"id": "health", "label": "Healthcare and Life Sciences"},
+    {"id": "automotive", "label": "Automotive"}
   ]
 }

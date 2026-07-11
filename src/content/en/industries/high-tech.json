@@ -1,7 +1,7 @@
 {
   "slug": "high-tech",
   "seo": {
-    "title": "High Tech",
+    "title": "High Tech and AI",
     "description": "Accelerate intelligent digital transformation across AI ecosystems, software infrastructures, cloud platforms, automation systems, and advanced computing environments."
   },
   "sectionLabels": {
@@ -10,8 +10,8 @@
     "ecosystemAction": "Exclusive content"
   },
   "hero": {
-    "breadcrumbLabel": "High Tech",
-    "title": "High Tech",
+    "breadcrumbLabel": "High Tech and AI",
+    "title": "High Tech and AI",
     "description": "Accelerate intelligent digital transformation across AI ecosystems, software infrastructures, cloud platforms, automation systems, and advanced computing environments through predictive technology analytics and scalable innovation architectures."
   },
   "accelerationParagraphs": [

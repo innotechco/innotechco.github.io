@@ -202,11 +202,15 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
         >
           INLEARN Academy
         </Link>
-        <span
+        <a
+          href="https://stimanalytics.ai"
+          target="_blank"
+          rel="noreferrer"
+          onClick={closePanels}
           className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold opacity-70 ${textColor}`}
         >
           INSIGHT Store
-        </span>
+        </a>
       </div>
     </div>
   );
@@ -228,7 +232,7 @@ function SearchPanel({
     <div
       className={`overflow-hidden transition-all duration-500 ease-in-out ${
         isOpen
-          ? "max-h-[350px] translate-y-0 pb-5 pt-5 opacity-100"
+          ? "max-h-[520px] translate-y-0 pb-5 pt-5 opacity-100"
           : "max-h-0 -translate-y-2 pb-0 pt-0 opacity-0"
       }`}
     >
@@ -302,7 +306,7 @@ function SearchPanel({
 
           {searchResults.length > 0 ? (
             <div
-              className={`space-y-2 rounded-[32px] border px-5 py-4 ${
+              className={`max-h-[300px] space-y-2 overflow-y-auto rounded-[32px] border px-5 py-4 ${
                 isDarkMode
                   ? "border-white/10 bg-white/5"
                   : "border-black/10 bg-black/5"
@@ -313,6 +317,7 @@ function SearchPanel({
                   key={`${result.title}-${result.type}`}
                   data-search-result={result.title}
                   to={result.to}
+                  state={{searchHighlight: result.matchText ?? result.title}}
                   onClick={closePanels}
                   className={`block w-full cursor-pointer rounded-[24px] px-4 py-3 transition-colors duration-300 ${
                     isDarkMode

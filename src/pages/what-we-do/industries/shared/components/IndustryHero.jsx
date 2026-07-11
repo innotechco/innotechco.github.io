@@ -41,8 +41,8 @@ function IndustryHero({image, breadcrumbLabel, title, description}) {
           />
         </div>
 
-        <div className="relative z-10 flex flex-col items-start justify-start gap-4 px-6 py-10 md:px-32 md:py-36">
-          <nav className="inline-flex items-center gap-2" aria-label="Breadcrumb">
+        <div className="relative z-10 flex max-w-full flex-col items-start justify-start gap-4 px-6 py-10 md:px-32 md:py-36">
+          <nav className="inline-flex max-w-full flex-wrap items-center gap-2" aria-label="Breadcrumb">
             <span className="font-['Gotham'] text-sm font-light text-white">
               what we do
             </span>
@@ -56,7 +56,7 @@ function IndustryHero({image, breadcrumbLabel, title, description}) {
             </span>
           </nav>
 
-          <h1 className="font-['Gotham'] text-[clamp(2.5rem,13vw,4.5rem)] font-bold leading-none text-white">
+          <h1 className="max-w-full break-words font-['Gotham'] text-[clamp(2.15rem,10vw,4.5rem)] font-bold leading-tight text-white [overflow-wrap:anywhere] min-[590px]:leading-none">
             {title}
           </h1>
 
