@@ -25,12 +25,8 @@ const pageModules = import.meta.glob("../../content/en/pages/**/*.json", {
 
 const searchRoutes = {
   "Who we are": routes.whoWeAre,
-  "What we do": routes.inception,
   "What we think": routes.whatWeThink,
   "INLEARN Academy": routes.inlearnAcademy,
-  "Innovation and Technology Management": routes.inception,
-  "Digital Transformation Report": routes.infinity,
-  "Market Analytics Report": routes.insight,
 };
 
 const externalSearchRoutes = {
@@ -42,6 +38,10 @@ const serviceRoutesBySlug = {
   insight: routes.insight,
   infinity: routes.infinity,
 };
+
+const serviceLabelsBySlug = Object.fromEntries(
+  navigationContent.serviceMenuItems.map((item) => [item.id, item.label]),
+);
 
 const industryRoutesBySlug = {
   automotive: routes.automotive,
@@ -147,6 +147,10 @@ function makeSearchItem({title, type, to, parts = [], matchText}) {
   };
 }
 
+function getResultType(type) {
+  return type === "Archive" ? "Article" : type;
+}
+
 function makeSectionItems(content, type, to) {
   const items = [];
   const addItem = (section, sectionType) => {
@@ -159,17 +163,18 @@ function makeSectionItems(content, type, to) {
       section.subtitle;
     if (!title) return;
 
+    const normalizedSectionType = getResultType(sectionType);
     items.push(
       makeSearchItem({
         title,
-        type: sectionType,
+        type: normalizedSectionType,
         to,
         parts: collectSearchText(section),
       }),
     );
   };
 
-  content.partners?.forEach((partner) => addItem(partner, "Partner"));
+  content.partners?.forEach((partner) => addItem(partner, type));
   content.capabilities?.forEach((capability) => addItem(capability, type));
   content.actions?.forEach((action) => addItem(action, type));
   content.showcase?.cards?.forEach((card) => addItem(card, type));
@@ -194,8 +199,10 @@ function makeContentItems(modules, type, getRoute) {
       const slug = content.slug ?? path.split("/").pop().replace(".json", "");
       const to = getRoute(slug, path);
       if (!to) return [];
+      const fallbackTitle =
+        type === "Service" ? serviceLabelsBySlug[slug] ?? slug : slug;
       return [
-        makeItem({content, fallbackTitle: slug, to, type}),
+        makeItem({content, fallbackTitle, to, type}),
         ...makeSectionItems(content, type, to),
       ];
     })
@@ -203,21 +210,23 @@ function makeContentItems(modules, type, getRoute) {
 }
 
 const pageRouteByPath = {
-  "home/home": routes.home,
   "who-we-are/who-we-are": routes.whoWeAre,
   "what-we-think/what-we-think": routes.whatWeThink,
   "what-we-think/archives": routes.archives,
   "inlearn-academy": routes.inlearnAcademy,
 };
 
-const manualSearchItems = navigationContent.searchItems.map((item) => ({
-  ...item,
-  to: externalSearchRoutes[item.title] ?? searchRoutes[item.title] ?? routes.home,
-  isExternal: Boolean(externalSearchRoutes[item.title]),
-  matchText: item.title,
-  searchParts: [item.title, item.type],
-  searchText: normalizeSearchText(`${item.title} ${item.type}`),
-}));
+const manualSearchItems = navigationContent.searchItems
+  .filter((item) => searchRoutes[item.title] || externalSearchRoutes[item.title])
+  .map((item) => ({
+    ...item,
+    type: "Page",
+    to: externalSearchRoutes[item.title] ?? searchRoutes[item.title],
+    isExternal: Boolean(externalSearchRoutes[item.title]),
+    matchText: item.title,
+    searchParts: [item.title, "Page"],
+    searchText: normalizeSearchText(`${item.title} Page`),
+  }));
 
 const contentSearchItems = [
   ...makeContentItems(serviceModules, "Service", (slug) => serviceRoutesBySlug[slug]),

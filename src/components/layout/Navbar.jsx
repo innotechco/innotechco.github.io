@@ -21,40 +21,44 @@ function Navbar() {
   const inputRef = useRef(null);
 
   const searchResults = useMemo(() => {
+    const normalizeSearchValue = (value) =>
+      String(value)
+        .trim()
+        .toLowerCase()
+        .replace(/&/g, " and ")
+        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
     const normalizedQuery = searchQuery
-      .trim()
-      .toLowerCase()
-      .replace(/&/g, " and ")
-      .replace(/[^a-z0-9]+/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
+      ? normalizeSearchValue(searchQuery)
+      : "";
     const queryTokens = normalizedQuery
       .split(" ")
       .filter((token) => token && token !== "and");
+    const typePriority = {
+      Industry: 0,
+      Service: 1,
+      Partner: 2,
+      Article: 3,
+      Page: 4,
+    };
 
     if (queryTokens.length === 0) return [];
 
     return searchItems
       .map((item) => {
         const matchedPart = item.searchParts?.find((part) => {
-          const normalizedPart = part
-            .toLowerCase()
-            .replace(/&/g, " and ")
-            .replace(/[^a-z0-9]+/g, " ")
-            .replace(/\s+/g, " ")
-            .trim();
+          const normalizedPart = normalizeSearchValue(part);
 
           return queryTokens.every((token) => normalizedPart.includes(token));
         });
 
         if (!matchedPart) return null;
 
-        const normalizedTitle = item.title
-          .toLowerCase()
-          .replace(/&/g, " and ")
-          .replace(/[^a-z0-9]+/g, " ")
-          .replace(/\s+/g, " ")
-          .trim();
+        const normalizedTitle = normalizeSearchValue(item.title);
+        const titleTokensMatch = queryTokens.every((token) =>
+          normalizedTitle.includes(token),
+        );
 
         return {
           ...item,
@@ -62,13 +66,19 @@ function Navbar() {
           rank:
             normalizedTitle === normalizedQuery
               ? 0
-              : normalizedTitle.includes(normalizedQuery)
+              : normalizedTitle.includes(normalizedQuery) || titleTokensMatch
                 ? 1
                 : 2,
+          typeRank: typePriority[item.type] ?? 9,
         };
       })
       .filter(Boolean)
-      .sort((a, b) => a.rank - b.rank)
+      .sort(
+        (a, b) =>
+          a.rank - b.rank ||
+          a.typeRank - b.typeRank ||
+          a.title.localeCompare(b.title),
+      )
       .slice(0, 10);
   }, [searchQuery]);
 
