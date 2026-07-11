@@ -1,4 +1,4 @@
-import {lazy, Suspense, useEffect, useState} from "react";
+import {lazy, Suspense, useEffect, useRef, useState} from "react";
 import {Routes, Route, useLocation} from "react-router-dom";
 
 import {ThemeProvider} from "./context/ThemeContext";
@@ -9,53 +9,230 @@ import {ContactActionsProvider} from "./context/ContactActionsProvider";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import ScrollToTop from "./components/layout/ScrollToTop";
+import Logo from "./assets/logos/NavbarInnoTech.svg";
 
 import {industryRoutes, serviceRoutes, routes} from "./routes";
 
-const Home = lazy(() => import("./pages/home/Home"));
-const InlearnAcademy = lazy(() =>
-  import("./pages/inlearn-academy/InlearnAcademy"),
+function lazyWithRetry(importer, name) {
+  return lazy(async () => {
+    try {
+      const module = await importer();
+      sessionStorage.removeItem(`lazy-reload-${name}`);
+      return module;
+    } catch (error) {
+      const storageKey = `lazy-reload-${name}`;
+      const shouldReload =
+        !sessionStorage.getItem(storageKey) &&
+        /failed|fetch|import|chunk|module/i.test(error?.message ?? "");
+
+      if (shouldReload) {
+        sessionStorage.setItem(storageKey, "true");
+        window.location.reload();
+      }
+
+      throw error;
+    }
+  });
+}
+
+const Home = lazyWithRetry(() => import("./pages/home/Home"), "home");
+const InlearnAcademy = lazyWithRetry(
+  () => import("./pages/inlearn-academy/InlearnAcademy"),
+  "inlearn-academy",
 );
-const Archives = lazy(() => import("./pages/what-we-think/archives/Archives"));
-const ArticlePage = lazy(() => import("./pages/articles/ArticlePage"));
-const PartnerPage = lazy(() =>
-  import("./pages/what-we-do/services/partners/PartnerPage"),
+const Archives = lazyWithRetry(
+  () => import("./pages/what-we-think/archives/Archives"),
+  "archives",
 );
-const WhatWeThink = lazy(() => import("./pages/what-we-think/WhatWeThink"));
-const WhoWeAre = lazy(() => import("./pages/who-we-are/WhoWeAre"));
-const Inception = lazy(() =>
-  import("./pages/what-we-do/services/inception/Inception"),
+const ArticlePage = lazyWithRetry(
+  () => import("./pages/articles/ArticlePage"),
+  "article",
 );
-const Insight = lazy(() =>
-  import("./pages/what-we-do/services/insight/Insight"),
+const PartnerPage = lazyWithRetry(
+  () => import("./pages/what-we-do/services/partners/PartnerPage"),
+  "partner",
 );
-const InfinityPage = lazy(() =>
-  import("./pages/what-we-do/services/infinity/Infinity"),
+const WhatWeThink = lazyWithRetry(
+  () => import("./pages/what-we-think/WhatWeThink"),
+  "what-we-think",
 );
-const Automotive = lazy(() =>
-  import("./pages/what-we-do/industries/automotive/Automotive"),
+const WhoWeAre = lazyWithRetry(
+  () => import("./pages/who-we-are/WhoWeAre"),
+  "who-we-are",
 );
-const EnergyAndMaterials = lazy(() =>
-  import("./pages/what-we-do/industries/energy-and-materials/EnergyAndMaterials"),
+const Inception = lazyWithRetry(
+  () => import("./pages/what-we-do/services/inception/Inception"),
+  "inception",
 );
-const Health = lazy(() =>
-  import("./pages/what-we-do/industries/health/Health"),
+const Insight = lazyWithRetry(
+  () => import("./pages/what-we-do/services/insight/Insight"),
+  "insight",
 );
-const HighTech = lazy(() =>
-  import("./pages/what-we-do/industries/high-tech/HighTech"),
+const InfinityPage = lazyWithRetry(
+  () => import("./pages/what-we-do/services/infinity/Infinity"),
+  "infinity",
 );
-const MetalsAndMining = lazy(() =>
-  import("./pages/what-we-do/industries/metals-and-mining/MetalsAndMining"),
+const Automotive = lazyWithRetry(
+  () => import("./pages/what-we-do/industries/automotive/Automotive"),
+  "automotive",
 );
+const EnergyAndMaterials = lazyWithRetry(
+  () =>
+    import("./pages/what-we-do/industries/energy-and-materials/EnergyAndMaterials"),
+  "energy-and-materials",
+);
+const Health = lazyWithRetry(
+  () => import("./pages/what-we-do/industries/health/Health"),
+  "health",
+);
+const HighTech = lazyWithRetry(
+  () => import("./pages/what-we-do/industries/high-tech/HighTech"),
+  "high-tech",
+);
+const MetalsAndMining = lazyWithRetry(
+  () => import("./pages/what-we-do/industries/metals-and-mining/MetalsAndMining"),
+  "metals-and-mining",
+);
+
+function LoadingMark({fullScreen = true}) {
+  return (
+    <div
+      className={`flex items-center justify-center bg-[#050505] px-6 text-white ${
+        fullScreen ? "min-h-screen pt-28" : "h-full min-h-48"
+      }`}
+    >
+      <div className="flex flex-col items-center gap-5">
+        <div className="relative flex size-20 items-center justify-center">
+          <span className="absolute inset-0 rounded-full border border-[#37B478]/40" />
+          <span className="absolute inset-1 animate-ping rounded-full bg-[#37B478]/15" />
+          <img
+            src={Logo}
+            alt="INNOTECH loading"
+            className="relative h-10 w-auto animate-pulse"
+          />
+        </div>
+        <span className="font-['Gotham'] text-sm uppercase tracking-[0.18em] text-white/70">
+          Loading
+        </span>
+      </div>
+    </div>
+  );
+}
 
 function RouteFallback() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#050505] px-6 pt-28 text-white">
-      <div className="flex items-center gap-3 font-['Gotham'] text-sm uppercase tracking-[0.18em] text-white/70">
-        <span className="size-3 rounded-full bg-[#37B478]" />
-        <span>Loading</span>
-      </div>
+    <main>
+      <LoadingMark />
     </main>
+  );
+}
+
+function RouteLoadingOverlay() {
+  const location = useLocation();
+  const isFirstRender = useRef(true);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleInternalLinkClick = (event) => {
+      const link = event.target.closest?.("a[href]");
+
+      if (
+        !link ||
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        link.target === "_blank"
+      ) {
+        return;
+      }
+
+      const targetUrl = new URL(link.href, window.location.href);
+      const currentUrl = new URL(window.location.href);
+      const isSamePage =
+        targetUrl.pathname === currentUrl.pathname &&
+        targetUrl.search === currentUrl.search &&
+        targetUrl.hash;
+
+      if (targetUrl.origin === currentUrl.origin && !isSamePage) {
+        setIsVisible(true);
+      }
+    };
+
+    document.addEventListener("click", handleInternalLinkClick, true);
+    return () =>
+      document.removeEventListener("click", handleInternalLinkClick, true);
+  }, []);
+
+  useEffect(() => {
+    let timeoutId;
+    let isCancelled = false;
+
+    const waitForPageReady = async () => {
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+      } else {
+        setIsVisible(true);
+      }
+
+      const startedAt = performance.now();
+
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+
+      if (document.fonts?.ready) {
+        await Promise.race([
+          document.fonts.ready,
+          new Promise((resolve) => window.setTimeout(resolve, 800)),
+        ]);
+      }
+
+      const images = Array.from(document.querySelectorAll("main img")).filter(
+        (image) => !image.complete,
+      );
+
+      if (images.length) {
+        await Promise.race([
+          Promise.all(
+            images.map(
+              (image) =>
+                new Promise((resolve) => {
+                  image.addEventListener("load", resolve, {once: true});
+                  image.addEventListener("error", resolve, {once: true});
+                }),
+            ),
+          ),
+          new Promise((resolve) => window.setTimeout(resolve, 1600)),
+        ]);
+      }
+
+      const elapsed = performance.now() - startedAt;
+      const minimumDelay = Math.max(0, 450 - elapsed);
+
+      timeoutId = window.setTimeout(() => {
+        if (!isCancelled) setIsVisible(false);
+      }, minimumDelay);
+    };
+
+    waitForPageReady();
+
+    return () => {
+      isCancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [location.key, location.pathname, location.search]);
+
+  return (
+    <div
+      aria-hidden={!isVisible}
+      className={`fixed inset-0 z-[200] bg-[#050505] transition-opacity duration-300 ${
+        isVisible ? "opacity-100" : "pointer-events-none opacity-0"
+      }`}
+    >
+      <LoadingMark fullScreen={false} />
+    </div>
   );
 }
 
@@ -161,6 +338,7 @@ function App() {
         <div className="relative w-full min-h-screen overflow-x-hidden">
         <ScrollToTop />
         <SearchHighlightManager />
+        <RouteLoadingOverlay />
         <Navbar />
         <Suspense fallback={<RouteFallback />}>
           <Routes>
