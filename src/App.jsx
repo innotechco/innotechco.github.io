@@ -194,6 +194,7 @@ function App() {
         <ContactModal
           isOpen={isContactOpen}
           onClose={() => setIsContactOpen(false)}
+          actionId={contactActionId}
           contentOverrides={activeContactContent}
         />
         </div>

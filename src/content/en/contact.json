@@ -3,6 +3,7 @@
   "closeLabel": "Close modal",
   "errors": {
     "email": "Enter a valid email address.",
+    "required": "This field is required.",
     "region": "Choose a country from the list."
   },
   "fields": {
@@ -18,6 +19,9 @@
     "openCountryList": "Open country list",
     "noMatchingCountry": "No matching country",
     "otherIndustry": "Other",
-    "submit": "Submit"
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "submitSuccess": "Thank you. Your request has been submitted.",
+    "submitError": "Something went wrong. Please try again."
   }
 }

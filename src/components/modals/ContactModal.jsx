@@ -6,6 +6,8 @@ import AnimatedModalShell from "./AnimatedModalShell";
 import ContactFormFields from "./contact/ContactFormFields";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const web3FormsAccessKey = "f59f6478-e5f5-4ad6-b8d1-dd41d4a4696b";
+const web3FormsEndpoint = "https://api.web3forms.com/submit";
 
 const defaultContactValues = {
   name: "",
@@ -17,12 +19,14 @@ const defaultContactValues = {
   message: "",
 };
 
-function ContactModal({isOpen, onClose, contentOverrides = {}}) {
+function ContactModal({actionId = "default", isOpen, onClose, contentOverrides = {}}) {
   const {isDarkMode} = useTheme();
   const content = {...contactContent, ...contentOverrides};
   const [isRegionOpen, setIsRegionOpen] = useState(false);
   const [values, setValues] = useState(defaultContactValues);
   const [errors, setErrors] = useState({});
+  const [submitState, setSubmitState] = useState("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
   const regionRef = useRef(null);
 
   const filteredCountries = useMemo(() => {
@@ -36,11 +40,14 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
   const updateValue = (field, value) => {
     setValues((current) => ({...current, [field]: value}));
     setErrors((current) => ({...current, [field]: ""}));
+    setSubmitMessage("");
   };
 
   const resetForm = useCallback(() => {
     setValues(defaultContactValues);
     setErrors({});
+    setSubmitState("idle");
+    setSubmitMessage("");
     setIsRegionOpen(false);
   }, []);
 
@@ -56,6 +63,17 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
 
   const validate = (field) => {
     const nextErrors = field ? {...errors} : {};
+    const requiredFields = ["name", "title", "company", "industry"];
+
+    requiredFields.forEach((requiredField) => {
+      if (field && field !== requiredField) return;
+
+      if (!values[requiredField].trim()) {
+        nextErrors[requiredField] = contactContent.errors.required;
+      } else {
+        delete nextErrors[requiredField];
+      }
+    });
 
     if (!field || field === "email") {
       if (!emailPattern.test(values.email.trim())) {
@@ -82,12 +100,48 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!validate()) return;
 
     setIsRegionOpen(false);
+    setSubmitState("submitting");
+    setSubmitMessage("");
+
+    const formData = new FormData();
+    formData.append("access_key", web3FormsAccessKey);
+    formData.append("subject", `INNOTECH Contact Us - ${content.title}`);
+    formData.append("from_name", values.name.trim());
+    formData.append("name", values.name.trim());
+    formData.append("email", values.email.trim());
+    formData.append("title", values.title.trim());
+    formData.append("company", values.company.trim());
+    formData.append("region", values.region.trim());
+    formData.append("industry", values.industry.trim());
+    formData.append("message", values.message.trim());
+    formData.append("contact_action", actionId);
+    formData.append("page_url", window.location.href);
+
+    try {
+      const response = await fetch(web3FormsEndpoint, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Web3Forms submission failed.");
+      }
+
+      setSubmitState("success");
+      setSubmitMessage(contactContent.labels.submitSuccess);
+      setValues(defaultContactValues);
+    } catch (error) {
+      setSubmitState("error");
+      setSubmitMessage(contactContent.labels.submitError);
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -190,6 +244,9 @@ function ContactModal({isOpen, onClose, contentOverrides = {}}) {
             validate={validate}
             values={values}
             content={content}
+            isSubmitting={submitState === "submitting"}
+            submitMessage={submitMessage}
+            submitState={submitState}
           />
         </form>
       </div>
