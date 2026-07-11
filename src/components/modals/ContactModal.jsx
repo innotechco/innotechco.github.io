@@ -6,7 +6,7 @@ import AnimatedModalShell from "./AnimatedModalShell";
 import ContactFormFields from "./contact/ContactFormFields";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const web3FormsAccessKey = "f59f6478-e5f5-4ad6-b8d1-dd41d4a4696b";
+const web3FormsAccessKey = "7579f50e-7a1a-497f-8c06-a2953370cbe0";
 const web3FormsEndpoint = "https://api.web3forms.com/submit";
 
 const defaultContactValues = {
@@ -127,8 +127,18 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
       const response = await fetch(web3FormsEndpoint, {
         method: "POST",
         body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       });
-      const data = await response.json();
+      const responseText = await response.text();
+      let data = {};
+
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch {
+        throw new Error("Web3Forms returned a non-JSON response.");
+      }
 
       if (!response.ok || !data.success) {
         throw new Error(data.message || "Web3Forms submission failed.");
@@ -139,7 +149,11 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
       setValues(defaultContactValues);
     } catch (error) {
       setSubmitState("error");
-      setSubmitMessage(contactContent.labels.submitError);
+      setSubmitMessage(
+        error.message
+          ? `${contactContent.labels.submitError} ${error.message}`
+          : contactContent.labels.submitError,
+      );
       console.error(error);
     }
   };
