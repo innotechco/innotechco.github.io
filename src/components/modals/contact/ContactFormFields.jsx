@@ -2,17 +2,39 @@ import {useEffect, useRef, useState} from "react";
 
 import {industryMenuItems} from "../../layout/navData";
 
-function TextField({className, onChange, placeholder, type = "text", value}) {
+function TextField({
+  "aria-invalid": ariaInvalid,
+  className,
+  onBlur,
+  onChange,
+  placeholder,
+  type = "text",
+  value,
+}) {
   return (
     <div className={className}>
       <input
         type={type}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         className="w-full flex-1 bg-transparent font-['Gotham'] text-sm outline-none"
         placeholder={placeholder}
+        aria-invalid={ariaInvalid}
       />
     </div>
+  );
+}
+
+function FieldError({children, className = "", errorColor}) {
+  if (!children) return null;
+
+  return (
+    <p
+      className={`pointer-events-none absolute left-4 top-full mt-1 font-['Gotham'] text-xs ${errorColor} ${className}`}
+    >
+      {children}
+    </p>
   );
 }
 
@@ -34,6 +56,9 @@ function ContactFormFields({
   validate,
   values,
   content,
+  isSubmitting,
+  submitMessage,
+  submitState,
 }) {
   const inputTextClassName = `${textColor} ${
     isDarkMode ? "placeholder:text-white" : "placeholder:text-black/50"
@@ -62,12 +87,17 @@ function ContactFormFields({
 
   return (
     <>
-      <TextField
-        className={`self-stretch ${fieldFrameClassName} ${inputOutline} ${inputTextClassName}`}
-        value={values.name}
-        onChange={(event) => updateValue("name", event.target.value)}
-        placeholder={content.fields.name}
-      />
+      <div className="relative self-stretch">
+        <TextField
+          className={`self-stretch ${fieldFrameClassName} ${getFieldOutline("name")} ${inputTextClassName}`}
+          value={values.name}
+          onChange={(event) => updateValue("name", event.target.value)}
+          onBlur={() => validate("name")}
+          placeholder={content.fields.name}
+          aria-invalid={Boolean(errors.name)}
+        />
+        <FieldError errorColor={errorColor}>{errors.name}</FieldError>
+      </div>
 
       <div className="relative self-stretch">
         <div
@@ -83,28 +113,32 @@ function ContactFormFields({
             aria-invalid={Boolean(errors.email)}
           />
         </div>
-        {errors.email ? (
-          <p
-            className={`pointer-events-none absolute left-4 top-full mt-1 font-['Gotham'] text-xs ${errorColor}`}
-          >
-            {errors.email}
-          </p>
-        ) : null}
+        <FieldError errorColor={errorColor}>{errors.email}</FieldError>
       </div>
 
       <div className="grid grid-cols-1 gap-4 self-stretch sm:grid-cols-2 sm:gap-5">
-        <TextField
-          className={`rounded-[50px] px-4 py-3 outline outline-1 outline-offset-[-1px] ${inputBg} ${inputOutline} ${inputTextClassName}`}
-          value={values.title}
-          onChange={(event) => updateValue("title", event.target.value)}
-          placeholder={content.fields.title}
-        />
-        <TextField
-          className={`rounded-[50px] px-4 py-3 outline outline-1 outline-offset-[-1px] ${inputBg} ${inputOutline} ${inputTextClassName}`}
-          value={values.company}
-          onChange={(event) => updateValue("company", event.target.value)}
-          placeholder={content.fields.company}
-        />
+        <div className="relative">
+          <TextField
+            className={`rounded-[50px] px-4 py-3 outline outline-1 outline-offset-[-1px] ${inputBg} ${getFieldOutline("title")} ${inputTextClassName}`}
+            value={values.title}
+            onChange={(event) => updateValue("title", event.target.value)}
+            onBlur={() => validate("title")}
+            placeholder={content.fields.title}
+            aria-invalid={Boolean(errors.title)}
+          />
+          <FieldError errorColor={errorColor}>{errors.title}</FieldError>
+        </div>
+        <div className="relative">
+          <TextField
+            className={`rounded-[50px] px-4 py-3 outline outline-1 outline-offset-[-1px] ${inputBg} ${getFieldOutline("company")} ${inputTextClassName}`}
+            value={values.company}
+            onChange={(event) => updateValue("company", event.target.value)}
+            onBlur={() => validate("company")}
+            placeholder={content.fields.company}
+            aria-invalid={Boolean(errors.company)}
+          />
+          <FieldError errorColor={errorColor}>{errors.company}</FieldError>
+        </div>
       </div>
 
       <div className="relative self-stretch" ref={regionRef}>
@@ -188,22 +222,18 @@ function ContactFormFields({
             )}
           </div>
         ) : null}
-        {errors.region ? (
-          <p
-            className={`pointer-events-none absolute left-4 top-full mt-1 font-['Gotham'] text-xs ${errorColor}`}
-          >
-            {errors.region}
-          </p>
-        ) : null}
+        <FieldError errorColor={errorColor}>{errors.region}</FieldError>
       </div>
 
       <div className="relative self-stretch" ref={industryRef}>
         <button
           type="button"
           onClick={() => setIsIndustryOpen((current) => !current)}
-          className={`inline-flex w-full items-center justify-between rounded-[50px] px-4 py-3 text-left outline outline-1 outline-offset-[-1px] ${inputBg} ${inputOutline}`}
+          className={`inline-flex w-full items-center justify-between rounded-[50px] px-4 py-3 text-left outline outline-1 outline-offset-[-1px] ${inputBg} ${getFieldOutline("industry")}`}
           aria-expanded={isIndustryOpen}
           aria-haspopup="listbox"
+          aria-invalid={Boolean(errors.industry)}
+          onBlur={() => validate("industry")}
         >
           <span
             className={`flex-1 font-['Gotham'] text-sm ${
@@ -265,6 +295,7 @@ function ContactFormFields({
             ))}
           </div>
         ) : null}
+        <FieldError errorColor={errorColor}>{errors.industry}</FieldError>
       </div>
 
       <div
@@ -280,12 +311,26 @@ function ContactFormFields({
 
       <button
         type="submit"
-        className="min-h-11 self-end rounded-[50px] bg-[#37B478] px-8 py-3 transition-all duration-200 hover:bg-[#22C55E] active:scale-95"
+        disabled={isSubmitting}
+        className="min-h-11 self-end rounded-[50px] bg-[#37B478] px-8 py-3 transition-all duration-200 hover:bg-[#22C55E] active:scale-95 disabled:cursor-wait disabled:opacity-70"
       >
         <span className={`font-['Gotham'] text-xl font-normal sm:text-2xl ${greenButtonTextColor}`}>
-          {content.labels.submit}
+          {isSubmitting ? content.labels.submitting : content.labels.submit}
         </span>
       </button>
+      {submitMessage ? (
+        <p
+          className={`self-end text-right font-['Gotham'] text-sm ${
+            submitState === "success"
+              ? isDarkMode
+                ? "text-emerald-300"
+                : "text-emerald-700"
+              : errorColor
+          }`}
+        >
+          {submitMessage}
+        </p>
+      ) : null}
     </>
   );
 }
