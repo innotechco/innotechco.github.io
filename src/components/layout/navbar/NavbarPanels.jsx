@@ -253,7 +253,7 @@ function SearchPanel({
               type="text"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="search pages, articles, and report"
+              placeholder="search services, industries, partners, articles, and pages"
               className={`w-full border-none bg-transparent font-['Gotham'] text-base font-light outline-none ${
                 isDarkMode
                   ? "text-white placeholder:text-white/50"

@@ -66,6 +66,14 @@ function SearchHighlightManager() {
     const highlightText = location.state?.searchHighlight;
     if (!highlightText) return undefined;
 
+    const normalizeHighlightText = (value) =>
+      String(value)
+        .toLowerCase()
+        .replace(/&/g, " and ")
+        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
     let highlightedElement;
     const clearHighlight = () => {
       highlightedElement?.classList.remove("search-result-highlight");
@@ -76,17 +84,22 @@ function SearchHighlightManager() {
     let timeoutId;
 
     const findAndHighlight = () => {
-      const normalizedHighlight = highlightText.toLowerCase().replace(/\s+/g, " ");
+      const normalizedHighlight = normalizeHighlightText(highlightText);
       const candidates = document.querySelectorAll(
         "main h1, main h2, main h3, main p, main li, main span",
       );
 
-      highlightedElement = Array.from(candidates).find((element) =>
-        element.textContent
-          ?.toLowerCase()
-          .replace(/\s+/g, " ")
-          .includes(normalizedHighlight),
-      );
+      highlightedElement = Array.from(candidates)
+        .filter((element) =>
+          normalizeHighlightText(element.textContent ?? "").includes(
+            normalizedHighlight,
+          ),
+        )
+        .sort(
+          (a, b) =>
+            normalizeHighlightText(a.textContent ?? "").length -
+            normalizeHighlightText(b.textContent ?? "").length,
+        )[0];
 
       if (!highlightedElement && retryCount < 12) {
         retryCount += 1;
