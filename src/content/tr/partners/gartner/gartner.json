@@ -1,0 +1,79 @@
+{
+  "slug": "gartner",
+  "name": "GARTNER",
+  "variant": "varsayılan",
+  "hero": {
+    "tagline": "İnovasyonu Güvenle Yönetin",
+    "buttonLabel": "Demo Rezervasyonu Yapın"
+  },
+  "intro": {
+    "title": "Dünyanın 1 Numaralı İnovasyon Bulutu",
+    "body": "1999 yılında kurulan BRIGHTIDEA, ilk çevrimiçi inovasyon platformunu 2000 yılında başlattı ve o zamandan beri aralarında Accenture, Bayer, Cisco, GE ve Mastercard'ın da bulunduğu 300'den fazla küresel markanın inovasyon yoluyla önemli mali değer yaratmasını destekledi. G2 tarafından önde gelen Fikir Yönetimi platformu olarak tanınan ve Business Wire, ZDNET, The Wall Street Journal ve GigaOm gibi yayın kuruluşlarının öne çıkardığı BRIGHTIDEA, artık tüm inovasyon yolculuğunu kapsayan kapsamlı bir yazılım paketi sunuyor."
+  },
+  "stats": [
+    {
+      "id": "impact",
+      "value": "+250 milyon dolar",
+      "label": "Müşteri iş etkisi oluşturuldu."
+    },
+    {
+      "id": "experience",
+      "value": "+70",
+      "label": "Yılların küresel deneyiminin birleşimi."
+    },
+    {
+      "id": "rank",
+      "value": "28",
+      "label": "Ardışık çeyrekler 1. sırada yer aldı."
+    },
+    {
+      "id": "roi",
+      "value": "92%",
+      "label": "Müşterilerden 12 ay içinde olumlu yatırım getirisi elde edildi."
+    }
+  ],
+  "tools": {
+    "title": "Buluttaki Ürünler",
+    "cards": [
+      {
+        "id": "idea-box",
+        "icon": "archery",
+        "title": "Fikir Kutusu",
+        "description": "Idea Box, kuruluşların her büyüklükteki departman ve ekipteki fikirleri yakalamasına, yönetmesine, değerlendirmesine ve izlemesine yardımcı olur."
+      },
+      {
+        "id": "program",
+        "icon": "globe",
+        "title": "programı",
+        "description": "Doğrudan ITONICS içerisinde formlar oluşturun, kampanyalar başlatın veya eksiksiz HTML web siteleri oluşturun."
+      },
+      {
+        "id": "hackathon",
+        "icon": "puzzle",
+        "title": "Hackathon",
+        "description": "ITONICS Yol Haritası ile inovasyon stratejilerini planlayın ve zaman içindeki proje görevlerini takip edin."
+      },
+      {
+        "id": "pipeline",
+        "icon": "archery",
+        "title": "Boru hattı",
+        "description": "Açık bir inovasyon iş akışıyla konseptleri alım aşamasından önceliklendirme aşamasına taşıyın."
+      },
+      {
+        "id": "labs",
+        "icon": "globe",
+        "title": "Laboratuvarlar",
+        "description": "Ekiplere inovasyon programlarını test etmek, doğrulamak ve ölçeklendirmek için ortak bir alan verin."
+      },
+      {
+        "id": "analytics",
+        "icon": "puzzle",
+        "title": "Analitik",
+        "description": "Her kampanyada katılımı, kaliteyi, değeri ve ilerlemeyi izleyin."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

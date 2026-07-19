@@ -1,0 +1,58 @@
+{
+  "cards": {
+    "heroTop": {
+      "title": "Kurumsal İnovasyonu Yeniden Keşfetmek",
+      "date": "November 15, 2025",
+      "readTime": "2 dakika okuma",
+      "description": "Liderler giderek daha fazla parçalanmış inovasyon ve dijital dönüşüm çabalarıyla karşı karşıya kalıyor. Kurumsal inovasyon sistemleri açık yönetim, bağlantılı portföyler ve ölçülebilir sonuçlar gerektirir. INCEPTION ve INFINITY, kurumsal ölçekte büyümeye yönelik fikirleri, portföyleri, gösterge tablolarını ve karar mantığını yapılandırmak için çerçeveler sağlar."
+    },
+    "tallLeft": {
+      "title": "Dijital Dönüşümün Çekirdeği İş Başında",
+      "date": "November 15, 2025",
+      "readTime": "2 dakika okuma",
+      "description": "Dijital dönüşüm, ölçülebilir, tekrarlanabilir yürütmeyi mümkün kılmak için yalnızca araçların, yeniden yapılanma süreçlerinin, gösterge tablolarının, karar rutinlerinin ve iş akışlarının dağıtılması değildir. INFINITY, kuruluşlara enerji, metal, sağlık ve ileri teknoloji sektörlerinde dijital stratejiyi operasyonel performansa dönüştürme gücü verir."
+    },
+    "smallTopRight": {
+      "title": "Pazar ve Teknoloji Zekası",
+      "date": "November 15, 2025",
+      "readTime": "2 dakika okuma",
+      "description": "Veriye dayalı zeka, karmaşıklığı içgörüye dönüştürür. INSIGHT raporları, PLR/MRR/SLR analizi ve ekosistem haritalaması, kuruluşların yatırım yapmadan ve stratejik kararlar almadan önce gelişen teknolojileri, beyaz alan fırsatlarını ve rakip faaliyetlerini belirlemesine yardımcı olur."
+    },
+    "smallBottomRight": {
+      "title": "Yapay Zeka İş Akışını Etkinleştirme",
+      "date": "November 15, 2025",
+      "readTime": "2 dakika okuma",
+      "description": "Yapay zeka, günlük operasyonel iş akışlarına entegre edildiğinde değer yaratır. INFINITY, benimsemeyi hızlandırmak, hataları azaltmak ve kuruluş genelinde eyleme geçirilebilir zekayı mümkün kılmak için otomasyonu izleme, raporlama, belgeleme, proje yönlendirme ve karar desteğine dahil eder."
+    },
+    "smallMiddleLeft": {
+      "title": "Endüstriyel Dönüşüm",
+      "date": "November 15, 2025",
+      "readTime": "2 dakika okuma",
+      "description": "Enerji, malzeme, metal, mobilite ve sağlık hizmetlerinde dönüşüm, sektöre özel inovasyon çerçeveleri gerektirir. INCEPTION, endüstriyel gerçeklere göre uyarlanmış yönetişim, süreç akışları ve portföy yönetimi tasarlayarak fikirden uygulamaya kadar ölçülebilir yatırım getirisi sağlar."
+    },
+    "textCard1": {
+      "title": "Öngörü ve Portföy Yönetimi",
+      "date": "November 15, 2025",
+      "readTime": "2 dakika okuma",
+      "description": "Senaryo planlama, zayıf sinyal analizi, girişim araştırması ve portföy önceliklendirmesi, inovasyon girişimlerini stratejik hedeflerle birleştirir. INCEPTION, içgörüleri net KPI'lara sahip yönetilen bir portföy sistemine dönüştürmek için metodoloji sağlar."
+    },
+    "textCard2": {
+      "title": "Yetenek ve Akademi",
+      "date": "November 15, 2025",
+      "readTime": "2 dakika okuma",
+      "description": "INNOTECH Akademi programları liderliği, inovasyon yeteneklerini ve dijital akıcılığı geliştirir. Yapılandırılmış atölye çalışmaları, değerlendirme araçları ve öğrenme yolları, INCEPTION ve INFINITY çerçevelerini ekipler arasında işlevsel hale getirir."
+    },
+    "tallRight": {
+      "title": "Müşteri ve Ekosistem İçgörüleri",
+      "date": "November 15, 2025",
+      "readTime": "2 dakika okuma",
+      "description": "INSIGHT, kuruluşların ekosistem trendlerini anlamalarına, fırsatları belirlemelerine ve rakip faaliyetlerini haritalandırmalarına yardımcı olmak için pazar ve patent verilerinden yararlanır. Bu zeka, Ar-Ge, inovasyon portföyleri ve stratejik planlamada daha iyi karar alınmasını sağlar."
+    },
+    "heroBottom": {
+      "title": "Ölçülü Uygulama Yoluyla Sürdürülebilir Dönüşüm",
+      "date": "November 15, 2025",
+      "readTime": "2 dakika okuma",
+      "description": "Sektörler genelinde sürdürülebilir rekabet avantajı; öngörü, inovasyon yönetimi, dijital işletim sistemleri ve yapay zeka destekli iş akışlarının birbirine bağlanmasıyla sağlanır. İstihbarat ve yürütmeyi entegre eden kuruluşlar, hız, etki ve yatırım getirisi açısından benzerlerinden sistematik olarak daha iyi performans gösterir."
+    }
+  }
+}

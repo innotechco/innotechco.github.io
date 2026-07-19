@@ -1,14 +1,9 @@
-import inceptionPage from "../../content/en/services/inception.json";
-import infinityPage from "../../content/en/services/infinity.json";
-import insightPage from "../../content/en/services/insight.json";
+import {localizedModule} from "../../i18n/locale";
 import {serviceConfig} from "../../config/services.config";
 import {fetchJsonFromApi, mergeArrayById} from "./utils";
 
-const serviceContent = {
-  inception: inceptionPage,
-  infinity: infinityPage,
-  insight: insightPage,
-};
+const modules = import.meta.glob("../../content/{en,ar,tr}/services/*.json", {eager: true, import: "default"});
+const serviceContent = Object.fromEntries(["inception", "infinity", "insight"].map((slug) => [slug, localizedModule(modules, `../../content/en/services/${slug}.json`)]));
 
 function buildServicePage(content, config = {}) {
   return {

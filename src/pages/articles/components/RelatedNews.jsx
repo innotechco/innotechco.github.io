@@ -1,3 +1,5 @@
+import {t} from "../../../i18n/ui";
+
 function ArrowIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.6 19 12 5 20.4V3.6Z" fill="currentColor" /></svg>;
 }
@@ -5,7 +7,7 @@ function ArrowIcon() {
 function RelatedNews({article, image}) {
   return (
     <section className="related-news" aria-labelledby="related-news-title">
-      <h2 id="related-news-title">Related News</h2>
+      <h2 id="related-news-title">{t("relatedNews")}</h2>
       <div className="related-news-grid">
         {article.related.map((item, index) => (
           <a className="related-card" href="#article-top" key={`${item.title}-${index}`}>

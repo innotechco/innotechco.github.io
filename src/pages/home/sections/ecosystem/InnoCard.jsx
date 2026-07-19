@@ -4,7 +4,7 @@ import InfinityIcon from "../../../../assets/icons/Subtract.svg";
 import InsightIcon from "../../../../assets/icons/Subtract2.svg";
 import InlearnIcon from "../../../../assets/icons/Subtract3.svg";
 
-function InnoCard({title, subtitle, items = []}) {
+function InnoCard({iconKey, title, subtitle, items = []}) {
   const {isDarkMode} = useTheme();
 
   const iconMap = {
@@ -15,7 +15,7 @@ function InnoCard({title, subtitle, items = []}) {
   };
 
   
-  const CurrentIcon = iconMap[title];
+  const CurrentIcon = iconMap[iconKey];
 
   const boldKeywords = [
     "INCEPTION",

@@ -1,0 +1,61 @@
+{
+  "slug": "statista",
+  "name": "İSTATİSTİK",
+  "variant": "varsayılan",
+  "hero": {
+    "tagline": "İnovasyon Verilerini Küresel İstihbarata Dönüştürmek",
+    "buttonLabel": "Demo Rezervasyonu Yapın"
+  },
+  "intro": {
+    "title": "Uzmanlaşmış Araştırmaları Küresel Verilerle Bağlamak",
+    "body": "Patent, pazar, teknoloji ve inovasyon araştırmalarını STATISTA'nın küresel istihbarat ekosisteminde kullanılmak üzere yapılandırılmış, güvenilir ve yayına hazır verilere dönüştürüyoruz. Yeteneklerimiz veri toplama, doğrulama, kıyaslama, trend analizi ve içgörü geliştirmeyi kapsar; karmaşık kanıtların net istatistiklere, karşılaştırmalı çalışmalara ve karara hazır istihbarata dönüştürülmesine yardımcı olur."
+  },
+  "stats": [
+    {
+      "id": "impact",
+      "value": "5",
+      "label": "Katkı Kanalları"
+    },
+    {
+      "id": "experience",
+      "value": "+170",
+      "label": "Endüstriler"
+    },
+    {
+      "id": "rank",
+      "value": "3",
+      "label": "İstihbarat Alanları"
+    },
+    {
+      "id": "roi",
+      "value": "+1 milyon",
+      "label": "Mevcut İstatistikler"
+    }
+  ],
+  "tools": {
+    "title": "Veri ve İstihbarat Yeteneklerimiz",
+    "cards": [
+      {
+        "id": "idea-box",
+        "icon": "archery",
+        "title": "Veriye Hazır İçgörüler",
+        "description": "Karmaşık araştırmaları yapılandırıyor, doğruluyor ve güvenilir istatistiklere, karşılaştırmalara ve karara hazır istihbarata dönüştürüyoruz."
+      },
+      {
+        "id": "program",
+        "icon": "globe",
+        "title": "Entegre Zeka",
+        "description": "İnovasyon potansiyeli ve stratejik yön hakkında daha net bir görüş sağlamak için bilimi, teknolojiyi ve pazar kanıtlarını birleştiriyoruz."
+      },
+      {
+        "id": "hackathon",
+        "icon": "puzzle",
+        "title": "Bölgesel İstihbarat",
+        "description": "Yerel öncelikleri, yatırım modellerini, rekabetçi faaliyetleri ve büyüme fırsatlarını ortaya çıkarmak için ülkeye ve bölgeye özgü bilim, teknoloji ve pazar sinyallerini analiz ediyoruz."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

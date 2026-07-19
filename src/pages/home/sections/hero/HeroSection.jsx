@@ -40,11 +40,11 @@ function HeroSection() {
           />
 
           {/* AI Agent title */}
-          <div className="relative z-10 h-16 w-full sm:h-18 lg:mb-6 lg:h-20">
-            <div className="absolute left-0 top-0 size-16 rounded-full border-2 border-[#37B478] sm:size-18 lg:size-20" />
-            <div className="absolute left-[4px] top-[6px] size-2.5 rounded-full bg-[#37B478] lg:left-[4.72px] lg:top-[7.08px] lg:size-3" />
+          <div className="locale-hero-title relative z-10 h-16 w-full sm:h-18 lg:mb-6 lg:h-20">
+            <div className="locale-hero-title-circle absolute left-0 top-0 size-16 rounded-full border-2 border-[#37B478] sm:size-18 lg:size-20" />
+            <div className="locale-hero-title-dot absolute left-[4px] top-[6px] size-2.5 rounded-full bg-[#37B478] lg:left-[4.72px] lg:top-[7.08px] lg:size-3" />
             <div
-                className={`absolute left-[22px] top-3 font-['Gotham'] text-[clamp(2.25rem,9vw,3rem)] font-bold leading-none transition-colors duration-500 ease-in-out sm:left-[25px] lg:left-[27px] lg:top-4 ${
+                className={`locale-hero-title-text absolute left-[22px] top-3 font-['Gotham'] text-[clamp(2.25rem,9vw,3rem)] font-bold leading-none transition-colors duration-500 ease-in-out sm:left-[25px] lg:left-[27px] lg:top-4 ${
                 isDarkMode ? "text-white" : "text-black"
               }`}
             >

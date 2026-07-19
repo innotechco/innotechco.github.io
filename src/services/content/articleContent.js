@@ -1,11 +1,13 @@
 import {fetchJsonFromApi} from "./utils";
+import {getActiveLocale} from "../../i18n/locale";
 
-const articleModules = import.meta.glob("../../content/en/articles/*.json", {
+const articleModules = import.meta.glob("../../content/{en,ar,tr}/articles/*.json", {
   eager: true,
   import: "default",
 });
 
-const articlesBySlug = Object.values(articleModules).reduce((articles, article) => {
+const articlesBySlug = Object.entries(articleModules).reduce((articles, [path, article]) => {
+  if (!path.includes(`/content/${getActiveLocale()}/`)) return articles;
   articles[article.slug] = article;
   return articles;
 }, {});

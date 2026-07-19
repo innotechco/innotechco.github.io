@@ -1,10 +1,11 @@
 import {Link} from "react-router-dom";
 
 import {routes} from "../../routes";
+import {t} from "../../i18n/ui";
 
 function ReadMoreLink({
   to = routes.featuredArticle,
-  label = "Read more",
+  label,
   isDarkMode,
   className = "",
   align = "start",
@@ -17,7 +18,7 @@ function ReadMoreLink({
       to={to}
       className={`group flex w-fit flex-col ${alignment} transition-colors duration-300 hover:text-[#37B478] ${textColor} ${className}`}
     >
-      <span>{label}</span>
+      <span>{label ?? t("readMore")}</span>
       <span className="mt-1 h-[2px] w-0 rounded-full bg-[#37B478] transition-all duration-300 group-hover:w-full" />
     </Link>
   );

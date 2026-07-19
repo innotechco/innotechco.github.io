@@ -1,0 +1,61 @@
+{
+  "slug": "r-and-m",
+  "name": "R ve M",
+  "variant": "varsayılan",
+  "hero": {
+    "tagline": "INNOTECH INSIGHT'ı Küresel Pazarlara Taşıyoruz",
+    "buttonLabel": "Raporları Keşfedin"
+  },
+  "intro": {
+    "title": "Teknoloji ve Pazar İstihbaratı için Küresel Dağıtım",
+    "body": "Research and Markets, INSIGHT hizmetimize, patent ortamı raporlarımızın listelenmesi, tanıtılması ve dağıtılması için yerleşik bir uluslararası kanal sağlar. Pazar yeri ve yayıncı portalı aracılığıyla araştırmalarımıza farklı sektörlerden ve bölgelerden alıcılar erişebilir hale geliyor. Bu ilişki, yapılandırılmış gönderimleri, ürün güncellemelerini, ticari keşifleri ve seçilen medya tanıtımını desteklerken portföyümüzün görünürlüğünü de genişletiyor."
+  },
+  "stats": [
+    {
+      "id": "listed-reports",
+      "value": "+30",
+      "label": "Listelenen Raporlar"
+    },
+    {
+      "id": "industries",
+      "value": "+20",
+      "label": "Endüstriler"
+    },
+    {
+      "id": "portfolio-additions",
+      "value": "+25",
+      "label": "Portföy Eklemeleri"
+    },
+    {
+      "id": "license-options",
+      "value": "+3",
+      "label": "Lisans Seçenekleri"
+    }
+  ],
+  "tools": {
+    "title": "Listelenen İstihbarat Yeteneklerimiz",
+    "cards": [
+      {
+        "id": "patent-landscape-analysis",
+        "icon": "archery",
+        "title": "Patent Ortamı Analizi",
+        "description": "İnovasyon trendlerini, önde gelen başvuru sahiplerini, gelişen teknolojileri ve rekabetçi konumlandırmayı belirlemek için küresel patent faaliyetlerini analiz ediyoruz."
+      },
+      {
+        "id": "market-and-competitor-intelligence",
+        "icon": "globe",
+        "title": "Pazar ve Rakip İstihbaratı",
+        "description": "Pazar dinamiklerini, rakip stratejilerini ve büyüme fırsatlarını ortaya çıkarmak için patent, pazar, şirket ve sektör verilerini birleştiriyoruz."
+      },
+      {
+        "id": "technology-trend-mapping",
+        "icon": "puzzle",
+        "title": "Teknoloji Trend Haritalaması",
+        "description": "Endüstriler ve uygulama alanları genelinde teknolojilerin gelişimini, olgunluğunu, momentumunu ve ticari yönünü takip ediyoruz."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

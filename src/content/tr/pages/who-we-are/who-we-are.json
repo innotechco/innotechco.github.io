@@ -1,0 +1,77 @@
+{
+  "hero": {
+    "title": "Biz kimiz",
+    "description": "INNOTECH, Körfez İşbirliği Konseyi (GCC) bölgesine ve Türkiye'ye hizmet veren bir inovasyon ve teknoloji yönetimi ekosistemidir. Danışmanlık, gelişmiş sistemler, ileri teknolojiler ve veriye dayalı içgörü aracılığıyla, önde gelen kuruluşların INSIGHT, INCEPTION, INFINITY ve INLEARN Academy'de strateji ile uygulama arasında bağlantı kurmasına yardımcı oluyoruz."
+  },
+  "intro": {
+    "title": "INNOTECH VAR",
+    "body": "INNOTECH Is In hem ürün mimarimizi hem de çalışma anlayışımızı yansıtıyor. Birbirine bağlı dört yeteneği temsil eder: inovasyon yönetimi, istihbarat analitiği, dijital ve yapay zeka dönüşümü ve tek bir sistem olarak bir araya getirilen yapılandırılmış uygulama.\n\nBu aynı zamanda uygulamaya tam bağlılık anlamına da gelir. Teşhis ve tasarımdan dağıtım, benimseme ve ölçülebilir sonuçlara kadar sürece dahil oluyoruz."
+  },
+  "history": {
+    "title": "Tarih",
+    "rangeLabel": "Geçmiş zaman çizelgesini kaydır"
+  },
+  "video": {
+    "playLabel": "Videoyu oynat"
+  },
+  "expertsTitle": "SEÇİLMİŞ PROJELER",
+  "careers": {
+    "title": "Ekibimize Katılın",
+    "description": "Büyük ölçekli projelere katkıda bulunmaya, yapılandırılmış inovasyon sistemlerini uygulamaya ve endüstriler arasında ölçülebilir etki yaratmaya hazır yetenekli profesyoneller arıyoruz.",
+    "buttonLabel": "Kariyerleri Keşfedin"
+  },
+  "stats": [
+    {
+      "id": "experts-primary",
+      "label": "Uzmanlar",
+      "value": 150
+    },
+    {
+      "id": "experts-secondary",
+      "label": "Endüstriler",
+      "value": 5
+    },
+    {
+      "id": "partners",
+      "label": "Ekosistem Oyuncuları",
+      "value": 12
+    },
+    {
+      "id": "program",
+      "label": "Projeler",
+      "value": 450
+    }
+  ],
+  "experts": [
+    {
+      "id": "petrochemical-innovation-system",
+      "name": "Bir Petrokimya Şirketi İçin İnovasyon Yönetim Sistemi",
+      "role": ""
+    },
+    {
+      "id": "national-gas-roadmap",
+      "name": "Bir Çelik Şirketi İçin İnovasyon Yönetim Sistemi",
+      "role": ""
+    },
+    {
+      "id": "petrochemical-digital-roadmap",
+      "name": "Teknoloji ve İnovasyon Yönetimi için Yapay Zeka Temsilcisi",
+      "role": ""
+    },
+    {
+      "id": "steel-technology-roadmap",
+      "name": "Bir Petrol, Gaz ve Petrokimya Şirketinin Dijital Dönüşüm Yol Haritası",
+      "role": ""
+    },
+    {
+      "id": "biotech-priority-matrix",
+      "name": "ITONICS İnovasyon İşletim Sisteminin Uygulanması",
+      "role": ""
+    },
+    {
+      "id": "telecom-process-mapping",
+      "name": "BRIGHTIDEA İnovasyon ve Fikir Yönetim Yazılımı",
+      "role": ""
+    }
+  ]
+}

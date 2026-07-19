@@ -13,9 +13,9 @@ function GlobalFootprintSection() {
       }`}
     >
       {/* ================= SECTION HEADER ================= */}
-      <div className="self-stretch relative flex flex-col justify-center items-start gap-2 mb-12">
+      <div className="locale-section-title self-stretch relative flex flex-col justify-center items-start gap-2 mb-12">
         {/* Decorative circle */}
-        <div className="size-16 left-[-14px] top-[-19px] absolute rounded-full border border-[#37B478]" />
+        <div className="locale-section-title-circle size-16 left-[-14px] top-[-19px] absolute rounded-full border border-[#37B478]" />
 
         {/* Main heading */}
         <div

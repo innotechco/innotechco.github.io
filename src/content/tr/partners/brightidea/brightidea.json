@@ -1,0 +1,79 @@
+{
+  "slug": "parlak fikir",
+  "name": "PARLAK FİKİR",
+  "variant": "parlak fikir",
+  "hero": {
+    "tagline": "İnovasyonu Güvenle Yönetin",
+    "buttonLabel": "Demo Rezervasyonu Yapın"
+  },
+  "intro": {
+    "title": "Dünyanın 1 Numaralı İnovasyon Bulutu",
+    "body": "1999 yılında kurulan BRIGHTIDEA, ilk çevrimiçi inovasyon platformunu 2000 yılında başlattı ve o zamandan beri aralarında Accenture, Bayer, Cisco, GE ve Mastercard'ın da bulunduğu 300'den fazla küresel markanın inovasyon yoluyla önemli mali değer yaratmasını destekledi. G2 tarafından önde gelen Fikir Yönetimi platformu olarak tanınan ve Business Wire, ZDNET, The Wall Street Journal ve GigaOm gibi yayın kuruluşlarının öne çıkardığı BRIGHTIDEA, artık tüm inovasyon yolculuğunu kapsayan kapsamlı bir yazılım paketi sunuyor."
+  },
+  "stats": [
+    {
+      "id": "impact",
+      "value": "+250 milyon dolar",
+      "label": "Müşteri iş etkisi oluşturuldu."
+    },
+    {
+      "id": "experience",
+      "value": "+70",
+      "label": "Yılların küresel deneyiminin birleşimi."
+    },
+    {
+      "id": "rank",
+      "value": "28",
+      "label": "Ardışık çeyrekler 1. sırada yer aldı."
+    },
+    {
+      "id": "roi",
+      "value": "92%",
+      "label": "Müşterilerden 12 ay içinde olumlu yatırım getirisi elde edildi."
+    }
+  ],
+  "tools": {
+    "title": "Bulut Tabanlı Ürünler",
+    "cards": [
+      {
+        "id": "idea-box",
+        "icon": "Idea",
+        "title": "Fikir Kutusu",
+        "description": "Idea Box, kuruluşların her büyüklükteki departman ve ekipteki fikirleri yakalamasına, yönetmesine, değerlendirmesine ve izlemesine yardımcı olur."
+      },
+      {
+        "id": "program",
+        "icon": "programı",
+        "title": "programı",
+        "description": "Program, kuruluşların yenilikçi düşünmeyi teşvik etmesine, çalışanların katılımını sağlamasına ve minimum kaynakla iş etkisi yaratmasına yardımcı olur."
+      },
+      {
+        "id": "hackathon",
+        "icon": "Hackathon",
+        "title": "Hackathon",
+        "description": "Hackathon, kuruluşların paydaşları koordine etmesine, kusursuz etkinlikler yürütmesine ve iş değerlerine bağlılık ve yenilik sunmalarına yardımcı olur."
+      },
+      {
+        "id": "Dönüşüm",
+        "icon": "Dönüşüm",
+        "title": "Dönüşüm",
+        "description": "Dönüşüm, kuruluşların kültürel, dijital veya organizasyonel değişimi yönlendirmesine ve bunu şirket geneline yerleştirmesine yardımcı olur."
+      },
+      {
+        "id": "labs",
+        "icon": "Dönüşüm",
+        "title": "Laboratuvarlar",
+        "description": "Laboratuvarlar, kuruluşların temel operasyonların dışındaki yüksek riskli fikirleri geliştirmelerine ve yalnızca en umut verici projeleri finanse etmelerine yardımcı olur."
+      },
+      {
+        "id": "Ekosistem",
+        "icon": "Ekosistem",
+        "title": "Ekosistem",
+        "description": "Ekosistem, kuruluşların dış kaynakları birbirine bağlamasına ve bunları daha geniş bir inovasyon stratejisine entegre etmesine yardımcı olur."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

@@ -1,5 +1,7 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import contactContent from "../../content/en/contact.json";
+import {localizedModule} from "../../i18n/locale";
+
+const contactContent = localizedModule(import.meta.glob("../../content/{en,ar,tr}/contact.json", {eager: true, import: "default"}), "../../content/en/contact.json");
 import {useTheme} from "../../context/useTheme";
 import {countries} from "../../data/countries";
 import AnimatedModalShell from "./AnimatedModalShell";
@@ -201,11 +203,11 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
       {/* Header */}
       <div className="shrink-0 p-4 sm:p-6 lg:px-11 lg:pt-11">
         <div className="inline-flex items-center justify-between self-stretch gap-4 w-full">
-          <div className="relative flex min-w-0 flex-1 items-end justify-between px-4">
-            <div className="absolute left-0 top-[-10px] size-9 rounded-full border border-[#37B478] sm:top-[-15px] sm:size-11" />
+          <div className="locale-contact-title relative flex min-w-0 flex-1 items-end justify-between px-4">
+            <div className="locale-contact-title-circle absolute left-0 top-[-10px] size-9 rounded-full border border-[#37B478] sm:top-[-15px] sm:size-11" />
 
             <div
-              className={`min-w-0 justify-start font-['Gotham'] text-lg font-normal sm:text-xl lg:text-2xl ${textColor}`}
+              className={`locale-contact-title-text min-w-0 justify-start font-['Gotham'] text-lg font-normal sm:text-xl lg:text-2xl ${textColor}`}
             >
               {content.title}
             </div>

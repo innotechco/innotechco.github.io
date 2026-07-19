@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import {articleAssets} from "../../config/articles.config";
 import {useTheme} from "../../context/useTheme";
 import {fetchArticle} from "../../services/content/articleContent";
+import {t} from "../../i18n/ui";
 import ArticleBody from "./components/ArticleBody";
 import ArticleHero from "./components/ArticleHero";
 import RelatedNews from "./components/RelatedNews";
@@ -44,11 +45,11 @@ function ArticlePage() {
         id="article-top"
         className={`article-page ${isDarkMode ? "is-dark" : "is-light"}`}
       >
-        {status === "loading" ? <p className="article-status">Loading article...</p> : null}
+        {status === "loading" ? <p className="article-status">{t("loadingArticle")}</p> : null}
         {status === "not-found" ? (
           <section className="article-status">
-            <h1>Article not found</h1>
-            <p>The requested article is not available yet.</p>
+            <h1>{t("articleNotFound")}</h1>
+            <p>{t("articleUnavailable")}</p>
           </section>
         ) : null}
         {article ? (

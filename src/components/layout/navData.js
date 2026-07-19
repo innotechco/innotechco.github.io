@@ -1,37 +1,31 @@
-import navigationContent from "../../content/en/navigation.json";
+import {getActiveLocale, localizedModule} from "../../i18n/locale";
 import {navigationConfig} from "../../config/navigation.config";
 import {routes} from "../../routes";
 
-const serviceModules = import.meta.glob("../../content/en/services/*.json", {
+const navigationModules = import.meta.glob("../../content/{en,ar,tr}/navigation.json", {eager: true, import: "default"});
+const navigationContent = localizedModule(navigationModules, "../../content/en/navigation.json");
+const serviceModules = import.meta.glob("../../content/{en,ar,tr}/services/*.json", {
   eager: true,
   import: "default",
 });
-const industryModules = import.meta.glob("../../content/en/industries/*.json", {
+const industryModules = import.meta.glob("../../content/{en,ar,tr}/industries/*.json", {
   eager: true,
   import: "default",
 });
-const articleModules = import.meta.glob("../../content/en/articles/*.json", {
+const articleModules = import.meta.glob("../../content/{en,ar,tr}/articles/*.json", {
   eager: true,
   import: "default",
 });
-const partnerModules = import.meta.glob("../../content/en/partners/**/*.json", {
+const partnerModules = import.meta.glob("../../content/{en,ar,tr}/partners/**/*.json", {
   eager: true,
   import: "default",
 });
-const pageModules = import.meta.glob("../../content/en/pages/**/*.json", {
+const pageModules = import.meta.glob("../../content/{en,ar,tr}/pages/**/*.json", {
   eager: true,
   import: "default",
 });
 
-const searchRoutes = {
-  "Who we are": routes.whoWeAre,
-  "What we think": routes.whatWeThink,
-  "INLEARN Academy": routes.inlearnAcademy,
-};
-
-const externalSearchRoutes = {
-  "INSIGHT Store": "https://stimanalytics.ai",
-};
+const searchRoutes = [routes.whoWeAre, null, routes.whatWeThink, routes.inlearnAcademy, "https://stimanalytics.ai"];
 
 const serviceRoutesBySlug = {
   inception: routes.inception,
@@ -73,7 +67,7 @@ function normalizeSearchText(value) {
   return normalizeText(value)
     .toLowerCase()
     .replace(/&/g, " and ")
-    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -195,6 +189,7 @@ function makeSectionItems(content, type, to) {
 
 function makeContentItems(modules, type, getRoute) {
   return Object.entries(modules)
+    .filter(([path]) => path.includes(`/content/${getActiveLocale()}/`))
     .flatMap(([path, content]) => {
       const slug = content.slug ?? path.split("/").pop().replace(".json", "");
       const to = getRoute(slug, path);
@@ -217,16 +212,17 @@ const pageRouteByPath = {
 };
 
 const manualSearchItems = navigationContent.searchItems
-  .filter((item) => searchRoutes[item.title] || externalSearchRoutes[item.title])
-  .map((item) => ({
+  .slice(0, 5)
+  .map((item, index) => ({
     ...item,
     type: "Page",
-    to: externalSearchRoutes[item.title] ?? searchRoutes[item.title],
-    isExternal: Boolean(externalSearchRoutes[item.title]),
+    to: searchRoutes[index],
+    isExternal: searchRoutes[index]?.startsWith("http") ?? false,
     matchText: item.title,
     searchParts: [item.title, "Page"],
     searchText: normalizeSearchText(`${item.title} Page`),
-  }));
+  }))
+  .filter((item) => item.to);
 
 const contentSearchItems = [
   ...makeContentItems(serviceModules, "Service", (slug) => serviceRoutesBySlug[slug]),
@@ -239,7 +235,7 @@ const contentSearchItems = [
   ),
   ...makeContentItems(pageModules, "Page", (_, path) => {
     const key = path
-      .replace("../../content/en/pages/", "")
+      .replace(new RegExp(`../../content/${getActiveLocale()}/pages/`), "")
       .replace(".json", "");
     return pageRouteByPath[key];
   }),
@@ -253,7 +249,11 @@ export const searchItems = Array.from(
     ]),
   ).values(),
 );
-export const languageOptions = navigationContent.languageOptions;
+export const languageOptions = [
+  {code: "en", label: "EN", name: "English"},
+  {code: "tr", label: "TR", name: "Türkçe"},
+  {code: "ar", label: "AR", name: "العربية"},
+];
 export const serviceMenuItems = navigationContent.serviceMenuItems.map((item) => ({
   ...item,
   to: navigationConfig.serviceRoutes[item.id],

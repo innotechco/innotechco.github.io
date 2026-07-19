@@ -1,6 +1,7 @@
 import {useTheme} from "../../../../../context/useTheme";
 import industriesExcludeImage from "../../../../../assets/images/excludes/industries/IndustriesExclude.webp";
 import industriesExcludeBlackImage from "../../../../../assets/images/excludes/industries/IndustriesExcludeBlack.webp";
+import {t} from "../../../../../i18n/ui";
 
 function BreadcrumbChevron() {
   return (
@@ -42,13 +43,13 @@ function IndustryHero({image, breadcrumbLabel, title, description}) {
         </div>
 
         <div className="relative z-10 flex max-w-full flex-col items-start justify-start gap-4 px-6 py-10 md:px-32 md:py-36">
-          <nav className="inline-flex max-w-full flex-wrap items-center gap-2" aria-label="Breadcrumb">
+          <nav className="inline-flex max-w-full flex-wrap items-center gap-2" aria-label={t("breadcrumb")}>
             <span className="font-['Gotham'] text-sm font-light text-white">
-              what we do
+              {t("whatWeDo")}
             </span>
             <BreadcrumbChevron />
             <span className="font-['Gotham'] text-sm font-light text-white">
-              Industries
+              {t("industries")}
             </span>
             <BreadcrumbChevron />
             <span className="font-['Gotham'] text-sm font-light text-white">

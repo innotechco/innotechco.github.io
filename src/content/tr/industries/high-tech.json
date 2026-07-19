@@ -1,0 +1,87 @@
+{
+  "slug": "yüksek teknoloji",
+  "seo": {
+    "title": "Yüksek Teknoloji ve Yapay Zeka",
+    "description": "Yapay zeka ekosistemleri, yazılım altyapıları, bulut platformları, otomasyon sistemleri ve gelişmiş bilgi işlem ortamlarında akıllı dijital dönüşümü hızlandırın."
+  },
+  "sectionLabels": {
+    "acceleration": "HIZLANMA",
+    "ecosystem": "DEĞİŞİM EKOSİSTEMİMİZDEKİ SON DURUM",
+    "ecosystemAction": "Özel içerik"
+  },
+  "hero": {
+    "breadcrumbLabel": "Yüksek Teknoloji ve Yapay Zeka",
+    "title": "Yüksek Teknoloji ve Yapay Zeka",
+    "description": "Tahmine dayalı teknoloji analitiği ve ölçeklenebilir inovasyon mimarileri aracılığıyla yapay zeka ekosistemleri, yazılım altyapıları, bulut platformları, otomasyon sistemleri ve gelişmiş bilgi işlem ortamlarında akıllı dijital dönüşümü hızlandırın."
+  },
+  "accelerationParagraphs": [
+    "Yüksek teknoloji işletmeleri ve yapay zekaya özgü kuruluşlar, giderek artan altyapı karmaşıklığı, parçalanmış inovasyon sistemleri ve sürekli platform kesintileriyle karşı karşıyadır. Kurumsal modernizasyonun ilerletilmesi, akıllı dijital mimariler, yapay zeka destekli operasyonlar ve dağıtılmış ekosistemler genelinde ölçeklenebilir teknoloji yönetimi gerektirir.",
+    "Yapay zeka firmaları, bulut platformları, yazılım ekosistemleri, yarı iletken operatörleri ve akıllı altyapı sağlayıcıları için kurumsal danışmanlık yoluyla teknolojinin dayanıklılığını en üst düzeye çıkarın. Özel çerçevelerimiz, ölçeklenebilir yüksek teknoloji modernizasyonunu hızlandırmak için tahmine dayalı teknoloji analitiğini, dijital dönüşüm sistemlerini ve inovasyon zekasını kullanır."
+  ],
+  "capabilities": [
+    {
+      "title": "Yapay Zeka Sistemleri (Otomasyon)",
+      "description": "Dağıtılmış dijital altyapılarda akıllı aracıları, kurumsal otomasyonu, tahmine dayalı analitiği ve ölçeklenebilir orkestrasyon mimarilerini entegre eden yapay zeka destekli operasyonel ekosistemler tasarlıyoruz."
+    },
+    {
+      "title": "Bulut Mimarileri (Altyapı)",
+      "description": "Birlikte çalışabilen yazılım sistemlerini, bağlantılı dijital ortamları, ölçeklenebilir veri orkestrasyonunu ve akıllı operasyonel modernizasyon çerçevelerini entegre eden kurumsal bulut altyapıları tasarlıyoruz."
+    },
+    {
+      "title": "Teknoloji Analitiği (Tahmin)",
+      "description": "İstihbarat çerçevelerimiz, stratejik öngörüyü güçlendirmek ve yönetim teknolojisi konumlandırmasını hızlandırmak için patentleri, gelişen teknolojileri, yapay zeka ekosistemlerini ve yazılım inovasyon sinyallerini analiz eder."
+    },
+    {
+      "title": "İnovasyon Platformları (Yönetişim)",
+      "description": "Teknolojinin yürütülmesini ve kurumsal dönüşümü güçlendirmek için ITONICS, BRIGHTIDEA ve yapay zeka destekli yönetişim mimarilerini entegre eden uçtan uca inovasyon yönetimi sistemlerini kullanıyoruz."
+    },
+    {
+      "title": "Dijital Zeka (Optimizasyon)",
+      "description": "Innogene platformu, kurumsal düzeyde stratejik istihbarat ortamlarını hızlandırmak için teknoloji izlemeyi, inovasyon analitiğini, yapay zeka araştırma sentezini ve dijital operasyon haritalamasını otomatikleştirir."
+    }
+  ],
+  "liveInsights": {
+    "title": "CANLI TEKNOLOJİ İÇGÖRÜLERİ",
+    "alt": "Canlı teknoloji öngörüleri",
+    "cards": [
+      {
+        "id": "tech-featured",
+        "title": "Büyük Dil Modeli Teknolojisi",
+        "date": "June 4, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "Firmaların son 5 yıldaki patent tescil miktarları bu firmaların gelecek yıllardaki olası iş stratejilerine ışık tutabilmektedir. Google Inc, bu Sektörde patent tescili konusunda liderdir."
+      },
+      {
+        "id": "tech-top",
+        "title": "IBM Visual Insights",
+        "date": "November 15, 2025",
+        "readTime": "2 dakika okuma",
+        "description": "IBM, daha gelişmiş yapay zeka algoritmalarını birleştirerek ve uygulamalarını daha fazla sektöre genişleterek Visual Insights'ın yeteneklerini geliştirmeyi hedefliyor."
+      },
+      {
+        "id": "tech-bottom",
+        "title": "Dinamik Spektrum Erişim Sistemi",
+        "date": "November 15, 2025",
+        "readTime": "2 dakika okuma",
+        "description": "İlk fizibilite testlerinin başarısını temel alan Sony ve Mitsui, tahmine dayalı girişim yönetimini geliştirmek için makine öğrenimi tekniklerini dahil ederek DSA sistemini daha da geliştirmeyi planlıyor."
+      }
+    ]
+  },
+  "ecosystemCards": [
+    {
+      "id": "idc",
+      "title": "Yapay Zeka Destekli Mühendislik",
+      "subtitle": "Teslimatlar, inceleme ve standartların güvencesi ve uyumluluğu"
+    },
+    {
+      "id": "itonikler",
+      "title": "Atölye Sihirbazı",
+      "subtitle": "Atölyelerinizi AI asistanıyla planlayın"
+    },
+    {
+      "id": "parlak fikir",
+      "title": "Cisco vaka raporu",
+      "subtitle": "Cisco Milyonlara İnovasyon Sonuçlarına Nasıl Ulaşıyor?"
+    }
+  ]
+}

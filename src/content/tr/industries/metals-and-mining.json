@@ -1,0 +1,87 @@
+{
+  "slug": "metals-and-mining",
+  "seo": {
+    "title": "Çelik ve Madencilik",
+    "description": "Çelik, alümina, mineraller ve madencilik ekosistemlerinde akıllı madencilik dönüşümünü destekleyin."
+  },
+  "sectionLabels": {
+    "acceleration": "HIZLANMA",
+    "ecosystem": "DEĞİŞİM EKOSİSTEMİMİZDEKİ SON DURUM",
+    "ecosystemAction": "Özel içerik"
+  },
+  "hero": {
+    "breadcrumbLabel": "Çelik ve Madencilik",
+    "title": "Çelik ve Madencilik",
+    "description": "Yapay zeka destekli endüstriyel analizler, teknoloji yol haritaları, operasyonel modernizasyon ve tahmine dayalı altyapı zekası aracılığıyla çelik, alümina, mineraller ve maden çıkarma ekosistemlerinde akıllı madencilik dönüşümünü destekleyin."
+  },
+  "accelerationParagraphs": [
+    "Madencilik operatörleri ve metal işletmeleri, artan maden çıkarma karmaşıklığı, parçalanmış operasyonel sistemler ve değişken endüstriyel geçişlerle karşı karşıyadır. Madencilik modernizasyonunu ilerletmek, entegre inovasyon yönetimini, dijital madencilik zekasını ve dağıtılmış endüstriyel varlıklar genelinde ölçeklenebilir dönüşüm mimarilerini gerektirir.",
+    "Çelik üreticileri, maden operatörleri, alümina sistemleri ve endüstriyel holdingler için kurumsal madencilik danışmanlığı yoluyla endüstriyel dayanıklılığı en üst düzeye çıkarın. Uzman danışmanlık çerçevelerimiz, sürdürülebilir metal modernizasyonunu hızlandırmak için teknoloji analitiğini, operasyonel zekayı ve yapay zeka destekli dönüşüm sistemlerini kullanır."
+  ],
+  "capabilities": [
+    {
+      "title": "İnovasyon Sistemleri (Yönetişim)",
+      "description": "Enerji dönüşümü dünyanın en büyük kolektif zorluklarından biridir. BCG, adil bir enerji geçişini sağlamak için finansal, teknolojik, ekonomik ve toplumsal hususları entegre ederek müşterileri ile birlikte çözümler geliştirmektedir."
+    },
+    {
+      "title": "Madencilik Analitiği (Tahmin)",
+      "description": "Teknoloji analitiği motorlarımız, madencilik öngörüsünü ve stratejik operasyonel konumlandırmayı güçlendirmek için endüstriyel patentleri, maden çıkarma teknolojilerini, metalurji yeniliklerini ve maden altyapısı sinyallerini izler."
+    },
+    {
+      "title": "Dijital Operasyonlar (Otomasyon)",
+      "description": "Operasyonel kontrol panellerini, endüstriyel otomasyonu, tahmine dayalı bakım sistemlerini ve dağıtılmış madencilik ortamlarında bağlantılı çıkarma zekasını entegre eden yapay zeka destekli madencilik altyapıları tasarlıyoruz."
+    },
+    {
+      "title": "Teknoloji Yol Haritaları (Planlama)",
+      "description": "Metaller ve maden ekosistemleri genelinde endüstriyel modernizasyon önceliklerini, dijital altyapı yatırımlarını ve teknoloji geçiş yollarını uyumlu hale getiren madencilik dönüşümü yol haritaları geliştiriyoruz."
+    },
+    {
+      "title": "Endüstriyel Zeka (Geliştirme)",
+      "description": "INFINITY platformu, kurumsal düzeyde endüstriyel karar ortamlarını hızlandırmak için madencilik dokümantasyon iş akışlarını, operasyonel izlemeyi, endüstriyel zeka haritalamasını ve çıkarma analitiğini otomatikleştirir."
+    }
+  ],
+  "liveInsights": {
+    "title": "CANLI METALLER İÇGÖRÜLERİ",
+    "alt": "Canlı metal öngörüleri",
+    "cards": [
+      {
+        "id": "metals-featured",
+        "title": "Akıllı Karbon Teknolojisi",
+        "date": "June 4, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "Akıllı Karbon'un geleceği, özellikle de karbondan arındırmaya yönelik küresel baskı yoğunlaşırken umut verici görünüyor. ArcelorMittal, bu teknolojiyi küresel operasyonlarında ölçeklendirmeyi planlıyor ve 2030 yılına kadar CO2 emisyonlarını %30'a kadar azaltmayı hedefliyor."
+      },
+      {
+        "id": "metals-top",
+        "title": "Çelik Sektöründe Dijital Dönüşüm",
+        "date": "June 4, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "DT'deki buluşların sayısı son 20 yılda on bir kat arttı; bu, diğer önemli konulardaki genel büyümeden çok daha yüksek."
+      },
+      {
+        "id": "metals-bottom",
+        "title": "Yeşil Çelik Geçişi",
+        "date": "November 15, 2025",
+        "readTime": "2 dakika okuma",
+        "description": "Çelik operatörleri, hidrojenle entegre üretim sistemleri, endüstriyel zeka çerçeveleri ve tahmine dayalı metalurji optimizasyon altyapıları aracılığıyla karbondan arındırma girişimlerini hızlandırıyor."
+      }
+    ]
+  },
+  "ecosystemCards": [
+    {
+      "id": "idc",
+      "title": "Alüminyum Kompozit Panel İmalatı",
+      "subtitle": "IDC Metal Endüstrileri"
+    },
+    {
+      "id": "itonikler",
+      "title": "Mineraller ve madencilik",
+      "subtitle": "160'tan fazla trendin tam listesi"
+    },
+    {
+      "id": "parlak fikir",
+      "title": "John Deere vakası",
+      "subtitle": "Ağır ekipmanlarda İnovasyon Bulutu"
+    }
+  ]
+}

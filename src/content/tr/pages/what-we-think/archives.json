@@ -1,0 +1,277 @@
+{
+  "page": {
+    "eyebrow": "Canlı Analizler",
+    "title": "Ekosisteminizdeki yenilikleri keşfedin",
+    "description": "En son duyurular, ürün güncellemeleri, şirket haberleri ve bilgilerle güncel kalın.",
+    "searchPlaceholder": "Neyi bilmen gerekiyor?",
+    "showMoreLabel": "Daha fazlasını göster",
+    "loadingLabel": "Daha fazla bilgi yükleniyor...",
+    "categories": [
+      {
+        "id": "all",
+        "label": "Tümünü göster"
+      },
+      {
+        "id": "içgörü",
+        "label": "ANLAYIŞ"
+      },
+      {
+        "id": "başlangıç",
+        "label": "BAŞLANGIÇ"
+      },
+      {
+        "id": "sonsuzluk",
+        "label": "SONSUZ"
+      },
+      {
+        "id": "otomotiv",
+        "label": "Otomotiv"
+      },
+      {
+        "id": "enerji malzemeleri",
+        "label": "Petrol, Gaz ve Petrokimya"
+      },
+      {
+        "id": "sağlık",
+        "label": "Sağlık ve Yaşam Bilimleri"
+      },
+      {
+        "id": "yüksek teknoloji",
+        "label": "Yüksek Teknoloji ve Yapay Zeka"
+      },
+      {
+        "id": "metal madenciliği",
+        "label": "Çelik ve Madencilik"
+      },
+      {
+        "id": "yapay zeka ajanları",
+        "label": "Yapay Zeka Aracıları"
+      },
+      {
+        "id": "pazar araştırması",
+        "label": "Pazar Araştırması"
+      },
+      {
+        "id": "dijital dönüşüm",
+        "label": "Dijital Dönüşüm"
+      },
+      {
+        "id": "sürdürülebilirlik",
+        "label": "Sürdürülebilirlik"
+      },
+      {
+        "id": "öngörü",
+        "label": "Stratejik Öngörü"
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "portfolio-decisions",
+      "title": "Doğal Gazdan Hidrojen Üretimi",
+      "description": "Doğal Gazdan Hidrojen Üretimi Patent Görünümü Raporu,...",
+      "date": "June 1, 2026",
+      "readMinutes": 2,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "başlangıç",
+        "içgörü",
+        "pazar araştırması"
+      ]
+    },
+    {
+      "id": "decision-velocity",
+      "title": "Gaz Rezervasyonuyla Zirve Tıraş",
+      "description": "Daewoo Shipbuilding & Marine ve Samsung Heavy gibi önemli endüstri oyuncuları...",
+      "date": "May 22, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "başlangıç",
+        "yüksek teknoloji",
+        "yapay zeka ajanları"
+      ]
+    },
+    {
+      "id": "ai-innovation",
+      "title": "Polipropilen (PP)",
+      "description": "Bu pazar analizi, polipropilendeki ticari trendleri derinlemesine inceleyerek küresel...",
+      "date": "May 22, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "başlangıç",
+        "yüksek teknoloji",
+        "yapay zeka ajanları"
+      ]
+    },
+    {
+      "id": "market-signals",
+      "title": "Yapay Zeka Odaklı İlaç Keşfi",
+      "description": "Yapay zeka ve biyoteknolojiyi birleştiren icatlar son yıllarda önemli ölçüde arttı...",
+      "date": "May 11, 2026",
+      "readMinutes": 5,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "içgörü",
+        "sonsuzluk",
+        "pazar araştırması"
+      ]
+    },
+    {
+      "id": "scale-experiments",
+      "title": "Ses Verilerini Kullanarak Ruh Sağlığı Teşhisleri",
+      "description": "Yapay Zeka Destekli Ses Analizi, ses kalıplarını analiz etmek için yapay zekayı kullanır...",
+      "date": "April 28, 2026",
+      "readMinutes": 3,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "başlangıç",
+        "otomotiv"
+      ]
+    },
+    {
+      "id": "industrial-ai",
+      "title": "Probiyotikler",
+      "description": "Çin, patent tescillerinde dünya çapında lider konumda olup kayda değer bir hacim sergiliyor...",
+      "date": "April 16, 2026",
+      "readMinutes": 6,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "yüksek teknoloji",
+        "sonsuzluk",
+        "yapay zeka ajanları",
+        "dijital dönüşüm"
+      ]
+    },
+    {
+      "id": "innovation-portfolio",
+      "title": "Akıllı Karbon Teknolojisi",
+      "description": "Akıllı Karbon'un geleceği umut verici görünüyor, özellikle de karbondan arınmaya yönelik küresel baskı...",
+      "date": "April 3, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "başlangıç",
+        "sağlık"
+      ]
+    },
+    {
+      "id": "future-ready",
+      "title": "Çelik Sektöründe Dijital Dönüşüm",
+      "description": "DT'deki icatların sayısı son 20 yılda on bir kat arttı, bu da...",
+      "date": "March 20, 2026",
+      "readMinutes": 7,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "sonsuzluk",
+        "enerji malzemeleri",
+        "dijital dönüşüm"
+      ]
+    },
+    {
+      "id": "customer-insight",
+      "title": "IBM Visual Insights",
+      "description": "Yapay zeka ve biyoteknolojiyi birleştiren icatlar son yıllarda önemli ölçüde arttı...",
+      "date": "March 8, 2026",
+      "readMinutes": 3,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "içgörü",
+        "sağlık",
+        "pazar araştırması"
+      ]
+    },
+    {
+      "id": "strategic-foresight",
+      "title": "Stratejik Öngörüyü Pazartesi Sabahı Yararlı Hale Getirmek",
+      "description": "Uzun vadeli senaryoları halihazırda takviminizde bulunan kararlara bağlayan, öngörüye dayalı, temelli bir yaklaşım.",
+      "date": "February 24, 2026",
+      "readMinutes": 5,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "içgörü",
+        "metal madenciliği",
+        "öngörü"
+      ]
+    },
+    {
+      "id": "innovation-metrics",
+      "title": "Davranışı Gerçekten Değiştiren İnovasyon Metrikleri",
+      "description": "Gösterişli raporlama yerine iyi seçimleri teşvik edecek şekilde öğrenmeyi, ivmeyi ve değer yaratmayı ölçün.",
+      "date": "February 12, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "sonsuzluk",
+        "otomotiv",
+        "dijital dönüşüm"
+      ]
+    },
+    {
+      "id": "cross-functional",
+      "title": "Çapraz Fonksiyonlu Ekiplerin Ortak Bir İnovasyon Diline İhtiyacı Var",
+      "description": "Paylaşılan kelime dağarcığı, ekipler ve disiplinler arasında karmaşık bir fırsat geçtiğinde daha hızlı uyum sağlar.",
+      "date": "January 30, 2026",
+      "readMinutes": 3,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "sağlık",
+        "enerji malzemeleri",
+        "sürdürülebilirlik"
+      ]
+    },
+    {
+      "id": "opportunity-spaces",
+      "title": "Fırsat Alanlarını Rakiplerinizden Önce Nasıl Bulabilirsiniz?",
+      "description": "Açılmaya başlayan alanları tanımak için pazar zekasını ve şirket içi uzmanlığı birleştirin.",
+      "date": "January 18, 2026",
+      "readMinutes": 6,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "içgörü",
+        "metal madenciliği",
+        "öngörü"
+      ]
+    },
+    {
+      "id": "decision-velocity",
+      "title": "Karar Hızı Bir İnovasyon Avantajıdır",
+      "description": "Amaç daha fazla karar değil. Doğru olanların daha erken gerçekleşmesi için netlik, bağlam ve güven yaratıyor.",
+      "date": "December 19, 2025",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "başlangıç",
+        "otomotiv"
+      ]
+    },
+    {
+      "id": "responsible-ai",
+      "title": "Sorumlu Yapay Zeka Daha İyi Sorularla Başlar",
+      "description": "İnovasyon liderlerinin yapay zekayı yüksek etkili bir iş akışına veya karara dahil etmeden önce sorması gereken sorular.",
+      "date": "December 5, 2025",
+      "readMinutes": 5,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "yüksek teknoloji",
+        "enerji malzemeleri",
+        "yapay zeka ajanları",
+        "sürdürülebilirlik"
+      ]
+    },
+    {
+      "id": "ecosystem",
+      "title": "Sunabilecek Bir İnovasyon Ekosistemini Büyütmek",
+      "description": "Ortaklıklar, ekosistemin net bir ortak sorunu, temposu ve birlikte öğrenme alanı olduğunda değer yaratır.",
+      "date": "November 21, 2025",
+      "readMinutes": 6,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "metal madenciliği",
+        "sonsuzluk",
+        "sürdürülebilirlik"
+      ]
+    }
+  ]
+}

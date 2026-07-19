@@ -1,0 +1,27 @@
+{
+  "title": "Bize Ulaşın",
+  "closeLabel": "Modeli kapat",
+  "errors": {
+    "email": "Enter a valid email address.",
+    "required": "Bu alan gereklidir.",
+    "region": "Listeden bir ülke seçin."
+  },
+  "fields": {
+    "name": "İsim",
+    "email": "Email",
+    "title": "Başlık",
+    "company": "Şirket",
+    "region": "Bölgenizi seçin",
+    "industry": "Sektör seçin",
+    "message": "Mesaj"
+  },
+  "labels": {
+    "openCountryList": "Ülke listesini aç",
+    "noMatchingCountry": "Eşleşen ülke yok",
+    "otherIndustry": "Diğer",
+    "submit": "Gönder",
+    "submitting": "Gönderiliyor...",
+    "submitSuccess": "Teşekkür ederim. Talebiniz gönderildi.",
+    "submitError": "Bir şeyler ters gitti. Lütfen tekrar deneyin."
+  }
+}

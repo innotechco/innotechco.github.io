@@ -1,4 +1,5 @@
 import {useEffect, useRef} from "react";
+import {t} from "../../../i18n/ui";
 
 const relatedNewsGap = 32;
 
@@ -88,8 +89,8 @@ function TableOfContents({sections}) {
 
   return (
     <div className="article-toc-shell" ref={shellRef}>
-      <nav ref={tocRef} className="article-toc" aria-label="Table of contents">
-        <h2>Table of Contents</h2>
+      <nav ref={tocRef} className="article-toc" aria-label={t("tableOfContents")}>
+        <h2>{t("tableOfContentsHeading")}</h2>
         <ol>
           {visibleSections.map((section) => (
             <li key={section.id}>

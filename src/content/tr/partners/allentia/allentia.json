@@ -1,0 +1,67 @@
+{
+  "slug": "allentia",
+  "name": "ALLEANTIA",
+  "variant": "varsayılan",
+  "hero": {
+    "tagline": "AI-Ready Sürekli bağlantı. Gerçek Zamanlı Veriler. Optimize edilmiş işlemler",
+    "buttonLabel": "Demo Rezervasyonu Yapın"
+  },
+  "intro": {
+    "title": "Makine Verilerinden Endüstriyel Zeka",
+    "body": "ALLEANTIA, endüstriyel makineleri, ekipmanları ve eski sistemleri, ölçeklenebilir bir OT/IT entegrasyon platformu aracılığıyla kurumsal uygulamalara, bulut platformlarına ve yapay zeka ortamlarına bağlar. Kodsuz mimarisi, makine sürücüsü kitaplığı, uç analitiği ve yapay zeka düzenleme yetenekleri, ham üretim alanı verilerini standartlaştırılmış, eyleme dönüştürülebilir bilgilere dönüştürür. Üretim kontrolü, performans izleme, tahmine dayalı bakım ve kalite analitiği genelindeki dağıtımlarla ALLEANTIA, üreticilerin görünürlüğü artırmasına, dijitalleşmeyi hızlandırmasına ve endüstriyel verilerden ölçülebilir iş değeri üretmesine olanak tanır."
+  },
+  "stats": [
+    {
+      "id": "impact",
+      "value": "+60K",
+      "label": "Endüstriyel varlıklar bağlantılı."
+    },
+    {
+      "id": "experience",
+      "value": "+6 bin",
+      "label": "Kullanıma hazır makine sürücüleri."
+    },
+    {
+      "id": "rank",
+      "value": "+4k",
+      "label": "Endüstriyel dağıtımlar teslim edildi."
+    },
+    {
+      "id": "roi",
+      "value": "+400",
+      "label": "Endüstriyel dağıtımlar teslim edildi."
+    }
+  ],
+  "tools": {
+    "title": "Yazılım Ürünleri",
+    "cards": [
+      {
+        "id": "Alleantia-Core",
+        "icon": "archery",
+        "title": "ALLEANTIA Çekirdek",
+        "description": "ALLEANTIA Core endüstriyel makineleri birbirine bağlar, verileri standartlaştırır ve bunları güvenli bir şekilde kurumsal, bulut ve analitik uygulamalarına sunar."
+      },
+      {
+        "id": "Alleantia-Insights",
+        "icon": "globe",
+        "title": "ALLEANTIA İçgörüleri",
+        "description": "ALLEANTIA Insights, makine verilerini kontrol panellerine, KPI'lara, anormallik uyarılarına ve operasyonel kararlar için eyleme dönüştürülebilir performans öngörülerine dönüştürür."
+      },
+      {
+        "id": "Machine-Drivers-Library",
+        "icon": "puzzle",
+        "title": "Makine Sürücüleri Kitaplığı",
+        "description": "Makine Sürücüleri Kitaplığı, heterojen endüstriyel makineleri bağlayan ve verilerini uygulamalar için standartlaştıran kullanıma hazır sürücüler sağlar."
+      },
+      {
+        "id": "Trusted-IoT-Service",
+        "icon": "archery",
+        "title": "Güvenilir IoT Hizmeti",
+        "description": "Güvenilir IoT Hizmeti, uç, kurumsal ve bulut ortamları arasında alışveriş için endüstriyel verileri korur, tanımlar ve sertifikalandırır."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

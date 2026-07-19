@@ -1,0 +1,277 @@
+{
+  "page": {
+    "eyebrow": "رؤى حية",
+    "title": "اكتشف الجديد في نظامك البيئي",
+    "description": "ابق على اطلاع بأحدث الإعلانات وتحديثات المنتجات وأخبار الشركة والرؤى.",
+    "searchPlaceholder": "ماذا تحتاج أن تعرف؟",
+    "showMoreLabel": "عرض المزيد",
+    "loadingLabel": "جارٍ تحميل المزيد من الأفكار...",
+    "categories": [
+      {
+        "id": "all",
+        "label": "إظهار الكل"
+      },
+      {
+        "id": "البصيرة",
+        "label": "انسايت"
+      },
+      {
+        "id": "البداية",
+        "label": "البداية"
+      },
+      {
+        "id": "إنفينيتي",
+        "label": "إنفينيتي"
+      },
+      {
+        "id": "السيارات",
+        "label": "السيارات"
+      },
+      {
+        "id": "مواد الطاقة",
+        "label": "النفط والغاز والبتروكيماويات"
+      },
+      {
+        "id": "الصحة",
+        "label": "الرعاية الصحية وعلوم الحياة"
+      },
+      {
+        "id": "التكنولوجيا الفائقة",
+        "label": "التكنولوجيا العالية والذكاء الاصطناعي"
+      },
+      {
+        "id": "تعدين المعادن",
+        "label": "الصلب والتعدين"
+      },
+      {
+        "id": "ai-agents",
+        "label": "وكلاء الذكاء الاصطناعي"
+      },
+      {
+        "id": "أبحاث السوق",
+        "label": "أبحاث السوق"
+      },
+      {
+        "id": "التحول الرقمي",
+        "label": "التحول الرقمي"
+      },
+      {
+        "id": "الاستدامة",
+        "label": "الاستدامة"
+      },
+      {
+        "id": "البصيرة",
+        "label": "الاستشراف الاستراتيجي"
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "portfolio-decisions",
+      "title": "توليد الهيدروجين من الغاز الطبيعي",
+      "description": "يوفر تقرير مشهد براءات اختراع توليد الهيدروجين من الغاز الطبيعي...",
+      "date": "June 1, 2026",
+      "readMinutes": 2,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البداية",
+        "البصيرة",
+        "أبحاث السوق"
+      ]
+    },
+    {
+      "id": "decision-velocity",
+      "title": "حلاقة الذروة عن طريق حجز الغاز",
+      "description": "اللاعبين الرئيسيين في الصناعة مثل Daewoo Shipbuilding & Marine وSamsung Heavy...",
+      "date": "May 22, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البداية",
+        "التكنولوجيا الفائقة",
+        "ai-agents"
+      ]
+    },
+    {
+      "id": "ai-innovation",
+      "title": "مادة البولي بروبيلين (PP)",
+      "description": "يتعمق تحليل السوق في الاتجاهات التجارية في مادة البولي بروبيلين، ويدرس...",
+      "date": "May 22, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البداية",
+        "التكنولوجيا الفائقة",
+        "ai-agents"
+      ]
+    },
+    {
+      "id": "market-signals",
+      "title": "اكتشاف المخدرات القائم على الذكاء الاصطناعي",
+      "description": "نمت الاختراعات التي تجمع بين الذكاء الاصطناعي والتكنولوجيا الحيوية بشكل ملحوظ في السنوات الأخيرة...",
+      "date": "May 11, 2026",
+      "readMinutes": 5,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البصيرة",
+        "إنفينيتي",
+        "أبحاث السوق"
+      ]
+    },
+    {
+      "id": "scale-experiments",
+      "title": "تشخيص الصحة العقلية باستخدام البيانات الصوتية",
+      "description": "يستخدم تحليل الصوت المدعوم بالذكاء الاصطناعي الذكاء الاصطناعي لتحليل الأنماط الصوتية...",
+      "date": "April 28, 2026",
+      "readMinutes": 3,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البداية",
+        "السيارات"
+      ]
+    },
+    {
+      "id": "industrial-ai",
+      "title": "البروبيوتيك",
+      "description": "الصين تتصدر العالم في تسجيل براءات الاختراع، مما يدل على حجم ملحوظ من...",
+      "date": "April 16, 2026",
+      "readMinutes": 6,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "التكنولوجيا الفائقة",
+        "إنفينيتي",
+        "ai-agents",
+        "التحول الرقمي"
+      ]
+    },
+    {
+      "id": "innovation-portfolio",
+      "title": "تكنولوجيا الكربون الذكية",
+      "description": "يبدو مستقبل الكربون الذكي واعدًا، لا سيما في ظل الضغوط العالمية لإزالة الكربون...",
+      "date": "April 3, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البداية",
+        "الصحة"
+      ]
+    },
+    {
+      "id": "future-ready",
+      "title": "التحول الرقمي في صناعة الصلب",
+      "description": "لقد زاد عدد الاختراعات في مجال DT أحد عشر مرة خلال العشرين سنة الماضية، وهو ما يعادل...",
+      "date": "March 20, 2026",
+      "readMinutes": 7,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "إنفينيتي",
+        "مواد الطاقة",
+        "التحول الرقمي"
+      ]
+    },
+    {
+      "id": "customer-insight",
+      "title": "آي بي إم رؤى مرئية",
+      "description": "نمت الاختراعات التي تجمع بين الذكاء الاصطناعي والتكنولوجيا الحيوية بشكل ملحوظ في السنوات الأخيرة...",
+      "date": "March 8, 2026",
+      "readMinutes": 3,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البصيرة",
+        "الصحة",
+        "أبحاث السوق"
+      ]
+    },
+    {
+      "id": "strategic-foresight",
+      "title": "جعل الاستبصار الاستراتيجي مفيدا صباح يوم الاثنين",
+      "description": "نهج راسخ للتبصر يربط السيناريوهات طويلة المدى بالقرارات الموجودة بالفعل في التقويم الخاص بك.",
+      "date": "February 24, 2026",
+      "readMinutes": 5,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البصيرة",
+        "تعدين المعادن",
+        "البصيرة"
+      ]
+    },
+    {
+      "id": "innovation-metrics",
+      "title": "مقاييس الابتكار التي تغير السلوك فعليًا",
+      "description": "قم بقياس التعلم والزخم وإنشاء القيمة بطرق تشجع على الاختيارات الجيدة بدلاً من الإبلاغ عن الغرور.",
+      "date": "February 12, 2026",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "إنفينيتي",
+        "السيارات",
+        "التحول الرقمي"
+      ]
+    },
+    {
+      "id": "cross-functional",
+      "title": "تحتاج الفرق متعددة الوظائف إلى لغة ابتكار مشتركة",
+      "description": "تعمل المفردات المشتركة على إنشاء توافق أسرع عندما تمر فرصة معقدة بين الفرق والتخصصات.",
+      "date": "January 30, 2026",
+      "readMinutes": 3,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "الصحة",
+        "مواد الطاقة",
+        "الاستدامة"
+      ]
+    },
+    {
+      "id": "opportunity-spaces",
+      "title": "كيفية العثور على مساحات الفرص قبل منافسيك",
+      "description": "اجمع بين معلومات السوق والخبرة الداخلية للتعرف على المساحات التي بدأت في الانفتاح.",
+      "date": "January 18, 2026",
+      "readMinutes": 6,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البصيرة",
+        "تعدين المعادن",
+        "البصيرة"
+      ]
+    },
+    {
+      "id": "decision-velocity",
+      "title": "سرعة اتخاذ القرار هي ميزة الابتكار",
+      "description": "الهدف ليس المزيد من القرارات. إنه يخلق الوضوح والسياق والثقة لحدوث الأمور المناسبة عاجلاً.",
+      "date": "December 19, 2025",
+      "readMinutes": 4,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "البداية",
+        "السيارات"
+      ]
+    },
+    {
+      "id": "responsible-ai",
+      "title": "الذكاء الاصطناعي المسؤول يبدأ بأسئلة أفضل",
+      "description": "الأسئلة التي يجب على قادة الابتكار طرحها قبل إدخال الذكاء الاصطناعي في سير عمل أو قرار عالي التأثير.",
+      "date": "December 5, 2025",
+      "readMinutes": 5,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "التكنولوجيا الفائقة",
+        "مواد الطاقة",
+        "ai-agents",
+        "الاستدامة"
+      ]
+    },
+    {
+      "id": "ecosystem",
+      "title": "تنمية نظام بيئي للابتكار قادر على الإنجاز",
+      "description": "تخلق الشراكات قيمة عندما يكون لدى النظام البيئي مشكلة مشتركة واضحة، وإيقاع، ومساحة للتعلم معًا.",
+      "date": "November 21, 2025",
+      "readMinutes": 6,
+      "image": "/images/archives/default.webp",
+      "categories": [
+        "تعدين المعادن",
+        "إنفينيتي",
+        "الاستدامة"
+      ]
+    }
+  ]
+}

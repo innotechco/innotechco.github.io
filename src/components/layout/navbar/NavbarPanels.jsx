@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {industryMenuItems, serviceMenuItems} from "../navData";
 import Vector from "../../../assets/icons/Vector.svg";
 import {routes} from "../../../routes";
+import {t} from "../../../i18n/ui";
 
 function PanelArrow({isDarkMode, isOpen}) {
   return (
@@ -65,7 +66,7 @@ function WhatWeDoPanel({closePanels, isDarkMode, isOpen}) {
       <div className="flex items-start justify-center gap-28 px-10">
         <div className="flex items-start justify-center gap-12 py-2">
           <div className={`font-['Gotham'] text-base ${textColor}`}>
-            Services:
+            {t("services")}:
           </div>
           <div className="inline-flex w-52 flex-col items-start gap-5">
             {serviceMenuItems.map((service) => (
@@ -94,7 +95,7 @@ function WhatWeDoPanel({closePanels, isDarkMode, isOpen}) {
 
         <div className="flex items-start justify-center gap-12 py-2">
           <div className={`font-['Gotham'] text-base ${textColor}`}>
-            Industries:
+            {t("industries")}:
           </div>
           <div className="inline-flex w-52 flex-col items-start gap-5">
             {industryMenuItems.map((item) => (
@@ -135,20 +136,20 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
           onClick={closePanels}
           className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
         >
-          Who we are
+          {t("whoWeAre")}
         </Link>
 
         <MobileAccordionGroup
           isDarkMode={isDarkMode}
           isOpen={isWhatWeDoOpen}
           onToggle={() => setIsWhatWeDoOpen((current) => !current)}
-          title="What we do"
+          title={t("whatWeDo")}
         >
           <MobileAccordionGroup
             isDarkMode={isDarkMode}
             isOpen={isServicesOpen}
             onToggle={() => setIsServicesOpen((current) => !current)}
-            title="Services"
+            title={t("services")}
           >
             {serviceMenuItems.map((service) => (
               <Link
@@ -173,7 +174,7 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
             isDarkMode={isDarkMode}
             isOpen={isIndustriesOpen}
             onToggle={() => setIsIndustriesOpen((current) => !current)}
-            title="Industries"
+            title={t("industries")}
           >
             {industryMenuItems.map((item) => (
               <Link
@@ -193,14 +194,14 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
           onClick={closePanels}
           className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
         >
-          What we think
+          {t("whatWeThink")}
         </Link>
         <Link
           to={routes.inlearnAcademy}
           onClick={closePanels}
           className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
         >
-          INLEARN Academy
+          {t("academy")}
         </Link>
         <a
           href="https://stimanalytics.ai"
@@ -209,7 +210,7 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
           onClick={closePanels}
           className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
         >
-          INSIGHT Store
+          {t("store")}
         </a>
       </div>
     </div>
@@ -253,7 +254,7 @@ function SearchPanel({
               type="text"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="search services, industries, partners, articles, and pages"
+              placeholder={t("searchPlaceholder")}
               className={`w-full border-none bg-transparent font-['Gotham'] text-base font-light outline-none ${
                 isDarkMode
                   ? "text-white placeholder:text-white/50"
@@ -264,7 +265,7 @@ function SearchPanel({
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                aria-label="Clear search"
+                aria-label={t("clearSearch")}
                 className={`transition-colors ${
                   isDarkMode
                     ? "text-white/70 hover:text-white"
@@ -280,7 +281,7 @@ function SearchPanel({
             type="submit"
             className={`inline-flex items-center justify-center gap-2.5 rounded-[50px] bg-[#37B478] px-4 py-2 font-['Gotham'] text-lg ${greenButtonTextColor} transition-all duration-200 hover:scale-[1.03] hover:bg-[#22C55E] active:scale-95 active:bg-[#16A34A]`}
           >
-            Search
+            {t("search")}
           </button>
         </form>
 
@@ -297,7 +298,7 @@ function SearchPanel({
                   : "border-black/10 bg-black/5"
               }`}
             >
-              <div>No results found for:</div>
+              <div>{t("noResults")}</div>
               <div className={isDarkMode ? "text-white" : "text-black"}>
                 "{searchQuery}"
               </div>

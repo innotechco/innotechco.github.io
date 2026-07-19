@@ -1,18 +1,9 @@
-import automotivePage from "../../content/en/industries/automotive.json";
-import energyAndMaterialsPage from "../../content/en/industries/energy-and-materials.json";
-import healthPage from "../../content/en/industries/health.json";
-import highTechPage from "../../content/en/industries/high-tech.json";
-import metalsAndMiningPage from "../../content/en/industries/metals-and-mining.json";
+import {localizedModule} from "../../i18n/locale";
 import {industryConfig} from "../../config/industries.config";
 import {fetchJsonFromApi, mergeArrayById, mergeRecord} from "./utils";
 
-const industryContent = {
-  automotive: automotivePage,
-  "energy-and-materials": energyAndMaterialsPage,
-  health: healthPage,
-  "high-tech": highTechPage,
-  "metals-and-mining": metalsAndMiningPage,
-};
+const modules = import.meta.glob("../../content/{en,ar,tr}/industries/*.json", {eager: true, import: "default"});
+const industryContent = Object.fromEntries(["automotive", "energy-and-materials", "health", "high-tech", "metals-and-mining"].map((slug) => [slug, localizedModule(modules, `../../content/en/industries/${slug}.json`)]));
 
 function buildIndustryPage(content, config = {}) {
   return {

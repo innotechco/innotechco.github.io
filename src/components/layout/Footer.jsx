@@ -42,7 +42,7 @@ const Footer = ({onContactClick, topSpacingClassName = ""}) => {
   const greenButtonTextColor = isDarkMode ? "text-black" : "text-white";
 
   return (
-    <section
+    <section dir="ltr"
       className={`relative w-full overflow-hidden ${topSpacingClassName} ${
         isLightMode ? "bg-white" : "bg-black"
       }`}

@@ -1,0 +1,133 @@
+{
+  "slug": "product-portfolio-management",
+  "title": "Toplantılar Kararların Yerini Aldığında Ürün Portföy Yönetimi Başarısız Olur",
+  "description": "Bir ürün yöneticisine, ekibinin geçen ay kaç tane net portföy kararı verdiğini sorun. Çoğu sessizleşiyor. Ancak aynı ekipler haftalık durum aramaları, iki haftada bir uyum toplantıları ve üç ayda bir portföy incelemeleri düzenliyor. Takvim dolu. Karar günlüğü boş.",
+  "introduction": [
+    "Bu yapısal bir başarısızlıktır: Ürün geliştirme iş akışları, karar tetikleyicileri değil, toplantı programları etrafında oluşturulur. Durum güncellemeleri stratejik kararların yerini alır. Uyum çağrıları açık iş hedeflerinin yerine geçer. Önceki gözden geçirmenin kararlı bir sonuç vermemesi nedeniyle inceleme oturumları birikiyor.",
+    "Çözüm, toplantıların sayısını azaltmak değil, toplantıya bağlı iş akışlarının açık karar noktalarıyla değiştirilmesidir: birisinin ikili çağrı yaptığı ve portföyü ileri taşıdığı belirli anlar. Gerçek ürün portföyü yönetimi böyle görünür."
+  ],
+  "date": "June 1, 2026",
+  "readTime": "2 dakika okuma",
+  "category": "Ürün Geliştirme",
+  "heroAssetKey": "müşteriEcosystemInsights",
+  "contentAssetKey": "aiAgentFirst",
+  "seo": {
+    "title": "Toplantılar Kararların Yerini Aldığında Ürün Portföy Yönetimi Başarısız Olur",
+    "description": "Toplantı odaklı ürün portföyü yönetimi neden başarısız oluyor ve karar kapıları stratejik odağı nasıl yeniden sağlıyor?",
+    "keywords": [
+      "ürün portföy yönetimi",
+      "ürün geliştirme",
+      "karar kapıları"
+    ]
+  },
+  "sections": [
+    {
+      "type": "text",
+      "id": "alignment-meetings",
+      "heading": "Ürün yönetimi ekipleri neden uyum toplantıları planlamaya devam ediyor?",
+      "paragraphs": [
+        "Ürün yönetimi ekipleri, sürece olan güven azaldığında toplantılar ekler."
+      ],
+      "bullets": [
+        "Stratejik hedefler belirsiz olduğunda ekipler daha fazla uyum çağrısı planlar.",
+        "Portföy kararları ertelendiğinde ekipler, hala çözülmemiş olanları takip etmek için inceleme oturumları ekler."
+      ],
+      "afterBullets": [
+        "Her yeni toplantı, gerçek portföy kararlarının gerektirdiği veri toplama süresini kısaltır. Takımlar kararlı olmadan meşgul olurlar. Ürün portföyü sürükleniyor ve tek bir toplantı sorumlu olmuyor."
+      ],
+      "subsections": [
+        {
+          "heading": "Ürün keşfi karar kapıları olmayan bir fikir ürettiğinde",
+          "paragraphs": [
+            "Ürün keşfetme oturumları ürün fikirleri üretir. Belirtilen amaçları budur. Sonunda yapılandırılmış bir karar kapısı olmadığında fikir hacmi, portföyün işleyemeyeceği bir birikim oluşturur.",
+            "Tipik bir keşif sprinti 15 ila 30 kavram üretir. Bir puanlama çerçevesi olmadan çoğu, aylarca bekleme kuyruğuna giriyor, yatırım almadan veya resmi olarak kapatılmadan görünürlüğü tüketiyor. Portföy yöneticileri, her fikrin doğrulanmış bir iş hedefine mi yoksa test edilmemiş bir pazar varsayımına mı hitap ettiğinin izini kaybeder.",
+            "Discovery'nin başlangıçta daha uzun bir birikime değil, çıktıda bir geçide ihtiyacı var. Kapı, her konsepti iki sonuçtan birine dönüştürür: fondan prototipe veya belgeleyip kapatacak şekilde. Bu ikili dosya olmadan ekipler, kaynakların nereye tahsis edileceği konusunda net portföy kararları veremez."
+          ]
+        },
+        {
+          "heading": "Durum toplantıları portföy kararlarını nasıl engeller?",
+          "paragraphs": [
+            "Durum güncellemeleri ne olduğunu bildirir. Bundan sonra ne olacağı konusunda taahhüt vermezler. 10 kişilik bir ürün ekibinde 60 dakikalık haftalık güncelleme, yılda 500 saatten fazla zaman harcar. Çıktı, kuruluşun harekete geçebileceği bir portföy kararı değil, paylaşılan farkındalıktır.",
+            "Ürün portföyü yönetim sistemlerinde tanımlanmış karar aşamalarının bulunmaması nedeniyle durum toplantıları devam etmektedir. Kimse bir sonraki kararın ne olacağını bilmediğinde, herkes varsayılan olarak ilerlemeyi paylaşmaya başlar. İlerleme paylaşımı, madde olmadan uyum hissi yaratır."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "governance-stalls",
+      "heading": "Bozuk portföy yönetimi stratejik portföyü nasıl durdurur?",
+      "tocLabel": "Bozuk portföy yönetimi stratejik portföyü nasıl durdurur?",
+      "paragraphs": [
+        "Portföy yönetimi kimin neye, ne zaman ve hangi veriyi kullanacağına karar vereceğini belirler. Çoğu kuruluşun ismen yönetim organları vardır ancak uygulamada karar mimarisinden yoksundur.",
+        "Yönetişim toplantıları olup bitenleri gözden geçirir. Karar kapıları bundan sonra ne olacağını yönlendirir. Stratejik portföyde açık karar noktaları olmadığında iki bileşik başarısızlık ortaya çıkar:",
+        "Ürün portföyü yönetim sistemlerinde tanımlanmış karar aşamalarının bulunmaması nedeniyle durum toplantıları devam etmektedir. Kimse bir sonraki kararın ne olacağını bilemediğinde, herkes varsayılan olarak ilerlemeyi paylaşmaya başlar. İlerleme paylaşımı, madde olmadan uyum hissi yaratır."
+      ],
+      "subsections": [
+        {
+          "heading": "#1: The missing kill decision in product portfolio management",
+          "paragraphs": [
+            "Çoğu ürün portföyü yönetim sistemi, neyin aktif olduğunu izler. Neyin durdurulması gerektiğini çok az kişi takip ediyor. Orijinal geri ödeme süresi tahminlerinin üzerinden 18 ay geçmiş bir proje hâlâ mühendislik saatlerini, ürün yöneticisinin dikkatini ve bütçeyi tüketiyor. Portfolyo inceleme konuşmalarında yer kaplar. Ekiplerin bu kapasiteyi daha yüksek iş değeri olan stratejik hedeflere tahsis etmesini engeller.",
+            "Öldürme kararı, portföy yönetiminde en yüksek değerli hamlelerden biridir. Yanlış hizalanmış bir projeyi durdurmak, mevcut stratejik hedeflere karşı net stratejik sonuçlar sağlayan bir projeyi finanse etmek için kaynakları serbest bırakır. Öldürme kapısı olmadığında portföyler çıkmaza giren yatırımları biriktirir. Mevcut ürünler sınırlı kaynakları tüketmeye devam ederken ekipler, yatırımları yeni fırsatlara göre önceliklendiremez."
+          ]
+        },
+        {
+          "heading": "#2: Resource drift and the cost of deferred choices",
+          "paragraphs": [
+            "Bir portföyde açık karar noktaları bulunmadığında, kaynaklar en yüksek değere sahip girişime değil, en çok sesini duyuran paydaşa doğru sürüklenir.",
+            "Ekipler, mühendislik kapasitesini hangi stratejik girişimlerin en net iş sonuçlarını taşıdığına göre değil, yükseltme modellerine göre tahsis eder. Kaynak tahsisi kararlarına eklenen karar tetikleyicileri olmayan bir ürün yol haritası, kısıtlanmamış bir listedir. Portföy yöneticileri, döngünün ortasında, geliştirme kapasitesinin büyük bir kısmının mevcut stratejik yön ve iş hedefleriyle uyumsuz projelere dayandığını keşfederler.",
+            "Bu kapasitenin yeniden tahsis edilmesi veriye dayalı bir karar değil, siyasi bir süreç gerektirir. Rekabetçi pazarlarda faaliyet gösteren kuruluşlar, stratejik hedefleri kaçırdıklarını keşfetmeden önce, tam bir geliştirme döngüsü boyunca yanlış hizalanmış projelere fon sağlamayı göze alamazlar."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "id": "five-gate-framework",
+      "heading": "Stratejik portföy yönetimi için 5 kapılı karar çerçevesi",
+      "content": "Ürün geliştirme iş akışınızı toplantı odaklıdan karar odaklıya dönüştürün. Her kapı, yinelenen toplantı türünü tanımlanmış bir karar etkinliğiyle değiştirir: Bir sahip. Veri gereksinimlerini temizleyin. Bir ikili çıktı.",
+      "assetKey": "aiAgentFirst",
+      "caption": "Beş kapı, ürün geliştirme döngüsü başına beş kararlı portföy kararı üretir. Çoğu ürün ekibi, döngü başına sıfır ila bir resmi karar noktasıyla çalışır. Proje sürüklenmesi, bütçe aşımları ve kaçırılan stratejik hedefler bu boşluğu doldurur."
+    },
+    {
+      "type": "text",
+      "id": "manager-needs",
+      "heading": "Portföy yönetimi kararlarını yürütmek için bir ürün yöneticisinin neye ihtiyacı vardır?",
+      "showInBody": false
+    },
+    {
+      "type": "text",
+      "id": "decision-triggers",
+      "heading": "Takvimler yerine karar tetikleyicileri kullanarak yatırımlara nasıl öncelik verilir?",
+      "paragraphs": [
+        "Karar kapısı disiplininin en güçlü örnekleri, toplantılar boşluğu doldurmadan önce ürün geliştirme sürecine karar verme yapıları inşa eden kuruluşlardan gelmektedir. Bir kapı, bir sonraki yinelenen toplantı takvimde göründüğünde değil, gerekli kanıt hazır olduğunda açılır."
+      ],
+      "subheading": "P&G, öldürme kriterlerini ürün portföyünde nasıl uyguluyor?",
+      "after": [
+        "P&G'nin aşamalı geçiş süreci, her bir portföy inceleme noktasına belgelenmiş sonlandırma kriterleri atar. Kapı incelemeleri belirli veriler gerektirir: minimum pazar büyüklüğü, gerekli marj profili, pazara açılma stratejisi hazırlığı ve tanımlanmış bir stratejik kategoriye uyum.",
+        "Herhangi bir aşamada iki veya daha fazla kriterin eksik olduğu bir ürün, batık maliyete bakılmaksızın öldürülür veya yeniden yönlendirilir. Bu mimari, ürün portföyünün ölçülebilir iş hedeflerine sahip projelere odaklanmasını sağlar. Ayrıca ekiplerin mevcut iş stratejisine artık uymayan ürünler geliştirmeye devam etmesi durumunda ortaya çıkan kaynak tüketimini de önler.",
+        "Kriterler, herhangi bir kapı tetiklenmeden önce portföy planlama zamanında belirlenir. Bu ayrım siyasi müzakereyi öldürme kararından uzaklaştırıyor. Bir proje kapıya ulaştığında, inceleme bir tartışma değil, bir veri karşılaştırmasıdır."
+      ]
+    },
+    {
+      "type": "text",
+      "id": "itonics-growth",
+      "heading": "ITONICS sürdürülebilir büyüme için ürün portföyü yönetimini nasıl sağlar?",
+      "showInBody": false
+    }
+  ],
+  "related": [
+    {
+      "title": "Toplantılar Kararların Yerini Aldığında Ürün Portföy Yönetimi Başarısız Olur",
+      "description": "Yapay zeka ve biyoteknolojiyi birleştiren icatlar önemli ölçüde büyüdü..."
+    },
+    {
+      "title": "Toplantılar Kararların Yerini Aldığında Ürün Portföy Yönetimi Başarısız Olur",
+      "description": "Yapay zeka ve biyoteknolojiyi birleştiren icatlar önemli ölçüde büyüdü..."
+    },
+    {
+      "title": "Toplantılar Kararların Yerini Aldığında Ürün Portföy Yönetimi Başarısız Olur",
+      "description": "Yapay zeka ve biyoteknolojiyi birleştiren icatlar önemli ölçüde büyüdü..."
+    }
+  ]
+}
