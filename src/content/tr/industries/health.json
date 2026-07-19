@@ -1,0 +1,88 @@
+{
+  "slug": "sağlık",
+  "seo": {
+    "title": "Sağlık ve Yaşam Bilimleri",
+    "description": "Sağlayıcılar, yaşam bilimleri firmaları, biyoteknoloji şirketleri ve tıbbi yenilik merkezleri için dijital zeka aracılığıyla sağlık hizmetlerini yeniden keşfedin."
+  },
+  "sectionLabels": {
+    "acceleration": "HIZLANMA",
+    "ecosystem": "DEĞİŞİM EKOSİSTEMİMİZDEKİ SON DURUM",
+    "ecosystemAction": "Özel içerik"
+  },
+  "hero": {
+    "breadcrumbLabel": "Sağlık ve Yaşam Bilimleri",
+    "title": "Sağlık ve Yaşam Bilimleri",
+    "description": "Dijital Zekayla Sağlık Hizmetlerini Yeniden Keşfedin. INNOTECH olarak sağlık hizmeti sağlayıcılarının, yaşam bilimleri firmalarının, biyoteknoloji şirketlerinin ve tıbbi inovasyon merkezlerinin bu dönüşümü stratejik netlik ve ölçülebilir etkiyle yönlendirmelerine yardımcı oluyoruz."
+  },
+  "accelerationParagraphs": [
+    "Sağlık hizmeti sağlayıcıları ve yaşam bilimleri kuruluşları, parçalanmış klinik altyapılarla, artan teşhis karmaşıklığıyla ve artan operasyonel verimsizliklerle karşı karşıyadır. Gelişen dijital sağlık sistemleri, entegre Sağlık Hizmeti İnovasyon çerçeveleri, yapay zeka sağlık hizmetleri orkestrasyonu ve kurumsal düzeyde klinik zeka mimarileri gerektirir.",
+    "Entegre sağlık çözümlerimiz, sağlık ekosistemleri, hassas ilaç girişimleri, teşhis operasyonları ve gelişmiş klinik altyapılarda sürdürülebilir büyümeyi desteklemek için inovasyon yönetimi, tıbbi teknoloji analitiği, yapay zeka otomasyonu ve dijital dönüşüm çerçevelerini birleştirir."
+  ],
+  "capabilities": [
+    {
+      "title": "Klinik Zeka (Optimizasyon)",
+      "description": "Dağıtılmış klinik operasyonları birleştirmek, teşhis hızlandırmayı güçlendirmek, bakım koordinasyonunu optimize etmek ve kurumsal hastane ekosistemleri genelinde sağlık hizmetleri altyapısını modernleştirmek için yapay zeka sağlık sistemlerini kullanıyoruz."
+    },
+    {
+      "title": "Teşhis Analitiği (Tahmin)",
+      "description": "Sağlık hizmetleri analitiği çerçevelerimiz, öngörücü teşhisleri, operasyonel görünürlüğü ve hassas ilaç dağıtımını geliştirmek için biyomedikal veri kümelerini, teşhis hatlarını ve klinik zeka modellerini işler."
+    },
+    {
+      "title": "Biyomedikal Strateji (Araştırma)",
+      "description": "Stratejik sağlık hizmetlerinde dönüşümü desteklemek ve yüksek etkili klinik ticarileştirme yollarını hızlandırmak için biyoteknoloji ekosistemlerini, translasyonel tıp trendlerini ve biyomedikal yenilik altyapılarını değerlendiriyoruz."
+    },
+    {
+      "title": "MedTech Sistemleri (Altyapı)",
+      "description": "Bağlantılı MedTech ortamlarını, bulut özellikli bakım sistemlerini, birlikte çalışabilen platformları ve ölçeklenebilir sağlık hizmetleri operasyonları modernizasyon çerçevelerini entegre eden dijital sağlık hizmetleri mimarileri tasarlıyoruz."
+    },
+    {
+      "title": "Yapay Zeka Otomasyonu (Geliştirme)",
+      "description": "INFINITY platformu, yapay zeka destekli sağlık hizmetleri karar ortamlarını hızlandırmak için klinik dokümantasyon iş akışlarını, biyomedikal istihbarat haritalamasını, teşhis araştırma sentezini ve sağlık hizmetleri operasyon raporlamasını otomatikleştirir."
+    }
+  ],
+  "liveInsights": {
+    "title": "CANLI SAĞLIK ANALİZLERİ",
+    "alt": "Canlı sağlık öngörüleri",
+    "cards": [
+      {
+        "id": "health-featured",
+        "title": "Yapay Zeka Odaklı İlaç Keşfi",
+        "date": "June 4, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "Yapay zeka ve biyoteknolojiyi birleştiren icatlar son yıllarda önemli ölçüde arttı. Spesifik olarak, bu alandaki buluşların sayısı son 20 yılda on iki kat artarak diğer tüm teknoloji sektörlerindeki genel büyüme oranını çok geride bıraktı."
+      },
+      {
+        "id": "health-top",
+        "compactTight": true,
+        "title": "Ses Verilerini Kullanarak Ruh Sağlığı Teşhisleri",
+        "date": "November 15, 2025",
+        "readTime": "2 dakika okuma",
+        "description": "Yapay Zeka Destekli Ses Analizi, potansiyel zihinsel sağlık koşullarını belirlemek amacıyla ses kalıplarını, konuşma ritmini ve hasta etkileşimlerindeki tonu analiz etmek için yapay zekayı kullanır."
+      },
+      {
+        "id": "health-bottom",
+        "title": "Probiyotikler",
+        "date": "June 4, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "Çin, Probiyotik sektöründe her yıl kayda değer miktarda patentin tescil edildiğini göstererek, patent tescillerinde dünya çapında lider konumdadır."
+      }
+    ]
+  },
+  "ecosystemCards": [
+    {
+      "id": "statista",
+      "title": "Kordon Kanı Teknolojisi",
+      "subtitle": "Telif hakkıyla korunan ortak çalışmaya dayalı veriler"
+    },
+    {
+      "id": "itonikler",
+      "title": "Rapor: 2026'da İlaç Ar-Ge'si",
+      "subtitle": "İlaç Ar-Ge operasyonunuzu modernleştirmeye yönelik pratik eylemler"
+    },
+    {
+      "id": "trex",
+      "title": "Şişeleme ve Paketleme",
+      "subtitle": "Bölgesel en iyi uygulamalar"
+    }
+  ]
+}

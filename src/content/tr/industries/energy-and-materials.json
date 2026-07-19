@@ -1,0 +1,87 @@
+{
+  "slug": "energy-and-materials",
+  "seo": {
+    "title": "Petrol, Gaz ve Petrokimya",
+    "description": "Sistemik inovasyon yönetimi, tahmine dayalı teknoloji analitiği ve eyleme dönüştürülebilir pazar analitiği aracılığıyla yukarı yönlü dijital dönüşümü destekleyin."
+  },
+  "sectionLabels": {
+    "acceleration": "HIZLANMA",
+    "ecosystem": "DEĞİŞİM EKOSİSTEMİMİZDEKİ SON DURUM",
+    "ecosystemAction": "Özel içerik"
+  },
+  "hero": {
+    "breadcrumbLabel": "Petrol, Gaz ve Petrokimya",
+    "title": "Petrol, Gaz ve Petrokimya",
+    "description": "Yukarı yönlü dijital dönüşümü destekleyin. Enerji altyapısını ölçeklendirmek ve değişken küresel varlık geçişlerini yönlendirmek için sistemik İnovasyon Yönetimi, tahmine dayalı Teknoloji Analitiği ve eyleme dönüştürülebilir Pazar Analitiği aracılığıyla petrol, gaz ve petrokimya operasyonlarını optimize ediyoruz."
+  },
+  "accelerationParagraphs": [
+    "Karmaşık petrol sahaları ve aşağı yöndeki petrokimya tesisleri ciddi altyapı darboğazlarıyla karşı karşıyadır. Bu operasyonel engellerin aşılması, derin mühendislik araştırmalarını doğrudan değer zinciri dönüşümüne bağlayan birleşik İnovasyon Yönetimi gerektirir.",
+    "Ekstraksiyon marjlarını maksimuma çıkarın. Toplam geliri 4 milyar doların üzerinde olan kurumsal enerji şirketlerine danışmanlık yapan uzman danışmanlık ağımız, rafineri sonrası varlıkları optimize etmek, tedarik lojistiğini kolaylaştırmak ve pazar liderliğini güvence altına almak için gelişmiş veri mimarileri kullanır."
+  ],
+  "capabilities": [
+    {
+      "title": "İnovasyon Yönetimi (Optimizasyon)",
+      "description": "ISO 56002 protokollerine uygun olarak, inovasyon yönetimi süreçlerini kolaylaştırmak, ortaya çıkan trendleri takip etmek ve fikirleri hızlandırmak için ITONICS ve BRIGHTIDEA gibi önde gelen çözümleri kullanıyoruz."
+    },
+    {
+      "title": "Teknoloji Analitiği (Akıllı Öngörü)",
+      "description": "Titiz metodolojimiz, karmaşık sondaj patentlerini haritalandırır, rafineri teknolojisini karşılaştırır ve idari ticari konumlandırmayı hızlandırmak için ABD, AB ve GCC bölgelerinde doğrulanmış teknik keşif sağlar."
+    },
+    {
+      "title": "Pazar Araştırması (Peyzaj Dinamiği)",
+      "description": "Çok büyük gerçek veri kümelerini analiz ediyoruz, bölgesel altyapı merkezlerini değerlendiriyoruz ve alt işletmecilerin varlık kârlılığını en üst düzeye çıkarmak için güvenilir fizibilite çalışmaları tasarlıyoruz."
+    },
+    {
+      "title": "Dönüşüm Mimarileri (Radar)",
+      "description": "Yukarı yöndeki olgunluk değerlendirmelerinden boru hattı yol haritası tasarımına ve son derece şeffaf, güvenli endüstriyel kurumsal mimariler oluşturarak bulut sistemi uygulamasına kadar tüm dijital yolculuğunuzu tasarlıyoruz."
+    },
+    {
+      "title": "Yapay Zeka Otomasyonu (Peyzaj Dinamiği)",
+      "description": "INFINITY platformu, kritik sondaj dokümantasyonunu otomatik hale getirir, karmaşık jeoloji araştırmalarını yapılandırır ve hızlı, veri destekli operasyonel kararlar almak için teknik varlık sentezini hızlandırır."
+    }
+  ],
+  "liveInsights": {
+    "title": "CANLI ENERJİ ANLAYIŞLARI",
+    "alt": "Canlı enerji içgörüleri",
+    "cards": [
+      {
+        "id": "energy-featured",
+        "title": "Doğal Gazdan Hidrojen Üretimi",
+        "date": "November 15, 2025",
+        "readTime": "2 dakika okuma",
+        "description": "Doğal Gazdan Hidrojen Üretimi Patent Görünümü Raporu, 2010'dan 2026'ya kadar önemli küresel yetki alanlarında toplanan 3.006 patenti kapsayan derinlemesine bir patent ortamı analizi sunuyor."
+      },
+      {
+        "id": "energy-top",
+        "title": "Polipropilen (PP)",
+        "date": "November 15, 2025",
+        "readTime": "2 dakika okuma",
+        "description": "Bu pazar analizi, küresel satış hacmini, piyasa değerlemelerini ve büyüme tahminlerini inceleyerek polipropilendeki ticari eğilimleri derinlemesine inceler."
+      },
+      {
+        "id": "energy-bottom",
+        "title": "Gaz Rezervasyonuyla Zirve Tıraş",
+        "date": "November 15, 2025",
+        "readTime": "2 dakika okuma",
+        "description": "Daewoo Shipbuilding & Marine ve Samsung Heavy Industries (Güney Kore), ExxonMobil (ABD) gibi önemli endüstri oyuncuları ve CNOOC gibi Çinli şirketler, alanın ilerlemesinde çok önemli rol oynuyor."
+      }
+    ]
+  },
+  "ecosystemCards": [
+    {
+      "id": "itonikler",
+      "title": "Yapay Zeka Aracıları İnovasyon Ekosistemini Nasıl Artırır?",
+      "subtitle": "Siemens ve ITONICS ortak çalışması"
+    },
+    {
+      "id": "parlak fikir",
+      "title": "GE Açık Yenilikten Yararlanıyor",
+      "subtitle": "Bir BRIGHTIDEA başarı öyküsü"
+    },
+    {
+      "id": "idc",
+      "title": "Ekipman Temini ve Satış Sonrası Destek",
+      "subtitle": "IDC'nin müşterilerini nasıl desteklediğini keşfedin"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useRef, useState} from "react";
+import {t} from "../../i18n/ui";
 
 function ResponsiveCarousel({
   ariaLabel,
@@ -160,7 +161,7 @@ function ResponsiveCarousel({
           type="button"
           className={buttonClassName}
           onClick={() => move(-1)}
-          aria-label="Previous card"
+          aria-label={t("previousCard")}
         >
           <span aria-hidden="true" className="text-2xl leading-none">
             ‹
@@ -176,7 +177,7 @@ function ResponsiveCarousel({
                 activeIndex === index ? "w-8 bg-[#37B478]" : "w-3 bg-[#37B478]/35"
               }`}
               onClick={() => scrollToIndex(index)}
-              aria-label={`Go to card ${index + 1}`}
+              aria-label={`${t("goToCard")} ${index + 1}`}
             />
           ))}
         </div>
@@ -185,7 +186,7 @@ function ResponsiveCarousel({
           type="button"
           className={buttonClassName}
           onClick={() => move(1)}
-          aria-label="Next card"
+          aria-label={t("nextCard")}
         >
           <span aria-hidden="true" className="text-2xl leading-none">
             ›

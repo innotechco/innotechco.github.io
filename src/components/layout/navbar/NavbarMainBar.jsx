@@ -7,6 +7,7 @@ import Vector from "../../../assets/icons/Vector.svg";
 import Logo from "../../../assets/logos/NavbarInnoTech.svg";
 import {routes} from "../../../routes";
 import {languageOptions} from "../navData";
+import {t} from "../../../i18n/ui";
 
 function Divider({isDarkMode}) {
   return (
@@ -35,7 +36,7 @@ function NavbarMainBar({
   const textColor = isDarkMode ? "text-white" : "text-black";
 
   return (
-    <div className="flex h-14 items-center px-4 min-[1400px]:h-[73px] min-[1400px]:px-8">
+    <div dir="ltr" className="flex h-14 items-center px-4 min-[1400px]:h-[73px] min-[1400px]:px-8">
       <div className="flex shrink-0 items-center">
         <Link to={routes.home}>
           <img
@@ -47,13 +48,13 @@ function NavbarMainBar({
       </div>
 
       <div className="flex flex-1 justify-center">
-        <div className="hidden items-center gap-4 lg:flex xl:gap-8 min-[1500px]:gap-10">
+        <div className="nav-links hidden items-center gap-4 lg:flex xl:gap-8 min-[1500px]:gap-10">
           <Link
             to={routes.whoWeAre}
             onClick={closePanels}
             className={`whitespace-nowrap font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
           >
-            Who we are
+            {t("whoWeAre")}
           </Link>
 
           <button
@@ -63,7 +64,7 @@ function NavbarMainBar({
             aria-expanded={isDropdownOpen}
           >
             <span className="relative inline-flex pb-0">
-              What we do
+              {t("whatWeDo")}
               <span
                 className={`absolute bottom-0 left-0 h-px w-full rounded-full bg-[#37B478] transition-transform duration-300 ease-out ${
                   isDropdownOpen
@@ -86,7 +87,7 @@ function NavbarMainBar({
             onClick={closePanels}
             className={`whitespace-nowrap font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
           >
-            What we think
+            {t("whatWeThink")}
           </Link>
 
           <Link
@@ -94,7 +95,7 @@ function NavbarMainBar({
             onClick={closePanels}
             className={`whitespace-nowrap font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
           >
-            INLEARN Academy
+            {t("academy")}
           </Link>
 
           <a
@@ -103,7 +104,7 @@ function NavbarMainBar({
             rel="noreferrer"
             className={`whitespace-nowrap font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
           >
-            INSIGHT Store
+            {t("store")}
           </a>
         </div>
       </div>
@@ -141,8 +142,8 @@ function NavbarMainBar({
               <button
                 key={language.label}
                 type="button"
-                onClick={() => handleLanguageSelect(language.label)}
-                className={`flex w-full items-center justify-between px-4 py-3 text-left font-['Gotham'] text-sm transition-colors ${
+                onClick={() => handleLanguageSelect(language.code)}
+                className={`flex w-full items-center justify-between px-4 py-3 text-start font-['Gotham'] text-sm transition-colors ${
                   isDarkMode
                     ? "text-white hover:bg-white/10"
                     : "text-black hover:bg-black/5"
@@ -162,7 +163,7 @@ function NavbarMainBar({
         <button
           type="button"
           onClick={toggleTheme}
-          aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+          aria-label={isDarkMode ? t("lightMode") : t("darkMode")}
           className="group flex size-11 items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 min-[1400px]:size-[44px]"
         >
           <img
@@ -181,7 +182,7 @@ function NavbarMainBar({
         <button
           type="button"
           onClick={handleSearchToggle}
-          aria-label="Open search"
+          aria-label={t("openSearch")}
           className="flex size-11 items-center justify-center transition-all duration-200"
         >
           <img
@@ -196,7 +197,7 @@ function NavbarMainBar({
         <button
           type="button"
           onClick={handleMobileMenuToggle}
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-label={isMobileMenuOpen ? t("closeMenu") : t("openMenu")}
           aria-expanded={isMobileMenuOpen}
           className={`flex min-h-11 items-center gap-2 rounded-full border px-3 font-['Gotham'] text-sm transition-colors lg:hidden ${
             isDarkMode
@@ -204,7 +205,7 @@ function NavbarMainBar({
               : "border-black/15 text-black hover:bg-black/5"
           }`}
         >
-          <span>Menu</span>
+          <span>{t("menu")}</span>
           <span className="relative h-4 w-4">
             <span
               className={`absolute left-0 top-[3px] h-0.5 w-4 rounded-full bg-current transition-transform ${

@@ -4,7 +4,9 @@ import {Routes, Route, useLocation} from "react-router-dom";
 import {ThemeProvider} from "./context/ThemeContext";
 
 import ContactModal from "./components/modals/ContactModal";
-import contactActionContent from "./content/en/contact-actions/contact-actions.json";
+import {useLanguage} from "./context/useLanguage";
+import {localizedModule} from "./i18n/locale";
+import {t} from "./i18n/ui";
 import {ContactActionsProvider} from "./context/ContactActionsProvider";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
@@ -103,7 +105,7 @@ function LoadingMark({fullScreen = true}) {
       <div className="flex items-center gap-3 font-['Gotham'] text-sm uppercase tracking-[0.18em] text-white/70">
         <span className="size-3 animate-pulse rounded-full bg-[#37B478]" />
         <span className="font-['Gotham'] text-sm uppercase tracking-[0.18em] text-white/70">
-          Loading
+          {t("loading")}
         </span>
       </div>
     </div>
@@ -238,7 +240,7 @@ function SearchHighlightManager() {
       String(value)
         .toLowerCase()
         .replace(/&/g, " and ")
-        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/[^\p{L}\p{N}]+/gu, " ")
         .replace(/\s+/g, " ")
         .trim();
 
@@ -296,6 +298,7 @@ function SearchHighlightManager() {
 }
 
 function App() {
+  const {isLanguageLoading} = useLanguage();
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [contactActionId, setContactActionId] = useState("default");
   const {pathname} = useLocation();
@@ -319,8 +322,8 @@ function App() {
   };
 
   const activeContactContent = {
-    ...contactActionContent.default,
-    ...(contactActionContent[contactActionId] ?? {}),
+    ...localizedModule(import.meta.glob("./content/{en,ar,tr}/contact-actions/contact-actions.json", {eager: true, import: "default"}), "./content/en/contact-actions/contact-actions.json").default,
+    ...(localizedModule(import.meta.glob("./content/{en,ar,tr}/contact-actions/contact-actions.json", {eager: true, import: "default"}), "./content/en/contact-actions/contact-actions.json")[contactActionId] ?? {}),
   };
 
   return (
@@ -330,6 +333,7 @@ function App() {
         <ScrollToTop />
         <SearchHighlightManager />
         <RouteLoadingOverlay />
+        {isLanguageLoading ? <div className="fixed inset-0 z-[250] bg-[#050505]"><LoadingMark fullScreen={false} /></div> : null}
         <Navbar />
         <Suspense fallback={<RouteFallback />}>
           <Routes>

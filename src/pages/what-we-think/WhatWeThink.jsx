@@ -7,6 +7,7 @@ import {cards} from "./data";
 import {usePointerGlow} from "../../hooks/usePointerGlow";
 import ReadMoreLink from "../../components/ui/ReadMoreLink";
 import {routes} from "../../routes";
+import {t} from "../../i18n/ui";
 
 function ArticleCopy({card, metaLayout = "stack", isDarkMode}) {
   return (
@@ -128,7 +129,7 @@ function WhatWeThink() {
 
       <header className="what-we-think-heading">
         <div />
-        <h1>What we think</h1>
+        <h1>{t("whatWeThink")}</h1>
       </header>
 
       <section className="what-we-think-grid" aria-label="What we think">

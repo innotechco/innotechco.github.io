@@ -7,6 +7,7 @@ import ArchiveLightDecoration from "../../../assets/images/excludes/archives/Who
 import ArchiveDarkDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeMiddle.webp";
 import {archiveItems, archivePage} from "./data";
 import {usePointerGlow} from "../../../hooks/usePointerGlow";
+import {t} from "../../../i18n/ui";
 
 const INITIAL_CARD_COUNT = 9;
 const LOAD_MORE_DELAY = 700;
@@ -112,7 +113,7 @@ function Archives() {
           <label className="archive-search" aria-label="Search archive cards">
             <img loading="lazy" src={SearchIcon} alt="" aria-hidden="true" />
             <input type="search" value={query} onChange={handleSearch} placeholder={archivePage.searchPlaceholder} />
-            <span>Search</span>
+            <span>{t("searchLabel")}</span>
           </label>
         </header>
 
@@ -139,7 +140,7 @@ function Archives() {
             {visibleItems.map((item) => <ArchiveCard key={item.id} item={item} isDarkMode={isDarkMode} />)}
           </section>
         ) : (
-          <p className="archive-empty">No insights match your search.</p>
+          <p className="archive-empty">{t("noInsights")}</p>
         )}
 
         {canShowMore && (

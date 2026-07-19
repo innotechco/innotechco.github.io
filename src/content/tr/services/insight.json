@@ -1,0 +1,156 @@
+{
+  "slug": "içgörü",
+  "partners": [
+    {
+      "id": "sharjah",
+      "name": "Şarja"
+    },
+    {
+      "id": "itonikler",
+      "name": "İTONİK"
+    },
+    {
+      "id": "statista",
+      "name": "İSTATİSTİK"
+    },
+    {
+      "id": "gartner",
+      "name": "GARTNER"
+    },
+    {
+      "id": "lensorg",
+      "name": "LENS.ORG"
+    }
+  ],
+  "showcase": {
+    "title": "ÖRNEKLER VE DENEMELER",
+    "cards": [
+      {
+        "id": "insight-lpg",
+        "buttonLabel": "Ücretsiz Erişim",
+        "title": "Sıvılaştırılmış Petrol Gazı",
+        "subtitle": "Pazar Araştırması Raporu"
+      },
+      {
+        "id": "insight-monitoring",
+        "buttonLabel": "Ücretsiz Erişim",
+        "title": "Durum İzleme",
+        "subtitle": "Bilim Ortamı Raporu"
+      },
+      {
+        "id": "insight-inspection",
+        "buttonLabel": "Ücretsiz Erişim",
+        "title": "Görsel Denetim Sistemi",
+        "subtitle": "Patent Görünümü Raporu"
+      }
+    ]
+  },
+  "road": {
+    "title": "METODOLOJİMİZ",
+    "items": [
+      {
+        "title": "1. Adım",
+        "subtitle": "Sözlük ve Sorgular Oluşturun",
+        "bold": true
+      },
+      {
+        "title": "2. Adım",
+        "subtitle": "NLP / AI Algoritmasını Uygula",
+        "bold": true
+      },
+      {
+        "title": "3. Adım",
+        "subtitle": "Veri Temizleme ve Analizi",
+        "bold": true
+      },
+      {
+        "title": "4. Adım",
+        "subtitle": "Uzman Kontrolü",
+        "bold": true
+      },
+      {
+        "title": "Adım 5",
+        "subtitle": "Veri Çıkarma ve Raporlama",
+        "bold": true
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": 150,
+      "prefix": "+",
+      "label": "Teslim Edilen Raporlar"
+    },
+    {
+      "value": 50,
+      "prefix": "+",
+      "label": "Ömür Boyu Müşteriler"
+    },
+    {
+      "value": 5,
+      "prefix": "+",
+      "label": "Uzun Vadeli Ortaklar"
+    },
+    {
+      "value": 30,
+      "prefix": "+",
+      "label": "Gösterge tabloları\nteslim edildi"
+    }
+  ],
+  "capabilities": [
+    {
+      "title": "Otomotiv",
+      "description": "Otomotiv üreticileri, mobilite platformları, akıllı araçlar ve ulaşım ekosistemleri için pazar ve teknoloji zekası. Geleceğe hazır kararlara rehberlik etmek için bağlantılı mobilite, elektrifikasyon, otomasyon ve dijital mühendislik trendlerini analiz ediyoruz."
+    },
+    {
+      "title": "Petrol, Gaz ve Petrokimya",
+      "description": "Petrol, gaz, petrokimya, kamu hizmetleri ve düşük karbonlu enerji sistemleri için yapay zeka destekli zeka. Yatırım zamanlamasını, portföy odağını ve endüstriyel büyüme kararlarını yönlendirmek için teknolojileri, pazarları, patentleri ve işletme sinyallerini haritalandırıyoruz."
+    },
+    {
+      "title": "Sağlık ve Yaşam Bilimleri",
+      "description": "Sağlık sistemleri, MedTech, biyoteknoloji, teşhis ve hassas tıp için veriye dayalı içgörü. Klinik ve biyomedikal ekosistemlerdeki bilimsel eğilimleri, teknolojik boşlukları, pazar değişimlerini ve inovasyon fırsatlarını belirliyoruz."
+    },
+    {
+      "title": "Yüksek Teknoloji ve Yapay Zeka",
+      "description": "Şirketler düşük karbonlu çözümler ve yenilenebilir enerji sunmak için doğru stratejileri, yatırımları ve işletme modellerini ararken, enerji gelişimi bugün tamamen yeni bir anlam kazanıyor. BCG'nin yaklaşımı, şirketleri katılımdan elde edilen değeri en üst düzeye çıkaracak şekilde donatıyor."
+    },
+    {
+      "title": "Çelik ve Madencilik",
+      "description": "Çelik, madencilik, alümina ve maden endüstrileri için stratejik analizler. Karmaşık endüstriyel ekosistemlerde teknoloji yol haritasını, karbon öngörüsünü, operasyonel zekayı ve inovasyon yönetimini destekliyoruz."
+    }
+  ],
+  "actions": [
+    {
+      "title": "Patent Görünümü Raporları",
+      "subtitle": "(PLR)",
+      "paragraphs": [
+        "Patent Görünümü Raporları, patent verileri aracılığıyla teknolojilerin mevcut durumunu ve gelecekteki yönünü haritalandırır. Ar-Ge, fikri mülkiyet stratejisi ve inovasyon yol haritalarına rehberlik edebilecek öncü şirketleri, önemli patent ailelerini, baskın teknoloji kümelerini, temel buluşları ve beyaz alanları belirlerler.",
+        "Liderlik ekiplerinin hangi teknolojilerin ortaya çıktığını, hangi alanların kalabalıklaştığını ve savunulabilir fırsatların nerede mevcut olduğunu anlamalarına yardımcı olurlar. Çıktı, patent başvuru stratejisini, teknoloji araştırmasını, rakipleri izlemeyi ve ortak yap-satın al kararlarını destekler.",
+        "Hangi teknolojilerin önemli olduğu, onlara kimin sahip olduğu, boşlukların nerede olduğu ve inovasyon portföyümüzü nasıl konumlandırmamız gerektiği gibi sorular ortaya çıktığında PLR'yi kullanın."
+      ]
+    },
+    {
+      "title": "Pazar Araştırması Raporları",
+      "subtitle": "(MRR)",
+      "paragraphs": [
+        "Pazar Araştırması Raporları pazar büyüklüğü, büyüme senaryoları, müşteri segmentleri, değer zinciri yapısı, rekabet ortamı, politika sinyalleri ve benimseme engelleri hakkında kanıta dayalı bir görünüm sağlar. Parçalanmış piyasa verilerini net ticari yöne çeviriyorlar.",
+        "Büyük yatırım, ürün lansmanı, kapasite genişletme veya ortaklık kararlarından önce takımların nerede oynayacaklarına, nasıl kazanacaklarına, hangi segmentlere öncelik vereceklerine, ne zaman gireceklerine ve hangi risklerden korunacaklarına karar vermelerine yardımcı olurlar.",
+        "Fırsatın ne kadar büyük olduğu, talebin nereye doğru hareket ettiği, kiminle rekabet ettiğimiz ve hangi ticari stratejinin en güçlü büyüme yolunu oluşturduğu gibi sorular olduğunda MRR'yi kullanın."
+      ]
+    },
+    {
+      "title": "Bilim Ortamı Raporları",
+      "subtitle": "(SLR)",
+      "paragraphs": [
+        "Bilim Ortamı Raporları, hakemli literatür ve bilimometrik analiz yoluyla bilimsel etkinliklerin haritasını çıkarır. Alanın büyümesini, tematik kümeleri, hızla yükselen araştırma konularını, önemli yazarları, kurumları, fon sağlayıcıları, dergileri ve işbirliği ağlarını tanımlarlar.",
+        "Ar-Ge ve strateji ekiplerinin, pazar belirginleşmeden önce bilimin nereye doğru ilerlediğini anlamalarına yardımcı olurlar. Çıktı, araştırma önceliklendirmesini, pilot tasarımı, ortaklık araştırmasını, yayın stratejisini ve uzun vadeli teknoloji yol haritasını destekler.",
+        "Hangi araştırma alanlarının hız kazandığı, bilgi boşluklarının olduğu, alana kimin öncülük ettiği ve gelecekteki inovasyon bahislerini hangi bilimsel sinyallerin şekillendirmesi gerektiği sorusu olduğunda SLR'yi kullanın."
+      ]
+    }
+  ],
+  "sectionLabels": {
+    "capabilities": "ENDÜSTRİYEL KAPSAMLAR",
+    "actions": "İÇGÖRÜ ÜÇLÜSÜ",
+    "partnersServiceName": "ANLAYIŞ"
+  }
+}

@@ -5,8 +5,8 @@ function PartnerIntroSection({assets, content, isDarkMode}) {
     <section className="px-6 py-8 md:px-16 xl:px-[120px]">
       <div className="mx-auto grid w-full max-w-[1320px] grid-cols-1 items-stretch gap-8 overflow-visible p-4 xl:grid-cols-[minmax(0,1fr)_minmax(520px,600px)]">
         <div className="flex min-w-0 flex-col items-start justify-between gap-4 self-stretch p-0 md:p-6">
-          <div className="relative inline-flex w-full items-start gap-3.5">
-            <span className="absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
+          <div className="locale-section-title relative inline-flex w-full items-start gap-3.5">
+            <span className="locale-section-title-circle absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
             <h2
               className={`relative z-10 max-w-full whitespace-pre-line break-words font-['Gotham'] text-3xl font-bold leading-tight sm:text-4xl ${textColor}`}
             >

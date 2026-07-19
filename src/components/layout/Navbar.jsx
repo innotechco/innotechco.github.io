@@ -1,32 +1,26 @@
 import {useEffect, useMemo, useRef, useState} from "react";
-
 import {useTheme} from "../../context/useTheme";
+import {useLanguage} from "../../context/useLanguage";
 import {searchItems} from "./navData";
 import NavbarMainBar from "./navbar/NavbarMainBar";
-import {
-  MobileMenuPanel,
-  SearchPanel,
-  WhatWeDoPanel,
-} from "./navbar/NavbarPanels";
-
+import {MobileMenuPanel, SearchPanel, WhatWeDoPanel} from "./navbar/NavbarPanels";
 function Navbar() {
   const {isDarkMode, toggleTheme} = useTheme();
+  const {locale, changeLanguage} = useLanguage();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("En");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navRef = useRef(null);
   const inputRef = useRef(null);
-
   const searchResults = useMemo(() => {
     const normalizeSearchValue = (value) =>
       String(value)
         .trim()
         .toLowerCase()
         .replace(/&/g, " and ")
-        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/[^\p{L}\p{N}]+/gu, " ")
         .replace(/\s+/g, " ")
         .trim();
     const normalizedQuery = searchQuery
@@ -122,7 +116,7 @@ function Navbar() {
     isDropdownOpen || isLanguageOpen || isSearchOpen || isMobileMenuOpen;
 
   return (
-    <nav ref={navRef} className="fixed inset-x-0 top-0 z-50 pt-3 min-[1400px]:pt-6">
+    <nav dir="ltr" ref={navRef} className="fixed inset-x-0 top-0 z-50 pt-3 min-[1400px]:pt-6">
       <div className="mx-auto w-[min(1265px,calc(100%-24px))] min-[1400px]:w-[min(1265px,calc(100%-32px))]">
         <div
           className={`border shadow-2xl transition-all duration-500 ease-in-out ${
@@ -143,7 +137,7 @@ function Navbar() {
             closePanels={closePanels}
             handleDropdownToggle={() => togglePanel("dropdown")}
             handleLanguageSelect={(language) => {
-              setSelectedLanguage(language);
+              changeLanguage(language);
               setIsLanguageOpen(false);
             }}
             handleLanguageToggle={() => togglePanel("language")}
@@ -153,7 +147,7 @@ function Navbar() {
             isDropdownOpen={isDropdownOpen}
             isLanguageOpen={isLanguageOpen}
             isMobileMenuOpen={isMobileMenuOpen}
-            selectedLanguage={selectedLanguage}
+            selectedLanguage={locale.toUpperCase()}
             toggleTheme={toggleTheme}
           />
           <WhatWeDoPanel

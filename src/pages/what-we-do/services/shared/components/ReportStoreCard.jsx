@@ -5,6 +5,7 @@ import marketResearchLogo from "../../../../../assets/icons/MarketResearch.svg";
 import randMLogo from "../../../../../assets/icons/RandM.svg";
 import {useTheme} from "../../../../../context/useTheme";
 import {routes} from "../../../../../routes";
+import {t} from "../../../../../i18n/ui";
 
 function ReportStoreCard() {
   const {isDarkMode} = useTheme();
@@ -23,7 +24,7 @@ function ReportStoreCard() {
       >
         <div className="order-2 flex flex-1 flex-col items-start justify-start gap-8 self-stretch p-6 sm:p-10 lg:order-1 xl:p-16">
           <h2 className={`font-['Gotham'] text-[clamp(2rem,6vw,2.25rem)] font-bold ${cardText}`}>
-            Report Store
+            {t("reportStore")}
           </h2>
           <div className="flex w-full items-start gap-3">
             <span className="mt-8 size-2.5 shrink-0 rounded-full bg-[#37B478]" />
@@ -38,7 +39,7 @@ function ReportStoreCard() {
             type="button"
             className={`inline-flex min-h-11 items-center justify-center rounded-[50px] bg-[#22C55E] px-6 py-3.5 font-['Gotham'] text-xl font-bold sm:text-2xl ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
           >
-            Go to store
+            {t("goToStore")}
           </button>
 
           <div className="mt-auto grid w-full max-w-[360px] grid-cols-2 items-center justify-center gap-4 sm:gap-6">

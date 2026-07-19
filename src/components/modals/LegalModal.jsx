@@ -2,69 +2,10 @@ import {useCallback, useEffect, useState} from "react";
 
 import {useTheme} from "../../context/useTheme";
 import AnimatedModalShell from "./AnimatedModalShell";
+import {localizedModule} from "../../i18n/locale";
+import {t} from "../../i18n/ui";
 
-const legalContent = {
-  cookies: {
-    title: "Cookie Policy",
-    intro:
-      "INNOTECH uses essential cookies to keep the website reliable and may use analytics-style signals to understand how visitors move through our pages.",
-    sections: [
-      {
-        heading: "What cookies support",
-        body: "Cookies can help remember basic preferences, protect forms from abuse, measure page performance, and improve content such as insight pages, partner pages, and report navigation.",
-      },
-      {
-        heading: "Your control",
-        body: "You can limit or delete cookies through your browser settings. Some essential site features, including contact forms and navigation preferences, may work less smoothly when cookies are disabled.",
-      },
-    ],
-  },
-  gdpr: {
-    title: "GDPR",
-    intro:
-      "INNOTECH treats personal data as limited business contact information and handles it with transparency, purpose limitation, and reasonable security controls.",
-    sections: [
-      {
-        heading: "Data we may process",
-        body: "When you contact us, request a demo, ask about reports, or interact with partner-related services, we may process your name, business email, company, region, industry, and message.",
-      },
-      {
-        heading: "Rights and requests",
-        body: "Depending on your location, you may request access, correction, deletion, restriction, portability, or objection to processing. You can contact us at Info@innotech.global for privacy-related requests.",
-      },
-    ],
-  },
-  privacy: {
-    title: "Privacy Policy",
-    intro:
-      "This policy explains how INNOTECH uses information submitted through the website to respond to business requests and improve our services.",
-    sections: [
-      {
-        heading: "How information is used",
-        body: "We use submitted information to respond to inquiries, prepare meetings, provide service or report information, improve website experience, and maintain business records where required.",
-      },
-      {
-        heading: "Sharing and retention",
-        body: "We do not sell personal information. We may share limited details with service providers or relevant partners when needed to answer a request. Data is retained only as long as needed for the related business purpose.",
-      },
-    ],
-  },
-  terms: {
-    title: "Terms of Use",
-    intro:
-      "By using this website, you agree to use INNOTECH content, services, and report information for lawful business evaluation purposes.",
-    sections: [
-      {
-        heading: "Website content",
-        body: "Articles, service descriptions, partner information, visuals, and report summaries are provided for general information and may change without notice.",
-      },
-      {
-        heading: "No misuse",
-        body: "You may not copy, scrape, disrupt, reverse engineer, or misuse the website, its forms, or its content. Commercial use of reports or materials may require a separate agreement.",
-      },
-    ],
-  },
-};
+const legalContent = localizedModule(import.meta.glob("../../content/{en,ar,tr}/legal.json", {eager: true, import: "default"}), "../../content/en/legal.json");
 
 function LegalModal({type, onClose}) {
   const {isDarkMode} = useTheme();
@@ -113,7 +54,7 @@ function LegalModal({type, onClose}) {
           <button
             type="button"
             onClick={handleClose}
-            aria-label="Close"
+            aria-label={t("close")}
             className="flex size-10 shrink-0 items-center justify-center rounded-full border border-[#37B478]/50 text-current transition hover:bg-[#37B478] hover:text-black active:scale-95"
           >
             <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">

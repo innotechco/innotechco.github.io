@@ -1,5 +1,4 @@
-import homePage from "../../content/en/pages/home/home.json";
-import inlearnAcademyPage from "../../content/en/pages/inlearn-academy.json";
+import {localizedModule} from "../../i18n/locale";
 import {homeConfig} from "../../config/home.config";
 import {mergeArrayById} from "./utils";
 
@@ -17,9 +16,11 @@ function buildHomePage(content, config = {}) {
 }
 
 export function getHomePage() {
-  return buildHomePage(homePage, homeConfig);
+  const modules = import.meta.glob("../../content/{en,ar,tr}/pages/**/*.json", {eager: true, import: "default"});
+  return buildHomePage(localizedModule(modules, "../../content/en/pages/home/home.json"), homeConfig);
 }
 
 export function getInlearnAcademyPage() {
-  return inlearnAcademyPage;
+  const modules = import.meta.glob("../../content/{en,ar,tr}/pages/**/*.json", {eager: true, import: "default"});
+  return localizedModule(modules, "../../content/en/pages/inlearn-academy.json");
 }

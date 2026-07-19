@@ -68,8 +68,8 @@ function LiveInsightsSection() {
     >
       <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-col gap-8">
         {/* TITLE section */}
-        <div className="relative inline-flex items-center gap-3.5">
-          <div className="absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
+        <div className="locale-section-title relative inline-flex items-center gap-3.5">
+          <div className="locale-section-title-circle absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
           <div
             className={`relative z-10 font-['Gotham'] text-[clamp(2rem,6vw,2.25rem)] font-bold transition-colors duration-500 ease-in-out ${
               isDarkMode ? "text-white" : "text-black"

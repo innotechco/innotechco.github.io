@@ -153,3 +153,135 @@ body {
   }
 }
 
+/* Locale safety: preserve the existing geometry while making Arabic native RTL. */
+html[dir="rtl"] body {
+  font-family: "Tahoma", "Arial", sans-serif;
+  text-align: right;
+}
+
+html[dir="rtl"] input,
+html[dir="rtl"] textarea,
+html[dir="rtl"] select {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] svg,
+html[dir="rtl"] img {
+  /* Images remain unmirrored by default; directional controls opt in below. */
+}
+
+html[dir="rtl"] [class*="items-start"] {
+  text-align: start;
+}
+
+html[dir="rtl"] [class*="text-left"] {
+  text-align: right !important;
+}
+
+html[dir="rtl"] [class*="origin-left"] {
+  transform-origin: right !important;
+}
+
+html[dir="rtl"] [class*="origin-right"] {
+  transform-origin: left !important;
+}
+
+html[lang="ar"] nav,
+html[lang="ar"] footer,
+html[lang="ar"] .footer-legal-links {
+  direction: ltr;
+}
+
+html[lang="ar"] nav .nav-links {
+  column-gap: clamp(1.5rem, 2.4vw, 2.75rem);
+}
+
+html[lang="ar"] .locale-section-title {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="ar"] .locale-section-title-circle {
+  left: auto !important;
+  right: -14px !important;
+}
+
+html[lang="ar"] .locale-section-title-circle-inset {
+  left: auto !important;
+  right: 17px !important;
+}
+
+html[lang="ar"] .locale-contact-title {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="ar"] .locale-contact-title-circle {
+  left: auto !important;
+  right: 0 !important;
+}
+
+html[lang="ar"] .locale-contact-title-text {
+  text-align: right;
+}
+
+html[lang="ar"] .locale-hero-title {
+  direction: rtl;
+}
+
+html[lang="ar"] .locale-hero-title-circle {
+  left: auto !important;
+  right: 0 !important;
+}
+
+html[lang="ar"] .locale-hero-title-dot {
+  left: auto !important;
+  right: 4px !important;
+}
+
+html[lang="ar"] .locale-hero-title-text {
+  left: auto !important;
+  right: 22px !important;
+  text-align: right;
+}
+
+@media (min-width: 640px) {
+  html[lang="ar"] .locale-hero-title-text {
+    right: 25px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  html[lang="ar"] .locale-hero-title-text {
+    right: 27px !important;
+  }
+}
+
+html[dir="rtl"] [aria-label*="Previous"],
+html[dir="rtl"] [aria-label*="Next"],
+html[dir="rtl"] [aria-label*="السابق"],
+html[dir="rtl"] [aria-label*="التالي"] {
+  transform: scaleX(-1);
+}
+
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] p,
+html[lang="ar"] li,
+html[lang="ar"] button,
+html[lang="ar"] a,
+html[lang="tr"] h1,
+html[lang="tr"] h2,
+html[lang="tr"] h3,
+html[lang="tr"] h4,
+html[lang="tr"] p,
+html[lang="tr"] li,
+html[lang="tr"] button,
+html[lang="tr"] a {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+

@@ -1,0 +1,73 @@
+{
+  "slug": "idc",
+  "name": "IDC",
+  "variant": "varsayılan",
+  "hero": {
+    "tagline": "Uluslararası Kalkınma Şirketi LLC",
+    "buttonLabel": "Toplantı Ayırt"
+  },
+  "intro": {
+    "title": "Müşteri beklentilerini aşan çözümler",
+    "body": "IDC Tech, endüstri odaklı dijital dönüşüm sağlamak için Abu Dabi pazar bilgisini, köklü enerji sektörü ilişkilerini ve küresel teknoloji iş ortağı ağını birleştiriyor. Yetenekleri arasında dijital petrol sahaları, üretim sistemi optimizasyonu, endüstriyel IoT, dijital ikizler, yapay zeka, veri analitiği, otomasyon, telekom ve altyapı entegrasyonu yer alıyor. Danışmanlık firmaları, yazılım sağlayıcıları, uygulama uzmanları ve sistem entegratörleriyle birlikte çalışan IDC Tech, petrol ve gaz, enerji, kamu hizmetleri ve kamu kuruluşlarının yerel yürütme ve proje yönetimi desteğiyle karmaşık teknoloji programlarını uygulamaya koymasına yardımcı olur."
+  },
+  "stats": [
+    {
+      "id": "impact",
+      "value": "48",
+      "label": "Yıllar süren BAE pazarındaki varlığı."
+    },
+    {
+      "id": "experience",
+      "value": "+100",
+      "label": "Uluslararası ve ulusal ortaklar temsil edildi."
+    },
+    {
+      "id": "rank",
+      "value": "3",
+      "label": "Uzmanlaşmış iş bölümleri."
+    },
+    {
+      "id": "roi",
+      "value": "6",
+      "label": "Temel hizmet alanları teslim edildi."
+    }
+  ],
+  "tools": {
+    "title": "IDC Teknik Faaliyetleri",
+    "cards": [
+      {
+        "id": "İş Uygulamaları",
+        "icon": "archery",
+        "title": "İş Uygulamaları",
+        "description": "Karmaşık kurumsal ve operasyonel gereksinimlere yönelik entegre uygulamalar sunmak için özel yazılım, uygulama uzmanlığı ve küresel iş ortağı yeteneklerini birleştirir."
+      },
+      {
+        "id": "Teknik Uygulamalar",
+        "icon": "globe",
+        "title": "Teknik Uygulamalar",
+        "description": "Dijital ikizleri, simülasyon modellerini ve endüstriyel bağlantı çözümlerini kullanarak mühendislik iş akışlarını modernleştirir"
+      },
+      {
+        "id": "Endüstriyel Otomasyon",
+        "icon": "puzzle",
+        "title": "Endüstriyel Otomasyon",
+        "description": "Modernize edilmiş iş akışları ve otomasyon yoluyla üretim sistemlerini yeniden şekillendirerek operasyonel güvenliği, verimliliği, varlık performansını ve karlılığı artırır."
+      },
+      {
+        "id": "Dijital Çözümler",
+        "icon": "archery",
+        "title": "Dijital Çözümler",
+        "description": "Teknik operasyonları ve karar almayı dönüştürmek için yapay zeka, veri bilimi, makine öğrenimi, bulut, büyük veri ve endüstriyel IoT'yi uygular."
+      },
+      {
+        "id": "Altyapı ve Güvenlik",
+        "icon": "puzzle",
+        "title": "Altyapı ve Güvenlik",
+        "description": "Dayanıklı endüstriyel ortamlar için BT altyapısı uygulaması, yönetimi, bulut hizmetleri ve entegre BT ve OT güvenliği sunar."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

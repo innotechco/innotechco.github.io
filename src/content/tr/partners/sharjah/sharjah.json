@@ -1,0 +1,61 @@
+{
+  "slug": "sharjah",
+  "name": "Şarja",
+  "variant": "varsayılan",
+  "hero": {
+    "tagline": "Yenilikçileri Lansmana, Ölçeklendirmeye ve Liderliğe Güçlendirmek",
+    "buttonLabel": "Demo Rezervasyonu Yapın"
+  },
+  "intro": {
+    "title": "İnovasyon Ekosisteminde Stratejik Büyüme",
+    "body": "INNOTECH, SRTI Park ile olan işbirliğimiz sayesinde yeni kurulan girişimleri, KOBİ'leri ve inovasyon odaklı işletmeleri pazar hazırlığını, yatırım kararlarını ve inovasyon uygulamasını güçlendiren danışmanlık hizmetleriyle desteklemektedir. Rolümüz, Sharjah'ın önde gelen araştırma ve iş ekosistemlerinden birinde girişimcilik hırsını yapılandırılmış iş planlaması, kanıta dayalı zeka, teknoloji stratejisi ve pratik inovasyon yönetimi ile birleştirir."
+  },
+  "stats": [
+    {
+      "id": "impact",
+      "value": "+5",
+      "label": "Hizmet Paketleri"
+    },
+    {
+      "id": "experience",
+      "value": "6",
+      "label": "Endüstriler"
+    },
+    {
+      "id": "rank",
+      "value": "30%",
+      "label": "Müşteri Avantajı"
+    },
+    {
+      "id": "roi",
+      "value": "+10k",
+      "label": "Ekosistem Şirketleri"
+    }
+  ],
+  "tools": {
+    "title": "İnovasyon ve İş Geliştirme Yeteneklerimiz",
+    "cards": [
+      {
+        "id": "idea-box",
+        "icon": "archery",
+        "title": "Pazara Giriş İstihbaratı",
+        "description": "Şirketler kaynak ayırmadan önce belirsizliği azaltmak için pazar talebini, rakipleri, müşteri segmentlerini, ticari fizibiliteyi ve teknoloji trendlerini değerlendiriyoruz."
+      },
+      {
+        "id": "program",
+        "icon": "globe",
+        "title": "İşletme Kurulumunda Gezinme",
+        "description": "Biz müşterilere aktivite seçimi, lisanslama seçenekleri, dokümantasyon ve sevk koordinasyonu konularında rehberlik ederken SPAk da resmi kayıt ve tesis düzenlemelerini yönetir."
+      },
+      {
+        "id": "hackathon",
+        "icon": "puzzle",
+        "title": "Ekosistem ve Büyümenin Etkinleştirilmesi",
+        "description": "Kuruluşu ve büyümeyi hızlandırmak için işletmeleri SPAk'ın araştırma altyapısı, inovasyon programları, etkinlikleri, sektör ilişkileri ve yatırım ekosistemiyle buluşturuyoruz."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

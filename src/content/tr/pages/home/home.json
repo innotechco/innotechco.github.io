@@ -1,0 +1,126 @@
+{
+  "hero": {
+    "title": "Yapay Zeka Temsilcisi",
+    "description": "İşi geliştirmek için yıkıcı teknolojilerdeki gelişmelerden yararlanıyoruz.",
+    "linkLabel": "Devamını oku"
+  },
+  "ecosystemCards": [
+    {
+      "title": "BAŞLANGIÇ",
+      "subtitle": "INNOTECH TARAFINDAN",
+      "items": [
+        {
+          "label": "İnovasyon yönetim sistemi",
+          "description": "En son uluslararası standartlara dayalı ve ISO 56000'e uygun inovasyon yönetim sistemleri ve süreçlerinin tasarlanması ve uygulanması"
+        },
+        {
+          "label": "ISO 56000 Standardı:",
+          "description": "ISO 56000 standardını almaya yönelik inovasyon yönetiminde olgunluk ve hazırlığın değerlendirilmesi"
+        },
+        {
+          "label": "İTONİK:",
+          "description": "GARTNER'ın 5 yıldızlı Uçtan Uca yenilikçi işletim sistemleri (OS)"
+        },
+        {
+          "label": "PARLAK FİKİR:",
+          "labelWeight": "orta",
+          "description": "Dünyanın 1 numaralı fikir aracı ve inovasyon bulutu"
+        }
+      ]
+    },
+    {
+      "title": "SONSUZ",
+      "subtitle": "INNOTECH TARAFINDAN",
+      "items": [
+        {
+          "label": "Dijital ve Yapay Zeka Dönüşümü:",
+          "labelWeight": "orta",
+          "description": "Sezgiden veri odaklı zekaya geçiş ve dijital ve yapay zeka dönüşümü yoluyla verimliliğin ve yeniliğin artırılması."
+        },
+        {
+          "label": "Yapay Zeka Temsilcisi:",
+          "labelWeight": "orta",
+          "description": "Gerçek zamanlı pazar, hizmet ve üretim verilerini eyleme dönüştürülebilir operasyonel zekaya dönüştüren kuralcı dijital asistan."
+        }
+      ]
+    },
+    {
+      "title": "ANLAYIŞ",
+      "subtitle": "INNOTECH TARAFINDAN",
+      "items": [
+        {
+          "label": "Patent Görünümü Raporları:",
+          "description": "Yapay zeka destekli teknoloji ve patent verilerini kullanan pazar trendi analizi."
+        },
+        {
+          "label": "Pazar Araştırması Raporları:",
+          "description": "Gerçek küresel ve yerel verileri kullanan akıllı pazar araştırması."
+        },
+        {
+          "label": "Fırsat Çalışması:",
+          "description": "Kapsamlı ve ayrıntılı pazar araştırması, fizibilite çalışmaları (FS) ve iş planlaması (BP)."
+        }
+      ]
+    },
+    {
+      "title": "ÖĞRENİN",
+      "subtitle": "INNOTECH TARAFINDAN",
+      "items": [
+        {
+          "label": "3 Dakikalık Bilgiler:",
+          "description": "Ortaya çıkan trendler ve yenilikler hakkında kısa bilgiler."
+        },
+        {
+          "label": "Web seminerleri:",
+          "description": "İlgi çekici oturumlarda tüm sektörlere yönelik en son yeniliklere, araçlara ve trendlere odaklanıldı."
+        },
+        {
+          "label": "Atölyeler:",
+          "description": "Ölçülebilir mesleki gelişim için gerçek hayattaki vakaları ve en iyi uygulama araçlarını harmanlayan, yeni başlayanlardan endüstriyel profesyonellere kadar standartlaştırılmış çok dilli, çok platformlu bir müfredat."
+        }
+      ]
+    }
+  ],
+  "latestNews": {
+    "sectionTitle": "En son haberlerimiz",
+    "headline": "INNOTECH, Cleannconnect.ai ile bölgesel işbirliğini başlatıyor",
+    "date": "June 1, 2026",
+    "readTime": "2 dakika okuma",
+    "summary": "ADIPEC 2025'te kıvılcımlanan ortaklık, yapay zeka odaklı\nBölgesel tedarik zincirlerinde temiz teknoloji çözümleri, endüstriyel müşteriler için sürdürülebilirliği ve operasyonel verimliliği hızlandırıyor."
+  },
+  "liveInsights": {
+    "title": "CANLI ANALİZLER",
+    "ctaLabel": "Tüm analizleri okuyun",
+    "cards": [
+      {
+        "id": "home-health-drug-discovery",
+        "title": "Yapay Zeka Odaklı İlaç Keşfi",
+        "date": "June 1, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "Yapay zeka ve biyoteknolojiyi birleştiren icatlar son yıllarda önemli ölçüde arttı. Spesifik olarak, bu alandaki buluşların sayısı son 20 yılda on iki kat artarak diğer tüm teknoloji sektörlerindeki genel büyüme oranını çok geride bıraktı.",
+        "imageAlt": "Yapay Zeka Odaklı İlaç Keşfi"
+      },
+      {
+        "id": "home-hydrogen-natural-gas",
+        "title": "Hidrojen Üretimi\nDoğalgazdan",
+        "date": "June 1, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "Doğal Gazdan Hidrojen Üretimi Patent Görünümü Raporu, 2010'dan 2026'ya kadar önemli küresel yetki alanlarında toplanan 3.006 patenti kapsayan derinlemesine bir patent ortamı analizi sunuyor.",
+        "imageAlt": "Doğal Gazdan Hidrojen Üretimi"
+      },
+      {
+        "id": "home-smart-carbon",
+        "title": "Akıllı Karbon Teknolojisi",
+        "date": "June 1, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "INNOTECH, INCEPTION'ı, süreçleri, olgunluk değerlendirmelerini çalıştırmayı ve yapay zeka aracılarını gerçek iş akışlarına bağlamayı tanıttı.",
+        "imageAlt": "Akıllı Karbon Teknolojisi"
+      }
+    ]
+  },
+  "globalFootprint": {
+    "title": "KÜRESEL AYAK İZİMİZİ KEŞFEDİN",
+    "description": "Küresel ayak izimizi keşfedin ve ihtiyaçlarınızı en hızlı şekilde destekleyebilecek temsilcimizle doğrudan bağlantı kurun",
+    "imageAlt": "Orta Doğu Haritası"
+  }
+}

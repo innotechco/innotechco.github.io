@@ -34,9 +34,10 @@ function EcosystemSection() {
 
         <div className="mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8 min-[1400px]:px-35">
           <div className="mx-auto grid max-w-[900px] grid-cols-2 items-stretch gap-4 lg:max-w-none lg:grid-cols-4 lg:gap-5 min-[1400px]:flex min-[1400px]:items-stretch min-[1400px]:justify-between xl:mx-auto">
-            {ecosystemCards.map((card) => (
+            {ecosystemCards.map((card, index) => (
               <InnoCard
                 key={card.title}
+                iconKey={["INCEPTION", "INFINITY", "INSIGHT", "INLEARN"][index]}
                 title={card.title}
                 subtitle={card.subtitle}
                 items={card.items}

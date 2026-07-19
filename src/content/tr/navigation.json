@@ -1,0 +1,89 @@
+{
+  "searchItems": [
+    {
+      "title": "Biz kimiz",
+      "type": "Page"
+    },
+    {
+      "title": "ne yapıyoruz",
+      "type": "Page"
+    },
+    {
+      "title": "Ne düşünüyoruz",
+      "type": "Page"
+    },
+    {
+      "title": "INLEARN Akademi",
+      "type": "Page"
+    },
+    {
+      "title": "INSIGHT Mağazası",
+      "type": "Page"
+    },
+    {
+      "title": "İnovasyon ve Teknoloji Yönetimi",
+      "type": "Article"
+    },
+    {
+      "title": "Dijital Dönüşüm Raporu",
+      "type": "Report"
+    },
+    {
+      "title": "Pazar Analizi Raporu",
+      "type": "Report"
+    }
+  ],
+  "languageOptions": [
+    {
+      "label": "Tr",
+      "name": "İngilizce"
+    },
+    {
+      "label": "TR",
+      "name": "Türkiye"
+    },
+    {
+      "label": "Ar",
+      "name": "العربية"
+    }
+  ],
+  "serviceMenuItems": [
+    {
+      "id": "başlangıç",
+      "label": "BAŞLANGIÇ",
+      "description": "İnovasyon ve Teknoloji Yönetimi"
+    },
+    {
+      "id": "içgörü",
+      "label": "ANLAYIŞ",
+      "description": "Bilim, Teknoloji, İnovasyon ve Pazar Analizleri ve Raporları"
+    },
+    {
+      "id": "sonsuzluk",
+      "label": "SONSUZ",
+      "description": "Dijital ve Yapay Zeka Dönüşümü ve Endüstri 4.0"
+    }
+  ],
+  "industryMenuItems": [
+    {
+      "id": "energyAndMaterials",
+      "label": "Petrol, Gaz ve Petrokimya"
+    },
+    {
+      "id": "metalsAndMining",
+      "label": "Çelik ve Madencilik"
+    },
+    {
+      "id": "highTech",
+      "label": "Yüksek Teknoloji ve Yapay Zeka"
+    },
+    {
+      "id": "sağlık",
+      "label": "Sağlık ve Yaşam Bilimleri"
+    },
+    {
+      "id": "otomotiv",
+      "label": "Otomotiv"
+    }
+  ]
+}

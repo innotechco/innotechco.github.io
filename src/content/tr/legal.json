@@ -1,0 +1,58 @@
+{
+  "cookies": {
+    "title": "Çerez Politikası",
+    "intro": "INNOTECH, web sitesini güvenilir tutmak için temel çerezleri kullanır ve ziyaretçilerin sayfalarımızda nasıl hareket ettiğini anlamak için analitik tarzı sinyaller kullanabilir.",
+    "sections": [
+      {
+        "heading": "Hangi çerezler desteklenir",
+        "body": "Çerezler, temel tercihlerin hatırlanmasına, formların kötüye kullanıma karşı korunmasına, sayfa performansının ölçülmesine ve öngörü sayfaları, ortak sayfaları ve raporlarda gezinme gibi içeriklerin geliştirilmesine yardımcı olabilir."
+      },
+      {
+        "heading": "Sizin kontrolünüz",
+        "body": "Çerezleri tarayıcınızın ayarlarından sınırlayabilir veya silebilirsiniz. İletişim formları ve gezinme tercihleri ​​de dahil olmak üzere bazı temel site özellikleri, çerezler devre dışı bırakıldığında daha az sorunsuz çalışabilir."
+      }
+    ]
+  },
+  "gdpr": {
+    "title": "GDPR",
+    "intro": "INNOTECH, kişisel verileri sınırlı ticari iletişim bilgileri olarak ele alır ve bunları şeffaflık, amaç sınırlaması ve makul güvenlik kontrolleri ile kullanır.",
+    "sections": [
+      {
+        "heading": "İşleyebileceğimiz veriler",
+        "body": "Bizimle iletişime geçtiğinizde, bir demo talep ettiğinizde, raporlar hakkında soru sorduğunuzda veya iş ortaklarıyla ilgili hizmetlerle etkileşimde bulunduğunuzda adınızı, iş e-postanızı, şirketinizi, bölgenizi, sektörünüzü ve mesajınızı işleyebiliriz."
+      },
+      {
+        "heading": "Haklar ve talepler",
+        "body": "Bulunduğunuz yere bağlı olarak erişim, düzeltme, silme, kısıtlama, taşınabilirlik veya işlemeye itiraz talebinde bulunabilirsiniz. Gizlilikle ilgili talepleriniz için Info@innotech.global adresinden bizimle iletişime geçebilirsiniz."
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Gizlilik Politikası",
+    "intro": "Bu politika, INNOTECH'in iş taleplerine yanıt vermek ve hizmetlerimizi geliştirmek için web sitesi aracılığıyla gönderilen bilgileri nasıl kullandığını açıklamaktadır.",
+    "sections": [
+      {
+        "heading": "Bilgi nasıl kullanılır?",
+        "body": "Gönderilen bilgileri sorulara yanıt vermek, toplantılar hazırlamak, hizmet sağlamak veya bilgi raporlamak, web sitesi deneyimini geliştirmek ve gerektiğinde iş kayıtlarını tutmak için kullanırız."
+      },
+      {
+        "heading": "Paylaşma ve saklama",
+        "body": "Kişisel bilgileri satmıyoruz. Bir talebi yanıtlamak için gerektiğinde sınırlı ayrıntıları hizmet sağlayıcılarla veya ilgili ortaklarla paylaşabiliriz. Veriler yalnızca ilgili iş amacı için gerekli olduğu sürece saklanır."
+      }
+    ]
+  },
+  "terms": {
+    "title": "Kullanım Koşulları",
+    "intro": "Bu web sitesini kullanarak INNOTECH içeriğini, hizmetlerini ve rapor bilgilerini yasal iş değerlendirme amaçlarıyla kullanmayı kabul edersiniz.",
+    "sections": [
+      {
+        "heading": "Web sitesi içeriği",
+        "body": "Makaleler, hizmet açıklamaları, iş ortağı bilgileri, görseller ve rapor özetleri genel bilgilendirme amaçlıdır ve önceden haber verilmeksizin değiştirilebilir."
+      },
+      {
+        "heading": "Kötüye kullanım yok",
+        "body": "Web sitesini, formlarını veya içeriğini kopyalayamaz, kazıyamaz, bozamaz, tersine mühendislik yapamaz veya kötüye kullanamazsınız. Raporların veya materyallerin ticari kullanımı ayrı bir anlaşma gerektirebilir."
+      }
+    ]
+  }
+}

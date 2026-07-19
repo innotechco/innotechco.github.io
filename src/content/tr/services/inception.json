@@ -1,0 +1,133 @@
+{
+  "slug": "başlangıç",
+  "partners": [
+    {
+      "id": "itonikler",
+      "name": "İTONİK"
+    },
+    {
+      "id": "parlak fikir",
+      "name": "PARLAK FİKİR"
+    }
+  ],
+  "showcase": {
+    "title": "BAŞLANGIÇ SHOWROOM",
+    "cards": [
+      {
+        "id": "inception-maturity",
+        "buttonLabel": "Ücretsiz Teşhis",
+        "title": "İnovasyon Olgunluğu Anlık Görüntüsü",
+        "subtitle": "Değerlendirmeyi Çalıştır"
+      },
+      {
+        "id": "inception-pipeline",
+        "buttonLabel": "Akışı Gör",
+        "title": "Fikir Boru Hattı Simülasyonu",
+        "subtitle": "Fikir En İyi Uygulaması"
+      },
+      {
+        "id": "inception-dashboard",
+        "buttonLabel": "Denemeye Erişim",
+        "title": "Kontrol Paneli Önizlemesi",
+        "subtitle": "İnovasyon Girdilerini Organize Edin"
+      }
+    ]
+  },
+  "road": {
+    "title": "BAŞLANGIÇ Yolu",
+    "items": [
+      {
+        "title": "Modül 1",
+        "subtitle": "Olgunluk Değerlendirmesi"
+      },
+      {
+        "title": "Modül 2",
+        "subtitle": "Proses Tasarımı"
+      },
+      {
+        "title": "Modül 3",
+        "subtitle": "İnovasyon İşletim Sisteminin Etkinleştirilmesi"
+      },
+      {
+        "title": "Modül 4",
+        "subtitle": "Teknik İzleme"
+      },
+      {
+        "title": "Modül 5",
+        "subtitle": "İnovasyon Yönetim Sistemi"
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": 100,
+      "prefix": "+",
+      "label": "Teslim Edilen İnovasyon Projeleri"
+    },
+    {
+      "value": 95,
+      "prefix": "%",
+      "label": "Müşteri\nSüreç\nEvlat edinme"
+    },
+    {
+      "value": 2,
+      "prefix": "+",
+      "label": "Yazılım Çözümleri"
+    },
+    {
+      "value": 75,
+      "prefix": "+",
+      "label": "Aktif\nPortfolyolar\nYönetilen"
+    }
+  ],
+  "capabilities": [
+    {
+      "title": "Otomotiv",
+      "description": "Mobilite organizasyonlarını yapılandırılmış fikir yönetimi, teknoloji izleme, ürün inovasyon süreçleri ve portföy yönetimiyle destekliyoruz. INCEPTION, pazar sinyallerini, mühendislik fikirlerini, tedarikçi fırsatlarını ve dönüşüm önceliklerini yönetilen tek bir inovasyon akışında birleştirmeye yardımcı olur."
+    },
+    {
+      "title": "Petrol, Gaz ve Petrokimya",
+      "description": "Petrol, gaz, enerji, petrokimya ve malzeme şirketleri için inovasyon yönetim sistemleri tasarlıyoruz. INCEPTION, karmaşık endüstriyel ortamlarda fikir alımını, teknoloji yol haritalarını, süreç sahipliğini, portföy önceliklendirmesini ve ölçülebilir inovasyon KPI'larını yapılandırır."
+    },
+    {
+      "title": "Sağlık ve Yaşam Bilimleri",
+      "description": "Sağlık hizmetleri, biyoteknoloji, aşı ve teşhis kuruluşlarına Ar-Ge önceliklendirmesi, ticarileştirme iş akışları, inovasyon yönetimi ve kanıta dayalı proje değerlendirmesi konularında yardımcı oluyoruz. INCEPTION, bilimsel ekiplerin dağınık fırsatlardan yapılandırılmış inovasyon portföylerine geçmelerine yardımcı olur."
+    },
+    {
+      "title": "Yüksek Teknoloji ve Yapay Zeka",
+      "description": "Teknoloji, telekomünikasyon, yapay zeka ve dijital altyapı kuruluşlarının zayıf sinyaller, gelişen teknolojiler, iş modeli seçenekleri ve ürün geliştirme öncelikleri etrafında inovasyonu organize etmelerine yardımcı oluyoruz. BAŞLANGIÇ, hızlı değişimi yönetilen stratejik uygulamaya dönüştürür."
+    },
+    {
+      "title": "Çelik ve Madencilik",
+      "description": "Çelik, madencilik, alümina ve maden şirketlerini teknoloji ihtiyaçlarının belirlenmesi, inovasyon süreci tasarımı, teknoloji yol haritası, karbon öngörüsü ve portföy yönetimiyle geliştiriyoruz. INCEPTION, endüstriyel ekiplerin neyi inşa edeceklerine, benimseyeceklerine veya ölçeklendireceklerine öncelik vermelerine yardımcı olur."
+    }
+  ],
+  "actions": [
+    {
+      "title": "ISO 56000 Uyumluluğu",
+      "subtitle": "",
+      "paragraphs": [
+        "INCEPTION ile ilgili tüm hizmet ve ürünler Uluslararası İnovasyon Yönetimi Standardı (ISO 56000) ile uyumludur. INNOTECH'in ekosistemi, organizasyondaki inovasyon yönetiminin hazırlığının ve olgunluğunun değerlendirilmesi aşamasından süreçlerin formüle edilmesine, yazılımın uygulanmasına ve uygulanmasına kadar uzanır. Dünyanın en iyi firmalarıyla çok sayıda projeyi hayata geçirmek, INNOTECH'i Körfez İşbirliği Konseyi ve Türkiye'nin önde gelen şirketlerinde inovasyon ve teknolojinin geliştirilmesinde stratejik bir ortak haline getiriyor."
+      ]
+    },
+    {
+      "title": "Büyük Veri Analizinde Yapay Zekanın Kullanımı",
+      "subtitle": "",
+      "paragraphs": [
+        "INNOTECH, Körfez İşbirliği Konseyi ve Türkiye'nin önde gelen danışmanlık şirketlerinden biri olarak, yapay zeka aracılığıyla büyük veri analiz araçlarını kullanıyor. İnsan yeteneklerinin ötesindeki bu benzersiz yetenek, INNOTECH'in pazar, teknoloji, ürün ve inovasyondaki geçmiş, şimdiki ve gelecekteki trendleri doğru ve gerçek zamanlı olarak belirlemesine ve bunları Körfez İşbirliği Konseyi ve Türkiye'nin önde gelen şirketlerine sunmasına olanak tanıyor."
+      ]
+    },
+    {
+      "title": "Dünyada 5 Yıldızlı İnovasyon Yönetimi Yazılımlarının Uygulanması",
+      "subtitle": "",
+      "paragraphs": [
+        "INNOTECH, dünyanın en büyük inovasyon ve fikir yönetimi yazılım sağlayıcılarıyla iş birliği yaparak 2024 yılından bu yana Körfez İşbirliği Konseyi ve Türkiye bölgesinde küresel ve farklı bir hizmet sunmaktadır. ITONICS inovasyon yönetimi işletim sistemi ve BRIGHTIDEA inovasyon ve fikir yönetimi yazılımı, farklı ve üstün özellikleriyle Körfez İşbirliği Konseyi ve Türkiye'nin önde gelen şirketlerinde INNOTECH uzmanlarının desteğiyle hayata geçiriliyor."
+      ]
+    }
+  ],
+  "sectionLabels": {
+    "capabilities": "BAŞLANGIÇ NEREDE YAPILIYOR",
+    "actions": "NEDEN BAŞLANGIÇ",
+    "partnersServiceName": "BAŞLANGIÇ"
+  }
+}

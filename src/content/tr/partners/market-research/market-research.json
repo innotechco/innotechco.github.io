@@ -1,0 +1,61 @@
+{
+  "slug": "pazar araştırması",
+  "name": "Pazar Araştırması",
+  "variant": "varsayılan",
+  "hero": {
+    "tagline": "Küresel Karar Vericilere Teknoloji Zekası Sunmak",
+    "buttonLabel": "Raporları Keşfedin"
+  },
+  "intro": {
+    "title": "Stratejik İstihbarata Küresel Erişim",
+    "body": "INNOTECH, MarketResearch.com aracılığıyla yapay zeka destekli patent ortamını ve teknoloji istihbarat raporlarını dünya çapındaki karar vericilerin kullanımına sunuyor. Portföyümüz malzeme, üretim, enerji, yazılım, telekomünikasyon, yaşam bilimleri, tarım ve tüketici pazarlarını kapsamaktadır. Bu ilişki, uzman endüstriyel istihbaratı zamanında, kanıta dayalı stratejik yön arayan kuruluşlarla birleştirirken, araştırmamızın ticari kapsamını da genişletiyor."
+  },
+  "stats": [
+    {
+      "id": "listed-reports",
+      "value": "+50",
+      "label": "Listelenen Raporlar"
+    },
+    {
+      "id": "industries",
+      "value": "+10",
+      "label": "Endüstriler"
+    },
+    {
+      "id": "portfolio-additions",
+      "value": "+12",
+      "label": "Portföy Eklemeleri"
+    },
+    {
+      "id": "license-options",
+      "value": "+3",
+      "label": "CouLicense Seçenekleri"
+    }
+  ],
+  "tools": {
+    "title": "Listelenen İstihbarat Yeteneklerimiz",
+    "cards": [
+      {
+        "id": "patent-landscape-analysis",
+        "icon": "archery",
+        "title": "Patent Ortamı Analizi",
+        "description": "İnovasyon trendlerini, önde gelen başvuru sahiplerini, gelişen teknolojileri ve rekabetçi konumlandırmayı belirlemek için küresel patent faaliyetlerini analiz ediyoruz."
+      },
+      {
+        "id": "market-and-competitor-intelligence",
+        "icon": "globe",
+        "title": "Pazar ve Rakip İstihbaratı",
+        "description": "Pazar dinamiklerini, rakip stratejilerini ve büyüme fırsatlarını ortaya çıkarmak için patent, pazar, şirket ve sektör verilerini birleştiriyoruz."
+      },
+      {
+        "id": "technology-trend-mapping",
+        "icon": "puzzle",
+        "title": "Teknoloji Trend Haritalaması",
+        "description": "Endüstriler ve uygulama alanları genelinde teknolojilerin gelişimini, olgunluğunu, momentumunu ve ticari yönünü takip ediyoruz."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

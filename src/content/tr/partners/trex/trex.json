@@ -1,0 +1,73 @@
+{
+  "slug": "trex",
+  "name": "TREX",
+  "variant": "varsayılan",
+  "hero": {
+    "tagline": "Dijital Üretim, Verimlilik ve Üretim Takip Teknolojileri",
+    "buttonLabel": "Demo Rezervasyonu Yapın"
+  },
+  "intro": {
+    "title": "Üretimde 28 Yıllık Dijital Üretim Deneyimi",
+    "body": "trexDCAS, üretim alanındaki makineleri, operatörleri ve üretim sistemlerini, gerçek zamanlı üretim kontrolü için oluşturulmuş birleşik bir MES/MOM ortamında birbirine bağlar. Endüstriyel IoT mimarisi, OEE izleme, kağıtsız iş akışları, izlenebilirlik, ERP entegrasyonu, anormallik tespiti ve gelişmiş raporlama, parçalanmış üretim verilerini net operasyonel içgörüye dönüştürür. Birden fazla endüstri ve tesise dağıtılan trexDCAS, üreticilerin gizli kayıpları belirlemesine, kapasiteyi ve operatör verimliliğini artırmasına, hurda ve arıza sürelerini azaltmasına ve üretimi daha yüksek hız, görünürlük ve tutarlılıkla yönetmesine yardımcı olur."
+  },
+  "stats": [
+    {
+      "id": "impact",
+      "value": "+55 bin",
+      "label": "Operatör deneyimi desteklenir."
+    },
+    {
+      "id": "experience",
+      "value": "+350",
+      "label": "Üretim tesisleri hizmet verdi."
+    },
+    {
+      "id": "rank",
+      "value": "28",
+      "label": "Ulaşılan ülkeler."
+    },
+    {
+      "id": "roi",
+      "value": "+15",
+      "label": "Endüstriyel sektörler kapsanmaktadır."
+    }
+  ],
+  "tools": {
+    "title": "Dijital Üretim Çözümleri",
+    "cards": [
+      {
+        "id": "trexDCAS MES / ANNE",
+        "icon": "archery",
+        "title": "trexDCAS MES / ANNE",
+        "description": "trexDCAS MES/MOM üretimi izler, OEE'yi ölçer, iş emirlerini takip eder ve makineler, vardiyalar ve hatlardaki kayıpları ortaya çıkarır."
+      },
+      {
+        "id": "Endüstriyel IoT Platformu",
+        "icon": "globe",
+        "title": "Endüstriyel IoT Platformu",
+        "description": "Alleantia Insights, makine verilerini kontrol panellerine, KPI'lara, anormallik uyarılarına ve operasyonel kararlar için eyleme dönüştürülebilir performans öngörülerine dönüştürür."
+      },
+      {
+        "id": "Entegrasyon Yönetim Sistemi",
+        "icon": "puzzle",
+        "title": "Entegrasyon Yönetim Sistemi",
+        "description": "Entegrasyon Yönetim Sistemi, ERP ile üretim alanı sistemlerini birbirine bağlayarak üretim siparişlerini, onayları ve üretim verileri alışverişini otomatikleştirir."
+      },
+      {
+        "id": "Anormallik Değerlendirme Sistemi",
+        "icon": "archery",
+        "title": "Anormallik Değerlendirme Sistemi",
+        "description": "Anormallik Değerlendirme Sistemi arızalar, hurda, OEE ve operasyonel KPI'lardaki anormal eğilimleri tespit eder ve ardından sorumlu ekipleri uyarır."
+      },
+      {
+        "id": "Bakım Yönetim Sistemi",
+        "icon": "globe",
+        "title": "Bakım Yönetim Sistemi",
+        "description": "Bakım Yönetim Sistemi varlık bakımını planlar, onarım siparişlerini yönetir, maliyetleri takip eder ve yetkili personel için teknik talimatları saklar."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

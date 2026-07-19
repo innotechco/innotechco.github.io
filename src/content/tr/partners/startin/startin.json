@@ -1,0 +1,91 @@
+{
+  "slug": "startin",
+  "name": "BAŞLANGIÇ",
+  "variant": "varsayılan",
+  "hero": {
+    "tagline": "Dijital dönüşümü tasarlamak ve türünün en iyisi teknolojileri uygulamak",
+    "buttonLabel": "Toplantı Ayırt"
+  },
+  "intro": {
+    "title": "Oyunu Değiştiren Yaklaşım",
+    "body": "STARTIN Strateji, 15 yılı aşkın dönüşüm deneyimini sektör bilgisi, teknoloji farkındalığı ve kurumsal kültüre güçlü bir odaklanma ile birleştirir. Hizmetleri; dijital olgunluk değerlendirmesi, strateji geliştirme, teknoloji seçimi, dönüşüm yönetişimi, yönetilen hizmetler, bulut çözümleri ve özel yazılım geliştirmeyi kapsar. Yerleşik kurumsal platformlar ve gelişen teknolojiler üzerinde çalışan STARTIN, kuruluşların iş modellerini, süreçlerini, kişilerini ve teknolojisini pratik dönüşüm öncelikleri etrafında hizalamasına yardımcı olur. Dünya standartlarında yöntemleri sektöre özgü anlayışla birleştiren şirket, işletmelerin değişime uyum sağlamanın ötesine geçmesine ve değişime liderlik etmek için gereken yetenekleri geliştirmesine olanak tanıyor."
+  },
+  "stats": [
+    {
+      "id": "impact",
+      "value": "5",
+      "label": "Adlandırılmış teknoloji iş ortağı ekosistemleri."
+    },
+    {
+      "id": "experience",
+      "value": "+90",
+      "label": "Dönüşüm Projesi"
+    },
+    {
+      "id": "rank",
+      "value": "+60",
+      "label": "Memnun Müşteriler"
+    },
+    {
+      "id": "roi",
+      "value": "6",
+      "label": "Temel hizmet alanları teslim edildi."
+    }
+  ],
+  "tools": {
+    "title": "Yetenekler ve Hizmet Bileşenleri",
+    "cards": [
+      {
+        "id": "Bulut Hizmetleri",
+        "icon": "archery",
+        "title": "Bulut Hizmetleri",
+        "description": "Ölçeklenebilirliği, esnekliği, erişilebilirliği ve dijital hizmet sunumunu iyileştirmek için bulut teknolojilerinin benimsenmesini ve kullanılmasını destekler."
+      },
+      {
+        "id": "Dijital Olgunluk Değerlendirmesi",
+        "icon": "globe",
+        "title": "Dijital Olgunluk Değerlendirmesi",
+        "description": "TÜBİTAK DDX Olgunluk Modeli ile mevcut dijital yetenekleri değerlendiriyor ve dönüşüm için öncelikli alanları belirliyor."
+      },
+      {
+        "id": "Dijital Strateji Geliştirme",
+        "icon": "puzzle",
+        "title": "Dijital Strateji Geliştirme",
+        "description": "Teknoloji yatırımlarını, iş hedeflerini, işletim modellerini ve gelecekteki büyüme önceliklerini uyumlu hale getiren pratik dijital stratejiler oluşturur."
+      },
+      {
+        "id": "Teknoloji Farkındalığı",
+        "icon": "archery",
+        "title": "Teknoloji Farkındalığı",
+        "description": "İlgili yerleşik ve gelişmekte olan teknolojileri tanıtır, kuruluşların uygulamalarını, değerlerini ve iş sonuçlarını anlamalarına yardımcı olur."
+      },
+      {
+        "id": "Kurumsal Dönüşüm",
+        "icon": "globe",
+        "title": "Kurumsal Dönüşüm",
+        "description": "Sürdürülebilir organizasyonel değişimi desteklemek için insanlar, süreçler, iş modelleri, teknoloji ve kurum kültürü arasındaki dönüşümü koordine eder."
+      },
+      {
+        "id": "Teknoloji Seçimi",
+        "icon": "puzzle",
+        "title": "Teknoloji Seçimi",
+        "description": "Teknoloji alternatiflerini değerlendirerek iş gereksinimlerine, hazırlığa ve dönüşüm hedeflerine göre uygun kurumsal çözümleri konumlandırır."
+      },
+      {
+        "id": "Dönüşüm Yönetişimi",
+        "icon": "archery",
+        "title": "Dönüşüm Yönetişimi",
+        "description": "Kuruluş çapında dönüşüm girişimlerini, sorumluluklarını, önceliklerini ve uygulama faaliyetlerini koordine etmek için gereken yönetişimi yapılandırır."
+      },
+      {
+        "id": "Yönetilen Hizmetler",
+        "icon": "globe",
+        "title": "Yönetilen Hizmetler",
+        "description": "Kurumsal platformlar, dijital sistemler ve sürekli gelişen iş gereksinimleri için sürekli operasyonel ve teknik destek sağlar."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}

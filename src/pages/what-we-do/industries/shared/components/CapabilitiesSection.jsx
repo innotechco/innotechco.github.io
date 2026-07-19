@@ -3,6 +3,7 @@ import SectionTitle from "../../../../../components/ui/SectionTitle";
 import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
 import PlayToggleButton from "../../../../../components/ui/PlayToggleButton";
+import {t} from "../../../../../i18n/ui";
 
 function ServiceTitle({title}) {
   const match = title.match(/^(.*?)(\s*\([^)]*\))$/);
@@ -88,11 +89,11 @@ function CapabilitiesSection({services}) {
     >
       <div className="mx-auto flex w-full max-w-[1600px] flex-col items-start gap-8">
         <SectionTitle textClassName={isDarkMode ? "text-white" : "text-black"}>
-          OUR CAPABILITIES
+          {t("capabilities")}
         </SectionTitle>
 
         <div className="w-full lg:hidden">
-          <ResponsiveCarousel ariaLabel="OUR CAPABILITIES" isDarkMode={isDarkMode}>
+          <ResponsiveCarousel ariaLabel={t("capabilities")} isDarkMode={isDarkMode}>
             {services.map((service, index) => (
               <ServiceCard
                 key={`${service.title}-${index}`}

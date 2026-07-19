@@ -1,0 +1,155 @@
+{
+  "slug": "sonsuzluk",
+  "partners": [
+    {
+      "id": "trex",
+      "name": "TREX"
+    },
+    {
+      "id": "lean",
+      "name": "YALIN"
+    },
+    {
+      "id": "idc",
+      "name": "IDC"
+    },
+    {
+      "id": "allentia",
+      "name": "ALLEANTIA"
+    },
+    {
+      "id": "startin",
+      "name": "BAŞLANGIÇ"
+    }
+  ],
+  "showcase": {
+    "title": "MOTORU TEST EDİN",
+    "cards": [
+      {
+        "id": "infinity-readiness",
+        "buttonLabel": "Şimdi Deneyin",
+        "title": "Dijital Hazırlık Anlık Görüntüsü"
+      },
+      {
+        "id": "infinity-workflow",
+        "buttonLabel": "Demoyu Keşfedin",
+        "title": "Yapay Zeka İş Akışı Simülasyonu"
+      },
+      {
+        "id": "infinity-dashboard",
+        "buttonLabel": "Demoyu Görüntüle",
+        "title": "Dönüşüm Kontrol Paneli Önizlemesi"
+      }
+    ]
+  },
+  "road": {
+    "title": "Dijital Dönüşüm Sistemi",
+    "items": [
+      {
+        "title": "Modül 1",
+        "subtitle": "Olgunluk Değerlendirmesi",
+        "bold": true
+      },
+      {
+        "title": "Modül 2",
+        "subtitle": "Dijital Mimari",
+        "bold": true
+      },
+      {
+        "title": "Modül 3",
+        "subtitle": "Değer Tahmini",
+        "bold": true
+      },
+      {
+        "title": "Modül 4",
+        "subtitle": "Çözüm Tasarımı",
+        "bold": true
+      },
+      {
+        "title": "Modül 5",
+        "subtitle": "Uygulama",
+        "bold": true
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": 50,
+      "prefix": "+",
+      "label": "Dijital Dönüşüm Programları"
+    },
+    {
+      "value": 8,
+      "prefix": "",
+      "label": "Endüstriler",
+      "valueWeight": "kalın",
+      "labelWeight": "kalın"
+    },
+    {
+      "value": 40,
+      "prefix": "+",
+      "label": "Süreç Haritalama ve Gösterge Tabloları"
+    },
+    {
+      "value": 30,
+      "prefix": "+",
+      "label": "Yapay Zeka ve\nOtomasyon\nGirişimler"
+    }
+  ],
+  "capabilities": [
+    {
+      "title": "Otomotiv",
+      "description": "Otomotiv ve mobilite şirketlerini dijital inovasyon yol haritaları, teknoloji trend haritalama, yapay zeka kullanım senaryosu tanımlama, ürün ve iş modeli inovasyonu ve bağlantılı işletim modeli tasarımıyla destekliyoruz. INFINITY, parçalanmış mobilite girişimlerinin yönetilen dijital dönüşüm portföylerine dönüştürülmesine yardımcı olur."
+    },
+    {
+      "title": "Petrol, Gaz ve Petrokimya",
+      "description": "Petrol, gaz, enerji, petrokimya ve endüstriyel malzeme şirketleri için teknoloji ve inovasyon yönetimi sistemleri, dijital dönüşüm yol haritaları, yapay zeka stratejileri, teknoloji izleme süreçleri ve Ar-Ge yönetişim modelleri tasarlıyoruz. INFINITY stratejiyi, operasyonları ve dijital yürütmeyi birbirine bağlar."
+    },
+    {
+      "title": "Sağlık ve Yaşam Bilimleri",
+      "description": "Ticarileştirme iş akışları, Ar-Ge önceliklendirmesi, dijital inovasyon sistemleri, teknoloji transfer modelleri ve inovasyon portföy yönetimi ile biyoteknoloji, aşı, teşhis ve sağlık kuruluşlarını destekliyoruz. INFINITY, bilimsel kuruluşların bilgiyi, projeleri ve dönüşüm kararlarını yapılandırmasına yardımcı olur."
+    },
+    {
+      "title": "Yüksek Teknoloji ve Yapay Zeka",
+      "description": "Telekomünikasyon, yazılım, dijital altyapı ve teknoloji odaklı kuruluşların iş süreçlerini yeniden tasarlamasına, işten teknolojiye bağımlılıkları haritalandırmasına, yapay zeka destekli iş akışları oluşturmasına ve işletim modellerini optimize etmesine yardımcı oluyoruz. INFINITY dijital mimariyi, süreç zekasını ve dönüşüm yürütmeyi birbirine bağlar."
+    },
+    {
+      "title": "Çelik ve Madencilik",
+      "description": "Çelik, madencilik, alümina ve maden şirketlerini teknoloji yol haritası, teknoloji ihtiyaçlarının belirlenmesi, dijital olgunluk değerlendirmesi, karbon yönetimi öngörüsü, teknoloji izleme ve inovasyon yönetimi sistemleriyle destekliyoruz. INFINITY, endüstriyel ekiplerin yönetişim ve ölçülebilir önceliklerle dönüşümü ölçeklendirmesine yardımcı olur."
+    }
+  ],
+  "actions": [
+    {
+      "title": "Danışma",
+      "subtitle": "Dijital Dönüşüm Danışmanlığı",
+      "paragraphs": [
+        "Danışmanlık çalışmalarımız, kuruluşların dağınık dijital girişimlerden yapılandırılmış bir dönüşüm programına geçmelerine yardımcı olur. Mevcut işletim modelini değerlendiriyor, süreç boşluklarını belirliyor, işten teknolojiye olan bağımlılıkları haritalandırıyor ve stratejiyi yürütmeye bağlamak için gereken yol haritasını tanımlıyoruz.",
+        "Odak noktası teknoloji uğruna araçlar eklemek değil. Dijital dönüşümün manuel işleri azaltabileceği, karar almayı iyileştirebileceği, koordinasyonu güçlendirebileceği ve departmanlar ve iş birimleri arasında ölçülebilir operasyonel değer yaratabileceği noktaları açıklığa kavuşturuyoruz.",
+        "INFINITY, olgunluk değerlendirmesi, süreç yeniden tasarımı, yönetişim tanımı ve uygulama planlaması yoluyla liderlik ekiplerine açık, sıralı ve uygulamaya hazır, pratik bir dönüşüm yolu sunar."
+      ]
+    },
+    {
+      "title": "Yazılım",
+      "subtitle": "Dijital İşletim Sistemleri",
+      "paragraphs": [
+        "Yazılım çalışmalarımız dönüşüm stratejisini görünür, kullanılabilir sistemlere dönüştürüyor. Ekiplerin performansı, projeleri, riskleri ve operasyonel öncelikleri tek bir yerden yönetmelerine yardımcı olan kontrol panelleri, iş akışı platformları, yapay zeka destekli dokümantasyon araçları, karar destek arayüzleri ve izleme katmanları tasarlıyoruz.",
+        "Amaç, parçalanmış raporlamayı azaltmak ve kuruluşun tek bir dijital görünümünü oluşturmaktır. Ekipler süreç performansını izleyebilir, dönüşümün ilerlemesini izleyebilir, eylemleri koordine edebilir ve günlük ve stratejik kararları desteklemek için verileri kullanabilir.",
+        "INFINITY, otomasyonu, analitiği ve kullanıcı merkezli iş akışı tasarımını birleştirerek kuruluşların benimsemeyi destekleyen, görünürlüğü artıran ve dönüşümü ölçülebilir hale getiren yazılım ortamları oluşturmasına yardımcı olur."
+      ]
+    },
+    {
+      "title": "Donanım",
+      "subtitle": "Bağlantılı Operasyonlar",
+      "paragraphs": [
+        "Donanım çalışmalarımız fiziksel operasyonları dijital dönüşüm sistemine bağlıyor. Daha önce görünmeyen veya manuel olarak raporlanan operasyonel sinyalleri yakalamak için sensörlerin, endüstriyel cihazların, üretim bölümü veri noktalarının, kontrol sistemlerinin ve izleme altyapısının kullanımını destekliyoruz.",
+        "Bu, gerçek zamanlı denetim, kestirimci bakım, süreç optimizasyonu, ekipman izleme ve daha güçlü operasyonel güvenilirliğin temelini oluşturur. INFINITY, dijital sistemleri fiziksel ortamdan ayırmak yerine makineleri, insanları, verileri ve kararları birbirine bağlar.",
+        "Pratik donanım entegrasyonu ve operasyonel mimari sayesinde kuruluşlar varlıklar üzerinde daha iyi görünürlük elde eder, anormalliklere daha hızlı yanıt verir ve otomasyon, yapay zeka etkinleştirme ve sürekli iyileştirme için daha güçlü bir temel elde eder."
+      ]
+    }
+  ],
+  "sectionLabels": {
+    "capabilities": "DÖNÜŞÜM ALANLARI",
+    "actions": "EYLEMDE SONSUZLUK",
+    "partnersServiceName": "SONSUZ"
+  }
+}

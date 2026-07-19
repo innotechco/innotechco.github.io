@@ -1,0 +1,27 @@
+{
+  "title": "اتصل بنا",
+  "closeLabel": "إغلاق مشروط",
+  "errors": {
+    "email": "Enter a valid email address.",
+    "required": "هذا الحقل مطلوب.",
+    "region": "اختر دولة من القائمة."
+  },
+  "fields": {
+    "name": "الاسم",
+    "email": "Email",
+    "title": "العنوان",
+    "company": "الشركة",
+    "region": "اختر منطقتك",
+    "industry": "اختر الصناعة",
+    "message": "رسالة"
+  },
+  "labels": {
+    "openCountryList": "فتح قائمة الدول",
+    "noMatchingCountry": "لا يوجد بلد مطابق",
+    "otherIndustry": "أخرى",
+    "submit": "إرسال",
+    "submitting": "جارٍ الإرسال...",
+    "submitSuccess": "شكرا لك. لقد تم تقديم طلبك.",
+    "submitError": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  }
+}

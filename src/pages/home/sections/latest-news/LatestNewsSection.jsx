@@ -30,8 +30,8 @@ function LatestNewsSection() {
           {/* LEFT CONTENT */}
           <div className="order-2 flex flex-1 flex-col self-stretch px-6 py-8 sm:px-10 min-[1400px]:order-1 min-[1400px]:px-[68px] min-[1400px]:py-[68px]">
             {/* Title */}
-            <div className="relative inline-flex items-center">
-              <div className="absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
+            <div className="locale-section-title relative inline-flex items-center">
+              <div className="locale-section-title-circle absolute left-[-14px] top-[-19px] size-16 rounded-full border border-[#37B478]" />
 
               <div
                 className={`relative z-10 font-['Gotham'] text-[clamp(2rem,6vw,2.25rem)] font-bold leading-none transition-colors duration-500 ease-in-out ${

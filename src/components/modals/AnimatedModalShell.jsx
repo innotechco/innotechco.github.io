@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 import {createPortal} from "react-dom";
+import {t} from "../../i18n/ui";
 
 function AnimatedModalShell({
   ariaLabelledBy,
@@ -66,7 +67,7 @@ function AnimatedModalShell({
     <div className={containerClassName}>
       <button
         type="button"
-        aria-label="Close modal"
+        aria-label={t("closeModal")}
         onClick={close}
         className={`${overlayClassName} ${
           visible ? overlayVisibleClassName : overlayHiddenClassName

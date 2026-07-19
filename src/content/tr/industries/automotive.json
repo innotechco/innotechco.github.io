@@ -1,0 +1,87 @@
+{
+  "slug": "otomotiv",
+  "seo": {
+    "title": "Otomotiv",
+    "description": "Otomotiv üretimi, bağlantılı araç ekosistemleri, akıllı mobilite altyapıları ve yapay zeka destekli mühendislik sistemleri genelinde akıllı mobilite dönüşümünü hızlandırın."
+  },
+  "sectionLabels": {
+    "acceleration": "HIZLANMA",
+    "ecosystem": "DEĞİŞİM EKOSİSTEMİMİZDEKİ SON DURUM",
+    "ecosystemAction": "Özel içerik"
+  },
+  "hero": {
+    "breadcrumbLabel": "Otomotiv",
+    "title": "Otomotiv",
+    "description": "Tahmine dayalı teknoloji analitiği ve ölçeklenebilir dijital mimariler aracılığıyla otomotiv üretimi, bağlantılı araç ekosistemleri, akıllı mobilite altyapıları ve yapay zeka destekli mühendislik sistemleri genelinde akıllı mobilite dönüşümünü hızlandırın."
+  },
+  "accelerationParagraphs": [
+    "Otomotiv üreticileri ve mobilite ekosistemleri, giderek artan platform kesintileri, parçalanmış operasyonel altyapılar ve artan akıllı sistem karmaşıklığıyla karşı karşıya. Otomotiv modernizasyonunun ilerlemesi, bağlantılı mobilite mimarileri, yapay zeka destekli operasyonlar ve ölçeklenebilir dijital mühendislik ekosistemleri gerektirir.",
+    "OEM'lere, akıllı mobilite operatörlerine, otomotiv tedarikçilerine ve akıllı ulaşım ekosistemlerine yönelik kurumsal danışmanlık yoluyla mobilite esnekliğini en üst düzeye çıkarın. Özel çerçevelerimiz, ölçeklenebilir operasyonel modernizasyonu hızlandırmak için tahmine dayalı otomotiv analitiğini, dijital mobilite altyapılarını ve yapay zeka destekli dönüşüm sistemlerini kullanır."
+  ],
+  "capabilities": [
+    {
+      "title": "Mobilite Sistemleri (Bağlantı)",
+      "description": "Dağıtılmış araç ortamlarında akıllı ulaşım sistemlerini, tahmine dayalı otomotiv analitiğini, operasyonel orkestrasyonu ve yapay zeka destekli mühendislik altyapılarını entegre eden bağlantılı mobilite ekosistemleri tasarlıyoruz."
+    },
+    {
+      "title": "Araç Analitiği (Tahmin)",
+      "description": "Teknoloji zekası çerçevelerimiz, stratejik otomotiv öngörüsünü güçlendirmek için mobilite patentlerini, otomotiv inovasyon sistemlerini, bağlantılı araç teknolojilerini ve ulaşım altyapısı sinyallerini analiz eder."
+    },
+    {
+      "title": "Akıllı Platformlar (Altyapı)",
+      "description": "Enerji dönüşümü dünyanın en büyük kolektif zorluklarından biridir. BCG, adil bir enerji geçişini sağlamak için finansal, teknolojik, ekonomik ve toplumsal hususları entegre ederek müşterileri ile birlikte çözümler geliştirmektedir."
+    },
+    {
+      "title": "İnovasyon Yönetişimi (Dönüşüm)",
+      "description": "Otomotiv modernizasyon çerçevelerini, dijital yönetişim mimarilerini ve yapay zeka destekli mobilite dönüşüm ekosistemlerini entegre eden uçtan uca inovasyon yönetimi sistemlerini devreye alıyoruz."
+    },
+    {
+      "title": "Mühendislik Zekası (Otomasyon)",
+      "description": "INFINITY platformu, kurumsal otomotiv modernizasyonunu hızlandırmak için mobilite dokümantasyonu iş akışlarını, otomotiv teknolojisi izlemeyi, mühendislik zekası haritalamasını ve bağlantılı sistem analitiğini otomatikleştirir."
+    }
+  ],
+  "liveInsights": {
+    "title": "CANLI HAREKETLİLİK ANALİZLERİ",
+    "alt": "Canlı mobilite içgörüleri",
+    "cards": [
+      {
+        "id": "automotive-featured",
+        "title": "Yakıt Verimliliğini Artıracak Motor Teknolojileri",
+        "date": "June 4, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "Toyota Motor Co, en çok alıntı yapılan patent sayısına sahiptir ve bu, bu şirketin patentlerinin yüksek değerinin bir işaretidir. Patentlerin ana temaları, enjeksiyon, yakıt, gaz, egzoz, motor, basınç gibi alanlardaki patentlerin tematik odağını temsil etmektedir."
+      },
+      {
+        "id": "automotive-top",
+        "title": "Ford Akıllı Mobilite Ekosistemi",
+        "date": "June 4, 2026",
+        "readTime": "2 dakika okuma",
+        "description": "Ford Akıllı Mobilite Ekosistemi'nin temel yeniliği, kentsel mobiliteye entegre yaklaşımında yatmaktadır."
+      },
+      {
+        "id": "automotive-bottom",
+        "title": "Hyundai Hidrojen Hareketliliği İncelemesi",
+        "date": "November 15, 2025",
+        "readTime": "2 dakika okuma",
+        "description": "Hyundai, hidrojen mobilitesini desteklemek için araç teknolojisini, altyapıyı ve enerji ortaklıklarını entegre ediyor"
+      }
+    ]
+  },
+  "ecosystemCards": [
+    {
+      "id": "trex",
+      "title": "Enerji kullanımında %60 azalma elde edin",
+      "subtitle": "TREX Akıllı İstasyon"
+    },
+    {
+      "id": "itonikler",
+      "title": "Otomotiv sektörü trendleri 2026",
+      "subtitle": "ITONICS Otomotiv Endüstrisi Trendleri"
+    },
+    {
+      "id": "statista",
+      "title": "Küresel Taşımacılık",
+      "subtitle": "Telif hakkıyla korunan ortak çalışmaya dayalı veriler"
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 
 import {useTheme} from "../../../../context/useTheme";
 import {fetchPartnerPage} from "../../../../services/content/partnerContent";
+import {t} from "../../../../i18n/ui";
 import PartnerHeroSection from "./shared/sections/PartnerHeroSection";
 import PartnerIntroSection from "./shared/sections/PartnerIntroSection";
 import PartnerStatsSection from "./shared/sections/PartnerStatsSection";
@@ -50,7 +51,7 @@ function PartnerPage() {
     return (
       <main className={`min-h-screen px-6 py-40 ${pageBackground}`}>
         <h1 className={`font-['Gotham'] text-5xl font-bold ${textColor}`}>
-          Partner not found
+          {t("partnerNotFound")}
         </h1>
       </main>
     );
@@ -59,7 +60,7 @@ function PartnerPage() {
   if (!content) {
     return (
       <main className={`min-h-screen px-6 py-40 ${pageBackground}`}>
-        <p className={`font-['Gotham'] text-xl ${textColor}`}>Loading partner...</p>
+        <p className={`font-['Gotham'] text-xl ${textColor}`}>{t("loadingPartner")}</p>
       </main>
     );
   }

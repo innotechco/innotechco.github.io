@@ -1,0 +1,73 @@
+{
+  "slug": "itonikler",
+  "name": "İTONİK",
+  "variant": "itonikler",
+  "hero": {
+    "tagline": "Herkese yenilik yapma gücü verin",
+    "buttonLabel": "Demo Rezervasyonu Yapın"
+  },
+  "intro": {
+    "title": "Dünyanın Lider Yenilikçi İşletim Sistemi",
+    "body": "ITONICS, 500'den fazla kuruluştan oluşan küresel bir müşteri tabanına inovasyon yönetimi çözümleri sunmaktadır. GARTNER'ın 2024 İnovasyon Uygulamaları Hype Döngüsü'nde şirket, inovasyonla ilgili dört kategoride tanındı. Dünya çapında 150'den fazla profesyonelden oluşan bir ekip tarafından desteklenen ITONICS, Amazon, adidas, Johnson & Johnson, Toyota, Mondelez International ve Siemens gibi büyük uluslararası şirketlerle çalışıyor."
+  },
+  "stats": [
+    {
+      "id": "users",
+      "value": "+1,25 milyon",
+      "label": "Dünyanın her yerindeki kullanıcılar tarafından güvenilmektedir."
+    },
+    {
+      "id": "experts",
+      "value": "+160",
+      "label": "Beş kıtadaki İnovasyon Uzmanları."
+    },
+    {
+      "id": "nationalities",
+      "value": "17",
+      "label": "Dünya çapında çeşitli milletleri temsil ediyoruz."
+    },
+    {
+      "id": "trends",
+      "value": "+14K",
+      "label": "Trendler ve Teknolojiler Sürekli Takip Ediliyor"
+    }
+  ],
+  "tools": {
+    "title": "Birleşik İşletim Sistemi Araçları",
+    "cards": [
+      {
+        "id": "içgörü",
+        "icon": "içgörü",
+        "title": "ANLAYIŞ",
+        "description": "ITONICS, pazarlar, konular ve bölgeler genelinde zamanında öngörüler ortaya çıkarmak için haberleri, araştırma yayınlarını ve patent verilerini analiz eder."
+      },
+      {
+        "id": "sites",
+        "icon": "sites",
+        "title": "Siteler",
+        "description": "Doğrudan ITONICS içerisinde formlar oluşturun, kampanyalar başlatın veya eksiksiz HTML web siteleri oluşturun."
+      },
+      {
+        "id": "roadmap",
+        "icon": "roadmap",
+        "title": "Yol Haritası",
+        "description": "ITONICS Yol Haritası ile inovasyon stratejilerini planlayın ve zaman içindeki proje görevlerini takip edin."
+      },
+      {
+        "id": "reports",
+        "icon": "reports",
+        "title": "Raporlar",
+        "description": "Odaklanmış ve üretken liderlik tartışmalarına olanak tanıyan Raporlar, Kontrol Panelleri ve Tablolar aracılığıyla temel özellikleri ve KPI'ları izleyin."
+      },
+      {
+        "id": "processes",
+        "icon": "processes",
+        "title": "Süreçler",
+        "description": "Fikirler, girişimler, projeler ve diğer öğe türleri için yapılandırılmış, adım adım iş akışları oluşturun. Yönetişimi ve şeffaflığı güçlendirirken kullanıcılara tanımlı aşamalar ve onaylar boyunca rehberlik edin."
+      }
+    ]
+  },
+  "contact": {
+    "label": "bizimle iletişime geçin"
+  }
+}
