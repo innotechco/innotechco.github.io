@@ -5,6 +5,10 @@ import test from "node:test";
 import {fileURLToPath} from "node:url";
 
 import {industryRoutes, routes, serviceRoutes} from "../src/routes.js";
+import {
+  getWhatWeThinkPosts,
+  orderPostsForArchives,
+} from "../src/services/cms/blogOrdering.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const srcRoot = path.join(root, "src");
@@ -17,6 +21,30 @@ function walk(directory) {
 }
 
 const sourceFiles = walk(srcRoot).filter((file) => /\.(js|jsx|css)$/.test(file));
+
+test("archives begin with What We Think posts in the same order", () => {
+  const posts = [
+    {slug: "archive-new", categories: ["insight"]},
+    {slug: "what-new", categories: ["what-we-think"]},
+    {slug: "archive-old", categories: ["inception"]},
+    {slug: "what-old", categories: ["what-we-think", "insight"]},
+  ];
+
+  const whatWeThink = getWhatWeThinkPosts(posts);
+  const archives = orderPostsForArchives(posts);
+
+  assert.deepEqual(whatWeThink.map(({slug}) => slug), ["what-new", "what-old"]);
+  assert.deepEqual(
+    archives.slice(0, whatWeThink.length).map(({slug}) => slug),
+    whatWeThink.map(({slug}) => slug),
+  );
+  assert.deepEqual(archives.map(({slug}) => slug), [
+    "what-new",
+    "what-old",
+    "archive-new",
+    "archive-old",
+  ]);
+});
 
 test("all route values are unique and grouped correctly", () => {
   const values = Object.values(routes);

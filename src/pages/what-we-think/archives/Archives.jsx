@@ -7,6 +7,7 @@ import ArchiveLightDecoration from "../../../assets/images/excludes/archives/Who
 import ArchiveDarkDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeMiddle.webp";
 import {archiveItems, archivePage} from "./data";
 import {fetchBlogPosts} from "../../../services/contentApi";
+import {orderPostsForArchives} from "../../../services/cms/blogOrdering";
 import {usePointerGlow} from "../../../hooks/usePointerGlow";
 import {t} from "../../../i18n/ui";
 
@@ -84,7 +85,7 @@ function Archives() {
     fetchBlogPosts()
       .then((posts) => {
         if (!isActive || !posts?.length) return;
-        setWordpressItems(posts);
+        setWordpressItems(orderPostsForArchives(posts));
       })
       .catch(() => {
         if (isActive) setWordpressItems([]);

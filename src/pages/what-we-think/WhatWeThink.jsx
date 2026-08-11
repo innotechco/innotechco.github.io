@@ -7,6 +7,7 @@ import ExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/E
 import ExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeRightWhatWeThink.webp";
 import {cards} from "./data";
 import {fetchBlogPosts} from "../../services/contentApi";
+import {getWhatWeThinkPosts} from "../../services/cms/blogOrdering";
 import {usePointerGlow} from "../../hooks/usePointerGlow";
 import ReadMoreLink from "../../components/ui/ReadMoreLink";
 import {routes} from "../../routes";
@@ -130,7 +131,7 @@ function WhatWeThink() {
 
     fetchBlogPosts()
       .then((posts) => {
-        const whatWeThinkPosts = posts?.filter((post) => post.categories.includes("what-we-think"));
+        const whatWeThinkPosts = getWhatWeThinkPosts(posts ?? []);
         if (isActive && whatWeThinkPosts?.length) setWordpressPosts(whatWeThinkPosts);
       })
       .catch(() => {
