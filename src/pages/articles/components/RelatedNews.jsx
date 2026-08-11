@@ -10,14 +10,18 @@ function RelatedNews({article, image}) {
       <h2 id="related-news-title">{t("relatedNews")}</h2>
       <div className="related-news-grid">
         {article.related.map((item, index) => (
-          <a className="related-card" href="#article-top" key={`${item.title}-${index}`}>
+          <a
+            className="related-card"
+            href={item.slug ? `/articles/${item.slug}` : "#article-top"}
+            key={`${item.title}-${index}`}
+          >
             <div className="related-card-image">
-              <img loading="lazy" src={image} alt="" aria-hidden="true" /></div>
+              <img loading="lazy" src={item.image || image} alt="" aria-hidden="true" /></div>
             <div className="related-card-copy">
               <h3>{item.title}</h3>
               <p>{item.description}</p>
               <div className="related-card-meta">
-                <span>{article.date}</span><span>{article.readTime}</span><ArrowIcon />
+                <span>{item.date || article.date}</span><span>{item.readTime || article.readTime}</span><ArrowIcon />
               </div>
             </div>
           </a>
