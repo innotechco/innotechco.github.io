@@ -2,7 +2,6 @@ import {normalizeLocale} from "../../i18n/locale";
 import {getWordPressCategoryTerms} from "./blogOrdering";
 
 const DEFAULT_BLOG_PER_PAGE = 50;
-const DEFAULT_IMAGE_KEY = "customerEcosystemInsights";
 const EXCLUDED_SLUGS = new Set(["hello", "hello-world"]);
 const CATEGORY_LABELS = {
   "ai-agents": "AI Agents",
@@ -64,6 +63,30 @@ function getFeaturedImage(post) {
   return post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
 }
 
+function getField(post, ...names) {
+  for (const name of names) {
+    const acfValue = post?.acf?.[name];
+    if (acfValue !== undefined && acfValue !== null && acfValue !== "") return acfValue;
+
+    const metaValue = post?.meta?.[name];
+    if (metaValue !== undefined && metaValue !== null && metaValue !== "") return metaValue;
+  }
+
+  return null;
+}
+
+function normalizeRelatedIds(value) {
+  const items = Array.isArray(value) ? value : String(value ?? "").split(",");
+  return items
+    .map((item) => {
+      if (typeof item === "object") return item.ID ?? item.id ?? null;
+      const numeric = Number(String(item).trim());
+      return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
+    })
+    .filter(Boolean)
+    .slice(0, 3);
+}
+
 function formatDate(value) {
   if (!value) return "";
   return new Intl.DateTimeFormat("en", {
@@ -71,11 +94,6 @@ function formatDate(value) {
     day: "numeric",
     year: "numeric",
   }).format(new Date(value));
-}
-
-function estimateReadMinutes(text) {
-  const words = stripHtml(text).trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.ceil(words / 220));
 }
 
 function getPostParagraphs(post) {
@@ -99,28 +117,6 @@ function slugifyHeading(value, fallback) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
   return slug || fallback;
-}
-
-function getArticleSlugFromUrl(value) {
-  const text = String(value ?? "");
-  const articleMatch = text.match(/\/articles\/([^/?#]+)/);
-  if (articleMatch?.[1]) return articleMatch[1];
-
-  try {
-    const url = new URL(text, "https://innotech.global");
-    return url.pathname.split("/").filter(Boolean).at(-1) ?? null;
-  } catch {
-    return null;
-  }
-}
-
-function getManualRelatedSlugs(rendered = "") {
-  const relatedMatch = String(rendered).match(/<h[2-3][^>]*>\s*Related News\s*<\/h[2-3]>([\s\S]*)/i);
-  const relatedHtml = relatedMatch?.[1] ?? "";
-  return Array.from(relatedHtml.matchAll(/href=["']([^"']+)["']/gi))
-    .map((match) => getArticleSlugFromUrl(match[1]))
-    .filter(Boolean)
-    .slice(0, 3);
 }
 
 function getWordPressSections(post, title) {
@@ -151,14 +147,6 @@ function getWordPressSections(post, title) {
 
   Array.from(doc.body.childNodes).forEach((node, index) => {
     const isHeading = node.nodeType === Node.ELEMENT_NODE && /^H[2-3]$/.test(node.tagName);
-    if (isHeading && node.textContent.trim().toLowerCase() === "related news") {
-      if (current.html.trim()) sections.push(current);
-      current = {type: "wordpress", id: "wordpress-related-news", heading: "Related News", html: "", showInBody: false};
-      return;
-    }
-
-    if (current.showInBody === false) return;
-
     if (isHeading) {
       if (current.html.trim()) sections.push(current);
       const heading = node.textContent.trim() || title;
@@ -197,11 +185,11 @@ function normalizePost(post) {
   const description = stripHtml(post?.excerpt?.rendered || post?.content?.rendered)
     .replace(/\s+/g, " ")
     .trim();
-  const readMinutes = estimateReadMinutes(post?.content?.rendered);
-  const image = getFeaturedImage(post);
+  const readTime = getField(post, "innotech_read_time");
+  const image = getFeaturedImage(post) || "";
   const categoryTerms = getWordPressCategoryTerms(post);
   const primaryCategory = categoryTerms.find((term) => term.slug !== "what-we-think") ?? categoryTerms[0];
-  const rawCategory = decodeHtml(primaryCategory?.name || "Insight");
+  const rawCategory = decodeHtml(primaryCategory?.name || "");
   const categorySlug = normalizeCategorySlug(rawCategory);
   const category = CATEGORY_LABELS[categorySlug] || rawCategory;
   const categories = categoryTerms.length
@@ -210,20 +198,19 @@ function normalizePost(post) {
 
   return {
     id: String(post.id),
+    wpId: post.id,
+    isCmsArticle: true,
     slug: post.slug,
     title,
     description,
     date: formatDate(post.date),
-    readMinutes,
-    readTime: `${readMinutes} minutes read`,
+    readTime: typeof readTime === "string" ? readTime : "",
     categories,
     category,
     image,
-    heroAssetKey: DEFAULT_IMAGE_KEY,
-    contentAssetKey: "aiAgentFirst",
     introduction: [],
     sections: getWordPressSections(post, title),
-    manualRelatedSlugs: getManualRelatedSlugs(post?.content?.rendered),
+    relatedPostIds: normalizeRelatedIds(getField(post, "innotech_related_posts")),
     related: [],
   };
 }
@@ -260,18 +247,12 @@ export async function fetchWordPressPost(slug, options = {}) {
   const article = posts?.find((post) => post.slug === slug);
   if (!article) return null;
 
-  const related = posts
-    .filter((post) => post.slug !== slug)
-    .filter((post) => post.categories?.some((category) => article.categories?.includes(category)))
-    .slice(0, 3);
-  const fallbackRelated = posts.filter((post) => post.slug !== slug).slice(0, 3);
-  const manualRelated = (article.manualRelatedSlugs ?? [])
-    .map((relatedSlug) => posts.find((post) => post.slug === relatedSlug))
+  const relationshipRelated = (article.relatedPostIds ?? [])
+    .map((relatedId) => posts.find((post) => Number(post.wpId) === Number(relatedId)))
     .filter(Boolean);
-
   return {
     ...article,
-    related: (manualRelated.length ? manualRelated : related.length ? related : fallbackRelated).map((post) => ({
+    related: relationshipRelated.map((post) => ({
       title: post.title,
       description: post.description,
       slug: post.slug,

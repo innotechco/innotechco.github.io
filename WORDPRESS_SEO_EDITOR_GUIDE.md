@@ -13,6 +13,8 @@ Use WordPress Posts for all INNOTECH blog content.
    - `Excerpt`: short summary used on archive cards.
    - `Featured Image`: image used on cards and article hero.
    - `Categories`: controls where the article appears.
+   - `INNOTECH Article Settings > Read Time`: exact text displayed in the hero and destination cards, for example `2 minutes read`.
+   - `INNOTECH Article Settings > Related News`: choose up to three destination Articles and use the arrow buttons to reorder them.
 5. Click `Publish` or `Update`.
 
 ## Category Rules
@@ -53,6 +55,16 @@ Add Block > Image
 ```
 
 Use captions when useful for SEO and accessibility context.
+
+## Table of Contents
+
+Use real H2 and H3 blocks in Gutenberg. The Article page builds its table of contents from those headings automatically. Do not add a manually written Table of Contents block.
+
+## Related News
+
+Do not create a `Related News` heading or put Related News links/cards inside the Body. Manage this section only from `INNOTECH Article Settings > Related News`.
+
+The cards always read their Title, Excerpt, Featured Image, Date, Read Time, and link from the selected destination Article. To change a card, edit that destination Article rather than copying card text into the source Article.
 
 ## SEO Checklist
 

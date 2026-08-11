@@ -45,7 +45,6 @@ function ArticlePage() {
         id="article-top"
         className={`article-page ${isDarkMode ? "is-dark" : "is-light"}`}
       >
-        {status === "loading" ? <p className="article-status">{t("loadingArticle")}</p> : null}
         {status === "not-found" ? (
           <section className="article-status">
             <h1>{t("articleNotFound")}</h1>
@@ -56,11 +55,11 @@ function ArticlePage() {
           <article>
             <ArticleHero
               article={article}
-              image={article.image || articleAssets[article.heroAssetKey]}
+              image={article.isCmsArticle ? article.image : article.image || articleAssets[article.heroAssetKey]}
             />
             <ArticleBody article={article} assets={articleAssets} />
             {article.related?.length ? (
-              <RelatedNews article={article} image={articleAssets[article.heroAssetKey]} />
+              <RelatedNews article={article} />
             ) : null}
           </article>
         ) : null}
