@@ -4,6 +4,8 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  schedule:
+    - cron: "*/10 * * * *"
 
 permissions:
   contents: read
@@ -15,7 +17,50 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check-wordpress-routes:
+    runs-on: ubuntu-latest
+    outputs:
+      deploy-needed: ${{ steps.check.outputs.deploy-needed }}
+    steps:
+      - name: Check for new WordPress article routes
+        id: check
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          CMS_BASE_URL: "https://blog.innotech.global"
+          SITE_BASE_URL: "https://innotech.global"
+        run: |
+          if [ "$EVENT_NAME" != "schedule" ]; then
+            echo "deploy-needed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          node --input-type=module <<'EOF'
+          import fs from "node:fs";
+
+          const postsUrl = new URL("/wp-json/wp/v2/posts", `${process.env.CMS_BASE_URL}/`);
+          postsUrl.searchParams.set("per_page", "50");
+          postsUrl.searchParams.set("_fields", "slug");
+          const postsResponse = await fetch(postsUrl);
+          if (!postsResponse.ok) throw new Error(`WordPress request failed: ${postsResponse.status}`);
+
+          const posts = await postsResponse.json();
+          let deployNeeded = false;
+          for (const {slug} of posts) {
+            const articleUrl = new URL(`/articles/${slug}/`, `${process.env.SITE_BASE_URL}/`);
+            const response = await fetch(articleUrl, {redirect: "manual"});
+            if (response.status !== 200) {
+              deployNeeded = true;
+              console.log(`Missing article route: ${articleUrl} (${response.status})`);
+              break;
+            }
+          }
+
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `deploy-needed=${deployNeeded}\n`);
+          EOF
+
   build:
+    needs: check-wordpress-routes
+    if: needs.check-wordpress-routes.outputs.deploy-needed == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

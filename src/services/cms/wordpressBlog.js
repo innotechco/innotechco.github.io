@@ -1,4 +1,5 @@
 import {normalizeLocale} from "../../i18n/locale";
+import {getWordPressCategoryTerms} from "./blogOrdering";
 
 const DEFAULT_BLOG_PER_PAGE = 50;
 const DEFAULT_IMAGE_KEY = "customerEcosystemInsights";
@@ -63,10 +64,6 @@ function getFeaturedImage(post) {
   return post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
 }
 
-function getCategory(post) {
-  return post?._embedded?.["wp:term"]?.flat()?.find((term) => term.taxonomy === "category")?.name;
-}
-
 function formatDate(value) {
   if (!value) return "";
   return new Intl.DateTimeFormat("en", {
@@ -105,9 +102,14 @@ function normalizePost(post) {
     .trim();
   const readMinutes = estimateReadMinutes(post?.content?.rendered);
   const image = getFeaturedImage(post);
-  const rawCategory = decodeHtml(getCategory(post) || "Insight");
+  const categoryTerms = getWordPressCategoryTerms(post);
+  const primaryCategory = categoryTerms.find((term) => term.slug !== "what-we-think") ?? categoryTerms[0];
+  const rawCategory = decodeHtml(primaryCategory?.name || "Insight");
   const categorySlug = normalizeCategorySlug(rawCategory);
   const category = CATEGORY_LABELS[categorySlug] || rawCategory;
+  const categories = categoryTerms.length
+    ? categoryTerms.map((term) => normalizeCategorySlug(term.slug || term.name))
+    : [categorySlug];
 
   return {
     id: String(post.id),
@@ -117,7 +119,7 @@ function normalizePost(post) {
     date: formatDate(post.date),
     readMinutes,
     readTime: `${readMinutes} minutes read`,
-    categories: [categorySlug],
+    categories,
     category,
     image,
     heroAssetKey: DEFAULT_IMAGE_KEY,

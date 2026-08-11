@@ -6,6 +6,7 @@ import {fileURLToPath} from "node:url";
 
 import {industryRoutes, routes, serviceRoutes} from "../src/routes.js";
 import {
+  getWordPressCategoryTerms,
   getWhatWeThinkPosts,
   orderPostsForArchives,
 } from "../src/services/cms/blogOrdering.js";
@@ -44,6 +45,23 @@ test("archives begin with What We Think posts in the same order", () => {
     "archive-new",
     "archive-old",
   ]);
+});
+
+test("WordPress posts preserve every assigned category", () => {
+  const post = {
+    _embedded: {
+      "wp:term": [[
+        {taxonomy: "category", slug: "insight"},
+        {taxonomy: "category", slug: "what-we-think"},
+        {taxonomy: "post_tag", slug: "ignored-tag"},
+      ]],
+    },
+  };
+
+  assert.deepEqual(
+    getWordPressCategoryTerms(post).map(({slug}) => slug),
+    ["insight", "what-we-think"],
+  );
 });
 
 test("all route values are unique and grouped correctly", () => {
