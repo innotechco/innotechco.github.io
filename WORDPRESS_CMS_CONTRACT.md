@@ -101,6 +101,25 @@ Response shape:
 7. Disable or break the endpoint temporarily.
 8. Confirm the page still renders using local fallback content.
 
+## Article Contract
+
+Install and activate `wordpress-plugin/innotech-article-fields`. Every WordPress Post then exposes:
+
+| Visible article value | WordPress source | REST value |
+| --- | --- | --- |
+| Hero image | Featured Image | `_embedded["wp:featuredmedia"][0].source_url` |
+| Category | Categories | `_embedded["wp:term"]` |
+| Title | Title | `title.rendered` |
+| Date | Publish date | `date` |
+| Read Time | INNOTECH Article Settings > Read Time | `meta.innotech_read_time` |
+| Lead/card description | Excerpt | `excerpt.rendered` |
+| Body, headings, images, captions, links | Gutenberg Content | `content.rendered` |
+| Related News order | INNOTECH Article Settings > Related News | `meta.innotech_related_posts` |
+
+`innotech_related_posts` contains only ordered destination Post IDs. React resolves title, excerpt, featured image, date, read time, and slug from each destination Post. Related card content is never duplicated on the source Post.
+
+For CMS articles, React does not silently substitute local images, calculated read times, source-article metadata, category recommendations, or links parsed from Body content.
+
 ## WordPress Setup Checklist
 
 - Install Advanced Custom Fields or create equivalent custom REST fields.

@@ -64,6 +64,40 @@ test("WordPress posts preserve every assigned category", () => {
   );
 });
 
+test("WordPress Article fields are real REST meta and Related News stays outside Body", () => {
+  const plugin = fs.readFileSync(
+    path.join(root, "wordpress-plugin", "innotech-article-fields", "innotech-article-fields.php"),
+    "utf8",
+  );
+  const service = fs.readFileSync(
+    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    "utf8",
+  );
+
+  assert.match(plugin, /register_post_meta\('post', INNOTECH_READ_TIME_META/);
+  assert.match(plugin, /register_post_meta\('post', INNOTECH_RELATED_POSTS_META/);
+  assert.match(plugin, /'show_in_rest' => true/);
+  assert.match(plugin, /'maxItems' => 3/);
+  assert.match(service, /getField\(post, "innotech_read_time"\)/);
+  assert.match(service, /getField\(post, "innotech_related_posts"\)/);
+  assert.doesNotMatch(service, /getManualRelated|getManualReadTime|fallbackRelated/);
+  assert.doesNotMatch(service, /Related News\\s\*<\\\/h/);
+});
+
+test("CMS Article cards do not hide missing WordPress values with local fallbacks", () => {
+  const page = fs.readFileSync(
+    path.join(srcRoot, "pages", "articles", "ArticlePage.jsx"),
+    "utf8",
+  );
+  const related = fs.readFileSync(
+    path.join(srcRoot, "pages", "articles", "components", "RelatedNews.jsx"),
+    "utf8",
+  );
+
+  assert.match(page, /article\.isCmsArticle \? article\.image/);
+  assert.doesNotMatch(related, /item\.image \|\||item\.date \|\||item\.readTime \|\|/);
+});
+
 test("all route values are unique and grouped correctly", () => {
   const values = Object.values(routes);
   assert.equal(new Set(values).size, values.length);
