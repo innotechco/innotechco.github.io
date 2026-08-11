@@ -5,19 +5,22 @@ import {routes} from "../../../../routes";
 import bgImage from "../../../../assets/images/home/Firstpagepic.webp";
 import aiAgentExcludeImage from "../../../../assets/images/excludes/home/AIagentExclude.webp";
 import aiAgentExcludeWhiteImage from "../../../../assets/images/excludes/home/AIagentExcludeWhite.webp";
-import {heroContent} from "./data";
+import {useHomeContent} from "../../../../context/useHomeContent";
 
 function HeroSection() {
   const {isDarkMode} = useTheme();
+  const {content} = useHomeContent();
+  const heroContent = content.hero;
   const aiAgentExclude = isDarkMode
     ? aiAgentExcludeImage
     : aiAgentExcludeWhiteImage;
+  const heroBackground = heroContent.backgroundImage || bgImage;
 
   return (
     <section className="relative z-10 min-h-[100svh] w-full overflow-hidden">
       {/* Background Image */}
       <img
-        src={bgImage}
+        src={heroBackground}
         alt=""
         aria-hidden="true"
         className="absolute inset-0 size-full bg-black object-cover object-top brightness-125 contrast-110"

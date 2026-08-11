@@ -1,4 +1,4 @@
-import {useMemo, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 
 import ReadMoreLink from "../../../components/ui/ReadMoreLink";
 import {useTheme} from "../../../context/useTheme";
@@ -6,11 +6,28 @@ import SearchIcon from "../../../assets/icons/Search.svg";
 import ArchiveLightDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeTopMiddle.webp";
 import ArchiveDarkDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeMiddle.webp";
 import {archiveItems, archivePage} from "./data";
+import {fetchBlogPosts} from "../../../services/contentApi";
 import {usePointerGlow} from "../../../hooks/usePointerGlow";
 import {t} from "../../../i18n/ui";
 
 const INITIAL_CARD_COUNT = 9;
 const LOAD_MORE_DELAY = 700;
+
+function mergeArchiveItems(wordpressPosts = [], localItems = []) {
+  const seen = new Set();
+
+  return [...wordpressPosts, ...localItems]
+    .map((item) => ({
+      ...item,
+      image: item.image || archiveItems[0]?.image,
+    }))
+    .filter((item) => {
+      const key = item.slug || item.id || item.title;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+}
 
 function ArchiveCard({item, isDarkMode}) {
   const {position, handlers} = usePointerGlow();
@@ -36,7 +53,11 @@ function ArchiveCard({item, isDarkMode}) {
               {item.readMinutes} minutes read
             </span>
             <span>{item.date}</span>
-            <ReadMoreLink isDarkMode={isDarkMode} className="archive-card-read-more" />
+            <ReadMoreLink
+              to={item.slug ? `/articles/${item.slug}` : undefined}
+              isDarkMode={isDarkMode}
+              className="archive-card-read-more"
+            />
           </div>
         </div>
       </article>
@@ -50,18 +71,40 @@ function Archives() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_CARD_COUNT);
   const [isLoading, setIsLoading] = useState(false);
+  const [wordpressItems, setWordpressItems] = useState([]);
   const tagsRailRef = useRef(null);
+  const items = useMemo(
+    () => mergeArchiveItems(wordpressItems, archiveItems),
+    [wordpressItems],
+  );
+
+  useEffect(() => {
+    let isActive = true;
+
+    fetchBlogPosts()
+      .then((posts) => {
+        if (!isActive || !posts?.length) return;
+        setWordpressItems(posts);
+      })
+      .catch(() => {
+        if (isActive) setWordpressItems([]);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   const filteredItems = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    return archiveItems.filter(({title, description, categories}) => {
+    return items.filter(({title, description, categories}) => {
       const matchesQuery = !normalizedQuery ||
         `${title} ${description}`.toLowerCase().includes(normalizedQuery);
       const matchesCategory = selectedCategory === "all" || categories.includes(selectedCategory);
 
       return matchesQuery && matchesCategory;
     });
-  }, [query, selectedCategory]);
+  }, [items, query, selectedCategory]);
 
   const visibleItems = filteredItems.slice(0, visibleCount);
   const canShowMore = visibleCount < filteredItems.length;

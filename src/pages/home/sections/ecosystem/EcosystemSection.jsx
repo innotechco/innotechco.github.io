@@ -4,10 +4,12 @@ import InnotechEcopicLight from "../../../../assets/illustrations/InnotechEcopic
 import ellipseBlack from "../../../../assets/images/home/EllipseBlack.webp";
 import ellipseWhite from "../../../../assets/images/home/EllipseWhite.webp";
 import InnoCard from "./InnoCard";
-import {ecosystemCards} from "./data";
+import {useHomeContent} from "../../../../context/useHomeContent";
 
 function EcosystemSection() {
   const {isDarkMode} = useTheme();
+  const {content} = useHomeContent();
+  const ecosystemCards = content.ecosystemCards;
 
   return (
     <section

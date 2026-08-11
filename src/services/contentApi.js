@@ -3,6 +3,7 @@ export {
   getInlearnAcademyPage,
 } from "./content/homeContent";
 export {
+  fetchBlogPosts,
   getArchivesPage,
   getWhatWeThinkPage,
 } from "./content/whatWeThinkContent";

@@ -1,5 +1,6 @@
 import {localizedModule} from "../../i18n/locale";
 import {whatWeThinkConfig} from "../../config/whatWeThink.config";
+import {fetchWordPressPosts} from "../cms/wordpressBlog";
 import {mergeRecord} from "./utils";
 
 function buildWhatWeThinkPage(content, config = {}) {
@@ -23,4 +24,8 @@ export function getWhatWeThinkPage() {
 export function getArchivesPage() {
   const modules = import.meta.glob("../../content/{en,ar,tr}/pages/what-we-think/*.json", {eager: true, import: "default"});
   return localizedModule(modules, "../../content/en/pages/what-we-think/archives.json");
+}
+
+export async function fetchBlogPosts(locale) {
+  return fetchWordPressPosts({locale});
 }

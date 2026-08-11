@@ -12,6 +12,14 @@ function Subsections({items = []}) {
 }
 
 function ArticleSection({section, assets}) {
+  if (section.type === "wordpress") {
+    return (
+      <section id={section.id} className="article-section article-wordpress-content">
+        <div dangerouslySetInnerHTML={{__html: section.html}} />
+      </section>
+    );
+  }
+
   return (
     <section id={section.id} className="article-section">
       <h2>{section.heading}</h2>

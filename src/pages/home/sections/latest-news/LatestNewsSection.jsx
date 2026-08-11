@@ -1,10 +1,13 @@
 import {useTheme} from "../../../../context/useTheme";
 import ReadMoreLink from "../../../../components/ui/ReadMoreLink";
 import LatestNewsImage from "../../../../assets/images/home/LatestNews.webp";
-import {latestNews} from "./data";
+import {useHomeContent} from "../../../../context/useHomeContent";
 
 function LatestNewsSection() {
   const {isDarkMode} = useTheme();
+  const {content} = useHomeContent();
+  const latestNews = content.latestNews;
+  const latestNewsImage = latestNews.image || LatestNewsImage;
 
   return (
     <section
@@ -21,8 +24,8 @@ function LatestNewsSection() {
           {/* Featured image */}
           <div className="order-1 h-64 w-full shrink-0 self-stretch overflow-hidden min-[1400px]:order-2 min-[1400px]:h-auto min-[1400px]:w-[496px]">
             <img loading="lazy"
-              src={LatestNewsImage}
-              alt="Latest news"
+              src={latestNewsImage}
+              alt={latestNews.imageAlt || "Latest news"}
               className="h-full w-full object-cover object-center min-[1400px]:min-h-[640px]"
             />
           </div>
