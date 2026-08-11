@@ -56,7 +56,7 @@ function ExpertCard({
 
         <button
           onClick={() => openContact("selected-project")}
-          className={`absolute right-1 top-[102px] z-20 min-h-8 w-[132px] shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-1.5 font-['Gotham'] text-xs font-bold leading-tight shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95 sm:right-2 sm:top-[112px] sm:w-[142px] sm:text-sm lg:right-3 ${greenButtonTextColor}`}
+          className={`absolute right-4 top-4 z-20 min-h-8 w-[132px] shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-1.5 font-['Gotham'] text-xs font-bold leading-tight shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95 sm:w-[142px] sm:text-sm ${greenButtonTextColor}`}
           type="button"
         >
           {t("viewProject")}
