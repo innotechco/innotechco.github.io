@@ -1,0 +1,332 @@
+[
+  {
+    "slug": "product-portfolio-management",
+    "title": "Product Portfolio Management Fails When Meetings Replace Decisions",
+    "excerpt": "Ask a product manager how many clear portfolio decisions their team made last month. Most go quiet. Yet those same teams hold weekly status calls, biweekly alignment meetings, and quarterly portfolio reviews. The calendar is full. The decision log is empty.",
+    "content": "<p>This is a structural failure: Product development workflows are built around meeting schedules, not decision triggers. Status updates replace strategic decisions. Alignment calls substitute for clear business objectives. Review sessions pile up because the previous review produced no committed outcome.</p>\n<p>The fix is not fewer meetings but replacing meeting-dependent workflows with explicit decision points: defined moments where someone makes a binary call and moves the portfolio forward. This is what real product portfolio management looks like.</p>\n\n<h2>Why product management teams keep scheduling alignment meetings</h2>\n<p>Product management teams add meetings when confidence in the process drops.</p>\n<ul><li>When strategic objectives are unclear, teams schedule more alignment calls.</li><li>When portfolio decisions are deferred, teams add review sessions to track what is still unresolved.</li></ul>\n<p>Each new meeting takes time away from the data gathering that actual portfolio decisions require. Teams become busy without becoming decisive. The product portfolio drifts, and no single meeting is responsible.</p>\n<h3>When product discovery generates an idea without decision gates</h3>\n<p>Product discovery sessions produce product ideas. That is their stated purpose. Without a structured decision gate at the end, idea volume creates a backlog that the portfolio cannot process.</p>\n<p>A typical discovery sprint generates 15 to 30 concepts. Without a scoring framework, most enter a holding queue for months, consuming visibility without receiving investment or being formally closed. Portfolio managers lose track of whether each idea addresses a validated business objective or an untested market assumption.</p>\n<p>Discovery needs a gate at the output, not a longer backlog at the start. The gate converts each concept into one of two outcomes: fund to prototype, or document and close. Without this binary, teams cannot make clean portfolio decisions about where to allocate resources.</p>\n<h3>How status meetings block portfolio decisions</h3>\n<p>Status updates report what happened. They do not produce commitments about what happens next. A 60-minute weekly update across a 10-person product team consumes more than 500 hours per year. The output is shared awareness, not a portfolio decision that the organization can act on.</p>\n<p>Status meetings persist because product portfolio management systems lack defined decision milestones. When no one knows what decisions are due next, everyone defaults to sharing progress. Progress-sharing creates the sensation of alignment without the substance.</p>\n\n<h2>How broken portfolio governance stalls the strategic portfolio</h2>\n<p>Portfolio governance determines who decides what, when, and using which data. Most organizations have governance bodies in name but lack decision architecture in practice.</p>\n<p>Governance meetings review what happened. Decision gates drive what happens next. Without explicit decision points in the strategic portfolio, two compounding failures emerge:</p>\n<p>Status meetings persist because product portfolio management systems lack defined decision milestones. When no one knows what decision is due next, everyone defaults to sharing progress. Progress-sharing creates the sensation of alignment without the substance.</p>\n<h3>#1: The missing kill decision in product portfolio management</h3>\n<p>Most product portfolio management systems track what is active. Few track what should be stopped. A project running 18 months past its original payback period estimates still consumes engineering hours, product manager attention, and budget. It occupies space in portfolio review conversations. It blocks teams from allocating that capacity to strategic objectives with higher business value.</p>\n<p>The kill decision is one of the highest-value moves in portfolio governance. Stopping a misaligned project frees resources to fund a project that delivers clear strategic outcomes against current strategic objectives. Without a kill gate, portfolios accumulate stranded investments. Teams cannot prioritize investments toward new opportunities when existing products keep drawing down limited resources.</p>\n<h3>#2: Resource drift and the cost of deferred choices</h3>\n<p>When a portfolio lacks explicit decision points, resources drift toward the most vocal stakeholder, not the highest-value initiative.</p>\n<p>Teams allocate engineering capacity based on escalation patterns, not on which strategic initiatives carry the clearest business outcomes. A product roadmap without decision triggers attached to resource allocation decisions is an unconstrained list. Portfolio managers discover mid-cycle that a large share of development capacity sits on projects misaligned with the current strategic direction and business goals.</p>\n<p>Reallocating that capacity requires a political process, not a data-driven decision. Organizations operating in competitive markets cannot afford to fund misaligned projects through a full development cycle before discovering they miss strategic objectives.</p>\n\n<h2>The 5-gate decision framework for strategic portfolio management</h2>\n<p>Convert your product development workflow from meeting-driven to decision-driven. Each gate replaces a recurring meeting type with a defined decision event: One owner. Clear data requirements. A binary output.</p>\n<p><em>Five gates produce five committed portfolio decisions per product development cycle. Most product teams operate with zero to one formal decision points per cycle. Project drift, budget overruns, and missed strategic goals fill that gap.</em></p>\n\n<h2>How to prioritize investments using decision triggers, not calendars</h2>\n<p>The strongest examples of decision gate discipline come from organizations that built decision-forcing structures into the product development process before meetings could fill the gap. A gate fires when the required evidence is ready, not when the next recurring meeting appears on a calendar.</p>\n<h3>How P&amp;G applies kill criteria across its product portfolio</h3>\n<p>P&amp;G&apos;s stage-gate process assigns documented kill criteria to each portfolio review point. Gate reviews require specific data: minimum market size, required margin profile, go-to-market strategy readiness, and alignment to a defined strategic category.</p>\n<p>A product missing two or more criteria at any gate is killed or redirected, regardless of sunk cost. This architecture keeps the product portfolio focused on projects with measurable business objectives. It also prevents the resource drain that occurs when teams continue developing products that no longer fit the current business strategy.</p>\n<p>The criteria are set at portfolio planning time, before any gate fires. That distinction removes the political negotiation from the kill decision. When a project reaches the gate, the review is a data comparison, not a debate.</p>",
+    "date": "2026-05-31 09:00:00",
+    "categories": [
+      "Product Development"
+    ],
+    "source": "local-article",
+    "readMinutes": 2
+  },
+  {
+    "slug": "portfolio-decisions",
+    "title": "Hydrogen Generation from Natural Gas",
+    "excerpt": "The Hydrogen Generation from Natural Gas Patent Landscape Report provides an...",
+    "content": "<p>The Hydrogen Generation from Natural Gas Patent Landscape Report provides an...</p>",
+    "date": "2026-05-31 09:00:00",
+    "categories": [
+      "inception",
+      "insight",
+      "market-research"
+    ],
+    "source": "local-archives",
+    "readMinutes": 2
+  },
+  {
+    "slug": "decision-velocity",
+    "title": "Peak Shaving by Gas Reservation ",
+    "excerpt": "Key industry players such as Daewoo Shipbuilding & Marine and Samsung Heavy...",
+    "content": "<p>Key industry players such as Daewoo Shipbuilding &amp; Marine and Samsung Heavy...</p>",
+    "date": "2026-05-21 09:00:00",
+    "categories": [
+      "inception",
+      "high-tech",
+      "ai-agents"
+    ],
+    "source": "local-archives",
+    "readMinutes": 4
+  },
+  {
+    "slug": "ai-innovation",
+    "title": "Polypropylene (PP) ",
+    "excerpt": "This market analysis delves into commercial trends in polypropylene, examining global...",
+    "content": "<p>This market analysis delves into commercial trends in polypropylene, examining global...</p>",
+    "date": "2026-05-21 09:00:00",
+    "categories": [
+      "inception",
+      "high-tech",
+      "ai-agents"
+    ],
+    "source": "local-archives",
+    "readMinutes": 4
+  },
+  {
+    "slug": "market-signals",
+    "title": "AI-Driven Drug Discovery",
+    "excerpt": "Inventions combining AI and biotechnology have grown significantly in recent years...",
+    "content": "<p>Inventions combining AI and biotechnology have grown significantly in recent years...</p>",
+    "date": "2026-05-10 09:00:00",
+    "categories": [
+      "insight",
+      "infinity",
+      "market-research"
+    ],
+    "source": "local-archives",
+    "readMinutes": 5
+  },
+  {
+    "slug": "scale-experiments",
+    "title": "Mental Health Diagnostics Using Audio Data",
+    "excerpt": "AI-Powered Audio Analysis utilizes artificial intelligence to analyze vocal patterns...",
+    "content": "<p>AI-Powered Audio Analysis utilizes artificial intelligence to analyze vocal patterns...</p>",
+    "date": "2026-04-27 09:00:00",
+    "categories": [
+      "inception",
+      "automotive"
+    ],
+    "source": "local-archives",
+    "readMinutes": 3
+  },
+  {
+    "slug": "industrial-ai",
+    "title": "Probiotics",
+    "excerpt": "China leads globally in patent registrations, demonstrating a remarkable volume of...",
+    "content": "<p>China leads globally in patent registrations, demonstrating a remarkable volume of...</p>",
+    "date": "2026-04-15 09:00:00",
+    "categories": [
+      "high-tech",
+      "infinity",
+      "ai-agents",
+      "digital-transformation"
+    ],
+    "source": "local-archives",
+    "readMinutes": 6
+  },
+  {
+    "slug": "innovation-portfolio",
+    "title": "Smart Carbon Technology",
+    "excerpt": "The future of Smart Carbon looks promising, especially as global pressure to decarbonize...",
+    "content": "<p>The future of Smart Carbon looks promising, especially as global pressure to decarbonize...</p>",
+    "date": "2026-04-02 09:00:00",
+    "categories": [
+      "inception",
+      "health"
+    ],
+    "source": "local-archives",
+    "readMinutes": 4
+  },
+  {
+    "slug": "future-ready",
+    "title": "Digital Transformation in Steel Industry",
+    "excerpt": "The number of inventions in DT have increased eleven times over the last 20 years, which is...",
+    "content": "<p>The number of inventions in DT have increased eleven times over the last 20 years, which is...</p>",
+    "date": "2026-03-19 09:00:00",
+    "categories": [
+      "infinity",
+      "energy-materials",
+      "digital-transformation"
+    ],
+    "source": "local-archives",
+    "readMinutes": 7
+  },
+  {
+    "slug": "customer-insight",
+    "title": "IBM Visual Insights",
+    "excerpt": "Inventions combining AI and biotechnology have grown significantly in recent years...",
+    "content": "<p>Inventions combining AI and biotechnology have grown significantly in recent years...</p>",
+    "date": "2026-03-07 09:00:00",
+    "categories": [
+      "insight",
+      "health",
+      "market-research"
+    ],
+    "source": "local-archives",
+    "readMinutes": 3
+  },
+  {
+    "slug": "strategic-foresight",
+    "title": "Making Strategic Foresight Useful on Monday Morning",
+    "excerpt": "A grounded approach to foresight that connects long-term scenarios to the decisions already on your calendar.",
+    "content": "<p>A grounded approach to foresight that connects long-term scenarios to the decisions already on your calendar.</p>",
+    "date": "2026-02-23 09:00:00",
+    "categories": [
+      "insight",
+      "metals-mining",
+      "foresight"
+    ],
+    "source": "local-archives",
+    "readMinutes": 5
+  },
+  {
+    "slug": "innovation-metrics",
+    "title": "The Innovation Metrics That Actually Change Behaviour",
+    "excerpt": "Measure learning, momentum, and value creation in ways that encourage good choices instead of vanity reporting.",
+    "content": "<p>Measure learning, momentum, and value creation in ways that encourage good choices instead of vanity reporting.</p>",
+    "date": "2026-02-11 09:00:00",
+    "categories": [
+      "infinity",
+      "automotive",
+      "digital-transformation"
+    ],
+    "source": "local-archives",
+    "readMinutes": 4
+  },
+  {
+    "slug": "cross-functional",
+    "title": "Cross-Functional Teams Need a Shared Innovation Language",
+    "excerpt": "Shared vocabulary creates faster alignment when a complex opportunity passes between teams and disciplines.",
+    "content": "<p>Shared vocabulary creates faster alignment when a complex opportunity passes between teams and disciplines.</p>",
+    "date": "2026-01-29 09:00:00",
+    "categories": [
+      "health",
+      "energy-materials",
+      "sustainability"
+    ],
+    "source": "local-archives",
+    "readMinutes": 3
+  },
+  {
+    "slug": "opportunity-spaces",
+    "title": "How to Find Opportunity Spaces Before Your Competitors Do",
+    "excerpt": "Combine market intelligence and internal expertise to recognise the spaces that are beginning to open up.",
+    "content": "<p>Combine market intelligence and internal expertise to recognise the spaces that are beginning to open up.</p>",
+    "date": "2026-01-17 09:00:00",
+    "categories": [
+      "insight",
+      "metals-mining",
+      "foresight"
+    ],
+    "source": "local-archives",
+    "readMinutes": 6
+  },
+  {
+    "slug": "responsible-ai",
+    "title": "Responsible AI Starts With Better Questions",
+    "excerpt": "The questions innovation leaders should ask before introducing AI into a high-impact workflow or decision.",
+    "content": "<p>The questions innovation leaders should ask before introducing AI into a high-impact workflow or decision.</p>",
+    "date": "2025-12-04 09:00:00",
+    "categories": [
+      "high-tech",
+      "energy-materials",
+      "ai-agents",
+      "sustainability"
+    ],
+    "source": "local-archives",
+    "readMinutes": 5
+  },
+  {
+    "slug": "ecosystem",
+    "title": "Growing an Innovation Ecosystem That Can Deliver",
+    "excerpt": "Partnerships create value when the ecosystem has a clear shared problem, a cadence, and room to learn together.",
+    "content": "<p>Partnerships create value when the ecosystem has a clear shared problem, a cadence, and room to learn together.</p>",
+    "date": "2025-11-20 09:00:00",
+    "categories": [
+      "metals-mining",
+      "infinity",
+      "sustainability"
+    ],
+    "source": "local-archives",
+    "readMinutes": 6
+  },
+  {
+    "slug": "what-we-think-reinventing-enterprise-innovation",
+    "title": "Reinventing Enterprise Innovation",
+    "excerpt": "Leaders increasingly face fragmented innovation and digital transformation efforts. Enterprise innovation systems require clear governance, connected portfolios, and measurable outcomes. INCEPTION and INFINITY provide the frameworks to structure ideas, portfolios, dashboards, and decision logic for enterprise-scale growth.",
+    "content": "<p>Leaders increasingly face fragmented innovation and digital transformation efforts. Enterprise innovation systems require clear governance, connected portfolios, and measurable outcomes. INCEPTION and INFINITY provide the frameworks to structure ideas, portfolios, dashboards, and decision logic for enterprise-scale growth.</p>",
+    "date": "2025-11-14 09:00:00",
+    "categories": [
+      "what-we-think"
+    ],
+    "source": "local-what-we-think:heroTop",
+    "readMinutes": 2
+  },
+  {
+    "slug": "what-we-think-digital-transformation-core-in-action",
+    "title": "Digital Transformation Core in Action",
+    "excerpt": "Digital transformation is not just deploying toolsits reengineering processes, dashboards, decision routines, and workflows to enable measurable, repeatable execution. INFINITY empowers organizations to translate digital strategy into operational performance across energy, metals, healthcare, and high-tech sectors.",
+    "content": "<p>Digital transformation is not just deploying toolsits reengineering processes, dashboards, decision routines, and workflows to enable measurable, repeatable execution. INFINITY empowers organizations to translate digital strategy into operational performance across energy, metals, healthcare, and high-tech sectors.</p>",
+    "date": "2025-11-14 09:00:00",
+    "categories": [
+      "what-we-think"
+    ],
+    "source": "local-what-we-think:tallLeft",
+    "readMinutes": 2
+  },
+  {
+    "slug": "what-we-think-market-and-technology-intelligence",
+    "title": "Market & Technology Intelligence",
+    "excerpt": "Data-driven intelligence turns complexity into insight. INSIGHT reports, PLR/MRR/SLR analysis, and ecosystem mapping help organizations identify emerging technologies, white-space opportunities, and competitor activity before making investment and strategic decisions.",
+    "content": "<p>Data-driven intelligence turns complexity into insight. INSIGHT reports, PLR/MRR/SLR analysis, and ecosystem mapping help organizations identify emerging technologies, white-space opportunities, and competitor activity before making investment and strategic decisions.</p>",
+    "date": "2025-11-14 09:00:00",
+    "categories": [
+      "what-we-think"
+    ],
+    "source": "local-what-we-think:smallTopRight",
+    "readMinutes": 2
+  },
+  {
+    "slug": "what-we-think-ai-workflow-enablement",
+    "title": "AI Workflow Enablement",
+    "excerpt": "AI creates value when integrated into everyday operational workflows. INFINITY embeds automation into monitoring, reporting, documentation, project routing, and decision support to accelerate adoption, reduce errors, and enable actionable intelligence across the enterprise.",
+    "content": "<p>AI creates value when integrated into everyday operational workflows. INFINITY embeds automation into monitoring, reporting, documentation, project routing, and decision support to accelerate adoption, reduce errors, and enable actionable intelligence across the enterprise.</p>",
+    "date": "2025-11-14 09:00:00",
+    "categories": [
+      "what-we-think"
+    ],
+    "source": "local-what-we-think:smallBottomRight",
+    "readMinutes": 2
+  },
+  {
+    "slug": "what-we-think-industrial-transformation",
+    "title": "Industrial Transformation",
+    "excerpt": "Across energy, materials, metals, mobility, and healthcare, transformation requires sector-specific innovation frameworks. INCEPTION designs governance, process flows, and portfolio management tailored to industrial realities, ensuring measurable ROI from idea to execution.",
+    "content": "<p>Across energy, materials, metals, mobility, and healthcare, transformation requires sector-specific innovation frameworks. INCEPTION designs governance, process flows, and portfolio management tailored to industrial realities, ensuring measurable ROI from idea to execution.</p>",
+    "date": "2025-11-14 09:00:00",
+    "categories": [
+      "what-we-think"
+    ],
+    "source": "local-what-we-think:smallMiddleLeft",
+    "readMinutes": 2
+  },
+  {
+    "slug": "what-we-think-foresight-and-portfolio-management",
+    "title": "Foresight & Portfolio Management",
+    "excerpt": "Scenario planning, weak signal analysis, startup scouting, and portfolio prioritization connect innovation initiatives with strategic goals. INCEPTION provides the methodology to turn insights into a governed portfolio system with clear KPIs.",
+    "content": "<p>Scenario planning, weak signal analysis, startup scouting, and portfolio prioritization connect innovation initiatives with strategic goals. INCEPTION provides the methodology to turn insights into a governed portfolio system with clear KPIs.</p>",
+    "date": "2025-11-14 09:00:00",
+    "categories": [
+      "what-we-think"
+    ],
+    "source": "local-what-we-think:textCard1",
+    "readMinutes": 2
+  },
+  {
+    "slug": "what-we-think-talent-and-academy",
+    "title": "Talent & Academy",
+    "excerpt": "INNOTECH Academy programs develop leadership, innovation capabilities, and digital fluency. Structured workshops, assessment tools, and learning paths operationalize INCEPTION and INFINITY frameworks across teams.",
+    "content": "<p>INNOTECH Academy programs develop leadership, innovation capabilities, and digital fluency. Structured workshops, assessment tools, and learning paths operationalize INCEPTION and INFINITY frameworks across teams.</p>",
+    "date": "2025-11-14 09:00:00",
+    "categories": [
+      "what-we-think"
+    ],
+    "source": "local-what-we-think:textCard2",
+    "readMinutes": 2
+  },
+  {
+    "slug": "what-we-think-customer-and-ecosystem-insights",
+    "title": "Customer & Ecosystem Insights",
+    "excerpt": "INSIGHT leverages market and patent data to help organizations understand ecosystem trends, identify opportunities, and map competitor activity. This intelligence enables better decision-making in R&D, innovation portfolios, and strategic planning.",
+    "content": "<p>INSIGHT leverages market and patent data to help organizations understand ecosystem trends, identify opportunities, and map competitor activity. This intelligence enables better decision-making in R&amp;D, innovation portfolios, and strategic planning.</p>",
+    "date": "2025-11-14 09:00:00",
+    "categories": [
+      "what-we-think"
+    ],
+    "source": "local-what-we-think:tallRight",
+    "readMinutes": 2
+  },
+  {
+    "slug": "what-we-think-sustainable-transformation-through-measured-execution",
+    "title": "Sustainable Transformation Through Measured Execution",
+    "excerpt": "Across industries, sustainable competitive advantage comes from connecting foresight, innovation governance, digital operating systems, and AI-enabled workflows. Organizations that integrate intelligence and execution systematically outperform peers in speed, impact, and ROI.",
+    "content": "<p>Across industries, sustainable competitive advantage comes from connecting foresight, innovation governance, digital operating systems, and AI-enabled workflows. Organizations that integrate intelligence and execution systematically outperform peers in speed, impact, and ROI.</p>",
+    "date": "2025-11-14 09:00:00",
+    "categories": [
+      "what-we-think"
+    ],
+    "source": "local-what-we-think:heroBottom",
+    "readMinutes": 2
+  }
+]

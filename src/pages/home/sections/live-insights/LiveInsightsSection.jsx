@@ -4,7 +4,7 @@ import ResponsiveCarousel from "../../../../components/ui/ResponsiveCarousel";
 import {useTheme} from "../../../../context/useTheme";
 import {routes} from "../../../../routes";
 import {usePointerGlow} from "../../../../hooks/usePointerGlow";
-import {liveInsights} from "./data";
+import {useHomeContent} from "../../../../context/useHomeContent";
 
 function MobileInsightCard({insight, isDarkMode}) {
   return (
@@ -54,6 +54,8 @@ function MobileInsightCard({insight, isDarkMode}) {
 
 function LiveInsightsSection() {
   const {isDarkMode} = useTheme();
+  const {content} = useHomeContent();
+  const liveInsights = content.liveInsights;
   const [featuredInsight, topInsight, bottomInsight] = liveInsights.cards;
 
   const {position: pos1, handlers: glow1} = usePointerGlow();

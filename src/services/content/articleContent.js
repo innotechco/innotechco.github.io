@@ -1,5 +1,6 @@
 import {fetchJsonFromApi} from "./utils";
 import {getActiveLocale} from "../../i18n/locale";
+import {fetchWordPressPost} from "../cms/wordpressBlog";
 
 const articleModules = import.meta.glob("../../content/{en,ar,tr}/articles/*.json", {
   eager: true,
@@ -21,5 +22,7 @@ export function getArticleSlugs() {
 }
 
 export async function fetchArticle(slug) {
-  return (await fetchJsonFromApi(`/articles/${slug}`)) ?? getArticle(slug);
+  return (await fetchWordPressPost(slug, {locale: getActiveLocale()})) ??
+    (await fetchJsonFromApi(`/articles/${slug}`)) ??
+    getArticle(slug);
 }

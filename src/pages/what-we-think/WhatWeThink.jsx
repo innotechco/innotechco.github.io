@@ -1,13 +1,48 @@
+import {useEffect, useMemo, useState} from "react";
+
 import {useTheme} from "../../context/useTheme";
 import BlackExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/BlackExcludeLeftWhatWeThink.webp";
 import BlackExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-think/BlackExcludeRightWhatWeThink.webp";
 import ExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeLeftWhatWeThink.webp";
 import ExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeRightWhatWeThink.webp";
 import {cards} from "./data";
+import {fetchBlogPosts} from "../../services/contentApi";
 import {usePointerGlow} from "../../hooks/usePointerGlow";
 import ReadMoreLink from "../../components/ui/ReadMoreLink";
 import {routes} from "../../routes";
 import {t} from "../../i18n/ui";
+
+const cardOrder = [
+  "heroTop",
+  "tallLeft",
+  "smallTopRight",
+  "smallBottomRight",
+  "smallMiddleLeft",
+  "textCard1",
+  "textCard2",
+  "tallRight",
+  "heroBottom",
+];
+
+function mergePostsIntoCards(defaultCards, posts = []) {
+  return cardOrder.reduce((nextCards, key, index) => {
+    const post = posts[index];
+    if (!post) return nextCards;
+
+    return {
+      ...nextCards,
+      [key]: {
+        ...nextCards[key],
+        title: post.title,
+        date: post.date,
+        readTime: post.readTime,
+        description: post.description,
+        slug: post.slug,
+        image: post.image || nextCards[key]?.image,
+      },
+    };
+  }, defaultCards);
+}
 
 function ArticleCopy({card, metaLayout = "stack", isDarkMode}) {
   return (
@@ -19,6 +54,7 @@ function ArticleCopy({card, metaLayout = "stack", isDarkMode}) {
       </div>
       <p>{card.description}</p>
       <ReadMoreLink
+        to={card.slug ? `/articles/${card.slug}` : undefined}
         isDarkMode={isDarkMode}
         className="what-we-think-read-more"
       />
@@ -77,12 +113,34 @@ function ArticleCard({
 
 function WhatWeThink() {
   const {isDarkMode} = useTheme();
+  const [wordpressPosts, setWordpressPosts] = useState(null);
+  const displayCards = useMemo(
+    () => mergePostsIntoCards(cards, wordpressPosts ?? []),
+    [wordpressPosts],
+  );
   const leftExclude = isDarkMode
     ? ExcludeLeftWhatWeThink
     : BlackExcludeLeftWhatWeThink;
   const rightExclude = isDarkMode
     ? ExcludeRightWhatWeThink
     : BlackExcludeRightWhatWeThink;
+
+  useEffect(() => {
+    let isActive = true;
+
+    fetchBlogPosts()
+      .then((posts) => {
+        const whatWeThinkPosts = posts?.filter((post) => post.categories.includes("what-we-think"));
+        if (isActive && whatWeThinkPosts?.length) setWordpressPosts(whatWeThinkPosts);
+      })
+      .catch(() => {
+        if (isActive) setWordpressPosts(null);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   return (
     <main className={`what-we-think-page ${isDarkMode ? "is-dark" : "is-light"}`}>
@@ -133,28 +191,28 @@ function WhatWeThink() {
       </header>
 
       <section className="what-we-think-grid" aria-label="What we think">
-        <ArticleCard card={cards.heroTop} variant="horizontal" metaLayout="between" isDarkMode={isDarkMode} />
+        <ArticleCard card={displayCards.heroTop} variant="horizontal" metaLayout="between" isDarkMode={isDarkMode} />
 
         <div className="what-we-think-row">
-          <ArticleCard card={cards.tallLeft} variant="tall" metaLayout="row" isDarkMode={isDarkMode} />
+          <ArticleCard card={displayCards.tallLeft} variant="tall" metaLayout="row" isDarkMode={isDarkMode} />
           <div className="what-we-think-stack">
-            <ArticleCard card={cards.smallTopRight} variant="small" isDarkMode={isDarkMode} />
-            <ArticleCard card={cards.smallBottomRight} variant="small" isDarkMode={isDarkMode} />
+            <ArticleCard card={displayCards.smallTopRight} variant="small" isDarkMode={isDarkMode} />
+            <ArticleCard card={displayCards.smallBottomRight} variant="small" isDarkMode={isDarkMode} />
           </div>
         </div>
 
         <div className="what-we-think-row">
           <div className="what-we-think-stack">
-            <ArticleCard card={cards.smallMiddleLeft} variant="small" isDarkMode={isDarkMode} />
+            <ArticleCard card={displayCards.smallMiddleLeft} variant="small" isDarkMode={isDarkMode} />
             <div className="what-we-think-text-row">
-              <ArticleCard card={cards.textCard1} variant="text" image={false} isDarkMode={isDarkMode} className="hide-mobile" />
-              <ArticleCard card={cards.textCard2} variant="text" image={false} isDarkMode={isDarkMode} className="hide-mobile" />
+              <ArticleCard card={displayCards.textCard1} variant="text" image={false} isDarkMode={isDarkMode} className="hide-mobile" />
+              <ArticleCard card={displayCards.textCard2} variant="text" image={false} isDarkMode={isDarkMode} className="hide-mobile" />
             </div>
           </div>
-          <ArticleCard card={cards.tallRight} variant="tall" metaLayout="row" isDarkMode={isDarkMode} />
+          <ArticleCard card={displayCards.tallRight} variant="tall" metaLayout="row" isDarkMode={isDarkMode} />
         </div>
 
-        <ArticleCard card={cards.heroBottom} variant="horizontal" metaLayout="between" isDarkMode={isDarkMode} />
+        <ArticleCard card={displayCards.heroBottom} variant="horizontal" metaLayout="between" isDarkMode={isDarkMode} />
 
         <div className="what-we-think-archives-link">
           <ReadMoreLink

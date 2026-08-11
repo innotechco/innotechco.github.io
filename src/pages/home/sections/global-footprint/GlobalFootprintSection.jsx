@@ -1,10 +1,13 @@
 import { useTheme } from "../../../../context/useTheme";
 import MapImage from "../../../../assets/images/home/Map.webp";
 import MapLightImage from "../../../../assets/images/home/MapLight.webp";
-import { globalFootprint } from "./data";
+import {useHomeContent} from "../../../../context/useHomeContent";
 
 function GlobalFootprintSection() {
   const { isDarkMode } = useTheme();
+  const {content} = useHomeContent();
+  const globalFootprint = content.globalFootprint;
+  const mapImage = globalFootprint.image || (isDarkMode ? MapImage : MapLightImage);
 
   return (
     <div
@@ -40,7 +43,7 @@ function GlobalFootprintSection() {
       <div className="w-full flex justify-center overflow-hidden">
         <img
           loading="lazy"
-          src={isDarkMode ? MapImage : MapLightImage}
+          src={mapImage}
           alt={globalFootprint.imageAlt}
           className={`h-auto w-full max-w-[1100px] object-contain transition-all duration-500 ${
             isDarkMode ? "" : "bg-white"   // مطمئن شدن از بک‌گراند سفید
