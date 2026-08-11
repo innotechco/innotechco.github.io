@@ -59,7 +59,9 @@ function ArticlePage() {
               image={article.image || articleAssets[article.heroAssetKey]}
             />
             <ArticleBody article={article} assets={articleAssets} />
-            <RelatedNews article={article} image={articleAssets[article.heroAssetKey]} />
+            {article.related?.length ? (
+              <RelatedNews article={article} image={articleAssets[article.heroAssetKey]} />
+            ) : null}
           </article>
         ) : null}
       </main>

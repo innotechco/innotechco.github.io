@@ -5,7 +5,7 @@ const relatedNewsGap = 32;
 
 function TableOfContents({sections}) {
   const visibleSections = sections.filter(
-    (section) => section.showInBody !== false,
+    (section) => section.showInBody !== false && section.showInToc !== false,
   );
   const tocRef = useRef(null);
   const shellRef = useRef(null);

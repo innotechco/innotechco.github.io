@@ -91,6 +91,103 @@ function getPostParagraphs(post) {
   return paragraphs.length ? paragraphs : [stripHtml(rendered).trim()].filter(Boolean);
 }
 
+function slugifyHeading(value, fallback) {
+  const slug = String(value ?? "")
+    .toLowerCase()
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&[^;\s]+;/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug || fallback;
+}
+
+function getArticleSlugFromUrl(value) {
+  const text = String(value ?? "");
+  const articleMatch = text.match(/\/articles\/([^/?#]+)/);
+  if (articleMatch?.[1]) return articleMatch[1];
+
+  try {
+    const url = new URL(text, "https://innotech.global");
+    return url.pathname.split("/").filter(Boolean).at(-1) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function getManualRelatedSlugs(rendered = "") {
+  const relatedMatch = String(rendered).match(/<h[2-3][^>]*>\s*Related News\s*<\/h[2-3]>([\s\S]*)/i);
+  const relatedHtml = relatedMatch?.[1] ?? "";
+  return Array.from(relatedHtml.matchAll(/href=["']([^"']+)["']/gi))
+    .map((match) => getArticleSlugFromUrl(match[1]))
+    .filter(Boolean)
+    .slice(0, 3);
+}
+
+function getWordPressSections(post, title) {
+  const rendered = post?.content?.rendered ?? "";
+  if (!rendered.trim()) return [];
+
+  if (typeof window === "undefined") {
+    return [
+      {
+        type: "wordpress",
+        id: "wordpress-content",
+        heading: title,
+        html: rendered,
+        paragraphs: getPostParagraphs(post),
+      },
+    ];
+  }
+
+  const doc = new window.DOMParser().parseFromString(rendered, "text/html");
+  const sections = [];
+  let current = {
+    type: "wordpress",
+    id: "wordpress-introduction",
+    heading: title,
+    html: "",
+    showInToc: false,
+  };
+
+  Array.from(doc.body.childNodes).forEach((node, index) => {
+    const isHeading = node.nodeType === Node.ELEMENT_NODE && /^H[2-3]$/.test(node.tagName);
+    if (isHeading && node.textContent.trim().toLowerCase() === "related news") {
+      if (current.html.trim()) sections.push(current);
+      current = {type: "wordpress", id: "wordpress-related-news", heading: "Related News", html: "", showInBody: false};
+      return;
+    }
+
+    if (current.showInBody === false) return;
+
+    if (isHeading) {
+      if (current.html.trim()) sections.push(current);
+      const heading = node.textContent.trim() || title;
+      current = {
+        type: "wordpress",
+        id: slugifyHeading(heading, `wordpress-section-${index}`),
+        heading,
+        html: node.outerHTML,
+      };
+      return;
+    }
+
+    current.html += node.outerHTML ?? node.textContent ?? "";
+  });
+
+  if (current.html.trim()) sections.push(current);
+  return sections.length
+    ? sections
+    : [
+        {
+          type: "wordpress",
+          id: "wordpress-content",
+          heading: title,
+          html: rendered,
+          paragraphs: getPostParagraphs(post),
+        },
+      ];
+}
+
 function normalizeCategorySlug(value) {
   return String(value ?? "insight").toLowerCase().replace(/[^a-z0-9]+/g, "-") || "insight";
 }
@@ -125,16 +222,8 @@ function normalizePost(post) {
     heroAssetKey: DEFAULT_IMAGE_KEY,
     contentAssetKey: "aiAgentFirst",
     introduction: [],
-    sections: [
-      {
-        type: "wordpress",
-        id: "wordpress-content",
-        heading: title,
-        showInBody: false,
-        html: post?.content?.rendered ?? "",
-        paragraphs: getPostParagraphs(post),
-      },
-    ],
+    sections: getWordPressSections(post, title),
+    manualRelatedSlugs: getManualRelatedSlugs(post?.content?.rendered),
     related: [],
   };
 }
@@ -167,6 +256,28 @@ export async function fetchWordPressPosts(options = {}) {
 }
 
 export async function fetchWordPressPost(slug, options = {}) {
-  const posts = await fetchWordPressPosts({...options, slug});
-  return posts?.[0] ?? null;
+  const posts = await fetchWordPressPosts(options);
+  const article = posts?.find((post) => post.slug === slug);
+  if (!article) return null;
+
+  const related = posts
+    .filter((post) => post.slug !== slug)
+    .filter((post) => post.categories?.some((category) => article.categories?.includes(category)))
+    .slice(0, 3);
+  const fallbackRelated = posts.filter((post) => post.slug !== slug).slice(0, 3);
+  const manualRelated = (article.manualRelatedSlugs ?? [])
+    .map((relatedSlug) => posts.find((post) => post.slug === relatedSlug))
+    .filter(Boolean);
+
+  return {
+    ...article,
+    related: (manualRelated.length ? manualRelated : related.length ? related : fallbackRelated).map((post) => ({
+      title: post.title,
+      description: post.description,
+      slug: post.slug,
+      date: post.date,
+      readTime: post.readTime,
+      image: post.image,
+    })),
+  };
 }
