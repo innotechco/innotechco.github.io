@@ -7,7 +7,6 @@ import ExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/E
 import ExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeRightWhatWeThink.webp";
 import {cards} from "./data";
 import {fetchBlogPosts} from "../../services/contentApi";
-import {getWhatWeThinkPosts} from "../../services/cms/blogOrdering";
 import {usePointerGlow} from "../../hooks/usePointerGlow";
 import ReadMoreLink from "../../components/ui/ReadMoreLink";
 import {routes} from "../../routes";
@@ -33,16 +32,16 @@ function mergePostsIntoCards(defaultCards, posts = []) {
     return {
       ...nextCards,
       [key]: {
-        ...nextCards[key],
+        imagePosition: nextCards[key]?.imagePosition,
         title: post.title,
         date: post.date,
         readTime: post.readTime,
         description: post.description,
         slug: post.slug,
-        image: post.image || nextCards[key]?.image,
+        image: post.image,
       },
     };
-  }, defaultCards);
+  }, {});
 }
 
 function ArticleCopy({card, metaLayout = "stack", isDarkMode}) {
@@ -64,6 +63,8 @@ function ArticleCopy({card, metaLayout = "stack", isDarkMode}) {
 }
 
 function ImagePane({card}) {
+  if (!card.image) return null;
+
   return (
     <div className="what-we-think-image">
       <img
@@ -116,7 +117,9 @@ function WhatWeThink() {
   const {isDarkMode} = useTheme();
   const [wordpressPosts, setWordpressPosts] = useState(null);
   const displayCards = useMemo(
-    () => mergePostsIntoCards(cards, wordpressPosts ?? []),
+    () => wordpressPosts?.length >= cardOrder.length
+      ? mergePostsIntoCards(cards, wordpressPosts)
+      : null,
     [wordpressPosts],
   );
   const leftExclude = isDarkMode
@@ -131,11 +134,10 @@ function WhatWeThink() {
 
     fetchBlogPosts()
       .then((posts) => {
-        const whatWeThinkPosts = getWhatWeThinkPosts(posts ?? []);
-        if (isActive && whatWeThinkPosts?.length) setWordpressPosts(whatWeThinkPosts);
+        if (isActive) setWordpressPosts(posts ?? []);
       })
       .catch(() => {
-        if (isActive) setWordpressPosts(null);
+        if (isActive) setWordpressPosts([]);
       });
 
     return () => {
@@ -191,7 +193,7 @@ function WhatWeThink() {
         <h1>{t("whatWeThink")}</h1>
       </header>
 
-      <section className="what-we-think-grid" aria-label="What we think">
+      {displayCards ? <section className="what-we-think-grid" aria-label="What we think">
         <ArticleCard card={displayCards.heroTop} variant="horizontal" metaLayout="between" isDarkMode={isDarkMode} />
 
         <div className="what-we-think-row">
@@ -224,7 +226,7 @@ function WhatWeThink() {
             className="font-['Gotham'] text-lg"
           />
         </div>
-      </section>
+      </section> : null}
     </main>
   );
 }

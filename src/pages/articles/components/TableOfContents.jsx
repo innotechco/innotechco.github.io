@@ -87,6 +87,8 @@ function TableOfContents({sections}) {
     };
   }, [sections]);
 
+  if (!visibleSections.length) return null;
+
   return (
     <div className="article-toc-shell" ref={shellRef}>
       <nav ref={tocRef} className="article-toc" aria-label={t("tableOfContents")}>
