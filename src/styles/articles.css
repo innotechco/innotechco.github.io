@@ -103,7 +103,8 @@
 }
 
 /* ========== ARTICLE COPY ========== */
-.article-copy { max-width: 860px; min-width: 0; }
+.article-copy { width: 100%; max-width: none; min-width: 0; }
+.article-body-layout--without-toc .article-copy { grid-column: 2; }
 .article-lede { margin: 0 0 12px; font-size: 15px; font-weight: 500; line-height: 1.25; }
 .article-copy > p:not(.article-lede) { margin: 0 0 12px; font-size: 14px; font-weight: 300; line-height: 1.28; }
 .article-section { scroll-margin-top: 130px; margin: 0 0 30px; }
@@ -116,7 +117,8 @@
 .article-section figure { margin: 20px 0 16px; }
 .article-section figure img { display: block; width: 100%; max-height: 390px; object-fit: cover; object-position: center; }
 .article-section figcaption { margin-top: 14px; }
-.article-wordpress-content :is(p, li, figcaption) { font-size: 14px; font-weight: 300; line-height: 1.45; }
+.article-wordpress-content { min-width: 0; max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
+.article-wordpress-content :is(p, li, figcaption) { max-width: 100%; font-size: 14px; font-weight: 300; line-height: 1.45; overflow-wrap: anywhere; word-break: break-word; }
 .article-wordpress-content :is(h2, h3, h4) { font-weight: 500; line-height: 1.16; }
 .article-wordpress-content img { display: block; max-width: 100%; height: auto; margin: 22px 0; object-fit: contain; }
 .article-wordpress-content figure { margin: 26px 0; }

@@ -136,6 +136,13 @@ function getWordPressSections(post, title) {
   }
 
   const doc = new window.DOMParser().parseFromString(rendered, "text/html");
+  Array.from(doc.body.querySelectorAll("a[href]")).forEach((link) => {
+    const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
+    rel.add("noopener");
+    rel.add("noreferrer");
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", Array.from(rel).join(" "));
+  });
   const sections = [];
   let current = {
     type: "wordpress",

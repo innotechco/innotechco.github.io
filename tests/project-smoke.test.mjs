@@ -82,6 +82,9 @@ test("WordPress Article fields are real REST meta and Related News stays outside
   assert.match(service, /getField\(post, "innotech_related_posts"\)/);
   assert.doesNotMatch(service, /getManualRelated|getManualReadTime|fallbackRelated/);
   assert.doesNotMatch(service, /Related News\\s\*<\\\/h/);
+  assert.match(service, /link\.setAttribute\("target", "_blank"\)/);
+  assert.match(service, /rel\.add\("noopener"\)/);
+  assert.match(service, /rel\.add\("noreferrer"\)/);
 });
 
 test("CMS Article cards do not hide missing WordPress values with local fallbacks", () => {
@@ -96,6 +99,32 @@ test("CMS Article cards do not hide missing WordPress values with local fallback
 
   assert.match(page, /article\.isCmsArticle \? article\.image/);
   assert.doesNotMatch(related, /item\.image \|\||item\.date \|\||item\.readTime \|\|/);
+});
+
+test("Article body expands when a WordPress post has no table of contents", () => {
+  const body = fs.readFileSync(
+    path.join(srcRoot, "pages", "articles", "components", "ArticleBody.jsx"),
+    "utf8",
+  );
+  const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
+
+  assert.match(body, /article-body-layout--without-toc/);
+  assert.match(css, /\.article-body-layout--without-toc \.article-copy\s*\{\s*grid-column:\s*2/);
+  assert.match(css, /\.article-copy\s*\{[^}]*max-width:\s*none/);
+  assert.match(css, /\.article-wordpress-content\s*\{[^}]*overflow-wrap:\s*anywhere/);
+});
+
+test("What We Think waits for WordPress and never flashes local card content", () => {
+  const page = fs.readFileSync(
+    path.join(srcRoot, "pages", "what-we-think", "WhatWeThink.jsx"),
+    "utf8",
+  );
+
+  assert.match(page, /wordpressPosts\?\.length >= cardOrder\.length/);
+  assert.match(page, /setWordpressPosts\(posts \?\? \[\]\)/);
+  assert.doesNotMatch(page, /getWhatWeThinkPosts/);
+  assert.doesNotMatch(page, /post\.image \|\|/);
+  assert.match(page, /displayCards \? <section/);
 });
 
 test("all route values are unique and grouped correctly", () => {
