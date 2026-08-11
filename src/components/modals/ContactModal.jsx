@@ -57,11 +57,8 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
     resetForm();
     onClose();
   }, [onClose, resetForm]);
-
   const getRegionMatch = (region) =>
-    countries.find(
-      (country) => country.toLowerCase() === region.trim().toLowerCase(),
-    );
+    countries.find((country) => country.toLowerCase() === region.trim().toLowerCase());
 
   const validate = (field) => {
     const nextErrors = field ? {...errors} : {};
@@ -70,19 +67,13 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
     requiredFields.forEach((requiredField) => {
       if (field && field !== requiredField) return;
 
-      if (!values[requiredField].trim()) {
-        nextErrors[requiredField] = contactContent.errors.required;
-      } else {
-        delete nextErrors[requiredField];
-      }
+      if (!values[requiredField].trim()) nextErrors[requiredField] = contactContent.errors.required;
+      else delete nextErrors[requiredField];
     });
 
     if (!field || field === "email") {
-      if (!emailPattern.test(values.email.trim())) {
-        nextErrors.email = contactContent.errors.email;
-      } else {
-        delete nextErrors.email;
-      }
+      if (!emailPattern.test(values.email.trim())) nextErrors.email = contactContent.errors.email;
+      else delete nextErrors.email;
     }
 
     if (!field || field === "region") {
@@ -172,7 +163,6 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isRegionOpen]);
-
   const modalBg = isDarkMode ? "bg-black" : "bg-white";
   const modalOutline = isDarkMode ? "outline-white/25" : "outline-black/25";
   const textColor = isDarkMode ? "text-white" : "text-black";
@@ -200,7 +190,6 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
     hiddenClassName="translate-y-32 scale-[0.98] opacity-0"
     visibleClassName="translate-y-0 scale-100 opacity-100"
   >
-      {/* Header */}
       <div className="shrink-0 p-4 sm:p-6 lg:px-11 lg:pt-11">
         <div className="inline-flex items-center justify-between self-stretch gap-4 w-full">
           <div className="locale-contact-title relative flex min-w-0 flex-1 items-end justify-between px-4">
@@ -219,15 +208,7 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
             aria-label={contactContent.closeLabel}
             className="relative flex size-11 shrink-0 items-center justify-center overflow-hidden"
           >
-            <svg
-              viewBox="0 0 24 24"
-              className={`size-5 ${closeIconColor}`}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
+            <svg viewBox="0 0 24 24" className={`size-5 ${closeIconColor}`} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 6L18 18" />
               <path d="M18 6L6 18" />
             </svg>
@@ -235,7 +216,6 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
         </div>
       </div>
 
-      {/* Scroll Area */}
       <div className="flex-1 overflow-y-auto px-4 pb-4 sm:px-6 lg:px-11">
         <form
           className="flex w-full flex-col items-end gap-5"
