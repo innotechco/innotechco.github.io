@@ -36,6 +36,11 @@ jobs:
           # from /repository-name/. This also keeps forks and the personal Pages
           # deployment working independently.
           VITE_BASE_PATH: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && '/' || format('/{0}/', github.event.repository.name) }}
+          VITE_CMS_ENABLED: "true"
+          VITE_CMS_BASE_URL: "https://blog.innotech.global"
+          VITE_CMS_HOME_ENABLED: "false"
+          VITE_CMS_BLOG_ENABLED: "true"
+          VITE_CMS_BLOG_PER_PAGE: "50"
         run: npm run build
 
       - name: Add SPA fallback
