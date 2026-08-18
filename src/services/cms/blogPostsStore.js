@@ -39,8 +39,3 @@ export function loadBlogPosts(locale = getActiveLocale()) {
 export function loadBlogCategories(locale = getActiveLocale()) {
   return loadCached(categoryCache, locale, () => fetchWordPressCategories({locale}));
 }
-
-export function clearBlogPostsCache() {
-  cache.clear();
-  categoryCache.clear();
-}
