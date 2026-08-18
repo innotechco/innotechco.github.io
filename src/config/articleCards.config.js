@@ -25,15 +25,28 @@ export const HOME_LIVE_INSIGHTS_START_INDEX = 1;
 export const ARTICLE_HERO_ASPECT_RATIO = "16 / 9";
 
 /**
- * WordPress category slug for every industry page that renders a Live Insight section.
- * Frontend route slug -> WordPress category slug.
+ * WordPress category slugs for every industry page that renders a Live Insight
+ * section. Frontend route slug -> accepted WordPress category slugs.
+ *
+ * Several spellings are accepted per industry so the CEO can create the
+ * category in WordPress under the industry's real name without the page
+ * silently going empty. Renaming an existing category keeps its slug, so the
+ * first entry keeps working either way.
  */
 export const INDUSTRY_CATEGORY_SLUGS = {
-  automotive: "automotive",
-  "energy-and-materials": "energy-materials",
-  health: "health",
-  "high-tech": "high-tech",
-  "metals-and-mining": "metals-mining",
+  automotive: ["automotive"],
+  "energy-and-materials": [
+    "energy-materials",
+    "energy-and-materials",
+    "oil-gas-and-petrochemical",
+  ],
+  health: ["health", "healthcare-and-life-sciences"],
+  "high-tech": ["high-tech", "high-tech-and-ai"],
+  "metals-and-mining": [
+    "metals-mining",
+    "metals-and-mining",
+    "steel-and-mining",
+  ],
 };
 
 /**

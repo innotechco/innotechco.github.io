@@ -1,10 +1,23 @@
 const ALL_CATEGORY_ID = "all";
 
-/** A label of three or more words is shown on two lines inside a card pill. */
+/**
+ * A card pill wraps onto two lines once the label is long enough that a single
+ * line would be squeezed and cut off in the meta row.
+ *
+ * Word count alone is not enough: two long words ("Digital Transformation")
+ * overflow just as badly as three short ones, so length decides as well.
+ */
 export const CATEGORY_PILL_WRAP_WORDS = 3;
+export const CATEGORY_PILL_WRAP_CHARS = 16;
 
 export function isMultilineCategoryLabel(label) {
-  return String(label ?? "").trim().split(/\s+/).filter(Boolean).length >= CATEGORY_PILL_WRAP_WORDS;
+  const text = String(label ?? "").trim();
+  if (!text) return false;
+
+  const words = text.split(/\s+/).filter(Boolean);
+  if (words.length < 2) return false;
+
+  return words.length >= CATEGORY_PILL_WRAP_WORDS || text.length > CATEGORY_PILL_WRAP_CHARS;
 }
 
 /**
