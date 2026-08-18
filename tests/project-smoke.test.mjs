@@ -14,6 +14,11 @@ import {
 } from "../src/services/cms/blogOrdering.js";
 import {truncateWords} from "../src/services/content/cardSummary.js";
 import {
+  buildArchiveCategories,
+  buildCategoryLabels,
+  isMultilineCategoryLabel,
+} from "../src/services/cms/archiveCategories.js";
+import {
   CARD_SUMMARY_WORD_LIMIT,
   HOME_LIVE_INSIGHTS_START_INDEX,
   INDUSTRY_CATEGORY_SLUGS,
@@ -308,15 +313,83 @@ test("card summaries are cut in JS and the card footer is pinned by flexbox", ()
     );
   }
 
-  // Sections may opt out of the clamp on mobile, but must not define their own.
+  // Summary clamping belongs to .article-card-summary; sections only set the
+  // line count. The category pill has its own two-line clamp, which is a
+  // separate rule and is excluded from this check.
   for (const file of ["archive.css", "what-we-think.css"]) {
-    const css = fs.readFileSync(path.join(srcRoot, "styles", file), "utf8");
+    const css = fs.readFileSync(path.join(srcRoot, "styles", file), "utf8")
+      .replace(/\.archive-card-category--multiline \{[^}]*\}/gs, "");
+
+    assert.match(css, /--article-card-summary-lines/, `${file} must set the shared line count`);
     assert.doesNotMatch(
       css,
       /-webkit-line-clamp:\s*(?:\d|var\()/,
-      `${file} must not clamp on its own`,
+      `${file} must not clamp its summary on its own`,
     );
   }
+});
+
+test("the archive filter rail is driven by WordPress categories", () => {
+  const local = [
+    {id: "all", label: "Show all"},
+    {id: "insight", label: "INSIGHT"},
+    {id: "energy-materials", label: "Oil, Gas and Petrochemical"},
+    {id: "retired", label: "Removed In WordPress"},
+  ];
+  const remote = [
+    {slug: "energy-materials", label: "energy-materials", count: 3},
+    {slug: "insight", label: "insight", count: 6},
+    {slug: "patent-landscape-insight", label: "PATENT LANDSCAPE INSIGHT", count: 1},
+  ];
+
+  const merged = buildArchiveCategories(local, remote);
+
+  // Curated order and curated labels win; a new WordPress category is appended.
+  assert.deepEqual(merged.map(({id}) => id), [
+    "all",
+    "insight",
+    "energy-materials",
+    "patent-landscape-insight",
+  ]);
+  assert.equal(merged[2].label, "Oil, Gas and Petrochemical");
+  assert.equal(merged[3].label, "PATENT LANDSCAPE INSIGHT");
+  // A category deleted in WordPress stops being offered as a filter.
+  assert.ok(!merged.some(({id}) => id === "retired"));
+  // Without WordPress the local rail is used unchanged.
+  assert.deepEqual(buildArchiveCategories(local, null), local);
+  assert.deepEqual(buildArchiveCategories(local, []), local);
+
+  assert.deepEqual(buildCategoryLabels(merged), {
+    insight: "INSIGHT",
+    "energy-materials": "Oil, Gas and Petrochemical",
+    "patent-landscape-insight": "PATENT LANDSCAPE INSIGHT",
+  });
+});
+
+test("a three word category label wraps onto two lines in the card pill", () => {
+  assert.equal(isMultilineCategoryLabel("PATENT LANDSCAPE INSIGHT"), true);
+  assert.equal(isMultilineCategoryLabel("Oil, Gas and Petrochemical"), true);
+  assert.equal(isMultilineCategoryLabel("Steel and Mining"), true);
+  assert.equal(isMultilineCategoryLabel("Product Development"), false);
+  assert.equal(isMultilineCategoryLabel("INSIGHT"), false);
+  assert.equal(isMultilineCategoryLabel(""), false);
+
+  const css = fs.readFileSync(path.join(srcRoot, "styles", "archive.css"), "utf8");
+  assert.match(css, /\.archive-card-category--multiline \{[^}]*-webkit-line-clamp: 2/s);
+  assert.match(css, /\.archive-card-category--multiline \{[^}]*white-space: normal/s);
+  // Cards keep one height per row even when a pill takes two lines.
+  assert.match(css, /\.archive-card \{[^}]*height: 100%/s);
+});
+
+test("structural WordPress buckets are never offered as archive filters", () => {
+  const blog = fs.readFileSync(
+    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    "utf8",
+  );
+
+  assert.match(blog, /EXCLUDED_CATEGORY_SLUGS = new Set\(\["uncategorized", "what-we-think"\]\)/);
+  assert.match(blog, /export async function fetchWordPressCategories/);
+  assert.match(blog, /wp\/v2\/categories/);
 });
 
 test("the archive card pill matches the category the reader filtered by", () => {
@@ -327,7 +400,7 @@ test("the archive card pill matches the category the reader filtered by", () => 
 
   // Posts carry several categories, so the pill follows the active filter.
   assert.match(page, /slugs\.includes\(selectedCategory\)/);
-  assert.match(page, /getCardCategory\(item, selectedCategory\)/);
+  assert.match(page, /getCardCategory\(item, selectedCategory, categoryLabels\)/);
   assert.match(page, /categories\.includes\(selectedCategory\)/);
 });
 

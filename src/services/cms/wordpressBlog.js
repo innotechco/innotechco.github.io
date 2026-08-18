@@ -3,6 +3,8 @@ import {getWordPressCategoryTerms} from "./blogOrdering";
 
 const DEFAULT_BLOG_PER_PAGE = 50;
 const EXCLUDED_SLUGS = new Set(["hello", "hello-world"]);
+/* Structural buckets, not topics: never offered as an archive filter. */
+const EXCLUDED_CATEGORY_SLUGS = new Set(["uncategorized", "what-we-think"]);
 const CATEGORY_LABELS = {
   "ai-agents": "AI Agents",
   automotive: "Automotive",
@@ -266,6 +268,43 @@ function buildPostsUrl({slug, locale} = {}) {
   url.searchParams.set("lang", normalizeLocale(locale));
   if (slug) url.searchParams.set("slug", slug);
   return url.toString();
+}
+
+function buildCategoriesUrl(locale) {
+  const baseUrl = getBaseUrl();
+  if (!baseUrl || !isBlogEnabled()) return null;
+
+  const url = new URL("/wp-json/wp/v2/categories", `${baseUrl}/`);
+  url.searchParams.set("per_page", "100");
+  url.searchParams.set("orderby", "name");
+  url.searchParams.set("order", "asc");
+  url.searchParams.set("_fields", "id,name,slug,count");
+  url.searchParams.set("lang", normalizeLocale(locale));
+  return url.toString();
+}
+
+/**
+ * Every category defined in WordPress, so the archive filter rail is driven by
+ * the CMS instead of a hard-coded list. `label` prefers the curated display
+ * name; a category added in WordPress falls back to the name the editor typed.
+ */
+export async function fetchWordPressCategories({locale} = {}) {
+  const url = buildCategoriesUrl(locale);
+  if (!url) return null;
+
+  const response = await fetch(url, {headers: {Accept: "application/json"}});
+  if (!response.ok) {
+    throw new Error(`WordPress categories request failed: ${response.status}`);
+  }
+
+  const categories = await response.json();
+  return categories
+    .filter((category) => !EXCLUDED_CATEGORY_SLUGS.has(category.slug))
+    .map((category) => ({
+      slug: category.slug,
+      count: category.count,
+      label: CATEGORY_LABELS[category.slug] || decodeHtml(category.name),
+    }));
 }
 
 export async function fetchWordPressPosts(options = {}) {
