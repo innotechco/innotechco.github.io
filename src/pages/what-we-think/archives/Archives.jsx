@@ -1,15 +1,37 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useMemo, useRef, useState} from "react";
+import {Link} from "react-router-dom";
 
-import ReadMoreLink from "../../../components/ui/ReadMoreLink";
 import {useTheme} from "../../../context/useTheme";
 import SearchIcon from "../../../assets/icons/Search.svg";
 import ArchiveLightDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeTopMiddle.webp";
 import ArchiveDarkDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeMiddle.webp";
 import {archiveItems, archivePage} from "./data";
-import {fetchBlogPosts} from "../../../services/contentApi";
-import {orderPostsForArchives} from "../../../services/cms/blogOrdering";
+import {useBlogPosts} from "../../../hooks/useBlogPosts";
+import {getCategoryPillColor} from "../../../config/articleCards.config";
+import {truncateWords} from "../../../services/content/cardSummary";
+import {getArticlePath} from "../../../services/content/blogSections";
 import {usePointerGlow} from "../../../hooks/usePointerGlow";
 import {t} from "../../../i18n/ui";
+
+/* Category slug -> label, taken from the pills at the top of this page. */
+const categoryLabels = Object.fromEntries(
+  archivePage.categories
+    .filter((category) => category.id !== "all")
+    .map((category) => [category.id, category.label]),
+);
+
+/* A post usually sits in several categories. With a filter active the pill shows
+   the filtered one, so the card never contradicts the selected pill above the grid.
+   Without a filter it falls back to the article topic, skipping the generic
+   "what we think" bucket. */
+function getCardCategory(item, selectedCategory) {
+  const slugs = item.categories ?? [];
+  const slug = slugs.includes(selectedCategory)
+    ? selectedCategory
+    : slugs.find((value) => value !== "what-we-think") ?? slugs[0];
+  if (!slug) return null;
+  return {slug, label: categoryLabels[slug] ?? item.category ?? slug};
+}
 
 const INITIAL_CARD_COUNT = 9;
 const LOAD_MORE_DELAY = 700;
@@ -30,8 +52,11 @@ function mergeArchiveItems(wordpressPosts = [], localItems = []) {
     });
 }
 
-function ArchiveCard({item, isDarkMode}) {
+function ArchiveCard({item, isDarkMode, selectedCategory}) {
   const {position, handlers} = usePointerGlow();
+  const category = getCardCategory(item, selectedCategory);
+  const readTime = item.readTime ||
+    (item.readMinutes ? `${item.readMinutes} minutes read` : "");
 
   return (
     <div className="archive-card-shell" {...handlers}>
@@ -42,26 +67,32 @@ function ArchiveCard({item, isDarkMode}) {
           background: `radial-gradient(340px circle at ${position.x}px ${position.y}px, rgba(55, 180, 120, 0.46), transparent 72%)`,
         }}
       />
-      <article className={`archive-card ${isDarkMode ? "is-dark" : "is-light"}`}>
+      <Link
+        className={`archive-card ${isDarkMode ? "is-dark" : "is-light"}`}
+        to={getArticlePath(item.slug || item.id) ?? "#"}
+      >
         <div className="archive-card-image">
           <img src={item.image} alt="" aria-hidden="true" loading="lazy" />
         </div>
         <div className="archive-card-copy">
           <h2>{item.title}</h2>
-          <p>{item.description}</p>
-          <div className="archive-card-meta">
+          <p className="article-card-summary">{truncateWords(item.description)}</p>
+          <div className="archive-card-meta article-card-footer">
             <span className="archive-read-time" dir="ltr">
-              {item.readMinutes} minutes read
+              {readTime}
             </span>
             <span>{item.date}</span>
-            <ReadMoreLink
-              to={item.slug ? `/articles/${item.slug}` : undefined}
-              isDarkMode={isDarkMode}
-              className="archive-card-read-more"
-            />
+            {category ? (
+              <span
+                className="archive-card-category"
+                style={getCategoryPillColor(category.slug, isDarkMode)}
+              >
+                {category.label}
+              </span>
+            ) : null}
           </div>
         </div>
-      </article>
+      </Link>
     </div>
   );
 }
@@ -72,29 +103,12 @@ function Archives() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_CARD_COUNT);
   const [isLoading, setIsLoading] = useState(false);
-  const [wordpressItems, setWordpressItems] = useState([]);
+  const {posts} = useBlogPosts();
   const tagsRailRef = useRef(null);
   const items = useMemo(
-    () => mergeArchiveItems(wordpressItems, archiveItems),
-    [wordpressItems],
+    () => mergeArchiveItems(posts, archiveItems),
+    [posts],
   );
-
-  useEffect(() => {
-    let isActive = true;
-
-    fetchBlogPosts()
-      .then((posts) => {
-        if (!isActive || !posts?.length) return;
-        setWordpressItems(orderPostsForArchives(posts));
-      })
-      .catch(() => {
-        if (isActive) setWordpressItems([]);
-      });
-
-    return () => {
-      isActive = false;
-    };
-  }, []);
 
   const filteredItems = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -181,7 +195,14 @@ function Archives() {
 
         {visibleItems.length ? (
           <section className="archive-grid" aria-label="Archive articles">
-            {visibleItems.map((item) => <ArchiveCard key={item.id} item={item} isDarkMode={isDarkMode} />)}
+            {visibleItems.map((item) => (
+              <ArchiveCard
+                key={item.id}
+                item={item}
+                isDarkMode={isDarkMode}
+                selectedCategory={selectedCategory}
+              />
+            ))}
           </section>
         ) : (
           <p className="archive-empty">{t("noInsights")}</p>

@@ -6,10 +6,18 @@ import {fileURLToPath} from "node:url";
 
 import {industryRoutes, routes, serviceRoutes} from "../src/routes.js";
 import {
+  getIndustryPosts,
   getWordPressCategoryTerms,
   getWhatWeThinkPosts,
+  orderPosts,
   orderPostsForArchives,
 } from "../src/services/cms/blogOrdering.js";
+import {truncateWords} from "../src/services/content/cardSummary.js";
+import {
+  CARD_SUMMARY_WORD_LIMIT,
+  HOME_LIVE_INSIGHTS_START_INDEX,
+  INDUSTRY_CATEGORY_SLUGS,
+} from "../src/config/articleCards.config.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const srcRoot = path.join(root, "src");
@@ -23,28 +31,74 @@ function walk(directory) {
 
 const sourceFiles = walk(srcRoot).filter((file) => /\.(js|jsx|css)$/.test(file));
 
-test("archives begin with What We Think posts in the same order", () => {
+test("What We Think and Archive share one newest-first ordering", () => {
   const posts = [
-    {slug: "archive-new", categories: ["insight"]},
-    {slug: "what-new", categories: ["what-we-think"]},
-    {slug: "archive-old", categories: ["inception"]},
-    {slug: "what-old", categories: ["what-we-think", "insight"]},
+    {slug: "archive-old", categories: ["inception"], publishedAt: "2026-01-05T00:00:00"},
+    {slug: "what-new", categories: ["what-we-think"], publishedAt: "2026-03-01T00:00:00"},
+    {slug: "archive-new", categories: ["insight"], publishedAt: "2026-02-10T00:00:00"},
+    {slug: "what-old", categories: ["what-we-think", "insight"], publishedAt: "2025-12-01T00:00:00"},
   ];
 
-  const whatWeThink = getWhatWeThinkPosts(posts);
-  const archives = orderPostsForArchives(posts);
+  const ordered = orderPosts(posts);
 
-  assert.deepEqual(whatWeThink.map(({slug}) => slug), ["what-new", "what-old"]);
-  assert.deepEqual(
-    archives.slice(0, whatWeThink.length).map(({slug}) => slug),
-    whatWeThink.map(({slug}) => slug),
-  );
-  assert.deepEqual(archives.map(({slug}) => slug), [
+  assert.deepEqual(ordered.map(({slug}) => slug), [
     "what-new",
-    "what-old",
     "archive-new",
     "archive-old",
+    "what-old",
   ]);
+  // Archive and What We Think read the exact same list, so both stay in sync.
+  assert.deepEqual(
+    orderPostsForArchives(posts).map(({slug}) => slug),
+    ordered.map(({slug}) => slug),
+  );
+  assert.deepEqual(getWhatWeThinkPosts(ordered).map(({slug}) => slug), [
+    "what-new",
+    "what-old",
+  ]);
+});
+
+test("industry Live Insight sections only accept posts tagged with their category", () => {
+  const posts = [
+    {slug: "car", categories: ["automotive"], publishedAt: "2026-02-01T00:00:00"},
+    {slug: "steel", categories: ["metals-mining"], publishedAt: "2026-03-01T00:00:00"},
+    {slug: "untagged", categories: ["insight"], publishedAt: "2026-04-01T00:00:00"},
+  ];
+
+  assert.deepEqual(getIndustryPosts(posts, "automotive").map(({slug}) => slug), ["car"]);
+  assert.deepEqual(
+    getIndustryPosts(posts, "metals-and-mining").map(({slug}) => slug),
+    ["steel"],
+  );
+  assert.deepEqual(getIndustryPosts(posts, "health"), []);
+  assert.deepEqual(Object.keys(INDUSTRY_CATEGORY_SLUGS).sort(), [
+    "automotive",
+    "energy-and-materials",
+    "health",
+    "high-tech",
+    "metals-and-mining",
+  ]);
+});
+
+test("every card summary uses the one shared word limit", () => {
+  const words = Array.from({length: CARD_SUMMARY_WORD_LIMIT + 12}, (_, index) => `word${index}`);
+  const truncated = truncateWords(words.join(" "));
+
+  assert.ok(truncated.endsWith("..."));
+  assert.equal(truncated.replace("...", "").trim().split(" ").length, CARD_SUMMARY_WORD_LIMIT);
+  assert.equal(truncateWords("short summary"), "short summary");
+  assert.equal(truncateWords(""), "");
+
+  const cardFiles = [
+    path.join(srcRoot, "services", "content", "blogSections.js"),
+    path.join(srcRoot, "pages", "what-we-think", "WhatWeThink.jsx"),
+    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
+  ];
+
+  for (const file of cardFiles) {
+    const source = fs.readFileSync(file, "utf8");
+    assert.match(source, /truncateWords/, `${path.relative(root, file)} must reuse truncateWords`);
+  }
 });
 
 test("WordPress posts preserve every assigned category", () => {
@@ -120,11 +174,206 @@ test("What We Think waits for WordPress and never flashes local card content", (
     "utf8",
   );
 
-  assert.match(page, /wordpressPosts\?\.length >= cardOrder\.length/);
-  assert.match(page, /setWordpressPosts\(posts \?\? \[\]\)/);
+  assert.match(page, /posts\.length >= cardOrder\.length/);
+  assert.match(page, /useBlogPosts\(\)/);
   assert.doesNotMatch(page, /getWhatWeThinkPosts/);
   assert.doesNotMatch(page, /post\.image \|\|/);
   assert.match(page, /displayCards \? <section/);
+});
+
+test("every article card section reads from the one shared WordPress feed", () => {
+  const readers = [
+    path.join(srcRoot, "context", "HomeContentProvider.jsx"),
+    path.join(srcRoot, "pages", "what-we-think", "WhatWeThink.jsx"),
+    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
+    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "LiveInsightsSection.jsx"),
+  ];
+
+  for (const file of readers) {
+    const source = fs.readFileSync(file, "utf8");
+    assert.match(source, /useBlogPosts/, `${path.relative(root, file)} must use useBlogPosts`);
+    assert.doesNotMatch(
+      source,
+      /fetchBlogPosts|fetchWordPressPosts/,
+      `${path.relative(root, file)} must not fetch posts on its own`,
+    );
+  }
+});
+
+test("the archive card is one link with a category pill instead of Read More", () => {
+  const page = fs.readFileSync(
+    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
+    "utf8",
+  );
+  const css = fs.readFileSync(path.join(srcRoot, "styles", "archive.css"), "utf8");
+
+  assert.match(page, /<Link\s+className={`archive-card/);
+  assert.match(page, /archive-card-category/);
+  assert.doesNotMatch(page, /ReadMoreLink|archive-card-read-more/);
+  assert.match(css, /\.archive-card-category \{[^}]*border-radius: 999px/s);
+  assert.match(css, /\.archive-card-category \{[^}]*text-overflow: ellipsis/s);
+});
+
+test("the article table of contents lists H2 only and nests H3 under it", () => {
+  const toc = fs.readFileSync(
+    path.join(srcRoot, "pages", "articles", "components", "TableOfContents.jsx"),
+    "utf8",
+  );
+  const blog = fs.readFileSync(
+    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    "utf8",
+  );
+  const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
+
+  // Headings carry their level so the H1 title can never become a TOC entry.
+  assert.match(blog, /level,\s+html: renderHeading\(node, level\)/);
+  assert.match(blog, /level: 1,\s+showInToc: false/);
+  assert.match(toc, /\(section\.level \?\? 2\) >= 2/);
+  assert.match(toc, /level >= 3 && parent/);
+  assert.match(toc, /article-toc-subtree/);
+  assert.match(css, /\.article-toc-subtree \{[^}]*transition: max-height/s);
+});
+
+test("the single-article hero box takes the uploaded image's own ratio", () => {
+  const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
+  const hero = fs.readFileSync(
+    path.join(srcRoot, "pages", "articles", "components", "ArticleHero.jsx"),
+    "utf8",
+  );
+
+  // No ratio can crop the hero: the box matches the image and contain is the floor.
+  assert.match(hero, /naturalWidth\} \/ \$\{naturalHeight\}/);
+  assert.match(hero, /style=\{\{aspectRatio\}\}/);
+  assert.match(css, /\.article-hero-media img \{[^}]*object-fit: contain/s);
+  assert.doesNotMatch(css, /\.article-hero-media img \{[^}]*object-fit: cover/s);
+  // Images inside the article body keep their own dimensions.
+  assert.match(css, /\.article-wordpress-content img \{[^}]*object-fit: contain/s);
+});
+
+test("images inside a WordPress article are never cropped or boxed in", () => {
+  const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
+
+  // `.article-section figure img` caps local-article figures at 390px with
+  // object-fit: cover. WordPress sections carry both classes, so a 1200x675
+  // upload used to render 776x390 - sliced top and bottom.
+  assert.match(css, /\.article-section figure img \{[^}]*max-height: 390px/s);
+  const wordpressFigureImg = css.match(
+    /\.article-wordpress-content figure img,[^{]*\{[^}]*\}/s,
+  )?.[0];
+  assert.ok(wordpressFigureImg, "WordPress figure images need their own rule");
+  assert.match(wordpressFigureImg, /max-height: none/);
+  assert.match(wordpressFigureImg, /height: auto/);
+  assert.match(wordpressFigureImg, /object-fit: contain/);
+
+  // Figures reclaim the empty space beside the shell, and a nested gallery
+  // figure must not apply that bleed a second time.
+  assert.match(css, /--article-bleed-end: max\(/);
+  assert.match(
+    css,
+    /\.article-wordpress-content figure figure \{[^}]*--article-figure-bleed: 0px;[^}]*--article-bleed-end: 0px/s,
+  );
+});
+
+test("home never shows the same post in latest news and live insights", () => {
+  const provider = fs.readFileSync(
+    path.join(srcRoot, "context", "HomeContentProvider.jsx"),
+    "utf8",
+  );
+
+  assert.equal(HOME_LIVE_INSIGHTS_START_INDEX, 1);
+  assert.match(provider, /buildLatestNewsFromPost\(state\.content\.latestNews, posts\[0\]\)/);
+  assert.match(provider, /posts\.slice\(HOME_LIVE_INSIGHTS_START_INDEX\)/);
+});
+
+test("card summaries are cut in JS and the card footer is pinned by flexbox", () => {
+  const shared = fs.readFileSync(path.join(srcRoot, "styles", "article-cards.css"), "utf8");
+
+  assert.match(shared, /\.article-card-summary \{[^}]*-webkit-line-clamp: var\(--article-card-summary-lines/s);
+  assert.match(shared, /\.article-card-footer \{[^}]*margin-top: auto/s);
+
+  // Every card section shares the one contract instead of clamping on its own.
+  const cardSections = [
+    path.join(srcRoot, "pages", "home", "sections", "live-insights", "LiveInsightsSection.jsx"),
+    path.join(srcRoot, "pages", "home", "sections", "latest-news", "LatestNewsSection.jsx"),
+    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "LiveInsightsSection.jsx"),
+    path.join(srcRoot, "pages", "what-we-think", "WhatWeThink.jsx"),
+    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
+  ];
+
+  for (const file of cardSections) {
+    assert.match(
+      fs.readFileSync(file, "utf8"),
+      /article-card-summary/,
+      `${path.relative(root, file)} must use the shared card summary`,
+    );
+  }
+
+  // Sections may opt out of the clamp on mobile, but must not define their own.
+  for (const file of ["archive.css", "what-we-think.css"]) {
+    const css = fs.readFileSync(path.join(srcRoot, "styles", file), "utf8");
+    assert.doesNotMatch(
+      css,
+      /-webkit-line-clamp:\s*(?:\d|var\()/,
+      `${file} must not clamp on its own`,
+    );
+  }
+});
+
+test("the archive card pill matches the category the reader filtered by", () => {
+  const page = fs.readFileSync(
+    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
+    "utf8",
+  );
+
+  // Posts carry several categories, so the pill follows the active filter.
+  assert.match(page, /slugs\.includes\(selectedCategory\)/);
+  assert.match(page, /getCardCategory\(item, selectedCategory\)/);
+  assert.match(page, /categories\.includes\(selectedCategory\)/);
+});
+
+test("the table of contents scrolls instead of navigating and toggles in place", () => {
+  const toc = fs.readFileSync(
+    path.join(srcRoot, "pages", "articles", "components", "TableOfContents.jsx"),
+    "utf8",
+  );
+  const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
+
+  // A hash navigation would remount the route and flash the loading overlay.
+  assert.match(toc, /event\.preventDefault\(\)/);
+  assert.match(toc, /scrollIntoView\(\{/);
+  assert.match(toc, /behavior: prefersReducedMotion \? "auto" : "smooth"/);
+  // Opening a dropdown is a button, separate from the scrolling link.
+  assert.match(toc, /className="article-toc-toggle"/);
+  assert.doesNotMatch(toc, /onClick=\{\(\) => hasChildren && onToggle/);
+  // The dropdown must stay a plain block child, or its height collapses to zero.
+  assert.match(toc, /article-toc-item-header/);
+  assert.doesNotMatch(css, /\.article-toc-item \{[^}]*display: (flex|grid)/s);
+});
+
+test("WordPress body headings are shifted so the title stays the only H1", () => {
+  const blog = fs.readFileSync(
+    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    "utf8",
+  );
+
+  assert.match(blog, /2 - Math\.min\(\.\.\.headingLevels\)/);
+  assert.match(blog, /Math\.min\(6, Math\.max\(2, level \+ levelShift\)\)/);
+  assert.match(blog, /doc\.createElement\(`h\$\{level\}`\)/);
+  assert.match(blog, /\/\^H\[1-6\]\$\//);
+});
+
+test("WordPress tables render with the site theme and the store button opens a new tab", () => {
+  const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
+  const reportStoreCard = fs.readFileSync(
+    path.join(srcRoot, "pages", "what-we-do", "services", "shared", "components", "ReportStoreCard.jsx"),
+    "utf8",
+  );
+
+  assert.match(css, /\.article-wordpress-content table \{/);
+  assert.match(css, /thead th, thead td/);
+  assert.match(reportStoreCard, /const REPORT_STORE_URL = "https:\/\/www\.marketresearch\.com"/);
+  assert.match(reportStoreCard, /target="_blank"/);
+  assert.match(reportStoreCard, /rel="noopener noreferrer"/);
 });
 
 test("all route values are unique and grouped correctly", () => {

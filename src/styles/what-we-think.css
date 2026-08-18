@@ -624,17 +624,12 @@
   }
 }
 
-.what-we-think-copy p {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: var(--what-we-think-lines, 5);
-}
-
-.what-we-think-card--horizontal .what-we-think-copy p { --what-we-think-lines: 3; }
-.what-we-think-card--small .what-we-think-copy p { --what-we-think-lines: 5; }
-.what-we-think-card--tall .what-we-think-copy p { --what-we-think-lines: 6; }
-.what-we-think-card--text .what-we-think-copy p { --what-we-think-lines: 8; }
+/* Clamp counts only - the clamp itself lives in .article-card-summary. */
+.what-we-think-copy p { --article-card-summary-lines: 5; }
+.what-we-think-card--horizontal .what-we-think-copy p { --article-card-summary-lines: 3; }
+.what-we-think-card--small .what-we-think-copy p { --article-card-summary-lines: 5; }
+.what-we-think-card--tall .what-we-think-copy p { --article-card-summary-lines: 6; }
+.what-we-think-card--text .what-we-think-copy p { --article-card-summary-lines: 8; }
 
 @media (max-width: 1100px) {
   .what-we-think-card-shell,
@@ -660,10 +655,10 @@
     flex: 1 1 auto;
   }
 
-  .what-we-think-copy p { --what-we-think-lines: 5; }
+  .what-we-think-copy p { --article-card-summary-lines: 5; }
   .what-we-think-card--horizontal .what-we-think-copy p,
-  .what-we-think-card--small .what-we-think-copy p { --what-we-think-lines: 4; }
-  .what-we-think-card--tall .what-we-think-copy p { --what-we-think-lines: 6; }
+  .what-we-think-card--small .what-we-think-copy p { --article-card-summary-lines: 4; }
+  .what-we-think-card--tall .what-we-think-copy p { --article-card-summary-lines: 6; }
 }
 
 @media (max-width: 520px) {
@@ -715,7 +710,7 @@
   .what-we-think-card--text .what-we-think-copy p {
     font-size: clamp(10px, 2.7vw, 12px);
     line-height: 1.35;
-    --what-we-think-lines: 4;
+    --article-card-summary-lines: 4;
   }
 
   .what-we-think-meta,

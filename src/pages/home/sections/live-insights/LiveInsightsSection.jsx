@@ -5,6 +5,7 @@ import {useTheme} from "../../../../context/useTheme";
 import {routes} from "../../../../routes";
 import {usePointerGlow} from "../../../../hooks/usePointerGlow";
 import {useHomeContent} from "../../../../context/useHomeContent";
+import {getArticlePath} from "../../../../services/content/blogSections";
 
 function MobileInsightCard({insight, isDarkMode}) {
   return (
@@ -19,7 +20,7 @@ function MobileInsightCard({insight, isDarkMode}) {
         alt={insight.imageAlt || ""}
         className="h-56 w-full object-cover"
       />
-      <div className="flex flex-1 flex-col gap-3 p-5">
+      <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden p-5">
         <h3
           className={`font-['Gotham'] text-[clamp(1.25rem,5vw,1.75rem)] font-medium leading-tight ${
             isDarkMode ? "text-white" : "text-black"
@@ -40,13 +41,17 @@ function MobileInsightCard({insight, isDarkMode}) {
           </span>
         </div>
         <p
-          className={`font-['Gotham'] text-sm leading-relaxed ${
+          className={`article-card-summary font-['Gotham'] text-sm leading-relaxed ${
             isDarkMode ? "text-white" : "text-black"
           }`}
         >
           {insight.description}
         </p>
-        <ReadMoreLink isDarkMode={isDarkMode} className="mt-auto" />
+        <ReadMoreLink
+          to={getArticlePath(insight.slug)}
+          isDarkMode={isDarkMode}
+          className="article-card-footer"
+        />
       </div>
     </article>
   );
@@ -134,7 +139,7 @@ function LiveInsightsSection() {
                 className="w-full h-96 object-cover"
               />
 
-              <div className="flex min-h-0 w-[500px] flex-1 flex-col justify-center gap-3 px-10 py-7">
+              <div className="flex min-h-0 w-[500px] flex-1 flex-col justify-center gap-3 overflow-hidden px-10 py-7">
                 <div
                   className={`text-3xl font-['Gotham'] leading-[1.25] font-medium transition-colors duration-500 ease-in-out ${
                     isDarkMode ? "text-white" : "text-black"
@@ -157,14 +162,18 @@ function LiveInsightsSection() {
                 </div>
 
                 <div
-                  className={`text-base font-['Gotham'] leading-[1.45] transition-colors duration-500 ease-in-out ${
+                  className={`article-card-summary text-base font-['Gotham'] leading-[1.45] transition-colors duration-500 ease-in-out ${
                     isDarkMode ? "text-white" : "text-black"
                   }`}
                 >
                   {featuredInsight.description}
                 </div>
 
-                <ReadMoreLink isDarkMode={isDarkMode} />
+                <ReadMoreLink
+                  to={getArticlePath(featuredInsight.slug)}
+                  isDarkMode={isDarkMode}
+                  className="article-card-footer"
+                />
               </div>
             </div>
           </div>
@@ -206,7 +215,7 @@ function LiveInsightsSection() {
                   alt={topInsight.imageAlt}
                   className="h-full w-[45%] shrink-0 object-cover"
                 />
-                <div className="flex min-w-0 flex-1 flex-col justify-center gap-2 self-stretch px-5 py-4">
+                <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center gap-2 self-stretch overflow-hidden px-5 py-4">
                   <div
                     className={`whitespace-pre-line text-3xl font-medium font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
@@ -227,14 +236,18 @@ function LiveInsightsSection() {
                     </div>
                   </div>
                   <div
-                    className={`text-sm font-['Gotham'] leading-[1.35] font-extralight transition-colors duration-500 ease-in-out ${
+                    className={`article-card-summary text-sm font-['Gotham'] leading-[1.35] font-extralight transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >
                     {topInsight.description}
                   </div>
 
-                  <ReadMoreLink isDarkMode={isDarkMode} />
+                  <ReadMoreLink
+                    to={getArticlePath(topInsight.slug)}
+                    isDarkMode={isDarkMode}
+                    className="article-card-footer"
+                  />
                 </div>
               </div>
             </div>
@@ -274,7 +287,7 @@ function LiveInsightsSection() {
                   alt={bottomInsight.imageAlt}
                   className="h-full w-[45%] shrink-0 object-cover"
                 />
-                <div className="flex min-w-0 flex-1 flex-col justify-center gap-2 self-stretch px-5 py-4">
+                <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center gap-2 self-stretch overflow-hidden px-5 py-4">
                   <div
                     className={`text-3xl font-medium font-['Gotham'] leading-[1.2] py-1 -translate-y-8 transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
@@ -295,14 +308,18 @@ function LiveInsightsSection() {
                     </div>
                   </div>
                   <div
-                    className={`text-sm font-['Gotham'] leading-[1.35] transition-colors duration-500 ease-in-out ${
+                    className={`article-card-summary text-sm font-['Gotham'] leading-[1.35] transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >
                     {bottomInsight.description}
                   </div>
 
-                  <ReadMoreLink isDarkMode={isDarkMode} />
+                  <ReadMoreLink
+                    to={getArticlePath(bottomInsight.slug)}
+                    isDarkMode={isDarkMode}
+                    className="article-card-footer"
+                  />
                 </div>
               </div>
             </div>

@@ -2,6 +2,7 @@ import {useTheme} from "../../../../context/useTheme";
 import ReadMoreLink from "../../../../components/ui/ReadMoreLink";
 import LatestNewsImage from "../../../../assets/images/home/LatestNews.webp";
 import {useHomeContent} from "../../../../context/useHomeContent";
+import {getArticlePath} from "../../../../services/content/blogSections";
 
 function LatestNewsSection() {
   const {isDarkMode} = useTheme();
@@ -75,7 +76,7 @@ function LatestNewsSection() {
 
             {/* Summary */}
             <div
-              className={`mt-10 max-w-[690px] whitespace-pre-line text-base font-semilight font-['Gotham'] leading-[1.35] transition-colors duration-500 ease-in-out ${
+              className={`article-card-summary mt-10 max-w-[690px] whitespace-pre-line text-base font-semilight font-['Gotham'] leading-[1.35] transition-colors duration-500 ease-in-out ${
                 isDarkMode ? "text-black" : "text-white"
               }`}
             >
@@ -86,6 +87,7 @@ function LatestNewsSection() {
 
             {/* Read-more link */}
             <ReadMoreLink
+              to={getArticlePath(latestNews.slug)}
               isDarkMode={!isDarkMode}
               className="mt-8 cursor-pointer text-base font-['Gotham']"
             />

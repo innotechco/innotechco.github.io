@@ -4,10 +4,17 @@ import {useLanguage} from "./useLanguage";
 import {HomeContentContext} from "./home-content-context";
 import {fetchHomePage} from "../services/content/homeContent";
 import {getHomePage} from "../services/contentApi";
+import {
+  buildLatestNewsFromPost,
+  buildLiveInsightCards,
+} from "../services/content/blogSections";
+import {useBlogPosts} from "../hooks/useBlogPosts";
+import {HOME_LIVE_INSIGHTS_START_INDEX} from "../config/articleCards.config";
 
 export function HomeContentProvider({children}) {
   const {locale} = useLanguage();
   const fallbackContent = useMemo(() => getHomePage(), []);
+  const {posts} = useBlogPosts();
   const [state, setState] = useState({
     content: fallbackContent,
     source: "local",
@@ -38,7 +45,24 @@ export function HomeContentProvider({children}) {
     return () => controller.abort();
   }, [fallbackContent, locale]);
 
-  const value = useMemo(() => state, [state]);
+  const value = useMemo(() => {
+    if (!posts.length) return state;
+
+    return {
+      ...state,
+      content: {
+        ...state.content,
+        latestNews: buildLatestNewsFromPost(state.content.latestNews, posts[0]),
+        liveInsights: {
+          ...state.content.liveInsights,
+          cards: buildLiveInsightCards(
+            state.content.liveInsights?.cards,
+            posts.slice(HOME_LIVE_INSIGHTS_START_INDEX),
+          ),
+        },
+      },
+    };
+  }, [posts, state]);
 
   return (
     <HomeContentContext.Provider value={value}>
