@@ -1,14 +1,22 @@
 .article-page {
   --article-accent: #37b478;
+  --article-page-padding: clamp(24px, 7vw, 112px);
+  --article-shell-width: 1240px;
+  /* Space left over beside the centred shell on wide screens. Images reclaim it
+     so they render as large as the page allows instead of being boxed in. */
+  --article-bleed-end: max(
+    0px,
+    calc((100vw - 2 * var(--article-page-padding) - var(--article-shell-width)) / 2)
+  );
   min-height: 100vh;
-  padding: 144px clamp(24px, 7vw, 112px) 220px;
+  padding: 144px var(--article-page-padding) 220px;
   font-family: "Gotham", sans-serif;
   transition: color 0.5s ease, background-color 0.5s ease;
 }
 
 .article-page.is-dark { color: #f8f8f8; background: #050505; }
 .article-page.is-light { color: #080808; background: #fff; }
-.article-page article { width: min(100%, 1240px); margin: 0 auto; }
+.article-page article { width: min(100%, var(--article-shell-width)); margin: 0 auto; }
 .article-status { width: min(100%, 1240px); min-height: 60vh; margin: 0 auto; font-size: 20px; }
 .article-status h1 { margin: 0 0 16px; font-size: clamp(40px, 5vw, 64px); }
 
@@ -24,7 +32,12 @@
 .article-hero h1 { max-width: 650px; margin: 0; font-size: clamp(35px, 3.25vw, 52px); font-weight: 500; line-height: 1.12; letter-spacing: -0.035em; }
 .article-meta { display: flex; gap: 28px; margin-top: 22px; font-size: 14px; font-weight: 300; }
 .article-meta span { color: var(--article-accent); }
-.article-hero-media { position: relative; min-height: 300px; overflow: hidden; }
+/* Single-article hero image. ArticleHero sets the box ratio from the uploaded
+   image, so nothing is ever cut from the top or bottom; 16 / 9 is only the
+   placeholder used until the image reports its size (see
+   ARTICLE_HERO_ASPECT_RATIO). Recommended upload: 16:9, minimum 1920x1080.
+   Only this image is constrained - images inside the article body are untouched. */
+.article-hero-media { position: relative; align-self: center; aspect-ratio: 16 / 9; max-height: 620px; min-height: 0; overflow: hidden; margin-inline-end: calc(var(--article-bleed-end, 0px) * -1); }
 .article-hero-media::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 48%; pointer-events: none; background: linear-gradient(90deg, #050505 0%, rgba(5, 5, 5, 0.98) 10%, rgba(5, 5, 5, 0.78) 34%, rgba(5, 5, 5, 0.3) 68%, transparent 100%); }
 .article-page.is-light .article-hero-media::after { background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.98) 10%, rgba(255, 255, 255, 0.78) 34%, rgba(255, 255, 255, 0.3) 68%, transparent 100%); }
 .article-hero-media img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; background: #050505; }
@@ -36,6 +49,8 @@
   gap: clamp(46px, 7vw, 112px); 
   align-items: start; 
   position: relative;
+  /* Figures may reclaim the gutter, minus a gap so they never touch the TOC. */
+  --article-figure-bleed: max(0px, calc(clamp(46px, 7vw, 112px) - 28px));
 }
 
 /* ========== TABLE OF CONTENTS ========== */
@@ -77,6 +92,73 @@
 .article-toc a:hover, 
 .article-toc a:focus-visible { 
   color: var(--article-accent); 
+}
+
+/* H2 entries that own H3 children expand into an animated dropdown.
+   The subtree animates on grid-template-rows so the rest of the list
+   slides instead of jumping. */
+/* The label and the chevron share a flex row; the dropdown stays a plain block
+   child of the list item. Making the item itself flex or grid would size the
+   overflow:hidden dropdown to zero and it would never open. */
+.article-toc-item-header { display: flex; align-items: flex-start; gap: 10px; }
+.article-toc-item-header > a { flex: 1 1 auto; min-width: 0; }
+
+.article-toc-toggle {
+  flex: 0 0 auto;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.article-toc-toggle:hover, .article-toc-toggle:focus-visible { color: var(--article-accent); }
+
+
+.article-toc-chevron {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  opacity: 0.75;
+  transform: translateY(-2px) rotate(45deg);
+  transform-origin: center;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease;
+}
+
+.article-toc-item.is-open .article-toc-chevron { opacity: 1; transform: translateY(2px) rotate(-135deg); }
+
+.article-toc-subtree {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 300ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+}
+
+.article-toc-item.is-open > .article-toc-subtree { opacity: 1; }
+
+.article-toc-subtree ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-toc-subtree li { padding: 7px 0 0 12px; border-left: 1px solid rgba(55, 180, 120, 0.4); margin-left: 2px; }
+.article-toc-subtree li:first-child { padding-top: 12px; }
+.article-toc-subtree a { font-size: 13px; opacity: 0.78; }
+.article-toc-subtree a:hover, .article-toc-subtree a:focus-visible { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .article-toc-subtree, .article-toc-chevron { transition: none; }
 }
 
 /* ========== SCROLL PROGRESS BAR ========== */
@@ -121,11 +203,85 @@
 .article-wordpress-content :is(p, li, figcaption) { max-width: 100%; font-size: 14px; font-weight: 300; line-height: 1.45; overflow-wrap: anywhere; word-break: break-word; }
 .article-wordpress-content :is(h2, h3, h4) { font-weight: 500; line-height: 1.16; }
 .article-wordpress-content img { display: block; max-width: 100%; height: auto; margin: 22px 0; object-fit: contain; }
-.article-wordpress-content figure { margin: 26px 0; }
-.article-wordpress-content figure img { margin: 0; }
+
+/* Article images are shown whole and as wide as the column allows.
+   `.article-section figure img` above caps decorative figures of the local
+   article at 390px with object-fit: cover; WordPress images must escape that
+   cap or they get sliced top and bottom (a 1200x675 upload was rendered
+   776x390). Height follows the image, never the other way round. */
+.article-wordpress-content figure {
+  width: calc(100% + var(--article-figure-bleed, 0px) + var(--article-bleed-end, 0px));
+  margin: 26px 0;
+  /* The gutter next to the table of contents is empty, so figures reclaim it. */
+  margin-inline-start: calc(var(--article-figure-bleed, 0px) * -1);
+  margin-inline-end: calc(var(--article-bleed-end, 0px) * -1);
+}
+
+/* A gallery is a figure of figures - only the outer one may reclaim the gutter,
+   otherwise the bleed compounds and the image slides under the table of contents. */
+.article-wordpress-content figure figure {
+  --article-figure-bleed: 0px;
+  --article-bleed-end: 0px;
+  width: auto;
+  margin: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+
+.article-wordpress-content figure img,
+.article-wordpress-content :is(figure, p) > img {
+  width: 100%;
+  max-width: 100%;
+  max-height: none;
+  height: auto;
+  margin: 0;
+  object-fit: contain;
+}
+
+.article-wordpress-content figure figcaption { margin-top: 10px; }
 .article-wordpress-content figcaption { margin-top: 10px; color: var(--article-accent); font-size: 13px; }
 .article-wordpress-content blockquote { margin: 22px 0; padding-left: 20px; border-left: 2px solid var(--article-accent); }
 .article-wordpress-content a { color: var(--article-accent); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Tables the CEO adds in WordPress render with the site's green theme.
+   The wrapper scrolls on narrow screens so a wide table never widens the page. */
+.article-wordpress-content :is(figure.wp-block-table, .wp-block-table) { max-width: 100%; margin: 28px 0; overflow-x: auto; }
+
+.article-wordpress-content table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid rgba(55, 180, 120, 0.55);
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.article-wordpress-content table :is(th, td) {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(55, 180, 120, 0.24);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+/* WordPress renders header rows as <thead><td>, so both cell types are styled. */
+.article-wordpress-content table :is(thead th, thead td, tbody th) {
+  color: var(--article-accent);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: left;
+  background: rgba(55, 180, 120, 0.14);
+  border-bottom: 1px solid rgba(55, 180, 120, 0.55);
+}
+
+.article-wordpress-content table tbody tr:last-child :is(th, td) { border-bottom: 0; }
+.article-wordpress-content table tbody tr:nth-child(even) { background: rgba(55, 180, 120, 0.06); }
+.article-wordpress-content table tbody tr:hover { background: rgba(55, 180, 120, 0.12); }
+.article-wordpress-content table caption { padding-bottom: 10px; color: var(--article-accent); font-size: 13px; text-align: left; }
+.article-page.is-light .article-wordpress-content table tbody tr:nth-child(even) { background: rgba(55, 180, 120, 0.08); }
 
 /* ========== RELATED NEWS ========== */
 .related-news { margin: 100px auto 0; }
@@ -149,8 +305,9 @@
   .article-page { padding: 120px 24px 170px; }
   .article-hero { grid-template-columns: 1fr; margin-bottom: 52px; }
   .article-hero-copy { padding: 20px 0 36px; }
-  .article-hero-media { min-height: 280px; }
-  .article-body-layout { grid-template-columns: 190px minmax(0, 1fr); gap: 32px; }
+  .article-hero-media { min-height: 0; }
+  .article-body-layout { grid-template-columns: 190px minmax(0, 1fr); gap: 32px; --article-figure-bleed: 0px; }
+  .article-page { --article-bleed-end: 0px; }
   .related-news-grid { grid-template-columns: 1fr 1fr; }
   .related-card:last-child { grid-column: 1 / -1; width: calc(50% - 15px); }
 }
@@ -161,8 +318,8 @@
   .article-hero-copy { padding: 10px 0 26px; }
   .article-category { margin-bottom: 12px; font-size: 14px; }
   .article-hero h1 { font-size: 34px; }
-  .article-hero-media { min-height: 220px; }
-  .article-body-layout { display: block; }
+  .article-hero-media { min-height: 0; }
+  .article-body-layout { display: block; --article-figure-bleed: 0px; }
   
   /* TOC در موبایل */
   .article-toc { 

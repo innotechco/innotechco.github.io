@@ -7,6 +7,8 @@ import {useTheme} from "../../../../../context/useTheme";
 import {routes} from "../../../../../routes";
 import {t} from "../../../../../i18n/ui";
 
+const REPORT_STORE_URL = "https://www.marketresearch.com";
+
 function ReportStoreCard() {
   const {isDarkMode} = useTheme();
   const cardBackground = isDarkMode ? "bg-white" : "bg-black";
@@ -35,12 +37,14 @@ function ReportStoreCard() {
               technology and market decision-making.
             </h3>
           </div>
-          <button
-            type="button"
+          <a
+            href={REPORT_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`inline-flex min-h-11 items-center justify-center rounded-[50px] bg-[#22C55E] px-6 py-3.5 font-['Gotham'] text-xl font-bold sm:text-2xl ${greenButtonTextColor} shadow-lg transition-all duration-200 hover:bg-[#16A34A] hover:shadow-xl active:scale-95`}
           >
             {t("goToStore")}
-          </button>
+          </a>
 
           <div className="mt-auto grid w-full max-w-[360px] grid-cols-2 items-center justify-center gap-4 sm:gap-6">
             <Link

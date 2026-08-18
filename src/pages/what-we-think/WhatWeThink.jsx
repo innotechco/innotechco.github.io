@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {useMemo} from "react";
 
 import {useTheme} from "../../context/useTheme";
 import BlackExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/BlackExcludeLeftWhatWeThink.webp";
@@ -6,7 +6,9 @@ import BlackExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-t
 import ExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeLeftWhatWeThink.webp";
 import ExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeRightWhatWeThink.webp";
 import {cards} from "./data";
-import {fetchBlogPosts} from "../../services/contentApi";
+import {useBlogPosts} from "../../hooks/useBlogPosts";
+import {truncateWords} from "../../services/content/cardSummary";
+import {getArticlePath} from "../../services/content/blogSections";
 import {usePointerGlow} from "../../hooks/usePointerGlow";
 import ReadMoreLink from "../../components/ui/ReadMoreLink";
 import {routes} from "../../routes";
@@ -36,7 +38,7 @@ function mergePostsIntoCards(defaultCards, posts = []) {
         title: post.title,
         date: post.date,
         readTime: post.readTime,
-        description: post.description,
+        description: truncateWords(post.description),
         slug: post.slug,
         image: post.image,
       },
@@ -52,11 +54,11 @@ function ArticleCopy({card, metaLayout = "stack", isDarkMode}) {
         <span>{card.date}</span>
         <span>{card.readTime}</span>
       </div>
-      <p>{card.description}</p>
+      <p className="article-card-summary">{card.description}</p>
       <ReadMoreLink
-        to={card.slug ? `/articles/${card.slug}` : undefined}
+        to={getArticlePath(card.slug)}
         isDarkMode={isDarkMode}
-        className="what-we-think-read-more"
+        className="what-we-think-read-more article-card-footer"
       />
     </div>
   );
@@ -115,12 +117,12 @@ function ArticleCard({
 
 function WhatWeThink() {
   const {isDarkMode} = useTheme();
-  const [wordpressPosts, setWordpressPosts] = useState(null);
+  const {posts} = useBlogPosts();
   const displayCards = useMemo(
-    () => wordpressPosts?.length >= cardOrder.length
-      ? mergePostsIntoCards(cards, wordpressPosts)
+    () => posts.length >= cardOrder.length
+      ? mergePostsIntoCards(cards, posts)
       : null,
-    [wordpressPosts],
+    [posts],
   );
   const leftExclude = isDarkMode
     ? ExcludeLeftWhatWeThink
@@ -128,22 +130,6 @@ function WhatWeThink() {
   const rightExclude = isDarkMode
     ? ExcludeRightWhatWeThink
     : BlackExcludeRightWhatWeThink;
-
-  useEffect(() => {
-    let isActive = true;
-
-    fetchBlogPosts()
-      .then((posts) => {
-        if (isActive) setWordpressPosts(posts ?? []);
-      })
-      .catch(() => {
-        if (isActive) setWordpressPosts([]);
-      });
-
-    return () => {
-      isActive = false;
-    };
-  }, []);
 
   return (
     <main className={`what-we-think-page ${isDarkMode ? "is-dark" : "is-light"}`}>

@@ -1,3 +1,5 @@
+import {useMemo} from "react";
+
 import ReadMoreLink from "../../../../../components/ui/ReadMoreLink";
 import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
 import {useTheme} from "../../../../../context/useTheme";
@@ -6,6 +8,12 @@ import insightExcludeBlackImage from "../../../../../assets/images/excludes/live
 import {routes} from "../../../../../routes";
 import SectionTitle from "../../../../../components/ui/SectionTitle";
 import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
+import {useBlogPosts} from "../../../../../hooks/useBlogPosts";
+import {getIndustryPosts} from "../../../../../services/cms/blogOrdering";
+import {
+  buildLiveInsightCards,
+  getArticlePath,
+} from "../../../../../services/content/blogSections";
 
 function GlowCard({children, className = "", isDarkMode}) {
   const {position, handlers} = usePointerGlow();
@@ -38,7 +46,7 @@ function CardCopy({card, isDarkMode, compact = false}) {
 
   return (
     <div
-      className={`flex min-h-0 min-w-0 flex-1 flex-col ${
+      className={`flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden ${
         compact
           ? card.compactTight
             ? "h-full gap-1 p-4"
@@ -70,27 +78,34 @@ function CardCopy({card, isDarkMode, compact = false}) {
         </p>
       </div>
       <p
-        className={`font-['Gotham'] text-[10px] sm:text-xs md:text-sm lg:text-sm transition-colors duration-500 ease-in-out ${textColor} ${
+        className={`article-card-summary font-['Gotham'] text-[10px] sm:text-xs md:text-sm lg:text-sm transition-colors duration-500 ease-in-out ${textColor} ${
           compact ? "leading-[1.3]" : "leading-[1.4]"
         } break-words whitespace-normal`}
       >
         {card.description}
       </p>
       <ReadMoreLink
+        to={getArticlePath(card.slug)}
         isDarkMode={isDarkMode}
-        className="mt-auto shrink-0 text-[10px] sm:text-[11px] md:text-sm"
+        className="article-card-footer text-[10px] sm:text-[11px] md:text-sm"
       />
     </div>
   );
 }
 
-function LiveInsightsSection({title, cards, alt}) {
+function LiveInsightsSection({title, cards, alt, industrySlug}) {
   const {isDarkMode} = useTheme();
+  const {posts} = useBlogPosts();
   const insightExclude = isDarkMode
     ? insightExcludeImage
     : insightExcludeBlackImage;
   const textColor = isDarkMode ? "text-white" : "text-black";
-  const [featuredCard, topCard, bottomCard] = cards;
+  /* Only posts tagged with this industry's WordPress category reach this section. */
+  const displayCards = useMemo(
+    () => buildLiveInsightCards(cards, getIndustryPosts(posts, industrySlug)),
+    [cards, industrySlug, posts],
+  );
+  const [featuredCard, topCard, bottomCard] = displayCards;
 const renderCarouselCard = (card) => (
     <GlowCard
       key={card.id}
@@ -134,7 +149,7 @@ const renderCarouselCard = (card) => (
 
         <div className="lg:hidden">
           <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
-            {cards.map(renderCarouselCard)}
+            {displayCards.map(renderCarouselCard)}
           </ResponsiveCarousel>
         </div>
 

@@ -11,6 +11,7 @@ function IndustryPage({
   hero,
   liveInsights,
   sectionLabels = {},
+  slug,
 }) {
   return (
     <>
@@ -20,7 +21,7 @@ function IndustryPage({
         title={sectionLabels.acceleration}
       />
       <CapabilitiesSection services={capabilities} />
-      <LiveInsightsSection {...liveInsights} />
+      <LiveInsightsSection {...liveInsights} industrySlug={slug} />
       <EcosystemCardsSection
         actionLabel={sectionLabels.ecosystemAction}
         cards={ecosystemCards}

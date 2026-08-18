@@ -129,6 +129,8 @@ function getWordPressSections(post, title) {
         type: "wordpress",
         id: "wordpress-content",
         heading: title,
+        level: 1,
+        showInToc: false,
         html: rendered,
         paragraphs: getPostParagraphs(post),
       },
@@ -143,25 +145,52 @@ function getWordPressSections(post, title) {
     link.setAttribute("target", "_blank");
     link.setAttribute("rel", Array.from(rel).join(" "));
   });
+  const bodyNodes = Array.from(doc.body.childNodes);
+  const getHeadingLevel = (node) =>
+    node.nodeType === Node.ELEMENT_NODE && /^H[1-6]$/.test(node.tagName)
+      ? Number(node.tagName.slice(1))
+      : 0;
+
+  /* Editors do not always start the body at H2 - some articles use H1 for their
+     top-level sections. The article title is the page's only H1, so the whole
+     body is shifted down until its shallowest heading is an H2. Ranks stay
+     relative, which keeps the real H2 -> H3 hierarchy intact for the TOC. */
+  const headingLevels = bodyNodes.map(getHeadingLevel).filter(Boolean);
+  const levelShift = headingLevels.length ? 2 - Math.min(...headingLevels) : 0;
+  const normalizeLevel = (level) => Math.min(6, Math.max(2, level + levelShift));
+
+  const renderHeading = (node, level) => {
+    if (level === Number(node.tagName.slice(1))) return node.outerHTML;
+    const replacement = doc.createElement(`h${level}`);
+    Array.from(node.attributes).forEach((attribute) =>
+      replacement.setAttribute(attribute.name, attribute.value),
+    );
+    replacement.innerHTML = node.innerHTML;
+    return replacement.outerHTML;
+  };
+
   const sections = [];
   let current = {
     type: "wordpress",
     id: "wordpress-introduction",
     heading: title,
+    level: 1,
     html: "",
     showInToc: false,
   };
 
-  Array.from(doc.body.childNodes).forEach((node, index) => {
-    const isHeading = node.nodeType === Node.ELEMENT_NODE && /^H[2-3]$/.test(node.tagName);
-    if (isHeading) {
+  bodyNodes.forEach((node, index) => {
+    const headingLevel = getHeadingLevel(node);
+    if (headingLevel) {
       if (current.html.trim()) sections.push(current);
       const heading = node.textContent.trim() || title;
+      const level = normalizeLevel(headingLevel);
       current = {
         type: "wordpress",
         id: slugifyHeading(heading, `wordpress-section-${index}`),
         heading,
-        html: node.outerHTML,
+        level,
+        html: renderHeading(node, level),
       };
       return;
     }
@@ -177,6 +206,8 @@ function getWordPressSections(post, title) {
           type: "wordpress",
           id: "wordpress-content",
           heading: title,
+          level: 1,
+          showInToc: false,
           html: rendered,
           paragraphs: getPostParagraphs(post),
         },
@@ -211,6 +242,7 @@ function normalizePost(post) {
     title,
     description,
     date: formatDate(post.date),
+    publishedAt: post.date,
     readTime: typeof readTime === "string" ? readTime : "",
     categories,
     category,

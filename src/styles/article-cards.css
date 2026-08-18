@@ -1,0 +1,23 @@
+/* Shared layout contract for every article card on the site
+   (Home > Our latest news, Home > Live insights, Industries > Live insight,
+   What We Think, Archive).
+
+   Summaries are already cut to CARD_SUMMARY_WORD_LIMIT words in JS before render.
+   These rules keep the card height stable no matter how long the remaining text
+   is: the summary is the only part allowed to shrink, and the meta row and the
+   Read more link stay pinned to the bottom of the card. */
+
+.article-card-summary {
+  display: -webkit-box;
+  min-height: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--article-card-summary-lines, 4);
+  overflow-wrap: anywhere;
+}
+
+/* Meta row / Read more link: always last, never squeezed out of the card. */
+.article-card-footer {
+  margin-top: auto;
+  flex: 0 0 auto;
+}
