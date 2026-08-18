@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "AI Agent",
-    "description": "We leverage the advances in disruptive technologies to enhance business.",
+    "title": "INNOVATION AI ASSISTANT",
+    "description": "AI-Powered Expertise in Technology, Market & Product Development",
     "linkLabel": "Read more"
   },
   "ecosystemCards": [
@@ -14,15 +14,15 @@
           "description": "Design and implementation of innovation management systems and processes based on the latest international standards and in accordance with ISO 56000"
         },
         {
-          "label": "ISO 56000 Standard:",
+          "label": "ISO 56000 Standard",
           "description": "Assessing maturity and readiness in innovation management to receive the ISO 56000 standard"
         },
         {
-          "label": "ITONICS:",
+          "label": "ITONICS",
           "description": "GARTNER's 5 star End-to-End innovation operating systems (OS)"
         },
         {
-          "label": "BRIGHTIDEA:",
+          "label": "BRIGHTIDEA",
           "labelWeight": "medium",
           "description": "World's #1 ideation tool and innovation cloud"
         }
@@ -33,12 +33,12 @@
       "subtitle": "BY INNOTECH",
       "items": [
         {
-          "label": "Digital and AI Transformation:",
+          "label": "Digital and AI Transformation",
           "labelWeight": "medium",
           "description": "Transitioning from intuition to data-driven intelligence and increasing the efficiency and innovation through digital and AI transformation."
         },
         {
-          "label": "AI Agent:",
+          "label": "AI Agent",
           "labelWeight": "medium",
           "description": "Prescriptive digital assistant converting real-time market, service and production data into actionable operational intelligence."
         }
@@ -49,15 +49,15 @@
       "subtitle": "BY INNOTECH",
       "items": [
         {
-          "label": "Patent Landscape Reports:",
+          "label": "Patent Landscape Reports",
           "description": "AI-powered technology and market trend analysis using patent data."
         },
         {
-          "label": "Market Research Reports:",
+          "label": "Market Research Reports",
           "description": "Intelligent market research utilizing real global and local data."
         },
         {
-          "label": "Opportunity Study:",
+          "label": "Opportunity Study",
           "description": "Comprehensive and detailed market research, feasibility studies (FS), and business planning (BP)."
         }
       ]
@@ -67,15 +67,15 @@
       "subtitle": "BY INNOTECH",
       "items": [
         {
-          "label": "3-Minute Insights:",
+          "label": "3-Minute Insights",
           "description": "Bitesized insights on emerging trends and innovations."
         },
         {
-          "label": "Webinars:",
+          "label": "Webinars",
           "description": "Engaging sessions focused on the latest innovations, tools and trends for all industries."
         },
         {
-          "label": "Workshops:",
+          "label": "Workshops",
           "description": "A multilingual, multi-platform curriculum standardized from beginner to industrial professional, blending real-life cases and best-practice tools for measurable professional improvement."
         }
       ]
