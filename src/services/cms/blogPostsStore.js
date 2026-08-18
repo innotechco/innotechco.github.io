@@ -1,9 +1,23 @@
-import {fetchWordPressPosts} from "./wordpressBlog";
+import {fetchWordPressCategories, fetchWordPressPosts} from "./wordpressBlog";
 import {getActiveLocale} from "../../i18n/locale";
 
 const FRESHNESS_MS = 60_000;
 
 const cache = new Map();
+const categoryCache = new Map();
+
+function loadCached(store, locale, loader) {
+  const entry = store.get(locale);
+  if (entry && Date.now() - entry.createdAt < FRESHNESS_MS) return entry.promise;
+
+  const promise = loader().catch((error) => {
+    store.delete(locale);
+    throw error;
+  });
+
+  store.set(locale, {createdAt: Date.now(), promise});
+  return promise;
+}
 
 /**
  * Single source of truth for WordPress posts.
@@ -14,18 +28,19 @@ const cache = new Map();
  * a newly published post shows up on the next fetch instead of a stale cache.
  */
 export function loadBlogPosts(locale = getActiveLocale()) {
-  const entry = cache.get(locale);
-  if (entry && Date.now() - entry.createdAt < FRESHNESS_MS) return entry.promise;
+  return loadCached(cache, locale, () => fetchWordPressPosts({locale}));
+}
 
-  const promise = fetchWordPressPosts({locale}).catch((error) => {
-    cache.delete(locale);
-    throw error;
-  });
-
-  cache.set(locale, {createdAt: Date.now(), promise});
-  return promise;
+/**
+ * Categories defined in WordPress, used to build the archive filter rail.
+ * Shares the one-minute freshness window, so a category added in WordPress
+ * shows up on the next load instead of being pinned to a stale list.
+ */
+export function loadBlogCategories(locale = getActiveLocale()) {
+  return loadCached(categoryCache, locale, () => fetchWordPressCategories({locale}));
 }
 
 export function clearBlogPostsCache() {
   cache.clear();
+  categoryCache.clear();
 }
