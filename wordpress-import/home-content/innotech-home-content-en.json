@@ -1,0 +1,126 @@
+{
+  "hero": {
+    "title": "INNOVATION AI ASSISTANT",
+    "description": "AI-Powered Expertise in Technology, Market & Product Development",
+    "linkLabel": "Read more"
+  },
+  "ecosystemCards": [
+    {
+      "title": "INCEPTION",
+      "subtitle": "BY INNOTECH",
+      "items": [
+        {
+          "label": "Innovation management system",
+          "description": "Design and implementation of innovation management systems and processes based on the latest international standards and in accordance with ISO 56000"
+        },
+        {
+          "label": "ISO 56000 Standard",
+          "description": "Assessing maturity and readiness in innovation management to receive the ISO 56000 standard"
+        },
+        {
+          "label": "ITONICS",
+          "description": "GARTNER's 5 star End-to-End innovation operating systems (OS)"
+        },
+        {
+          "label": "BRIGHTIDEA",
+          "labelWeight": "medium",
+          "description": "World's #1 ideation tool and innovation cloud"
+        }
+      ]
+    },
+    {
+      "title": "INFINITY",
+      "subtitle": "BY INNOTECH",
+      "items": [
+        {
+          "label": "Digital and AI Transformation",
+          "labelWeight": "medium",
+          "description": "Transitioning from intuition to data-driven intelligence and increasing the efficiency and innovation through digital and AI transformation."
+        },
+        {
+          "label": "AI Agent",
+          "labelWeight": "medium",
+          "description": "Prescriptive digital assistant converting real-time market, service and production data into actionable operational intelligence."
+        }
+      ]
+    },
+    {
+      "title": "INSIGHT",
+      "subtitle": "BY INNOTECH",
+      "items": [
+        {
+          "label": "Patent Landscape Reports",
+          "description": "AI-powered technology and market trend analysis using patent data."
+        },
+        {
+          "label": "Market Research Reports",
+          "description": "Intelligent market research utilizing real global and local data."
+        },
+        {
+          "label": "Opportunity Study",
+          "description": "Comprehensive and detailed market research, feasibility studies (FS), and business planning (BP)."
+        }
+      ]
+    },
+    {
+      "title": "INLEARN",
+      "subtitle": "BY INNOTECH",
+      "items": [
+        {
+          "label": "3-Minute Insights",
+          "description": "Bitesized insights on emerging trends and innovations."
+        },
+        {
+          "label": "Webinars",
+          "description": "Engaging sessions focused on the latest innovations, tools and trends for all industries."
+        },
+        {
+          "label": "Workshops",
+          "description": "A multilingual, multi-platform curriculum standardized from beginner to industrial professional, blending real-life cases and best-practice tools for measurable professional improvement."
+        }
+      ]
+    }
+  ],
+  "latestNews": {
+    "sectionTitle": "Our latest news",
+    "headline": "INNOTECH launches regional collaboration with Cleannconnect.ai",
+    "date": "June 1, 2026",
+    "readTime": "2 minutes read",
+    "summary": "The partnership, sparked at ADIPEC 2025, integrates AI-driven\nclean tech solutions across regional supply chains, accelerating sustainability and operational efficiency for industrial clients."
+  },
+  "liveInsights": {
+    "title": "LIVE INSIGHTS",
+    "ctaLabel": "Read all insights",
+    "cards": [
+      {
+        "id": "home-health-drug-discovery",
+        "title": "AI-Driven Drug Discovery",
+        "date": "June 1, 2026",
+        "readTime": "2 minutes read",
+        "description": "Inventions combining AI and biotechnology have grown significantly in recent years. Specifically, the number of inventions in this field has increased twelvefold over the past 20 years, far outpacing the general growth rate across all other technology sectors.",
+        "imageAlt": "AI-Driven Drug Discovery"
+      },
+      {
+        "id": "home-hydrogen-natural-gas",
+        "title": "Hydrogen Generation\nfrom Natural Gas",
+        "date": "June 1, 2026",
+        "readTime": "2 minutes read",
+        "description": "The Hydrogen Generation from Natural Gas Patent Landscape Report provides an in-depth patent landscape analysis, covering 3,006 patents from 2010 to 2026, collected across major global jurisdictions.",
+        "imageAlt": "Hydrogen Generation from Natural Gas"
+      },
+      {
+        "id": "home-smart-carbon",
+        "title": "Smart Carbon Technology",
+        "date": "June 1, 2026",
+        "readTime": "2 minutes read",
+        "description": "INNOTECH introduced INCEPTION, processes, run maturity assessments, and connect AI agents to real business workflows.",
+        "imageAlt": "Smart Carbon Technology"
+      }
+    ]
+  },
+  "globalFootprint": {
+    "title": "EXPLORE OUR GLOBAL FOOTPRINT",
+    "description": "Explore our global footprint and connect directly with the representative that can support your needs fastest",
+    "imageAlt": "Middle East Map"
+  }
+}
