@@ -7,10 +7,24 @@
    is: the summary is the only part allowed to shrink, and the meta row and the
    Read more link stay pinned to the bottom of the card. */
 
+/* Card title: clamped so a long headline cannot eat the space the summary and
+   the Read more link need. */
+.article-card-title {
+  display: -webkit-box;
+  min-height: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--article-card-title-lines, 2);
+  overflow-wrap: anywhere;
+}
+
 .article-card-summary {
   display: -webkit-box;
   min-height: 0;
   overflow: hidden;
+  /* Never shrink below the clamp: a squeezed flex item renders a half-cut
+     line of text instead of a clean ellipsis. */
+  flex: 0 0 auto;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--article-card-summary-lines, 4);
   overflow-wrap: anywhere;

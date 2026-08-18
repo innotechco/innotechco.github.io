@@ -22,7 +22,7 @@ function MobileInsightCard({insight, isDarkMode}) {
       />
       <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden p-5">
         <h3
-          className={`font-['Gotham'] text-[clamp(1.25rem,5vw,1.75rem)] font-medium leading-tight ${
+          className={`article-card-title font-['Gotham'] text-[clamp(1.25rem,5vw,1.75rem)] font-medium leading-tight ${
             isDarkMode ? "text-white" : "text-black"
           }`}
         >
@@ -136,12 +136,12 @@ function LiveInsightsSection() {
               <img loading="lazy"
                 src={featuredInsight.image}
                 alt={featuredInsight.imageAlt}
-                className="w-full h-96 object-cover"
+                className="h-80 w-full shrink-0 object-cover"
               />
 
               <div className="flex min-h-0 w-[500px] flex-1 flex-col justify-center gap-3 overflow-hidden px-10 py-7">
                 <div
-                  className={`text-3xl font-['Gotham'] leading-[1.25] font-medium transition-colors duration-500 ease-in-out ${
+                  className={`article-card-title text-3xl font-['Gotham'] leading-[1.25] font-medium transition-colors duration-500 ease-in-out ${
                     isDarkMode ? "text-white" : "text-black"
                   }`}
                 >
@@ -217,7 +217,7 @@ function LiveInsightsSection() {
                 />
                 <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center gap-2 self-stretch overflow-hidden px-5 py-4">
                   <div
-                    className={`whitespace-pre-line text-3xl font-medium font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
+                    className={`article-card-title whitespace-pre-line text-3xl font-medium font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >
@@ -289,7 +289,7 @@ function LiveInsightsSection() {
                 />
                 <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center gap-2 self-stretch overflow-hidden px-5 py-4">
                   <div
-                    className={`text-3xl font-medium font-['Gotham'] leading-[1.2] py-1 -translate-y-8 transition-colors duration-500 ease-in-out ${
+                    className={`article-card-title text-3xl font-medium font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >
