@@ -270,6 +270,40 @@ test("the single-article hero box takes the uploaded image's own ratio", () => {
   assert.match(css, /\.article-wordpress-content img \{[^}]*object-fit: contain/s);
 });
 
+test("the home hero card is editable from a real WordPress screen", () => {
+  const plugin = fs.readFileSync(
+    path.join(root, "wordpress-plugin", "innotech-article-fields", "home-hero.php"),
+    "utf8",
+  );
+  const entry = fs.readFileSync(
+    path.join(root, "wordpress-plugin", "innotech-article-fields", "innotech-article-fields.php"),
+    "utf8",
+  );
+  const provider = fs.readFileSync(
+    path.join(srcRoot, "context", "HomeContentProvider.jsx"),
+    "utf8",
+  );
+
+  // A visible admin menu, not a raw JSON blob buried in a page.
+  assert.match(entry, /require_once plugin_dir_path\(__FILE__\) \. 'home-hero\.php'/);
+  assert.match(plugin, /add_menu_page\(/);
+  assert.match(plugin, /'INNOTECH Home'/);
+  assert.match(plugin, /add_action\('admin_menu', 'innotech_register_home_hero_page'\)/);
+  // Saved values are nonce-checked and capability-checked.
+  assert.match(plugin, /wp_verify_nonce\(\$nonce, 'innotech_save_home_hero'\)/);
+  assert.match(plugin, /current_user_can\('edit_pages'\)/);
+  assert.match(plugin, /sanitize_text_field|sanitize_textarea_field/);
+  // Published read-only over REST for the website.
+  assert.match(plugin, /register_rest_route\('innotech\/v1', '\/home-hero'/);
+  assert.match(plugin, /'methods' => 'GET'/);
+  // Every locale the site supports.
+  for (const locale of ["en", "ar", "tr"]) {
+    assert.match(plugin, new RegExp(`'${locale}' =>`));
+  }
+  // The site merges the hero over its own text, so blank fields change nothing.
+  assert.match(provider, /content\.hero = \{\.\.\.content\.hero, \.\.\.hero\}/);
+});
+
 test("images inside a WordPress article are never cropped or boxed in", () => {
   const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
 
@@ -301,7 +335,7 @@ test("home never shows the same post in latest news and live insights", () => {
   );
 
   assert.equal(HOME_LIVE_INSIGHTS_START_INDEX, 1);
-  assert.match(provider, /buildLatestNewsFromPost\(state\.content\.latestNews, posts\[0\]\)/);
+  assert.match(provider, /buildLatestNewsFromPost\(content\.latestNews, posts\[0\]\)/);
   assert.match(provider, /posts\.slice\(HOME_LIVE_INSIGHTS_START_INDEX\)/);
 });
 

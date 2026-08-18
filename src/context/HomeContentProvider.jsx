@@ -10,6 +10,7 @@ import {
 } from "../services/content/blogSections";
 import {useBlogPosts} from "../hooks/useBlogPosts";
 import {HOME_LIVE_INSIGHTS_START_INDEX} from "../config/articleCards.config";
+import {fetchWordPressHomeHero} from "../services/cms/wordpressHomeHero";
 
 export function HomeContentProvider({children}) {
   const {locale} = useLanguage();
@@ -20,6 +21,20 @@ export function HomeContentProvider({children}) {
     source: "local",
     error: null,
   });
+  /* Edited by the CEO under WordPress > INNOTECH Home. */
+  const [hero, setHero] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetchWordPressHomeHero(locale, {signal: controller.signal})
+      .then((remoteHero) => {
+        if (remoteHero) setHero(remoteHero);
+      })
+      .catch(() => {});
+
+    return () => controller.abort();
+  }, [locale]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -46,23 +61,26 @@ export function HomeContentProvider({children}) {
   }, [fallbackContent, locale]);
 
   const value = useMemo(() => {
-    if (!posts.length) return state;
+    if (!posts.length && !hero) return state;
 
-    return {
-      ...state,
-      content: {
-        ...state.content,
-        latestNews: buildLatestNewsFromPost(state.content.latestNews, posts[0]),
-        liveInsights: {
-          ...state.content.liveInsights,
-          cards: buildLiveInsightCards(
-            state.content.liveInsights?.cards,
-            posts.slice(HOME_LIVE_INSIGHTS_START_INDEX),
-          ),
-        },
-      },
-    };
-  }, [posts, state]);
+    const content = {...state.content};
+
+    /* Only filled-in fields are returned, so a blank field keeps the current text. */
+    if (hero) content.hero = {...content.hero, ...hero};
+
+    if (posts.length) {
+      content.latestNews = buildLatestNewsFromPost(content.latestNews, posts[0]);
+      content.liveInsights = {
+        ...content.liveInsights,
+        cards: buildLiveInsightCards(
+          content.liveInsights?.cards,
+          posts.slice(HOME_LIVE_INSIGHTS_START_INDEX),
+        ),
+      };
+    }
+
+    return {...state, content};
+  }, [hero, posts, state]);
 
   return (
     <HomeContentContext.Provider value={value}>
