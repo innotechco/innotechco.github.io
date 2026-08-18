@@ -220,6 +220,20 @@ function normalizeCategorySlug(value) {
   return String(value ?? "insight").toLowerCase().replace(/[^a-z0-9]+/g, "-") || "insight";
 }
 
+/* An untouched WordPress category is named after its own slug ("metals-mining").
+   Once an editor gives it a real name ("Steel and Mining") that name wins, so
+   renaming a category in WordPress takes effect on the site immediately. */
+function looksLikeRawSlug(name, slug) {
+  return !name || name === slug || /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name);
+}
+
+function resolveCategoryLabel(term) {
+  const slug = term?.slug ?? "";
+  const name = decodeHtml(term?.name ?? "");
+  if (!looksLikeRawSlug(name, slug)) return name;
+  return CATEGORY_LABELS[slug] || CATEGORY_LABELS[normalizeCategorySlug(name)] || name;
+}
+
 function normalizePost(post) {
   const title = decodeHtml(post?.title?.rendered);
   const description = stripHtml(post?.excerpt?.rendered || post?.content?.rendered)
@@ -229,9 +243,10 @@ function normalizePost(post) {
   const image = getFeaturedImage(post) || "";
   const categoryTerms = getWordPressCategoryTerms(post);
   const primaryCategory = categoryTerms.find((term) => term.slug !== "what-we-think") ?? categoryTerms[0];
-  const rawCategory = decodeHtml(primaryCategory?.name || "");
-  const categorySlug = normalizeCategorySlug(rawCategory);
-  const category = CATEGORY_LABELS[categorySlug] || rawCategory;
+  /* Always key off the real WordPress slug: it stays stable when a category is
+     renamed, so filters keep matching. */
+  const categorySlug = normalizeCategorySlug(primaryCategory?.slug || primaryCategory?.name);
+  const category = primaryCategory ? resolveCategoryLabel(primaryCategory) : "";
   const categories = categoryTerms.length
     ? categoryTerms.map((term) => normalizeCategorySlug(term.slug || term.name))
     : [categorySlug];
@@ -303,7 +318,7 @@ export async function fetchWordPressCategories({locale} = {}) {
     .map((category) => ({
       slug: category.slug,
       count: category.count,
-      label: CATEGORY_LABELS[category.slug] || decodeHtml(category.name),
+      label: resolveCategoryLabel(category),
     }));
 }
 

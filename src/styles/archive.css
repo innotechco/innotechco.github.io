@@ -135,13 +135,13 @@
   display: flex;
   width: max-content;
   min-width: calc(100% + 112px);
-  gap: 12px;
+  gap: 9px;
   padding: 2px 56px;
 }
 
 .archive-tag {
-  min-height: 34px;
-  padding: 0 17px;
+  min-height: 32px;
+  padding: 0 13px;
   flex: 0 0 auto;
   border: 1px solid transparent;
   border-radius: 999px;
@@ -149,8 +149,10 @@
   background: #fff;
   cursor: pointer;
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
   transition: color 0.22s ease, background-color 0.22s ease, transform 0.22s ease;
 }
 
@@ -278,6 +280,8 @@
   display: inline-flex;
   max-width: 46%;
   min-height: 24px;
+  /* Never let the meta row squeeze the pill until the label is cut off. */
+  flex: 0 0 auto;
   align-items: center;
   padding: 0 11px;
   overflow: hidden;
@@ -376,8 +380,8 @@
   .archive-card-category--multiline { max-width: min(100%, 144px); padding: 4px 9px; }
   .archive-search > span { padding: 0 16px; }
   .archive-tags { margin-top: -10px; margin-bottom: 30px; }
-  .archive-tags-track { gap: 9px; padding: 2px 38px; }
-  .archive-tag { min-height: 32px; padding: 0 14px; font-size: 12px; }
+  .archive-tags-track { gap: 8px; padding: 2px 38px; }
+  .archive-tag { min-height: 30px; padding: 0 11px; font-size: 11px; }
   .archive-decoration { display: none; }
 }
 

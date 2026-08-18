@@ -76,6 +76,21 @@ test("industry Live Insight sections only accept posts tagged with their categor
     ["steel"],
   );
   assert.deepEqual(getIndustryPosts(posts, "health"), []);
+
+  // A category created in WordPress under the industry's real name also matches.
+  const renamed = [
+    {slug: "a", categories: ["steel-and-mining"], publishedAt: "2026-01-01T00:00:00"},
+    {slug: "b", categories: ["oil-gas-and-petrochemical"], publishedAt: "2026-01-02T00:00:00"},
+    {slug: "c", categories: ["healthcare-and-life-sciences"], publishedAt: "2026-01-03T00:00:00"},
+    {slug: "d", categories: ["high-tech-and-ai"], publishedAt: "2026-01-04T00:00:00"},
+  ];
+  assert.deepEqual(getIndustryPosts(renamed, "metals-and-mining").map(({slug}) => slug), ["a"]);
+  assert.deepEqual(getIndustryPosts(renamed, "energy-and-materials").map(({slug}) => slug), ["b"]);
+  assert.deepEqual(getIndustryPosts(renamed, "health").map(({slug}) => slug), ["c"]);
+  assert.deepEqual(getIndustryPosts(renamed, "high-tech").map(({slug}) => slug), ["d"]);
+  assert.ok(
+    Object.values(INDUSTRY_CATEGORY_SLUGS).every((slugs) => Array.isArray(slugs) && slugs.length),
+  );
   assert.deepEqual(Object.keys(INDUSTRY_CATEGORY_SLUGS).sort(), [
     "automotive",
     "energy-and-materials",
@@ -370,8 +385,12 @@ test("a three word category label wraps onto two lines in the card pill", () => 
   assert.equal(isMultilineCategoryLabel("PATENT LANDSCAPE INSIGHT"), true);
   assert.equal(isMultilineCategoryLabel("Oil, Gas and Petrochemical"), true);
   assert.equal(isMultilineCategoryLabel("Steel and Mining"), true);
-  assert.equal(isMultilineCategoryLabel("Product Development"), false);
+  // Two long words overflow just as badly as three short ones.
+  assert.equal(isMultilineCategoryLabel("Digital Transformation"), true);
+  assert.equal(isMultilineCategoryLabel("Product Development"), true);
+  assert.equal(isMultilineCategoryLabel("Market Research"), false);
   assert.equal(isMultilineCategoryLabel("INSIGHT"), false);
+  assert.equal(isMultilineCategoryLabel("Sustainability"), false);
   assert.equal(isMultilineCategoryLabel(""), false);
 
   const css = fs.readFileSync(path.join(srcRoot, "styles", "archive.css"), "utf8");
@@ -379,6 +398,20 @@ test("a three word category label wraps onto two lines in the card pill", () => 
   assert.match(css, /\.archive-card-category--multiline \{[^}]*white-space: normal/s);
   // Cards keep one height per row even when a pill takes two lines.
   assert.match(css, /\.archive-card \{[^}]*height: 100%/s);
+});
+
+test("a renamed WordPress category takes over its display label", () => {
+  const blog = fs.readFileSync(
+    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    "utf8",
+  );
+
+  // Untouched categories are named after their slug; a real name wins.
+  assert.match(blog, /function looksLikeRawSlug/);
+  assert.match(blog, /function resolveCategoryLabel/);
+  assert.match(blog, /label: resolveCategoryLabel\(category\)/);
+  // Filtering keys off the slug, which survives a rename.
+  assert.match(blog, /normalizeCategorySlug\(primaryCategory\?\.slug \|\| primaryCategory\?\.name\)/);
 });
 
 test("structural WordPress buckets are never offered as archive filters", () => {

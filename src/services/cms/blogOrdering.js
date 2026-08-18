@@ -31,10 +31,12 @@ export function orderPosts(posts = []) {
 
 export const orderPostsForArchives = orderPosts;
 
-/** Posts tagged with the WordPress category that belongs to an industry page. */
+/** Posts tagged with any WordPress category that belongs to an industry page. */
 export function getIndustryPosts(posts = [], industrySlug) {
-  const categorySlug = INDUSTRY_CATEGORY_SLUGS[industrySlug];
-  if (!categorySlug) return [];
+  const categorySlugs = INDUSTRY_CATEGORY_SLUGS[industrySlug];
+  if (!categorySlugs?.length) return [];
 
-  return orderPosts(posts).filter((post) => post.categories?.includes(categorySlug));
+  return orderPosts(posts).filter((post) =>
+    categorySlugs.some((slug) => post.categories?.includes(slug)),
+  );
 }
