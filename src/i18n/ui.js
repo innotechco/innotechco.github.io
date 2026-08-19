@@ -3,7 +3,7 @@ import {getActiveLocale} from "./locale";
 const messages = {
   en: {
     loading: "Loading", readMore: "Read more", menu: "Menu", whoWeAre: "Who we are", whatWeDo: "What we do",
-    whatWeThink: "What we think", academy: "INLEARN Academy", store: "INSIGHT Store",
+    whatWeThink: "What we think", academy: "INLEARN Academy", store: "INSIGHT Store", rfp: "RFP",
     services: "Services", industries: "Industries", searchPlaceholder: "search services, industries, partners, articles, and pages",
     clearSearch: "Clear search", search: "Search", noResults: "No results found for:", openSearch: "Open search", openMenu: "Open menu", closeMenu: "Close menu",
     lightMode: "Switch to light mode", darkMode: "Switch to dark mode", contactUs: "contact us",
@@ -14,7 +14,7 @@ const messages = {
   },
   ar: {
     loading: "جارٍ التحميل", readMore: "اقرأ المزيد", menu: "القائمة", whoWeAre: "من نحن", whatWeDo: "ماذا نقدم",
-    whatWeThink: "رؤيتنا", academy: "أكاديمية INLEARN", store: "متجر INSIGHT",
+    whatWeThink: "رؤيتنا", academy: "أكاديمية INLEARN", store: "متجر INSIGHT", rfp: "RFP",
     services: "الخدمات", industries: "القطاعات", searchPlaceholder: "ابحث في الخدمات والقطاعات والشركاء والمقالات والصفحات",
     clearSearch: "مسح البحث", search: "بحث", noResults: "لم يتم العثور على نتائج لـ:", openSearch: "فتح البحث", openMenu: "فتح القائمة", closeMenu: "إغلاق القائمة",
     lightMode: "التبديل إلى الوضع الفاتح", darkMode: "التبديل إلى الوضع الداكن", contactUs: "تواصل معنا",
@@ -25,7 +25,7 @@ const messages = {
   },
   tr: {
     loading: "Yükleniyor", readMore: "Devamını oku", menu: "Menü", whoWeAre: "Biz kimiz", whatWeDo: "Ne yapıyoruz",
-    whatWeThink: "Ne düşünüyoruz", academy: "INLEARN Akademi", store: "INSIGHT Mağazası",
+    whatWeThink: "Ne düşünüyoruz", academy: "INLEARN Akademi", store: "INSIGHT Mağazası", rfp: "RFP",
     services: "Hizmetler", industries: "Sektörler", searchPlaceholder: "hizmetlerde, sektörlerde, iş ortaklarında, makalelerde ve sayfalarda ara",
     clearSearch: "Aramayı temizle", search: "Ara", noResults: "Şunun için sonuç bulunamadı:", openSearch: "Aramayı aç", openMenu: "Menüyü aç", closeMenu: "Menüyü kapat",
     lightMode: "Açık moda geç", darkMode: "Koyu moda geç", contactUs: "bize ulaşın",

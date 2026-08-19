@@ -1,0 +1,49 @@
+{
+  "seoTitle": "Teklif Talebi",
+  "hero": {
+    "eyebrow": "Teklif Talebi",
+    "title": "Teklif Talebi",
+    "description": "Planladığınız çalışmayı bizimle paylaşın. Kapsamınızı, zaman planınızı ve beklentilerinizi iletin; ekibimiz size özel bir teklifle geri dönsün."
+  },
+  "form": {
+    "title": "Teklif Talebi",
+    "description": "* ile işaretli alanlar zorunludur."
+  },
+  "fields": {
+    "name": "Ad Soyad *",
+    "company": "Şirket *",
+    "phone": "Telefon *",
+    "email": "E-posta *",
+    "country": "Ülke *",
+    "requestType": "Talep türü *",
+    "message": "Mesajınızı yazın",
+    "files": "Dosya yükleyin"
+  },
+  "requestTypes": [
+    "INCEPTION - İnovasyon ve Teknoloji Yönetimi",
+    "INSIGHT - Analitik ve Raporlar",
+    "INFINITY - Dijital ve Yapay Zekâ Dönüşümü",
+    "INLEARN Akademi - Eğitim",
+    "İş Ortaklığı",
+    "Diğer"
+  ],
+  "errors": {
+    "required": "Bu alan zorunludur.",
+    "email": "Geçerli bir e-posta adresi girin.",
+    "phone": "Geçerli bir telefon numarası girin.",
+    "country": "Listeden bir ülke seçin.",
+    "requestType": "Bir talep türü seçin.",
+    "fileSize": "Her dosya 5 MB'tan küçük olmalıdır."
+  },
+  "labels": {
+    "openCountryList": "Ülke listesini aç",
+    "noMatchingCountry": "Eşleşen ülke yok",
+    "chooseFiles": "Dosya seçin",
+    "noFileSelected": "Dosya seçilmedi",
+    "removeFile": "Dosyayı kaldır",
+    "submit": "Gönder",
+    "submitting": "Gönderiliyor...",
+    "submitSuccess": "Teşekkürler. Talebiniz iletildi.",
+    "submitError": "Bir sorun oluştu. Lütfen tekrar deneyin."
+  }
+}
