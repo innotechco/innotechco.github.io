@@ -121,6 +121,21 @@ function slugifyHeading(value, fallback) {
   return slug || fallback;
 }
 
+/**
+ * WordPress emits an empty `<p>` between most blocks (roughly half of the
+ * paragraphs in a long post). They carry no content but each one adds a
+ * paragraph gap, which is what makes the spacing of an article look uneven.
+ * A paragraph counts as empty only when it holds no text and no media.
+ */
+function removeEmptyParagraphs(doc) {
+  Array.from(doc.body.querySelectorAll("p")).forEach((paragraph) => {
+    if (paragraph.querySelector("img, iframe, video, audio, picture, svg")) return;
+    /* &nbsp; is whitespace to a reader but not to trim(). */
+    if (paragraph.textContent.replace(/[\s\u00a0]+/g, "")) return;
+    paragraph.remove();
+  });
+}
+
 function getWordPressSections(post, title) {
   const rendered = post?.content?.rendered ?? "";
   if (!rendered.trim()) return [];
@@ -140,6 +155,7 @@ function getWordPressSections(post, title) {
   }
 
   const doc = new window.DOMParser().parseFromString(rendered, "text/html");
+  removeEmptyParagraphs(doc);
   Array.from(doc.body.querySelectorAll("a[href]")).forEach((link) => {
     const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
     rel.add("noopener");

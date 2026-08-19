@@ -1,3 +1,5 @@
+import {useCallback} from "react";
+
 function Paragraphs({items = []}) {
   return items.map((paragraph) => <p key={paragraph}>{paragraph}</p>);
 }
@@ -11,14 +13,38 @@ function Subsections({items = []}) {
   ));
 }
 
+/**
+ * Body images are fitted into a fixed 16:9 block. A portrait upload would be
+ * shrunk to a stamp inside that block, so it is marked and keeps its own shape
+ * instead (see `img[data-orientation]` in articles.css).
+ */
+function tagImageOrientation(image) {
+  const {naturalWidth, naturalHeight} = image;
+  if (!naturalWidth || !naturalHeight) return;
+  image.dataset.orientation = naturalHeight > naturalWidth ? "portrait" : "landscape";
+}
+
+function WordPressSection({section}) {
+  const observeImages = useCallback((node) => {
+    if (!node) return undefined;
+
+    const images = Array.from(node.querySelectorAll("img"));
+    images.forEach((image) => {
+      if (image.complete) tagImageOrientation(image);
+      else image.addEventListener("load", () => tagImageOrientation(image), {once: true});
+    });
+  }, []);
+
+  return (
+    <section id={section.id} className="article-section article-wordpress-content">
+      {/* key: the ref callback has to run again when the article changes. */}
+      <div key={section.id} ref={observeImages} dangerouslySetInnerHTML={{__html: section.html}} />
+    </section>
+  );
+}
+
 function ArticleSection({section, assets}) {
-  if (section.type === "wordpress") {
-    return (
-      <section id={section.id} className="article-section article-wordpress-content">
-        <div dangerouslySetInnerHTML={{__html: section.html}} />
-      </section>
-    );
-  }
+  if (section.type === "wordpress") return <WordPressSection section={section} />;
 
   return (
     <section id={section.id} className="article-section">
