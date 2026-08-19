@@ -17,7 +17,8 @@
     "country": "Ülke *",
     "requestType": "Talep türü *",
     "message": "Mesajınızı yazın",
-    "files": "Dosya yükleyin"
+    "files": "Dosya yükleyin",
+    "otherOption": "Bir seçenek seçin"
   },
   "requestTypes": [
     "INCEPTION - İnovasyon ve Teknoloji Yönetimi",
@@ -33,7 +34,8 @@
     "phone": "Geçerli bir telefon numarası girin.",
     "country": "Listeden bir ülke seçin.",
     "requestType": "Bir talep türü seçin.",
-    "fileSize": "Her dosya 5 MB'tan küçük olmalıdır."
+    "fileSize": "Her dosya 5 MB'tan küçük olmalıdır.",
+    "otherOption": "Bir seçenek seçin."
   },
   "labels": {
     "openCountryList": "Ülke listesini aç",
@@ -45,5 +47,14 @@
     "submitting": "Gönderiliyor...",
     "submitSuccess": "Teşekkürler. Talebiniz iletildi.",
     "submitError": "Bir sorun oluştu. Lütfen tekrar deneyin."
-  }
+  },
+  "otherValue": "Diğer",
+  "otherOptions": [
+    "Innovation AI assistant",
+    "ITONICS",
+    "Brightidea",
+    "Trex",
+    "Alleantia",
+    "Sharjah Research, Technology and Innovation Park (SRTIP)"
+  ]
 }

@@ -17,7 +17,8 @@
     "country": "الدولة *",
     "requestType": "نوع الطلب *",
     "message": "اكتب رسالتك",
-    "files": "رفع الملفات"
+    "files": "رفع الملفات",
+    "otherOption": "اختر خيارًا"
   },
   "requestTypes": [
     "INCEPTION - إدارة الابتكار والتكنولوجيا",
@@ -33,7 +34,8 @@
     "phone": "أدخل رقم هاتف صالحًا.",
     "country": "اختر دولة من القائمة.",
     "requestType": "اختر نوع الطلب.",
-    "fileSize": "يجب أن يكون حجم كل ملف أقل من 5 ميغابايت."
+    "fileSize": "يجب أن يكون حجم كل ملف أقل من 5 ميغابايت.",
+    "otherOption": "اختر خيارًا."
   },
   "labels": {
     "openCountryList": "فتح قائمة الدول",
@@ -45,5 +47,14 @@
     "submitting": "جارٍ الإرسال...",
     "submitSuccess": "شكرًا لك. تم إرسال طلبك.",
     "submitError": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
-  }
+  },
+  "otherValue": "أخرى",
+  "otherOptions": [
+    "Innovation AI assistant",
+    "ITONICS",
+    "Brightidea",
+    "Trex",
+    "Alleantia",
+    "Sharjah Research, Technology and Innovation Park (SRTIP)"
+  ]
 }

@@ -17,7 +17,8 @@
     "country": "Country *",
     "requestType": "Type of the request *",
     "message": "Write your message",
-    "files": "Upload files"
+    "files": "Upload files",
+    "otherOption": "Select an option"
   },
   "requestTypes": [
     "INCEPTION - Innovation and Technology Management",
@@ -33,7 +34,8 @@
     "phone": "Enter a valid phone number.",
     "country": "Choose a country from the list.",
     "requestType": "Select a request type.",
-    "fileSize": "Each file must be smaller than 5 MB."
+    "fileSize": "Each file must be smaller than 5 MB.",
+    "otherOption": "Select an option."
   },
   "labels": {
     "openCountryList": "Open country list",
@@ -45,5 +47,14 @@
     "submitting": "Submitting...",
     "submitSuccess": "Thank you. Your request has been submitted.",
     "submitError": "Something went wrong. Please try again."
-  }
+  },
+  "otherValue": "Other",
+  "otherOptions": [
+    "Innovation AI assistant",
+    "ITONICS",
+    "Brightidea",
+    "Trex",
+    "Alleantia",
+    "Sharjah Research, Technology and Innovation Park (SRTIP)"
+  ]
 }

@@ -15,6 +15,7 @@ const defaultValues = {
   email: "",
   country: "",
   requestType: "",
+  otherOption: "",
   message: "",
 };
 
@@ -37,7 +38,9 @@ function RfpForm({content, isDarkMode}) {
   const [submitState, setSubmitState] = useState("idle");
   const [submitMessage, setSubmitMessage] = useState("");
   const [isCountryOpen, setIsCountryOpen] = useState(false);
+  const [isOtherOpen, setIsOtherOpen] = useState(false);
   const countryRef = useRef(null);
+  const otherRef = useRef(null);
   const fileInputRef = useRef(null);
 
   const textColor = isDarkMode ? "text-white" : "text-black";
@@ -65,6 +68,41 @@ function RfpForm({content, isDarkMode}) {
   const updateValue = (field, value) => {
     setValues((current) => ({...current, [field]: value}));
     setErrors((current) => ({...current, [field]: ""}));
+    setSubmitMessage("");
+  };
+
+  const selectRequestType = (requestType) => {
+    const isOther = requestType === content.otherValue;
+
+    setValues((current) => ({
+      ...current,
+      requestType,
+      otherOption: isOther ? current.otherOption : "",
+    }));
+    setErrors((current) => ({
+      ...current,
+      requestType: "",
+      otherOption: isOther ? current.otherOption : "",
+    }));
+    setIsOtherOpen(false);
+    setSubmitMessage("");
+  };
+
+  const toggleOtherDropdown = () => {
+    setValues((current) => ({...current, requestType: content.otherValue}));
+    setErrors((current) => ({...current, requestType: ""}));
+    setSubmitMessage("");
+    setIsOtherOpen((current) => !current);
+  };
+
+  const selectOtherOption = (option) => {
+    setValues((current) => ({
+      ...current,
+      requestType: content.otherValue,
+      otherOption: option,
+    }));
+    setErrors((current) => ({...current, requestType: "", otherOption: ""}));
+    setIsOtherOpen(false);
     setSubmitMessage("");
   };
 
@@ -114,6 +152,12 @@ function RfpForm({content, isDarkMode}) {
       if (!values.requestType)
         nextErrors.requestType = content.errors.requestType;
       else delete nextErrors.requestType;
+    }
+
+    if (!field || field === "otherOption") {
+      if (values.requestType === content.otherValue && !values.otherOption)
+        nextErrors.otherOption = content.errors.otherOption;
+      else delete nextErrors.otherOption;
     }
 
     if (!field || field === "files") {
@@ -175,6 +219,7 @@ function RfpForm({content, isDarkMode}) {
     formData.append("email", values.email.trim());
     formData.append("country", values.country.trim());
     formData.append("request_type", values.requestType);
+    formData.append("other_option", values.otherOption || "-");
     formData.append("message", values.message.trim());
     formData.append(
       "attached_file_names",
@@ -230,6 +275,18 @@ function RfpForm({content, isDarkMode}) {
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isCountryOpen]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (otherRef.current && !otherRef.current.contains(event.target)) {
+        setIsOtherOpen(false);
+      }
+    };
+
+    if (isOtherOpen) document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOtherOpen]);
 
   return (
     <div
@@ -380,7 +437,7 @@ function RfpForm({content, isDarkMode}) {
             <div
               id="rfp-country-listbox"
               role="listbox"
-              className={`absolute left-0 right-0 top-[calc(100%+8px)] z-[60] max-h-64 overflow-y-auto rounded-3xl border p-2 shadow-2xl ${
+              className={`rfp-dropdown-enter absolute left-0 right-0 top-[calc(100%+8px)] z-[60] max-h-64 origin-top overflow-y-auto rounded-3xl border p-2 shadow-2xl ${
                 isDarkMode
                   ? "border-white/15 bg-zinc-950 text-white"
                   : "border-black/15 bg-white text-black"
@@ -428,19 +485,25 @@ function RfpForm({content, isDarkMode}) {
             className="grid w-full min-w-0 grid-cols-1 gap-3 sm:grid-cols-2"
           >
             {content.requestTypes.map((requestType) => {
+              const isOther = requestType === content.otherValue;
               const isSelected = values.requestType === requestType;
-
-              return (
+              const hasError = isOther
+                ? errors.requestType || errors.otherOption
+                : errors.requestType;
+              const pill = (
                 <button
-                  key={requestType}
                   type="button"
-                  role="radio"
-                  aria-checked={isSelected}
-                  onClick={() => updateValue("requestType", requestType)}
+                  role={isOther ? "button" : "radio"}
+                  aria-checked={isOther ? undefined : isSelected}
+                  aria-haspopup={isOther ? "listbox" : undefined}
+                  aria-expanded={isOther ? isOtherOpen : undefined}
+                  onClick={() =>
+                    isOther ? toggleOtherDropdown() : selectRequestType(requestType)
+                  }
                   className={`flex w-full min-w-0 items-center gap-3 rounded-[50px] px-4 py-3 text-start outline outline-1 outline-offset-[-1px] transition-colors ${inputBg} ${
                     isSelected
                       ? "outline-[#37B478]"
-                      : errors.requestType
+                      : hasError
                         ? "outline-red-500"
                         : inputOutline
                   } ${isDarkMode ? "hover:bg-white/5" : "hover:bg-black/[0.03]"}`}
@@ -465,18 +528,72 @@ function RfpForm({content, isDarkMode}) {
                   <span
                     className={`min-w-0 break-words font-['Gotham'] text-sm ${textColor}`}
                   >
-                    {requestType}
+                    {isOther ? values.otherOption || requestType : requestType}
                   </span>
                 </button>
+              );
+
+              if (!isOther) {
+                return <div key={requestType} className="min-w-0">{pill}</div>;
+              }
+
+              return (
+                <div key={requestType} className="relative min-w-0" ref={otherRef}>
+                  {pill}
+
+                  <div
+                    role="listbox"
+                    aria-label={content.fields.otherOption}
+                    aria-hidden={!isOtherOpen}
+                    className={`rfp-dropdown-anim absolute left-0 right-0 top-[calc(100%+8px)] z-[60] max-h-72 origin-top overflow-y-auto rounded-3xl border p-2 shadow-2xl transition-all duration-300 ease-out ${
+                      isOtherOpen
+                        ? "translate-y-0 scale-100 opacity-100"
+                        : "pointer-events-none invisible -translate-y-2 scale-[0.98] opacity-0"
+                    } ${
+                      isDarkMode
+                        ? "border-white/15 bg-zinc-950 text-white"
+                        : "border-black/15 bg-white text-black"
+                    }`}
+                  >
+                    {content.otherOptions.map((option, optionIndex) => (
+                      <button
+                        key={option}
+                        type="button"
+                        role="option"
+                        tabIndex={isOtherOpen ? 0 : -1}
+                        aria-selected={values.otherOption === option}
+                        onClick={() => selectOtherOption(option)}
+                        style={{
+                          transitionDelay: isOtherOpen
+                            ? `${60 + optionIndex * 35}ms`
+                            : "0ms",
+                        }}
+                        className={`block w-full break-words rounded-2xl px-4 py-2 text-start font-['Gotham'] text-sm transition-all duration-300 ease-out ${
+                          isOtherOpen
+                            ? "translate-y-0 opacity-100"
+                            : "-translate-y-1 opacity-0"
+                        } ${
+                          values.otherOption === option
+                            ? `bg-[#37B478] ${greenButtonTextColor}`
+                            : isDarkMode
+                              ? "hover:bg-white/10"
+                              : "hover:bg-black/5"
+                        }`}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               );
             })}
           </div>
 
-          {errors.requestType ? (
+          {errors.requestType || errors.otherOption ? (
             <p
               className={`mt-2 break-words px-4 font-['Gotham'] text-xs ${errorColor}`}
             >
-              {errors.requestType}
+              {errors.requestType || errors.otherOption}
             </p>
           ) : null}
         </fieldset>
