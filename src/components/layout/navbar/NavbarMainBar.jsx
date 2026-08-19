@@ -36,7 +36,7 @@ function NavbarMainBar({
   const textColor = isDarkMode ? "text-white" : "text-black";
 
   return (
-    <div dir="ltr" className="flex h-14 items-center px-4 min-[1400px]:h-[73px] min-[1400px]:px-8">
+    <div dir="ltr" className="flex h-14 items-center px-3 sm:px-4 min-[1400px]:h-[73px] min-[1400px]:px-8">
       <div className="flex shrink-0 items-center">
         <Link to={routes.home}>
           <img
@@ -207,13 +207,13 @@ function NavbarMainBar({
           onClick={handleMobileMenuToggle}
           aria-label={isMobileMenuOpen ? t("closeMenu") : t("openMenu")}
           aria-expanded={isMobileMenuOpen}
-          className={`flex min-h-11 items-center gap-2 rounded-full border px-3 font-['Gotham'] text-sm transition-colors lg:hidden ${
+          className={`flex min-h-11 items-center gap-2 rounded-full border px-2.5 font-['Gotham'] text-sm transition-colors sm:px-3 lg:hidden ${
             isDarkMode
               ? "border-white/15 text-white hover:bg-white/10"
               : "border-black/15 text-black hover:bg-black/5"
           }`}
         >
-          <span>{t("menu")}</span>
+          <span className="hidden min-[360px]:inline">{t("menu")}</span>
           <span className="relative h-4 w-4">
             <span
               className={`absolute left-0 top-[3px] h-0.5 w-4 rounded-full bg-current transition-transform ${
