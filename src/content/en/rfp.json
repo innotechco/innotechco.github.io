@@ -1,0 +1,49 @@
+{
+  "seoTitle": "Request for Proposal",
+  "hero": {
+    "eyebrow": "Request for Proposal",
+    "title": "Request for Proposal",
+    "description": "Tell us what you are planning. Share your scope, timeline and expectations, and our team will come back to you with a tailored proposal."
+  },
+  "form": {
+    "title": "Request for Proposal",
+    "description": "Fields marked with * are required."
+  },
+  "fields": {
+    "name": "Name Surname *",
+    "company": "Company *",
+    "phone": "Phone *",
+    "email": "E-mail *",
+    "country": "Country *",
+    "requestType": "Type of the request *",
+    "message": "Write your message",
+    "files": "Upload files"
+  },
+  "requestTypes": [
+    "INCEPTION - Innovation and Technology Management",
+    "INSIGHT - Analytics and Reports",
+    "INFINITY - Digital and AI Transformation",
+    "INLEARN Academy - Training",
+    "Partnership",
+    "Other"
+  ],
+  "errors": {
+    "required": "This field is required.",
+    "email": "Enter a valid email address.",
+    "phone": "Enter a valid phone number.",
+    "country": "Choose a country from the list.",
+    "requestType": "Select a request type.",
+    "fileSize": "Each file must be smaller than 5 MB."
+  },
+  "labels": {
+    "openCountryList": "Open country list",
+    "noMatchingCountry": "No matching country",
+    "chooseFiles": "Choose files",
+    "noFileSelected": "No file selected",
+    "removeFile": "Remove file",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "submitSuccess": "Thank you. Your request has been submitted.",
+    "submitError": "Something went wrong. Please try again."
+  }
+}

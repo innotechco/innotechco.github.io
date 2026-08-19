@@ -4,6 +4,7 @@ export const routes = {
   archives: "/archives",
   whatWeThink: "/what-we-think",
   whoWeAre: "/who-we-are",
+  rfp: "/request-for-proposal",
   article: "/articles/:slug",
   articles: "/articles",
   featuredArticle: "/articles/product-portfolio-management",

@@ -25,7 +25,7 @@ const pageModules = import.meta.glob("../../content/{en,ar,tr}/pages/**/*.json",
   import: "default",
 });
 
-const searchRoutes = [routes.whoWeAre, null, routes.whatWeThink, routes.inlearnAcademy, "https://stimanalytics.ai"];
+const searchRoutes = [routes.whoWeAre, null, routes.whatWeThink, routes.inlearnAcademy, "https://stimanalytics.ai", routes.rfp];
 
 const serviceRoutesBySlug = {
   inception: routes.inception,
@@ -212,7 +212,7 @@ const pageRouteByPath = {
 };
 
 const manualSearchItems = navigationContent.searchItems
-  .slice(0, 5)
+  .slice(0, 6)
   .map((item, index) => ({
     ...item,
     type: "Page",

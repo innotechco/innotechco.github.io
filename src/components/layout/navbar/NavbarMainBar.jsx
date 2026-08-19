@@ -106,6 +106,14 @@ function NavbarMainBar({
           >
             {t("store")}
           </a>
+
+          <Link
+            to={routes.rfp}
+            onClick={closePanels}
+            className={`whitespace-nowrap font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
+          >
+            {t("rfp")}
+          </Link>
         </div>
       </div>
 

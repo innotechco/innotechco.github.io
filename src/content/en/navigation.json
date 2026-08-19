@@ -1,18 +1,55 @@
 {
   "searchItems": [
-    {"title": "Who we are", "type": "Page"},
-    {"title": "What we do", "type": "Page"},
-    {"title": "What we think", "type": "Page"},
-    {"title": "INLEARN Academy", "type": "Page"},
-    {"title": "INSIGHT Store", "type": "Page"},
-    {"title": "Innovation and Technology Management", "type": "Article"},
-    {"title": "Digital Transformation Report", "type": "Report"},
-    {"title": "Market Analytics Report", "type": "Report"}
+    {
+      "title": "Who we are",
+      "type": "Page"
+    },
+    {
+      "title": "What we do",
+      "type": "Page"
+    },
+    {
+      "title": "What we think",
+      "type": "Page"
+    },
+    {
+      "title": "INLEARN Academy",
+      "type": "Page"
+    },
+    {
+      "title": "INSIGHT Store",
+      "type": "Page"
+    },
+    {
+      "title": "Request for Proposal",
+      "type": "Page"
+    },
+    {
+      "title": "Innovation and Technology Management",
+      "type": "Article"
+    },
+    {
+      "title": "Digital Transformation Report",
+      "type": "Report"
+    },
+    {
+      "title": "Market Analytics Report",
+      "type": "Report"
+    }
   ],
   "languageOptions": [
-    {"label": "En", "name": "English"},
-    {"label": "Tr", "name": "Türkiye"},
-    {"label": "Ar", "name": "العربية"}
+    {
+      "label": "En",
+      "name": "English"
+    },
+    {
+      "label": "Tr",
+      "name": "Türkiye"
+    },
+    {
+      "label": "Ar",
+      "name": "العربية"
+    }
   ],
   "serviceMenuItems": [
     {
@@ -32,10 +69,25 @@
     }
   ],
   "industryMenuItems": [
-    {"id": "energyAndMaterials", "label": "Oil, Gas and Petrochemical"},
-    {"id": "metalsAndMining", "label": "Steel and Mining"},
-    {"id": "highTech", "label": "High Tech and AI"},
-    {"id": "health", "label": "Healthcare and Life Sciences"},
-    {"id": "automotive", "label": "Automotive"}
+    {
+      "id": "energyAndMaterials",
+      "label": "Oil, Gas and Petrochemical"
+    },
+    {
+      "id": "metalsAndMining",
+      "label": "Steel and Mining"
+    },
+    {
+      "id": "highTech",
+      "label": "High Tech and AI"
+    },
+    {
+      "id": "health",
+      "label": "Healthcare and Life Sciences"
+    },
+    {
+      "id": "automotive",
+      "label": "Automotive"
+    }
   ]
 }

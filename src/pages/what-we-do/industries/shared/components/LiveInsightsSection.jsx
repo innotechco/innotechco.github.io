@@ -55,7 +55,7 @@ function CardCopy({card, isDarkMode, compact = false}) {
       }`}
     >
       <h3
-        className={`font-['Gotham'] leading-tight transition-colors duration-500 ease-in-out ${textColor} ${
+        className={`article-card-title font-['Gotham'] leading-tight transition-colors duration-500 ease-in-out ${textColor} ${
           compact ? "text-base sm:text-lg md:text-xl font-medium" : "text-base sm:text-lg md:text-xl font-bold"
         } break-words whitespace-normal`}
       >

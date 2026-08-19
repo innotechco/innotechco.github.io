@@ -57,6 +57,10 @@ const WhatWeThink = lazyWithRetry(
   () => import("./pages/what-we-think/WhatWeThink"),
   "what-we-think",
 );
+const RequestForProposal = lazyWithRetry(
+  () => import("./pages/rfp/RequestForProposal"),
+  "request-for-proposal",
+);
 const WhoWeAre = lazyWithRetry(
   () => import("./pages/who-we-are/WhoWeAre"),
   "who-we-are",
@@ -344,6 +348,7 @@ function App() {
             <Route path={routes.partner} element={<PartnerPage />} />
             <Route path={routes.whatWeThink} element={<WhatWeThink />} />
             <Route path={routes.whoWeAre} element={<WhoWeAre />} />
+            <Route path={routes.rfp} element={<RequestForProposal />} />
             <Route path={routes.inception} element={<Inception />} />
             <Route path={routes.insight} element={<Insight />} />
             <Route path={routes.infinity} element={<InfinityPage />} />

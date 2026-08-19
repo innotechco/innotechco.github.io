@@ -212,6 +212,13 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
         >
           {t("store")}
         </a>
+        <Link
+          to={routes.rfp}
+          onClick={closePanels}
+          className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
+        >
+          {t("rfp")}
+        </Link>
       </div>
     </div>
   );
