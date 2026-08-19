@@ -184,7 +184,7 @@ test("Article body expands when a WordPress post has no table of contents", () =
 
   assert.match(body, /article-body-layout--without-toc/);
   assert.match(css, /\.article-body-layout--without-toc \.article-copy\s*\{\s*grid-column:\s*2/);
-  assert.match(css, /\.article-copy\s*\{[^}]*max-width:\s*none/);
+  assert.match(css, /\.article-copy\s*\{[^}]*overflow-x:\s*clip/);
   assert.match(css, /\.article-wordpress-content\s*\{[^}]*overflow-wrap:\s*anywhere/);
 });
 
@@ -304,28 +304,49 @@ test("the home hero card is editable from a real WordPress screen", () => {
   assert.match(provider, /content\.hero = \{\.\.\.content\.hero, \.\.\.hero\}/);
 });
 
-test("images inside a WordPress article are never cropped or boxed in", () => {
+test("a WordPress article renders inside one block that nothing escapes", () => {
   const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
 
-  // `.article-section figure img` caps local-article figures at 390px with
-  // object-fit: cover. WordPress sections carry both classes, so a 1200x675
-  // upload used to render 776x390 - sliced top and bottom.
-  assert.match(css, /\.article-section figure img \{[^}]*max-height: 390px/s);
-  const wordpressFigureImg = css.match(
-    /\.article-wordpress-content figure img,[^{]*\{[^}]*\}/s,
-  )?.[0];
-  assert.ok(wordpressFigureImg, "WordPress figure images need their own rule");
-  assert.match(wordpressFigureImg, /max-height: none/);
-  assert.match(wordpressFigureImg, /height: auto/);
-  assert.match(wordpressFigureImg, /object-fit: contain/);
+  // Text and media share --article-block-width, so the article has a single
+  // straight left edge and a single straight right edge.
+  const block = css.match(/\.article-wordpress-content \{[^}]*\}/s)?.[0];
+  assert.ok(block, "the WordPress block needs its own rule");
+  assert.match(block, /--article-block-width:/);
+  assert.match(block, /--article-measure: var\(--article-block-width\)/);
+  assert.match(block, /--article-media-width: var\(--article-block-width\)/);
 
-  // Figures reclaim the empty space beside the shell, and a nested gallery
-  // figure must not apply that bleed a second time.
-  assert.match(css, /--article-bleed-end: max\(/);
+  // Nothing may bleed out of the copy column any more - the old
+  // --article-figure-bleed system pulled figures under the table of contents.
+  assert.doesNotMatch(css, /--article-figure-bleed/);
+  assert.match(css, /\.article-copy \{[^}]*overflow-x: clip/s);
+
+  // Every upload is fitted whole into a fixed box, whatever resolution it has.
+  const wordpressImg = css.match(/\.article-wordpress-content img \{[^}]*\}/s)?.[0];
+  assert.ok(wordpressImg, "WordPress images need their own rule");
+  assert.match(wordpressImg, /aspect-ratio: var\(--article-media-ratio\)/);
+  assert.match(wordpressImg, /object-fit: contain/);
+
+  // A portrait upload keeps its own shape instead of being letterboxed.
   assert.match(
     css,
-    /\.article-wordpress-content figure figure \{[^}]*--article-figure-bleed: 0px;[^}]*--article-bleed-end: 0px/s,
+    /img\[data-orientation="portrait"\] \{[^}]*max-height: var\(--article-media-max-height\)/s,
   );
+
+  // Local-article figures keep their own 390px cover crop, but that rule must
+  // not reach the WordPress block or CMS images get sliced top and bottom.
+  assert.match(
+    css,
+    /\.article-section:not\(\.article-wordpress-content\) figure img \{[^}]*max-height: 390px/s,
+  );
+});
+
+test("empty WordPress paragraphs are dropped so article spacing stays even", () => {
+  const blog = fs.readFileSync(path.join(srcRoot, "services", "cms", "wordpressBlog.js"), "utf8");
+
+  assert.match(blog, /function removeEmptyParagraphs/);
+  assert.match(blog, /removeEmptyParagraphs\(doc\)/);
+  // A paragraph that only carries an image is not empty.
+  assert.match(blog, /querySelector\("img, iframe, video, audio, picture, svg"\)/);
 });
 
 test("home never shows the same post in latest news and live insights", () => {

@@ -49,8 +49,6 @@
   gap: clamp(46px, 7vw, 112px); 
   align-items: start; 
   position: relative;
-  /* Figures may reclaim the gutter, minus a gap so they never touch the TOC. */
-  --article-figure-bleed: max(0px, calc(clamp(46px, 7vw, 112px) - 28px));
 }
 
 /* ========== TABLE OF CONTENTS ========== */
@@ -185,10 +183,29 @@
 }
 
 /* ========== ARTICLE COPY ========== */
-.article-copy { width: 100%; max-width: none; min-width: 0; }
+/* One shared block for every article, CMS or local. Nothing inside may stick
+   out to the left (under the table of contents) or to the right (into the page
+   margin): the column clips horizontally while vertical sticky/overflow keeps
+   working. */
+.article-copy {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  --article-measure: min(100%, 780px);
+  overflow-x: clip;
+}
+
+/* Safety net: no block the editor pastes can be wider than the column or be
+   pulled outside it with a negative margin. */
+.article-copy > *,
+.article-wordpress-content > * {
+  max-width: 100%;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
 .article-body-layout--without-toc .article-copy { grid-column: 2; }
-.article-lede { margin: 0 0 12px; font-size: 15px; font-weight: 500; line-height: 1.25; }
-.article-copy > p:not(.article-lede) { margin: 0 0 12px; font-size: 14px; font-weight: 300; line-height: 1.28; }
+.article-lede { max-width: var(--article-measure); margin: 0 0 12px; font-size: 15px; font-weight: 500; line-height: 1.25; }
+.article-copy > p:not(.article-lede) { max-width: var(--article-measure); margin: 0 0 12px; font-size: 14px; font-weight: 300; line-height: 1.28; }
 .article-section { scroll-margin-top: 130px; margin: 0 0 30px; }
 .article-section h2 { margin: 20px 0 12px; font-size: clamp(28px, 2.45vw, 39px); font-weight: 500; line-height: 1.08; letter-spacing: -0.025em; }
 .article-section h3 { margin: 24px 0 12px; font-size: clamp(20px, 1.6vw, 25px); font-weight: 500; line-height: 1.16; }
@@ -196,60 +213,216 @@
 .article-section ul { margin: -4px 0 12px; padding-left: 20px; list-style: disc; }
 .article-section li { font-size: 14px; font-weight: 300; line-height: 1.28; }
 .article-page.is-dark .article-section li::marker { color: #fff; }
-.article-section figure { margin: 20px 0 16px; }
-.article-section figure img { display: block; width: 100%; max-height: 390px; object-fit: cover; object-position: center; }
-.article-section figcaption { margin-top: 14px; }
-.article-wordpress-content { min-width: 0; max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
-.article-wordpress-content :is(p, li, figcaption) { max-width: 100%; font-size: 14px; font-weight: 300; line-height: 1.45; overflow-wrap: anywhere; word-break: break-word; }
-.article-wordpress-content :is(h2, h3, h4) { font-weight: 500; line-height: 1.16; }
-.article-wordpress-content img { display: block; max-width: 100%; height: auto; margin: 22px 0; object-fit: contain; }
-
-/* Article images are shown whole and as wide as the column allows.
-   `.article-section figure img` above caps decorative figures of the local
-   article at 390px with object-fit: cover; WordPress images must escape that
-   cap or they get sliced top and bottom (a 1200x675 upload was rendered
-   776x390). Height follows the image, never the other way round. */
-.article-wordpress-content figure {
-  width: calc(100% + var(--article-figure-bleed, 0px) + var(--article-bleed-end, 0px));
-  margin: 26px 0;
-  /* The gutter next to the table of contents is empty, so figures reclaim it. */
-  margin-inline-start: calc(var(--article-figure-bleed, 0px) * -1);
-  margin-inline-end: calc(var(--article-bleed-end, 0px) * -1);
+.article-section:not(.article-wordpress-content) figure { margin: 20px 0 16px; }
+.article-section:not(.article-wordpress-content) figure img { display: block; width: 100%; max-height: 390px; object-fit: cover; object-position: center; }
+.article-section:not(.article-wordpress-content) figcaption { margin-top: 14px; }
+/* ========== WORDPRESS ARTICLE BLOCK ==========
+   Everything the editor writes in WordPress is rendered inside one fixed block:
+   - text never runs wider than --article-measure (readable line length),
+   - every image sits inside a fixed --article-media-ratio box and is shown
+     whole (object-fit: contain), so no upload can crop, overflow or push the
+     layout wider, whatever resolution it has,
+   - wide things (tables, embeds, code) scroll inside their own box.
+   Recommended upload for body images: 1600x900 (16:9), max ~400 KB. */
+.article-wordpress-content {
+  /* ONE width for the whole article. Text and media share it, so the block has
+     a single straight left edge and a single straight right edge. */
+  --article-block-width: min(100%, 780px);
+  --article-measure: var(--article-block-width);
+  --article-media-width: var(--article-block-width);
+  /* Fixed box a landscape image is fitted into. */
+  --article-media-ratio: 16 / 9;
+  /* Portrait uploads keep their own shape but never grow past this. */
+  --article-media-max-height: 620px;
+  /* Vertical rhythm: every gap in the article comes from these four values. */
+  --article-space-text: 14px;
+  --article-space-h2: 40px;
+  --article-space-h3: 28px;
+  --article-space-media: 32px;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
-/* A gallery is a figure of figures - only the outer one may reclaim the gutter,
-   otherwise the bleed compounds and the image slides under the table of contents. */
-.article-wordpress-content figure figure {
-  --article-figure-bleed: 0px;
-  --article-bleed-end: 0px;
-  width: auto;
-  margin: 0;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
+.article-wordpress-content :is(p, li, figcaption) {
+  max-width: var(--article-measure);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
-.article-wordpress-content figure img,
-.article-wordpress-content :is(figure, p) > img {
+.article-wordpress-content p { margin: 0 0 var(--article-space-text); }
+
+/* ---------- Vertical rhythm ---------- */
+.article-wordpress-content :is(h2, h3, h4, h5, h6) { max-width: var(--article-measure); font-weight: 500; line-height: 1.16; }
+.article-wordpress-content h2 { margin: var(--article-space-h2) 0 var(--article-space-text); }
+.article-wordpress-content h3 { margin: var(--article-space-h3) 0 12px; }
+.article-wordpress-content :is(h4, h5, h6) { margin: 24px 0 10px; }
+.article-wordpress-content > :first-child { margin-top: 0; }
+.article-wordpress-content > :last-child { margin-bottom: 0; }
+
+.article-wordpress-content :is(ul, ol) { max-width: var(--article-measure); margin: 0 0 var(--article-space-text); padding-inline-start: 20px; }
+.article-wordpress-content :is(ul, ol) :is(ul, ol) { max-width: none; margin-bottom: 0; }
+.article-wordpress-content li { margin-bottom: 6px; }
+
+/* WordPress alignment classes must not break out of the block. A "full width"
+   or "wide" image in the editor still stops at the edge of the copy column. */
+.article-wordpress-content :is(.alignfull, .alignwide, .alignleft, .alignright, .aligncenter) {
+  width: var(--article-media-width);
+  max-width: 100%;
+  margin-inline: 0;
+  float: none;
+}
+
+/* ---------- Images ---------- */
+.article-wordpress-content :is(figure, .wp-block-image, .wp-block-embed, .wp-block-video) {
+  width: var(--article-media-width);
+  max-width: 100%;
+  margin: var(--article-space-media) 0;
+  margin-inline: 0;
+}
+
+/* Nested figures (galleries) inherit the box, they do not stack their own. */
+.article-wordpress-content figure figure { width: 100%; margin: 0; }
+
+.article-wordpress-content img {
+  display: block;
   width: 100%;
   max-width: 100%;
-  max-height: none;
-  height: auto;
+  height: 100%;
+  aspect-ratio: var(--article-media-ratio);
   margin: 0;
+  /* The whole image is always visible; empty space is padded, never cropped. */
   object-fit: contain;
+  object-position: center;
+  /* A thin frame so the padding around an off-ratio upload reads as part of
+     the design instead of looking like a broken image. */
+  background: rgba(55, 180, 120, 0.06);
+  border: 1px solid rgba(55, 180, 120, 0.22);
+  border-radius: 14px;
 }
 
-.article-wordpress-content figure figcaption { margin-top: 10px; }
-.article-wordpress-content figcaption { margin-top: 10px; color: var(--article-accent); font-size: 13px; }
-.article-wordpress-content blockquote { margin: 22px 0; padding-left: 20px; border-left: 2px solid var(--article-accent); }
+.article-page.is-light .article-wordpress-content img {
+  background: rgba(8, 8, 8, 0.03);
+  border-color: rgba(8, 8, 8, 0.1);
+}
+
+/* Portrait uploads would be shrunk to a stamp inside a 16:9 box, so they keep
+   their own shape, capped in height and centred in the block. ArticleSection
+   tags every image with data-orientation once it has loaded. */
+.article-wordpress-content img[data-orientation="portrait"] {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: var(--article-media-max-height);
+  aspect-ratio: auto;
+  margin-inline: auto;
+}
+
+/* A bare image inside a paragraph or straight in the body gets the same box. */
+.article-wordpress-content > img,
+.article-wordpress-content p > img { width: var(--article-media-width); margin: var(--article-space-media) 0; }
+
+/* Inline emoji keep their natural size. */
+.article-wordpress-content img.emoji {
+  display: inline;
+  width: auto;
+  height: 1em;
+  aspect-ratio: auto;
+  background: none;
+  border-radius: 0;
+}
+
+/* ---------- Galleries ---------- */
+.article-wordpress-content .wp-block-gallery {
+  display: grid;
+  /* One image fills the block; two or more share the row evenly. */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: var(--article-space-media) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-wordpress-content .wp-block-gallery :is(figure, .wp-block-image) { width: 100%; margin: 0; }
+
+/* Anything that is not an image (a table the editor dropped inside the gallery
+   block, a paragraph, an embed) keeps the full width of the block. */
+.article-wordpress-content .wp-block-gallery > :not(figure.wp-block-image):not(.wp-block-image) {
+  grid-column: 1 / -1;
+}
+
+/* Two malformed-content safety valves, both seen in real posts:
+   a gallery holding text/tables (the editor pasted blocks inside the Gallery
+   block) and a gallery holding a single image. Both render as a plain stack,
+   so nothing is squeezed into a half-width column. */
+.article-wordpress-content .wp-block-gallery:has(> :not(figure.wp-block-image):not(.wp-block-image)),
+.article-wordpress-content .wp-block-gallery:has(> .wp-block-image:only-child) {
+  display: block;
+}
+
+.article-wordpress-content .wp-block-gallery:has(> :not(figure.wp-block-image):not(.wp-block-image)) > * {
+  margin-block: 12px;
+}
+
+/* ---------- Embeds / video ---------- */
+.article-wordpress-content :is(iframe, video) {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: var(--article-media-ratio);
+  border: 0;
+  border-radius: 14px;
+}
+
+/* ---------- Long words, code, preformatted text ---------- */
+.article-wordpress-content pre {
+  max-width: 100%;
+  margin: var(--article-space-media) 0;
+  padding: 16px;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: rgba(55, 180, 120, 0.08);
+  font-size: 13px;
+}
+
+.article-wordpress-content code { overflow-wrap: anywhere; word-break: break-word; }
+
+/* ---------- Captions ---------- */
+/* The caption sits under its image behind a short accent rule, so a source
+   line under a chart reads as a caption and not as body copy. */
+.article-wordpress-content :is(figcaption, .wp-element-caption) {
+  max-width: var(--article-measure);
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(55, 180, 120, 0.28);
+  color: var(--article-accent);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.article-wordpress-content figure figcaption { margin-top: 12px; }
+.article-wordpress-content blockquote { max-width: var(--article-measure); margin: var(--article-space-media) 0; padding-left: 20px; border-left: 2px solid var(--article-accent); }
 .article-wordpress-content a { color: var(--article-accent); text-decoration: underline; text-underline-offset: 3px; }
 
 /* Tables the CEO adds in WordPress render with the site's green theme.
    The wrapper scrolls on narrow screens so a wide table never widens the page. */
-.article-wordpress-content :is(figure.wp-block-table, .wp-block-table) { max-width: 100%; margin: 28px 0; overflow-x: auto; }
+.article-wordpress-content :is(figure.wp-block-table, .wp-block-table) {
+  width: var(--article-media-width);
+  max-width: 100%;
+  margin: var(--article-space-media) 0;
+  /* A wide table scrolls inside its own box instead of widening the article. */
+  overflow-x: auto;
+}
 
 .article-wordpress-content table {
   width: 100%;
-  min-width: 480px;
+  min-width: min(480px, 100%);
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
@@ -306,7 +479,7 @@
   .article-hero { grid-template-columns: 1fr; margin-bottom: 52px; }
   .article-hero-copy { padding: 20px 0 36px; }
   .article-hero-media { min-height: 0; }
-  .article-body-layout { grid-template-columns: 190px minmax(0, 1fr); gap: 32px; --article-figure-bleed: 0px; }
+  .article-body-layout { grid-template-columns: 190px minmax(0, 1fr); gap: 32px; }
   .article-page { --article-bleed-end: 0px; }
   .related-news-grid { grid-template-columns: 1fr 1fr; }
   .related-card:last-child { grid-column: 1 / -1; width: calc(50% - 15px); }
@@ -319,7 +492,7 @@
   .article-category { margin-bottom: 12px; font-size: 14px; }
   .article-hero h1 { font-size: 34px; }
   .article-hero-media { min-height: 0; }
-  .article-body-layout { display: block; --article-figure-bleed: 0px; }
+  .article-body-layout { display: block; }
   
   /* TOC در موبایل */
   .article-toc { 
@@ -333,6 +506,8 @@
   .article-toc ol { gap: 13px; }
   
   .article-section h2 { font-size: 29px; }
+  .article-wordpress-content { --article-media-width: 100%; }
+  .article-wordpress-content .wp-block-gallery { grid-template-columns: 1fr; }
   .related-news { margin-top: 66px; }
   .related-news-grid { grid-template-columns: 1fr; gap: 20px; }
   .related-card:last-child { grid-column: auto; width: auto; }
