@@ -1,13 +1,15 @@
-import {Link} from "react-router-dom";
-
 import careersImage from "../../../../../assets/images/who-we-are/Careers.webp";
 import marketResearchLogo from "../../../../../assets/icons/MarketResearch.svg";
 import randMLogo from "../../../../../assets/icons/RandM.svg";
 import {useTheme} from "../../../../../context/useTheme";
-import {routes} from "../../../../../routes";
 import {t} from "../../../../../i18n/ui";
 
 const REPORT_STORE_URL = "https://www.marketresearch.com";
+/* Each logo opens INNOTECH's own storefront on that partner's site. */
+const RAND_M_STORE_URL =
+  "https://www.researchandmarkets.com/s/stimanalytics?srsltid=AfmBOooEOzcXAefOdiGJA74tYUgxt2gWwdb2mU2gjzVksBG0e4bdh2ss";
+const MARKET_RESEARCH_STORE_URL =
+  "https://www.marketresearch.com/STIMAnalytics-v4313/";
 
 function ReportStoreCard() {
   const {isDarkMode} = useTheme();
@@ -47,10 +49,12 @@ function ReportStoreCard() {
           </a>
 
           <div className="mt-auto grid w-full max-w-[360px] grid-cols-2 items-center justify-center gap-4 sm:gap-6">
-            <Link
-              to={routes.partner.replace(":slug", "r-and-m")}
+            <a
+              href={RAND_M_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="relative z-10 flex items-center justify-center transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110"
-              aria-label="Go to R and M partner page"
+              aria-label="Open the R and M store page in a new tab"
             >
               <img
                 loading="lazy"
@@ -58,11 +62,13 @@ function ReportStoreCard() {
                 alt="R and M"
                 className="h-11 w-[132px] object-contain sm:h-12 sm:w-[148px]"
               />
-            </Link>
-            <Link
-              to={routes.partner.replace(":slug", "market-research")}
+            </a>
+            <a
+              href={MARKET_RESEARCH_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="relative z-10 flex items-center justify-center transition-all duration-300 ease-out hover:z-20 hover:-translate-y-2 hover:scale-110"
-              aria-label="Go to Market Research partner page"
+              aria-label="Open the MarketResearch.com store page in a new tab"
             >
               <img
                 loading="lazy"
@@ -70,7 +76,7 @@ function ReportStoreCard() {
                 alt="Market Research"
                 className="h-11 w-[132px] object-contain sm:h-12 sm:w-[148px]"
               />
-            </Link>
+            </a>
           </div>
         </div>
         <div className="order-1 flex h-72 w-full items-end justify-end self-stretch overflow-hidden lg:order-2 lg:h-auto lg:w-[496px]">

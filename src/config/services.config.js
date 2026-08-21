@@ -23,10 +23,6 @@ export const serviceConfig = {
         image: partnerImages.trex,
         imageClassName: "max-h-15 max-w-[120px]",
       },
-      lean: {
-        image: partnerImages.lean,
-        imageClassName: "max-h-12 max-w-[120px]",
-      },
       idc: {
         image: partnerImages.idc,
         imageClassName: "max-h-18 ma-w-[130px] pb-1",
@@ -57,8 +53,14 @@ export const serviceConfig = {
         darkImage: partnerImages.statistaOnLight,
         imageClassName: "max-h-10 max-w-[137px]",
       },
-      gartner: {image: partnerImages.gartner},
-      lensorg: {image: partnerImages.lensorg},
+      "r-and-m": {
+        image: partnerImages.randM,
+        imageClassName: "max-h-10 max-w-[137px]",
+      },
+      "market-research": {
+        image: partnerImages.marketResearch,
+        imageClassName: "max-h-10 max-w-[137px]",
+      },
     },
     showcase: {
       icon: insightIcon,

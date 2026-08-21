@@ -6,6 +6,10 @@ import itonics from "../partners/itonics/Itonics.svg";
 import itonicsPartner from "../partners/itonics/itonics-partner.svg";
 import lean from "../partners/lean/lean.svg";
 import lensorg from "../partners/lensorg/lens-org.svg";
+/* Brand-coloured variants: the grey originals in assets/icons stay in use
+   on the Report Store card. */
+import marketResearch from "../partners/market/market-research-partner.svg";
+import randM from "../partners/randm/randm-partner.svg";
 import sharjah from "../partners/sharjah/sharjah.svg";
 import startin from "../partners/startin/startin.svg";
 import statistaOnDark from "../partners/statista/statista.webp";
@@ -33,6 +37,8 @@ export const partnerImages = {
   itonics: itonicsPartner,
   lean,
   lensorg,
+  marketResearch,
+  randM,
   sharjah,
   startin,
   statista: statistaOnDark,

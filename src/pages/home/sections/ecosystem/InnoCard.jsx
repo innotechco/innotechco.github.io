@@ -38,8 +38,13 @@ function InnoCard({iconKey, title, subtitle, items = []}) {
     "Reports",
   ];
 
+  /* WordPress copy sometimes ships the label with a trailing colon
+     ("ITONICS:"); the design never shows one, so drop it before rendering. */
+  const stripTrailingColon = (text) =>
+    typeof text === "string" ? text.replace(/\s*[:：،؛]\s*$/, "") : text;
+
   const renderBoldText = (text) => {
-    let formatted = text;
+    let formatted = stripTrailingColon(text);
     boldKeywords.forEach((word) => {
       const regex = new RegExp(`(${word})`, "g");
       formatted = formatted.replace(regex, "<strong>$1</strong>");

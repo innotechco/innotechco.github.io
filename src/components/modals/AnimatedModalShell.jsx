@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
 import {createPortal} from "react-dom";
 import {t} from "../../i18n/ui";
 
@@ -20,35 +20,42 @@ function AnimatedModalShell({
 }) {
   const [shouldRender, setShouldRender] = useState(isOpen);
   const [visible, setVisible] = useState(false);
+  const overlayRef = useRef(null);
+  const panelRef = useRef(null);
 
   const close = useCallback(() => {
     onRequestClose();
   }, [onRequestClose]);
 
+  /* Mount on open; on close keep the panel around until its transition ends. */
   useEffect(() => {
-    let renderFrame;
-    let visibleFrame;
-    let closeTimer;
-
     if (isOpen) {
-      renderFrame = requestAnimationFrame(() => {
-        setShouldRender(true);
-        visibleFrame = requestAnimationFrame(() => setVisible(true));
-      });
-    } else {
-      visibleFrame = requestAnimationFrame(() => setVisible(false));
-      closeTimer = window.setTimeout(() => {
-        setShouldRender(false);
-        onExited?.();
-      }, closeDurationMs);
+      setShouldRender(true);
+      return undefined;
     }
 
-    return () => {
-      cancelAnimationFrame(renderFrame);
-      cancelAnimationFrame(visibleFrame);
-      clearTimeout(closeTimer);
-    };
+    setVisible(false);
+    const closeTimer = window.setTimeout(() => {
+      setShouldRender(false);
+      onExited?.();
+    }, closeDurationMs);
+
+    return () => window.clearTimeout(closeTimer);
   }, [closeDurationMs, isOpen, onExited]);
+
+  /* The panel mounts carrying its hidden classes. Before swapping in the
+     visible ones we force the browser to compute style/layout for that hidden
+     state, so it has a "from" value to transition away from. Without this flush
+     both states can land in the same style recalculation and the modal snaps
+     open with no animation - which is why it only misbehaved sometimes: it
+     depended on whether a frame happened to fall between the two renders. */
+  useLayoutEffect(() => {
+    if (!isOpen || !shouldRender || visible) return;
+
+    panelRef.current?.getBoundingClientRect();
+    overlayRef.current?.getBoundingClientRect();
+    setVisible(true);
+  }, [isOpen, shouldRender, visible]);
 
   useEffect(() => {
     if (!shouldRender) return undefined;
@@ -66,6 +73,7 @@ function AnimatedModalShell({
   return createPortal(
     <div className={containerClassName}>
       <button
+        ref={overlayRef}
         type="button"
         aria-label={t("closeModal")}
         onClick={close}
@@ -74,6 +82,7 @@ function AnimatedModalShell({
         }`}
       />
       <section
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={ariaLabelledBy}

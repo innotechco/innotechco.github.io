@@ -54,16 +54,18 @@ function ExpertCard({
           </div>
         </div>
 
+        {/* In normal flow rather than absolutely placed, so it stays pinned to the
+            bottom-right just above the copy at every breakpoint. */}
         <button
           onClick={() => openContact("selected-project")}
-          className={`absolute right-4 top-4 z-20 min-h-8 w-[132px] shrink-0 rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-1.5 font-['Gotham'] text-xs font-bold leading-tight shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95 sm:w-[142px] sm:text-sm ${greenButtonTextColor}`}
+          className={`relative z-20 -mr-2 mt-auto min-h-8 w-[132px] shrink-0 self-end rounded-bl-[24px] rounded-br-[18px] rounded-tr-[18px] bg-[#22C55E] px-3 py-1.5 font-['Gotham'] text-xs font-bold leading-tight shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#16A34A] hover:shadow-xl active:scale-95 sm:-mr-5 sm:w-[142px] sm:text-sm ${greenButtonTextColor}`}
           type="button"
         >
           {t("viewProject")}
         </button>
 
         <div
-          className={`relative z-10 mt-auto flex w-full min-w-0 flex-col ${
+          className={`relative z-10 mt-3 flex w-full min-w-0 flex-col ${
             isDarkMode ? "text-white" : "text-black"
           }`}
         >
