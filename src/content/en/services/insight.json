@@ -14,12 +14,12 @@
       "name": "STATISTA"
     },
     {
-      "id": "gartner",
-      "name": "GARTNER"
+      "id": "r-and-m",
+      "name": "R&M"
     },
     {
-      "id": "lensorg",
-      "name": "LENS.ORG"
+      "id": "market-research",
+      "name": "MarketResearch.com"
     }
   ],
   "showcase": {

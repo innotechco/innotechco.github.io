@@ -76,11 +76,10 @@ function ArchiveCard({item, isDarkMode, selectedCategory, categoryLabels}) {
         <div className="archive-card-copy">
           <h2>{item.title}</h2>
           <p className="article-card-summary">{truncateWords(item.description)}</p>
+          {/* Fixed three-slot row: category pill left, date centre, read time
+              right. The empty span keeps the slots aligned on cards without a
+              category so the row never reflows. */}
           <div className="archive-card-meta article-card-footer">
-            <span className="archive-read-time" dir="ltr">
-              {readTime}
-            </span>
-            <span>{item.date}</span>
             {category ? (
               <span
                 className={`archive-card-category ${
@@ -92,7 +91,13 @@ function ArchiveCard({item, isDarkMode, selectedCategory, categoryLabels}) {
               >
                 {category.label}
               </span>
-            ) : null}
+            ) : (
+              <span className="archive-card-category-empty" aria-hidden="true" />
+            )}
+            <span className="archive-card-date">{item.date}</span>
+            <span className="archive-read-time" dir="ltr">
+              {readTime}
+            </span>
           </div>
         </div>
       </Link>
