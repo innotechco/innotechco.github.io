@@ -1,12 +1,15 @@
 import {useEffect, useMemo, useRef, useState} from "react";
 
 import {countries} from "../../../data/countries";
+import Toast from "../../../components/ui/Toast";
+import {t} from "../../../i18n/ui";
+import {submitToForminit} from "../../../services/forms/formDelivery";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const phonePattern = /^[+0-9][0-9\s()./-]{5,}$/;
 const maxFileSize = 5 * 1024 * 1024;
-const web3FormsAccessKey = "7579f50e-7a1a-497f-8c06-a2953370cbe0";
-const web3FormsEndpoint = "https://api.web3forms.com/submit";
+/* Forminit field names follow its fi-{blockType}-{name} convention so each
+   value lands in its own labelled block instead of a blob of text. */
 
 const defaultValues = {
   name: "",
@@ -36,7 +39,8 @@ function RfpForm({content, isDarkMode}) {
   const [files, setFiles] = useState([]);
   const [errors, setErrors] = useState({});
   const [submitState, setSubmitState] = useState("idle");
-  const [submitMessage, setSubmitMessage] = useState("");
+  /* Bumped per submission so each result remounts the toast. */
+  const [toast, setToast] = useState(null);
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [isOtherOpen, setIsOtherOpen] = useState(false);
   const countryRef = useRef(null);
@@ -68,7 +72,6 @@ function RfpForm({content, isDarkMode}) {
   const updateValue = (field, value) => {
     setValues((current) => ({...current, [field]: value}));
     setErrors((current) => ({...current, [field]: ""}));
-    setSubmitMessage("");
   };
 
   const selectRequestType = (requestType) => {
@@ -85,13 +88,11 @@ function RfpForm({content, isDarkMode}) {
       otherOption: isOther ? current.otherOption : "",
     }));
     setIsOtherOpen(false);
-    setSubmitMessage("");
   };
 
   const toggleOtherDropdown = () => {
     setValues((current) => ({...current, requestType: content.otherValue}));
     setErrors((current) => ({...current, requestType: ""}));
-    setSubmitMessage("");
     setIsOtherOpen((current) => !current);
   };
 
@@ -103,7 +104,6 @@ function RfpForm({content, isDarkMode}) {
     }));
     setErrors((current) => ({...current, requestType: "", otherOption: ""}));
     setIsOtherOpen(false);
-    setSubmitMessage("");
   };
 
   const getCountryMatch = (country) =>
@@ -180,7 +180,6 @@ function RfpForm({content, isDarkMode}) {
         ? content.errors.fileSize
         : "",
     }));
-    setSubmitMessage("");
   };
 
   const removeFile = (fileName) => {
@@ -204,61 +203,44 @@ function RfpForm({content, isDarkMode}) {
 
     setIsCountryOpen(false);
     setSubmitState("submitting");
-    setSubmitMessage("");
 
-    const formData = new FormData();
-    formData.append("access_key", web3FormsAccessKey);
-    formData.append(
-      "subject",
-      `INNOTECH Request for Proposal - ${values.company.trim()}`,
-    );
-    formData.append("from_name", values.name.trim());
-    formData.append("name", values.name.trim());
-    formData.append("company", values.company.trim());
-    formData.append("phone", values.phone.trim());
-    formData.append("email", values.email.trim());
-    formData.append("country", values.country.trim());
-    formData.append("request_type", values.requestType);
-    formData.append("other_option", values.otherOption || "-");
-    formData.append("message", values.message.trim());
-    formData.append(
-      "attached_file_names",
-      files.map((file) => file.name).join(", ") || "-",
-    );
-    formData.append("page_url", window.location.href);
-    files.forEach((file) => formData.append("attachment", file));
+    const forminitData = new FormData();
+    forminitData.append("fi-sender-fullName", values.name.trim());
+    forminitData.append("fi-sender-company", values.company.trim());
+    forminitData.append("fi-sender-phone", values.phone.trim());
+    forminitData.append("fi-sender-email", values.email.trim());
+    /* Sent as free text, not fi-sender-country: that block expects an ISO
+       3166-1 alpha-2 code, while this picker holds full country names. */
+    forminitData.append("fi-text-country", values.country.trim());
+    forminitData.append("fi-text-requestType", values.requestType);
+    if (values.otherOption) {
+      forminitData.append("fi-text-otherOption", values.otherOption);
+    }
+    if (values.message.trim()) {
+      forminitData.append("fi-text-message", values.message.trim());
+    }
+    forminitData.append("fi-text-pageUrl", window.location.href);
+    /* The [] suffix is required for a multi-file block. */
+    files.forEach((file) => forminitData.append("fi-file-attachments[]", file));
 
     try {
-      const response = await fetch(web3FormsEndpoint, {
-        method: "POST",
-        body: formData,
-        headers: {Accept: "application/json"},
-      });
-      const responseText = await response.text();
-      let data = {};
-
-      try {
-        data = responseText ? JSON.parse(responseText) : {};
-      } catch {
-        throw new Error("Web3Forms returned a non-JSON response.");
-      }
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || "Web3Forms submission failed.");
-      }
+      await submitToForminit(forminitData);
 
       setSubmitState("success");
-      setSubmitMessage(content.labels.submitSuccess);
+      setToast({
+        id: Date.now(),
+        status: "success",
+        message: content.labels.submitSuccess,
+      });
       setValues(defaultValues);
       setFiles([]);
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (error) {
       setSubmitState("error");
-      setSubmitMessage(
-        error.message
-          ? `${content.labels.submitError} ${error.message}`
-          : content.labels.submitError,
-      );
+      const errorText = error.message
+        ? `${content.labels.submitError} ${error.message}`
+        : content.labels.submitError;
+      setToast({id: Date.now(), status: "error", message: errorText});
       console.error(error);
     }
   };
@@ -688,20 +670,18 @@ function RfpForm({content, isDarkMode}) {
           </span>
         </button>
 
-        {submitMessage ? (
-          <p
-            className={`w-full min-w-0 break-words text-end font-['Gotham'] text-sm ${
-              submitState === "success"
-                ? isDarkMode
-                  ? "text-emerald-300"
-                  : "text-emerald-700"
-                : errorColor
-            }`}
-          >
-            {submitMessage}
-          </p>
-        ) : null}
       </form>
+
+      {toast ? (
+        <Toast
+          key={toast.id}
+          status={toast.status}
+          title={toast.status === "success" ? t("submitSuccessTitle") : t("submitErrorTitle")}
+          message={toast.message}
+          durationMs={toast.status === "success" ? 6000 : 9000}
+          onClose={() => setToast(null)}
+        />
+      ) : null}
     </div>
   );
 }
