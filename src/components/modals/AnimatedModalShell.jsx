@@ -2,6 +2,16 @@ import {useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
 import {createPortal} from "react-dom";
 import {t} from "../../i18n/ui";
 
+function classList(value) {
+  return String(value ?? "").split(" ").filter(Boolean);
+}
+
+function swapClasses(node, from, to) {
+  if (!node) return;
+  node.classList.remove(...classList(from));
+  node.classList.add(...classList(to));
+}
+
 function AnimatedModalShell({
   ariaLabelledBy,
   children,
@@ -18,44 +28,72 @@ function AnimatedModalShell({
   portalTarget,
   visibleClassName = "translate-y-0 opacity-100",
 }) {
-  const [shouldRender, setShouldRender] = useState(isOpen);
-  const [visible, setVisible] = useState(false);
+  /* Only ever cleared by the close timer, so the panel stays mounted long
+     enough to play its exit transition after isOpen flips to false. */
+  const [keepMounted, setKeepMounted] = useState(false);
+  const hasEnteredRef = useRef(false);
   const overlayRef = useRef(null);
   const panelRef = useRef(null);
+
+  const shouldRender = isOpen || keepMounted;
+
+  if (isOpen && !keepMounted) setKeepMounted(true);
 
   const close = useCallback(() => {
     onRequestClose();
   }, [onRequestClose]);
 
-  /* Mount on open; on close keep the panel around until its transition ends. */
-  useEffect(() => {
+  /* The open/close classes are applied to the DOM here rather than rendered
+     from state. Through state, React is free to commit the mount and the
+     visible classes in a single style recalculation, leaving the browser no
+     "from" value to animate away from - that is why the modal only sometimes
+     snapped open instead of easing in. Applying the hidden classes and reading
+     the box forces that state to be computed before the swap, so the
+     transition always has somewhere to start. */
+  useLayoutEffect(() => {
+    if (!shouldRender) return undefined;
+
+    const panel = panelRef.current;
+    const overlay = overlayRef.current;
+
     if (isOpen) {
-      setShouldRender(true);
+      if (!hasEnteredRef.current) {
+        hasEnteredRef.current = true;
+        panel?.classList.add(...classList(hiddenClassName));
+        overlay?.classList.add(...classList(overlayHiddenClassName));
+        panel?.getBoundingClientRect();
+        overlay?.getBoundingClientRect();
+      }
+
+      /* Re-asserted on every run because a re-render (a theme switch, say)
+         rewrites className from the JSX and would otherwise drop these. */
+      swapClasses(panel, hiddenClassName, visibleClassName);
+      swapClasses(overlay, overlayHiddenClassName, overlayVisibleClassName);
       return undefined;
     }
 
-    setVisible(false);
+    hasEnteredRef.current = false;
+    swapClasses(panel, visibleClassName, hiddenClassName);
+    swapClasses(overlay, overlayVisibleClassName, overlayHiddenClassName);
+
     const closeTimer = window.setTimeout(() => {
-      setShouldRender(false);
+      setKeepMounted(false);
       onExited?.();
     }, closeDurationMs);
 
     return () => window.clearTimeout(closeTimer);
-  }, [closeDurationMs, isOpen, onExited]);
-
-  /* The panel mounts carrying its hidden classes. Before swapping in the
-     visible ones we force the browser to compute style/layout for that hidden
-     state, so it has a "from" value to transition away from. Without this flush
-     both states can land in the same style recalculation and the modal snaps
-     open with no animation - which is why it only misbehaved sometimes: it
-     depended on whether a frame happened to fall between the two renders. */
-  useLayoutEffect(() => {
-    if (!isOpen || !shouldRender || visible) return;
-
-    panelRef.current?.getBoundingClientRect();
-    overlayRef.current?.getBoundingClientRect();
-    setVisible(true);
-  }, [isOpen, shouldRender, visible]);
+  }, [
+    closeDurationMs,
+    hiddenClassName,
+    isOpen,
+    onExited,
+    overlayClassName,
+    overlayHiddenClassName,
+    overlayVisibleClassName,
+    panelClassName,
+    shouldRender,
+    visibleClassName,
+  ]);
 
   useEffect(() => {
     if (!shouldRender) return undefined;
@@ -77,18 +115,14 @@ function AnimatedModalShell({
         type="button"
         aria-label={t("closeModal")}
         onClick={close}
-        className={`${overlayClassName} ${
-          visible ? overlayVisibleClassName : overlayHiddenClassName
-        }`}
+        className={overlayClassName}
       />
       <section
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={ariaLabelledBy}
-        className={`${panelClassName} ${
-          visible ? visibleClassName : hiddenClassName
-        }`}
+        className={panelClassName}
       >
         {children}
       </section>

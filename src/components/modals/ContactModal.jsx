@@ -6,10 +6,11 @@ import {useTheme} from "../../context/useTheme";
 import {countries} from "../../data/countries";
 import AnimatedModalShell from "./AnimatedModalShell";
 import ContactFormFields from "./contact/ContactFormFields";
+import Toast from "../ui/Toast";
+import {submitToForminit} from "../../services/forms/formDelivery";
+import {t} from "../../i18n/ui";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const web3FormsAccessKey = "7579f50e-7a1a-497f-8c06-a2953370cbe0";
-const web3FormsEndpoint = "https://api.web3forms.com/submit";
 
 const defaultContactValues = {
   name: "",
@@ -28,7 +29,8 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
   const [values, setValues] = useState(defaultContactValues);
   const [errors, setErrors] = useState({});
   const [submitState, setSubmitState] = useState("idle");
-  const [submitMessage, setSubmitMessage] = useState("");
+  /* Bumped per submission so each result remounts the toast. */
+  const [toast, setToast] = useState(null);
   const regionRef = useRef(null);
 
   const filteredCountries = useMemo(() => {
@@ -42,14 +44,12 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
   const updateValue = (field, value) => {
     setValues((current) => ({...current, [field]: value}));
     setErrors((current) => ({...current, [field]: ""}));
-    setSubmitMessage("");
   };
 
   const resetForm = useCallback(() => {
     setValues(defaultContactValues);
     setErrors({});
     setSubmitState("idle");
-    setSubmitMessage("");
     setIsRegionOpen(false);
   }, []);
 
@@ -100,53 +100,39 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
 
     setIsRegionOpen(false);
     setSubmitState("submitting");
-    setSubmitMessage("");
 
-    const formData = new FormData();
-    formData.append("access_key", web3FormsAccessKey);
-    formData.append("subject", `INNOTECH Contact Us - ${content.title}`);
-    formData.append("from_name", values.name.trim());
-    formData.append("name", values.name.trim());
-    formData.append("email", values.email.trim());
-    formData.append("title", values.title.trim());
-    formData.append("company", values.company.trim());
-    formData.append("region", values.region.trim());
-    formData.append("industry", values.industry.trim());
-    formData.append("message", values.message.trim());
-    formData.append("contact_action", actionId);
-    formData.append("page_url", window.location.href);
+    const forminitData = new FormData();
+    forminitData.append("fi-sender-fullName", values.name.trim());
+    forminitData.append("fi-sender-email", values.email.trim());
+    forminitData.append("fi-sender-position", values.title.trim());
+    forminitData.append("fi-sender-company", values.company.trim());
+    /* Free text rather than fi-sender-country: that block expects an ISO
+       3166-1 alpha-2 code, while this picker holds full country names. */
+    forminitData.append("fi-text-region", values.region.trim());
+    forminitData.append("fi-text-industry", values.industry.trim());
+    if (values.message.trim()) {
+      forminitData.append("fi-text-message", values.message.trim());
+    }
+    forminitData.append("fi-text-formType", `Contact Us - ${content.title}`);
+    forminitData.append("fi-text-contactAction", actionId);
+    forminitData.append("fi-text-pageUrl", window.location.href);
 
     try {
-      const response = await fetch(web3FormsEndpoint, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
-      });
-      const responseText = await response.text();
-      let data = {};
-
-      try {
-        data = responseText ? JSON.parse(responseText) : {};
-      } catch {
-        throw new Error("Web3Forms returned a non-JSON response.");
-      }
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || "Web3Forms submission failed.");
-      }
+      await submitToForminit(forminitData);
 
       setSubmitState("success");
-      setSubmitMessage(contactContent.labels.submitSuccess);
+      setToast({
+        id: Date.now(),
+        status: "success",
+        message: contactContent.labels.submitSuccess,
+      });
       setValues(defaultContactValues);
     } catch (error) {
       setSubmitState("error");
-      setSubmitMessage(
-        error.message
-          ? `${contactContent.labels.submitError} ${error.message}`
-          : contactContent.labels.submitError,
-      );
+      const errorText = error.message
+        ? `${contactContent.labels.submitError} ${error.message}`
+        : contactContent.labels.submitError;
+      setToast({id: Date.now(), status: "error", message: errorText});
       console.error(error);
     }
   };
@@ -176,6 +162,7 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
   const fieldFrameClassName = `w-full px-4 py-3 ${inputBg} rounded-[50px] outline outline-1 outline-offset-[-1px] inline-flex justify-start items-start gap-2.5`;
 
   return (
+  <>
   <AnimatedModalShell
     isOpen={isOpen}
     onRequestClose={handleClose}
@@ -241,12 +228,23 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
             values={values}
             content={content}
             isSubmitting={submitState === "submitting"}
-            submitMessage={submitMessage}
-            submitState={submitState}
           />
         </form>
       </div>
   </AnimatedModalShell>
+  {/* Outside the shell so the result stays visible even if the user closes
+      the modal right after submitting. */}
+  {toast ? (
+    <Toast
+      key={toast.id}
+      status={toast.status}
+      title={toast.status === "success" ? t("submitSuccessTitle") : t("submitErrorTitle")}
+      message={toast.message}
+      durationMs={toast.status === "success" ? 6000 : 9000}
+      onClose={() => setToast(null)}
+    />
+  ) : null}
+  </>
 );
 }
 

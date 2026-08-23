@@ -57,8 +57,6 @@ function ContactFormFields({
   values,
   content,
   isSubmitting,
-  submitMessage,
-  submitState,
 }) {
   const inputTextClassName = `${textColor} ${
     isDarkMode ? "placeholder:text-white" : "placeholder:text-black/50"
@@ -312,25 +310,14 @@ function ContactFormFields({
       <button
         type="submit"
         disabled={isSubmitting}
-        className="min-h-11 self-end rounded-[50px] bg-[#37B478] px-8 py-3 transition-all duration-200 hover:bg-[#22C55E] active:scale-95 disabled:cursor-wait disabled:opacity-70"
+        className="min-h-9 self-end rounded-[50px] bg-[#37B478] px-6 py-2 transition-all duration-200 hover:bg-[#22C55E] active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:min-h-10 sm:px-7 sm:py-2.5"
       >
-        <span className={`font-['Gotham'] text-xl font-normal sm:text-2xl ${greenButtonTextColor}`}>
+        {/* Sized off the fields above (text-sm), so the button reads as part of
+            the form instead of towering over it. */}
+        <span className={`font-['Gotham'] text-sm font-medium sm:text-base ${greenButtonTextColor}`}>
           {isSubmitting ? content.labels.submitting : content.labels.submit}
         </span>
       </button>
-      {submitMessage ? (
-        <p
-          className={`self-end text-right font-['Gotham'] text-sm ${
-            submitState === "success"
-              ? isDarkMode
-                ? "text-emerald-300"
-                : "text-emerald-700"
-              : errorColor
-          }`}
-        >
-          {submitMessage}
-        </p>
-      ) : null}
     </>
   );
 }
