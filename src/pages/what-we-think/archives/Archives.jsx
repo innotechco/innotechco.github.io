@@ -2,12 +2,12 @@ import {useMemo, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 
 import {useTheme} from "../../../context/useTheme";
-import SearchIcon from "../../../assets/icons/Search.svg";
-import ArchiveLightDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeTopMiddle.webp";
-import ArchiveDarkDecoration from "../../../assets/images/excludes/archives/WhoWeAreExcludeMiddle.webp";
+import SearchIcon from "../../../shared/assets/icons/search.svg";
+import {decorationsBackgroundLight as ArchiveLightDecoration} from "../../../features/archives/archives.assets.js";
+import {decorationsBackgroundDark as ArchiveDarkDecoration} from "../../../features/archives/archives.assets.js";
 import {archiveItems, archivePage} from "./data";
-import {useBlogPosts} from "../../../hooks/useBlogPosts";
-import {useBlogCategories} from "../../../hooks/useBlogCategories";
+import {useBlogPosts} from "../../../hooks/useBlogPosts.js";
+import {useBlogCategories} from "../../../hooks/useBlogCategories.js";
 import {
   buildArchiveCategories,
   buildCategoryLabels,
@@ -16,7 +16,7 @@ import {
 import {getCategoryPillColor} from "../../../config/articleCards.config";
 import {truncateWords} from "../../../services/content/cardSummary";
 import {getArticlePath} from "../../../services/content/blogSections";
-import {usePointerGlow} from "../../../hooks/usePointerGlow";
+import {usePointerGlow} from "../../../hooks/usePointerGlow.js";
 import {t} from "../../../i18n/ui";
 
 /* A post usually sits in several categories. With a filter active the pill shows

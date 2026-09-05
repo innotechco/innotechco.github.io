@@ -1,10 +1,10 @@
-import image1 from "../assets/images/what-we-think/1.webp";
-import image2 from "../assets/images/what-we-think/2.webp";
-import image3 from "../assets/images/what-we-think/3.webp";
-import image4 from "../assets/images/what-we-think/4.webp";
-import image5 from "../assets/images/what-we-think/5.webp";
-import image6 from "../assets/images/what-we-think/6.webp";
-import image7 from "../assets/images/what-we-think/7.webp";
+import {cardHeroTop as image1} from "../features/what-we-think/what-we-think.assets.js";
+import {cardTallLeft as image2} from "../features/what-we-think/what-we-think.assets.js";
+import {cardTopRight as image3} from "../features/what-we-think/what-we-think.assets.js";
+import {cardBottomRight as image4} from "../features/what-we-think/what-we-think.assets.js";
+import {cardMiddleLeft as image5} from "../features/what-we-think/what-we-think.assets.js";
+import image6 from "../shared/assets/images/articles/customer-ecosystem-insights.webp";
+import {cardHeroBottom as image7} from "../features/what-we-think/what-we-think.assets.js";
 
 export const whatWeThinkConfig = {
   cards: {

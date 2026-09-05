@@ -1,8 +1,8 @@
 import {useTheme} from "../../../../../context/useTheme";
-import IntroRevealText from "../../../../../components/ui/IntroRevealText";
-import infinityIcon from "../../../../../assets/icons/Subtract.svg";
-import infinityExclude from "../../../../../assets/images/excludes/infinity/Exclude.webp";
-import infinityExcludeBlack from "../../../../../assets/images/excludes/infinity/ExcludeBlack.webp";
+import IntroRevealText from "../../../../../components/ui/IntroRevealText.jsx";
+import infinityIcon from "../../../../../shared/assets/brand/services/infinity.svg";
+import {decorationsBackgroundDark as infinityExclude} from "../../../../../features/what-we-do/services/infinity/infinity.assets.js";
+import {decorationsBackgroundLight as infinityExcludeBlack} from "../../../../../features/what-we-do/services/infinity/infinity.assets.js";
 
 function InfinityIntro() {
   const {isDarkMode} = useTheme();

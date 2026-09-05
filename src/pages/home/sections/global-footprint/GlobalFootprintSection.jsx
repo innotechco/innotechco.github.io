@@ -1,6 +1,6 @@
 import { useTheme } from "../../../../context/useTheme";
-import MapImage from "../../../../assets/images/home/Map.webp";
-import MapLightImage from "../../../../assets/images/home/MapLight.webp";
+import {globalFootprintWorldMapDark as MapImage} from "../../../../features/home/home.assets.js";
+import {globalFootprintWorldMapLight as MapLightImage} from "../../../../features/home/home.assets.js";
 import {useHomeContent} from "../../../../context/useHomeContent";
 
 function GlobalFootprintSection() {

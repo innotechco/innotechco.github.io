@@ -1,6 +1,6 @@
 import {useTheme} from "../../../../../context/useTheme";
-import industriesExcludeImage from "../../../../../assets/images/excludes/industries/IndustriesExclude.webp";
-import industriesExcludeBlackImage from "../../../../../assets/images/excludes/industries/IndustriesExcludeBlack.webp";
+import {decorationsHeroDark as industriesExcludeImage} from "../../../../../features/what-we-do/industries/shared/shared.assets.js";
+import {decorationsHeroLight as industriesExcludeBlackImage} from "../../../../../features/what-we-do/industries/shared/shared.assets.js";
 import {t} from "../../../../../i18n/ui";
 
 function BreadcrumbChevron() {

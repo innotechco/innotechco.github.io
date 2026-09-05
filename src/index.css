@@ -1,4 +1,4 @@
-@import url("https://fonts.cdnfonts.com/css/gotham");
+@import "./styles/fonts.css";
 
 @import "tailwindcss";
 
@@ -309,3 +309,44 @@ html[lang="tr"] a {
   word-break: normal;
 }
 
+
+/* Keep hero copy in normal flow; size it against the card's content width. */
+.home-hero-card { container-type: inline-size; }
+.home-hero-card .locale-hero-title {
+  height: auto;
+  min-height: 64px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+.home-hero-card .locale-hero-title-text {
+  position: relative;
+  inset: auto !important;
+  padding-inline-start: clamp(22px, 6.5cqi, 27px);
+  padding-top: 12px;
+  font-size: clamp(22px, 11.5cqi, 48px);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+.home-hero-description {
+  font-size: clamp(15px, 6cqi, 24px);
+  overflow-wrap: anywhere;
+  flex-shrink: 0;
+}
+/* Endpoint centers measured in the 5060px-wide ecosystem artwork. */
+@media (min-width: 1480px) {
+  .home-ecosystem-art { width: 90vw; padding-inline: 0; margin-inline: auto; }
+  .home-ecosystem-art > div { width: 100%; }
+  .home-ecosystem-art img { width: 100%; }
+  .home-ecosystem-cards { width: 90vw; max-width: none; padding-inline: 0; }
+  .home-ecosystem-grid { display: grid; grid-template-columns: 1fr; direction: ltr; }
+  .home-ecosystem-grid > div {
+    grid-area: 1 / 1;
+    justify-self: start;
+    margin-left: calc((var(--endpoint) + var(--endpoint-offset, 0)) * 100% - 130px);
+  }
+  .home-ecosystem-grid > div:nth-child(1) { --endpoint: 0.1190711462; }
+  .home-ecosystem-grid > div:nth-child(2) { --endpoint: 0.3773715415; }
+  .home-ecosystem-grid > div:nth-child(3) { --endpoint: 0.6271739130; }
+  .home-ecosystem-grid > div:nth-child(4) { --endpoint: 0.8838932806; }
+  html[lang="ar"] .home-ecosystem-grid > div { direction: rtl; }
+}

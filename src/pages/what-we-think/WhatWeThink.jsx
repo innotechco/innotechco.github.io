@@ -1,10 +1,10 @@
 import {useMemo} from "react";
 
 import {useTheme} from "../../context/useTheme";
-import BlackExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/BlackExcludeLeftWhatWeThink.webp";
-import BlackExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-think/BlackExcludeRightWhatWeThink.webp";
-import ExcludeLeftWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeLeftWhatWeThink.webp";
-import ExcludeRightWhatWeThink from "../../assets/images/excludes/what-we-think/ExcludeRightWhatWeThink.webp";
+import {decorationsLeftDark as BlackExcludeLeftWhatWeThink} from "../../features/what-we-think/what-we-think.assets.js";
+import {decorationsRightDark as BlackExcludeRightWhatWeThink} from "../../features/what-we-think/what-we-think.assets.js";
+import {decorationsLeftLight as ExcludeLeftWhatWeThink} from "../../features/what-we-think/what-we-think.assets.js";
+import {decorationsRightLight as ExcludeRightWhatWeThink} from "../../features/what-we-think/what-we-think.assets.js";
 import {cards} from "./data";
 import {useBlogPosts} from "../../hooks/useBlogPosts";
 import {truncateWords} from "../../services/content/cardSummary";

@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 
-import roadLine from "../../../../../assets/icons/Vector2.svg";
+import roadLine from "../../../../../shared/assets/icons/arrow-diagonal.svg";
 import {useTheme} from "../../../../../context/useTheme";
 
 const positions = [

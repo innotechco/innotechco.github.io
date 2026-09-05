@@ -1,4 +1,4 @@
-import IntroRevealText from "../../../components/ui/IntroRevealText";
+import IntroRevealText from "../../../components/ui/IntroRevealText.jsx";
 
 function RfpHeroSection({content, isDarkMode, textColor}) {
   return (

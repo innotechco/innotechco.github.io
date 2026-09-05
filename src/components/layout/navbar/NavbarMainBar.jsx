@@ -1,10 +1,10 @@
 import {Link} from "react-router-dom";
 
-import Moon from "../../../assets/icons/Moon.svg";
-import SearchIcon from "../../../assets/icons/Search.svg";
-import SunMedium from "../../../assets/icons/SunMedium.svg";
-import Vector from "../../../assets/icons/Vector.svg";
-import Logo from "../../../assets/logos/NavbarInnoTech.svg";
+import Moon from "../../../shared/assets/icons/moon.svg";
+import SearchIcon from "../../../shared/assets/icons/search.svg";
+import SunMedium from "../../../shared/assets/icons/sun.svg";
+import Vector from "../../../shared/assets/icons/chevron-down.svg";
+import Logo from "../../../shared/assets/brand/logos/navbar-logo.svg";
 import {routes} from "../../../routes";
 import {languageOptions} from "../navData";
 import {t} from "../../../i18n/ui";

@@ -1,19 +1,19 @@
-import CareersImage from "../assets/images/who-we-are/Careers.webp";
-import CirclePlayIcon from "../assets/images/who-we-are/CirclePlay.svg";
-import BackgroundMiddleLight from "../assets/images/excludes/who-we-are/WhoWeAreExcludeMiddle.webp";
-import BackgroundTopLight from "../assets/images/excludes/who-we-are/WhoWeAreExcludeTop.webp";
-import BackgroundTop2Light from "../assets/images/excludes/who-we-are/WhoWeAreExcludeTop2.webp";
-import BackgroundTopDark from "../assets/images/excludes/who-we-are/WhoWeAreExcludeTopBlack.webp";
-import BackgroundTop2Dark from "../assets/images/excludes/who-we-are/WhoWeAreExcludeTopBlack2.webp";
-import BackgroundMiddleDark from "../assets/images/excludes/who-we-are/WhoWeAreExcludeTopMiddle.webp";
-import HistoryCurve from "../assets/images/who-we-are/HistoryCurve.webp";
-import HistoryCurveLight from "../assets/images/who-we-are/HistoryCurveLight.webp";
-import InceptionIcon from "../assets/icons/Inception-Icon 1.svg";
-import WindTurbines from "../assets/images/who-we-are/Innotechisin.webp";
-import CubeIcon from "../assets/images/who-we-are/stats/CubeIcon.svg";
-import DealHandshake from "../assets/images/who-we-are/stats/DealHandshake.svg";
-import EmployeesIcon from "../assets/images/who-we-are/stats/EmployeesIcon.svg";
-import FactoryIcon from "../assets/images/who-we-are/stats/FactoryIcon.svg";
+import CareersImage from "../shared/assets/images/careers.webp";
+import {circlePlay as CirclePlayIcon} from "../features/who-we-are/who-we-are.assets.js";
+import {decorationsMiddleLight as BackgroundMiddleLight} from "../features/who-we-are/who-we-are.assets.js";
+import {decorationsTopLight as BackgroundTopLight} from "../features/who-we-are/who-we-are.assets.js";
+import {decorationsTopSecondaryLight as BackgroundTop2Light} from "../features/who-we-are/who-we-are.assets.js";
+import {decorationsTopDark as BackgroundTopDark} from "../features/who-we-are/who-we-are.assets.js";
+import {decorationsTopSecondaryDark as BackgroundTop2Dark} from "../features/who-we-are/who-we-are.assets.js";
+import {decorationsMiddleDark as BackgroundMiddleDark} from "../features/who-we-are/who-we-are.assets.js";
+import {historyCurve as HistoryCurve} from "../features/who-we-are/who-we-are.assets.js";
+import {historyCurveLight as HistoryCurveLight} from "../features/who-we-are/who-we-are.assets.js";
+import InceptionIcon from "../shared/assets/brand/services/inception.svg";
+import {innotechisin as WindTurbines} from "../features/who-we-are/who-we-are.assets.js";
+import {iconsCubeIcon as CubeIcon} from "../features/who-we-are/who-we-are.assets.js";
+import {iconsDealHandshake as DealHandshake} from "../features/who-we-are/who-we-are.assets.js";
+import {iconsEmployeesIcon as EmployeesIcon} from "../features/who-we-are/who-we-are.assets.js";
+import {iconsFactoryIcon as FactoryIcon} from "../features/who-we-are/who-we-are.assets.js";
 
 export const whoWeAreConfig = {
   images: {

@@ -1,8 +1,8 @@
 import {useTheme} from "../../../../../context/useTheme";
-import SectionTitle from "../../../../../components/ui/SectionTitle";
-import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
-import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
-import PlayToggleButton from "../../../../../components/ui/PlayToggleButton";
+import SectionTitle from "../../../../../components/ui/SectionTitle.jsx";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel.jsx";
+import {usePointerGlow} from "../../../../../hooks/usePointerGlow.js";
+import PlayToggleButton from "../../../../../components/ui/PlayToggleButton.jsx";
 import {t} from "../../../../../i18n/ui";
 
 function ServiceTitle({title}) {

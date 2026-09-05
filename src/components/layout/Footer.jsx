@@ -1,13 +1,13 @@
 import {useState} from "react";
 
-import FooterSVG from "../../assets/logos/FooterFirstPage.svg";
-import FooterSVGDark from "../../assets/logos/FooterFirstPageDark.svg";
-import FooterInnoTech from "../../assets/logos/FooterInnoTech.svg";
-import FooterInnoTechDark from "../../assets/logos/FooterInnoTechDark.svg";
-import LinkedIn from "../../assets/icons/Linkdin.svg";
-import LinkedInDark from "../../assets/icons/LinkdinDark.svg";
-import WhatsApp from "../../assets/icons/WhatsApp.svg";
-import WhatsAppDark from "../../assets/icons/WhatsAppDark.svg";
+import FooterSVG from "../../shared/assets/brand/logos/footer-decoration-dark.svg";
+import FooterSVGDark from "../../shared/assets/brand/logos/footer-decoration-light.svg";
+import FooterInnoTech from "../../shared/assets/brand/logos/footer-logo-dark.svg";
+import FooterInnoTechDark from "../../shared/assets/brand/logos/footer-logo-light.svg";
+import LinkedIn from "../../shared/assets/icons/linkedin-dark.svg";
+import LinkedInDark from "../../shared/assets/icons/linkedin-light.svg";
+import WhatsApp from "../../shared/assets/icons/whatsapp-dark.svg";
+import WhatsAppDark from "../../shared/assets/icons/whatsapp-light.svg";
 import {useTheme} from "../../context/useTheme";
 import LegalModal from "../modals/LegalModal";
 

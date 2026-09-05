@@ -1,6 +1,6 @@
-import excludeBlackShape from "../../../assets/images/excludes/shared/ExcludeBlack.svg";
-import excludeShape from "../../../assets/images/excludes/shared/Exclude.svg";
-import {usePointerGlow} from "../../../hooks/usePointerGlow";
+import excludeBlackShape from "../../../shared/assets/decorations/card-cutout-light.svg";
+import excludeShape from "../../../shared/assets/decorations/card-cutout-dark.svg";
+import {usePointerGlow} from "../../../hooks/usePointerGlow.js";
 import {useContactAction} from "../../../context/useContactAction";
 import {t} from "../../../i18n/ui";
 

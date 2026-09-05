@@ -1,14 +1,14 @@
 import {useMemo} from "react";
 
-import ReadMoreLink from "../../../../../components/ui/ReadMoreLink";
-import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
+import ReadMoreLink from "../../../../../components/ui/ReadMoreLink.jsx";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel.jsx";
 import {useTheme} from "../../../../../context/useTheme";
-import insightExcludeImage from "../../../../../assets/images/excludes/live-insights/InsightExclude.webp";
-import insightExcludeBlackImage from "../../../../../assets/images/excludes/live-insights/InsightExcludeBlack.webp";
+import {decorationsInsightsDark as insightExcludeImage} from "../../../../../features/what-we-do/industries/shared/shared.assets.js";
+import {decorationsInsightsLight as insightExcludeBlackImage} from "../../../../../features/what-we-do/industries/shared/shared.assets.js";
 import {routes} from "../../../../../routes";
-import SectionTitle from "../../../../../components/ui/SectionTitle";
-import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
-import {useBlogPosts} from "../../../../../hooks/useBlogPosts";
+import SectionTitle from "../../../../../components/ui/SectionTitle.jsx";
+import {usePointerGlow} from "../../../../../hooks/usePointerGlow.js";
+import {useBlogPosts} from "../../../../../hooks/useBlogPosts.js";
 import {getIndustryPosts} from "../../../../../services/cms/blogOrdering";
 import {
   buildLiveInsightCards,

@@ -1,8 +1,8 @@
 import {useTheme} from "../../../../../context/useTheme";
-import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
-import SectionTitle from "../../../../../components/ui/SectionTitle";
-import PlayToggleButton from "../../../../../components/ui/PlayToggleButton";
-import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
+import {usePointerGlow} from "../../../../../hooks/usePointerGlow.js";
+import SectionTitle from "../../../../../components/ui/SectionTitle.jsx";
+import PlayToggleButton from "../../../../../components/ui/PlayToggleButton.jsx";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel.jsx";
 
 function CapabilityCard({title, description, isDarkMode}) {
   const {position: glowPosition, handlers} = usePointerGlow();

@@ -1,5 +1,5 @@
 import {useTheme} from "../../../../../context/useTheme";
-import SectionTitle from "../../../../../components/ui/SectionTitle";
+import SectionTitle from "../../../../../components/ui/SectionTitle.jsx";
 
 function AccelerationSection({paragraphs, title = "ACCELERATION"}) {
   const {isDarkMode} = useTheme();

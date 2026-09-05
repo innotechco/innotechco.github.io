@@ -1,8 +1,8 @@
 import {useTheme} from "../../../../../context/useTheme";
-import IntroRevealText from "../../../../../components/ui/IntroRevealText";
-import insightIcon from "../../../../../assets/icons/Subtract2.svg";
-import insightDarkExclude from "../../../../../assets/images/excludes/insight/Exclude.webp";
-import insightLightExclude from "../../../../../assets/images/excludes/insight/BlackExclude.webp";
+import IntroRevealText from "../../../../../components/ui/IntroRevealText.jsx";
+import insightIcon from "../../../../../shared/assets/brand/services/insight.svg";
+import insightDarkExclude from "../../../../../shared/assets/decorations/service-circle-dark.webp";
+import insightLightExclude from "../../../../../shared/assets/decorations/service-circle-light.webp";
 
 function InsightIntro() {
   const {isDarkMode} = useTheme();

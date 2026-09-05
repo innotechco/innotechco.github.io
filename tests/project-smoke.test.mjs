@@ -584,7 +584,7 @@ test("theme contract exposes light and dark mode", () => {
   assert.match(provider, /setIsDarkMode/);
 });
 
-test("report store cards link to dedicated partner-style pages", () => {
+test("report store cards link to the existing external partner storefronts", () => {
   const reportStoreCard = fs.readFileSync(
     path.join(
       srcRoot,
@@ -598,8 +598,11 @@ test("report store cards link to dedicated partner-style pages", () => {
     "utf8",
   );
 
-  assert.match(reportStoreCard, /market-research/);
-  assert.match(reportStoreCard, /r-and-m/);
+  assert.match(reportStoreCard, /https:\/\/www\.marketresearch\.com\/STIMAnalytics-v4313\//);
+  assert.match(reportStoreCard, /https:\/\/www\.researchandmarkets\.com\/s\/stimanalytics/);
+  assert.match(reportStoreCard, /href=\{RAND_M_STORE_URL\}/);
+  assert.match(reportStoreCard, /href=\{MARKET_RESEARCH_STORE_URL\}/);
+  assert.match(reportStoreCard, /rel="noopener noreferrer"/);
   assert.ok(
     fs.existsSync(
       path.join(
@@ -637,7 +640,7 @@ test("card-style sections use the same responsive breakpoint as selected project
   }
 });
 
-test("card action controls stay anchored at the top-right with fixed decorative shapes", () => {
+test("card actions preserve their existing placement and fixed decorative shapes", () => {
   const cardFiles = [
     path.join(srcRoot, "pages", "who-we-are", "components", "ExpertCard.jsx"),
     path.join(srcRoot, "pages", "what-we-do", "services", "shared", "components", "ServiceShowcase.jsx"),
@@ -646,7 +649,12 @@ test("card action controls stay anchored at the top-right with fixed decorative 
 
   for (const file of cardFiles) {
     const source = fs.readFileSync(file, "utf8");
-    assert.match(source, /absolute right-4 top-4/);
+    if (file.endsWith("ExpertCard.jsx")) {
+      assert.match(source, /mt-auto.*self-end/);
+      assert.match(source, /openContact\("selected-project"\)/);
+    } else {
+      assert.match(source, /absolute right-4 top-4/);
+    }
     assert.match(source, /absolute left-\[-34px\] top-\[-52px\]/);
   }
 });
@@ -706,15 +714,17 @@ test("non-critical content images use native lazy loading", () => {
   }
 });
 
-test("Gotham uses the original CDN stylesheet", () => {
+test("Gotham uses the local BrandBook font family", () => {
   const css = fs.readFileSync(path.join(srcRoot, "index.css"), "utf8");
-  const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-  const localFont = path.join(root, "public", "fonts", "GothamRegular.woff");
+  const fontCss = fs.readFileSync(path.join(srcRoot, "styles", "fonts.css"), "utf8");
+  const fontDirectory = path.join(srcRoot, "shared", "assets", "brand", "fonts", "gotham");
 
-  assert.equal(fs.existsSync(localFont), false);
-  assert.match(css, /@import url\("https:\/\/fonts\.cdnfonts\.com\/css\/gotham"\)/);
-  assert.doesNotMatch(css, /@font-face/);
-  assert.doesNotMatch(html, /GothamRegular\.woff/);
+  assert.match(css, /@import "\.\/styles\/fonts\.css"/);
+  assert.doesNotMatch(css, /fonts\.cdnfonts\.com/);
+  assert.match(fontCss, /@font-face/);
+  assert.match(fontCss, /Gotham-Book\.otf/);
+  assert.match(fontCss, /Gotham-Bold\.otf/);
+  assert.equal(fs.readdirSync(fontDirectory).filter((file) => file.endsWith(".otf")).length, 16);
 });
 
 test("GitHub Pages deployment supports organization and project site URLs", () => {
