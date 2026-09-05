@@ -1,0 +1,10 @@
+export {default as cardBottomRight} from "./assets/card-bottom-right.webp";
+export {default as cardHeroBottom} from "./assets/card-hero-bottom.webp";
+export {default as cardHeroTop} from "./assets/card-hero-top.webp";
+export {default as cardMiddleLeft} from "./assets/card-middle-left.webp";
+export {default as cardTallLeft} from "./assets/card-tall-left.webp";
+export {default as cardTopRight} from "./assets/card-top-right.webp";
+export {default as decorationsLeftDark} from "./assets/decorations/left-dark.webp";
+export {default as decorationsLeftLight} from "./assets/decorations/left-light.webp";
+export {default as decorationsRightDark} from "./assets/decorations/right-dark.webp";
+export {default as decorationsRightLight} from "./assets/decorations/right-light.webp";

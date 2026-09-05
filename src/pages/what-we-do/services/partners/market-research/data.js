@@ -1,8 +1,8 @@
-import logo from "../../../../../assets/icons/MarketResearch.svg";
-import heroImage from "../../../../../assets/images/partners/market/MarketResearch.webp";
-import archeryIcon from "../../../../../assets/images/partners/shared/cards/archery.svg";
-import globeIcon from "../../../../../assets/images/partners/shared/cards/globe.svg";
-import puzzleIcon from "../../../../../assets/images/partners/shared/cards/puzzle.svg";
+import logo from "../../../../../shared/assets/brand/partners/market-research/logo-store.svg";
+import {hero as heroImage} from "../../../../../features/what-we-do/partners/market-research/market-research.assets.js";
+import archeryIcon from "../../../../../shared/assets/partners/cards/archery.svg";
+import globeIcon from "../../../../../shared/assets/partners/cards/globe.svg";
+import puzzleIcon from "../../../../../shared/assets/partners/cards/puzzle.svg";
 
 export const marketResearchAssets = {
   darkLogoClassName: "brightness-0 invert",

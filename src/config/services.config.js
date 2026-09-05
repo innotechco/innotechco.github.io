@@ -1,7 +1,7 @@
-import inceptionIcon from "../assets/icons/Inception-Icon 1.svg";
-import infinityIcon from "../assets/icons/Subtract.svg";
-import insightIcon from "../assets/icons/Subtract2.svg";
-import {partnerImages} from "../assets/images/shared";
+import inceptionIcon from "../shared/assets/brand/services/inception.svg";
+import infinityIcon from "../shared/assets/brand/services/infinity.svg";
+import insightIcon from "../shared/assets/brand/services/insight.svg";
+import {partnerImages} from "../shared/data/partner-assets.js";
 
 export const serviceConfig = {
   inception: {

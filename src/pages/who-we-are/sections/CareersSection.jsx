@@ -1,4 +1,4 @@
-import SectionTitle from "../../../components/ui/SectionTitle";
+import SectionTitle from "../../../components/ui/SectionTitle.jsx";
 import {useContactAction} from "../../../context/useContactAction";
 
 function CareersSection({

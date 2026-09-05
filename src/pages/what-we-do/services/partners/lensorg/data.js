@@ -1,5 +1,5 @@
-import logo from "../../../../../assets/images/partners/lensorg/lens-org.svg";
-import heroImage from "../../../../../assets/images/partners/shared/backgrounds/PartnerIntroImage.webp";
+import logo from "../../../../../shared/assets/brand/partners/lensorg/logo.svg";
+import heroImage from "../../../../../shared/assets/partners/backgrounds/partner-intro-image.webp";
 
 export const lensorgAssets = {
   darkLogoClassName: "brightness-0 invert",

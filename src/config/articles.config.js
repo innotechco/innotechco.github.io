@@ -1,5 +1,5 @@
-import customerEcosystemInsights from "../assets/images/what-we-think/6.webp";
-import aiAgentFirst from "../assets/images/ai-agent/AIHumanFace.webp";
+import customerEcosystemInsights from "../shared/assets/images/articles/customer-ecosystem-insights.webp";
+import {aiHumanFace as aiAgentFirst} from "../features/articles/articles.assets.js";
 
 export const articleAssets = {
   customerEcosystemInsights,

@@ -1,11 +1,11 @@
-import logo from "../../../../../assets/images/partners/itonics/Itonics.svg";
-import heroImage from "../../../../../assets/images/partners/shared/backgrounds/PartnerIntroImage.webp";
+import logo from "../../../../../shared/assets/brand/partners/itonics/logo.svg";
+import heroImage from "../../../../../shared/assets/partners/backgrounds/partner-intro-image.webp";
 
-import InsightGrowthAudience from "../../../../../assets/images/partners/shared/cards/InsightGrowthAudience.svg";
-import SettingsWindow from "../../../../../assets/images/partners/shared/cards/SettingsWindow.svg";
-import puzzle from "../../../../../assets/images/partners/shared/cards/puzzle.svg";
-import DashboardMonitor from "../../../../../assets/images/partners/shared/cards/DashboardMonitor.svg";
-import ProcessesWorkflow from "../../../../../assets/images/partners/shared/cards/ProcessesWorkflow.svg";
+import InsightGrowthAudience from "../../../../../shared/assets/partners/cards/insight-growth-audience.svg";
+import SettingsWindow from "../../../../../shared/assets/partners/cards/settings-window.svg";
+import puzzle from "../../../../../shared/assets/partners/cards/puzzle.svg";
+import DashboardMonitor from "../../../../../shared/assets/partners/cards/dashboard-monitor.svg";
+import ProcessesWorkflow from "../../../../../shared/assets/partners/cards/processes-workflow.svg";
 
 export const itonicsAssets = {
   logo,

@@ -1,9 +1,9 @@
-import excludeShape from "../../../../../assets/images/excludes/shared/Exclude.svg";
-import excludeBlackShape from "../../../../../assets/images/excludes/shared/ExcludeBlack.svg";
+import excludeShape from "../../../../../shared/assets/decorations/card-cutout-dark.svg";
+import excludeBlackShape from "../../../../../shared/assets/decorations/card-cutout-light.svg";
 import {useTheme} from "../../../../../context/useTheme";
-import SectionTitle from "../../../../../components/ui/SectionTitle";
-import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
-import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
+import SectionTitle from "../../../../../components/ui/SectionTitle.jsx";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel.jsx";
+import {usePointerGlow} from "../../../../../hooks/usePointerGlow.js";
 import {useContactAction} from "../../../../../context/useContactAction";
 
 function ShowcaseCard({

@@ -1,0 +1,14 @@
+export {default as circlePlay} from "./assets/circle-play.svg";
+export {default as decorationsMiddleDark} from "./assets/decorations/middle-dark.webp";
+export {default as decorationsMiddleLight} from "./assets/decorations/middle-light.webp";
+export {default as decorationsTopDark} from "./assets/decorations/top-dark.webp";
+export {default as decorationsTopLight} from "./assets/decorations/top-light.webp";
+export {default as decorationsTopSecondaryDark} from "./assets/decorations/top-secondary-dark.webp";
+export {default as decorationsTopSecondaryLight} from "./assets/decorations/top-secondary-light.webp";
+export {default as historyCurveLight} from "./assets/history-curve-light.webp";
+export {default as historyCurve} from "./assets/history-curve.webp";
+export {default as iconsCubeIcon} from "./assets/icons/cube-icon.svg";
+export {default as iconsDealHandshake} from "./assets/icons/deal-handshake.svg";
+export {default as iconsEmployeesIcon} from "./assets/icons/employees-icon.svg";
+export {default as iconsFactoryIcon} from "./assets/icons/factory-icon.svg";
+export {default as innotechisin} from "./assets/innotechisin.webp";

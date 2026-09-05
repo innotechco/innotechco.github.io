@@ -1,6 +1,6 @@
-import careersImage from "../../../../../assets/images/who-we-are/Careers.webp";
-import marketResearchLogo from "../../../../../assets/icons/MarketResearch.svg";
-import randMLogo from "../../../../../assets/icons/RandM.svg";
+import careersImage from "../../../../../shared/assets/images/careers.webp";
+import marketResearchLogo from "../../../../../shared/assets/brand/partners/market-research/logo-store.svg";
+import randMLogo from "../../../../../shared/assets/brand/partners/r-and-m/logo-store.svg";
 import {useTheme} from "../../../../../context/useTheme";
 import {t} from "../../../../../i18n/ui";
 

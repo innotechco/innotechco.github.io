@@ -1,13 +1,13 @@
 import {useEffect, useRef, useState} from "react";
 
-import excludeLeft from "../../../../../assets/images/excludes/Excludeleftservices.webp";
-import excludeLeftWhite from "../../../../../assets/images/excludes/Excludeleftserviceswhite.webp";
-import excludeMiddle from "../../../../../assets/images/excludes/Excludemiddleservices.webp";
-import excludeMiddleWhite from "../../../../../assets/images/excludes/Excludemiddleserviceswhite.webp";
-import excludeRight from "../../../../../assets/images/excludes/ExcludeRightservices.webp";
-import excludeRightWhite from "../../../../../assets/images/excludes/ExcludeRightserviceswhite.webp";
-import union from "../../../../../assets/images/excludes/Union.webp";
-import unionBlack from "../../../../../assets/images/excludes/UnionBlack.webp";
+import {decorationsExcludeleftservices as excludeLeft} from "../../../../../features/what-we-do/services/shared/shared.assets.js";
+import {decorationsExcludeleftserviceswhite as excludeLeftWhite} from "../../../../../features/what-we-do/services/shared/shared.assets.js";
+import {decorationsExcludemiddleservices as excludeMiddle} from "../../../../../features/what-we-do/services/shared/shared.assets.js";
+import {decorationsExcludemiddleserviceswhite as excludeMiddleWhite} from "../../../../../features/what-we-do/services/shared/shared.assets.js";
+import {decorationsExcludeRightservices as excludeRight} from "../../../../../features/what-we-do/services/shared/shared.assets.js";
+import {decorationsExcludeRightserviceswhite as excludeRightWhite} from "../../../../../features/what-we-do/services/shared/shared.assets.js";
+import {decorationsUnion as union} from "../../../../../features/what-we-do/services/shared/shared.assets.js";
+import {decorationsUnionBlack as unionBlack} from "../../../../../features/what-we-do/services/shared/shared.assets.js";
 import {useTheme} from "../../../../../context/useTheme";
 
 const countDuration = 2000;

@@ -1,9 +1,9 @@
 import {Link} from "react-router-dom";
-import ReadMoreLink from "../../../../components/ui/ReadMoreLink";
-import ResponsiveCarousel from "../../../../components/ui/ResponsiveCarousel";
+import ReadMoreLink from "../../../../components/ui/ReadMoreLink.jsx";
+import ResponsiveCarousel from "../../../../components/ui/ResponsiveCarousel.jsx";
 import {useTheme} from "../../../../context/useTheme";
 import {routes} from "../../../../routes";
-import {usePointerGlow} from "../../../../hooks/usePointerGlow";
+import {usePointerGlow} from "../../../../hooks/usePointerGlow.js";
 import {useHomeContent} from "../../../../context/useHomeContent";
 import {getArticlePath} from "../../../../services/content/blogSections";
 

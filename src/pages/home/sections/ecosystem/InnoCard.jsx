@@ -1,8 +1,8 @@
 import {useTheme} from "../../../../context/useTheme";
-import InceptionIcon from "../../../../assets/icons/Inception-Icon 1.svg";
-import InfinityIcon from "../../../../assets/icons/Subtract.svg";
-import InsightIcon from "../../../../assets/icons/Subtract2.svg";
-import InlearnIcon from "../../../../assets/icons/Subtract3.svg";
+import InceptionIcon from "../../../../shared/assets/brand/services/inception.svg";
+import InfinityIcon from "../../../../shared/assets/brand/services/infinity.svg";
+import InsightIcon from "../../../../shared/assets/brand/services/insight.svg";
+import InlearnIcon from "../../../../shared/assets/brand/services/inlearn.svg";
 
 function InnoCard({iconKey, title, subtitle, items = []}) {
   const {isDarkMode} = useTheme();

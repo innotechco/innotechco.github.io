@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useRef, useState} from "react";
 
 import {countries} from "../../../data/countries";
-import Toast from "../../../components/ui/Toast";
+import Toast from "../../../components/ui/Toast.jsx";
 import {t} from "../../../i18n/ui";
 import {submitToForminit} from "../../../services/forms/formDelivery";
 

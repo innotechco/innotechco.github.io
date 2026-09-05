@@ -1,7 +1,7 @@
 import {useTheme} from "../../../../../context/useTheme";
-import {usePointerGlow} from "../../../../../hooks/usePointerGlow";
-import SectionTitle from "../../../../../components/ui/SectionTitle";
-import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel";
+import {usePointerGlow} from "../../../../../hooks/usePointerGlow.js";
+import SectionTitle from "../../../../../components/ui/SectionTitle.jsx";
+import ResponsiveCarousel from "../../../../../components/ui/ResponsiveCarousel.jsx";
 
 function ActionCard({item, isDarkMode}) {
   const {position: glow, handlers} = usePointerGlow();

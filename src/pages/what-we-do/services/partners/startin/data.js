@@ -1,8 +1,8 @@
-import logo from "../../../../../assets/images/partners/startin/startin.svg";
-import heroImage from "../../../../../assets/images/partners/startin/startin.webp";
-import archeryIcon from "../../../../../assets/images/partners/shared/cards/archery.svg";
-import globeIcon from "../../../../../assets/images/partners/shared/cards/globe.svg";
-import puzzleIcon from "../../../../../assets/images/partners/shared/cards/puzzle.svg";
+import logo from "../../../../../shared/assets/brand/partners/startin/logo.svg";
+import {hero as heroImage} from "../../../../../features/what-we-do/partners/startin/startin.assets.js";
+import archeryIcon from "../../../../../shared/assets/partners/cards/archery.svg";
+import globeIcon from "../../../../../shared/assets/partners/cards/globe.svg";
+import puzzleIcon from "../../../../../shared/assets/partners/cards/puzzle.svg";
 
 export const startinAssets = {
   darkLogoClassName: "brightness-0 invert",

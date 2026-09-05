@@ -1,10 +1,10 @@
 import {useTheme} from "../../../../../context/useTheme";
-import IntroRevealText from "../../../../../components/ui/IntroRevealText";
-import inceptionIcon from "../../../../../assets/icons/Inception-Icon 1.svg";
-import inceptionLeftExclude from "../../../../../assets/images/excludes/inception/LeftExclude.webp";
-import inceptionLeftExcludeBlack from "../../../../../assets/images/excludes/inception/LeftExcludeBlack.webp";
-import inceptionRightExclude from "../../../../../assets/images/excludes/inception/RightExclude.webp";
-import inceptionRightExcludeBlack from "../../../../../assets/images/excludes/inception/RightExcludeBlack.webp";
+import IntroRevealText from "../../../../../components/ui/IntroRevealText.jsx";
+import inceptionIcon from "../../../../../shared/assets/brand/services/inception.svg";
+import {decorationsLeftDark as inceptionLeftExclude} from "../../../../../features/what-we-do/services/inception/inception.assets.js";
+import {decorationsLeftLight as inceptionLeftExcludeBlack} from "../../../../../features/what-we-do/services/inception/inception.assets.js";
+import {decorationsRightDark as inceptionRightExclude} from "../../../../../features/what-we-do/services/inception/inception.assets.js";
+import {decorationsRightLight as inceptionRightExcludeBlack} from "../../../../../features/what-we-do/services/inception/inception.assets.js";
 
 function Inception() {
   const {isDarkMode} = useTheme();

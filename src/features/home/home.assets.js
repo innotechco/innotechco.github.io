@@ -1,0 +1,10 @@
+export {default as decorationsAssistantDark} from "./assets/decorations/assistant-dark.webp";
+export {default as decorationsAssistantLight} from "./assets/decorations/assistant-light.webp";
+export {default as ecosystemCurveDark} from "./assets/ecosystem/curve-dark.webp";
+export {default as ecosystemCurveLight} from "./assets/ecosystem/curve-light.webp";
+export {default as ecosystemEcosystemMapDark} from "./assets/ecosystem/ecosystem-map-dark.webp";
+export {default as ecosystemEcosystemMapLight} from "./assets/ecosystem/ecosystem-map-light.webp";
+export {default as globalFootprintWorldMapDark} from "./assets/global-footprint/world-map-dark.webp";
+export {default as globalFootprintWorldMapLight} from "./assets/global-footprint/world-map-light.webp";
+export {default as heroHeroBackground} from "./assets/hero/hero-background.webp";
+export {default as latestNewsBackground} from "./assets/latest-news/background.webp";

@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 
 import {industryMenuItems, serviceMenuItems} from "../navData";
-import Vector from "../../../assets/icons/Vector.svg";
+import Vector from "../../../shared/assets/icons/chevron-down.svg";
 import {routes} from "../../../routes";
 import {t} from "../../../i18n/ui";
 

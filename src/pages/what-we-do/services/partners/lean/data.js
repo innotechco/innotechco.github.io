@@ -1,8 +1,8 @@
-import logo from "../../../../../assets/images/partners/lean/lean.svg";
-import heroImage from "../../../../../assets/images/partners/shared/backgrounds/PartnerIntroImage.webp";
-import archeryIcon from "../../../../../assets/images/partners/shared/cards/archery.svg";
-import globeIcon from "../../../../../assets/images/partners/shared/cards/globe.svg";
-import puzzleIcon from "../../../../../assets/images/partners/shared/cards/puzzle.svg";
+import logo from "../../../../../shared/assets/brand/partners/lean/logo.svg";
+import heroImage from "../../../../../shared/assets/partners/backgrounds/partner-intro-image.webp";
+import archeryIcon from "../../../../../shared/assets/partners/cards/archery.svg";
+import globeIcon from "../../../../../shared/assets/partners/cards/globe.svg";
+import puzzleIcon from "../../../../../shared/assets/partners/cards/puzzle.svg";
 
 export const leanAssets = {
   darkLogoClassName: "brightness-0 invert",

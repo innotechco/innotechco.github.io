@@ -1,11 +1,11 @@
-import logo from "../../../../../assets/images/partners/brightidea/brightidea-partner.svg";
-import heroImage from "../../../../../assets/images/partners/brightidea/brightidea.webp";
-import Idea from "../../../../../assets/images/partners/shared/cards/Idea.svg";
-import ProgramIcon from "../../../../../assets/images/partners/shared/cards/ProgramIcon.svg";
-import Rocket from "../../../../../assets/images/partners/shared/cards/Rocket.svg";
-import Transformation from "../../../../../assets/images/partners/shared/cards/Transformation.svg";
-import archery from "../../../../../assets/images/partners/shared/cards/Transformation.svg";
-import ecosystem from "../../../../../assets/images/partners/shared/cards/ecosystem.svg";
+import logo from "../../../../../shared/assets/brand/partners/brightidea/logo.svg";
+import {hero as heroImage} from "../../../../../features/what-we-do/partners/brightidea/brightidea.assets.js";
+import Idea from "../../../../../shared/assets/partners/cards/idea.svg";
+import ProgramIcon from "../../../../../shared/assets/partners/cards/program-icon.svg";
+import Rocket from "../../../../../shared/assets/partners/cards/rocket.svg";
+import Transformation from "../../../../../shared/assets/partners/cards/transformation.svg";
+import archery from "../../../../../shared/assets/partners/cards/transformation.svg";
+import ecosystem from "../../../../../shared/assets/partners/cards/ecosystem.svg";
 
 export const brightideaAssets = {
   darkLogoClassName: "brightness-0 invert",

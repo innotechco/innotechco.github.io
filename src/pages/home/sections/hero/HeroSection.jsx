@@ -2,9 +2,9 @@ import {Link} from "react-router-dom";
 
 import {useTheme} from "../../../../context/useTheme";
 import {routes} from "../../../../routes";
-import bgImage from "../../../../assets/images/home/Firstpagepic.webp";
-import aiAgentExcludeImage from "../../../../assets/images/excludes/home/AIagentExclude.webp";
-import aiAgentExcludeWhiteImage from "../../../../assets/images/excludes/home/AIagentExcludeWhite.webp";
+import {heroHeroBackground as bgImage} from "../../../../features/home/home.assets.js";
+import {decorationsAssistantDark as aiAgentExcludeImage} from "../../../../features/home/home.assets.js";
+import {decorationsAssistantLight as aiAgentExcludeWhiteImage} from "../../../../features/home/home.assets.js";
 import {useHomeContent} from "../../../../context/useHomeContent";
 
 function HeroSection() {
@@ -29,7 +29,7 @@ function HeroSection() {
       {/* Glass card section */}
       <div className="absolute left-4 top-[clamp(96px,18vh,205px)] z-10 w-[min(300px,calc(100vw-32px))] sm:left-8 sm:w-[380px] md:left-[clamp(40px,8vw,120px)] md:w-[min(577px,44vw)]">
         <div
-          className={`relative inline-flex min-h-[260px] w-full flex-col items-start justify-start gap-3 overflow-hidden rounded-[24px] border px-5 py-6 backdrop-blur-[3px] transition-all duration-500 ease-in-out sm:min-h-[330px] sm:gap-4 sm:rounded-[34px] sm:px-8 sm:py-9 lg:h-[477px] lg:gap-6 lg:rounded-[40px] lg:px-20 lg:py-16 ${
+          className={`home-hero-card relative inline-flex min-h-[260px] w-full flex-col items-start justify-start gap-3 overflow-hidden rounded-[24px] border px-5 py-6 backdrop-blur-[3px] transition-all duration-500 ease-in-out sm:min-h-[330px] sm:gap-4 sm:rounded-[34px] sm:px-8 sm:py-9 lg:min-h-[477px] lg:gap-6 lg:rounded-[40px] lg:px-20 lg:py-16 ${
             isDarkMode
               ? "bg-black/20 border-white/10"
               : "bg-white/30 border-black/20"
@@ -57,7 +57,7 @@ function HeroSection() {
 
           {/* Description text */}
           <div
-            className={`relative z-10 mt-2 place-self-auto justify-start pr-0 font-['Gotham'] text-[clamp(0.95rem,4vw,1.5rem)] font-medium leading-tight transition-colors duration-500 ease-in-out sm:mt-4 lg:mt-6 lg:pr-8 ${
+            className={`home-hero-description relative z-10 mt-2 place-self-auto justify-start pr-0 font-['Gotham'] text-[clamp(0.95rem,4vw,1.5rem)] font-medium leading-tight transition-colors duration-500 ease-in-out sm:mt-4 lg:mt-6 lg:pr-8 ${
               isDarkMode ? "text-white" : "text-black"
             }`}
           >

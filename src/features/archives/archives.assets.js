@@ -1,0 +1,17 @@
+export {default as aiInnovation} from "./assets/ai-innovation.svg";
+export {default as crossFunctional} from "./assets/cross-functional.svg";
+export {default as customerInsight} from "./assets/customer-insight.svg";
+export {default as decisionVelocity} from "./assets/decision-velocity.svg";
+export {default as decorationsBackgroundDark} from "./assets/decorations/background-dark.webp";
+export {default as decorationsBackgroundLight} from "./assets/decorations/background-light.webp";
+export {default as ecosystem} from "./assets/ecosystem.svg";
+export {default as futureReady} from "./assets/future-ready.svg";
+export {default as industrialAi} from "./assets/industrial-ai.svg";
+export {default as innovationMetrics} from "./assets/innovation-metrics.svg";
+export {default as innovationPortfolio} from "./assets/innovation-portfolio.svg";
+export {default as marketSignals} from "./assets/market-signals.svg";
+export {default as opportunitySpaces} from "./assets/opportunity-spaces.svg";
+export {default as portfolioDecisions} from "./assets/portfolio-decisions.svg";
+export {default as responsibleAi} from "./assets/responsible-ai.svg";
+export {default as scaleExperiments} from "./assets/scale-experiments.svg";
+export {default as strategicForesight} from "./assets/strategic-foresight.svg";

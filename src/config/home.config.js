@@ -1,6 +1,6 @@
-import energyAndMaterialsImage from "../assets/images/industries/energy-and-materials/energyandmaterials1.webp";
-import healthImage from "../assets/images/industries/health/health1.webp";
-import metalsAndMiningImage from "../assets/images/industries/metals-and-mining/metalsandmining1.webp";
+import {insightFeatured as energyAndMaterialsImage} from "../features/what-we-do/industries/energy-and-materials/energy-and-materials.assets.js";
+import {insightFeatured as healthImage} from "../features/what-we-do/industries/health/health.assets.js";
+import {insightFeatured as metalsAndMiningImage} from "../features/what-we-do/industries/metals-and-mining/metals-and-mining.assets.js";
 
 export const homeConfig = {
   liveInsights: {

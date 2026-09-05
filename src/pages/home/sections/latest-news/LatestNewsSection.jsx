@@ -1,6 +1,6 @@
 import {useTheme} from "../../../../context/useTheme";
-import ReadMoreLink from "../../../../components/ui/ReadMoreLink";
-import LatestNewsImage from "../../../../assets/images/home/LatestNews.webp";
+import ReadMoreLink from "../../../../components/ui/ReadMoreLink.jsx";
+import {latestNewsBackground as LatestNewsImage} from "../../../../features/home/home.assets.js";
 import {useHomeContent} from "../../../../context/useHomeContent";
 import {getArticlePath} from "../../../../services/content/blogSections";
 
