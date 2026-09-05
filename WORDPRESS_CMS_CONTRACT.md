@@ -103,7 +103,7 @@ Response shape:
 
 ## Article Contract
 
-Install and activate `wordpress-plugin/innotech-article-fields`. Every WordPress Post then exposes:
+Install and activate `tools/wordpress/plugin/innotech-article-fields`. Every WordPress Post then exposes:
 
 | Visible article value | WordPress source | REST value |
 | --- | --- | --- |
