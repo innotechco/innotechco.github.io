@@ -4,25 +4,25 @@ import path from "node:path";
 import test from "node:test";
 import {fileURLToPath} from "node:url";
 
-import {industryRoutes, routes, serviceRoutes} from "../src/routes.js";
+import {industryRoutes, routes, serviceRoutes} from "../src/app/routes.js";
 import {
   getIndustryPosts,
   getWordPressCategoryTerms,
   getWhatWeThinkPosts,
   orderPosts,
   orderPostsForArchives,
-} from "../src/services/cms/blogOrdering.js";
-import {truncateWords} from "../src/services/content/cardSummary.js";
+} from "../src/integrations/wordpress/adapters/blogOrdering.js";
+import {truncateWords} from "../src/shared/content/cardSummary.js";
 import {
   buildArchiveCategories,
   buildCategoryLabels,
   isMultilineCategoryLabel,
-} from "../src/services/cms/archiveCategories.js";
+} from "../src/integrations/wordpress/adapters/archiveCategories.js";
 import {
   CARD_SUMMARY_WORD_LIMIT,
   HOME_LIVE_INSIGHTS_START_INDEX,
   INDUSTRY_CATEGORY_SLUGS,
-} from "../src/config/articleCards.config.js";
+} from "../src/shared/config/articleCards.config.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const srcRoot = path.join(root, "src");
@@ -110,9 +110,9 @@ test("every card summary uses the one shared word limit", () => {
   assert.equal(truncateWords(""), "");
 
   const cardFiles = [
-    path.join(srcRoot, "services", "content", "blogSections.js"),
-    path.join(srcRoot, "pages", "what-we-think", "WhatWeThink.jsx"),
-    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
+    path.join(srcRoot, "shared", "content", "blogSections.js"),
+    path.join(srcRoot, "features", "what-we-think", "WhatWeThink.jsx"),
+    path.join(srcRoot, "features", "archives", "Archives.jsx"),
   ];
 
   for (const file of cardFiles) {
@@ -140,11 +140,11 @@ test("WordPress posts preserve every assigned category", () => {
 
 test("WordPress Article fields are real REST meta and Related News stays outside Body", () => {
   const plugin = fs.readFileSync(
-    path.join(root, "wordpress-plugin", "innotech-article-fields", "innotech-article-fields.php"),
+    path.join(root, "tools", "wordpress", "plugin", "innotech-article-fields", "innotech-article-fields.php"),
     "utf8",
   );
   const service = fs.readFileSync(
-    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    path.join(srcRoot, "integrations", "wordpress", "client", "wordpressBlog.js"),
     "utf8",
   );
 
@@ -163,11 +163,11 @@ test("WordPress Article fields are real REST meta and Related News stays outside
 
 test("CMS Article cards do not hide missing WordPress values with local fallbacks", () => {
   const page = fs.readFileSync(
-    path.join(srcRoot, "pages", "articles", "ArticlePage.jsx"),
+    path.join(srcRoot, "features", "articles", "ArticlePage.jsx"),
     "utf8",
   );
   const related = fs.readFileSync(
-    path.join(srcRoot, "pages", "articles", "components", "RelatedNews.jsx"),
+    path.join(srcRoot, "features", "articles", "components", "RelatedNews.jsx"),
     "utf8",
   );
 
@@ -177,7 +177,7 @@ test("CMS Article cards do not hide missing WordPress values with local fallback
 
 test("Article body expands when a WordPress post has no table of contents", () => {
   const body = fs.readFileSync(
-    path.join(srcRoot, "pages", "articles", "components", "ArticleBody.jsx"),
+    path.join(srcRoot, "features", "articles", "components", "ArticleBody.jsx"),
     "utf8",
   );
   const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
@@ -190,7 +190,7 @@ test("Article body expands when a WordPress post has no table of contents", () =
 
 test("What We Think waits for WordPress and never flashes local card content", () => {
   const page = fs.readFileSync(
-    path.join(srcRoot, "pages", "what-we-think", "WhatWeThink.jsx"),
+    path.join(srcRoot, "features", "what-we-think", "WhatWeThink.jsx"),
     "utf8",
   );
 
@@ -203,10 +203,10 @@ test("What We Think waits for WordPress and never flashes local card content", (
 
 test("every article card section reads from the one shared WordPress feed", () => {
   const readers = [
-    path.join(srcRoot, "context", "HomeContentProvider.jsx"),
-    path.join(srcRoot, "pages", "what-we-think", "WhatWeThink.jsx"),
-    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
-    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "LiveInsightsSection.jsx"),
+    path.join(srcRoot, "app", "providers", "home-content", "HomeContentProvider.jsx"),
+    path.join(srcRoot, "features", "what-we-think", "WhatWeThink.jsx"),
+    path.join(srcRoot, "features", "archives", "Archives.jsx"),
+    path.join(srcRoot, "features", "what-we-do", "industries", "shared", "components", "LiveInsightsSection.jsx"),
   ];
 
   for (const file of readers) {
@@ -222,7 +222,7 @@ test("every article card section reads from the one shared WordPress feed", () =
 
 test("the archive card is one link with a category pill instead of Read More", () => {
   const page = fs.readFileSync(
-    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
+    path.join(srcRoot, "features", "archives", "Archives.jsx"),
     "utf8",
   );
   const css = fs.readFileSync(path.join(srcRoot, "styles", "archive.css"), "utf8");
@@ -236,11 +236,11 @@ test("the archive card is one link with a category pill instead of Read More", (
 
 test("the article table of contents lists H2 only and nests H3 under it", () => {
   const toc = fs.readFileSync(
-    path.join(srcRoot, "pages", "articles", "components", "TableOfContents.jsx"),
+    path.join(srcRoot, "features", "articles", "components", "TableOfContents.jsx"),
     "utf8",
   );
   const blog = fs.readFileSync(
-    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    path.join(srcRoot, "integrations", "wordpress", "client", "wordpressBlog.js"),
     "utf8",
   );
   const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
@@ -257,7 +257,7 @@ test("the article table of contents lists H2 only and nests H3 under it", () => 
 test("the single-article hero box takes the uploaded image's own ratio", () => {
   const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
   const hero = fs.readFileSync(
-    path.join(srcRoot, "pages", "articles", "components", "ArticleHero.jsx"),
+    path.join(srcRoot, "features", "articles", "components", "ArticleHero.jsx"),
     "utf8",
   );
 
@@ -272,15 +272,15 @@ test("the single-article hero box takes the uploaded image's own ratio", () => {
 
 test("the home hero card is editable from a real WordPress screen", () => {
   const plugin = fs.readFileSync(
-    path.join(root, "wordpress-plugin", "innotech-article-fields", "home-hero.php"),
+    path.join(root, "tools", "wordpress", "plugin", "innotech-article-fields", "home-hero.php"),
     "utf8",
   );
   const entry = fs.readFileSync(
-    path.join(root, "wordpress-plugin", "innotech-article-fields", "innotech-article-fields.php"),
+    path.join(root, "tools", "wordpress", "plugin", "innotech-article-fields", "innotech-article-fields.php"),
     "utf8",
   );
   const provider = fs.readFileSync(
-    path.join(srcRoot, "context", "HomeContentProvider.jsx"),
+    path.join(srcRoot, "app", "providers", "home-content", "HomeContentProvider.jsx"),
     "utf8",
   );
 
@@ -341,7 +341,7 @@ test("a WordPress article renders inside one block that nothing escapes", () => 
 });
 
 test("empty WordPress paragraphs are dropped so article spacing stays even", () => {
-  const blog = fs.readFileSync(path.join(srcRoot, "services", "cms", "wordpressBlog.js"), "utf8");
+  const blog = fs.readFileSync(path.join(srcRoot, "integrations", "wordpress", "client", "wordpressBlog.js"), "utf8");
 
   assert.match(blog, /function removeEmptyParagraphs/);
   assert.match(blog, /removeEmptyParagraphs\(doc\)/);
@@ -351,7 +351,7 @@ test("empty WordPress paragraphs are dropped so article spacing stays even", () 
 
 test("home never shows the same post in latest news and live insights", () => {
   const provider = fs.readFileSync(
-    path.join(srcRoot, "context", "HomeContentProvider.jsx"),
+    path.join(srcRoot, "app", "providers", "home-content", "HomeContentProvider.jsx"),
     "utf8",
   );
 
@@ -368,11 +368,11 @@ test("card summaries are cut in JS and the card footer is pinned by flexbox", ()
 
   // Every card section shares the one contract instead of clamping on its own.
   const cardSections = [
-    path.join(srcRoot, "pages", "home", "sections", "live-insights", "LiveInsightsSection.jsx"),
-    path.join(srcRoot, "pages", "home", "sections", "latest-news", "LatestNewsSection.jsx"),
-    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "LiveInsightsSection.jsx"),
-    path.join(srcRoot, "pages", "what-we-think", "WhatWeThink.jsx"),
-    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
+    path.join(srcRoot, "features", "home", "sections", "live-insights", "LiveInsightsSection.jsx"),
+    path.join(srcRoot, "features", "home", "sections", "latest-news", "LatestNewsSection.jsx"),
+    path.join(srcRoot, "features", "what-we-do", "industries", "shared", "components", "LiveInsightsSection.jsx"),
+    path.join(srcRoot, "features", "what-we-think", "WhatWeThink.jsx"),
+    path.join(srcRoot, "features", "archives", "Archives.jsx"),
   ];
 
   for (const file of cardSections) {
@@ -457,7 +457,7 @@ test("a three word category label wraps onto two lines in the card pill", () => 
 
 test("a renamed WordPress category takes over its display label", () => {
   const blog = fs.readFileSync(
-    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    path.join(srcRoot, "integrations", "wordpress", "client", "wordpressBlog.js"),
     "utf8",
   );
 
@@ -471,7 +471,7 @@ test("a renamed WordPress category takes over its display label", () => {
 
 test("structural WordPress buckets are never offered as archive filters", () => {
   const blog = fs.readFileSync(
-    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    path.join(srcRoot, "integrations", "wordpress", "client", "wordpressBlog.js"),
     "utf8",
   );
 
@@ -482,7 +482,7 @@ test("structural WordPress buckets are never offered as archive filters", () => 
 
 test("the archive card pill matches the category the reader filtered by", () => {
   const page = fs.readFileSync(
-    path.join(srcRoot, "pages", "what-we-think", "archives", "Archives.jsx"),
+    path.join(srcRoot, "features", "archives", "Archives.jsx"),
     "utf8",
   );
 
@@ -494,7 +494,7 @@ test("the archive card pill matches the category the reader filtered by", () => 
 
 test("the table of contents scrolls instead of navigating and toggles in place", () => {
   const toc = fs.readFileSync(
-    path.join(srcRoot, "pages", "articles", "components", "TableOfContents.jsx"),
+    path.join(srcRoot, "features", "articles", "components", "TableOfContents.jsx"),
     "utf8",
   );
   const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
@@ -513,7 +513,7 @@ test("the table of contents scrolls instead of navigating and toggles in place",
 
 test("WordPress body headings are shifted so the title stays the only H1", () => {
   const blog = fs.readFileSync(
-    path.join(srcRoot, "services", "cms", "wordpressBlog.js"),
+    path.join(srcRoot, "integrations", "wordpress", "client", "wordpressBlog.js"),
     "utf8",
   );
 
@@ -526,7 +526,7 @@ test("WordPress body headings are shifted so the title stays the only H1", () =>
 test("WordPress tables render with the site theme and the store button opens a new tab", () => {
   const css = fs.readFileSync(path.join(srcRoot, "styles", "articles.css"), "utf8");
   const reportStoreCard = fs.readFileSync(
-    path.join(srcRoot, "pages", "what-we-do", "services", "shared", "components", "ReportStoreCard.jsx"),
+    path.join(srcRoot, "features", "what-we-do", "services", "shared", "components", "ReportStoreCard.jsx"),
     "utf8",
   );
 
@@ -545,7 +545,7 @@ test("all route values are unique and grouped correctly", () => {
 });
 
 test("industry pages use shared components instead of copied section folders", () => {
-  const industriesRoot = path.join(srcRoot, "pages", "what-we-do", "industries");
+  const industriesRoot = path.join(srcRoot, "features", "what-we-do", "industries");
   const copiedSections = fs
     .readdirSync(industriesRoot, {withFileTypes: true})
     .filter((entry) => entry.isDirectory() && entry.name !== "shared")
@@ -556,9 +556,9 @@ test("industry pages use shared components instead of copied section folders", (
 });
 
 test("each service owns its data and shared only contains components", () => {
-  const servicesRoot = path.join(srcRoot, "pages", "what-we-do", "services");
+  const servicesRoot = path.join(srcRoot, "features", "what-we-do", "services");
   for (const service of ["inception", "infinity", "insight"]) {
-    const data = fs.readFileSync(path.join(servicesRoot, service, "data.js"), "utf8");
+    const data = fs.readFileSync(path.join(servicesRoot, service, `${service}.content.js`), "utf8");
     for (const name of ["road", "stats", "capabilities", "actions", "partners", "showcase"]) {
       assert.match(data, new RegExp(`export const ${name}\\b`));
     }
@@ -576,7 +576,7 @@ test("source has no known deployment-hostile paths or mojibake", () => {
 
 test("theme contract exposes light and dark mode", () => {
   const provider = fs.readFileSync(
-    path.join(srcRoot, "context", "ThemeContext.jsx"),
+    path.join(srcRoot, "app", "providers", "theme", "ThemeContext.jsx"),
     "utf8",
   );
   assert.match(provider, /isDarkMode/);
@@ -588,7 +588,7 @@ test("report store cards link to the existing external partner storefronts", () 
   const reportStoreCard = fs.readFileSync(
     path.join(
       srcRoot,
-      "pages",
+      "features",
       "what-we-do",
       "services",
       "shared",
@@ -624,10 +624,10 @@ test("report store cards link to the existing external partner storefronts", () 
 
 test("card-style sections use the same responsive breakpoint as selected projects", () => {
   const cardSectionFiles = [
-    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "CapabilitiesSection.jsx"),
-    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "LiveInsightsSection.jsx"),
-    path.join(srcRoot, "pages", "what-we-do", "services", "shared", "components", "ServiceActionSection.jsx"),
-    path.join(srcRoot, "pages", "what-we-do", "services", "shared", "components", "ServiceCapabilities.jsx"),
+    path.join(srcRoot, "features", "what-we-do", "industries", "shared", "components", "CapabilitiesSection.jsx"),
+    path.join(srcRoot, "features", "what-we-do", "industries", "shared", "components", "LiveInsightsSection.jsx"),
+    path.join(srcRoot, "features", "what-we-do", "services", "shared", "components", "ServiceActionSection.jsx"),
+    path.join(srcRoot, "features", "what-we-do", "services", "shared", "components", "ServiceCapabilities.jsx"),
   ];
 
   const sources = cardSectionFiles.map((file) => fs.readFileSync(file, "utf8"));
@@ -642,9 +642,9 @@ test("card-style sections use the same responsive breakpoint as selected project
 
 test("card actions preserve their existing placement and fixed decorative shapes", () => {
   const cardFiles = [
-    path.join(srcRoot, "pages", "who-we-are", "components", "ExpertCard.jsx"),
-    path.join(srcRoot, "pages", "what-we-do", "services", "shared", "components", "ServiceShowcase.jsx"),
-    path.join(srcRoot, "pages", "what-we-do", "industries", "shared", "components", "EcosystemCardsSection.jsx"),
+    path.join(srcRoot, "features", "who-we-are", "components", "ExpertCard.jsx"),
+    path.join(srcRoot, "features", "what-we-do", "services", "shared", "components", "ServiceShowcase.jsx"),
+    path.join(srcRoot, "features", "what-we-do", "industries", "shared", "components", "EcosystemCardsSection.jsx"),
   ];
 
   for (const file of cardFiles) {
@@ -661,11 +661,11 @@ test("card actions preserve their existing placement and fixed decorative shapes
 
 test("large interactive surfaces stay split into focused components", () => {
   const navbar = fs.readFileSync(
-    path.join(srcRoot, "components", "layout", "Navbar.jsx"),
+    path.join(srcRoot, "shared", "components", "layout", "Navbar.jsx"),
     "utf8",
   );
   const contactModal = fs.readFileSync(
-    path.join(srcRoot, "components", "modals", "ContactModal.jsx"),
+    path.join(srcRoot, "shared", "components", "modals", "ContactModal.jsx"),
     "utf8",
   );
 
@@ -678,20 +678,20 @@ test("large interactive surfaces stay split into focused components", () => {
 
 test("non-critical content images use native lazy loading", () => {
   const eagerImageFiles = new Set([
-    path.join(srcRoot, "components", "layout", "Navbar.jsx"),
-    path.join(srcRoot, "components", "layout", "navbar", "NavbarMainBar.jsx"),
-    path.join(srcRoot, "pages", "home", "sections", "hero", "HeroSection.jsx"),
-    path.join(srcRoot, "pages", "inlearn-academy", "InlearnAcademy.jsx"),
+    path.join(srcRoot, "shared", "components", "layout", "Navbar.jsx"),
+    path.join(srcRoot, "shared", "components", "layout", "navbar", "NavbarMainBar.jsx"),
+    path.join(srcRoot, "features", "home", "sections", "hero", "HeroSection.jsx"),
+    path.join(srcRoot, "features", "inlearn-academy", "InlearnAcademy.jsx"),
     path.join(
       srcRoot,
-      "pages",
+      "features",
       "who-we-are",
       "components",
       "WhoWeAreBackground.jsx",
     ),
     path.join(
       srcRoot,
-      "pages",
+      "features",
       "what-we-do",
       "industries",
       "shared",

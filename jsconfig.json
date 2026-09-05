@@ -2,11 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@app/*": ["src/*"],
-      "@features/*": ["src/pages/*"],
-      "@shared/*": ["src/*"],
+      "@app/*": ["src/app/*"],
+      "@features/*": ["src/features/*"],
+      "@shared/*": ["src/shared/*"],
       "@content/*": ["src/content/*"],
-      "@assets/*": ["src/assets/*"]
+      "@integrations/*": ["src/integrations/*"]
     }
   },
   "include": ["src"]

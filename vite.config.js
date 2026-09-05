@@ -10,11 +10,11 @@ export default defineConfig(({ mode }) => {
     base: env.VITE_BASE_PATH || "/",
     resolve: {
       alias: {
-        "@app": fileURLToPath(new URL("./src", import.meta.url)),
-        "@features": fileURLToPath(new URL("./src/pages", import.meta.url)),
-        "@shared": fileURLToPath(new URL("./src", import.meta.url)),
+        "@app": fileURLToPath(new URL("./src/app", import.meta.url)),
+        "@features": fileURLToPath(new URL("./src/features", import.meta.url)),
+        "@shared": fileURLToPath(new URL("./src/shared", import.meta.url)),
         "@content": fileURLToPath(new URL("./src/content", import.meta.url)),
-        "@assets": fileURLToPath(new URL("./src/assets", import.meta.url)),
+        "@integrations": fileURLToPath(new URL("./src/integrations", import.meta.url)),
       },
     },
     plugins: [

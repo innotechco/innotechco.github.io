@@ -1,0 +1,73 @@
+import {useTheme} from "../../../../../app/providers/theme/useTheme.js";
+import {decorationsHeroDark as industriesExcludeImage} from "../shared.assets.js";
+import {decorationsHeroLight as industriesExcludeBlackImage} from "../shared.assets.js";
+import {t} from "../../../../../shared/i18n/ui.js";
+
+function BreadcrumbChevron() {
+  return (
+    <div className="relative size-4 shrink-0 overflow-hidden">
+      <div className="absolute left-[6px] top-[4px] h-2 w-2 rotate-[-45deg] border-b border-r border-[#37B478]" />
+    </div>
+  );
+}
+
+function IndustryHero({image, breadcrumbLabel, title, description}) {
+  const {isDarkMode} = useTheme();
+  const industriesExclude = isDarkMode
+    ? industriesExcludeImage
+    : industriesExcludeBlackImage;
+
+  return (
+    <main
+      className={`flex min-h-screen w-full items-center justify-center px-4 py-16 md:px-8 md:py-30 ${
+        isDarkMode ? "bg-[#050505]" : "bg-white"
+      }`}
+    >
+      <article className="relative isolate min-h-[520px] w-full max-w-[1253px] overflow-hidden rounded-[32px] md:min-h-[601px] md:rounded-[50px]">
+        <div className="absolute inset-0 overflow-hidden rounded-[32px] bg-black md:rounded-[50px]">
+          <img
+            className="absolute inset-0 size-full object-cover object-center brightness-120"
+            src={image}
+            alt=""
+            aria-hidden
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10 md:bg-gradient-to-l md:from-black/0 md:via-black/40 md:to-black/80" />
+          <img
+            className={`pointer-events-none absolute left-0 top-0 hidden h-full w-[85%] object-fill lg:block ${
+              isDarkMode ? "mix-blend-screen" : ""
+            }`}
+            src={industriesExclude}
+            alt=""
+            aria-hidden
+          />
+        </div>
+
+        <div className="relative z-10 flex max-w-full flex-col items-start justify-start gap-4 px-6 py-10 md:px-32 md:py-36">
+          <nav className="inline-flex max-w-full flex-wrap items-center gap-2" aria-label={t("breadcrumb")}>
+            <span className="font-['Gotham'] text-sm font-light text-white">
+              {t("whatWeDo")}
+            </span>
+            <BreadcrumbChevron />
+            <span className="font-['Gotham'] text-sm font-light text-white">
+              {t("industries")}
+            </span>
+            <BreadcrumbChevron />
+            <span className="font-['Gotham'] text-sm font-light text-white">
+              {breadcrumbLabel}
+            </span>
+          </nav>
+
+          <h1 className="max-w-full break-words font-['Gotham'] text-[clamp(2.15rem,10vw,4.5rem)] font-bold leading-tight text-white [overflow-wrap:anywhere] min-[590px]:leading-none">
+            {title}
+          </h1>
+
+          <p className="max-w-[631px] font-['Gotham'] text-base leading-relaxed text-white sm:text-xl">
+            {description}
+          </p>
+        </div>
+      </article>
+    </main>
+  );
+}
+
+export default IndustryHero;

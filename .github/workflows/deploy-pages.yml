@@ -96,7 +96,7 @@ jobs:
           VITE_CMS_BASE_URL: "https://blog.innotech.global"
           VITE_CMS_BLOG_ENABLED: "true"
           VITE_CMS_BLOG_PER_PAGE: "50"
-        run: node scripts/generate-static-route-fallbacks.mjs
+        run: node tools/scripts/generate-static-route-fallbacks.mjs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
