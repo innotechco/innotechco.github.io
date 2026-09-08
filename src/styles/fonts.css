@@ -1,6 +1,13 @@
+/* Gotham as WOFF2, upright weights only.
+
+   The eight italic faces were dropped because nothing on the site renders
+   italic Gotham, and the remaining OTFs were converted to WOFF2 (1.0MB -> 240KB
+   over the wire). Both the italics and the original OTFs are in git history if
+   they are ever needed again. */
+
 @font-face {
   font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-Thin.otf") format("opentype");
+  src: url("../shared/assets/brand/fonts/gotham/Gotham-Thin.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -8,15 +15,7 @@
 
 @font-face {
   font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-ThinIta.otf") format("opentype");
-  font-weight: 100;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-XLight.otf") format("opentype");
+  src: url("../shared/assets/brand/fonts/gotham/Gotham-XLight.woff2") format("woff2");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
@@ -24,15 +23,7 @@
 
 @font-face {
   font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-XLightIta.otf") format("opentype");
-  font-weight: 200;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-Light.otf") format("opentype");
+  src: url("../shared/assets/brand/fonts/gotham/Gotham-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -40,15 +31,7 @@
 
 @font-face {
   font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-LightIta.otf") format("opentype");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-Book.otf") format("opentype");
+  src: url("../shared/assets/brand/fonts/gotham/Gotham-Book.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -56,31 +39,25 @@
 
 @font-face {
   font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-BookIta.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
+  src: url("../shared/assets/brand/fonts/gotham/Gotham-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
   font-display: swap;
 }
 
+/* Gotham has no 600 weight. font-semibold is mapped onto Medium so the browser
+   picks a real face instead of synthesising one. */
 @font-face {
   font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-Medium.otf") format("opentype");
-  font-weight: 500;
+  src: url("../shared/assets/brand/fonts/gotham/Gotham-Medium.woff2") format("woff2");
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-MediumIta.otf") format("opentype");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-Bold.otf") format("opentype");
+  src: url("../shared/assets/brand/fonts/gotham/Gotham-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -88,15 +65,7 @@
 
 @font-face {
   font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-BoldIta.otf") format("opentype");
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-Black.otf") format("opentype");
+  src: url("../shared/assets/brand/fonts/gotham/Gotham-Black.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -104,24 +73,8 @@
 
 @font-face {
   font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-BlackIta.otf") format("opentype");
-  font-weight: 800;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-Ultra.otf") format("opentype");
+  src: url("../shared/assets/brand/fonts/gotham/Gotham-Ultra.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../shared/assets/brand/fonts/gotham/Gotham-UltraIta.otf") format("opentype");
-  font-weight: 900;
-  font-style: italic;
   font-display: swap;
 }
