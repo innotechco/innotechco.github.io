@@ -30,7 +30,7 @@ function getBaseUrl() {
   return trimTrailingSlash(import.meta.env.VITE_CMS_BASE_URL);
 }
 
-function isBlogEnabled() {
+export function isBlogEnabled() {
   return import.meta.env.VITE_CMS_ENABLED === "true" &&
     import.meta.env.VITE_CMS_BLOG_ENABLED !== "false";
 }

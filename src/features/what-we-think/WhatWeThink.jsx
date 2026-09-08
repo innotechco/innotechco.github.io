@@ -13,6 +13,7 @@ import {usePointerGlow} from "../../shared/hooks/usePointerGlow.js";
 import ReadMoreLink from "../../shared/components/ui/ReadMoreLink.jsx";
 import {routes} from "../../app/routes.js";
 import {t} from "../../shared/i18n/ui.js";
+import ContentSkeleton, {SkeletonStatus} from "../../shared/components/ui/ContentSkeleton.jsx";
 
 const cardOrder = [
   "heroTop",
@@ -117,13 +118,16 @@ function ArticleCard({
 
 function WhatWeThink() {
   const {isDarkMode} = useTheme();
-  const {posts} = useBlogPosts();
+  const {posts, status: postsStatus} = useBlogPosts();
   const displayCards = useMemo(
     () => posts.length >= cardOrder.length
       ? mergePostsIntoCards(cards, posts)
       : null,
     [posts],
   );
+  /* The grid only renders once WordPress has enough posts to fill it, so
+     without this the page shows an empty gap and then pops the cards in. */
+  const isLoadingPosts = postsStatus === "loading";
   const leftExclude = isDarkMode
     ? ExcludeLeftWhatWeThink
     : BlackExcludeLeftWhatWeThink;
@@ -179,6 +183,19 @@ function WhatWeThink() {
         <h1>{t("whatWeThink")}</h1>
       </header>
 
+      {isLoadingPosts ? (
+        <section className="what-we-think-grid" aria-label={t("loading")}>
+          <SkeletonStatus label={t("loading")} />
+          {Array.from({length: 6}, (_, index) => (
+            <ContentSkeleton
+              key={index}
+              className="h-[280px] w-full"
+              isDarkMode={isDarkMode}
+              rounded="rounded-[24px]"
+            />
+          ))}
+        </section>
+      ) : null}
       {displayCards ? <section className="what-we-think-grid" aria-label="What we think">
         <ArticleCard card={displayCards.heroTop} variant="horizontal" metaLayout="between" isDarkMode={isDarkMode} />
 

@@ -6,7 +6,7 @@ function trimTrailingSlash(value) {
   return String(value ?? "").replace(/\/+$/, "");
 }
 
-function isHomeHeroEnabled() {
+export function isHomeHeroEnabled() {
   return import.meta.env.VITE_CMS_ENABLED === "true";
 }
 

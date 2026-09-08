@@ -1,6 +1,8 @@
 import {useMemo} from "react";
 
 import ReadMoreLink from "../../../../../shared/components/ui/ReadMoreLink.jsx";
+import ContentSkeleton, {SkeletonStatus} from "../../../../../shared/components/ui/ContentSkeleton.jsx";
+import {t} from "../../../../../shared/i18n/ui.js";
 import ResponsiveCarousel from "../../../../../shared/components/ui/ResponsiveCarousel.jsx";
 import {useTheme} from "../../../../../app/providers/theme/useTheme.js";
 import {decorationsInsightsDark as insightExcludeImage} from "../shared.assets.js";
@@ -95,7 +97,7 @@ function CardCopy({card, isDarkMode, compact = false}) {
 
 function LiveInsightsSection({title, cards, alt, industrySlug}) {
   const {isDarkMode} = useTheme();
-  const {posts} = useBlogPosts();
+  const {posts, status: postsStatus} = useBlogPosts();
   const insightExclude = isDarkMode
     ? insightExcludeImage
     : insightExcludeBlackImage;
@@ -106,6 +108,9 @@ function LiveInsightsSection({title, cards, alt, industrySlug}) {
     [cards, industrySlug, posts],
   );
   const [featuredCard, topCard, bottomCard] = displayCards;
+  /* These cards come from WordPress. Rendering the bundled placeholders first
+     and swapping them once the posts land is the flash this avoids. */
+  const isLoadingPosts = postsStatus === "loading";
 const renderCarouselCard = (card) => (
     <GlowCard
       key={card.id}
@@ -147,52 +152,71 @@ const renderCarouselCard = (card) => (
           {title}
         </SectionTitle>
 
-        <div className="lg:hidden">
-          <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
-            {displayCards.map(renderCarouselCard)}
-          </ResponsiveCarousel>
-        </div>
-
-        <div className="relative hidden w-full grid-cols-1 items-start gap-9 lg:grid lg:grid-cols-2">
-          <GlowCard className="h-[702px] min-w-0" isDarkMode={isDarkMode}>
-            <div className="flex size-full flex-col">
-              <div className="min-h-0 flex-1 overflow-hidden">
-                <img loading="lazy"
-                  src={featuredCard.image}
-                  alt={alt}
-                  className={`size-full object-cover object-bottom   ${
-                    featuredCard.imageClassName ?? ""
-                  }`}
-                />
-              </div>
-              <CardCopy card={featuredCard} isDarkMode={isDarkMode} />
+        {isLoadingPosts ? (
+          <>
+            <SkeletonStatus label={t("loading")} />
+            {/* Same shape as the cards below so the layout does not shift. */}
+            <div className="lg:hidden">
+              <ContentSkeleton className="h-[520px] w-full" isDarkMode={isDarkMode} rounded="rounded-[32px]" />
             </div>
-          </GlowCard>
-
-          <div className="flex min-w-0 flex-col justify-center gap-9 md:h-[702px]">
-            {[topCard, bottomCard].map((card) => (
-              <GlowCard
-                key={card.id}
-                className="h-[702px] min-h-0 md:h-auto md:flex-1"
-                isDarkMode={isDarkMode}
-              >
-                <div className="flex size-full min-w-0 flex-col items-center md:grid md:grid-cols-2">
-                  <div className="h-1/2 w-full min-w-0 overflow-hidden md:size-full">
-                    <img loading="lazy"
-                      src={card.image}
-                      alt=""
-                      aria-hidden
-                      className={`size-full object-cover ${
-                        card.imageClassName ?? ""
-                      }`}
-                    />
-                  </div>
-                  <CardCopy card={card} isDarkMode={isDarkMode} compact />
-                </div>
-              </GlowCard>
-            ))}
+            <div className="hidden w-full grid-cols-1 items-start gap-9 lg:grid lg:grid-cols-2">
+              <ContentSkeleton className="h-[702px] min-w-0" isDarkMode={isDarkMode} rounded="rounded-[32px]" />
+              <div className="flex min-w-0 flex-col justify-center gap-9 md:h-[702px]">
+                <ContentSkeleton className="min-h-0 flex-1" isDarkMode={isDarkMode} rounded="rounded-[32px]" />
+                <ContentSkeleton className="min-h-0 flex-1" isDarkMode={isDarkMode} rounded="rounded-[32px]" />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+          <div className="lg:hidden">
+            <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
+              {displayCards.map(renderCarouselCard)}
+            </ResponsiveCarousel>
           </div>
-        </div>
+
+          <div className="relative hidden w-full grid-cols-1 items-start gap-9 lg:grid lg:grid-cols-2">
+            <GlowCard className="h-[702px] min-w-0" isDarkMode={isDarkMode}>
+              <div className="flex size-full flex-col">
+                <div className="min-h-0 flex-1 overflow-hidden">
+                  <img loading="lazy"
+                    src={featuredCard.image}
+                    alt={alt}
+                    className={`size-full object-cover object-bottom   ${
+                      featuredCard.imageClassName ?? ""
+                    }`}
+                  />
+                </div>
+                <CardCopy card={featuredCard} isDarkMode={isDarkMode} />
+              </div>
+            </GlowCard>
+
+            <div className="flex min-w-0 flex-col justify-center gap-9 md:h-[702px]">
+              {[topCard, bottomCard].map((card) => (
+                <GlowCard
+                  key={card.id}
+                  className="h-[702px] min-h-0 md:h-auto md:flex-1"
+                  isDarkMode={isDarkMode}
+                >
+                  <div className="flex size-full min-w-0 flex-col items-center md:grid md:grid-cols-2">
+                    <div className="h-1/2 w-full min-w-0 overflow-hidden md:size-full">
+                      <img loading="lazy"
+                        src={card.image}
+                        alt=""
+                        aria-hidden
+                        className={`size-full object-cover ${
+                          card.imageClassName ?? ""
+                        }`}
+                      />
+                    </div>
+                    <CardCopy card={card} isDarkMode={isDarkMode} compact />
+                  </div>
+                </GlowCard>
+              ))}
+            </div>
+          </div>
+          </>
+        )}
 
         <div className="flex justify-end">
           <ReadMoreLink

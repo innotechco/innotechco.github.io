@@ -6,11 +6,17 @@ import {heroHeroBackground as bgImage} from "../../home.assets.js";
 import {decorationsAssistantDark as aiAgentExcludeImage} from "../../home.assets.js";
 import {decorationsAssistantLight as aiAgentExcludeWhiteImage} from "../../home.assets.js";
 import {useHomeContent} from "../../../../app/providers/home-content/useHomeContent.js";
+import ContentSkeleton, {SkeletonStatus} from "../../../../shared/components/ui/ContentSkeleton.jsx";
+import {t} from "../../../../shared/i18n/ui.js";
 
 function HeroSection() {
   const {isDarkMode} = useTheme();
-  const {content} = useHomeContent();
+  const {content, heroStatus} = useHomeContent();
   const heroContent = content.hero;
+  /* The CEO edits this card in WordPress. Painting the bundled copy first and
+     replacing it once the CMS answers is the flash this avoids - the card
+     keeps its size so the layout never moves. */
+  const isLoadingHero = heroStatus === "loading";
   const aiAgentExclude = isDarkMode
     ? aiAgentExcludeImage
     : aiAgentExcludeWhiteImage;
@@ -46,23 +52,38 @@ function HeroSection() {
           <div className="locale-hero-title relative z-10 h-16 w-full sm:h-18 lg:mb-6 lg:h-20">
             <div className="locale-hero-title-circle absolute left-0 top-0 size-16 rounded-full border-2 border-[#37B478] sm:size-18 lg:size-20" />
             <div className="locale-hero-title-dot absolute left-[4px] top-[6px] size-2.5 rounded-full bg-[#37B478] lg:left-[4.72px] lg:top-[7.08px] lg:size-3" />
-            <div
-                className={`locale-hero-title-text absolute left-[22px] top-3 font-['Gotham'] text-[clamp(2.25rem,9vw,3rem)] font-bold leading-none transition-colors duration-500 ease-in-out sm:left-[25px] lg:left-[27px] lg:top-4 ${
-                isDarkMode ? "text-white" : "text-black"
-              }`}
-            >
-              {heroContent.title}
-            </div>
+            {isLoadingHero ? (
+              <div className="absolute left-[22px] top-3 w-[min(420px,70%)] sm:left-[25px] lg:left-[27px] lg:top-4">
+                <SkeletonStatus label={t("loading")} />
+                <ContentSkeleton className="h-9 w-full lg:h-12" isDarkMode={isDarkMode} />
+              </div>
+            ) : (
+              <h1
+                  className={`locale-hero-title-text absolute left-[22px] top-3 m-0 font-['Gotham'] text-[clamp(2.25rem,9vw,3rem)] font-bold leading-none transition-colors duration-500 ease-in-out sm:left-[25px] lg:left-[27px] lg:top-4 ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+              >
+                {heroContent.title}
+              </h1>
+            )}
           </div>
 
           {/* Description text */}
-          <div
-            className={`home-hero-description relative z-10 mt-2 place-self-auto justify-start pr-0 font-['Gotham'] text-[clamp(0.95rem,4vw,1.5rem)] font-medium leading-tight transition-colors duration-500 ease-in-out sm:mt-4 lg:mt-6 lg:pr-8 ${
-              isDarkMode ? "text-white" : "text-black"
-            }`}
-          >
-            {heroContent.description}
-          </div>
+          {isLoadingHero ? (
+            <div className="relative z-10 mt-2 flex w-full flex-col gap-3 pr-0 sm:mt-4 lg:mt-6 lg:pr-8">
+              <ContentSkeleton className="h-5 w-full lg:h-6" isDarkMode={isDarkMode} />
+              <ContentSkeleton className="h-5 w-11/12 lg:h-6" isDarkMode={isDarkMode} />
+              <ContentSkeleton className="h-5 w-2/3 lg:h-6" isDarkMode={isDarkMode} />
+            </div>
+          ) : (
+            <div
+              className={`home-hero-description relative z-10 mt-2 place-self-auto justify-start pr-0 font-['Gotham'] text-[clamp(0.95rem,4vw,1.5rem)] font-medium leading-tight transition-colors duration-500 ease-in-out sm:mt-4 lg:mt-6 lg:pr-8 ${
+                isDarkMode ? "text-white" : "text-black"
+              }`}
+            >
+              {heroContent.description}
+            </div>
+          )}
 
           {/* Read more button and underline */}
           <div className="relative z-10 mt-2 lg:mt-4">
