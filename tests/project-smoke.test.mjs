@@ -681,7 +681,7 @@ test("non-critical content images use native lazy loading", () => {
     path.join(srcRoot, "shared", "components", "layout", "Navbar.jsx"),
     path.join(srcRoot, "shared", "components", "layout", "navbar", "NavbarMainBar.jsx"),
     path.join(srcRoot, "features", "home", "sections", "hero", "HeroSection.jsx"),
-    path.join(srcRoot, "features", "inlearn-academy", "InlearnAcademy.jsx"),
+    path.join(srcRoot, "features", "inlearn", "InlearnAcademy.jsx"),
     path.join(
       srcRoot,
       "features",
