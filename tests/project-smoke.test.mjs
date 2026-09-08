@@ -743,7 +743,14 @@ test("GitHub Pages deployment supports organization and project site URLs", () =
 
   assert.match(workflow, /github\.event\.repository\.name\s*==\s*format\('\{0\}\.github\.io'/);
   assert.match(workflow, /format\('\/\{0\}\/',\s*github\.event\.repository\.name\)/);
-  assert.match(workflow, /cp dist\/index\.html dist\/404\.html/);
+  /* The 404 fallback moved into the prerender script, so assert on the script
+     that actually writes it - the workflow only mentions it in a comment. */
+  assert.match(workflow, /node tools\/scripts\/generate-static-route-fallbacks\.mjs/);
+  const fallbackScript = fs.readFileSync(
+    path.join(root, "tools", "scripts", "generate-static-route-fallbacks.mjs"),
+    "utf8",
+  );
+  assert.match(fallbackScript, /"404\.html"/);
   assert.match(workflow, /cancel-in-progress:\s*true/);
   assert.match(workflow, /enablement:\s*true/);
   assert.doesNotMatch(workflow, /gh api/);
@@ -779,6 +786,33 @@ test("every route App renders is prerendered by the Pages fallback script", () =
     assert.ok(
       prerendered.has(route),
       `${route} is rendered by App.jsx but not prerendered, so it 404s on GitHub Pages`,
+    );
+  }
+});
+
+test("index.html carries the tags the prerender script rewrites per route", () => {
+  const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
+
+  /* generate-static-route-fallbacks.mjs swaps these out for each route. It
+     throws when a pattern does not match exactly once, so this test keeps that
+     failure at development time rather than mid-deploy. */
+  const required = [
+    [/<title>[\s\S]*?<\/title>/, "<title>"],
+    [/<meta\s+name="description"\s+content="[^"]*"/, "description"],
+    [/<link\s+rel="canonical"\s+href="[^"]*"/, "canonical"],
+    [/<meta\s+property="og:title"\s+content="[^"]*"/, "og:title"],
+    [/<meta\s+property="og:url"\s+content="[^"]*"/, "og:url"],
+    [/<meta\s+property="og:description"\s+content="[^"]*"/, "og:description"],
+    [/<meta\s+name="twitter:title"\s+content="[^"]*"/, "twitter:title"],
+    [/<meta\s+name="twitter:description"\s+content="[^"]*"/, "twitter:description"],
+  ];
+
+  for (const [pattern, label] of required) {
+    const matches = html.match(new RegExp(pattern.source, "g"));
+    assert.equal(
+      matches?.length,
+      1,
+      `index.html must contain exactly one ${label} for the prerender script to rewrite`,
     );
   }
 });
