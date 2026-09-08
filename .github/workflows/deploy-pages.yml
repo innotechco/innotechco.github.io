@@ -5,7 +5,9 @@ on:
     branches: ["main"]
   workflow_dispatch:
   schedule:
-    - cron: "*/10 * * * *"
+    # Hourly is enough to pick up new WordPress articles; every run costs a
+    # WordPress fetch plus one request per post back to the live site.
+    - cron: "0 * * * *"
 
 permissions:
   contents: read
