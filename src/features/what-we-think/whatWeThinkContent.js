@@ -1,7 +1,7 @@
-import {localizedModule} from "../i18n/locale.js";
-import {whatWeThinkConfig} from "../../features/what-we-think/whatWeThink.config.js";
+import {localizedModule} from "../../shared/i18n/locale.js";
+import {whatWeThinkConfig} from "./whatWeThink.config.js";
 import {fetchWordPressPosts} from "../../integrations/wordpress/client/wordpressBlog.js";
-import {mergeRecord} from "./utils.js";
+import {mergeRecord} from "../../shared/content/utils.js";
 
 function buildWhatWeThinkPage(content, config = {}) {
   return {

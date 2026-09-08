@@ -1,4 +1,4 @@
-import {getArchivesPage} from "../../shared/content/whatWeThinkContent.js";
+import {getArchivesPage} from "../what-we-think/whatWeThinkContent.js";
 import {customerInsight} from "./archives.assets.js";
 import {crossFunctional} from "./archives.assets.js";
 import {decisionVelocity} from "./archives.assets.js";

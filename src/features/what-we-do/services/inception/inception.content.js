@@ -1,4 +1,4 @@
-import {getServicePage} from "../../../../shared/content/serviceContent.js";
+import {getServicePage} from "../serviceContent.js";
 
 const page = getServicePage("inception");
 

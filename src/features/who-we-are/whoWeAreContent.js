@@ -1,6 +1,6 @@
-import {localizedModule} from "../i18n/locale.js";
-import {whoWeAreConfig} from "../../features/who-we-are/whoWeAre.config.js";
-import {mergeArrayById} from "./utils.js";
+import {localizedModule} from "../../shared/i18n/locale.js";
+import {whoWeAreConfig} from "./whoWeAre.config.js";
+import {mergeArrayById} from "../../shared/content/utils.js";
 
 function buildWhoWeArePage(content, config = {}) {
   return {

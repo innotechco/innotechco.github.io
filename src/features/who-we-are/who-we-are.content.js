@@ -1,4 +1,4 @@
-import {getWhoWeArePage} from "../../shared/content/whoWeAreContent.js";
+import {getWhoWeArePage} from "./whoWeAreContent.js";
 
 export const whoWeAreContent = getWhoWeArePage();
 export const whoWeAreImages = whoWeAreContent.images;

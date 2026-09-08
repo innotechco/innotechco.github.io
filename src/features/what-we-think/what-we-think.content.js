@@ -1,3 +1,3 @@
-import {getWhatWeThinkPage} from "../../shared/content/whatWeThinkContent.js";
+import {getWhatWeThinkPage} from "./whatWeThinkContent.js";
 
 export const {cards} = getWhatWeThinkPage();

@@ -1,9 +1,9 @@
-import {localizedModule} from "../i18n/locale.js";
-import {serviceConfig} from "../../features/what-we-do/services/services.config.js";
-import {fetchJsonFromApi, mergeArrayById} from "./utils.js";
+import {localizedModule} from "../../../shared/i18n/locale.js";
+import {serviceConfig} from "./services.config.js";
+import {fetchJsonFromApi, mergeArrayById} from "../../../shared/content/utils.js";
 
-const modules = import.meta.glob("../../content/{en,ar,tr}/services/*.json", {eager: true, import: "default"});
-const serviceContent = Object.fromEntries(["inception", "infinity", "insight"].map((slug) => [slug, localizedModule(modules, `../../content/en/services/${slug}.json`)]));
+const modules = import.meta.glob("../../../content/{en,ar,tr}/services/*.json", {eager: true, import: "default"});
+const serviceContent = Object.fromEntries(["inception", "infinity", "insight"].map((slug) => [slug, localizedModule(modules, `../../../content/en/services/${slug}.json`)]));
 
 function buildServicePage(content, config = {}) {
   return {

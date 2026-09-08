@@ -1,4 +1,4 @@
-import {getIndustryPage} from "../../../../shared/content/industryContent.js";
+import {getIndustryPage} from "../industryContent.js";
 
 export const {
   slug,

@@ -850,3 +850,27 @@ test("every locale carries the same content keys", () => {
     }
   }
 });
+
+test("shared and integrations stay free of feature imports", () => {
+  /* shared/ and integrations/ are the leaves of the dependency graph: features
+     depend on them, never the other way round. The content builders used to
+     live in shared/ and import their feature's config, which meant pulling in
+     one content module dragged a whole feature along with it. They now sit
+     beside the config they merge. */
+  const leafRoots = ["shared", "integrations"];
+
+  for (const leaf of leafRoots) {
+    for (const file of walk(path.join(srcRoot, leaf))) {
+      if (!/\.(js|jsx)$/.test(file)) continue;
+
+      const source = fs.readFileSync(file, "utf8");
+      for (const [, specifier] of source.matchAll(/from\s+"([^"]+)"/g)) {
+        assert.ok(
+          !specifier.includes("features/"),
+          `${path.relative(root, file)} imports ${specifier} - ` +
+            `src/${leaf} must not depend on src/features`,
+        );
+      }
+    }
+  }
+});

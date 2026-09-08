@@ -43,6 +43,15 @@ Features follow a consistent shape: `Feature.jsx` for the component,
 `@shared`, `@content` and `@integrations` are defined in both `vite.config.js`
 and `jsconfig.json`.
 
+**`shared/` and `integrations/` are leaves.** Features depend on them; they
+never import from `src/features/`. A test enforces this. Each feature owns the
+module that merges its JSON copy with its config - for example
+`features/what-we-do/industries/industryContent.js` sits next to
+`industries.config.js` - so importing one feature's content does not drag
+another feature's assets into the bundle. Only genuinely generic helpers
+(`utils.js`, `cardSummary.js`, `blogSections.js`, `articleContent.js`) live in
+`shared/content/`.
+
 ## Content and locales
 
 Page copy lives in `src/content/<locale>/` and is loaded with

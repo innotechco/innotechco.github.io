@@ -2,7 +2,7 @@ import {useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 
 import {useTheme} from "../../../app/providers/theme/useTheme.js";
-import {fetchPartnerPage} from "../../../shared/content/partnerContent.js";
+import {fetchPartnerPage} from "./partnerContent.js";
 import {t} from "../../../shared/i18n/ui.js";
 import PartnerHeroSection from "./shared/sections/PartnerHeroSection.jsx";
 import PartnerIntroSection from "./shared/sections/PartnerIntroSection.jsx";
