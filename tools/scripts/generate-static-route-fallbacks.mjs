@@ -168,6 +168,26 @@ function stripHtml(value) {
   return collapse(String(value ?? "").replace(/<[^>]*>/g, ""));
 }
 
+/* Partner pages are a :slug route, so they need an entry each just like the
+   article pages do - without this every partner 404s on a direct link. The
+   slugs come from the content tree rather than a second hand-kept list. */
+function getPartners() {
+  const partnersRoot = path.join(contentRoot, "partners");
+  if (!fs.existsSync(partnersRoot)) return [];
+
+  return fs
+    .readdirSync(partnersRoot, {withFileTypes: true})
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => {
+      const content = readContent(path.join("partners", entry.name, `${entry.name}.json`));
+      return {
+        route: `what-we-do/partners/${entry.name}`,
+        title: content?.name ?? entry.name,
+        description: collapse(content?.intro?.description ?? content?.hero?.tagline ?? ""),
+      };
+    });
+}
+
 async function getArticles() {
   if (!blogEnabled) return [];
 
@@ -197,15 +217,18 @@ if (!fs.existsSync(indexPath)) {
 
 const html = fs.readFileSync(indexPath, "utf8");
 const metadata = buildRouteMetadata();
-const articles = await getArticles();
 
-for (const article of articles) {
-  if (article.title) {
-    metadata.set(article.route, {title: article.title, description: article.description});
+/* Every :slug route in App.jsx needs a generator here, or those pages 404 on
+   a direct link while working fine through client-side navigation. */
+const generated = [...getPartners(), ...(await getArticles())];
+
+for (const page of generated) {
+  if (page.title) {
+    metadata.set(page.route, {title: page.title, description: page.description});
   }
 }
 
-const routes = [...staticRoutes, ...articles.map(({route}) => route)];
+const routes = [...staticRoutes, ...generated.map(({route}) => route)];
 
 for (const route of routes) {
   const meta = metadata.get(route);
