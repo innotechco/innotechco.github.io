@@ -77,6 +77,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Guards the route/prerender and metadata contracts the deploy depends on:
+      # a missing static route silently 404s in production, so catch it here.
+      - name: Test
+        run: npm test
+
+      - name: Lint
+        run: npm run lint
+
       - name: Build
         env:
           # Organization/user sites are served from /; project sites are served
