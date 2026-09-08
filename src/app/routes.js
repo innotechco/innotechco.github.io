@@ -1,6 +1,6 @@
 export const routes = {
   home: "/",
-  inlearnAcademy: "/inlearn-academy",
+  inlearnAcademy: "/inlearn",
   archives: "/archives",
   whatWeThink: "/what-we-think",
   whoWeAre: "/who-we-are",

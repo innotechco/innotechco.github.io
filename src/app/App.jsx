@@ -38,8 +38,8 @@ function lazyWithRetry(importer, name) {
 
 const Home = lazyWithRetry(() => import("../features/home/Home.jsx"), "home");
 const InlearnAcademy = lazyWithRetry(
-  () => import("../features/inlearn-academy/InlearnAcademy.jsx"),
-  "inlearn-academy",
+  () => import("../features/inlearn/InlearnAcademy.jsx"),
+  "inlearn",
 );
 const Archives = lazyWithRetry(
   () => import("../features/archives/Archives.jsx"),
@@ -306,6 +306,7 @@ function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [contactActionId, setContactActionId] = useState("default");
   const {pathname} = useLocation();
+  const isInlearnRoute = pathname === routes.inlearnAcademy || pathname.startsWith(`${routes.inlearnAcademy}/`);
   const footerTopSpacing =
     pathname === routes.whatWeThink
       ? "mt-0"
@@ -313,7 +314,6 @@ function App() {
           ...serviceRoutes,
           ...industryRoutes,
           routes.featuredArticle,
-          routes.inlearnAcademy,
           routes.archives,
           routes.whoWeAre,
         ].includes(pathname)
@@ -338,11 +338,11 @@ function App() {
         <SearchHighlightManager />
         <RouteLoadingOverlay />
         {isLanguageLoading ? <div className="fixed inset-0 z-[250] bg-[#050505]"><LoadingMark fullScreen={false} /></div> : null}
-        <Navbar />
+        {isInlearnRoute ? null : <Navbar />}
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path={routes.home} element={<Home />} />
-            <Route path={routes.inlearnAcademy} element={<InlearnAcademy />} />
+            <Route path={`${routes.inlearnAcademy}/*`} element={<InlearnAcademy />} />
             <Route path={routes.archives} element={<Archives />} />
             <Route path={routes.article} element={<ArticlePage />} />
             <Route path={routes.partner} element={<PartnerPage />} />
@@ -365,10 +365,12 @@ function App() {
             />
           </Routes>
         </Suspense>
-        <Footer
-          onContactClick={() => openContact("default")}
-          topSpacingClassName={footerTopSpacing}
-        />
+        {isInlearnRoute ? null : (
+          <Footer
+            onContactClick={() => openContact("default")}
+            topSpacingClassName={footerTopSpacing}
+          />
+        )}
         <ContactModal
           isOpen={isContactOpen}
           onClose={() => setIsContactOpen(false)}
