@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useRef, useState} from "react";
 import {useTheme} from "../../../app/providers/theme/useTheme.js";
 import {useLanguage} from "../../../app/providers/language/useLanguage.js";
-import {searchItems} from "./navData.js";
+import {loadSearchItems, rankSearchResults} from "./searchIndex.js";
 import NavbarMainBar from "./navbar/NavbarMainBar.jsx";
 import {MobileMenuPanel, SearchPanel, WhatWeDoPanel} from "./navbar/NavbarPanels.jsx";
 function Navbar() {
@@ -14,67 +14,11 @@ function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const navRef = useRef(null);
   const inputRef = useRef(null);
-  const searchResults = useMemo(() => {
-    const normalizeSearchValue = (value) =>
-      String(value)
-        .trim()
-        .toLowerCase()
-        .replace(/&/g, " and ")
-        .replace(/[^\p{L}\p{N}]+/gu, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-    const normalizedQuery = searchQuery
-      ? normalizeSearchValue(searchQuery)
-      : "";
-    const queryTokens = normalizedQuery
-      .split(" ")
-      .filter((token) => token && token !== "and");
-    const typePriority = {
-      Industry: 0,
-      Service: 1,
-      Partner: 2,
-      Article: 3,
-      Page: 4,
-    };
-
-    if (queryTokens.length === 0) return [];
-
-    return searchItems
-      .map((item) => {
-        const matchedPart = item.searchParts?.find((part) => {
-          const normalizedPart = normalizeSearchValue(part);
-
-          return queryTokens.every((token) => normalizedPart.includes(token));
-        });
-
-        if (!matchedPart) return null;
-
-        const normalizedTitle = normalizeSearchValue(item.title);
-        const titleTokensMatch = queryTokens.every((token) =>
-          normalizedTitle.includes(token),
-        );
-
-        return {
-          ...item,
-          matchText: matchedPart,
-          rank:
-            normalizedTitle === normalizedQuery
-              ? 0
-              : normalizedTitle.includes(normalizedQuery) || titleTokensMatch
-                ? 1
-                : 2,
-          typeRank: typePriority[item.type] ?? 9,
-        };
-      })
-      .filter(Boolean)
-      .sort(
-        (a, b) =>
-          a.rank - b.rank ||
-          a.typeRank - b.typeRank ||
-          a.title.localeCompare(b.title),
-      )
-      .slice(0, 10);
-  }, [searchQuery]);
+  const [searchItems, setSearchItems] = useState([]);
+  const searchResults = useMemo(
+    () => rankSearchResults(searchItems, searchQuery),
+    [searchItems, searchQuery],
+  );
 
   const closePanels = () => {
     setIsDropdownOpen(false);
@@ -96,6 +40,22 @@ function Navbar() {
 
   useEffect(() => {
     if (isSearchOpen) inputRef.current?.focus();
+  }, [isSearchOpen]);
+
+  /* The index is a few hundred KB of content JSON, so it is fetched the first
+     time the panel opens rather than on first paint. loadSearchItems() caches
+     its own promise, so reopening the panel costs nothing. */
+  useEffect(() => {
+    if (!isSearchOpen) return undefined;
+
+    let isCancelled = false;
+    loadSearchItems().then((items) => {
+      if (!isCancelled) setSearchItems(items);
+    });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [isSearchOpen]);
 
   const togglePanel = (panel) => {
