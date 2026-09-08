@@ -25,29 +25,19 @@ export function HomeContentProvider({children}) {
   });
   /* Edited by the CEO under WordPress > INNOTECH Home. */
   const [hero, setHero] = useState(null);
-  /* Sections must not paint the bundled hero copy and then swap it for the
-     CMS one a moment later, so they wait on this instead. Nothing to wait for
-     when the CMS is off. */
-  const [heroStatus, setHeroStatus] = useState(() =>
-    isHomeHeroEnabled() ? "loading" : "ready",
-  );
-
   useEffect(() => {
-    /* Nothing to fetch with the CMS off, and the initial status is already
-       "ready", so there is no state to correct here. */
     if (!isHomeHeroEnabled()) return undefined;
 
     const controller = new AbortController();
 
+    /* Merged in when it arrives rather than waited on: it only overrides the
+       fields that were filled in, so there is nothing to hold the hero back
+       for. Missing endpoint and blank fields both resolve to null. */
     fetchWordPressHomeHero(locale, {signal: controller.signal})
       .then((remoteHero) => {
         if (remoteHero) setHero(remoteHero);
-        setHeroStatus("ready");
       })
-      .catch((error) => {
-        if (error?.name === "AbortError") return;
-        setHeroStatus("error");
-      });
+      .catch(() => {});
 
     return () => controller.abort();
   }, [locale]);
@@ -100,9 +90,8 @@ export function HomeContentProvider({children}) {
          Sections backed by WordPress render a skeleton while loading and only
          fall back to the bundled copy on "error". */
       postsStatus,
-      heroStatus,
     };
-  }, [hero, heroStatus, posts, postsStatus, state]);
+  }, [hero, posts, postsStatus, state]);
 
   return (
     <HomeContentContext.Provider value={value}>
