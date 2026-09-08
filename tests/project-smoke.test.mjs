@@ -722,9 +722,14 @@ test("Gotham uses the local BrandBook font family", () => {
   assert.match(css, /@import "\.\/styles\/fonts\.css"/);
   assert.doesNotMatch(css, /fonts\.cdnfonts\.com/);
   assert.match(fontCss, /@font-face/);
-  assert.match(fontCss, /Gotham-Book\.otf/);
-  assert.match(fontCss, /Gotham-Bold\.otf/);
-  assert.equal(fs.readdirSync(fontDirectory).filter((file) => file.endsWith(".otf")).length, 16);
+  assert.match(fontCss, /Gotham-Book\.woff2/);
+  assert.match(fontCss, /Gotham-Bold\.woff2/);
+  /* Upright weights only - the italic faces are unused and were removed. */
+  assert.doesNotMatch(fontCss, /font-style:\s*italic/);
+  /* WOFF2 only: the unconverted OTFs were roughly four times the size. */
+  const fontFiles = fs.readdirSync(fontDirectory);
+  assert.equal(fontFiles.filter((file) => file.endsWith(".woff2")).length, 8);
+  assert.equal(fontFiles.filter((file) => file.endsWith(".otf")).length, 0);
 });
 
 test("GitHub Pages deployment supports organization and project site URLs", () => {
