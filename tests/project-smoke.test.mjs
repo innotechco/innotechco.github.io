@@ -682,6 +682,9 @@ test("non-critical content images use native lazy loading", () => {
     path.join(srcRoot, "shared", "components", "layout", "navbar", "NavbarMainBar.jsx"),
     path.join(srcRoot, "features", "home", "sections", "hero", "HeroSection.jsx"),
     path.join(srcRoot, "features", "inlearn", "InlearnAcademy.jsx"),
+    /* INLEARN's own navbar, exempt for the same reason as the site navbar:
+       its icons are above the fold on every page of the module. */
+    path.join(srcRoot, "features", "inlearn", "components", "InlearnNavbar.jsx"),
     path.join(
       srcRoot,
       "features",
