@@ -779,10 +779,26 @@ test("every route App renders is prerendered by the Pages fallback script", () =
 
   assert.ok(rendered.length > 10, "failed to parse routes out of App.jsx");
 
+  /* A :slug route cannot be listed literally, but it still needs a generator
+     in the script or every one of its pages 404s on a direct link - which is
+     exactly how all 13 partner pages were broken. Each dynamic route family
+     must have a function that enumerates it. */
+  const generators = {"/articles/:slug": "getArticles", "/what-we-do/partners/:slug": "getPartners"};
+
   for (const route of rendered) {
-    /* "/" is dist/index.html itself, and :slug routes are generated from
-       WordPress at build time. */
-    if (route === "/" || route.includes(":")) continue;
+    if (route === "/") continue;
+
+    if (route.includes(":")) {
+      const generator = generators[route];
+      assert.ok(generator, `${route} is a dynamic route with no known generator`);
+      assert.match(
+        script,
+        new RegExp(`function ${generator}\\b`),
+        `${route} needs ${generator}() in the prerender script or its pages 404`,
+      );
+      continue;
+    }
+
     assert.ok(
       prerendered.has(route),
       `${route} is rendered by App.jsx but not prerendered, so it 404s on GitHub Pages`,
