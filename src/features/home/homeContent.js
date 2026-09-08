@@ -1,8 +1,8 @@
-import {localizedModule} from "../i18n/locale.js";
-import {homeConfig} from "../../features/home/home.config.js";
+import {localizedModule} from "../../shared/i18n/locale.js";
+import {homeConfig} from "./home.config.js";
 import {normalizeHomeContent} from "../../integrations/wordpress/adapters/normalizeHomeContent.js";
 import {fetchWordPressHomePage} from "../../integrations/wordpress/client/wordpressClient.js";
-import {mergeArrayById} from "./utils.js";
+import {mergeArrayById} from "../../shared/content/utils.js";
 
 function restoreRemoteImages(contentCards = [], mergedCards = []) {
   const cardsById = new Map(contentCards.map((card) => [card.id, card]));
