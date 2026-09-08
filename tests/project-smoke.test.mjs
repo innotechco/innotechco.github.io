@@ -748,3 +748,37 @@ test("GitHub Pages deployment supports organization and project site URLs", () =
   assert.match(workflow, /enablement:\s*true/);
   assert.doesNotMatch(workflow, /gh api/);
 });
+
+test("every route App renders is prerendered by the Pages fallback script", () => {
+  const app = fs.readFileSync(path.join(srcRoot, "app", "App.jsx"), "utf8");
+  const script = fs.readFileSync(
+    path.join(root, "tools", "scripts", "generate-static-route-fallbacks.mjs"),
+    "utf8",
+  );
+
+  const staticRouteList = script.slice(
+    script.indexOf("const staticRoutes = ["),
+    script.indexOf("];"),
+  );
+  const prerendered = new Set(
+    [...staticRouteList.matchAll(/"([^"]+)"/g)].map(([, route]) => `/${route}`),
+  );
+
+  /* App.jsx is the source of truth for what actually resolves: routes.js also
+     holds base paths like /articles that no <Route> renders. */
+  const rendered = [...app.matchAll(/<Route\s+path=\{`?routes\.(\w+)/g)].map(
+    ([, key]) => routes[key],
+  );
+
+  assert.ok(rendered.length > 10, "failed to parse routes out of App.jsx");
+
+  for (const route of rendered) {
+    /* "/" is dist/index.html itself, and :slug routes are generated from
+       WordPress at build time. */
+    if (route === "/" || route.includes(":")) continue;
+    assert.ok(
+      prerendered.has(route),
+      `${route} is rendered by App.jsx but not prerendered, so it 404s on GitHub Pages`,
+    );
+  }
+});
