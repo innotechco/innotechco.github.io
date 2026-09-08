@@ -816,3 +816,37 @@ test("index.html carries the tags the prerender script rewrites per route", () =
     );
   }
 });
+
+test("every locale carries the same content keys", () => {
+  const contentRoot = path.join(srcRoot, "content");
+  const englishRoot = path.join(contentRoot, "en");
+
+  /* A key present in en but missing in ar or tr renders as a blank section for
+     that locale, which is easy to miss when adding copy. Arrays are compared by
+     presence rather than length: translated lists may legitimately differ. */
+  const keysOf = (value, prefix = "") => {
+    if (!value || typeof value !== "object" || Array.isArray(value)) return [];
+    return Object.keys(value).flatMap((key) => [
+      prefix + key,
+      ...keysOf(value[key], `${prefix + key}.`),
+    ]);
+  };
+
+  const englishFiles = walk(englishRoot).filter((file) => file.endsWith(".json"));
+  assert.ok(englishFiles.length > 20, "expected the English content tree to be populated");
+
+  for (const englishFile of englishFiles) {
+    const relative = path.relative(englishRoot, englishFile);
+    const englishKeys = new Set(keysOf(JSON.parse(fs.readFileSync(englishFile, "utf8"))));
+
+    for (const locale of ["ar", "tr"]) {
+      const localeFile = path.join(contentRoot, locale, relative);
+      assert.ok(fs.existsSync(localeFile), `${locale}/${relative} is missing`);
+
+      const localeKeys = new Set(keysOf(JSON.parse(fs.readFileSync(localeFile, "utf8"))));
+      const missing = [...englishKeys].filter((key) => !localeKeys.has(key));
+
+      assert.deepEqual(missing, [], `${locale}/${relative} is missing keys`);
+    }
+  }
+});

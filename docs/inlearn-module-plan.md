@@ -144,7 +144,7 @@ src/features/inlearn/
 - [ ] رنگ/فونت/اسپیسینگ دقیق (بعد از ریست Figma MCP)
 - [ ] مشخصات درگاه پرداخت
 - [ ] منبع محتوای دوره‌ها در WordPress (post type / فیلدها) — آیا قرارداد
-      `WORDPRESS_CMS_CONTRACT.md` باید گسترش پیدا کند؟
+      `docs/wordpress/cms-contract.md` باید گسترش پیدا کند؟
 - [ ] در فریم لاگین کلمه‌ی **Store** دیده می‌شود و در نوبار سایت هم آیتم
       **INSIGHT Store** هست. آیا صفحات سبد خرید/فروشگاه مربوط به INSIGHT Store
       است یا همه زیر INLEARN؟

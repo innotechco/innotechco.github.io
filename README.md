@@ -1,35 +1,87 @@
-# React + Vite
+# innotech.global
 
-## Deploying to GitHub Pages
+Marketing site for Innotech, built with React 19, Vite and Tailwind 4.
+Single-page app in English, Arabic and Turkish, deployed as a static site to
+GitHub Pages, with article content pulled from a headless WordPress install.
 
-The GitHub Actions workflow in `.github/workflows/deploy-pages.yml` builds and
-deploys the site after each push to `main`. Because this repository is named
-`innotechco.github.io`, it is an organization site and is built for the root URL:
-https://innotechco.github.io/.
+## Running it
 
-One-time GitHub setup:
+```bash
+npm install
+npm run dev
+```
 
-1. Push the workflow to `main` or run **Deploy to GitHub Pages** manually. The
-   workflow requests Pages enablement when the site does not exist yet.
-2. Open **Settings → Pages** in `innotechco/innotechco.github.io`, set **Source**
-   to **GitHub Actions**, and then re-run the workflow. GitHub does not allow the
-   workflow's built-in token to change this repository setting.
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Vite dev server |
+| `npm run build` | Production build into `dist/` |
+| `npm run preview` | Serve the built `dist/` locally |
+| `npm test` | Smoke tests (`node --test`) |
+| `npm run lint` | ESLint |
 
-The base path is calculated per repository. The organization site uses `/`,
-while a project site such as `IconicCerberrus/InnoTech-Website` uses
-`/InnoTech-Website/`; deploying one does not replace or redirect the other.
+`npm test` and `npm run lint` both run in CI before every deploy.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Layout
 
-Currently, two official plugins are available:
+```
+src/
+  app/            Entry point, routes, and the theme/language/contact providers
+  features/       One directory per page or section of the site
+  shared/         Layout, reusable components, hooks, i18n, brand assets
+  content/        Page copy as JSON, one tree per locale (en, ar, tr)
+  integrations/   WordPress client and adapters, form delivery
+  styles/         Global CSS imported from src/index.css
+tools/
+  scripts/        Build-time scripts
+  wordpress/      WordPress import tooling and the article-fields plugin
+docs/             Project documentation
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Features follow a consistent shape: `Feature.jsx` for the component,
+`feature.content.js` for copy, `feature.assets.js` for images, and
+`feature.config.js` for anything structural. Path aliases `@app`, `@features`,
+`@shared`, `@content` and `@integrations` are defined in both `vite.config.js`
+and `jsconfig.json`.
 
-## React Compiler
+## Content and locales
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Page copy lives in `src/content/<locale>/` and is loaded with
+`import.meta.glob`. All three locales carry identical key shapes - a test
+enforces this - so adding a key means adding it to `en`, `ar` and `tr`.
 
-## Expanding the ESLint configuration
+Locale is stored in `localStorage` under `innotech-language`, and switching it
+reloads the page, so locale is resolved once at module load. Arabic sets
+`dir="rtl"` on the document.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Article content is fetched from WordPress at runtime, falling back to the
+bundled JSON when the CMS is unavailable. See
+[docs/wordpress/cms-contract.md](docs/wordpress/cms-contract.md) for the shape
+the CMS is expected to return.
+
+## Environment
+
+Copy `.env.example` to `.env.local`. The `VITE_CMS_*` variables control the
+WordPress integration; with `VITE_CMS_ENABLED=false` the site runs entirely on
+bundled content.
+
+## Deploying
+
+`.github/workflows/deploy-pages.yml` builds and deploys to GitHub Pages on push
+to `main`, and hourly on a schedule that only deploys when WordPress has
+articles the live site does not yet serve.
+
+Because the site is a single-page app on static hosting, every route needs a
+real file or a direct link to it returns 404.
+`tools/scripts/generate-static-route-fallbacks.mjs` handles that: it writes an
+`index.html` for each route, gives each one its own title and meta tags, and
+generates `sitemap.xml` and `404.html`. **A new page needs its route added to
+that script's `staticRoutes` list** - a test fails if you forget.
+
+The base path is computed per repository: the organization site
+`innotechco.github.io` builds for `/`, while a project site such as
+`IconicCerberrus/InnoTech-Website` builds for `/InnoTech-Website/`, so
+deploying one does not affect the other.
+
+One-time setup for a fresh Pages site: run the workflow once, then set
+**Settings → Pages → Source** to **GitHub Actions** and re-run it. The
+workflow's token cannot change that setting itself.

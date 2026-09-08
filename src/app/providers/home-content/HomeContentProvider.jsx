@@ -3,7 +3,7 @@ import {useEffect, useMemo, useState} from "react";
 import {useLanguage} from "../language/useLanguage.js";
 import {HomeContentContext} from "./home-content-context.js";
 import {fetchHomePage} from "../../../shared/content/homeContent.js";
-import {getHomePage} from "../../../shared/content/contentApi.js";
+import {getHomePage} from "../../../shared/content/homeContent.js";
 import {
   buildLatestNewsFromPost,
   buildLiveInsightCards,
