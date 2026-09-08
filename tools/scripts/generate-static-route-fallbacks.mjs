@@ -4,6 +4,7 @@ import path from "node:path";
 const distRoot = path.resolve("dist");
 const indexPath = path.join(distRoot, "index.html");
 const cmsBaseUrl = process.env.VITE_CMS_BASE_URL || "https://blog.innotech.global";
+const siteBaseUrl = (process.env.SITE_BASE_URL || "https://innotech.global").replace(/\/+$/, "");
 const blogEnabled = process.env.VITE_CMS_ENABLED === "true" &&
   process.env.VITE_CMS_BLOG_ENABLED !== "false";
 
@@ -26,6 +27,27 @@ function writeRouteIndex(route, html) {
   const directory = path.join(distRoot, route);
   fs.mkdirSync(directory, {recursive: true});
   fs.writeFileSync(path.join(directory, "index.html"), html);
+}
+
+/* public/robots.txt advertises this file, so it is built from the same route
+   list that produces the static entries - the two cannot drift apart. */
+function writeSitemap(routes) {
+  const lastmod = new Date().toISOString().slice(0, 10);
+  const urls = ["", ...routes].map((route) => {
+    const loc = new URL(route ? `/${route}/` : "/", `${siteBaseUrl}/`).toString();
+    return `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${lastmod}</lastmod>
+  </url>`;
+  });
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join("\n")}
+</urlset>
+`;
+
+  fs.writeFileSync(path.join(distRoot, "sitemap.xml"), sitemap);
 }
 
 async function getArticleRoutes() {
@@ -56,5 +78,6 @@ const routes = [...staticRoutes, ...(await getArticleRoutes())];
 
 routes.forEach((route) => writeRouteIndex(route, html));
 fs.writeFileSync(path.join(distRoot, "404.html"), html);
+writeSitemap(routes);
 
-console.log(`Generated ${routes.length} static route fallbacks.`);
+console.log(`Generated ${routes.length} static route fallbacks and sitemap.xml.`);
