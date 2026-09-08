@@ -52,13 +52,12 @@ function buildRouteMetadata() {
   const rfp = heroOf("rfp.json");
   add("request-for-proposal", rfp.title, rfp.description);
 
-  const inlearn = readContent("pages/inlearn-academy.json") ?? {};
-  add("inlearn", inlearn.title && `INLEARN Academy - ${inlearn.title}`);
-
-  /* These two pages are card grids with no hero block of their own, so their
-     titles come from the navigation labels the site already shows. */
+  /* These pages are card grids or self-contained modules with no hero block of
+     their own, so their titles come from the navigation labels the site already
+     shows. */
   const navTitle = (index) => navigation.searchItems?.[index]?.title;
   add("what-we-think", navTitle(2));
+  add("inlearn", navTitle(3));
   add("archives", "Archives");
 
   for (const item of navigation.serviceMenuItems ?? []) {

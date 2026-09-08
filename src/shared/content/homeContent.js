@@ -75,8 +75,3 @@ export async function fetchHomePage(locale, {signal} = {}) {
     preferContentImages: true,
   });
 }
-
-export function getInlearnAcademyPage() {
-  const modules = import.meta.glob("../../content/{en,ar,tr}/pages/**/*.json", {eager: true, import: "default"});
-  return localizedModule(modules, "../../content/en/pages/inlearn-academy.json");
-}
