@@ -10,6 +10,10 @@ function PartnerHeroSection({assets, content, isDarkMode}) {
   return (
     <section className="relative z-20 px-6 pb-20 pt-36 md:px-16 md:pb-24 md:pt-40 xl:px-[120px]">
       <div className="mx-auto flex w-full max-w-[760px] flex-col items-center gap-8 text-center">
+        {/* The logo is the visual heading, so the page had no <h1> at all.
+            This gives it one for search engines and screen readers without
+            changing the design. */}
+        <h1 className="sr-only">{content.name}</h1>
         <img
           loading="lazy"
           src={assets.logo}

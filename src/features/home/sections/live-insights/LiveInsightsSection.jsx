@@ -5,6 +5,8 @@ import {useTheme} from "../../../../app/providers/theme/useTheme.js";
 import {routes} from "../../../../app/routes.js";
 import {usePointerGlow} from "../../../../shared/hooks/usePointerGlow.js";
 import {useHomeContent} from "../../../../app/providers/home-content/useHomeContent.js";
+import ContentSkeleton, {SkeletonStatus} from "../../../../shared/components/ui/ContentSkeleton.jsx";
+import {t} from "../../../../shared/i18n/ui.js";
 import {getArticlePath} from "../../../../shared/content/blogSections.js";
 
 function MobileInsightCard({insight, isDarkMode}) {
@@ -59,9 +61,12 @@ function MobileInsightCard({insight, isDarkMode}) {
 
 function LiveInsightsSection() {
   const {isDarkMode} = useTheme();
-  const {content} = useHomeContent();
+  const {content, postsStatus} = useHomeContent();
   const liveInsights = content.liveInsights;
   const [featuredInsight, topInsight, bottomInsight] = liveInsights.cards;
+  /* These cards come from WordPress. Painting the bundled placeholders first
+     and swapping them a moment later is the flash this avoids. */
+  const isLoadingPosts = postsStatus === "loading";
 
   const {position: pos1, handlers: glow1} = usePointerGlow();
   const {position: pos2, handlers: glow2} = usePointerGlow();
@@ -86,114 +91,55 @@ function LiveInsightsSection() {
           </div>
         </div>
 
-        {/* CONTENT section */}
-        <div className="min-[1400px]:hidden">
-          <ResponsiveCarousel
-            ariaLabel={liveInsights.title}
-            isDarkMode={isDarkMode}
-          >
-            {liveInsights.cards.map((insight) => (
-              <MobileInsightCard
-                key={insight.title}
-                insight={insight}
-                isDarkMode={isDarkMode}
-              />
-            ))}
-          </ResponsiveCarousel>
-        </div>
-
-        <div className="relative hidden items-start gap-11 min-[1400px]:flex">
-          {/* LEFT BIG CARD with its own neon glow */}
-          <div className="relative">
-            {/* Neon glow behind left card */}
-            <div
-              className="pointer-events-none absolute transition-opacity duration-300"
-              style={{
-                left: 0,
-                top: 0,
-                width: "542px",
-                height: "702px",
-                opacity: pos1.active ? 1 : 0,
-                background: `
-                  radial-gradient(
-                    600px circle at ${pos1.x}px ${pos1.y}px,
-                    rgba(55, 180, 120, 0.7),
-                    transparent 75%
-                  )
-                `,
-                filter: "blur(20px)",
-                borderRadius: "50px",
-                zIndex: 0,
-              }}
-            />
-
-            <div
-              className={`w-[542px] h-[702px] rounded-[50px] border border-[#37B478] overflow-hidden flex flex-col transition-colors duration-500 ease-in-out relative z-10 ${
-                isDarkMode ? "bg-black" : "bg-white"
-              }`}
-              {...glow1}
+        {isLoadingPosts ? (
+          <>
+            <SkeletonStatus label={t("loading")} />
+            {/* Mirrors the card layout below so nothing shifts once the posts
+                arrive: one card on mobile, three across on desktop. */}
+            <div className="min-[1400px]:hidden">
+              <ContentSkeleton className="h-[420px] w-full" isDarkMode={isDarkMode} rounded="rounded-[32px]" />
+            </div>
+            <div className="hidden items-start gap-11 min-[1400px]:flex">
+              <ContentSkeleton className="h-[560px] w-[640px] shrink-0" isDarkMode={isDarkMode} rounded="rounded-[40px]" />
+              <div className="flex flex-1 flex-col gap-11">
+                <ContentSkeleton className="h-[258px] w-full" isDarkMode={isDarkMode} rounded="rounded-[40px]" />
+                <ContentSkeleton className="h-[258px] w-full" isDarkMode={isDarkMode} rounded="rounded-[40px]" />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+          {/* CONTENT section */}
+          <div className="min-[1400px]:hidden">
+            <ResponsiveCarousel
+              ariaLabel={liveInsights.title}
+              isDarkMode={isDarkMode}
             >
-              <img loading="lazy"
-                src={featuredInsight.image}
-                alt={featuredInsight.imageAlt}
-                className="h-80 w-full shrink-0 object-cover"
-              />
-
-              <div className="flex min-h-0 w-[500px] flex-1 flex-col justify-center gap-3 overflow-hidden px-10 py-7">
-                <div
-                  className={`article-card-title text-3xl font-['Gotham'] leading-[1.25] font-medium transition-colors duration-500 ease-in-out ${
-                    isDarkMode ? "text-white" : "text-black"
-                  }`}
-                >
-                  {featuredInsight.title}
-                </div>
-
-                <div className="inline-flex items-center gap-8">
-                  <div
-                    className={`text-base font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
-                      isDarkMode ? "text-white" : "text-black"
-                    }`}
-                  >
-                    {featuredInsight.date}
-                  </div>
-                  <div className="text-[#37B478] text-base font-['Gotham']">
-                    {featuredInsight.readTime}
-                  </div>
-                </div>
-
-                <div
-                  className={`article-card-summary text-base font-['Gotham'] leading-[1.45] transition-colors duration-500 ease-in-out ${
-                    isDarkMode ? "text-white" : "text-black"
-                  }`}
-                >
-                  {featuredInsight.description}
-                </div>
-
-                <ReadMoreLink
-                  to={getArticlePath(featuredInsight.slug)}
+              {liveInsights.cards.map((insight) => (
+                <MobileInsightCard
+                  key={insight.title}
+                  insight={insight}
                   isDarkMode={isDarkMode}
-                  className="article-card-footer"
                 />
-              </div>
-            </div>
+              ))}
+            </ResponsiveCarousel>
           </div>
 
-          {/* RIGHT SIDE */}
-          <div className="grid h-[702px] flex-1 grid-rows-2 gap-8">
-            {/* CARD 1 (right - top) with its own neon glow */}
-            <div className="relative min-h-0">
-              {/* Neon glow behind right card 1 */}
+          <div className="relative hidden items-start gap-11 min-[1400px]:flex">
+            {/* LEFT BIG CARD with its own neon glow */}
+            <div className="relative">
+              {/* Neon glow behind left card */}
               <div
                 className="pointer-events-none absolute transition-opacity duration-300"
                 style={{
                   left: 0,
                   top: 0,
-                  width: "100%",
-                  height: "100%",
-                  opacity: pos2.active ? 1 : 0,
+                  width: "542px",
+                  height: "702px",
+                  opacity: pos1.active ? 1 : 0,
                   background: `
                     radial-gradient(
-                      600px circle at ${pos2.x}px ${pos2.y}px,
+                      600px circle at ${pos1.x}px ${pos1.y}px,
                       rgba(55, 180, 120, 0.7),
                       transparent 75%
                     )
@@ -205,46 +151,49 @@ function LiveInsightsSection() {
               />
 
               <div
-                className={`w-full h-full rounded-[50px] border border-[#37B478] overflow-hidden flex items-center transition-colors duration-500 ease-in-out relative z-10 ${
+                className={`w-[542px] h-[702px] rounded-[50px] border border-[#37B478] overflow-hidden flex flex-col transition-colors duration-500 ease-in-out relative z-10 ${
                   isDarkMode ? "bg-black" : "bg-white"
                 }`}
-                {...glow2}
+                {...glow1}
               >
                 <img loading="lazy"
-                  src={topInsight.image}
-                  alt={topInsight.imageAlt}
-                  className="h-full w-[45%] shrink-0 object-cover"
+                  src={featuredInsight.image}
+                  alt={featuredInsight.imageAlt}
+                  className="h-80 w-full shrink-0 object-cover"
                 />
-                <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center gap-2 self-stretch overflow-hidden px-5 py-4">
+
+                <div className="flex min-h-0 w-[500px] flex-1 flex-col justify-center gap-3 overflow-hidden px-10 py-7">
                   <div
-                    className={`article-card-title whitespace-pre-line text-3xl font-medium font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
+                    className={`article-card-title text-3xl font-['Gotham'] leading-[1.25] font-medium transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >
-                    {topInsight.title}
+                    {featuredInsight.title}
                   </div>
-                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+
+                  <div className="inline-flex items-center gap-8">
                     <div
-                      className={`text-sm font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
+                      className={`text-base font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
                         isDarkMode ? "text-white" : "text-black"
                       }`}
                     >
-                      {topInsight.date}
+                      {featuredInsight.date}
                     </div>
-                    <div className="text-sm font-['Gotham'] text-[#37B478]">
-                      {topInsight.readTime}
+                    <div className="text-[#37B478] text-base font-['Gotham']">
+                      {featuredInsight.readTime}
                     </div>
                   </div>
+
                   <div
-                    className={`article-card-summary text-sm font-['Gotham'] leading-[1.35] font-extralight transition-colors duration-500 ease-in-out ${
+                    className={`article-card-summary text-base font-['Gotham'] leading-[1.45] transition-colors duration-500 ease-in-out ${
                       isDarkMode ? "text-white" : "text-black"
                     }`}
                   >
-                    {topInsight.description}
+                    {featuredInsight.description}
                   </div>
 
                   <ReadMoreLink
-                    to={getArticlePath(topInsight.slug)}
+                    to={getArticlePath(featuredInsight.slug)}
                     isDarkMode={isDarkMode}
                     className="article-card-footer"
                   />
@@ -252,79 +201,155 @@ function LiveInsightsSection() {
               </div>
             </div>
 
-            {/* CARD 2 (right - bottom) with its own neon glow */}
-            <div className="relative min-h-0">
-              {/* Neon glow behind right card 2 */}
-              <div
-                className="pointer-events-none absolute transition-opacity duration-300"
-                style={{
-                  left: 0,
-                  top: 0,
-                  width: "100%",
-                  height: "100%",
-                  opacity: pos3.active ? 1 : 0,
-                  background: `
-                    radial-gradient(
-                      600px circle at ${pos3.x}px ${pos3.y}px,
-                      rgba(55, 180, 120, 0.7),
-                      transparent 75%
-                    )
-                  `,
-                  filter: "blur(20px)",
-                  borderRadius: "50px",
-                  zIndex: 0,
-                }}
-              />
-
-              <div
-                className={`w-full h-full rounded-[50px] border border-[#37B478] overflow-hidden flex items-center transition-colors duration-500 ease-in-out relative z-10 ${
-                  isDarkMode ? "bg-black" : "bg-white"
-                }`}
-                {...glow3}
-              >
-                <img loading="lazy"
-                  src={bottomInsight.image}
-                  alt={bottomInsight.imageAlt}
-                  className="h-full w-[45%] shrink-0 object-cover"
+            {/* RIGHT SIDE */}
+            <div className="grid h-[702px] flex-1 grid-rows-2 gap-8">
+              {/* CARD 1 (right - top) with its own neon glow */}
+              <div className="relative min-h-0">
+                {/* Neon glow behind right card 1 */}
+                <div
+                  className="pointer-events-none absolute transition-opacity duration-300"
+                  style={{
+                    left: 0,
+                    top: 0,
+                    width: "100%",
+                    height: "100%",
+                    opacity: pos2.active ? 1 : 0,
+                    background: `
+                      radial-gradient(
+                        600px circle at ${pos2.x}px ${pos2.y}px,
+                        rgba(55, 180, 120, 0.7),
+                        transparent 75%
+                      )
+                    `,
+                    filter: "blur(20px)",
+                    borderRadius: "50px",
+                    zIndex: 0,
+                  }}
                 />
-                <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center gap-2 self-stretch overflow-hidden px-5 py-4">
-                  <div
-                    className={`article-card-title text-3xl font-medium font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
-                      isDarkMode ? "text-white" : "text-black"
-                    }`}
-                  >
-                    {bottomInsight.title}
-                  </div>
-                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+
+                <div
+                  className={`w-full h-full rounded-[50px] border border-[#37B478] overflow-hidden flex items-center transition-colors duration-500 ease-in-out relative z-10 ${
+                    isDarkMode ? "bg-black" : "bg-white"
+                  }`}
+                  {...glow2}
+                >
+                  <img loading="lazy"
+                    src={topInsight.image}
+                    alt={topInsight.imageAlt}
+                    className="h-full w-[45%] shrink-0 object-cover"
+                  />
+                  <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center gap-2 self-stretch overflow-hidden px-5 py-4">
                     <div
-                      className={`text-sm font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
+                      className={`article-card-title whitespace-pre-line text-3xl font-medium font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
                         isDarkMode ? "text-white" : "text-black"
                       }`}
                     >
-                      {bottomInsight.date}
+                      {topInsight.title}
                     </div>
-                    <div className="text-sm font-['Gotham'] text-[#37B478]">
-                      {bottomInsight.readTime}
+                    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+                      <div
+                        className={`text-sm font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
+                          isDarkMode ? "text-white" : "text-black"
+                        }`}
+                      >
+                        {topInsight.date}
+                      </div>
+                      <div className="text-sm font-['Gotham'] text-[#37B478]">
+                        {topInsight.readTime}
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    className={`article-card-summary text-sm font-['Gotham'] leading-[1.35] transition-colors duration-500 ease-in-out ${
-                      isDarkMode ? "text-white" : "text-black"
-                    }`}
-                  >
-                    {bottomInsight.description}
-                  </div>
+                    <div
+                      className={`article-card-summary text-sm font-['Gotham'] leading-[1.35] font-extralight transition-colors duration-500 ease-in-out ${
+                        isDarkMode ? "text-white" : "text-black"
+                      }`}
+                    >
+                      {topInsight.description}
+                    </div>
 
-                  <ReadMoreLink
-                    to={getArticlePath(bottomInsight.slug)}
-                    isDarkMode={isDarkMode}
-                    className="article-card-footer"
+                    <ReadMoreLink
+                      to={getArticlePath(topInsight.slug)}
+                      isDarkMode={isDarkMode}
+                      className="article-card-footer"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* CARD 2 (right - bottom) with its own neon glow */}
+              <div className="relative min-h-0">
+                {/* Neon glow behind right card 2 */}
+                <div
+                  className="pointer-events-none absolute transition-opacity duration-300"
+                  style={{
+                    left: 0,
+                    top: 0,
+                    width: "100%",
+                    height: "100%",
+                    opacity: pos3.active ? 1 : 0,
+                    background: `
+                      radial-gradient(
+                        600px circle at ${pos3.x}px ${pos3.y}px,
+                        rgba(55, 180, 120, 0.7),
+                        transparent 75%
+                      )
+                    `,
+                    filter: "blur(20px)",
+                    borderRadius: "50px",
+                    zIndex: 0,
+                  }}
+                />
+
+                <div
+                  className={`w-full h-full rounded-[50px] border border-[#37B478] overflow-hidden flex items-center transition-colors duration-500 ease-in-out relative z-10 ${
+                    isDarkMode ? "bg-black" : "bg-white"
+                  }`}
+                  {...glow3}
+                >
+                  <img loading="lazy"
+                    src={bottomInsight.image}
+                    alt={bottomInsight.imageAlt}
+                    className="h-full w-[45%] shrink-0 object-cover"
                   />
+                  <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center gap-2 self-stretch overflow-hidden px-5 py-4">
+                    <div
+                      className={`article-card-title text-3xl font-medium font-['Gotham'] leading-[1.2] transition-colors duration-500 ease-in-out ${
+                        isDarkMode ? "text-white" : "text-black"
+                      }`}
+                    >
+                      {bottomInsight.title}
+                    </div>
+                    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+                      <div
+                        className={`text-sm font-light font-['Gotham'] transition-colors duration-500 ease-in-out ${
+                          isDarkMode ? "text-white" : "text-black"
+                        }`}
+                      >
+                        {bottomInsight.date}
+                      </div>
+                      <div className="text-sm font-['Gotham'] text-[#37B478]">
+                        {bottomInsight.readTime}
+                      </div>
+                    </div>
+                    <div
+                      className={`article-card-summary text-sm font-['Gotham'] leading-[1.35] transition-colors duration-500 ease-in-out ${
+                        isDarkMode ? "text-white" : "text-black"
+                      }`}
+                    >
+                      {bottomInsight.description}
+                    </div>
+
+                    <ReadMoreLink
+                      to={getArticlePath(bottomInsight.slug)}
+                      isDarkMode={isDarkMode}
+                      className="article-card-footer"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          </>
+        )}
 
         {/* CTA button */}
         <div className="flex justify-end">

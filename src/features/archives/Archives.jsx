@@ -18,6 +18,7 @@ import {truncateWords} from "../../shared/content/cardSummary.js";
 import {getArticlePath} from "../../shared/content/blogSections.js";
 import {usePointerGlow} from "../../shared/hooks/usePointerGlow.js";
 import {t} from "../../shared/i18n/ui.js";
+import ContentSkeleton, {SkeletonStatus} from "../../shared/components/ui/ContentSkeleton.jsx";
 
 /* A post usually sits in several categories. With a filter active the pill shows
    the filtered one, so the card never contradicts the selected pill above the grid.
@@ -111,7 +112,7 @@ function Archives() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_CARD_COUNT);
   const [isLoading, setIsLoading] = useState(false);
-  const {posts} = useBlogPosts();
+  const {posts, status: postsStatus} = useBlogPosts();
   const {categories: remoteCategories} = useBlogCategories();
   const tagsRailRef = useRef(null);
   /* The rail is whatever WordPress defines; new categories land at the end. */
@@ -137,6 +138,10 @@ function Archives() {
   }, [items, query, selectedCategory]);
 
   const visibleItems = filteredItems.slice(0, visibleCount);
+  /* The grid is WordPress posts merged with the bundled archive. Showing the
+     bundled half first and prepending the posts a moment later is the flash
+     this avoids; the bundled items stay as the fallback when the fetch fails. */
+  const isLoadingPosts = postsStatus === "loading";
   const canShowMore = visibleCount < filteredItems.length;
 
   function handleSearch(event) {
@@ -213,7 +218,19 @@ function Archives() {
           </div>
         </div>
 
-        {visibleItems.length ? (
+        {isLoadingPosts ? (
+          <section className="archive-grid" aria-label={t("loading")}>
+            <SkeletonStatus label={t("loading")} />
+            {Array.from({length: INITIAL_CARD_COUNT}, (_, index) => (
+              <ContentSkeleton
+                key={index}
+                className="h-[360px] w-full"
+                isDarkMode={isDarkMode}
+                rounded="rounded-[24px]"
+              />
+            ))}
+          </section>
+        ) : visibleItems.length ? (
           <section className="archive-grid" aria-label="Archive articles">
             {visibleItems.map((item) => (
               <ArchiveCard

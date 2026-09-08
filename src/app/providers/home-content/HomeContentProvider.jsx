@@ -2,20 +2,22 @@ import {useEffect, useMemo, useState} from "react";
 
 import {useLanguage} from "../language/useLanguage.js";
 import {HomeContentContext} from "./home-content-context.js";
-import {fetchHomePage} from "../../../features/home/homeContent.js";
-import {getHomePage} from "../../../features/home/homeContent.js";
+import {fetchHomePage, getHomePage} from "../../../features/home/homeContent.js";
 import {
   buildLatestNewsFromPost,
   buildLiveInsightCards,
 } from "../../../shared/content/blogSections.js";
 import {useBlogPosts} from "../../../shared/hooks/useBlogPosts.js";
 import {HOME_LIVE_INSIGHTS_START_INDEX} from "../../../shared/config/articleCards.config.js";
-import {fetchWordPressHomeHero} from "../../../integrations/wordpress/client/wordpressHomeHero.js";
+import {
+  fetchWordPressHomeHero,
+  isHomeHeroEnabled,
+} from "../../../integrations/wordpress/client/wordpressHomeHero.js";
 
 export function HomeContentProvider({children}) {
   const {locale} = useLanguage();
   const fallbackContent = useMemo(() => getHomePage(), []);
-  const {posts} = useBlogPosts();
+  const {posts, status: postsStatus} = useBlogPosts();
   const [state, setState] = useState({
     content: fallbackContent,
     source: "local",
@@ -23,15 +25,29 @@ export function HomeContentProvider({children}) {
   });
   /* Edited by the CEO under WordPress > INNOTECH Home. */
   const [hero, setHero] = useState(null);
+  /* Sections must not paint the bundled hero copy and then swap it for the
+     CMS one a moment later, so they wait on this instead. Nothing to wait for
+     when the CMS is off. */
+  const [heroStatus, setHeroStatus] = useState(() =>
+    isHomeHeroEnabled() ? "loading" : "ready",
+  );
 
   useEffect(() => {
+    /* Nothing to fetch with the CMS off, and the initial status is already
+       "ready", so there is no state to correct here. */
+    if (!isHomeHeroEnabled()) return undefined;
+
     const controller = new AbortController();
 
     fetchWordPressHomeHero(locale, {signal: controller.signal})
       .then((remoteHero) => {
         if (remoteHero) setHero(remoteHero);
+        setHeroStatus("ready");
       })
-      .catch(() => {});
+      .catch((error) => {
+        if (error?.name === "AbortError") return;
+        setHeroStatus("error");
+      });
 
     return () => controller.abort();
   }, [locale]);
@@ -61,8 +77,6 @@ export function HomeContentProvider({children}) {
   }, [fallbackContent, locale]);
 
   const value = useMemo(() => {
-    if (!posts.length && !hero) return state;
-
     const content = {...state.content};
 
     /* Only filled-in fields are returned, so a blank field keeps the current text. */
@@ -79,8 +93,16 @@ export function HomeContentProvider({children}) {
       };
     }
 
-    return {...state, content};
-  }, [hero, posts, state]);
+    return {
+      ...state,
+      content,
+      /* "loading" | "ready" | "error" - see useBlogPosts for what each means.
+         Sections backed by WordPress render a skeleton while loading and only
+         fall back to the bundled copy on "error". */
+      postsStatus,
+      heroStatus,
+    };
+  }, [hero, heroStatus, posts, postsStatus, state]);
 
   return (
     <HomeContentContext.Provider value={value}>
