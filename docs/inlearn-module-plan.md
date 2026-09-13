@@ -1,7 +1,19 @@
 # INLEARN Academy — نقشه‌ی پیاده‌سازی ماژول جدید
 
+> ⚠️ **این سند یک طرح است، نه توصیف وضعیت فعلی. ماژول on hold است.**
+>
+> چیزی که واقعاً در `src/features/inlearn/` وجود دارد:
+> `InlearnAcademy.jsx` + کامپوننت‌های `InlearnNavbar` / `InlearnHero` /
+> `InlearnFooter` / `AuthSidebar` / `InnotechLogo` + `data/inlearnContent.js`
+> + `services/authService.js`. در `src/app/routes.js` فقط `routes.inlearnAcademy`
+> (`/inlearn`) ثبت شده است.
+>
+> یعنی `pages/`، `dashboard/`، `Basket.jsx`، `services/basket.js`،
+> `services/payment.js` و هشت مسیر دیگرِ بخش ۶ هنوز ساخته نشده‌اند. تا وقتی این
+> بنر اینجاست، بخش‌های ۵ تا ۷ را به‌عنوان برنامه بخوان، نه به‌عنوان نقشه‌ی کد.
+
 منبع طراحی: فایل فیگمای جدید `iRlWLRFBCOwa4eqALV3kgO` (Untitled → Page 1)
-وضعیت: تأیید نیازمندی‌ها انجام شد — آماده‌ی شروع کدنویسی
+وضعیت: تأیید نیازمندی‌ها انجام شد — کدنویسی شروع شد و سپس متوقف شد
 
 ---
 
