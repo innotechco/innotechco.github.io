@@ -33,30 +33,36 @@ const footerTextLinkClassName =
 const footerIconClassName =
   "flex size-8 items-center justify-center rounded-full text-current transition-transform duration-300 hover:scale-110 active:scale-95 lg:size-10";
 
-const Footer = ({onContactClick, topSpacingClassName = ""}) => {
+/* "curved" paints the footer with a full-width ellipse and lays the rows over
+   it - that is the shape the innotech.global pages use. INLEARN asked for a
+   plain rectangle instead, so "flat" drops the ellipse, lets the section itself
+   carry the colour, and puts the rows in normal flow. Everything inside the
+   rows - links, icons, wording - is shared by both. */
+const Footer = ({onContactClick, topSpacingClassName = "", variant = "curved"}) => {
   const {isDarkMode} = useTheme();
   const [activeLegalType, setActiveLegalType] = useState(null);
   const isLightMode = !isDarkMode;
+  const isFlat = variant === "flat";
 
   const textColor = isLightMode ? "text-white" : "text-black";
   const greenButtonTextColor = isDarkMode ? "text-black" : "text-white";
+  /* Curved: the ellipse is the visible footer, so the section behind it takes
+     the opposite colour. Flat: the section IS the footer. */
+  const surfaceColor = isFlat
+    ? isLightMode ? "bg-black" : "bg-white"
+    : isLightMode ? "bg-white" : "bg-black";
+  /* The curved rows are spaced as a share of the width because the ellipse
+     scales with it; a rectangle has no such anchor, so it takes fixed spacing. */
+  const topRowSpacing = isFlat
+    ? "pt-10 lg:pt-[52px]"
+    : "pt-[6%] lg:pt-[8%]";
+  const bottomRowSpacing = isFlat
+    ? "pb-10 lg:pb-[70px]"
+    : "pb-5 sm:pb-6 lg:pb-14";
 
-  return (
-    <section dir="ltr"
-      className={`relative w-full overflow-hidden ${topSpacingClassName} ${
-        isLightMode ? "bg-white" : "bg-black"
-      }`}
-    >
-      <div className="relative w-full">
-        <img
-          loading="lazy"
-          src={isLightMode ? FooterSVGDark : FooterSVG}
-          className="w-full h-auto"
-          alt="footer"
-        />
-
-        <div className="absolute inset-0 z-10 flex flex-col justify-between">
-          <div className="flex items-start justify-between px-6 pt-[6%] sm:px-10 lg:px-[125px] lg:pt-[8%]">
+  const rows = (
+    <>
+          <div className={`flex items-start justify-between px-6 sm:px-10 lg:px-[125px] ${topRowSpacing}`}>
             <img
               loading="lazy"
               src={isLightMode ? FooterInnoTechDark : FooterInnoTech}
@@ -72,7 +78,7 @@ const Footer = ({onContactClick, topSpacingClassName = ""}) => {
             </button>
           </div>
 
-          <div className="flex items-end justify-between px-6 pb-5 sm:px-10 sm:pb-6 lg:px-[125px] lg:pb-14">
+          <div className={`flex items-end justify-between px-6 sm:px-10 lg:px-[125px] ${bottomRowSpacing}`}>
             <div className={`footer-legal-links grid max-w-[58%] grid-cols-2 place-items-center gap-x-4 gap-y-2 sm:max-w-[54%] sm:gap-x-6 md:max-w-none md:grid-cols-4 md:gap-x-4 md:gap-y-0 lg:gap-x-5 xl:gap-x-6 2xl:gap-x-8 ${textColor}`}>
               {legalLinks.map((item) => (
                 <button
@@ -114,8 +120,31 @@ const Footer = ({onContactClick, topSpacingClassName = ""}) => {
               </a>
             </div>
           </div>
+    </>
+  );
+
+  return (
+    <section dir="ltr"
+      className={`relative w-full overflow-hidden ${topSpacingClassName} ${surfaceColor}`}
+    >
+      {isFlat ? (
+        <div className="flex min-h-[260px] flex-col justify-between lg:min-h-[340px]">
+          {rows}
         </div>
-      </div>
+      ) : (
+        <div className="relative w-full">
+          <img
+            loading="lazy"
+            src={isLightMode ? FooterSVGDark : FooterSVG}
+            className="w-full h-auto"
+            alt="footer"
+          />
+
+          <div className="absolute inset-0 z-10 flex flex-col justify-between">
+            {rows}
+          </div>
+        </div>
+      )}
 
       <LegalModal type={activeLegalType} onClose={() => setActiveLegalType(null)} />
     </section>

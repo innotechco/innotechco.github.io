@@ -14,6 +14,15 @@ import ScrollToTop from "../shared/components/layout/ScrollToTop.jsx";
 
 import {industryRoutes, serviceRoutes, routes} from "./routes.js";
 
+/* INLEARN owns everything under its route, and several things - the navbar, the
+   footer shape, the loading curtain - key off that. */
+function isInlearnPath(pathname) {
+  return (
+    pathname === routes.inlearnAcademy ||
+    pathname.startsWith(`${routes.inlearnAcademy}/`)
+  );
+}
+
 function lazyWithRetry(importer, name) {
   return lazy(async () => {
     try {
@@ -128,6 +137,11 @@ function RouteLoadingOverlay() {
   const location = useLocation();
   const isFirstRender = useRef(true);
   const [isVisible, setIsVisible] = useState(false);
+  /* INLEARN moves between its own pages constantly - basket, courses, dashboard -
+     and a full-screen curtain on every one of those reads as the site hanging
+     rather than loading. Crossing between INLEARN and innotech.global is a real
+     jump between two looks, so that one keeps the curtain. */
+  const previousPathname = useRef(location.pathname);
 
   useEffect(() => {
     const handleInternalLinkClick = (event) => {
@@ -152,8 +166,11 @@ function RouteLoadingOverlay() {
         targetUrl.pathname === currentUrl.pathname &&
         targetUrl.search === currentUrl.search &&
         targetUrl.hash;
+      /* Hopping between two INLEARN pages is not worth a curtain. */
+      const insideInlearn =
+        isInlearnPath(currentUrl.pathname) && isInlearnPath(targetUrl.pathname);
 
-      if (targetUrl.origin === currentUrl.origin && !isSamePage) {
+      if (targetUrl.origin === currentUrl.origin && !isSamePage && !insideInlearn) {
         setIsVisible(true);
       }
     };
@@ -164,6 +181,10 @@ function RouteLoadingOverlay() {
   }, []);
 
   useEffect(() => {
+    const cameFromInlearn = isInlearnPath(previousPathname.current);
+    previousPathname.current = location.pathname;
+    if (cameFromInlearn && isInlearnPath(location.pathname)) return undefined;
+
     let timeoutId;
     let isCancelled = false;
 
@@ -306,9 +327,9 @@ function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [contactActionId, setContactActionId] = useState("default");
   const {pathname} = useLocation();
-  const isInlearnRoute = pathname === routes.inlearnAcademy || pathname.startsWith(`${routes.inlearnAcademy}/`);
+  const isInlearnRoute = isInlearnPath(pathname);
   const footerTopSpacing =
-    pathname === routes.whatWeThink
+    isInlearnRoute || pathname === routes.whatWeThink
       ? "mt-0"
       : [
           ...serviceRoutes,
@@ -365,12 +386,13 @@ function App() {
             />
           </Routes>
         </Suspense>
-        {isInlearnRoute ? null : (
-          <Footer
-            onContactClick={() => openContact("default")}
-            topSpacingClassName={footerTopSpacing}
-          />
-        )}
+        {/* INLEARN keeps its own navbar but shares the site footer, as a plain
+            rectangle rather than the curved shape the other pages use. */}
+        <Footer
+          onContactClick={() => openContact("default")}
+          topSpacingClassName={footerTopSpacing}
+          variant={isInlearnRoute ? "flat" : "curved"}
+        />
         <ContactModal
           isOpen={isContactOpen}
           onClose={() => setIsContactOpen(false)}
