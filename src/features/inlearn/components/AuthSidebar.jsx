@@ -7,6 +7,14 @@ import {inlearnCopy} from "../data/inlearnContent.js";
 import {signInWithEmail, signInWithProvider} from "../services/authService.js";
 import InnotechLogo from "./InnotechLogo.jsx";
 
+/* All three show in both tabs; only the verb changes, because on the Register
+   tab these create an account rather than sign into an existing one. */
+const authProviders = [
+  {id: "google", label: "Google", icon: googleIcon},
+  {id: "apple", label: "Apple", icon: appleIcon},
+  {id: "linkedin", label: "LinkedIn", icon: linkedinIcon},
+];
+
 function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
   const [email, setEmail] = useState("");
   const [remember, setRemember] = useState(true);
@@ -109,35 +117,18 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
           <span />
         </div>
 
-        <button
-          type="button"
-          className="inlearn-social"
-          tabIndex={isOpen ? 0 : -1}
-          onClick={() => handleSocialSignIn("google")}
-        >
-          <img src={googleIcon} alt="" loading="lazy" />
-          Sign in with Google
-        </button>
-        <button
-          type="button"
-          className="inlearn-social"
-          tabIndex={isOpen ? 0 : -1}
-          onClick={() => handleSocialSignIn("linkedin")}
-        >
-          <img src={linkedinIcon} alt="" loading="lazy" />
-          Sign in with LinkedIn
-        </button>
-        {isLogin ? null : (
+        {authProviders.map((provider) => (
           <button
+            key={provider.id}
             type="button"
             className="inlearn-social"
             tabIndex={isOpen ? 0 : -1}
-            onClick={() => handleSocialSignIn("apple")}
+            onClick={() => handleSocialSignIn(provider.id)}
           >
-            <img src={appleIcon} alt="" loading="lazy" />
-            Sign in with Apple
+            <img src={provider.icon} alt="" loading="lazy" />
+            {isLogin ? "Log in" : "Sign up"} with {provider.label}
           </button>
-        )}
+        ))}
         <p className="inlearn-auth-status" aria-live="polite">
           {status}
         </p>
