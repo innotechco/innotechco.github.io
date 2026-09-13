@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import appleIcon from "../assets/apple.svg";
 import googleIcon from "../assets/google.svg";
 import linkedinIcon from "../../../shared/assets/icons/linkedin-dark.svg";
+import {countryNames} from "../data/countries.js";
 import {inlearnCopy} from "../data/inlearnContent.js";
 import {
   completeProviderSignIn,
@@ -23,10 +24,6 @@ const authProviders = [
   {id: "apple", label: "Apple", icon: appleIcon},
   {id: "linkedin", label: "LinkedIn", icon: linkedinIcon},
 ];
-
-/* Must match the Region values on Strapi's User model exactly, or the
-   enumeration rejects them. */
-const regionOptions = ["GCC", "Turkey", "Global"];
 
 const emptyForm = {name: "", email: "", phone: "", region: "", password: ""};
 
@@ -177,7 +174,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
             {isLogin ? null : (
               <InlearnSelect
                 value={form.region}
-                options={regionOptions}
+                options={countryNames}
                 placeholder="Region"
                 tabIndex={isOpen ? 0 : -1}
                 onChange={(region) => setForm((current) => ({...current, region}))}

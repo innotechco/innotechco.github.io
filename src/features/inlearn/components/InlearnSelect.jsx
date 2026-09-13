@@ -1,15 +1,38 @@
-import {useEffect, useId, useRef, useState} from "react";
+import {useEffect, useId, useMemo, useRef, useState} from "react";
 
 /* A native <select> cannot be themed once it is open: the operating system
    draws that list, not the page, so it arrives in system type on a white box no
    matter what the CSS says. This is a button and a list instead - ordinary
    elements that take the site's styling - with the keyboard behaviour a select
-   would have given us for free put back by hand. */
+   would have given us for free put back by hand.
+
+   Past a couple of dozen options a plain list stops being usable, so anything
+   longer gets a search box. */
+const SEARCH_THRESHOLD = 12;
+
 function InlearnSelect({value, options, placeholder, onChange, tabIndex = 0}) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [query, setQuery] = useState("");
   const rootRef = useRef(null);
+  const searchRef = useRef(null);
   const listId = useId();
+  const hasSearch = options.length > SEARCH_THRESHOLD;
+
+  const visible = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return options;
+    /* Matches that start with what was typed come first: typing "ir" should
+       reach Iran before Ireland rather than burying it mid-list. */
+    const starts = [];
+    const contains = [];
+    for (const option of options) {
+      const haystack = option.toLowerCase();
+      if (haystack.startsWith(needle)) starts.push(option);
+      else if (haystack.includes(needle)) contains.push(option);
+    }
+    return [...starts, ...contains];
+  }, [options, query]);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -17,24 +40,36 @@ function InlearnSelect({value, options, placeholder, onChange, tabIndex = 0}) {
       if (!rootRef.current?.contains(event.target)) setIsOpen(false);
     };
     document.addEventListener("mousedown", handlePointerDown);
-    return () => document.removeEventListener("mousedown", handlePointerDown);
-  }, [isOpen]);
+    const focusId = hasSearch
+      ? window.setTimeout(() => searchRef.current?.focus(), 40)
+      : undefined;
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      window.clearTimeout(focusId);
+    };
+  }, [isOpen, hasSearch]);
+
+  const close = () => {
+    setIsOpen(false);
+    setQuery("");
+    setActiveIndex(-1);
+  };
 
   const choose = (option) => {
     onChange(option);
-    setIsOpen(false);
+    close();
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
-      setIsOpen(false);
+      close();
       return;
     }
 
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === "Enter") {
       event.preventDefault();
-      if (isOpen && activeIndex >= 0) choose(options[activeIndex]);
-      else setIsOpen(true);
+      if (isOpen && activeIndex >= 0 && visible[activeIndex]) choose(visible[activeIndex]);
+      else if (!isOpen) setIsOpen(true);
       return;
     }
 
@@ -48,8 +83,8 @@ function InlearnSelect({value, options, placeholder, onChange, tabIndex = 0}) {
     const step = event.key === "ArrowDown" ? 1 : -1;
     setActiveIndex((current) => {
       const next = current + step;
-      if (next < 0) return options.length - 1;
-      if (next >= options.length) return 0;
+      if (next < 0) return visible.length - 1;
+      if (next >= visible.length) return 0;
       return next;
     });
   };
@@ -63,7 +98,7 @@ function InlearnSelect({value, options, placeholder, onChange, tabIndex = 0}) {
         aria-expanded={isOpen}
         aria-controls={listId}
         tabIndex={tabIndex}
-        onClick={() => setIsOpen((current) => !current)}
+        onClick={() => (isOpen ? close() : setIsOpen(true))}
         onKeyDown={handleKeyDown}
       >
         <span>{value || placeholder}</span>
@@ -73,22 +108,41 @@ function InlearnSelect({value, options, placeholder, onChange, tabIndex = 0}) {
       </button>
 
       {isOpen ? (
-        <ul className="inlearn-select-menu" role="listbox" id={listId} aria-label={placeholder}>
-          {options.map((option, index) => (
-            <li key={option}>
-              <button
-                type="button"
-                role="option"
-                aria-selected={option === value}
-                className={index === activeIndex ? "is-active" : ""}
-                onMouseEnter={() => setActiveIndex(index)}
-                onClick={() => choose(option)}
-              >
-                {option}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div className="inlearn-select-menu">
+          {hasSearch ? (
+            <input
+              ref={searchRef}
+              type="text"
+              className="inlearn-select-search"
+              placeholder={`Search ${placeholder.toLowerCase()}`}
+              value={query}
+              autoComplete="off"
+              onChange={(event) => {
+                setQuery(event.target.value);
+                setActiveIndex(-1);
+              }}
+              onKeyDown={handleKeyDown}
+            />
+          ) : null}
+
+          <ul role="listbox" id={listId} aria-label={placeholder}>
+            {visible.map((option, index) => (
+              <li key={option}>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={option === value}
+                  className={index === activeIndex ? "is-active" : ""}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onClick={() => choose(option)}
+                >
+                  {option}
+                </button>
+              </li>
+            ))}
+            {visible.length === 0 ? <li className="inlearn-select-empty">No matches</li> : null}
+          </ul>
+        </div>
       ) : null}
     </div>
   );

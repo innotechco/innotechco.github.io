@@ -693,15 +693,48 @@
   left: 0;
   right: 0;
   display: grid;
-  gap: 2px;
+  gap: 6px;
   margin: 0;
   padding: 6px;
   border: 1px solid #e4e4e6;
   border-radius: 18px;
   background: #fff;
   box-shadow: 0 18px 34px rgba(0, 0, 0, 0.14);
-  list-style: none;
   animation: inlearn-menu-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.inlearn-select-menu ul {
+  display: grid;
+  gap: 2px;
+  /* Roughly six rows, so the menu never runs off the panel. */
+  max-height: 232px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.inlearn-select-search {
+  width: 100%;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #e4e4e6;
+  border-radius: 12px;
+  background: #f7f7f8;
+  color: #050505;
+  outline: none;
+  font-size: 13px;
+}
+
+.inlearn-select-search:focus {
+  border-color: var(--inlearn-green);
+  background: #fff;
+}
+
+.inlearn-select-empty {
+  padding: 10px 14px;
+  color: var(--inlearn-muted);
+  font-size: 12px;
 }
 
 .inlearn-select-menu button {
