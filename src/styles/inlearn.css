@@ -214,8 +214,8 @@
 
 .inlearn-brand-tip {
   position: absolute;
-  top: calc(100% + 12px);
-  left: 50%;
+  top: calc(100% + -10px);
+  left: 75%;
   padding: 5px 11px;
   border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: 999px;
