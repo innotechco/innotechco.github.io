@@ -13,6 +13,7 @@ import {
 } from "../services/authService.js";
 import {checkEmail, checkPassword, checkRequired, firstProblem} from "../services/formValidation.js";
 import ForgotPasswordDialog from "./ForgotPasswordDialog.jsx";
+import InlearnSelect from "./InlearnSelect.jsx";
 import InnotechLogo from "./InnotechLogo.jsx";
 
 /* All three show in both tabs; only the verb changes, because on the Register
@@ -22,6 +23,10 @@ const authProviders = [
   {id: "apple", label: "Apple", icon: appleIcon},
   {id: "linkedin", label: "LinkedIn", icon: linkedinIcon},
 ];
+
+/* Must match the Region values on Strapi's User model exactly, or the
+   enumeration rejects them. */
+const regionOptions = ["GCC", "Turkey", "Global"];
 
 const emptyForm = {name: "", email: "", phone: "", region: "", password: ""};
 
@@ -170,16 +175,13 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
               />
             )}
             {isLogin ? null : (
-              <select value={form.region} tabIndex={isOpen ? 0 : -1} onChange={setField("region")}>
-                {/* hidden as well as disabled, or the placeholder sits in the
-                    open list looking like a country you could pick */}
-                <option value="" disabled hidden>
-                  Region
-                </option>
-                <option>GCC</option>
-                <option>Turkey</option>
-                <option>Global</option>
-              </select>
+              <InlearnSelect
+                value={form.region}
+                options={regionOptions}
+                placeholder="Region"
+                tabIndex={isOpen ? 0 : -1}
+                onChange={(region) => setForm((current) => ({...current, region}))}
+              />
             )}
             <input
               type="password"
