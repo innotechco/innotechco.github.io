@@ -2,6 +2,7 @@ import {useState} from "react";
 
 import appleIcon from "../assets/apple.svg";
 import googleIcon from "../assets/google.svg";
+import linkedinIcon from "../../../shared/assets/icons/linkedin-dark.svg";
 import {inlearnCopy} from "../data/inlearnContent.js";
 import {signInWithEmail, signInWithProvider} from "../services/authService.js";
 import InnotechLogo from "./InnotechLogo.jsx";
@@ -35,7 +36,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
       <aside className="inlearn-auth-sidebar" data-inlearn-auth>
         <InnotechLogo />
         <div className="inlearn-auth-heading">
-          <h2>{isLogin ? "Welcome back" : "Get started"}</h2>
+          <h2>Get started</h2>
           <p>{inlearnCopy.authIntro}</p>
         </div>
 
@@ -66,7 +67,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
             {isLogin ? null : <input type="text" placeholder="Name" tabIndex={isOpen ? 0 : -1} />}
             <input
               type="email"
-              placeholder="Business Email"
+              placeholder={isLogin ? "Email" : "Business Email"}
               value={email}
               tabIndex={isOpen ? 0 : -1}
               onChange={(event) => setEmail(event.target.value)}
@@ -121,11 +122,22 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
           type="button"
           className="inlearn-social"
           tabIndex={isOpen ? 0 : -1}
-          onClick={() => handleSocialSignIn("apple")}
+          onClick={() => handleSocialSignIn("linkedin")}
         >
-          <img src={appleIcon} alt="" loading="lazy" />
-          Sign in with Apple
+          <img src={linkedinIcon} alt="" loading="lazy" />
+          Sign in with LinkedIn
         </button>
+        {isLogin ? null : (
+          <button
+            type="button"
+            className="inlearn-social"
+            tabIndex={isOpen ? 0 : -1}
+            onClick={() => handleSocialSignIn("apple")}
+          >
+            <img src={appleIcon} alt="" loading="lazy" />
+            Sign in with Apple
+          </button>
+        )}
         <p className="inlearn-auth-status" aria-live="polite">
           {status}
         </p>
