@@ -282,6 +282,25 @@
     transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Signed in there is one name where two buttons and a divider were, so the
+   track list changes with it. The name takes whatever is left and truncates
+   rather than pushing the cart and language out of the pill. */
+.inlearn-nav-links.is-signed-in {
+  grid-template-columns: minmax(0, 1fr) 24px 52px 1px;
+}
+
+.inlearn-nav-account {
+  overflow: hidden;
+  min-width: 0;
+  justify-self: start;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .inlearn-nav.is-searching .inlearn-nav-links {
   opacity: 0;
   pointer-events: none;
