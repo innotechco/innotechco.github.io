@@ -1,11 +1,15 @@
-# INNOTECH — Article Guide for WordPress
+# INNOTECH — WordPress Editor Guide
 
-How to write an article in WordPress so it renders correctly on innotech.global.
+Everything an editor needs to publish an article on innotech.global.
 
-The website places every article inside a fixed layout block. Text and images share
-one column with a straight left edge and a straight right edge. The rules below keep
-your content inside that block. Follow them and the article will always look clean —
-no image sticking out, no squeezed text, no broken spacing.
+All blog content lives in **WordPress Posts** at `https://blog.innotech.global/wp-admin`.
+The website places every article inside a fixed layout block: text and images share one
+column with a straight left edge and a straight right edge. The rules below keep your
+content inside that block. Follow them and the article will always look clean — no image
+sticking out, no squeezed text, no broken spacing.
+
+The one screen that is *not* a Post is the big card at the top of the home page — that
+lives under **INNOTECH Home** in the admin menu. See section 9.
 
 ---
 
@@ -37,21 +41,23 @@ Everything is **16:9 landscape**. Always.
 
 ---
 
-## 2. Creating an article
+## 2. Creating or editing an article
 
-1. Go to `Posts` → `Add New`.
-2. **Title** — the article title. This is the only H1 on the page. Do not repeat it
+1. Open `https://blog.innotech.global/wp-admin` and go to **Posts**.
+2. Edit an existing post, or choose **Add New**.
+3. **Title** — the article title. This is the only H1 on the page. Do not repeat it
    inside the body.
-3. **Content** — the article body. See the block rules in section 3.
-4. **Excerpt** — a short summary. This is what appears on the cards in the archive and
-   on the homepage.
-5. **Featured Image** — 1920 × 1080, see the table above.
-6. **Categories** — select the correct category (this controls where the article
-   appears on the site).
-7. **INNOTECH Article Settings → Read Time** — for example `5 minutes read`.
-8. **INNOTECH Article Settings → Related News** — pick up to three other articles and
-   order them with the arrow buttons.
-9. Click **Publish**.
+4. **Content** — the article body. See the block rules in section 3.
+5. **Excerpt** — a short, unique summary. This is what appears on the cards in the
+   archive and on the homepage.
+6. **Featured Image** — 1920 × 1080, see the table above.
+7. **Categories** — controls where the article appears on the site. See section 4.
+8. **INNOTECH Article Settings → Read Time** — the exact text shown in the hero and on
+   destination cards, for example `5 minutes read`. It is displayed as typed; the
+   website never calculates it for you.
+9. **INNOTECH Article Settings → Related News** — pick up to three other articles and
+   order them with the arrow buttons. See section 6.
+10. Click **Publish** or **Update**.
 
 ---
 
@@ -105,8 +111,9 @@ The article title is already the H1 of the page.
 - **Heading 3** — subsections
 - **Heading 4** — only if you really need a third level
 
-The Table of Contents on the left side of the article page is built from these
-headings. Using H1 inside the body confuses that structure.
+The Table of Contents on the left side of the article page is built automatically from
+these headings. Do not add a manually written Table of Contents block, and do not use
+H1 inside the body — it confuses that structure.
 
 ### 3.5 Never repeat the same heading text
 
@@ -141,9 +148,51 @@ Use the **Table** block. If a table is very wide it scrolls sideways inside its 
 box, so it never widens the page. Keep tables to 4 columns or fewer where you can —
 wide tables are hard to read on a phone.
 
+### 3.10 Images inside the text
+
+The React article page renders WordPress body content directly, so you can insert
+images between paragraphs straight from the editor:
+
+```text
+Add Block > Image
+```
+
+Use captions when useful for SEO and accessibility context.
+
 ---
 
-## 4. Recommended article structure
+## 4. Categories
+
+Use these category slugs:
+
+```text
+what-we-think
+insight
+inception
+infinity
+automotive
+energy-materials
+health
+high-tech
+metals-mining
+ai-agents
+market-research
+digital-transformation
+sustainability
+foresight
+```
+
+Display behaviour:
+
+```text
+What We Think page: posts in the what-we-think category
+Archives page:      every real blog post, excluding uncategorized and what-we-think
+Article page:       opens by the WordPress slug
+```
+
+---
+
+## 5. Recommended article structure
 
 ```text
 Heading 2   — section title
@@ -161,7 +210,19 @@ Two rules of thumb:
 
 ---
 
-## 5. Checklist before publishing
+## 6. Related News
+
+Do not create a `Related News` heading, and do not put Related News links or cards
+inside the Body. Manage this section only from
+**INNOTECH Article Settings → Related News**.
+
+The cards always read their Title, Excerpt, Featured Image, Date, Read Time and link
+from the **selected destination article**. To change what a card says, edit that
+destination article — never copy card text into the source article.
+
+---
+
+## 7. Checklist before publishing
 
 - [ ] Featured Image uploaded, 1920 × 1080, subject centred
 - [ ] All body images 1600 × 900, WebP, under 400 KB
@@ -171,15 +232,18 @@ Two rules of thumb:
 - [ ] List view checked: nothing trapped inside a Gallery block
 - [ ] Headings are H2 / H3, no H1 in the body
 - [ ] No two headings with the same text
-- [ ] Excerpt filled in
+- [ ] Slug is short and readable
+- [ ] Excerpt filled in and unique
 - [ ] Read Time filled in
 - [ ] Category selected
 - [ ] Related News selected and ordered
+- [ ] Internal links added where relevant
 - [ ] Article previewed on a phone
+- [ ] Not a test post
 
 ---
 
-## 6. Quick reference
+## 8. Quick reference
 
 | Question | Answer |
 | --- | --- |
@@ -190,6 +254,21 @@ Two rules of thumb:
 | Can I put text inside a Gallery? | No — never |
 | How do I add a source under a chart? | The Caption field of the Image block |
 | How do I add space between sections? | You do not — the website handles spacing |
+| Who writes the Table of Contents? | The website, from your H2 and H3 blocks |
+| How do I change a Related News card? | Edit the destination article, not this one |
+
+---
+
+## 9. The home page card
+
+The large card at the top of the home page is **not** a Post. Edit it under
+**INNOTECH Home** in the admin menu. It holds three text fields — card title, card
+description and link text — one set per language (English, Arabic, Turkish).
+
+The card has no image of its own. A field left blank keeps whatever the website
+currently shows, so you can fill in one language and leave the others alone. The
+*Read more* link under the card opens a normal article; where it points is set in the
+website code, not here.
 
 ---
 

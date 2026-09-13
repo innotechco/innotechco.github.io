@@ -62,10 +62,14 @@ Locale is stored in `localStorage` under `innotech-language`, and switching it
 reloads the page, so locale is resolved once at module load. Arabic sets
 `dir="rtl"` on the document.
 
-Article content is fetched from WordPress at runtime, falling back to the
-bundled JSON when the CMS is unavailable. See
+Article content is fetched from WordPress at runtime. Sections backed by the CMS
+render a skeleton while the request is in flight and only fall back to the
+bundled JSON if WordPress cannot be reached - the bundled copy is a failure
+fallback, not a first paint. See
 [docs/wordpress/cms-contract.md](docs/wordpress/cms-contract.md) for the shape
-the CMS is expected to return.
+the CMS is expected to return, and
+[docs/wordpress/editor-guide.md](docs/wordpress/editor-guide.md) for what
+editors are told to do on the WordPress side.
 
 ## Environment
 
