@@ -40,6 +40,21 @@
   pointer-events: auto;
 }
 
+/* The zone is the pill's hit area for leaving. It pads out by more than the
+   pill draws in, so the pointer never ends up outside it just because the pill
+   got smaller. The padding only exists while open, so a closed pill leaves no
+   invisible strip sitting over the page. */
+.inlearn-brand-zone {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  padding-right: 0;
+}
+
+.inlearn-brand-zone.is-open {
+  padding-right: 56px;
+}
+
 .inlearn-brand {
   position: relative;
   display: flex;
@@ -54,7 +69,7 @@
   transition: padding 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.inlearn-brand:is(:has(> *:hover), :focus-within) {
+.inlearn-brand.is-open {
   padding: 0 20px;
 }
 
@@ -108,7 +123,7 @@
   mask-image: url("../features/inlearn/assets/innotech-dots.svg");
 }
 
-.inlearn-brand:is(:has(> *:hover), :focus-within) .inlearn-brand-mark-wide {
+.inlearn-brand.is-open .inlearn-brand-mark-wide {
   width: 32px;
 }
 
@@ -134,12 +149,12 @@
   transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
 }
 
-.inlearn-brand:is(:has(> *:hover), :focus-within) .inlearn-brand-divider {
+.inlearn-brand.is-open .inlearn-brand-divider {
   padding-left: 16px;
   opacity: 1;
 }
 
-.inlearn-brand:is(:has(> *:hover), :focus-within) .inlearn-brand-divider::before {
+.inlearn-brand.is-open .inlearn-brand-divider::before {
   transform: scaleY(1);
 }
 
@@ -159,7 +174,7 @@
     opacity 280ms ease;
 }
 
-.inlearn-brand:is(:has(> *:hover), :focus-within) .inlearn-brand-wordmark {
+.inlearn-brand.is-open .inlearn-brand-wordmark {
   max-width: 0;
   padding-left: 0;
   opacity: 0;
@@ -191,7 +206,7 @@
     opacity 320ms ease 140ms;
 }
 
-.inlearn-brand:is(:has(> *:hover), :focus-within) .inlearn-brand-link-innotech {
+.inlearn-brand.is-open .inlearn-brand-link-innotech {
   padding-left: 16px;
   opacity: 1;
   pointer-events: auto;
@@ -220,8 +235,8 @@
 
 /* Only once both marks are side by side - naming a lone INLEARN pill that
    already reads INLEARN would say nothing. */
-.inlearn-brand:is(:has(> *:hover), :focus-within) .inlearn-brand-link:hover .inlearn-brand-tip,
-.inlearn-brand:is(:has(> *:hover), :focus-within) .inlearn-brand-link:focus-visible .inlearn-brand-tip {
+.inlearn-brand.is-open .inlearn-brand-link:hover .inlearn-brand-tip,
+.inlearn-brand.is-open .inlearn-brand-link:focus-visible .inlearn-brand-tip {
   opacity: 1;
   transform: translate(-50%, 0);
 }
@@ -858,7 +873,7 @@
     padding: 0 20px 0 16px;
   }
 
-  .inlearn-brand:is(:has(> *:hover), :focus-within) {
+  .inlearn-brand.is-open {
     padding: 0 16px;
   }
 
@@ -897,7 +912,7 @@
   }
 
   .inlearn-brand,
-  .inlearn-brand:is(:has(> *:hover), :focus-within) {
+  .inlearn-brand.is-open {
     height: 52px;
     padding: 0 13px;
   }
@@ -911,11 +926,11 @@
      INNOTECH mark expand would squeeze it until its own content is clipped.
      Below this width the brand stays a single mark and only opens INLEARN;
      reaching innotech.global on a phone still needs a design decision. */
-  .inlearn-brand:is(:has(> *:hover), :focus-within) .inlearn-brand-mark-wide {
+  .inlearn-brand.is-open .inlearn-brand-mark-wide {
     width: 0;
   }
 
-  .inlearn-brand:is(:has(> *:hover), :focus-within) .inlearn-brand-link-innotech {
+  .inlearn-brand.is-open .inlearn-brand-link-innotech {
     padding-left: 0;
     opacity: 0;
     pointer-events: none;
