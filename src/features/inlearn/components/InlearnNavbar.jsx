@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 
 import {useLanguage} from "../../../app/providers/language/useLanguage.js";
+import InlearnBrand from "./InlearnBrand.jsx";
 import chevronDown from "../assets/chevron-down.svg";
 import searchIcon from "../assets/search.svg";
 import shoppingCart from "../assets/shopping-cart.svg";
@@ -44,12 +45,14 @@ function InlearnNavbar({onAuthOpen}) {
   };
 
   return (
-    <nav
-      ref={navRef}
-      className={`inlearn-nav ${isSearchOpen ? "is-searching" : ""}`}
-      dir="ltr"
-    >
-      <div className="inlearn-nav-content">
+    <div className="inlearn-topbar" dir="ltr">
+      <InlearnBrand />
+
+      <nav
+        ref={navRef}
+        className={`inlearn-nav ${isSearchOpen ? "is-searching" : ""}`}
+      >
+        <div className="inlearn-nav-content">
         <div className="inlearn-nav-links" aria-hidden={isSearchOpen}>
           <button type="button" onClick={() => onAuthOpen("login")}>
             Login
@@ -58,11 +61,9 @@ function InlearnNavbar({onAuthOpen}) {
           <button type="button" onClick={() => onAuthOpen("register")}>
             Register
           </button>
-          <span aria-hidden="true" />
           <Link to="/inlearn/basket" className="inlearn-cart-link" aria-label="Shopping basket">
             <img src={shoppingCart} alt="" loading="lazy" />
           </Link>
-          <span aria-hidden="true" />
           <div className="inlearn-language">
             <button
               type="button"
@@ -119,9 +120,10 @@ function InlearnNavbar({onAuthOpen}) {
             aria-label="Search"
             tabIndex={isSearchOpen ? 0 : -1}
           />
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }
 
