@@ -1,10 +1,18 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import appleIcon from "../assets/apple.svg";
 import googleIcon from "../assets/google.svg";
 import linkedinIcon from "../../../shared/assets/icons/linkedin-dark.svg";
 import {inlearnCopy} from "../data/inlearnContent.js";
-import {signInWithEmail, signInWithProvider} from "../services/authService.js";
+import {
+  completeProviderSignIn,
+  logIn,
+  providerSignInUrl,
+  readProviderCallback,
+  register,
+} from "../services/authService.js";
+import {checkEmail, checkPassword, checkRequired, firstProblem} from "../services/formValidation.js";
+import ForgotPasswordDialog from "./ForgotPasswordDialog.jsx";
 import InnotechLogo from "./InnotechLogo.jsx";
 
 /* All three show in both tabs; only the verb changes, because on the Register
@@ -15,21 +23,81 @@ const authProviders = [
   {id: "linkedin", label: "LinkedIn", icon: linkedinIcon},
 ];
 
-function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
-  const [email, setEmail] = useState("");
+const emptyForm = {name: "", email: "", phone: "", region: "", password: ""};
+
+function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
+  const [form, setForm] = useState(emptyForm);
   const [remember, setRemember] = useState(true);
-  const [status, setStatus] = useState("");
+  const [error, setError] = useState("");
+  const [isBusy, setIsBusy] = useState(false);
+  const [isForgotOpen, setIsForgotOpen] = useState(false);
   const isLogin = mode === "login";
 
-  const handleSubmit = (event) => {
+  const setField = (field) => (event) =>
+    setForm((current) => ({...current, [field]: event.target.value}));
+
+  /* Coming back from a provider: Strapi hands over an access token in the URL,
+     which is traded for a session and then wiped so a reload cannot replay it. */
+  useEffect(() => {
+    const callback = readProviderCallback();
+    if (!callback) return;
+
+    let isActive = true;
+    completeProviderSignIn({...callback, remember: true})
+      .then((session) => {
+        if (isActive) onSignedIn?.(session);
+      })
+      .catch((callbackError) => {
+        if (isActive) setError(callbackError.message);
+      })
+      .finally(() => {
+        window.history.replaceState({}, "", window.location.pathname);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [onSignedIn]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const session = signInWithEmail({email, remember});
-    setStatus(`Signed in as ${session.displayName}`);
+
+    const problem = firstProblem([
+      isLogin ? "" : checkRequired(form.name, "name"),
+      checkEmail(form.email),
+      checkPassword(form.password, {isNew: !isLogin}),
+    ]);
+    if (problem) {
+      setError(problem);
+      return;
+    }
+
+    setError("");
+    setIsBusy(true);
+    try {
+      const session = isLogin
+        ? await logIn({email: form.email, password: form.password, remember})
+        : await register({...form, remember});
+      setForm(emptyForm);
+      onSignedIn?.(session);
+    } catch (submitError) {
+      setError(submitError.message);
+    } finally {
+      setIsBusy(false);
+    }
   };
 
-  const handleSocialSignIn = (provider) => {
-    const session = signInWithProvider(provider);
-    setStatus(`Signed in with ${session.provider}`);
+  /* A full page redirect, not a fetch - the provider needs to show its own
+     consent screen and Strapi holds the half of the exchange we must not ship
+     to the browser. */
+  const handleProviderSignIn = (provider) => {
+    const url = providerSignInUrl(provider);
+    if (!url) {
+      setError("The INLEARN API is not connected yet.");
+      return;
+    }
+    window.sessionStorage.setItem("inlearn-auth-provider", provider);
+    window.location.assign(url);
   };
 
   return (
@@ -70,20 +138,42 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
           </button>
         </div>
 
-        <form className="inlearn-auth-form" onSubmit={handleSubmit}>
+        {/* noValidate: the grey system bubble is replaced by our own line below */}
+        <form className="inlearn-auth-form" noValidate onSubmit={handleSubmit}>
           <div className="inlearn-auth-fields" key={mode}>
-            {isLogin ? null : <input type="text" placeholder="Name" tabIndex={isOpen ? 0 : -1} />}
+            {isLogin ? null : (
+              <input
+                type="text"
+                placeholder="Name"
+                autoComplete="name"
+                value={form.name}
+                tabIndex={isOpen ? 0 : -1}
+                onChange={setField("name")}
+              />
+            )}
             <input
               type="email"
               placeholder={isLogin ? "Email" : "Business Email"}
-              value={email}
+              autoComplete="email"
+              value={form.email}
               tabIndex={isOpen ? 0 : -1}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={setField("email")}
             />
-            {isLogin ? null : <input type="tel" placeholder="Phone" tabIndex={isOpen ? 0 : -1} />}
             {isLogin ? null : (
-              <select defaultValue="" tabIndex={isOpen ? 0 : -1}>
-                <option value="" disabled>
+              <input
+                type="tel"
+                placeholder="Phone"
+                autoComplete="tel"
+                value={form.phone}
+                tabIndex={isOpen ? 0 : -1}
+                onChange={setField("phone")}
+              />
+            )}
+            {isLogin ? null : (
+              <select value={form.region} tabIndex={isOpen ? 0 : -1} onChange={setField("region")}>
+                {/* hidden as well as disabled, or the placeholder sits in the
+                    open list looking like a country you could pick */}
+                <option value="" disabled hidden>
                   Region
                 </option>
                 <option>GCC</option>
@@ -91,7 +181,14 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
                 <option>Global</option>
               </select>
             )}
-            <input type="password" placeholder="Password" tabIndex={isOpen ? 0 : -1} />
+            <input
+              type="password"
+              placeholder="Password"
+              autoComplete={isLogin ? "current-password" : "new-password"}
+              value={form.password}
+              tabIndex={isOpen ? 0 : -1}
+              onChange={setField("password")}
+            />
           </div>
 
           <label className="inlearn-remember">
@@ -103,11 +200,23 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
             />
             <span>Keep me signed in</span>
           </label>
-          <button type="button" className="inlearn-forgot" tabIndex={isOpen ? 0 : -1}>
+          <button
+            type="button"
+            className="inlearn-forgot"
+            tabIndex={isOpen ? 0 : -1}
+            onClick={() => setIsForgotOpen(true)}
+          >
             Forgot password?
           </button>
-          <button type="submit" className="inlearn-submit" tabIndex={isOpen ? 0 : -1}>
-            {isLogin ? "Log in" : "Register"}
+
+          {error ? (
+            <p className="inlearn-auth-error" role="alert">
+              {error}
+            </p>
+          ) : null}
+
+          <button type="submit" className="inlearn-submit" disabled={isBusy} tabIndex={isOpen ? 0 : -1}>
+            {isBusy ? "Please wait…" : isLogin ? "Log in" : "Register"}
           </button>
         </form>
 
@@ -123,16 +232,24 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange}) {
             type="button"
             className="inlearn-social"
             tabIndex={isOpen ? 0 : -1}
-            onClick={() => handleSocialSignIn(provider.id)}
+            onClick={() => handleProviderSignIn(provider.id)}
           >
             <img src={provider.icon} alt="" loading="lazy" />
             {isLogin ? "Log in" : "Sign up"} with {provider.label}
           </button>
         ))}
-        <p className="inlearn-auth-status" aria-live="polite">
-          {status}
-        </p>
       </aside>
+
+      {isForgotOpen ? (
+        <ForgotPasswordDialog
+          initialEmail={form.email}
+          onClose={() => setIsForgotOpen(false)}
+          onSignedIn={(session) => {
+            setIsForgotOpen(false);
+            onSignedIn?.(session);
+          }}
+        />
+      ) : null}
     </div>
   );
 }
