@@ -601,7 +601,13 @@
   margin-top: 20px;
 }
 
+/* The entry animation leaves a transform on this block, and a transform makes
+   a stacking context - so the Region menu's z-index only competes inside here,
+   and the checkbox below it painted on top. Raising the whole block puts the
+   open menu over everything that follows it. */
 .inlearn-auth-fields {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 14px;
   animation: inlearn-fields-in 240ms ease both;
