@@ -35,6 +35,7 @@ function InlearnAcademy() {
         mode={authMode}
         onClose={() => setIsAuthOpen(false)}
         onModeChange={setAuthMode}
+        onSignedIn={() => setIsAuthOpen(false)}
       />
       <section className="inlearn-stage">
         <InlearnHero />
