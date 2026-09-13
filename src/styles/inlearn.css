@@ -709,9 +709,38 @@
   /* Roughly six rows, so the menu never runs off the panel. */
   max-height: 232px;
   margin: 0;
-  padding: 0;
+  /* Room for the bar, so it never sits on the country names. */
+  padding: 0 4px 0 0;
   overflow-y: auto;
   list-style: none;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #d3d3d9 transparent;
+}
+
+/* The system scrollbar arrives wide and dark with stepper arrows, which reads
+   as an operating system control dropped into the panel. Chrome and Safari
+   take these instead; Firefox uses the two properties above. */
+.inlearn-select-menu ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+.inlearn-select-menu ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.inlearn-select-menu ul::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #d3d3d9;
+  transition: background 160ms ease;
+}
+
+.inlearn-select-menu ul::-webkit-scrollbar-thumb:hover {
+  background: #b4b4bc;
+}
+
+.inlearn-select-menu ul::-webkit-scrollbar-button {
+  display: none;
 }
 
 .inlearn-select-search {
