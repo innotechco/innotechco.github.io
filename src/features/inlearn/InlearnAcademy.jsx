@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import AuthSidebar from "./components/AuthSidebar.jsx";
 import InlearnHero from "./components/InlearnHero.jsx";
 import InlearnNavbar from "./components/InlearnNavbar.jsx";
+import InlearnToast from "./components/InlearnToast.jsx";
 import {restoreSession} from "./services/authService.js";
 import {useTheme} from "../../app/providers/theme/useTheme.js";
 import "../../styles/inlearn.css";
@@ -11,6 +12,7 @@ function InlearnAcademy() {
   const [authMode, setAuthMode] = useState("register");
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [session, setSession] = useState(null);
+  const [toast, setToast] = useState("");
   const {isDarkMode, setIsDarkMode} = useTheme();
   const themeOnEntry = useRef(isDarkMode);
 
@@ -50,15 +52,22 @@ function InlearnAcademy() {
 
   return (
     <main className="inlearn-page">
+      <InlearnToast message={toast} onDismiss={() => setToast("")} />
       <InlearnNavbar onAuthOpen={openAuth} session={session} />
       <AuthSidebar
         isOpen={isAuthOpen}
         mode={authMode}
         onClose={() => setIsAuthOpen(false)}
         onModeChange={setAuthMode}
-        onSignedIn={(signedIn) => {
+        onSignedIn={(signedIn, how) => {
           setSession(signedIn);
           setIsAuthOpen(false);
+          const name = signedIn?.displayName ?? "";
+          setToast(
+            how === "register"
+              ? `Your account is ready${name ? `, ${name}` : ""}.`
+              : `Welcome back${name ? `, ${name}` : ""}.`,
+          );
         }}
       />
       <section className="inlearn-stage">

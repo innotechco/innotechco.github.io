@@ -47,7 +47,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
     let isActive = true;
     completeProviderSignIn({...callback, remember: true})
       .then((session) => {
-        if (isActive) onSignedIn?.(session);
+        if (isActive) onSignedIn?.(session, "login");
       })
       .catch((callbackError) => {
         if (isActive) setError(callbackError.message);
@@ -81,7 +81,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
         ? await logIn({email: form.email, password: form.password, remember})
         : await register({...form, remember});
       setForm(emptyForm);
-      onSignedIn?.(session);
+      onSignedIn?.(session, isLogin ? "login" : "register");
     } catch (submitError) {
       setError(submitError.message);
     } finally {
@@ -245,7 +245,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
           onClose={() => setIsForgotOpen(false)}
           onSignedIn={(session) => {
             setIsForgotOpen(false);
-            onSignedIn?.(session);
+            onSignedIn?.(session, "login");
           }}
         />
       ) : null}
