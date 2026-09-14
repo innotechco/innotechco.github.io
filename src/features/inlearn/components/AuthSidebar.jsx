@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import googleIcon from "../assets/google.svg";
 import linkedinIcon from "../../../shared/assets/icons/linkedin-dark.svg";
@@ -10,6 +10,7 @@ import {
   providerSignInUrl,
   readProviderCallback,
   register,
+  rememberProviderIntent,
 } from "../services/authService.js";
 import {
   checkEmail,
@@ -42,7 +43,7 @@ const emptyForm = {
   passwordConfirmation: "",
 };
 
-function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
+function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn, onProviderError}) {
   const [form, setForm] = useState(emptyForm);
   const [remember, setRemember] = useState(true);
   const [error, setError] = useState("");
@@ -66,28 +67,39 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
       phone: region === current.region ? current.phone : "",
     }));
 
-  /* Coming back from a provider: Strapi hands over an access token in the URL,
-     which is traded for a session and then wiped so a reload cannot replay it. */
+  /* Coming back from a provider. Strapi 5.53 returns a clean address and keeps
+     the provider's answer in a session cookie, so the round trip is recognised
+     by the intent stored on the way out rather than by anything in the URL, and
+     one more call trades that cookie for a session here. */
+  const hasHandledProvider = useRef(false);
+
   useEffect(() => {
+    /* Once per visit. The parent rebuilds these callbacks on every render, so
+       this effect is torn down and set up again whenever anything else changes
+       state - and the exchange must not be started a second time, because the
+       first has already spent the cookie.
+
+       There is deliberately no "still mounted" flag around the result. An
+       earlier version had one, and a re-render arriving mid-exchange - the
+       restored session landing, say - flipped it before the answer came back,
+       so a sign-in that had actually succeeded was thrown away. The name then
+       appeared only after a reload, when the stored session was read again. */
+    if (hasHandledProvider.current) return;
+
     const callback = readProviderCallback();
     if (!callback) return;
 
-    let isActive = true;
-    completeProviderSignIn({...callback, remember: true})
-      .then((session) => {
-        if (isActive) onSignedIn?.(session, "login");
-      })
-      .catch((callbackError) => {
-        if (isActive) setError(callbackError.message);
-      })
-      .finally(() => {
-        window.history.replaceState({}, "", window.location.pathname);
-      });
+    hasHandledProvider.current = true;
 
-    return () => {
-      isActive = false;
-    };
-  }, [onSignedIn]);
+    completeProviderSignIn({...callback, remember: true})
+      .then((session) => onSignedIn?.(session, "login"))
+      .catch((callbackError) => {
+        /* Shown rather than swallowed, and the panel is opened to show it: a
+           provider sign-in that fails in silence looks like a dead button. */
+        setError(callbackError.message);
+        onProviderError?.();
+      });
+  }, [onSignedIn, onProviderError]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -133,7 +145,9 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
       setError("The INLEARN API is not connected yet.");
       return;
     }
-    window.sessionStorage.setItem("inlearn-auth-provider", provider);
+    /* Remembered before leaving, because the return carries nothing that says
+       which provider it came from - or that it is a return at all. */
+    rememberProviderIntent(provider);
     window.location.assign(url);
   };
 

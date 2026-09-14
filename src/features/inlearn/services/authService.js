@@ -275,26 +275,69 @@ export function providerSignInUrl(provider) {
   return `${API_URL}/api/connect/${provider}`;
 }
 
-/* Strapi sends the visitor back with ?access_token=...; trading it for a
-   session is the last step of that round trip. */
-export function readProviderCallback(search = window.location.search) {
-  const params = new URLSearchParams(search);
-  const accessToken = params.get("access_token");
-  const provider = params.get("provider") || sessionStorage.getItem("inlearn-auth-provider");
-  return accessToken && provider ? {accessToken, provider} : null;
+/* Strapi 5.53 changed how a provider sign-in comes back.
+   It used to hand the token over in the address bar:
+
+     /inlearn?access_token=ya29...
+
+   Now the address comes back clean and the provider's answer is kept in a
+   session cookie instead, to be traded in by a second call. Reading the URL,
+   which is what this used to do, therefore finds nothing at all - no token, no
+   error, nothing to report - and a sign-in that fails in silence is worse than
+   one that fails loudly.
+
+   Nothing in the URL marks the return, so the intent is remembered before
+   leaving: handleProviderSignIn writes the provider name to sessionStorage,
+   and finding it there on the way back is what says a round trip just
+   finished. */
+const PROVIDER_KEY = "inlearn-auth-provider";
+
+export function rememberProviderIntent(provider) {
+  try {
+    window.sessionStorage.setItem(PROVIDER_KEY, provider);
+  } catch {
+    /* Without storage the return cannot be recognised; the redirect below still
+       happens, and the visitor lands on a page that simply does not sign them
+       in rather than on an error. */
+  }
 }
 
-export async function completeProviderSignIn({provider, accessToken, remember = true}) {
+export function readProviderCallback() {
+  try {
+    const provider = window.sessionStorage.getItem(PROVIDER_KEY);
+    return provider ? {provider} : null;
+  } catch {
+    return null;
+  }
+}
+
+/* Cleared whether the exchange worked or failed: either way this round trip is
+   over, and leaving the marker behind would make the next reload look like a
+   fresh return from the provider. */
+function forgetProviderIntent() {
+  try {
+    window.sessionStorage.removeItem(PROVIDER_KEY);
+  } catch {
+    /* nothing to clean up */
+  }
+}
+
+export async function completeProviderSignIn({provider, remember = true}) {
   if (!API_URL) throw new Error("The INLEARN API is not connected yet.");
 
-  const response = await strapiFetch(
-    `/api/auth/${provider}/callback?access_token=${encodeURIComponent(accessToken)}`,
-  );
-  const payload = await response.json().catch(() => null);
+  try {
+    /* credentials are what make this work: the provider's answer is in a
+       cookie, and without them the browser sends nothing and Strapi reports a
+       session that was never completed. strapiFetch always sends them. */
+    const response = await strapiFetch(`/api/auth/${provider}/callback`);
+    const payload = await response.json().catch(() => null);
 
-  if (!response.ok) {
-    throw new Error(payload?.error?.message || "That sign-in did not complete.");
+    if (!response.ok) {
+      throw new Error(payload?.error?.message || "That sign-in did not complete.");
+    }
+
+    return toSession(payload, remember);
+  } finally {
+    forgetProviderIntent();
   }
-
-  return toSession(payload, remember);
 }

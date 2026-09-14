@@ -59,6 +59,9 @@ function InlearnAcademy() {
         mode={authMode}
         onClose={() => setIsAuthOpen(false)}
         onModeChange={setAuthMode}
+        /* A provider sign-in can fail while the panel is shut, and its message
+           belongs where the visitor can read it. */
+        onProviderError={() => openAuth("login")}
         onSignedIn={(signedIn, how) => {
           setSession(signedIn);
           setIsAuthOpen(false);
