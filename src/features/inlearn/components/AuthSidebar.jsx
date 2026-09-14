@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 
 import googleIcon from "../assets/google.svg";
 import linkedinIcon from "../../../shared/assets/icons/linkedin-dark.svg";
-import {countryNames} from "../data/countries.js";
+import {countryNames, dialCodeFor} from "../data/countries.js";
 import {inlearnCopy} from "../data/inlearnContent.js";
 import {
   completeProviderSignIn,
@@ -11,10 +11,18 @@ import {
   readProviderCallback,
   register,
 } from "../services/authService.js";
-import {checkEmail, checkPassword, checkRequired, firstProblem} from "../services/formValidation.js";
+import {
+  checkEmail,
+  checkPassword,
+  checkPasswordMatch,
+  checkRequired,
+  firstProblem,
+} from "../services/formValidation.js";
 import ForgotPasswordDialog from "./ForgotPasswordDialog.jsx";
 import InlearnSelect from "./InlearnSelect.jsx";
 import InnotechLogo from "./InnotechLogo.jsx";
+import PasswordField from "./PasswordField.jsx";
+import PhoneField from "./PhoneField.jsx";
 
 /* Both show in both tabs; only the verb changes, because on the Register tab
    these create an account rather than sign into an existing one. */
@@ -23,7 +31,14 @@ const authProviders = [
   {id: "linkedin", label: "LinkedIn", icon: linkedinIcon},
 ];
 
-const emptyForm = {name: "", email: "", phone: "", region: "", password: ""};
+const emptyForm = {
+  name: "",
+  email: "",
+  phone: "",
+  region: "",
+  password: "",
+  passwordConfirmation: "",
+};
 
 function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
   const [form, setForm] = useState(emptyForm);
@@ -35,6 +50,18 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
 
   const setField = (field) => (event) =>
     setForm((current) => ({...current, [field]: event.target.value}));
+
+  const dialCode = dialCodeFor(form.region);
+
+  /* Changing the region changes the calling code, so the digits typed under the
+     old one are cleared rather than silently re-labelled: +49 912... is not the
+     same number as +98 912... and keeping the tail would invent one. */
+  const handleRegionChange = (region) =>
+    setForm((current) => ({
+      ...current,
+      region,
+      phone: region === current.region ? current.phone : "",
+    }));
 
   /* Coming back from a provider: Strapi hands over an access token in the URL,
      which is traded for a session and then wiped so a reload cannot replay it. */
@@ -66,6 +93,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
       isLogin ? "" : checkRequired(form.name, "name"),
       checkEmail(form.email),
       checkPassword(form.password, {isNew: !isLogin}),
+      isLogin ? "" : checkPasswordMatch(form.password, form.passwordConfirmation),
     ]);
     if (problem) {
       setError(problem);
@@ -77,7 +105,13 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
     try {
       const session = isLogin
         ? await logIn({email: form.email, password: form.password, remember})
-        : await register({...form, remember});
+        : await register({
+            ...form,
+            /* The field holds the national part; the server is given the number
+               a person would dial from anywhere. */
+            phone: form.phone.trim() ? `${dialCode}${form.phone.replace(/\D/g, "")}` : "",
+            remember,
+          });
       setForm(emptyForm);
       onSignedIn?.(session, isLogin ? "login" : "register");
     } catch (submitError) {
@@ -160,32 +194,37 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
               onChange={setField("email")}
             />
             {isLogin ? null : (
-              <input
-                type="tel"
-                placeholder="Phone"
-                autoComplete="tel"
-                value={form.phone}
-                tabIndex={isOpen ? 0 : -1}
-                onChange={setField("phone")}
-              />
-            )}
-            {isLogin ? null : (
               <InlearnSelect
                 value={form.region}
                 options={countryNames}
                 placeholder="Region"
                 tabIndex={isOpen ? 0 : -1}
-                onChange={(region) => setForm((current) => ({...current, region}))}
+                onChange={handleRegionChange}
               />
             )}
-            <input
-              type="password"
+            {isLogin ? null : (
+              <PhoneField
+                dialCode={dialCode}
+                value={form.phone}
+                tabIndex={isOpen ? 0 : -1}
+                onChange={(phone) => setForm((current) => ({...current, phone}))}
+              />
+            )}
+            <PasswordField
               placeholder="Password"
               autoComplete={isLogin ? "current-password" : "new-password"}
               value={form.password}
               tabIndex={isOpen ? 0 : -1}
               onChange={setField("password")}
             />
+            {isLogin ? null : (
+              <PasswordField
+                placeholder="Confirm password"
+                value={form.passwordConfirmation}
+                tabIndex={isOpen ? 0 : -1}
+                onChange={setField("passwordConfirmation")}
+              />
+            )}
           </div>
 
           <label className="inlearn-remember">

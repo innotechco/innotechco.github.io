@@ -732,6 +732,82 @@
   font-size: 13px;
 }
 
+/* Password and phone put something beside the input inside the same capsule.
+   The wrapper carries the border and the input goes transparent, so the pair
+   reads as one control and the focus ring surrounds both. */
+.inlearn-password-field,
+.inlearn-phone-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  border: 1px solid #d8d8da;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.inlearn-auth-form .inlearn-password-field input,
+.inlearn-auth-form .inlearn-phone-field input {
+  height: 100%;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.inlearn-password-field:focus-within,
+.inlearn-phone-field:focus-within {
+  border-color: var(--inlearn-green);
+  box-shadow: 0 0 0 3px rgba(55, 180, 120, 0.12);
+}
+
+.inlearn-auth-form .inlearn-password-field input {
+  padding-right: 46px;
+}
+
+.inlearn-password-reveal {
+  position: absolute;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #8a8a92;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.inlearn-password-reveal:hover {
+  color: #050505;
+  background: #f1f1f3;
+}
+
+.inlearn-phone-code {
+  flex: none;
+  padding-left: 18px;
+  padding-right: 10px;
+  color: #050505;
+  font-size: 13px;
+  /* A hairline rather than a gap: it says the code belongs to the number
+     without letting the eye read two separate fields. */
+  border-right: 1px solid #e6e6e9;
+  line-height: 1;
+}
+
+.inlearn-auth-form .inlearn-phone-field input {
+  padding-left: 12px;
+}
+
+.inlearn-phone-field.is-waiting .inlearn-phone-code {
+  color: #a2a2a8;
+}
+
+.inlearn-phone-field.is-waiting input {
+  cursor: not-allowed;
+}
+
 .inlearn-auth-form input:focus,
 .inlearn-auth-form select:focus {
   border-color: var(--inlearn-green);

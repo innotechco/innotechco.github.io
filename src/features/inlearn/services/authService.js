@@ -107,7 +107,10 @@ function toSession(payload, remember) {
     {
       jwt: payload.jwt,
       user: payload.user,
-      displayName: payload.user?.username || payload.user?.email || "INLEARN user",
+      /* username is the email now; fullName is what a person calls themselves.
+         Accounts made before that split still fall back to username. */
+      displayName:
+        payload.user?.fullName || payload.user?.username || payload.user?.email || "INLEARN user",
     },
     {remember},
   );
@@ -121,12 +124,17 @@ export async function logIn({email, password, remember = true}) {
 
 export async function register({name, email, phone, region, password, remember = true}) {
   const payload = await request("/api/auth/local/register", {
-    username: name || email,
+    /* Strapi marks username unique, so it cannot hold a person's name: two
+       visitors called Ali would mean the second is refused an account. The
+       email is unique anyway, so it serves as the handle and the name is kept
+       beside it in fullName. */
+    username: email,
     email,
     password,
     /* Strapi's register endpoint refuses fields it does not expect. The
-       middleware in inlearn-api lifts these two off the body before its router
+       middleware in inlearn-api lifts these off the body before its router
        sees them, then writes them onto the new user. */
+    fullName: name,
     phone,
     region,
   });
