@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 
-import appleIcon from "../assets/apple.svg";
 import googleIcon from "../assets/google.svg";
 import linkedinIcon from "../../../shared/assets/icons/linkedin-dark.svg";
 import {countryNames} from "../data/countries.js";
@@ -17,11 +16,10 @@ import ForgotPasswordDialog from "./ForgotPasswordDialog.jsx";
 import InlearnSelect from "./InlearnSelect.jsx";
 import InnotechLogo from "./InnotechLogo.jsx";
 
-/* All three show in both tabs; only the verb changes, because on the Register
-   tab these create an account rather than sign into an existing one. */
+/* Both show in both tabs; only the verb changes, because on the Register tab
+   these create an account rather than sign into an existing one. */
 const authProviders = [
   {id: "google", label: "Google", icon: googleIcon},
-  {id: "apple", label: "Apple", icon: appleIcon},
   {id: "linkedin", label: "LinkedIn", icon: linkedinIcon},
 ];
 

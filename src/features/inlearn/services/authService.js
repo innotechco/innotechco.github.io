@@ -243,7 +243,7 @@ export async function resetPassword({code, password, remember = true}) {
 }
 
 /* ---------------------------------------------------------------------------
-   Google, Apple and LinkedIn
+   Google and LinkedIn
    --------------------------------------------------------------------------- */
 
 /* Provider sign-in is a full page redirect, not a fetch: the secret half of the
