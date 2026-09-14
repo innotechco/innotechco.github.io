@@ -336,7 +336,14 @@ export async function completeProviderSignIn({provider, remember = true}) {
       throw new Error(payload?.error?.message || "That sign-in did not complete.");
     }
 
-    return toSession(payload, remember);
+    /* isNewAccount comes from a middleware in inlearn-api, because Strapi's own
+       answer is identical whether it just created the account or found one.
+       Only the greeting depends on it, so an older API that does not send it
+       simply gets the returning-visitor wording. */
+    return {
+      session: toSession(payload, remember),
+      isNewAccount: payload?.isNewAccount === true,
+    };
   } finally {
     forgetProviderIntent();
   }

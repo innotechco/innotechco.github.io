@@ -92,7 +92,9 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn, onProvide
     hasHandledProvider.current = true;
 
     completeProviderSignIn({...callback, remember: true})
-      .then((session) => onSignedIn?.(session, "login"))
+      .then(({session, isNewAccount}) =>
+        onSignedIn?.(session, isNewAccount ? "register" : "login"),
+      )
       .catch((callbackError) => {
         /* Shown rather than swallowed, and the panel is opened to show it: a
            provider sign-in that fails in silence looks like a dead button. */
