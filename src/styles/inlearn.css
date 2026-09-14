@@ -339,8 +339,24 @@
     box-shadow 220ms ease;
 }
 
+/* 330px is the room two buttons and a divider need. Signed in there is a name
+   there instead, and a short one leaves the rest of the pill as empty black - so
+   the pill takes its width from what is in it, with a ceiling so a long name
+   truncates rather than pushing the pill across the page. */
+.inlearn-nav.is-signed-in {
+  width: max-content;
+  max-width: 330px;
+}
+
 .inlearn-nav.is-searching {
   width: 360px;
+}
+
+/* Searching wins over both: the field needs its full width whoever is signed
+   in, and the ceiling above would otherwise clip it. */
+.inlearn-nav.is-signed-in.is-searching {
+  width: 360px;
+  max-width: none;
 }
 
 .inlearn-nav-content {

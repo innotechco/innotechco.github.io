@@ -50,7 +50,9 @@ function InlearnNavbar({onAuthOpen, session}) {
 
       <nav
         ref={navRef}
-        className={`inlearn-nav ${isSearchOpen ? "is-searching" : ""}`}
+        className={`inlearn-nav ${isSearchOpen ? "is-searching" : ""} ${
+          session ? "is-signed-in" : ""
+        }`}
       >
         <div className="inlearn-nav-content">
         <div
