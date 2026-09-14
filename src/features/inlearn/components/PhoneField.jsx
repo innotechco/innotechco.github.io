@@ -2,7 +2,7 @@
    inside it, so a Backspace cannot delete it and changing the region cannot
    leave the old code stranded in the middle of a number.
    The two halves are joined only on the way to the server. */
-function PhoneField({dialCode, value, tabIndex, onChange}) {
+function PhoneField({dialCode, value, tabIndex, onChange, ...guard}) {
   const hasRegion = Boolean(dialCode);
 
   /* Digits and separators only. A letter here is always a mistake, and catching
@@ -20,12 +20,13 @@ function PhoneField({dialCode, value, tabIndex, onChange}) {
         type="tel"
         inputMode="tel"
         placeholder={hasRegion ? "Phone number" : "Choose a region first"}
-        autoComplete="tel-national"
+        autoComplete="off"
         aria-label="Phone number"
         value={value}
         disabled={!hasRegion}
         tabIndex={tabIndex}
         onChange={handleChange}
+        {...guard}
       />
     </div>
   );

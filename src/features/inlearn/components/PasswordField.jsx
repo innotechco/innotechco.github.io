@@ -4,7 +4,7 @@ import {useState} from "react";
    Revealing hides itself again on the next keystroke, so a shoulder-surfer sees
    the password only while its owner is deliberately looking at it - and nobody
    walks away from a screen that is still showing it. */
-function PasswordField({placeholder, value, autoComplete = "new-password", tabIndex, onChange}) {
+function PasswordField({placeholder, value, autoComplete = "off", tabIndex, onChange, ...guard}) {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleChange = (event) => {
@@ -21,6 +21,7 @@ function PasswordField({placeholder, value, autoComplete = "new-password", tabIn
         value={value}
         tabIndex={tabIndex}
         onChange={handleChange}
+        {...guard}
       />
       <button
         type="button"

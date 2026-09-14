@@ -8,6 +8,8 @@ import {
   checkRequired,
   firstProblem,
 } from "../services/formValidation.js";
+import {useNoAutofill} from "../hooks/useNoAutofill.js";
+import AutofillDecoys from "./AutofillDecoys.jsx";
 import PasswordField from "./PasswordField.jsx";
 
 /* Three steps, one question each: where to send the code, the code itself, then
@@ -44,6 +46,7 @@ function ForgotPasswordDialog({initialEmail = "", onClose, onSignedIn}) {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [error, setError] = useState("");
   const [isBusy, setIsBusy] = useState(false);
+  const {formRef, isGuarding} = useNoAutofill();
   const firstFieldRef = useRef(null);
 
   useEffect(() => {
@@ -150,13 +153,14 @@ function ForgotPasswordDialog({initialEmail = "", onClose, onSignedIn}) {
 
         {/* noValidate: our own message below, in the site's type rather than the
             browser's grey bubble */}
-        <form noValidate onSubmit={submit}>
+        <form ref={formRef} noValidate autoComplete="off" onSubmit={submit}>
+          {isGuarding ? <AutofillDecoys /> : null}
           {step === "email" ? (
             <input
               ref={firstFieldRef}
               type="email"
               placeholder="Email"
-              autoComplete="email"
+              autoComplete="off"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />

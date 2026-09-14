@@ -725,6 +725,37 @@
    a stacking context - so the Region menu's z-index only competes inside here,
    and the checkbox below it painted on top. Raising the whole block puts the
    open menu over everything that follows it. */
+/* The decoy pair an automatic fill lands in instead of the real fields. Moved
+   off-screen rather than hidden: a field with display:none or visibility:hidden
+   is skipped by autofill, and a decoy it skips is no decoy at all. */
+.inlearn-autofill-decoys {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Chrome runs an animation on any field it autofills. Naming one here is the
+   only way a page can be told that it happened: useNoAutofill listens for this
+   name starting and undoes the fill. The keyframes are deliberately empty -
+   nothing should move, the animation exists purely as a signal. */
+@keyframes inlearn-autofill-start {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.inlearn-auth-form input:-webkit-autofill,
+.inlearn-dialog input:-webkit-autofill {
+  animation-name: inlearn-autofill-start;
+  animation-duration: 1ms;
+}
+
 .inlearn-auth-fields {
   position: relative;
   z-index: 2;

@@ -18,6 +18,8 @@ import {
   checkRequired,
   firstProblem,
 } from "../services/formValidation.js";
+import {useNoAutofill} from "../hooks/useNoAutofill.js";
+import AutofillDecoys from "./AutofillDecoys.jsx";
 import ForgotPasswordDialog from "./ForgotPasswordDialog.jsx";
 import InlearnSelect from "./InlearnSelect.jsx";
 import InnotechLogo from "./InnotechLogo.jsx";
@@ -46,6 +48,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
   const [error, setError] = useState("");
   const [isBusy, setIsBusy] = useState(false);
   const [isForgotOpen, setIsForgotOpen] = useState(false);
+  const {formRef, isGuarding} = useNoAutofill();
   const isLogin = mode === "login";
 
   const setField = (field) => (event) =>
@@ -173,13 +176,20 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
         </div>
 
         {/* noValidate: the grey system bubble is replaced by our own line below */}
-        <form className="inlearn-auth-form" noValidate onSubmit={handleSubmit}>
+        <form
+          ref={formRef}
+          className="inlearn-auth-form"
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          {isGuarding ? <AutofillDecoys /> : null}
           <div className="inlearn-auth-fields" key={mode}>
             {isLogin ? null : (
               <input
                 type="text"
                 placeholder="Name"
-                autoComplete="name"
+                autoComplete="off"
                 value={form.name}
                 tabIndex={isOpen ? 0 : -1}
                 onChange={setField("name")}
@@ -188,7 +198,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
             <input
               type="email"
               placeholder={isLogin ? "Email" : "Business Email"}
-              autoComplete="email"
+              autoComplete="off"
               value={form.email}
               tabIndex={isOpen ? 0 : -1}
               onChange={setField("email")}
@@ -212,7 +222,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
             )}
             <PasswordField
               placeholder="Password"
-              autoComplete={isLogin ? "current-password" : "new-password"}
+              autoComplete="off"
               value={form.password}
               tabIndex={isOpen ? 0 : -1}
               onChange={setField("password")}

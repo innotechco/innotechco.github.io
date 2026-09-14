@@ -110,15 +110,12 @@ function InlearnSelect({value, options, placeholder, onChange, tabIndex = 0}) {
       {isOpen ? (
         <div className="inlearn-select-menu">
           {hasSearch ? (
-            <input
-              ref={searchRef}
-              type="text"
-              className="inlearn-select-search"
+            <SearchField
+              inputRef={searchRef}
               placeholder={`Search ${placeholder.toLowerCase()}`}
               value={query}
-              autoComplete="off"
-              onChange={(event) => {
-                setQuery(event.target.value);
+              onChange={(next) => {
+                setQuery(next);
                 setActiveIndex(-1);
               }}
               onKeyDown={handleKeyDown}
@@ -145,6 +142,28 @@ function InlearnSelect({value, options, placeholder, onChange, tabIndex = 0}) {
         </div>
       ) : null}
     </div>
+  );
+}
+
+/* Mounted and unmounted with the menu.
+
+   Chrome filled this box with a saved credential: an unnamed text input inside a
+   form holding a password field is what its heuristic reads as a username. A
+   type and a name that both say "filter" take it out of that shape, and the
+   decoy pair in useNoAutofill gives an automatic fill somewhere else to land. */
+function SearchField({inputRef, placeholder, value, onChange, onKeyDown}) {
+  return (
+    <input
+      ref={inputRef}
+      type="search"
+      name="region-filter"
+      className="inlearn-select-search"
+      placeholder={placeholder}
+      value={value}
+      autoComplete="off"
+      onChange={(event) => onChange(event.target.value)}
+      onKeyDown={onKeyDown}
+    />
   );
 }
 
