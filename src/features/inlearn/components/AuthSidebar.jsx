@@ -236,14 +236,18 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn}) {
             />
             <span>Keep me signed in</span>
           </label>
-          <button
-            type="button"
-            className="inlearn-forgot"
-            tabIndex={isOpen ? 0 : -1}
-            onClick={() => setIsForgotOpen(true)}
-          >
-            Forgot password?
-          </button>
+          {/* Only on the Log in tab: someone creating an account has no password
+              to have forgotten. */}
+          {isLogin ? (
+            <button
+              type="button"
+              className="inlearn-forgot"
+              tabIndex={isOpen ? 0 : -1}
+              onClick={() => setIsForgotOpen(true)}
+            >
+              Forgot password?
+            </button>
+          ) : null}
 
           {error ? (
             <p className="inlearn-auth-error" role="alert">

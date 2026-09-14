@@ -1221,6 +1221,16 @@
   box-shadow: 0 0 0 3px rgba(55, 180, 120, 0.12);
 }
 
+/* The password field's wrapper already draws the capsule and the focus ring;
+   without this the input inside it draws a second border against the first. */
+.inlearn-dialog .inlearn-password-field input {
+  height: 100%;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding-right: 46px;
+}
+
 .inlearn-dialog .inlearn-forgot {
   margin: 14px auto 0;
 }

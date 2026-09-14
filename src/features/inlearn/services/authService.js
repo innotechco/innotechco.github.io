@@ -232,22 +232,36 @@ export async function authorizedFetch(path, options = {}) {
    Password reset
    --------------------------------------------------------------------------- */
 
-/* Step one: Strapi mails a reset code. It always answers ok, even for an
-   address it does not know, so the page cannot be used to discover who has an
-   account here. */
+/* These three are ours, not the plugin's. Strapi mails a link holding a long
+   token and takes the code and the new password in one request; the panel asks
+   for six digits and wants to know they are right before it shows the password
+   step at all. /api/inlearn/* is where that lives.
+
+   Step one. It always answers ok, even for an address it does not know, so the
+   panel cannot be used to discover who has an account here. */
 export async function requestPasswordReset(email) {
-  await request("/api/auth/forgot-password", {email});
+  const payload = await request("/api/inlearn/forgot-password", {email});
+  /* The server decides how long a code lives; the panel only repeats it, so the
+     two cannot disagree the first time that number changes. */
+  return {expiresInMinutes: payload?.expiresInMinutes ?? null};
 }
 
-/* Step two: the code from that mail plus the new password. Strapi returns a
-   session, so a successful reset signs the visitor straight in. */
-export async function resetPassword({code, password, remember = true}) {
-  const payload = await request("/api/auth/reset-password", {
-    code,
-    password,
-    passwordConfirmation: password,
-  });
-  return toSession(payload, remember);
+/* Step two: the code alone. Answering here is what lets the panel move on, and
+   a wrong code stops at this step instead of after a password has been typed
+   twice. */
+export async function verifyResetCode({email, code}) {
+  await request("/api/inlearn/verify-reset-code", {email, code});
+}
+
+/* Step three. The code is sent again because the server checks it again - these
+   are separate requests and nothing stops a caller skipping step two.
+
+   Signing in afterwards goes through the ordinary login route rather than a
+   token minted here: that route is what sets the refresh cookie the session
+   depends on, and using it proves the new password really works. */
+export async function resetPassword({email, code, password, remember = true}) {
+  await request("/api/inlearn/reset-password", {email, code, password});
+  return logIn({email, password, remember});
 }
 
 /* ---------------------------------------------------------------------------

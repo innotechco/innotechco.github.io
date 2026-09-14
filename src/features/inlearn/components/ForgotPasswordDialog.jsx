@@ -1,20 +1,47 @@
 import {useEffect, useRef, useState} from "react";
 
-import {requestPasswordReset, resetPassword} from "../services/authService.js";
-import {checkEmail, checkPassword, checkRequired, firstProblem} from "../services/formValidation.js";
+import {requestPasswordReset, resetPassword, verifyResetCode} from "../services/authService.js";
+import {
+  checkEmail,
+  checkPassword,
+  checkPasswordMatch,
+  checkRequired,
+  firstProblem,
+} from "../services/formValidation.js";
+import PasswordField from "./PasswordField.jsx";
 
-/* Two steps: ask where to send the code, then take the code back.
-   Strapi's reset endpoint wants a new password alongside the code, so step two
-   collects one - a code on its own cannot sign anyone in without leaving the
-   old password still valid in the visitor's mailbox. A successful reset returns
-   a session, so finishing here signs them in. */
+/* Three steps, one question each: where to send the code, the code itself, then
+   the new password.
+
+   The code is checked on its own rather than alongside the password, so a wrong
+   code is caught before anyone types a password twice - and the step that asks
+   for a password only ever appears once the code is known to be good. */
+
+const COPY = {
+  email: {
+    title: "Reset your password",
+    action: "Send code",
+  },
+  code: {
+    title: "Check your email",
+    action: "Continue",
+  },
+  password: {
+    title: "Choose a new password",
+    body: "Almost done. Pick a password you have not used here before.",
+    action: "Save and sign in",
+  },
+};
+
 /* Mounted only while open, so each visit starts clean without an effect
-   resetting five pieces of state on the way in. */
+   resetting six pieces of state on the way in. */
 function ForgotPasswordDialog({initialEmail = "", onClose, onSignedIn}) {
   const [step, setStep] = useState("email");
   const [email, setEmail] = useState(initialEmail);
   const [code, setCode] = useState("");
+  const [expiresInMinutes, setExpiresInMinutes] = useState(null);
   const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [error, setError] = useState("");
   const [isBusy, setIsBusy] = useState(false);
   const firstFieldRef = useRef(null);
@@ -31,48 +58,72 @@ function ForgotPasswordDialog({initialEmail = "", onClose, onSignedIn}) {
     };
   }, [onClose]);
 
-  const sendCode = async (event) => {
+  /* Every step is the same shape: check what was typed, call one endpoint, move
+     on or show why not. This keeps the three submit handlers from repeating it. */
+  const runStep = (validate, act) => async (event) => {
     event.preventDefault();
-    const problem = checkEmail(email);
+
+    const problem = validate();
     if (problem) {
       setError(problem);
       return;
     }
+
     setError("");
     setIsBusy(true);
     try {
-      await requestPasswordReset(email);
+      await act();
+    } catch (stepError) {
+      setError(stepError.message);
+    } finally {
+      setIsBusy(false);
+    }
+  };
+
+  const sendCode = runStep(
+    () => checkEmail(email),
+    async () => {
+      const {expiresInMinutes: minutes} = await requestPasswordReset(email);
+      setExpiresInMinutes(minutes);
       setStep("code");
-    } catch (requestError) {
-      setError(requestError.message);
-    } finally {
-      setIsBusy(false);
-    }
-  };
+    },
+  );
 
-  const confirmCode = async (event) => {
-    event.preventDefault();
-    const problem = firstProblem([
-      checkRequired(code, "reset code"),
-      checkPassword(password, {isNew: true}),
-    ]);
-    if (problem) {
-      setError(problem);
-      return;
-    }
-    setError("");
-    setIsBusy(true);
-    try {
-      const session = await resetPassword({code, password});
+  const confirmCode = runStep(
+    () => checkRequired(code, "reset code"),
+    async () => {
+      await verifyResetCode({email, code: code.trim()});
+      setStep("password");
+    },
+  );
+
+  const savePassword = runStep(
+    () =>
+      firstProblem([
+        checkPassword(password, {isNew: true}),
+        checkPasswordMatch(password, passwordConfirmation),
+      ]),
+    async () => {
+      const session = await resetPassword({email, code: code.trim(), password});
       onSignedIn(session);
-    } catch (resetError) {
-      setError(resetError.message);
-    } finally {
-      setIsBusy(false);
-    }
-  };
+    },
+  );
 
-  const isEmailStep = step === "email";
+  const submit = {email: sendCode, code: confirmCode, password: savePassword}[step];
+
+  /* Left off entirely when the server did not say, rather than guessing a
+     number that might not be the one it is enforcing. */
+  const expiryNote = expiresInMinutes
+    ? ` It expires in ${expiresInMinutes} minute${expiresInMinutes === 1 ? "" : "s"}.`
+    : "";
+
+  /* Back goes one step, not all the way out: a mistyped code should not cost
+     the code itself. */
+  const back = {
+    email: {label: "Back to sign in", act: onClose},
+    code: {label: "Use a different email", act: () => setStep("email")},
+    password: {label: "Enter the code again", act: () => setStep("code")},
+  }[step];
 
   return (
     <div className="inlearn-dialog-layer">
@@ -88,43 +139,58 @@ function ForgotPasswordDialog({initialEmail = "", onClose, onSignedIn}) {
         aria-modal="true"
         aria-label="Reset your password"
       >
-        <h3>{isEmailStep ? "Reset your password" : "Check your email"}</h3>
+        <h3>{COPY[step].title}</h3>
         <p>
-          {isEmailStep
+          {step === "email"
             ? "Enter your email and we will send you a reset code."
-            : `We sent a code to ${email}. Enter it below with a new password.`}
+            : step === "code"
+              ? `We sent a six-digit code to ${email}.${expiryNote}`
+              : COPY.password.body}
         </p>
 
         {/* noValidate: our own message below, in the site's type rather than the
             browser's grey bubble */}
-        <form noValidate onSubmit={isEmailStep ? sendCode : confirmCode}>
-          {isEmailStep ? (
+        <form noValidate onSubmit={submit}>
+          {step === "email" ? (
             <input
               ref={firstFieldRef}
               type="email"
               placeholder="Email"
+              autoComplete="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
-          ) : (
+          ) : null}
+
+          {step === "code" ? (
+            <input
+              ref={firstFieldRef}
+              type="text"
+              placeholder="Reset code"
+              /* one-time-code lets a phone offer the digits straight from the
+                 notification, and inputMode brings up the number pad. */
+              autoComplete="one-time-code"
+              inputMode="numeric"
+              maxLength={6}
+              value={code}
+              onChange={(event) => setCode(event.target.value.replace(/\D/g, ""))}
+            />
+          ) : null}
+
+          {step === "password" ? (
             <>
-              <input
-                ref={firstFieldRef}
-                type="text"
-                placeholder="Reset code"
-                value={code}
-                autoComplete="one-time-code"
-                  onChange={(event) => setCode(event.target.value)}
-              />
-              <input
-                type="password"
+              <PasswordField
                 placeholder="New password"
                 value={password}
-                autoComplete="new-password"
-                  onChange={(event) => setPassword(event.target.value)}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <PasswordField
+                placeholder="Confirm new password"
+                value={passwordConfirmation}
+                onChange={(event) => setPasswordConfirmation(event.target.value)}
               />
             </>
-          )}
+          ) : null}
 
           {error ? (
             <p className="inlearn-dialog-error" role="alert">
@@ -133,16 +199,12 @@ function ForgotPasswordDialog({initialEmail = "", onClose, onSignedIn}) {
           ) : null}
 
           <button type="submit" className="inlearn-submit" disabled={isBusy}>
-            {isBusy ? "Please wait…" : isEmailStep ? "Send code" : "Reset and sign in"}
+            {isBusy ? "Please wait…" : COPY[step].action}
           </button>
         </form>
 
-        <button
-          type="button"
-          className="inlearn-forgot"
-          onClick={isEmailStep ? onClose : () => setStep("email")}
-        >
-          {isEmailStep ? "Back to sign in" : "Use a different email"}
+        <button type="button" className="inlearn-forgot" onClick={back.act}>
+          {back.label}
         </button>
       </div>
     </div>
