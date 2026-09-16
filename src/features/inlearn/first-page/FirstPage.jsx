@@ -1,7 +1,9 @@
 import {getInlearnFirstPage} from "../inlearnContent.js";
 import PageDecorations from "./PageDecorations.jsx";
 import HeroSection from "./sections/hero/HeroSection.jsx";
+import LearningSolutionsSection from "./sections/learning-solutions/LearningSolutionsSection.jsx";
 import NewEventSection from "./sections/new-event/NewEventSection.jsx";
+import TopCoursesSection from "./sections/top-courses/TopCoursesSection.jsx";
 
 /* The first page: the sections in order, and the arcs behind all of them.
 
@@ -18,11 +20,13 @@ function FirstPage() {
     <div className="inlearn-first-page">
       <PageDecorations
         decorations={page.decorations}
-        phoneDecorations={page.decorationsOnPhone}
+        smallScreenDecorations={page.decorationsOnSmallScreens}
       />
 
       <HeroSection hero={page.hero} />
       <NewEventSection newEvent={page.newEvent} />
+      <TopCoursesSection topCourses={page.topCourses} />
+      <LearningSolutionsSection learningSolutions={page.learningSolutions} />
     </div>
   );
 }

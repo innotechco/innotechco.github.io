@@ -19,5 +19,88 @@
     "imageAlt": "INLEARN event",
     "previous": "Previous event",
     "next": "Next event"
+  },
+  "topCourses": {
+    "sectionTitle": "Top Essential Courses",
+    "readMore": "Read more",
+    "previous": "Previous courses",
+    "next": "Next courses",
+    "items": [
+      {
+        "id": "innovations-in-teamwork",
+        "title": "Innovations in Teamwork for Health Care",
+        "summary": "Health care is a team effort. From the front desk administrators to the nurses, every role carries part of the outcome.",
+        "date": "November 15, 2025",
+        "effort": "4-6 hours per week",
+        "imageAlt": "Health care teams at work"
+      },
+      {
+        "id": "lpg-patent-landscape",
+        "title": "Liquefied Petroleum Gas Patent Landscape Report",
+        "summary": "Where the patents cluster, who is filing them, and what that says about the next decade of gas processing.",
+        "date": "November 15, 2025",
+        "effort": "4-6 hours per week",
+        "imageAlt": "A gas processing plant"
+      },
+      {
+        "id": "industrial-ai-foundations",
+        "title": "Industrial AI Foundations for Plant Engineers",
+        "summary": "The models behind predictive maintenance, explained for the people who already know the machines.",
+        "date": "November 15, 2025",
+        "effort": "4-6 hours per week",
+        "imageAlt": "An engineer reading plant instruments"
+      },
+      {
+        "id": "energy-transition-strategy",
+        "title": "Energy Transition Strategy for Heavy Industry",
+        "summary": "How an asset-heavy business plans a transition it cannot afford to get wrong twice.",
+        "date": "November 15, 2025",
+        "effort": "4-6 hours per week",
+        "imageAlt": "Industrial energy infrastructure"
+      },
+      {
+        "id": "digital-twin-operations",
+        "title": "Digital Twin Operations from Pilot to Plant",
+        "summary": "Most digital twins stop at the pilot. This is the work that carries one into daily operations.",
+        "date": "November 15, 2025",
+        "effort": "4-6 hours per week",
+        "imageAlt": "A control room screen beside a plant"
+      },
+      {
+        "id": "supply-chain-resilience",
+        "title": "Supply Chain Resilience Under Real Constraints",
+        "summary": "Mapping the dependencies you actually have, and the ones you only think you have.",
+        "date": "November 15, 2025",
+        "effort": "4-6 hours per week",
+        "imageAlt": "Freight moving through a terminal"
+      },
+      {
+        "id": "process-safety-leadership",
+        "title": "Process Safety Leadership in High-Risk Sites",
+        "summary": "The habits, reporting lines and hard conversations that keep a high-risk site honest with itself.",
+        "date": "November 15, 2025",
+        "effort": "4-6 hours per week",
+        "imageAlt": "Safety inspection on an industrial site"
+      },
+      {
+        "id": "materials-for-harsh-environments",
+        "title": "Materials Engineering for Harsh Environments",
+        "summary": "Choosing alloys, coatings and seals for heat, pressure and abrasion that never let up.",
+        "date": "November 15, 2025",
+        "effort": "4-6 hours per week",
+        "imageAlt": "Steel pipework under load"
+      }
+    ]
+  },
+  "learningSolutions": {
+    "title": "Learn more about our learning solutions",
+    "points": [
+      "Engaging learning experiences and high-quality online content that can be delivered at scale",
+      "Solutions that focus on today's in-demand skill areas to help attract, retain, and future-proof your workforce",
+      "A variety of formats, from long-form courses that replicate an on-campus classroom experience to short-form content",
+      "Interaction with a global community of learners and leaders looking to develop their workforce, grow their business, and change the world"
+    ],
+    "cta": "Contact us",
+    "imageAlt": "Colleagues talking together in an office"
   }
 }

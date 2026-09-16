@@ -7,3 +7,13 @@
 
 export {default as firstPageArcTopLeft} from "./assets/first-page/arc-top-left.webp";
 export {default as firstPageArcRight} from "./assets/first-page/arc-right.webp";
+
+/* One photograph stands in for every course until the real ones arrive. It is
+   named placeholder rather than given a course's name so that nobody has to
+   guess later which images are real: the day a course gets its own picture, it
+   gets its own export beside this one and its own line in the config. */
+export {default as coursePlaceholder} from "./assets/courses/placeholder.webp";
+
+/* Standing in until the real photograph arrives. See the note inside the file
+   itself for what replacing it involves. */
+export {default as learningSolutionsPlaceholder} from "./assets/first-page/learning-solutions-placeholder.svg";

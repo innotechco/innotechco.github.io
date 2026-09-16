@@ -46,7 +46,12 @@ function NewEventSection({newEvent}) {
         <div className="inlearn-carousel-viewport" ref={viewportRef} {...handlers}>
           <div
             className="inlearn-carousel-track"
-            style={{transform: `translate3d(${-index * 100}%, 0, 0)`}}
+            /* One step is the card plus the empty road beside it, and the road
+               is a number the stylesheet owns - so widening the gap there moves
+               the travel with it and the two can never fall out of step. */
+            style={{
+              transform: `translate3d(calc(${-index} * (100% + var(--inlearn-event-gap))), 0, 0)`,
+            }}
           >
             {slides.map((event, slideIndex) => (
               <div
@@ -68,23 +73,29 @@ function NewEventSection({newEvent}) {
           disabled={slides.length < 2}
           onClick={() => step(1)}
         />
-      </div>
 
-      {slides.length > 1 ? (
-        <div className="inlearn-carousel-dots" role="tablist" aria-label={newEvent.sectionTitle}>
-          {slides.map((event, dotIndex) => (
-            <button
-              key={event.slug ?? dotIndex}
-              type="button"
-              role="tab"
-              aria-selected={dotIndex === index}
-              aria-label={`${dotIndex + 1} / ${slides.length}`}
-              className={dotIndex === index ? "is-current" : ""}
-              onClick={() => go(dotIndex)}
-            />
-          ))}
-        </div>
-      ) : null}
+        {/* The dots sit inside the carousel rather than under it so that the
+            arrows can join them on a narrow screen. There is one set of arrows
+            at every width - a second set for phones would be two controls doing
+            one job, and a screen reader would read both. Where they stand is
+            the stylesheet's business: beside the card while there is room, in
+            this row with the dots when there is not. */}
+        {slides.length > 1 ? (
+          <div className="inlearn-carousel-dots" role="tablist" aria-label={newEvent.sectionTitle}>
+            {slides.map((event, dotIndex) => (
+              <button
+                key={event.slug ?? dotIndex}
+                type="button"
+                role="tab"
+                aria-selected={dotIndex === index}
+                aria-label={`${dotIndex + 1} / ${slides.length}`}
+                className={dotIndex === index ? "is-current" : ""}
+                onClick={() => go(dotIndex)}
+              />
+            ))}
+          </div>
+        ) : null}
+      </div>
     </section>
   );
 }
