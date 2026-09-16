@@ -1,0 +1,23 @@
+{
+  "hero": {
+    "titleLead": "IN",
+    "titleRest": "LEARN Academy",
+    "subtitle": "Öğren, öncülük et, dönüştür",
+    "body": "Kampüslerimizdeki ve dünyanın dört bir yanındaki öğrenenlerin yetkinliğini, merakını ve özgüvenini geliştiriyoruz.",
+    "cta": "Tüm Kursları Gör"
+  },
+  "auth": {
+    "intro": "Sana özel içeriklere erişmek ve topluluğunla bağlantıda kalmak için giriş yap."
+  },
+  "newEvent": {
+    "sectionTitle": "Yeni Etkinlik",
+    "readMore": "Devamını oku",
+    "headline": "Çamur Pompaları Akıllı Endüstriyel Sistemlerde Yeni Bir Döneme Giriyor",
+    "date": "9 Eylül 2026",
+    "readTime": "3 dakikalık okuma",
+    "summary": "Çamur pompası teknolojisi; ileri malzemeleri, dijital izlemeyi ve akıllı sistemleri bir araya getirerek zorlu ortamlarda güvenilirliği, verimliliği ve kestirimci bakımı iyileştiren yeni bir endüstriyel yenilik dönemine giriyor.",
+    "imageAlt": "INLEARN etkinliği",
+    "previous": "Önceki etkinlik",
+    "next": "Sonraki etkinlik"
+  }
+}

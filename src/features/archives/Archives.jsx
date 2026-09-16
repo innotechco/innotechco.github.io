@@ -90,7 +90,12 @@ function ArchiveCard({item, isDarkMode, selectedCategory, categoryLabels}) {
                 }`}
                 style={getCategoryPillColor(category.slug, isDarkMode)}
               >
-                {category.label}
+                {/* The label is truncated by this inner span, not by the pill.
+                    The pill is a grid item, and a grid item's display is
+                    blockified - which turns the -webkit-box that line clamping
+                    needs into flow-root and silently throws the clamp away. A
+                    child is not a grid item, so the clamp survives there. */}
+                <span className="archive-card-category-label">{category.label}</span>
               </span>
             ) : (
               <span className="archive-card-category-empty" aria-hidden="true" />

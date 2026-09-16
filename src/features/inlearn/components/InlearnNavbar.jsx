@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 
 import {useLanguage} from "../../../app/providers/language/useLanguage.js";
+import InlearnBrand from "./InlearnBrand.jsx";
 import chevronDown from "../assets/chevron-down.svg";
 import searchIcon from "../assets/search.svg";
 import shoppingCart from "../assets/shopping-cart.svg";
@@ -11,7 +12,7 @@ function SearchIcon() {
   return <img className="inlearn-search-icon" src={searchIcon} alt="" aria-hidden="true" />;
 }
 
-function InlearnNavbar({onAuthOpen}) {
+function InlearnNavbar({onAuthOpen, session}) {
   const {locale, changeLanguage} = useLanguage();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -44,25 +45,41 @@ function InlearnNavbar({onAuthOpen}) {
   };
 
   return (
-    <nav
-      ref={navRef}
-      className={`inlearn-nav ${isSearchOpen ? "is-searching" : ""}`}
-      dir="ltr"
-    >
-      <div className="inlearn-nav-content">
-        <div className="inlearn-nav-links" aria-hidden={isSearchOpen}>
-          <button type="button" onClick={() => onAuthOpen("login")}>
-            Login
-          </button>
-          <span className="inlearn-nav-separator" aria-hidden="true" />
-          <button type="button" onClick={() => onAuthOpen("register")}>
-            Register
-          </button>
-          <span aria-hidden="true" />
+    <div className="inlearn-topbar" dir="ltr">
+      <InlearnBrand />
+
+      <nav
+        ref={navRef}
+        className={`inlearn-nav ${isSearchOpen ? "is-searching" : ""} ${
+          session ? "is-signed-in" : ""
+        }`}
+      >
+        <div className="inlearn-nav-content">
+        <div
+          className={`inlearn-nav-links ${session ? "is-signed-in" : ""}`}
+          aria-hidden={isSearchOpen}
+        >
+          {session ? (
+            /* The two buttons collapse to one name once there is someone to
+               name, which is also the only outward sign that the session
+               survived - the token behind it is refreshed silently. */
+            <span className="inlearn-nav-account" title={session.user?.email}>
+              {session.displayName}
+            </span>
+          ) : (
+            <>
+              <button type="button" onClick={() => onAuthOpen("login")}>
+                Login
+              </button>
+              <span className="inlearn-nav-separator" aria-hidden="true" />
+              <button type="button" onClick={() => onAuthOpen("register")}>
+                Register
+              </button>
+            </>
+          )}
           <Link to="/inlearn/basket" className="inlearn-cart-link" aria-label="Shopping basket">
             <img src={shoppingCart} alt="" loading="lazy" />
           </Link>
-          <span aria-hidden="true" />
           <div className="inlearn-language">
             <button
               type="button"
@@ -119,9 +136,10 @@ function InlearnNavbar({onAuthOpen}) {
             aria-label="Search"
             tabIndex={isSearchOpen ? 0 : -1}
           />
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }
 

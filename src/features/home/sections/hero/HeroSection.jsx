@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 
 import {useTheme} from "../../../../app/providers/theme/useTheme.js";
-import {routes} from "../../../../app/routes.js";
+import {getArticlePath} from "../../../../shared/content/blogSections.js";
 import {heroHeroBackground as bgImage} from "../../home.assets.js";
 import {decorationsAssistantDark as aiAgentExcludeImage} from "../../home.assets.js";
 import {decorationsAssistantLight as aiAgentExcludeWhiteImage} from "../../home.assets.js";
@@ -11,8 +11,22 @@ import {t} from "../../../../shared/i18n/ui.js";
 
 function HeroSection() {
   const {isDarkMode} = useTheme();
-  const {content, heroStatus} = useHomeContent();
+  const {content, heroStatus, posts} = useHomeContent();
   const heroContent = content.hero;
+  /* The article this button opens is named by WordPress post id, in
+     content/<locale>/pages/home/home.json under hero.linkPostId.
+
+     By id and not by slug: the slug is rewritten whenever the SEO editor
+     improves a title, and this button used to carry a slug written into the
+     route table - so every rename sent readers to a different article with no
+     error to show for it. An id survives every rename.
+
+     With no id set, or the post not among those fetched, it falls back to the
+     newest article rather than to nothing. */
+  const linkedPost = content.hero?.linkPostId
+    ? posts.find((post) => post.wpId === content.hero.linkPostId)
+    : null;
+  const readMoreTarget = getArticlePath(linkedPost?.slug ?? content.latestNews?.slug);
   /* The CEO edits this card under WordPress > INNOTECH Home. Painting the
      bundled copy and swapping it once the CMS answers would change the largest
      element above the fold under the reader, so it waits. The card keeps its
@@ -86,10 +100,18 @@ function HeroSection() {
             </div>
           )}
 
-          {/* Read more button and underline */}
+          {/* Read more button and underline.
+
+              It points at whatever the newest article happens to be rather than
+              at one slug written into the route table. That slug was edited in
+              WordPress from time to time, and when it changed this button
+              quietly led somewhere else - no error, just the wrong page. With
+              nothing published yet there is no destination, so the button is
+              not drawn at all. */}
+          {readMoreTarget ? (
           <div className="relative z-10 mt-2 lg:mt-4">
             <Link
-              to={routes.featuredArticle}
+              to={readMoreTarget}
               className="group flex w-fit flex-col items-start cursor-pointer transition-all duration-300"
             >
               <div
@@ -102,6 +124,7 @@ function HeroSection() {
               <div className="mt-1 h-0.5 w-20 rounded-full bg-[#37B478] transition-all duration-300 group-hover:w-24" />
             </Link>
           </div>
+          ) : null}
         </div>
       </div>
 

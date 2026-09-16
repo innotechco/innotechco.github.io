@@ -1,0 +1,23 @@
+{
+  "hero": {
+    "titleLead": "IN",
+    "titleRest": "LEARN Academy",
+    "subtitle": "Learn, lead, transform",
+    "body": "Building the competence, curiosity, and confidence of learners on our campuses and around the world.",
+    "cta": "Visit All Courses"
+  },
+  "auth": {
+    "intro": "Log in to unlock tailored content and stay connected with your community."
+  },
+  "newEvent": {
+    "sectionTitle": "New Event",
+    "readMore": "Read more",
+    "headline": "Slurry Pumps Enter a New Era of Intelligent Industrial Systems",
+    "date": "September 9, 2026",
+    "readTime": "3 minutes to read",
+    "summary": "Slurry pump technology is entering a new era of industrial innovation, combining advanced materials, digital monitoring, and intelligent systems to improve reliability, efficiency, and predictive maintenance in demanding environments.",
+    "imageAlt": "INLEARN event",
+    "previous": "Previous event",
+    "next": "Next event"
+  }
+}
