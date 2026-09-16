@@ -1316,7 +1316,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 150px 24px 90px;
+  /* The top padding clears the floating navbar, which is itself smaller on a
+     phone - so this is too, rather than holding a desktop-sized gap above a
+     phone-sized title. */
+  padding: clamp(104px, 20vw, 150px) clamp(18px, 6vw, 24px) clamp(56px, 11vw, 90px);
   text-align: center;
 }
 
@@ -1330,10 +1333,15 @@
   mask: url("../shared/assets/brand/services/inlearn.svg") center / contain no-repeat;
 }
 
+/* The floor is what matters on a phone: 5.6vw is 21px at 375, so the old floor
+   of 34 was the size that actually rendered there, and a 64px title reduced by
+   a third is still a desktop title on a 375px screen. Lowering the floor lets
+   the window have its say; the ceiling and the slope are untouched, so nothing
+   changes above it. */
 .inlearn-hero-title {
   max-width: 14ch;
   margin: 0;
-  font-size: clamp(34px, 5.6vw, 64px);
+  font-size: clamp(26px, 5.6vw, 64px);
   font-weight: 700;
   line-height: 1.04;
   letter-spacing: -0.01em;
@@ -1348,7 +1356,7 @@
 .inlearn-hero-subtitle {
   max-width: 18ch;
   margin: 2px 0 0;
-  font-size: clamp(30px, 5vw, 58px);
+  font-size: clamp(23px, 5vw, 58px);
   font-weight: 700;
   line-height: 1.06;
   letter-spacing: -0.01em;
@@ -1356,9 +1364,9 @@
 
 .inlearn-hero-body {
   max-width: 52ch;
-  margin: 20px 0 0;
+  margin: clamp(14px, 3vw, 20px) 0 0;
   color: #55555c;
-  font-size: clamp(14px, 1.3vw, 17px);
+  font-size: clamp(13px, 1.3vw, 17px);
   line-height: 1.45;
 }
 
@@ -1366,9 +1374,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 158px;
-  height: 40px;
-  margin-top: 24px;
+  min-width: clamp(140px, 42vw, 158px);
+  height: clamp(36px, 9vw, 40px);
+  margin-top: clamp(18px, 4vw, 24px);
   padding: 0 22px;
   border-radius: 999px;
   background: var(--inlearn-green);
@@ -1392,18 +1400,20 @@
   z-index: 1;
   margin: 0;
   padding-left: 4px;
-  font-size: clamp(22px, 2.4vw, 30px);
+  font-size: clamp(19px, 2.4vw, 30px);
   font-weight: 700;
   line-height: 1.1;
 }
 
+/* Sized from the heading rather than fixed: at 52px it was half again the
+   height of a 19px heading on a phone and read as a circle with a word in it. */
 .inlearn-section-title::before {
   position: absolute;
   z-index: -1;
   top: 50%;
-  left: -14px;
-  width: 52px;
-  height: 52px;
+  left: clamp(-14px, -1.2vw, -9px);
+  width: clamp(36px, 4.4vw, 52px);
+  height: clamp(36px, 4.4vw, 52px);
   border: 1px solid var(--inlearn-green);
   border-radius: 50%;
   content: "";
@@ -1553,8 +1563,22 @@
   /* The width the card had when the arrows stood beside it in a row: the old
      1320 container, less an arrow and its gap at each end. The arrows lie on
      top of the track now, and this keeps them clear of the card while it is at
-     rest - they only cover it while it is travelling past them. */
-  max-width: calc(1320px - 2 * (44px + clamp(8px, 1.4vw, 20px)));
+     rest - they only cover it while it is travelling past them.
+
+     The second term is the page's own margin plus the room an arrow needs.
+     The track runs to the edges of the window so a card can leave the screen,
+     and without this the card ran to the edges with it.
+
+     Both halves of that term matter, and they used to live in two rules that
+     could disagree: the card was sized by the margin alone while the arrows sat
+     at the margin, so anywhere the margin was the binding limit - around a
+     1024-wide window - the arrows ended up lying on the card. One formula, one
+     answer. Below 620 the arrows leave the card's sides altogether and it takes
+     that room back. */
+  max-width: min(
+    calc(1320px - 2 * (44px + clamp(8px, 1.4vw, 20px))),
+    calc(100% - 2 * (clamp(20px, 5vw, 96px) + 44px + 10px))
+  );
   margin: 0 auto;
   overflow: hidden;
   border-radius: clamp(20px, 2.4vw, 34px);
@@ -1586,7 +1610,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(28px, 3.6vw, 56px);
+  padding: clamp(20px, 3.6vw, 56px);
 }
 
 .inlearn-event-loading {
@@ -1597,7 +1621,7 @@
 
 .inlearn-event-headline {
   margin: 0;
-  font-size: clamp(18px, 1.9vw, 26px);
+  font-size: clamp(16px, 1.9vw, 26px);
   font-weight: 700;
   line-height: 1.32;
 }
@@ -1635,11 +1659,57 @@
   color: var(--inlearn-green);
 }
 
-@media (max-width: 980px) {
-  /* No room beside the card at this width, and a finger is the natural control
-     here anyway. */
+/* Narrower than this there is no room beside the card worth taking from it, so
+   the arrows come down and stand either side of the dots: still one arrow left
+   and one right, still nothing covering the card.
+
+   The viewport takes a whole row and the three controls wrap onto the next one.
+   Their order is set here rather than in the markup, where the arrows have to
+   stay either side of the viewport for the wider layout. */
+@media (max-width: 620px) {
+  .inlearn-carousel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .inlearn-carousel-viewport {
+    flex: 0 0 100%;
+    /* See the note on the course row: a flex item does not shrink below its
+       contents, and the contents are the whole track. */
+    min-width: 0;
+    order: 1;
+  }
+
   .inlearn-carousel-arrow {
-    display: none;
+    position: static;
+    order: 2;
+    width: 36px;
+    height: 36px;
+    /* The centring transform belongs to the absolute layout above; here the row
+       does the centring and a leftover translate would push the arrow up. */
+    transform: none;
+  }
+
+  .inlearn-carousel-arrow:hover:not(:disabled) {
+    transform: scale(1.06);
+  }
+
+  .inlearn-carousel-arrow.is-next {
+    order: 4;
+  }
+
+  .inlearn-carousel-dots {
+    order: 3;
+    margin-top: 0;
+  }
+
+  /* Nothing stands beside the card here, so it takes the page's full measure
+     back - the room reserved above is only owed while the arrows are in it. */
+  .inlearn-event-card {
+    max-width: calc(100% - 2 * clamp(20px, 5vw, 96px));
   }
 }
 
@@ -2026,14 +2096,55 @@
   color: var(--inlearn-green);
 }
 
-@media (max-width: 640px) {
-  /* No room beside a full-width card, and a finger is the control here anyway. */
+/* One card wide: the arrows come down and stand either side of the dots, the
+   same arrangement the New Event row uses at this width. Nothing is hidden - a
+   control that disappears on a phone is a control the phone never had.
+
+   The card takes a whole row and the three controls wrap onto the next one.
+   Their order is set here because the markup has to keep the arrows either side
+   of the row for the wider layout. */
+@media (max-width: 716px) {
   .inlearn-courses-row {
-    grid-template-columns: minmax(0, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    /* The gap down the wrap is what sets the dots' distance from the cards. */
+    row-gap: clamp(18px, 5vw, 28px);
+    column-gap: 12px;
+  }
+
+  .inlearn-courses-viewport {
+    flex: 0 0 100%;
+    /* A flex item will not shrink below the width of its own contents unless it
+       is told it may, and the contents here are eight cards in a row. Without
+       this the viewport took the width of all eight and the cards ran off the
+       screen. The grid layout above says the same thing as minmax(0, 1fr). */
+    min-width: 0;
+    order: 1;
   }
 
   .inlearn-courses-arrow {
-    display: none;
+    position: static;
+    order: 2;
+    width: 36px;
+    height: 36px;
+    /* The shift belongs to the row layout above; here the wrap does the
+       aligning and a leftover translate would lift the arrow off the line. */
+    transform: none;
+  }
+
+  .inlearn-courses-arrow:hover:not(:disabled) {
+    transform: scale(1.12);
+  }
+
+  .inlearn-courses-arrow.is-next {
+    order: 4;
+  }
+
+  .inlearn-courses-row .inlearn-carousel-dots {
+    order: 3;
+    margin-top: 0;
   }
 
   /* One card fills the row on a phone, so it can carry the taller frame the
@@ -2183,13 +2294,28 @@
 
   .inlearn-solutions-media {
     order: -1;
-    /* A little wider than on a desktop, matching the phone frame: 465 by 678
-       there against 420 by 660 on a monitor. */
-    aspect-ratio: 47 / 68;
+    /* Stacked, the picture is as wide as the page, and at the phone frame's
+       portrait shape that makes it taller than a tablet screen - a whole scroll
+       of photograph before a word of the section is reached. It keeps that
+       shape where the page is narrow enough for it to be read at, and lies down
+       above that. The ceiling catches every case in between. */
+    aspect-ratio: 16 / 10;
+    max-height: 62vh;
   }
 
   .inlearn-solutions-copy .inlearn-section-title {
     max-width: none;
+  }
+}
+
+/* After the rule above, not before it: two rules of the same weight are decided
+   by which comes last, and this one was losing to a wider breakpoint written
+   further down the file. */
+@media (max-width: 560px) {
+  /* Narrow enough that the design's own phone frame fits: 465 by 678. */
+  .inlearn-solutions-media {
+    aspect-ratio: 47 / 68;
+    max-height: none;
   }
 }
 
@@ -2215,6 +2341,41 @@
   }
 }
 
+/* Tablets and phones: both marks with the divider between them, and no name.
+   The INLEARN mark says which site this is and the INNOTECH dots say whose it
+   is, which is the whole lockup in the width of two circles - and it leaves the
+   right-hand pill the room to space its five controls properly. The name comes
+   back on a laptop.
+
+   This is the shape the pill takes when it is opened on a monitor, held open
+   from the start here: there is no hovering on a phone, so a brand that only
+   shows the second mark on hover never shows it at all. Both marks are links
+   either way. */
+@media (max-width: 1023px) {
+  .inlearn-brand-wordmark {
+    display: none;
+  }
+
+  .inlearn-brand .inlearn-brand-mark-wide {
+    width: 32px;
+  }
+
+  .inlearn-brand .inlearn-brand-divider {
+    padding-left: 13px;
+    opacity: 1;
+  }
+
+  .inlearn-brand .inlearn-brand-divider::before {
+    transform: scaleY(1);
+  }
+
+  .inlearn-brand .inlearn-brand-link-innotech {
+    padding-left: 13px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 @media (max-width: 900px) {
   .inlearn-topbar {
     top: 20px;
@@ -2236,15 +2397,20 @@
     height: 58px;
   }
 
+  /* The same panel it is on a monitor - against the left edge, the full height
+     of the window - only narrower, and with padding that follows the window
+     rather than holding a monitor's 44px inside a phone-sized panel.
+
+     It used to be inset 28px from the top and the left here, which detached it
+     from the window frame, and with the inherited height: 100% it then ran 28px
+     past the bottom of the screen: those last 28px could never be reached. */
   .inlearn-auth-sidebar {
-    left: 28px;
-    top: 28px;
-    width: min(290px, calc(100vw - 56px));
+    width: min(340px, 100vw);
+    padding: clamp(26px, 6vw, 48px) clamp(20px, 6vw, 44px) clamp(26px, 6vw, 44px);
   }
 
   .inlearn-hero {
     min-height: 560px;
-    padding: 120px 20px 64px;
   }
 
 }
@@ -2257,35 +2423,17 @@
     gap: 8px;
   }
 
-  /* No room for the lockup next to a full right-hand pill, so the brand keeps
-     only its mark. The INNOTECH mark still slides in on tap/hover. */
-  .inlearn-brand-wordmark {
-    display: none;
-  }
 
   .inlearn-brand,
   .inlearn-brand.is-open {
     height: 52px;
     padding: 0 13px;
+    gap: 7px;
   }
 
   .inlearn-brand-mark {
-    width: 28px;
-    height: 28px;
-  }
-
-  /* The right-hand pill already claims the rest of the row here, so letting the
-     INNOTECH mark expand would squeeze it until its own content is clipped.
-     Below this width the brand stays a single mark and only opens INLEARN;
-     reaching innotech.global on a phone still needs a design decision. */
-  .inlearn-brand.is-open .inlearn-brand-mark-wide {
-    width: 0;
-  }
-
-  .inlearn-brand.is-open .inlearn-brand-link-innotech {
-    padding-left: 0;
-    opacity: 0;
-    pointer-events: none;
+    width: 26px;
+    height: 26px;
   }
 
   /* No room in that band on a phone - the two pills already fill the row - so
@@ -2294,27 +2442,47 @@
     top: 78px;
   }
 
+  /* The right-hand pill takes exactly the width its five controls need and no
+     less: letting it shrink past them is what pushed the basket onto the
+     language and cut the search off the end.
+
+     The brand beside it takes what is left instead, and it can: its name is
+     scaled down here, and a name that is a little smaller still reads, while a
+     control that is half a control does not. */
   .inlearn-nav,
   .inlearn-nav.is-searching {
     height: 52px;
     width: auto;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     min-width: 0;
   }
 
+  .inlearn-brand,
+  .inlearn-brand.is-open {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  /* Everything in the right-hand pill tightens by a few pixels so the brand
+     beside it can carry its full name. Nothing is dropped: the visitor still
+     has log in, register, the basket, the language and the search. */
+  /* Room between the controls, not the last pixel out of them: with the name
+     gone from the brand there is width to spare, and five controls jammed
+     together read as one dense object rather than five things to press. */
   .inlearn-nav-content {
     padding: 0 14px;
-    gap: 6px;
+    gap: 8px;
   }
 
   .inlearn-nav-links {
     grid-template-columns: auto 1px auto auto auto 1px;
-    column-gap: 7px;
+    column-gap: 9px;
   }
 
   .inlearn-language {
-    width: 44px;
-    min-width: 44px;
+    width: 42px;
+    min-width: 42px;
   }
 
   .inlearn-nav-links > button,
@@ -2322,8 +2490,88 @@
     font-size: 13px;
   }
 
+  /* Below this the row cannot hold both pills at the sizes above, so the last
+     few pixels come out of the type and the icons rather than out of a
+     control. */
+
+
   .inlearn-nav.is-searching .inlearn-search-shell input {
     width: calc(100vw - 100px);
+  }
+}
+
+/* The narrowest phones. The row cannot hold the spacing the wider phones get,
+   so a few pixels come out of it - but nothing is dropped and nothing is
+   squeezed against its neighbour.
+
+   At the end of the file on purpose. This used to sit nested inside the 620px
+   block, and the navbar's own 620px block is written later in the file, so half
+   of these declarations were quietly losing to it: same weight, and the one
+   written last wins. */
+@media (max-width: 400px) {
+  .inlearn-nav-links > button,
+  .inlearn-language > button {
+    font-size: 11px;
+  }
+
+  .inlearn-nav-content {
+    padding: 0 8px;
+    gap: 4px;
+  }
+
+  .inlearn-nav-links {
+    column-gap: 4px;
+  }
+
+  .inlearn-language {
+    width: 30px;
+    min-width: 30px;
+  }
+
+  /* The two icons carry their own box sizes, so the box is what has to come
+     down - shrinking the picture inside a 24px button leaves a 24px button. */
+  .inlearn-cart-link {
+    width: 20px;
+    height: 24px;
+  }
+
+  .inlearn-cart-link img,
+  .inlearn-language > button img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .inlearn-search-shell {
+    min-width: 23px;
+    gap: 6px;
+  }
+
+  .inlearn-search-toggle {
+    width: 23px;
+    height: 23px;
+    flex: 0 0 23px;
+  }
+
+  /* Both marks stay here too - the name is already gone at this width, and what
+     it freed is the room the second mark needs. */
+  .inlearn-brand,
+  .inlearn-brand.is-open {
+    padding: 0 8px;
+    gap: 5px;
+  }
+
+  .inlearn-brand .inlearn-brand-divider,
+  .inlearn-brand .inlearn-brand-link-innotech {
+    padding-left: 7px;
+  }
+
+  .inlearn-brand .inlearn-brand-mark-wide {
+    width: 22px;
+  }
+
+  .inlearn-brand-mark {
+    width: 23px;
+    height: 23px;
   }
 }
 

@@ -29,7 +29,7 @@ export function getInlearnFirstPage() {
       ? {...page.learningSolutions, image: learningSolutionsImage}
       : null,
     decorations: inlearnConfig.firstPage.decorations,
-    decorationsOnPhone: inlearnConfig.firstPage.decorationsOnPhone,
+    decorationsOnSmallScreens: inlearnConfig.firstPage.decorationsOnSmallScreens,
   };
 }
 
