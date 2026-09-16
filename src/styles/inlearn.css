@@ -546,6 +546,9 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
+/* The hidden links still hold their row, so the field lands in the row under
+   them and is lifted back onto the pill's centre line. The lift is per pill
+   size: this one is the wide pill's, and the phone's is in its own block. */
 .inlearn-nav.is-searching .inlearn-search-shell {
   grid-column: 1 / -1;
   flex: 1;
@@ -2511,6 +2514,14 @@
   .inlearn-nav.is-searching .inlearn-search-shell input {
     width: 100%;
     min-width: 0;
+  }
+
+  /* The wide pill's lift and pull are wrong in a pill this size: the pull put
+     the close button outside it altogether, and the lift is measured against a
+     taller row. Both are set for this pill here. */
+  .inlearn-nav.is-searching .inlearn-search-shell {
+    transform: translateY(-14px);
+    margin-left: 0;
   }
 }
 
