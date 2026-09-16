@@ -8,6 +8,11 @@ const cmsBaseUrl = process.env.VITE_CMS_BASE_URL || "https://blog.innotech.globa
 const siteBaseUrl = (process.env.SITE_BASE_URL || "https://innotech.global").replace(/\/+$/, "");
 const blogEnabled = process.env.VITE_CMS_ENABLED === "true" &&
   process.env.VITE_CMS_BLOG_ENABLED !== "false";
+/* The same switch the site itself reads. While INLEARN is unpublished there is
+   no /inlearn page in the build, so there must be no /inlearn/index.html either:
+   a fallback file for a route the app does not render is a blank screen rather
+   than the site's own not-found page. */
+const inlearnEnabled = process.env.VITE_INLEARN_ENABLED === "true";
 
 const staticRoutes = [
   "archives",
@@ -57,7 +62,7 @@ function buildRouteMetadata() {
      shows. */
   const navTitle = (index) => navigation.searchItems?.[index]?.title;
   add("what-we-think", navTitle(2));
-  add("inlearn", navTitle(3));
+  if (inlearnEnabled) add("inlearn", navTitle(3));
   add("archives", "Archives");
 
   for (const item of navigation.serviceMenuItems ?? []) {
@@ -248,7 +253,8 @@ for (const page of generated) {
   }
 }
 
-const routes = [...staticRoutes, ...generated.map(({route}) => route)];
+const publishedRoutes = staticRoutes.filter((route) => route !== "inlearn" || inlearnEnabled);
+const routes = [...publishedRoutes, ...generated.map(({route}) => route)];
 
 for (const route of routes) {
   const meta = metadata.get(route);

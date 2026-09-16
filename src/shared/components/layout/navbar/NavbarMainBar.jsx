@@ -6,6 +6,7 @@ import SunMedium from "../../../assets/icons/sun.svg";
 import Vector from "../../../assets/icons/chevron-down.svg";
 import Logo from "../../../assets/brand/logos/navbar-logo.svg";
 import {routes} from "../../../../app/routes.js";
+import {isInlearnEnabled} from "../../../../app/inlearnVisibility.js";
 import {languageOptions} from "../navData.js";
 import {t} from "../../../i18n/ui.js";
 
@@ -90,13 +91,15 @@ function NavbarMainBar({
             {t("whatWeThink")}
           </Link>
 
-          <Link
-            to={routes.inlearnAcademy}
-            onClick={closePanels}
-            className={`whitespace-nowrap font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
-          >
-            {t("academy")}
-          </Link>
+          {isInlearnEnabled ? (
+            <Link
+              to={routes.inlearnAcademy}
+              onClick={closePanels}
+              className={`whitespace-nowrap font-['Gotham'] text-sm transition-colors hover:text-emerald-400 min-[1500px]:text-base ${textColor}`}
+            >
+              {t("academy")}
+            </Link>
+          ) : null}
 
           <a
             href="https://stimanalytics.ai"

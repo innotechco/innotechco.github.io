@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {industryMenuItems, serviceMenuItems} from "../navData.js";
 import Vector from "../../../assets/icons/chevron-down.svg";
 import {routes} from "../../../../app/routes.js";
+import {isInlearnEnabled} from "../../../../app/inlearnVisibility.js";
 import {t} from "../../../i18n/ui.js";
 
 function PanelArrow({isDarkMode, isOpen}) {
@@ -196,13 +197,15 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
         >
           {t("whatWeThink")}
         </Link>
-        <Link
-          to={routes.inlearnAcademy}
-          onClick={closePanels}
-          className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
-        >
-          {t("academy")}
-        </Link>
+        {isInlearnEnabled ? (
+          <Link
+            to={routes.inlearnAcademy}
+            onClick={closePanels}
+            className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
+          >
+            {t("academy")}
+          </Link>
+        ) : null}
         <a
           href="https://stimanalytics.ai"
           target="_blank"

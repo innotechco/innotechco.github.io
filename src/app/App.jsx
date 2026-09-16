@@ -8,6 +8,7 @@ import {useLanguage} from "./providers/language/useLanguage.js";
 import {localizedModule} from "../shared/i18n/locale.js";
 import {t} from "../shared/i18n/ui.js";
 import {ContactActionsProvider} from "./providers/contact-actions/ContactActionsProvider.jsx";
+import {isInlearnEnabled} from "./inlearnVisibility.js";
 import Footer from "../shared/components/layout/Footer.jsx";
 import Navbar from "../shared/components/layout/Navbar.jsx";
 import ScrollToTop from "../shared/components/layout/ScrollToTop.jsx";
@@ -46,6 +47,10 @@ function lazyWithRetry(importer, name) {
 }
 
 const Home = lazyWithRetry(() => import("../features/home/Home.jsx"), "home");
+/* Built either way. The bundler cuts a chunk for every import() it can see,
+   whether or not the branch that calls it can run, so the module is still in the
+   output while INLEARN is unpublished - as a file with nothing that loads it,
+   not as a page: there is no route to it and no fallback for its address. */
 const InlearnAcademy = lazyWithRetry(
   () => import("../features/inlearn/InlearnAcademy.jsx"),
   "inlearn",
@@ -362,7 +367,12 @@ function App() {
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path={routes.home} element={<Home />} />
-            <Route path={`${routes.inlearnAcademy}/*`} element={<InlearnAcademy />} />
+            {/* Absent rather than hidden while INLEARN is still being built:
+                with no route, /inlearn falls through to the not-found page the
+                same way any other unknown address does. */}
+            {isInlearnEnabled ? (
+              <Route path={`${routes.inlearnAcademy}/*`} element={<InlearnAcademy />} />
+            ) : null}
             <Route path={routes.archives} element={<Archives />} />
             <Route path={routes.article} element={<ArticlePage />} />
             <Route path={routes.partner} element={<PartnerPage />} />

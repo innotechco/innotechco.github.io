@@ -7,6 +7,7 @@
 
 import {getActiveLocale} from "../../i18n/locale.js";
 import {routes} from "../../../app/routes.js";
+import {isInlearnEnabled} from "../../../app/inlearnVisibility.js";
 import {navigationContent} from "./navData.js";
 
 const serviceModules = import.meta.glob("../../../content/{en,ar,tr}/services/*.json", {
@@ -25,7 +26,16 @@ const pageModules = import.meta.glob("../../../content/{en,ar,tr}/pages/**/*.jso
   import: "default",
 });
 
-const searchRoutes = [routes.whoWeAre, null, routes.whatWeThink, routes.inlearnAcademy, "https://stimanalytics.ai", routes.rfp];
+/* null where INLEARN would be while it is unpublished: a search result that
+   leads to the not-found page is worse than no result. */
+const searchRoutes = [
+  routes.whoWeAre,
+  null,
+  routes.whatWeThink,
+  isInlearnEnabled ? routes.inlearnAcademy : null,
+  "https://stimanalytics.ai",
+  routes.rfp,
+];
 
 const serviceRoutesBySlug = {
   inception: routes.inception,
@@ -45,7 +55,7 @@ const pageRouteByPath = {
   "who-we-are/who-we-are": routes.whoWeAre,
   "what-we-think/what-we-think": routes.whatWeThink,
   "what-we-think/archives": routes.archives,
-  "inlearn-academy": routes.inlearnAcademy,
+  "inlearn-academy": isInlearnEnabled ? routes.inlearnAcademy : null,
 };
 
 const serviceLabelsBySlug = Object.fromEntries(
