@@ -6,7 +6,7 @@ import SunMedium from "../../../assets/icons/sun.svg";
 import Vector from "../../../assets/icons/chevron-down.svg";
 import Logo from "../../../assets/brand/logos/navbar-logo.svg";
 import {routes} from "../../../../app/routes.js";
-import {isInlearnEnabled} from "../../../../app/inlearnVisibility.js";
+import {isInlearnLinked} from "../../../../app/inlearnVisibility.js";
 import {languageOptions} from "../navData.js";
 import {t} from "../../../i18n/ui.js";
 
@@ -91,7 +91,13 @@ function NavbarMainBar({
             {t("whatWeThink")}
           </Link>
 
-          {isInlearnEnabled ? (
+          {/* Announced or not, the entry is in the row: INLEARN is part of what
+              the site offers, and a navbar that hides it reads as a navbar with
+              something missing. Until it is announced it is there without being
+              a way in - no link, nothing to open, nothing to copy - and it says
+              as much by looking unavailable rather than by silently ignoring
+              the press. */}
+          {isInlearnLinked ? (
             <Link
               to={routes.inlearnAcademy}
               onClick={closePanels}
@@ -99,7 +105,15 @@ function NavbarMainBar({
             >
               {t("academy")}
             </Link>
-          ) : null}
+          ) : (
+            <span
+              aria-disabled="true"
+              title={t("academySoon")}
+              className={`cursor-not-allowed whitespace-nowrap font-['Gotham'] text-sm opacity-40 min-[1500px]:text-base ${textColor}`}
+            >
+              {t("academy")}
+            </span>
+          )}
 
           <a
             href="https://stimanalytics.ai"
