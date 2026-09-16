@@ -72,7 +72,13 @@ function ArchiveCard({item, isDarkMode, selectedCategory, categoryLabels}) {
         to={getArticlePath(item.slug || item.id) ?? "#"}
       >
         <div className="archive-card-image">
-          <img src={item.image} alt="" aria-hidden="true" loading="lazy" />
+          <img
+            className="article-card-image-crop"
+            src={item.image}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+          />
         </div>
         <div className="archive-card-copy">
           <h2>{item.title}</h2>

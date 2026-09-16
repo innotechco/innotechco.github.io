@@ -16,7 +16,16 @@ function RelatedNews({article}) {
             key={`${item.title}-${index}`}
           >
             <div className="related-card-image">
-              {item.image ? <img loading="lazy" src={item.image} alt="" aria-hidden="true" /> : null}</div>
+              {item.image ? (
+                <img
+                  className="article-card-image-crop"
+                  loading="lazy"
+                  src={item.image}
+                  alt=""
+                  aria-hidden="true"
+                />
+              ) : null}
+            </div>
             <div className="related-card-copy">
               <h3>{item.title}</h3>
               <p>{item.description}</p>
