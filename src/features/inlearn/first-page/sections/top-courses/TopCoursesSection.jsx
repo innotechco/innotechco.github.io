@@ -6,12 +6,15 @@ import useMediaQuery from "../../../hooks/useMediaQuery.js";
    entry that matches wins, so the list is read from the bottom up.
 
    The numbers are the design's: four across a monitor and any laptop, three on
-   a tablet, one on a phone. They live here rather than in the stylesheet
-   because the track has to move by exactly one card's width, and only
-   JavaScript knows how wide that is. */
+   a tablet, one below 717px - where three cards leave each of them too narrow
+   to read. They live here rather than in the stylesheet because the track has to
+   move by exactly one card's width, and only JavaScript knows how wide that is.
+
+   The stylesheet has the same 717 in it, for where the arrows stand. Two places,
+   one number: if one moves, the other has to move with it. */
 const PER_VIEW = [
   {query: "(min-width: 1024px)", cards: 4},
-  {query: "(min-width: 640px)", cards: 3},
+  {query: "(min-width: 717px)", cards: 3},
 ];
 const PER_VIEW_ON_PHONE = 1;
 
@@ -79,30 +82,30 @@ function TopCoursesSection({topCourses}) {
           disabled={index >= maxIndex}
           onClick={() => step(1)}
         />
+
+        {/* One card fills a phone screen with nothing to say that seven more
+            follow it, so the dots come out where the row is one card wide.
+
+            They live inside the row, like the New Event ones, so the arrows can
+            come down and stand either side of them rather than disappearing:
+            there is no room beside a full-width card, but there is room under
+            it. */}
+        {perView === 1 && courses.length > 1 ? (
+          <div className="inlearn-carousel-dots" role="tablist" aria-label={topCourses.sectionTitle}>
+            {courses.map((course, dotIndex) => (
+              <button
+                key={course.id ?? dotIndex}
+                type="button"
+                role="tab"
+                aria-selected={dotIndex === index}
+                aria-label={`${dotIndex + 1} / ${courses.length}`}
+                className={dotIndex === index ? "is-current" : ""}
+                onClick={() => go(dotIndex)}
+              />
+            ))}
+          </div>
+        ) : null}
       </div>
-
-      {/* On a phone the arrows are gone - there is no room beside a full-width
-          card - and without them one card fills the screen with nothing to say
-          that seven more follow it. The dots say it, and they are the same dots
-          the New Event row uses a screen above, so the two read as one page.
-
-          Only where the arrows are missing: with the arrows there, dots would
-          be a second control saying the same thing. */}
-      {perView === 1 && courses.length > 1 ? (
-        <div className="inlearn-carousel-dots" role="tablist" aria-label={topCourses.sectionTitle}>
-          {courses.map((course, dotIndex) => (
-            <button
-              key={course.id ?? dotIndex}
-              type="button"
-              role="tab"
-              aria-selected={dotIndex === index}
-              aria-label={`${dotIndex + 1} / ${courses.length}`}
-              className={dotIndex === index ? "is-current" : ""}
-              onClick={() => go(dotIndex)}
-            />
-          ))}
-        </div>
-      ) : null}
     </section>
   );
 }

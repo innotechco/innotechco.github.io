@@ -52,12 +52,13 @@ const Footer = ({onContactClick, topSpacingClassName = "", variant = "curved"}) 
     ? isLightMode ? "bg-black" : "bg-white"
     : isLightMode ? "bg-white" : "bg-black";
   /* The curved rows are spaced as a share of the width because the ellipse
-     scales with it; a rectangle has no such anchor, so it takes fixed spacing. */
+     scales with it. The flat one has no such anchor, so it says the same thing
+     in steps: the same spacing on a monitor, less of it on a phone. */
   const topRowSpacing = isFlat
-    ? "pt-10 lg:pt-[52px]"
+    ? "pt-8 sm:pt-8 lg:pt-[52px]"
     : "pt-[6%] lg:pt-[8%]";
   const bottomRowSpacing = isFlat
-    ? "pb-10 lg:pb-[70px]"
+    ? "pb-8 sm:pb-8 lg:pb-[70px]"
     : "pb-5 sm:pb-6 lg:pb-14";
 
   const rows = (
@@ -128,7 +129,18 @@ const Footer = ({onContactClick, topSpacingClassName = "", variant = "curved"}) 
       className={`relative w-full overflow-hidden ${topSpacingClassName} ${surfaceColor}`}
     >
       {isFlat ? (
-        <div className="flex min-h-[260px] flex-col justify-between lg:min-h-[340px]">
+        /* The curved footer is a picture, so its height has always been a share
+           of the window's width - 36 per cent of it, at every size. This one
+           held a fixed 260px, which is the same footer on a monitor and half a
+           phone screen of empty black on a phone.
+
+           From a tablet up it follows the width the same way, with the old 340
+           as its ceiling. On a phone it holds no height at all and lets the two
+           rows say how tall it is: a minimum any shorter than the rows need
+           presses them together, and a minimum taller than the screen deserves
+           is the empty block this started as. The gap keeps them apart either
+           way. */
+        <div className="flex min-h-0 flex-col justify-between gap-7 sm:min-h-[clamp(190px,24vw,340px)] sm:gap-0">
           {rows}
         </div>
       ) : (
