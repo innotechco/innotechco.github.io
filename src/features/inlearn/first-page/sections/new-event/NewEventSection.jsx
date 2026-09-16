@@ -46,7 +46,12 @@ function NewEventSection({newEvent}) {
         <div className="inlearn-carousel-viewport" ref={viewportRef} {...handlers}>
           <div
             className="inlearn-carousel-track"
-            style={{transform: `translate3d(${-index * 100}%, 0, 0)`}}
+            /* One step is the card plus the empty road beside it, and the road
+               is a number the stylesheet owns - so widening the gap there moves
+               the travel with it and the two can never fall out of step. */
+            style={{
+              transform: `translate3d(calc(${-index} * (100% + var(--inlearn-event-gap))), 0, 0)`,
+            }}
           >
             {slides.map((event, slideIndex) => (
               <div
