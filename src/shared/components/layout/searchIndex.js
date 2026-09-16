@@ -7,7 +7,7 @@
 
 import {getActiveLocale} from "../../i18n/locale.js";
 import {routes} from "../../../app/routes.js";
-import {isInlearnEnabled} from "../../../app/inlearnVisibility.js";
+import {isInlearnLinked} from "../../../app/inlearnVisibility.js";
 import {navigationContent} from "./navData.js";
 
 const serviceModules = import.meta.glob("../../../content/{en,ar,tr}/services/*.json", {
@@ -26,13 +26,14 @@ const pageModules = import.meta.glob("../../../content/{en,ar,tr}/pages/**/*.jso
   import: "default",
 });
 
-/* null where INLEARN would be while it is unpublished: a search result that
-   leads to the not-found page is worse than no result. */
+/* null where INLEARN would be while it is unannounced: the page answers at its
+   address, but a search result is a way of arriving at it without knowing the
+   address, which is the thing being held back. */
 const searchRoutes = [
   routes.whoWeAre,
   null,
   routes.whatWeThink,
-  isInlearnEnabled ? routes.inlearnAcademy : null,
+  isInlearnLinked ? routes.inlearnAcademy : null,
   "https://stimanalytics.ai",
   routes.rfp,
 ];
@@ -55,7 +56,7 @@ const pageRouteByPath = {
   "who-we-are/who-we-are": routes.whoWeAre,
   "what-we-think/what-we-think": routes.whatWeThink,
   "what-we-think/archives": routes.archives,
-  "inlearn-academy": isInlearnEnabled ? routes.inlearnAcademy : null,
+  "inlearn-academy": isInlearnLinked ? routes.inlearnAcademy : null,
 };
 
 const serviceLabelsBySlug = Object.fromEntries(

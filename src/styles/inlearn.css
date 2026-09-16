@@ -546,6 +546,9 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
+/* The hidden links still hold their row, so the field lands in the row under
+   them and is lifted back onto the pill's centre line. The lift is per pill
+   size: this one is the wide pill's, and the phone's is in its own block. */
 .inlearn-nav.is-searching .inlearn-search-shell {
   grid-column: 1 / -1;
   flex: 1;
@@ -2449,12 +2452,23 @@
      The brand beside it takes what is left instead, and it can: its name is
      scaled down here, and a name that is a little smaller still reads, while a
      control that is half a control does not. */
-  .inlearn-nav,
-  .inlearn-nav.is-searching {
+  .inlearn-nav {
     height: 52px;
     width: auto;
     flex: 0 0 auto;
     min-width: 0;
+  }
+
+  /* While the field is open the pill takes the rest of the row instead of a
+     width of its own: 360px is wider than the space left beside the brand on a
+     phone, so the field ran off the right-hand edge of the screen. */
+  .inlearn-nav.is-searching,
+  .inlearn-nav.is-signed-in.is-searching {
+    height: 52px;
+    width: auto;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none;
   }
 
   .inlearn-brand,
@@ -2495,8 +2509,19 @@
      control. */
 
 
+  /* And the field takes the pill, rather than a share of the window that knows
+     nothing about how much of the row the brand beside it is using. */
   .inlearn-nav.is-searching .inlearn-search-shell input {
-    width: calc(100vw - 100px);
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* The wide pill's lift and pull are wrong in a pill this size: the pull put
+     the close button outside it altogether, and the lift is measured against a
+     taller row. Both are set for this pill here. */
+  .inlearn-nav.is-searching .inlearn-search-shell {
+    transform: translateY(-14px);
+    margin-left: 0;
   }
 }
 
