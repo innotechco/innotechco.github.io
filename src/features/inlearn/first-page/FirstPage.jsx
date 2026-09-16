@@ -1,6 +1,7 @@
 import {getInlearnFirstPage} from "../inlearnContent.js";
 import PageDecorations from "./PageDecorations.jsx";
 import HeroSection from "./sections/hero/HeroSection.jsx";
+import LearningSolutionsSection from "./sections/learning-solutions/LearningSolutionsSection.jsx";
 import NewEventSection from "./sections/new-event/NewEventSection.jsx";
 import TopCoursesSection from "./sections/top-courses/TopCoursesSection.jsx";
 
@@ -25,6 +26,7 @@ function FirstPage() {
       <HeroSection hero={page.hero} />
       <NewEventSection newEvent={page.newEvent} />
       <TopCoursesSection topCourses={page.topCourses} />
+      <LearningSolutionsSection learningSolutions={page.learningSolutions} />
     </div>
   );
 }

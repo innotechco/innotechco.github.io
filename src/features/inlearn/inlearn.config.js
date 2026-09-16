@@ -4,7 +4,12 @@
    It is kept apart from the JSON because a translator owns the words and never
    the artwork, and the two are edited by different people on different days. */
 
-import {coursePlaceholder, firstPageArcRight, firstPageArcTopLeft} from "./inlearn.assets.js";
+import {
+  coursePlaceholder,
+  firstPageArcRight,
+  firstPageArcTopLeft,
+  learningSolutionsPlaceholder,
+} from "./inlearn.assets.js";
 
 /* ===========================================================================
    THE TWO ARCS ON THE FIRST PAGE  -  every number you might want to move
@@ -61,6 +66,11 @@ export const courseImages = {
 };
 
 export const courseImageFallback = coursePlaceholder;
+
+/* The photograph beside "Learn more about our learning solutions". One line,
+   because there is one picture: swap the import and this section has its
+   photograph, with nothing else to change. */
+export const learningSolutionsImage = learningSolutionsPlaceholder;
 
 export const inlearnConfig = {
   firstPage: {

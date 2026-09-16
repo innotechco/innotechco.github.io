@@ -91,5 +91,16 @@
         "imageAlt": "Steel pipework under load"
       }
     ]
+  },
+  "learningSolutions": {
+    "title": "Learn more about our learning solutions",
+    "points": [
+      "Engaging learning experiences and high-quality online content that can be delivered at scale",
+      "Solutions that focus on today's in-demand skill areas to help attract, retain, and future-proof your workforce",
+      "A variety of formats, from long-form courses that replicate an on-campus classroom experience to short-form content",
+      "Interaction with a global community of learners and leaders looking to develop their workforce, grow their business, and change the world"
+    ],
+    "cta": "Contact us",
+    "imageAlt": "Colleagues talking together in an office"
   }
 }

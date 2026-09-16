@@ -1,0 +1,31 @@
+<!-- A stand-in for the photograph this section is designed around, drawn at the
+     exact proportion the Figma frame gives it: 420 by 660.
+
+     It is deliberately plain and deliberately labelled. A borrowed photograph
+     from another page would look finished, and nobody would remember it was
+     never the right one; this cannot be mistaken for the real thing.
+
+     To replace it: drop the photograph in this folder, export it from
+     inlearn.assets.js, and name it on that line of inlearn.config.js. Nothing
+     else changes - the frame crops whatever it is given. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 660" width="420" height="660" role="img" aria-label="Photograph placeholder">
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9ecec" />
+      <stop offset="1" stop-color="#dcdfe0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="420" height="660" fill="url(#field)" />
+
+  <g fill="none" stroke="#b6bcbc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="140" y="272" width="140" height="106" rx="10" />
+    <path d="M140 348l38-34 30 26 26-24 46 40" />
+  </g>
+  <circle cx="186" cy="304" r="11" fill="#b6bcbc" />
+
+  <text x="210" y="420" text-anchor="middle" font-family="Gotham, Arial, sans-serif"
+        font-size="17" letter-spacing="1.5" fill="#9aa1a1">PHOTO TO COME</text>
+  <text x="210" y="446" text-anchor="middle" font-family="Gotham, Arial, sans-serif"
+        font-size="13" fill="#adb3b3">420 &#215; 660</text>
+</svg>

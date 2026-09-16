@@ -91,5 +91,16 @@
         "imageAlt": "Yük altındaki çelik boru hattı"
       }
     ]
+  },
+  "learningSolutions": {
+    "title": "Öğrenme çözümlerimizi daha yakından tanıyın",
+    "points": [
+      "Geniş ölçekte sunulabilen, ilgi çekici öğrenme deneyimleri ve yüksek kaliteli çevrim içi içerik",
+      "Ekibinizi kazanmanıza, elinizde tutmanıza ve geleceğe hazırlamanıza yardımcı olan, bugünün aranan beceri alanlarına odaklanmış çözümler",
+      "Kampüs sınıfı deneyimini yeniden yaratan uzun dersler ile kısa içerikler arasında değişen çeşitli biçimler",
+      "Ekibini geliştirmek, işini büyütmek ve dünyayı değiştirmek isteyen küresel bir öğrenen ve lider topluluğuyla etkileşim"
+    ],
+    "cta": "Bize ulaşın",
+    "imageAlt": "Ofiste birlikte konuşan iş arkadaşları"
   }
 }

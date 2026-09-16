@@ -8,7 +8,12 @@
    half-translated locale shows English sentences rather than blank space. */
 
 import {localizedModule} from "../../shared/i18n/locale.js";
-import {courseImageFallback, courseImages, inlearnConfig} from "./inlearn.config.js";
+import {
+  courseImageFallback,
+  courseImages,
+  inlearnConfig,
+  learningSolutionsImage,
+} from "./inlearn.config.js";
 
 export function getInlearnFirstPage() {
   const modules = import.meta.glob("../../content/{en,ar,tr}/pages/inlearn/*.json", {
@@ -20,6 +25,9 @@ export function getInlearnFirstPage() {
   return {
     ...page,
     topCourses: withCourseImages(page.topCourses),
+    learningSolutions: page.learningSolutions
+      ? {...page.learningSolutions, image: learningSolutionsImage}
+      : null,
     decorations: inlearnConfig.firstPage.decorations,
     decorationsOnPhone: inlearnConfig.firstPage.decorationsOnPhone,
   };
