@@ -76,8 +76,8 @@ GET /wp-json/innotech/v1/home-hero?lang=tr
 
 ```json
 {
-  "title": "INNOVATION AI ASSISTANT",
-  "description": "AI-Powered Expertise in Technology, Market & Product Development",
+  "title": "BUILD WHAT COMES NEXT",
+  "description": "Connecting intelligence, innovation and digital transformation to help industrial organizations make better technology decisions.",
   "linkLabel": "Read more"
 }
 ```

@@ -328,6 +328,8 @@
 
 /* Category pill on the card: same oval shape as the filter pills above the grid,
    sized down so it never overflows the meta row. */
+/* The pill is only the shape: the oval, its colour and its padding. Trimming
+   the text is the inner label's job - see the comment in Archives.jsx. */
 .archive-card-category {
   display: inline-flex;
   max-width: 100%;
@@ -342,25 +344,40 @@
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.01em;
+}
+
+.archive-card-category-label {
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 /* Labels of three or more words ("PATENT LANDSCAPE INSIGHT") wrap onto a second
-   line instead of being cut with an ellipsis. */
+   line instead of being cut with an ellipsis.
+
+   block, not flex: a flex item is blockified too, and that is what was
+   destroying the -webkit-box the clamp below depends on. As a plain block the
+   label keeps the display it was given, and the oval grows to exactly the two
+   lines it holds. */
 .archive-card-category--multiline {
-  display: -webkit-box;
-  /* Long labels ("PATENT LANDSCAPE INSIGHT", "Oil, Gas and Petrochemical")
-     break over two lines inside whatever width the meta column can spare. */
-  max-width: 100%;
+  display: block;
   padding: 4px 9px;
   line-height: 1.22;
   text-align: center;
+}
+
+.archive-card-category--multiline .archive-card-category-label {
+  display: -webkit-box;
+  /* Long labels ("Innovation & Technology Management") break over two lines and
+     stop there; a third line used to spill out below the oval, because the
+     clamp was set on the pill, where blockification had already discarded it. */
+  overflow: hidden;
   text-overflow: clip;
   white-space: normal;
   overflow-wrap: anywhere;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .archive-empty {

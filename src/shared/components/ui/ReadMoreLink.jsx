@@ -1,15 +1,17 @@
 import {Link} from "react-router-dom";
 
-import {routes} from "../../../app/routes.js";
 import {t} from "../../i18n/ui.js";
 
-function ReadMoreLink({
-  to = routes.featuredArticle,
-  label,
-  isDarkMode,
-  className = "",
-  align = "start",
-}) {
+/* "Read more", pointing wherever the caller says.
+ *
+ * It used to fall back to one hard-coded article when `to` was missing, which
+ * meant a card whose slug had not arrived sent the visitor to an unrelated
+ * piece - no error, no broken link, just the wrong page. Nothing renders now
+ * instead: a read-more with nowhere to go is not a control, and a missing
+ * button is far easier to notice than a wrong destination. */
+function ReadMoreLink({to, label, isDarkMode, className = "", align = "start"}) {
+  if (!to) return null;
+
   const textColor = isDarkMode ? "text-white" : "text-black";
   const alignment = align === "end" ? "items-end" : "items-start";
 

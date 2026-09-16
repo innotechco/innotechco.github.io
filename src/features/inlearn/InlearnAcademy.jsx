@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 
 import AuthSidebar from "./components/AuthSidebar.jsx";
-import InlearnHero from "./components/InlearnHero.jsx";
+import FirstPage from "./first-page/FirstPage.jsx";
 import InlearnNavbar from "./components/InlearnNavbar.jsx";
 import InlearnToast from "./components/InlearnToast.jsx";
 import {restoreSession} from "./services/authService.js";
@@ -73,9 +73,7 @@ function InlearnAcademy() {
           );
         }}
       />
-      <section className="inlearn-stage">
-        <InlearnHero />
-      </section>
+      <FirstPage />
     </main>
   );
 }

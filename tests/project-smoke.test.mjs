@@ -231,7 +231,10 @@ test("the archive card is one link with a category pill instead of Read More", (
   assert.match(page, /archive-card-category/);
   assert.doesNotMatch(page, /ReadMoreLink|archive-card-read-more/);
   assert.match(css, /\.archive-card-category \{[^}]*border-radius: 999px/s);
-  assert.match(css, /\.archive-card-category \{[^}]*text-overflow: ellipsis/s);
+  /* The trimming moved onto the inner label: the pill is a grid item, and a
+     grid item's display is blockified, which turns the -webkit-box a clamp
+     needs into flow-root and drops the clamp on the floor. */
+  assert.match(css, /\.archive-card-category-label \{[^}]*text-overflow: ellipsis/s);
 });
 
 test("the article table of contents lists H2 only and nests H3 under it", () => {
@@ -388,7 +391,7 @@ test("card summaries are cut in JS and the card footer is pinned by flexbox", ()
   // separate rule and is excluded from this check.
   for (const file of ["archive.css", "what-we-think.css"]) {
     const css = fs.readFileSync(path.join(srcRoot, "styles", file), "utf8")
-      .replace(/\.archive-card-category--multiline \{[^}]*\}/gs, "");
+      .replace(/\.archive-card-category--multiline[^{]*\{[^}]*\}/gs, "");
 
     assert.match(css, /--article-card-summary-lines/, `${file} must set the shared line count`);
     assert.doesNotMatch(
@@ -449,8 +452,17 @@ test("a three word category label wraps onto two lines in the card pill", () => 
   assert.equal(isMultilineCategoryLabel(""), false);
 
   const css = fs.readFileSync(path.join(srcRoot, "styles", "archive.css"), "utf8");
-  assert.match(css, /\.archive-card-category--multiline \{[^}]*-webkit-line-clamp: 2/s);
-  assert.match(css, /\.archive-card-category--multiline \{[^}]*white-space: normal/s);
+  /* Both live on the inner label, and the pill drops out of flex layout so
+     that label is an ordinary block whose -webkit-box survives. */
+  assert.match(
+    css,
+    /\.archive-card-category--multiline \.archive-card-category-label \{[^}]*-webkit-line-clamp: 2/s,
+  );
+  assert.match(
+    css,
+    /\.archive-card-category--multiline \.archive-card-category-label \{[^}]*white-space: normal/s,
+  );
+  assert.match(css, /\.archive-card-category--multiline \{[^}]*display: block/s);
   // Cards keep one height per row even when a pill takes two lines.
   assert.match(css, /\.archive-card \{[^}]*height: 100%/s);
 });
@@ -685,6 +697,9 @@ test("non-critical content images use native lazy loading", () => {
     /* INLEARN's own navbar, exempt for the same reason as the site navbar:
        its icons are above the fold on every page of the module. */
     path.join(srcRoot, "features", "inlearn", "components", "InlearnNavbar.jsx"),
+    /* The arc behind the hero is painted before anything is scrolled; the one
+       below it asks for loading="lazy" in the same component. */
+    path.join(srcRoot, "features", "inlearn", "first-page", "PageDecorations.jsx"),
     path.join(
       srcRoot,
       "features",

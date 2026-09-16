@@ -334,10 +334,9 @@ function App() {
       : [
           ...serviceRoutes,
           ...industryRoutes,
-          routes.featuredArticle,
           routes.archives,
           routes.whoWeAre,
-        ].includes(pathname)
+        ].includes(pathname) || pathname.startsWith(`${routes.articles}/`)
       ? "mt-0"
       : undefined;
 

@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import googleIcon from "../assets/google.svg";
 import linkedinIcon from "../../../shared/assets/icons/linkedin-dark.svg";
 import {countryNames, dialCodeFor} from "../data/countries.js";
-import {inlearnCopy} from "../data/inlearnContent.js";
+import {getInlearnFirstPage} from "../inlearnContent.js";
 import {
   completeProviderSignIn,
   logIn,
@@ -166,7 +166,7 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn, onProvide
         <InnotechLogo />
         <div className="inlearn-auth-heading">
           <h2>Get started</h2>
-          <p>{inlearnCopy.authIntro}</p>
+          <p>{getInlearnFirstPage().auth.intro}</p>
         </div>
 
         <div className="inlearn-auth-tabs" role="tablist" aria-label="Authentication mode">

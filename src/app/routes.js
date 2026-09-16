@@ -7,7 +7,6 @@ export const routes = {
   rfp: "/request-for-proposal",
   article: "/articles/:slug",
   articles: "/articles",
-  featuredArticle: "/articles/product-portfolio-management",
   partner: "/what-we-do/partners/:slug",
   partners: "/what-we-do/partners",
   inception: "/what-we-do/inception",

@@ -164,8 +164,28 @@ ${urls.join("\n")}
   fs.writeFileSync(path.join(distRoot, "sitemap.xml"), sitemap);
 }
 
+/* WordPress hands back rendered HTML, which means both tags and entities:
+   "Oil &#038; Gas" rather than "Oil & Gas". Removing the tags without decoding
+   the entities left the ampersand encoded, and escapeHtml then encoded the
+   ampersand of the entity itself - "Oil &amp;#038; Gas" in the page title.
+
+   Decoding here means every caller downstream is handed plain text, and the one
+   escape that does happen is the right one. */
+function decodeEntities(value) {
+  return String(value ?? "")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCodePoint(parseInt(code, 16)))
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    /* Last, or an "&amp;#038;" would decode to "&" and stop there. */
+    .replace(/&amp;/g, "&");
+}
+
 function stripHtml(value) {
-  return collapse(String(value ?? "").replace(/<[^>]*>/g, ""));
+  return collapse(decodeEntities(String(value ?? "").replace(/<[^>]*>/g, "")));
 }
 
 /* Partner pages are a :slug route, so they need an entry each just like the

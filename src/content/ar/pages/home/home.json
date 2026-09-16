@@ -2,7 +2,8 @@
   "hero": {
     "title": "وكيل منظمة العفو الدولية",
     "description": "نحن نستفيد من التقدم في التقنيات الثورية لتعزيز الأعمال.",
-    "linkLabel": "اقرأ المزيد"
+    "linkLabel": "اقرأ المزيد",
+    "linkPostId": 20
   },
   "ecosystemCards": [
     {

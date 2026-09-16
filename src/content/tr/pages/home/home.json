@@ -2,7 +2,8 @@
   "hero": {
     "title": "Yapay Zeka Temsilcisi",
     "description": "İşi geliştirmek için yıkıcı teknolojilerdeki gelişmelerden yararlanıyoruz.",
-    "linkLabel": "Devamını oku"
+    "linkLabel": "Devamını oku",
+    "linkPostId": 20
   },
   "ecosystemCards": [
     {

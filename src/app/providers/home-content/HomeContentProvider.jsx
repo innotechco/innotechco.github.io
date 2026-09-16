@@ -96,6 +96,9 @@ export function HomeContentProvider({children}) {
     return {
       ...state,
       content,
+      /* Every post that came back, so a section can find one by id rather than
+         by slug - a slug is rewritten whenever an editor improves a title. */
+      posts,
       /* "loading" | "ready" | "error" - see useBlogPosts for what each means.
          Sections backed by WordPress render a skeleton while loading and only
          fall back to the bundled copy on "error". */

@@ -1,8 +1,9 @@
 {
   "hero": {
-    "title": "INNOVATION AI ASSISTANT",
-    "description": "AI-Powered Expertise in Technology, Market & Product Development",
-    "linkLabel": "Read more"
+    "title": "BUILD WHAT COMES NEXT",
+    "description": "Connecting intelligence, innovation and digital transformation to help industrial organizations make better technology decisions.",
+    "linkLabel": "Read more",
+    "linkPostId": 20
   },
   "ecosystemCards": [
     {
