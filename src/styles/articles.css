@@ -465,6 +465,7 @@
 .related-card:hover { transform: translateY(-5px); box-shadow: 0 16px 44px rgba(55, 180, 120, 0.14); }
 .related-card-image { height: 300px; flex: 0 0 auto; overflow: hidden; }
 .related-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease; }
+.related-card-image img.article-card-image-crop { width: 175%; max-width: none; margin-left: -75%; transform-origin: right center; }
 .related-card:hover .related-card-image img { transform: scale(1.04); }
 .related-card-copy { display: flex; flex: 1; flex-direction: column; padding: 22px 22px 20px; }
 .related-card h3 { margin: 0 0 12px; font-size: clamp(22px, 2vw, 27px); font-weight: 500; line-height: 1.12; }
@@ -517,4 +518,3 @@
 @media (prefers-reduced-motion: reduce) {
   .related-card, .related-card-image img { transition: none; }
 }
-

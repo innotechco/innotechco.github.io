@@ -71,6 +71,7 @@ function ImagePane({card}) {
   return (
     <div className="what-we-think-image">
       <img
+        className="article-card-image-crop"
         loading="lazy"
         src={card.image}
         alt=""

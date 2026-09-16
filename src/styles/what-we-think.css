@@ -186,6 +186,18 @@
   object-fit: cover;
 }
 
+/* WordPress hero artwork reserves its left side for the article heading. Cards
+   have their own copy area, so keep that dark text-safe strip outside the image
+   pane and show only the photographic part. The single-article hero deliberately
+   does not use this class. */
+.what-we-think-image img.article-card-image-crop {
+  right: 0;
+  left: auto;
+  width: 175%;
+  max-width: none;
+  transform-origin: right center;
+}
+
 .what-we-think-card--tall .what-we-think-image {
   width: 100%;
 }
@@ -720,4 +732,3 @@
     font-size: clamp(9px, 2.5vw, 11px);
   }
 }
-

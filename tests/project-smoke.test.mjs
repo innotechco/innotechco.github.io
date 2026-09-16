@@ -273,6 +273,30 @@ test("the single-article hero box takes the uploaded image's own ratio", () => {
   assert.match(css, /\.article-wordpress-content img \{[^}]*object-fit: contain/s);
 });
 
+test("editorial cards crop the hero-only dark strip without changing the article hero", () => {
+  const whatWeThink = fs.readFileSync(
+    path.join(srcRoot, "features", "what-we-think", "WhatWeThink.jsx"),
+    "utf8",
+  );
+  const archives = fs.readFileSync(
+    path.join(srcRoot, "features", "archives", "Archives.jsx"),
+    "utf8",
+  );
+  const relatedNews = fs.readFileSync(
+    path.join(srcRoot, "features", "articles", "components", "RelatedNews.jsx"),
+    "utf8",
+  );
+  const articleHero = fs.readFileSync(
+    path.join(srcRoot, "features", "articles", "components", "ArticleHero.jsx"),
+    "utf8",
+  );
+
+  for (const card of [whatWeThink, archives, relatedNews]) {
+    assert.match(card, /article-card-image-crop/);
+  }
+  assert.doesNotMatch(articleHero, /article-card-image-crop/);
+});
+
 test("the home hero card is editable from a real WordPress screen", () => {
   const plugin = fs.readFileSync(
     path.join(root, "tools", "wordpress", "plugin", "innotech-article-fields", "home-hero.php"),
