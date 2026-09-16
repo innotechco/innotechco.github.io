@@ -4,7 +4,7 @@
    It is kept apart from the JSON because a translator owns the words and never
    the artwork, and the two are edited by different people on different days. */
 
-import {firstPageArcRight, firstPageArcTopLeft} from "./inlearn.assets.js";
+import {coursePlaceholder, firstPageArcRight, firstPageArcTopLeft} from "./inlearn.assets.js";
 
 /* ===========================================================================
    THE TWO ARCS ON THE FIRST PAGE  -  every number you might want to move
@@ -35,6 +35,32 @@ import {firstPageArcRight, firstPageArcTopLeft} from "./inlearn.assets.js";
 
    The phone layout has its own numbers, further down.
    =========================================================================== */
+
+/* ===========================================================================
+   COURSE PICTURES  -  which photograph belongs to which course
+   ===========================================================================
+
+   Keyed by the course id in src/content/<locale>/pages/inlearn/first-page.json,
+   because a course keeps its id when its title is rewritten or translated.
+
+   Every course points at the same placeholder today. To give one its own
+   picture: drop the file in assets/courses/, export it from inlearn.assets.js,
+   and name it on that course's line here. A course with no line falls back to
+   the placeholder rather than rendering an empty frame.
+   =========================================================================== */
+
+export const courseImages = {
+  "innovations-in-teamwork": coursePlaceholder,
+  "lpg-patent-landscape": coursePlaceholder,
+  "industrial-ai-foundations": coursePlaceholder,
+  "energy-transition-strategy": coursePlaceholder,
+  "digital-twin-operations": coursePlaceholder,
+  "supply-chain-resilience": coursePlaceholder,
+  "process-safety-leadership": coursePlaceholder,
+  "materials-for-harsh-environments": coursePlaceholder,
+};
+
+export const courseImageFallback = coursePlaceholder;
 
 export const inlearnConfig = {
   firstPage: {

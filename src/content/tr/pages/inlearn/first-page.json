@@ -19,5 +19,77 @@
     "imageAlt": "INLEARN etkinliği",
     "previous": "Önceki etkinlik",
     "next": "Sonraki etkinlik"
+  },
+  "topCourses": {
+    "sectionTitle": "Öne Çıkan Temel Dersler",
+    "readMore": "Devamını oku",
+    "previous": "Önceki dersler",
+    "next": "Sonraki dersler",
+    "items": [
+      {
+        "id": "innovations-in-teamwork",
+        "title": "Sağlık Hizmetlerinde Ekip Çalışması Yenilikleri",
+        "summary": "Sağlık hizmeti bir ekip işidir. Danışmadaki görevliden hemşireye kadar her rol sonucun bir parçasını taşır.",
+        "date": "15 Kasım 2025",
+        "effort": "Haftada 4-6 saat",
+        "imageAlt": "İş başındaki sağlık ekipleri"
+      },
+      {
+        "id": "lpg-patent-landscape",
+        "title": "Sıvılaştırılmış Petrol Gazı Patent Görünümü Raporu",
+        "summary": "Patentlerin nerede yoğunlaştığı, kimin başvurduğu ve bunun gaz işlemenin önümüzdeki on yılı için ne anlama geldiği.",
+        "date": "15 Kasım 2025",
+        "effort": "Haftada 4-6 saat",
+        "imageAlt": "Bir gaz işleme tesisi"
+      },
+      {
+        "id": "industrial-ai-foundations",
+        "title": "Tesis Mühendisleri için Endüstriyel Yapay Zekâ Temelleri",
+        "summary": "Kestirimci bakımın arkasındaki modeller, makineleri zaten bilenler için anlatılıyor.",
+        "date": "15 Kasım 2025",
+        "effort": "Haftada 4-6 saat",
+        "imageAlt": "Tesis göstergelerini okuyan bir mühendis"
+      },
+      {
+        "id": "energy-transition-strategy",
+        "title": "Ağır Sanayi için Enerji Dönüşümü Stratejisi",
+        "summary": "Varlık yoğun bir işletme, iki kez yanılmayı kaldıramayacağı bir dönüşümü nasıl planlar.",
+        "date": "15 Kasım 2025",
+        "effort": "Haftada 4-6 saat",
+        "imageAlt": "Endüstriyel enerji altyapısı"
+      },
+      {
+        "id": "digital-twin-operations",
+        "title": "Pilottan Tesise Dijital İkiz Operasyonları",
+        "summary": "Dijital ikizlerin çoğu pilotta kalır. Bu ders, birini günlük operasyona taşıyan işi anlatır.",
+        "date": "15 Kasım 2025",
+        "effort": "Haftada 4-6 saat",
+        "imageAlt": "Tesisin yanındaki kontrol odası ekranı"
+      },
+      {
+        "id": "supply-chain-resilience",
+        "title": "Gerçek Kısıtlar Altında Tedarik Zinciri Dayanıklılığı",
+        "summary": "Gerçekten sahip olduğunuz bağımlılıkların ve yalnızca sahip olduğunuzu sandıklarınızın haritası.",
+        "date": "15 Kasım 2025",
+        "effort": "Haftada 4-6 saat",
+        "imageAlt": "Bir terminalden geçen yük"
+      },
+      {
+        "id": "process-safety-leadership",
+        "title": "Yüksek Riskli Sahalarda Proses Güvenliği Liderliği",
+        "summary": "Yüksek riskli bir sahayı kendisine karşı dürüst tutan alışkanlıklar, raporlama hatları ve zor konuşmalar.",
+        "date": "15 Kasım 2025",
+        "effort": "Haftada 4-6 saat",
+        "imageAlt": "Endüstriyel sahada güvenlik denetimi"
+      },
+      {
+        "id": "materials-for-harsh-environments",
+        "title": "Zorlu Ortamlar için Malzeme Mühendisliği",
+        "summary": "Hiç dinmeyen ısı, basınç ve aşınma için alaşım, kaplama ve conta seçmek.",
+        "date": "15 Kasım 2025",
+        "effort": "Haftada 4-6 saat",
+        "imageAlt": "Yük altındaki çelik boru hattı"
+      }
+    ]
   }
 }

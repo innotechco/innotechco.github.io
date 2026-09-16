@@ -16,32 +16,44 @@ import {useCallback, useRef, useState} from "react";
    enough that a deliberate flick does. */
 const SWIPE_THRESHOLD = 48;
 
-export default function useCarousel(count) {
+export default function useCarousel(count, perView = 1) {
   const [index, setIndex] = useState(0);
   const viewportRef = useRef(null);
   const gesture = useRef(null);
 
-  /* A slide can disappear - WordPress answers with fewer posts than the bundled
-     copy assumed - and an index past the end would park the track on empty
-     space. Clamped while rendering rather than corrected afterwards in an
-     effect: an effect would paint the wrong frame first and fix it second. */
-  const safeIndex = count > 0 ? Math.min(index, count - 1) : 0;
+  /* The last index worth resting on: past it the track would show empty space
+     where the row runs out of cards. With one card in view that is the last
+     card; with four in view it is four cards from the end. */
+  const maxIndex = Math.max(count - perView, 0);
+
+  /* Slides disappear - WordPress answers with fewer posts than the bundled copy
+     assumed - and the visible count changes when the window is resized, so the
+     current index can fall outside the range between two renders. Clamped while
+     rendering rather than corrected afterwards in an effect: an effect would
+     paint the wrong frame first and fix it second. */
+  const safeIndex = Math.min(index, maxIndex);
 
   const go = useCallback(
     (next) => {
       if (count < 1) return;
-      setIndex(Math.min(Math.max(next, 0), count - 1));
+      setIndex(Math.min(Math.max(next, 0), maxIndex));
     },
-    [count],
+    [count, maxIndex],
   );
 
   const step = useCallback(
     (delta) => {
-      /* Wraps, so the last card's "next" returns to the first rather than
-         leaving the arrow looking broken. */
-      setIndex((current) => (count < 1 ? 0 : (current + delta + count) % count));
+      setIndex((current) => {
+        if (count < 1) return 0;
+        /* One card in view means every index is a whole view, so the last
+           card's "next" can return to the first rather than leave the arrow
+           looking broken. With several in view the ends are real ends: wrapping
+           there would jump the row past cards the visitor can still see. */
+        if (perView === 1) return (current + delta + count) % count;
+        return Math.min(Math.max(current + delta, 0), maxIndex);
+      });
     },
-    [count],
+    [count, perView, maxIndex],
   );
 
   const onPointerDown = useCallback((event) => {
@@ -91,6 +103,7 @@ export default function useCarousel(count) {
 
   return {
     index: safeIndex,
+    maxIndex,
     viewportRef,
     go,
     step,
