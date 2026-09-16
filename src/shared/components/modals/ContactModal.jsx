@@ -169,9 +169,14 @@ function ContactModal({actionId = "default", isOpen, onClose, contentOverrides =
     closeDurationMs={1000}
     containerClassName="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto px-3 pb-6 pt-[calc(env(safe-area-inset-top)+88px)] sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+104px)] lg:items-center lg:overflow-hidden lg:py-6"
     overlayClassName={`absolute inset-0 ${overlayBg} backdrop-blur-sm transition-opacity duration-1000 ease-out`}
+    /* Full height on a phone, where a form that fills the screen is the whole
+       screen anyway - and only a ceiling from a laptop up, where a fixed height
+       left the panel as tall as the window with the form ending a third of the
+       way down it and empty space under it. As tall as it needs, no taller than
+       the window. */
     panelClassName={`relative flex h-[calc(100svh-112px)] w-full max-w-[929px] flex-col overflow-hidden rounded-[24px]
       sm:h-[calc(100svh-132px)]
-      lg:h-[calc(100svh-48px)]
+      lg:h-auto lg:max-h-[calc(100svh-48px)]
       ${modalBg} ${modalOutline}
       transform transition-all duration-1000 ease-out`}
     hiddenClassName="translate-y-32 scale-[0.98] opacity-0"
