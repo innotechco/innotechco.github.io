@@ -8,6 +8,13 @@ const cmsBaseUrl = process.env.VITE_CMS_BASE_URL || "https://blog.innotech.globa
 const siteBaseUrl = (process.env.SITE_BASE_URL || "https://innotech.global").replace(/\/+$/, "");
 const blogEnabled = process.env.VITE_CMS_ENABLED === "true" &&
   process.env.VITE_CMS_BLOG_ENABLED !== "false";
+/* The same switch the site itself reads. INLEARN is built and answers at its
+   address either way - what this decides is whether the rest of the site points
+   at it. Here that means the sitemap: a sitemap entry is how a search engine
+   arrives at a page nobody linked to, which is the one door left. The fallback
+   file is written regardless, or typing the address on innotech.global would
+   land on nothing. */
+const inlearnLinked = process.env.VITE_INLEARN_ENABLED === "true";
 
 const staticRoutes = [
   "archives",
@@ -256,7 +263,7 @@ for (const route of routes) {
 }
 
 fs.writeFileSync(path.join(distRoot, "404.html"), html);
-writeSitemap(routes);
+writeSitemap(routes.filter((route) => route !== "inlearn" || inlearnLinked));
 
 console.log(
   `Generated ${routes.length} static route fallbacks ` +

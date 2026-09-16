@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {industryMenuItems, serviceMenuItems} from "../navData.js";
 import Vector from "../../../assets/icons/chevron-down.svg";
 import {routes} from "../../../../app/routes.js";
+import {isInlearnLinked} from "../../../../app/inlearnVisibility.js";
 import {t} from "../../../i18n/ui.js";
 
 function PanelArrow({isDarkMode, isOpen}) {
@@ -196,13 +197,24 @@ function MobileMenuPanel({closePanels, isDarkMode, isOpen}) {
         >
           {t("whatWeThink")}
         </Link>
-        <Link
-          to={routes.inlearnAcademy}
-          onClick={closePanels}
-          className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
-        >
-          {t("academy")}
-        </Link>
+        {/* The same entry as the wide navbar, in the same two states. */}
+        {isInlearnLinked ? (
+          <Link
+            to={routes.inlearnAcademy}
+            onClick={closePanels}
+            className={`rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold ${textColor}`}
+          >
+            {t("academy")}
+          </Link>
+        ) : (
+          <span
+            aria-disabled="true"
+            title={t("academySoon")}
+            className={`cursor-not-allowed rounded-[18px] px-4 py-3 font-['Gotham'] text-sm font-bold opacity-40 ${textColor}`}
+          >
+            {t("academy")}
+          </span>
+        )}
         <a
           href="https://stimanalytics.ai"
           target="_blank"

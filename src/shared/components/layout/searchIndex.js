@@ -7,6 +7,7 @@
 
 import {getActiveLocale} from "../../i18n/locale.js";
 import {routes} from "../../../app/routes.js";
+import {isInlearnLinked} from "../../../app/inlearnVisibility.js";
 import {navigationContent} from "./navData.js";
 
 const serviceModules = import.meta.glob("../../../content/{en,ar,tr}/services/*.json", {
@@ -25,7 +26,17 @@ const pageModules = import.meta.glob("../../../content/{en,ar,tr}/pages/**/*.jso
   import: "default",
 });
 
-const searchRoutes = [routes.whoWeAre, null, routes.whatWeThink, routes.inlearnAcademy, "https://stimanalytics.ai", routes.rfp];
+/* null where INLEARN would be while it is unannounced: the page answers at its
+   address, but a search result is a way of arriving at it without knowing the
+   address, which is the thing being held back. */
+const searchRoutes = [
+  routes.whoWeAre,
+  null,
+  routes.whatWeThink,
+  isInlearnLinked ? routes.inlearnAcademy : null,
+  "https://stimanalytics.ai",
+  routes.rfp,
+];
 
 const serviceRoutesBySlug = {
   inception: routes.inception,
@@ -45,7 +56,7 @@ const pageRouteByPath = {
   "who-we-are/who-we-are": routes.whoWeAre,
   "what-we-think/what-we-think": routes.whatWeThink,
   "what-we-think/archives": routes.archives,
-  "inlearn-academy": routes.inlearnAcademy,
+  "inlearn-academy": isInlearnLinked ? routes.inlearnAcademy : null,
 };
 
 const serviceLabelsBySlug = Object.fromEntries(
