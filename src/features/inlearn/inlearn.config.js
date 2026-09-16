@@ -22,10 +22,10 @@ import {
    Each value below is plain CSS, so anything CSS understands works:
 
      top     how far down it starts.       "-30vw", "120px", "10%"
+             (how BIG an arc is lives in arcSize, further down -
+              this block only decides where it sits)
      left    distance from the left edge.  set this OR right, not both
      right   distance from the right edge.
-     width   how large the whole arc is.   the height follows the picture
-     maxWidth  a ceiling for width, so it stops growing on a huge screen
      rotate  turns it.                     "0deg", "45deg", "-90deg"
      flipX   mirrors it left to right.     true / false
      flipY   mirrors it top to bottom.     true / false
@@ -72,6 +72,42 @@ export const courseImageFallback = coursePlaceholder;
    photograph, with nothing else to change. */
 export const learningSolutionsImage = learningSolutionsPlaceholder;
 
+/* ===========================================================================
+   HOW BIG THE TWO ARCS ARE  -  the only numbers to touch to resize them
+   ===========================================================================
+
+   One number per arc per screen. Making a number bigger makes that arc bigger
+   and nothing else: it keeps its top edge and its outer edge where they are and
+   grows inwards and downwards from them, so an arc never moves up or down the
+   page because you resized it.
+
+   The unit is vw, which is "percent of the window's width", so an arc keeps its
+   proportion to the page on every screen in its band. `max` is a ceiling in
+   pixels that stops an arc growing for ever on a very wide monitor.
+
+   The three bands are the same ones the page's layout uses:
+
+     phone     below 640px
+     tablet    640px to 1023px
+     desktop   1024px and up
+   =========================================================================== */
+
+export const arcSize = {
+  topLeft: {
+    phone: "84vw",
+    tablet: "76vw",
+    desktop: "72vw",
+    max: "1000px",
+  },
+
+  right: {
+    phone: "80vw",
+    tablet: "70vw",
+    desktop: "58vw",
+    max: "820px",
+  },
+};
+
 export const inlearnConfig = {
   firstPage: {
     decorations: {
@@ -79,8 +115,6 @@ export const inlearnConfig = {
         src: firstPageArcTopLeft,
         top: "-30vw",
         left: "-38vw",
-        width: "72vw",
-        maxWidth: "1000px",
         rotate: "0deg",
         flipX: false,
         flipY: false,
@@ -89,10 +123,17 @@ export const inlearnConfig = {
 
       right: {
         src: firstPageArcRight,
-        top: "34vw",
+        /* In pixels, not vw, and on purpose.
+
+           vw ties a distance to the WIDTH of the window. The hero above this
+           arc takes its height from min(760px, 88vh), which has nothing to do
+           with the width - so as the window was made narrower the arc climbed
+           the page, drifting against the section it is meant to sit beside.
+
+           Its width stays in vw: the arc should still get smaller with the
+           window, it should just stop wandering up and down while it does. */
+        top: "520px",
         right: "-26vw",
-        width: "58vw",
-        maxWidth: "820px",
         rotate: "0deg",
         flipX: false,
         flipY: false,
@@ -103,16 +144,25 @@ export const inlearnConfig = {
     /* Below 860px wide. The arcs are pulled further off-canvas here so they
        frame the text instead of crossing it - the old hero let them run
        straight through the title on a phone. */
-    decorationsOnPhone: {
+    /* Below 1024px - the same line the size bands use. Only the sideways
+       offsets change here.
+
+       Everything else - how far down each arc sits, and how big it is - is
+       inherited from the set above, and that is the point: when this set had its
+       own top and its own width, an arc jumped up the page and changed size the
+       moment the window crossed 860. Same arc, same page, two different places
+       depending on a pixel of window width.
+
+       What does have to change is how far off the side they sit. The words are
+       centred and nearly full width on a phone, so an arc that clears them on a
+       monitor lies across them here; pushing each one further out by its own
+       edge keeps the same shape in the same place, with less of it on screen. */
+    decorationsOnSmallScreens: {
       topLeft: {
-        top: "-34vw",
-        left: "-40vw",
-        width: "110vw",
+        left: "-48vw",
       },
       right: {
-        top: "64vw",
-        right: "-52vw",
-        width: "104vw",
+        right: "-30vw",
       },
     },
   },

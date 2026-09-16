@@ -1,3 +1,4 @@
+import {arcSize} from "../inlearn.config.js";
 import useMediaQuery from "../hooks/useMediaQuery.js";
 
 /* Draws the arcs behind the first page from the numbers in inlearn.config.js.
@@ -6,11 +7,19 @@ import useMediaQuery from "../hooks/useMediaQuery.js";
    never means reading this file: the whole vocabulary - top, left, right,
    width, rotate, flip, opacity - lives beside the numbers it describes.
 
-   The phone set is chosen in JavaScript rather than by a media query, because
-   an inline style is one value and a media query cannot reach it. Whatever the
-   phone set leaves out is inherited from the desktop one. */
+   How big each arc is comes from arcSize, which has one number per arc per
+   screen and nothing else in it - resizing an arc there cannot move it.
 
-const PHONE = "(max-width: 860px)";
+   Where each arc sits comes from the placement sets. The small-screen set only
+   overrides the sideways offsets, and whatever it leaves out is inherited from
+   the desktop one, so an arc keeps its height on the page across the boundary
+   instead of jumping when the window crosses it.
+
+   Both are chosen in JavaScript rather than by a media query, because these end
+   up as inline styles and a media query cannot reach one. */
+
+const SMALL_SCREEN = "(max-width: 1023px)";
+const PHONE = "(max-width: 639px)";
 
 function toStyle({top, left, right, width, maxWidth, rotate, flipX, flipY, opacity}) {
   /* One transform, not two: a second transform property on the same element
@@ -33,13 +42,20 @@ function toStyle({top, left, right, width, maxWidth, rotate, flipX, flipY, opaci
   };
 }
 
-function PageDecorations({decorations, phoneDecorations = {}}) {
+function PageDecorations({decorations, smallScreenDecorations = {}}) {
+  const isSmallScreen = useMediaQuery(SMALL_SCREEN);
   const isPhone = useMediaQuery(PHONE);
+  const band = isPhone ? "phone" : isSmallScreen ? "tablet" : "desktop";
 
   return (
     <div className="inlearn-first-page-decor" aria-hidden="true">
       {Object.entries(decorations).map(([name, decoration]) => {
-        const placement = isPhone ? {...decoration, ...(phoneDecorations[name] ?? {})} : decoration;
+        const size = arcSize[name];
+        const placement = {
+          ...decoration,
+          ...(isSmallScreen ? (smallScreenDecorations[name] ?? {}) : {}),
+          ...(size ? {width: size[band], maxWidth: size.max} : {}),
+        };
 
         return (
           <img

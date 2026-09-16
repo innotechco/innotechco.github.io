@@ -20,7 +20,7 @@ function FirstPage() {
     <div className="inlearn-first-page">
       <PageDecorations
         decorations={page.decorations}
-        phoneDecorations={page.decorationsOnPhone}
+        smallScreenDecorations={page.decorationsOnSmallScreens}
       />
 
       <HeroSection hero={page.hero} />
