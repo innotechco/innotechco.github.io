@@ -67,15 +67,6 @@ function NewEventSection({newEvent}) {
                   readMore={newEvent.readMore}
                   isLoading={isLoading}
                   isVisible={slideIndex === index}
-                  /* The card on screen and the one it would move to, and no
-                     others. lazy did not hold the rest back: the slides sit
-                     beside the visible one inside the same box, which is near
-                     enough to the viewport for a browser to fetch them - so all
-                     three arrived at once, three quarters of it for cards
-                     nobody had asked to see. */
-                  hasPicture={
-                    slideIndex === index || slideIndex === (index + 1) % slides.length
-                  }
                 />
               </div>
             ))}
@@ -138,13 +129,13 @@ function CarouselArrow({direction, label, disabled, onClick}) {
   );
 }
 
-function EventCard({event, readMore, isLoading, isVisible = false, hasPicture = true}) {
+function EventCard({event, readMore, isLoading, isVisible = false}) {
   const articlePath = getArticlePath(event.slug);
 
   return (
     <article className="inlearn-event-card">
       <div className="inlearn-event-media">
-        {isLoading || !event.image || !hasPicture ? (
+        {isLoading || !event.image ? (
           <ContentSkeleton className="h-full w-full" isDarkMode rounded="rounded-none" />
         ) : (
           /* srcSet lists what WordPress has; sizes tells the browser how wide
@@ -156,6 +147,16 @@ function EventCard({event, readMore, isLoading, isVisible = false, hasPicture = 
             srcSet={event.imageSrcSet}
             sizes="(max-width: 860px) 100vw, 42vw"
             alt={event.imageAlt || ""}
+            /* Every card keeps its picture, so moving between them shows a
+               picture rather than a gap where one is being fetched. What
+               changes is the order they are fetched in: the card on screen
+               first and at once, the others after it and out of its way.
+
+               They used to compete, which is why all three arrived together
+               and slowly. Now they are 32KB each: the visible one is asked for
+               first and at high priority, the other two follow behind it, and
+               by the time an arrow is pressed they are already there. Holding
+               them back further only trades one gap for another. */
             loading={isVisible ? "eager" : "lazy"}
             fetchPriority={isVisible ? "high" : "auto"}
             decoding="async"
