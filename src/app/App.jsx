@@ -12,6 +12,7 @@ import {ContactActionsProvider} from "./providers/contact-actions/ContactActions
 import Footer from "../shared/components/layout/Footer.jsx";
 import Navbar from "../shared/components/layout/Navbar.jsx";
 import ScrollToTop from "../shared/components/layout/ScrollToTop.jsx";
+import SiteScrollbar from "../shared/components/layout/SiteScrollbar.jsx";
 
 import {industryRoutes, serviceRoutes, routes} from "./routes.js";
 
@@ -455,6 +456,9 @@ function App() {
       <ContactActionsProvider onOpen={openContact}>
         <div className="relative w-full min-h-screen overflow-x-hidden">
         <ScrollToTop />
+        {/* Above the page and outside every route, so it is the same bar on
+            innotech.global and inside INLEARN. */}
+        <SiteScrollbar />
         <SearchHighlightManager />
         <RouteLoadingOverlay />
         {isLanguageLoading ? <div className="fixed inset-0 z-[250] bg-[#050505]"><LoadingMark fullScreen={false} /></div> : null}

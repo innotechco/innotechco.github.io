@@ -1,128 +1,162 @@
 /* The site's own scrollbar.
    ---------------------------------------------------------------------------
-   This paints the browser's scrollbar rather than replacing it with one built
-   out of divs. That is the whole point: clicking the track to page down,
-   dragging the thumb, the wheel, Page Up, Home, End, the middle-click autoscroll
-   and every other habit people have are the browser's, and they keep working
-   because this is still the browser's scrollbar. A JavaScript one has to
-   reimplement all of it, and it is always a little wrong somewhere.
+   The browser's bar is taken away and SiteScrollbar.jsx draws the one that
+   replaces it: a hairline rail down the right edge with a green thumb on it.
 
-   Only where there is a real pointer. A phone and a tablet already draw a thin
-   overlay bar that appears while a finger is moving and fades away after it -
-   which is the right behaviour there, and a permanent 10px column of colour
-   beside the content is not. (hover: hover) and (pointer: fine) is the honest
-   test for "there is a mouse or a trackpad here"; a width breakpoint is not,
-   because a 1280px window can belong to a touchscreen laptop.
+   Only where there is a pointer that can reach it. A phone and a tablet already
+   draw a thin overlay bar that appears while a finger is moving and fades after
+   it, which is the right behaviour there - so on a touch screen everything
+   below is skipped and the browser's own bar stays exactly as it is.
+   (hover: hover) and (pointer: fine) is the honest test for "there is a mouse
+   or a trackpad here"; a width breakpoint is not, because a 1280px window can
+   belong to a touchscreen laptop. */
 
-   Two engines, two ways of saying it:
-     - ::-webkit-scrollbar for Chrome, Edge, Opera and Safari
-     - scrollbar-color / scrollbar-width for Firefox, which has no pseudo
-       elements for this and takes two colours instead
-   Both are written; neither is a fallback for the other. */
+/* The rail is rendered on every device so that its measuring and its listeners
+   are not torn down and rebuilt as a laptop's pointer changes - so on a touch
+   screen it has to be taken out of the page here. Without this it is an
+   unstyled block element: invisible, but the full width of the screen and
+   sitting in the layout. */
+.site-scrollbar {
+  display: none;
+}
 
 @media (hover: hover) and (pointer: fine) {
-  /* The colours, in one place. The light set is what INLEARN and the light
-     theme use; the dark set is the site's own. Every rule below reads these, so
-     retheming the bar is two lines rather than ten. */
   :root {
-    /* Twelve rather than ten: the thumb inside is only six pixels wide once the
-       transparent border is taken off, and the extra two on each side are the
-       room the glow spreads into. A box-shadow on a scrollbar is clipped to the
-       bar's own channel, so a narrower channel would cut the light off flat. */
-    --scrollbar-size: 12px;
-    /* Nearly the page's own black: the channel is meant to be felt rather than
-       seen, so that the only thing with any colour in it is the thumb. */
-    --scrollbar-track: rgb(255 255 255 / 4%);
+    /* How far the rail sits from the edge of the window, and how much room it
+       leaves at the top and bottom. */
+    --scrollbar-inset: 6px;
+    --scrollbar-edge: 16px;
+    --scrollbar-rail: rgb(55 180 120 / 22%);
     --scrollbar-thumb: #3ec98a;
     --scrollbar-thumb-hover: #5ae0a1;
-    --scrollbar-thumb-active: #6ff0b0;
-    /* The light around the thumb. It is a scrollbar, so it cannot carry a real
-       blur - box-shadow is the one thing these pseudo elements take that
-       spreads past their own edge. */
-    --scrollbar-glow: 0 0 10px rgb(62 201 138 / 65%), 0 0 22px rgb(62 201 138 / 35%);
-    --scrollbar-glow-hover: 0 0 12px rgb(90 224 161 / 85%), 0 0 28px rgb(90 224 161 / 50%);
+    --scrollbar-glow: 0 0 10px rgb(62 201 138 / 50%), 0 0 26px rgb(62 201 138 / 28%);
+    --scrollbar-glow-strong: 0 0 12px rgb(90 224 161 / 75%), 0 0 30px rgb(90 224 161 / 45%);
   }
 
+  /* On white the halo reads as a smudge rather than as light, and the deeper
+     green holds its own against the page. */
   html[data-theme="light"] {
-    --scrollbar-track: rgb(5 5 5 / 5%);
+    --scrollbar-rail: rgb(5 5 5 / 12%);
     --scrollbar-thumb: #37b478;
     --scrollbar-thumb-hover: #2ea069;
-    --scrollbar-thumb-active: #2ea069;
-    /* A halo on white reads as a smudge rather than as light, so the light
-       theme gets a plain green pill and nothing around it. */
     --scrollbar-glow: none;
-    --scrollbar-glow-hover: none;
+    --scrollbar-glow-strong: 0 0 10px rgb(55 180 120 / 35%);
   }
 
-  /* Firefox, and only Firefox.
-     ------------------------------------------------------------------------
-     This block is fenced off for a reason that cost a measurement to find:
-     Chromium honours scrollbar-width and scrollbar-color too, and the moment
-     either is set it draws its own standard bar and ignores every
-     ::-webkit-scrollbar rule below. The bar came out 10px with no pill and no
-     light, and the width in the rule underneath did nothing at all.
-
-     The test is the honest one - "does this engine understand the pseudo
-     element" - rather than sniffing a browser name: Chromium and Safari support
-     selector(::-webkit-scrollbar) and take the rules below; Firefox does not,
-     and takes these two colours instead. */
-  @supports (not selector(::-webkit-scrollbar)) {
-    html {
-      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-      scrollbar-width: thin;
-    }
+  /* Both halves are needed and neither is a fallback for the other: Firefox
+     takes scrollbar-width, Chromium and Safari take the pseudo element. Old
+     Edge took -ms-overflow-style. */
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
-  /* The page and everything inside it that scrolls - a modal, a long list, a
-     table that runs wide - so the site never shows two different scrollbars.
-
-     Anything that deliberately hides its own bar keeps hiding it: those rules
-     are written against a class, and a class beats the universal selector. */
-  *::-webkit-scrollbar {
-    width: var(--scrollbar-size);
-    height: var(--scrollbar-size);
-  }
-
-  *::-webkit-scrollbar-track {
-    background: var(--scrollbar-track);
-  }
-
-  *::-webkit-scrollbar-thumb {
-    border: 3px solid transparent;
-    border-radius: 999px;
-    /* The border is transparent and the colour is painted inside it, which is
-       what leaves a slim pill sitting in the channel rather than a bar filling
-       it edge to edge. background-clip is what makes the border show the track
-       through it instead of the thumb. */
-    background: var(--scrollbar-thumb);
-    background-clip: padding-box;
-    box-shadow: var(--scrollbar-glow);
-    transition: background-color 160ms ease, box-shadow 160ms ease;
-  }
-
-  *::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover);
-    background-clip: padding-box;
-    box-shadow: var(--scrollbar-glow-hover);
-  }
-
-  *::-webkit-scrollbar-thumb:active {
-    background: var(--scrollbar-thumb-active);
-    background-clip: padding-box;
-    box-shadow: var(--scrollbar-glow-hover);
-  }
-
-  /* The two square buttons at the ends. Chrome draws them by default on
-     Windows, and they are the one part of a scrollbar nobody uses. Sending them
-     to zero keeps the track full height instead of leaving two grey stubs. */
-  *::-webkit-scrollbar-button {
+  html::-webkit-scrollbar {
     width: 0;
     height: 0;
-    display: none;
   }
 
-  /* The little square where a vertical and a horizontal bar meet. */
-  *::-webkit-scrollbar-corner {
-    background: var(--scrollbar-track);
+  /* The rail. Wider than the line drawn inside it, because this is also the
+     target: a 1px line is impossible to press, and a native track is about this
+     wide. */
+  .site-scrollbar {
+    position: fixed;
+    z-index: 120;
+    display: block;
+    top: var(--scrollbar-edge);
+    right: var(--scrollbar-inset);
+    bottom: var(--scrollbar-edge);
+    width: 16px;
+    /* The ordinary arrow, the whole way down. A native scrollbar does not turn
+       the pointer into a hand and neither does this one. */
+    cursor: default;
+    /* The rail is one of the few things a drag may own outright: without this a
+       drag that starts here scrolls the page underneath as well. */
+    touch-action: none;
+    transition: opacity 200ms ease;
+  }
+
+  /* The line itself: one pixel, fading out at both ends so it does not finish
+     in two hard dashes against the page. */
+  .site-scrollbar::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--scrollbar-rail) 14%,
+      var(--scrollbar-rail) 86%,
+      transparent
+    );
+    content: "";
+    transform: translateX(-50%);
+  }
+
+  /* A page with nothing to scroll has no scrollbar - the rail goes too, rather
+     than hanging there as a line with nothing on it. */
+  .site-scrollbar.is-idle {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* What the hand catches: the whole width of the rail, and invisible. The
+     line inside it is five pixels, which is the right width to look at and the
+     wrong one to grab. */
+  .site-scrollbar-grip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    cursor: default;
+    touch-action: none;
+  }
+
+  .site-scrollbar-thumb {
+    width: 5px;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--scrollbar-thumb);
+    box-shadow: var(--scrollbar-glow);
+    /* Only the look changes here. The position is set inline from the scroll
+       offset, and a transition on transform would leave the thumb gliding
+       behind the page it is meant to be reporting. */
+    transition: width 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  }
+
+  .site-scrollbar:hover .site-scrollbar-thumb,
+  .site-scrollbar.is-dragging .site-scrollbar-thumb {
+    width: 7px;
+    background: var(--scrollbar-thumb-hover);
+    box-shadow: var(--scrollbar-glow-strong);
+  }
+
+  /* Anything inside the page that scrolls on its own - a modal, a long list -
+     keeps a bar of its own, thinned and in the same green so the site never
+     shows two different scrollbars. Anything that deliberately hides its own
+     keeps hiding it: those rules are written against a class, and a class beats
+     the universal selector. */
+  *:not(html)::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  *:not(html)::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *:not(html)::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--scrollbar-thumb);
+  }
+
+  *:not(html)::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
   }
 }
