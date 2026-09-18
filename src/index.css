@@ -7,6 +7,7 @@
 @import "./styles/what-we-think.css";
 @import "./styles/archive.css";
 @import "./styles/toast.css";
+@import "./styles/scrollbar.css";
 
 @theme {
   --font-gotham: "Gotham", ui-sans-serif, system-ui, -apple-system,
