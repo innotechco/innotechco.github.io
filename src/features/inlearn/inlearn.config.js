@@ -63,6 +63,14 @@ export const courseImages = {
   "supply-chain-resilience": coursePlaceholder,
   "process-safety-leadership": coursePlaceholder,
   "materials-for-harsh-environments": coursePlaceholder,
+  "advanced-materials-testing": coursePlaceholder,
+  "hydrogen-economy-fundamentals": coursePlaceholder,
+  "patent-analytics-for-rnd": coursePlaceholder,
+  "battery-manufacturing-quality": coursePlaceholder,
+  "smart-grid-operations": coursePlaceholder,
+  "clinical-data-governance": coursePlaceholder,
+  "semiconductor-supply-strategy": coursePlaceholder,
+  "mining-automation-safety": coursePlaceholder,
 };
 
 export const courseImageFallback = coursePlaceholder;

@@ -1,4 +1,7 @@
+import {Link} from "react-router-dom";
+
 import CourseCard from "../../../components/CourseCard.jsx";
+import {routes} from "../../../../../app/routes.js";
 import useCarousel from "../../../../../shared/hooks/useCarousel.js";
 import useMediaQuery from "../../../hooks/useMediaQuery.js";
 
@@ -110,6 +113,22 @@ function TopCoursesSection({topCourses}) {
           </div>
         ) : null}
       </div>
+
+      {/* The way out of the row. The arrows walk through eight courses one at a
+          time; this is for the visitor who would rather see them all at once,
+          and it stands under the row where they run out of cards.
+
+          The hero has the same destination at the top of the page. Two ways to
+          the same place is not a duplicate here - by the time someone has
+          reached the end of this row they are a screen and a half past the
+          hero's button. */}
+      {topCourses.cta ? (
+        <div className="inlearn-courses-cta">
+          <Link className="inlearn-hero-cta" to={routes.inlearnCourses}>
+            {topCourses.cta}
+          </Link>
+        </div>
+      ) : null}
     </section>
   );
 }

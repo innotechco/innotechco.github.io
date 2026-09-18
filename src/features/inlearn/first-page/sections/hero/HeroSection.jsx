@@ -26,7 +26,7 @@ function HeroSection({hero}) {
       <p className="inlearn-hero-subtitle">{hero.subtitle}</p>
       <p className="inlearn-hero-body">{hero.body}</p>
 
-      <Link className="inlearn-hero-cta" to={`${routes.inlearnAcademy}/courses`}>
+      <Link className="inlearn-hero-cta" to={routes.inlearnCourses}>
         {hero.cta}
       </Link>
     </section>

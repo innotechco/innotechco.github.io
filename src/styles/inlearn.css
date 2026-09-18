@@ -2700,6 +2700,259 @@
   }
 }
 
+/* --------------------------------------------------------------------------
+   ALL COURSES
+   -------------------------------------------------------------------------- */
+
+/* The page inside the shell: the title, the chips, the grid, and the button.
+   No arcs - they belong to the first page, which is the one they were drawn
+   around. */
+.inlearn-all-courses {
+  padding: clamp(96px, 12vw, 150px) clamp(20px, 5vw, 96px) clamp(70px, 9vw, 130px);
+}
+
+.inlearn-all-courses-title {
+  max-width: 1320px;
+  margin: 0 auto;
+  color: var(--inlearn-black);
+  font-size: clamp(28px, 4.4vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+}
+
+/* Wrapping and centred, as drawn, rather than one sideways-scrolling row the
+   way the archive page's filters run: a category that has scrolled out of
+   sight is a category nobody clicks. */
+.inlearn-course-tags {
+  display: flex;
+  max-width: 980px;
+  margin: clamp(22px, 3vw, 36px) auto 0;
+  padding: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(8px, 1vw, 12px);
+  list-style: none;
+}
+
+.inlearn-course-tag {
+  display: inline-flex;
+  height: 34px;
+  align-items: center;
+  padding: 0 clamp(12px, 1.4vw, 18px);
+  border: 1px solid var(--inlearn-black);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--inlearn-black);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 500;
+  white-space: nowrap;
+  /* Colour and border move together and at the same speed, so the chip reads
+     as one thing changing rather than an outline chasing a fill. */
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+/* Grey while the pointer is on it, green once it is the one in use - the two
+   states the design draws. The hover is skipped on a touch screen, where
+   :hover sticks to whatever was tapped last. */
+@media (hover: hover) {
+  .inlearn-course-tag:hover {
+    background: #e9e9e7;
+  }
+}
+
+.inlearn-course-tag:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+.inlearn-course-tag.is-on {
+  border-color: var(--inlearn-green);
+  background: var(--inlearn-green);
+  color: #fff;
+}
+
+.inlearn-course-tag.is-on:hover {
+  background: #2ea069;
+}
+
+/* Eleven chips at the desktop size take six rows on a phone and push the first
+   card most of a screen down. Smaller type and less padding brings that back to
+   three or four rows without making them harder to hit: the chip is still 30px
+   tall, which is above the 24px minimum for a touch target sitting in a list
+   with room around it. */
+@media (max-width: 639px) {
+  .inlearn-course-tags {
+    gap: 7px;
+  }
+
+  .inlearn-course-tag {
+    height: 30px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+}
+
+/* --inlearn-course-columns is set on the element by the page, which is the one
+   place that knows how many cards belong side by side at this width - the same
+   number it uses to decide how many to reveal at a time.
+
+   minmax(0, 1fr) rather than 1fr: a grid track otherwise refuses to shrink
+   below the width of its own contents, and a long course title would push the
+   row wider than the page. */
+.inlearn-course-grid {
+  display: grid;
+  max-width: 1320px;
+  /* Room above for the cards to lift into and below for the glow to spread,
+     taken straight back so the layout does not move. */
+  margin: clamp(30px, 4vw, 52px) auto 0;
+  padding: 0;
+  gap: clamp(22px, 2.4vw, 38px) clamp(20px, 2.2vw, 32px);
+  grid-template-columns: repeat(var(--inlearn-course-columns), minmax(0, 1fr));
+  list-style: none;
+}
+
+.inlearn-all-courses-empty {
+  margin: clamp(40px, 6vw, 70px) 0 0;
+  color: var(--inlearn-muted);
+  font-size: clamp(13px, 1.1vw, 15px);
+  text-align: center;
+}
+
+.inlearn-all-courses-more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(32px, 4vw, 54px);
+}
+
+/* The same pill as the hero's button, with room kept for the spinner: the
+   label and the spinner sit in one row, so the button grows by the spinner's
+   width once rather than jumping on every frame of it. */
+.inlearn-show-all {
+  display: inline-flex;
+  min-width: clamp(150px, 44vw, 176px);
+  height: clamp(38px, 9vw, 44px);
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border: none;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  gap: 10px;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.inlearn-show-all:hover {
+  background: #2ea069;
+  transform: translateY(-1px);
+}
+
+.inlearn-show-all:focus-visible {
+  outline: 2px solid var(--inlearn-black);
+  outline-offset: 3px;
+}
+
+/* Busy, not disabled: the control keeps its focus and its shape, and only says
+   it is working. */
+.inlearn-show-all[aria-busy="true"] {
+  cursor: progress;
+}
+
+.inlearn-show-all-spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgb(255 255 255 / 45%);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: inlearn-spin 700ms linear infinite;
+}
+
+@keyframes inlearn-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* The button under the course row on the first page. */
+.inlearn-courses-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(26px, 3.2vw, 44px);
+}
+
+/* --------------------------------------------------------------------------
+   THE TWO CONTROLS IN A CARD'S CORNER  (All Courses only)
+   -------------------------------------------------------------------------- */
+
+/* One panel holding both, so they arrive as a single piece rather than two
+   circles appearing at once. It is tucked up out of the frame and slides down
+   into it, which is why the picture's box has to clip - and it does.
+
+   Hidden from the pointer while it is away, or the corner of every card would
+   be clickable before anything is showing there. */
+.inlearn-course-actions {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 7px 4px;
+  border-bottom-left-radius: 16px;
+  background: var(--inlearn-green);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: transform 520ms cubic-bezier(0.33, 0, 0.2, 1), opacity 320ms ease;
+}
+
+.inlearn-course-card:hover .inlearn-course-actions,
+.inlearn-course-card:focus-within .inlearn-course-actions {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.inlearn-course-action {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  place-items: center;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.inlearn-course-action:hover {
+  transform: scale(1.12);
+}
+
+.inlearn-course-action:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+/* A hairline between the two, so the panel reads as two controls rather than
+   one wide button. */
+.inlearn-course-action-divider {
+  width: 1px;
+  height: 18px;
+  background: rgb(255 255 255 / 45%);
+}
+
+/* The grid's card is the row's card. Its picture keeps the same ratio, which
+   was measured off the Figma frame rather than guessed at here: two cards of
+   the same design drifting apart is how a page stops looking like one page. */
+
 @media (prefers-reduced-motion: reduce) {
   .inlearn-page *,
   .inlearn-page *::before,
