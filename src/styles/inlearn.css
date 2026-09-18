@@ -2951,7 +2951,105 @@
 
 /* The grid's card is the row's card. Its picture keeps the same ratio, which
    was measured off the Figma frame rather than guessed at here: two cards of
-   the same design drifting apart is how a page stops looking like one page. */
+   the same design drifting apart is how a page stops looking like one page.
+
+   What the grid does have to solve is alignment down a row. Two cards side by
+   side hold titles of different lengths, and with the body simply stacked, one
+   card's dates sat a line and a half below its neighbour's - which is what
+   reads as untidy long before anyone works out why.
+
+   Three parts to it, and all three are needed:
+     - the card fills its cell, so every card in a row is the same height
+     - the title is held to three lines, so one long title cannot push a card's
+       own body down past the others
+     - the dates are pushed to the bottom of the card rather than left to
+       follow the summary, so they line up across the row whatever happens
+       above them
+   The summaries still start at different heights when the titles differ, and
+   that is fine: the eye lines things up from the bottom of a card, where the
+   dates are. */
+.inlearn-course-grid > li {
+  display: flex;
+}
+
+.inlearn-course-card.is-grid {
+  width: 100%;
+}
+
+.inlearn-course-card.is-grid .inlearn-course-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.inlearn-course-card.is-grid .inlearn-course-title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.inlearn-course-card.is-grid .inlearn-course-meta {
+  /* Whatever room is left above goes here, so this block sits on the floor of
+     the card. */
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+/* The narrow card is where a title runs longest, so it takes the type down a
+   step: at 15px a four-word title took four lines of a 158px card, and the
+   card became mostly heading. */
+@media (max-width: 639px) {
+  .inlearn-course-card.is-grid .inlearn-course-title {
+    font-size: 14px;
+    line-height: 1.28;
+  }
+
+  .inlearn-course-card.is-grid .inlearn-course-summary {
+    margin-top: 8px;
+  }
+
+  .inlearn-course-card.is-grid .inlearn-course-meta {
+    padding-top: 12px;
+    gap: 6px;
+  }
+}
+
+/* Two cards on a 320px screen leave 130px each, and at that width the date
+   and the hours both took a second line - aligned with their neighbour, and
+   still untidy. A step down in type and a narrower gap brings each back onto
+   one line with room to spare. They are allowed to wrap if a translation ever
+   needs it: a line that wraps is worse than one that does not, and better than
+   one that is cut off. */
+@media (max-width: 400px) {
+  .inlearn-course-card.is-grid .inlearn-course-meta {
+    font-size: 11px;
+  }
+
+  .inlearn-course-card.is-grid .inlearn-course-meta li {
+    gap: 6px;
+  }
+}
+
+/* The 320px phones. Two cards leave 130px each and the longest of the three
+   lines needed 105 of the 105 that were left - so it wrapped, every time, on
+   the one width where there is least room to spare. A smaller mark and a step
+   down in type give it about ten pixels of daylight. */
+@media (max-width: 360px) {
+  .inlearn-course-card.is-grid .inlearn-course-meta {
+    font-size: 10px;
+  }
+
+  .inlearn-course-card.is-grid .inlearn-course-meta li {
+    gap: 5px;
+  }
+
+  .inlearn-course-card.is-grid .inlearn-course-meta svg {
+    width: 13px;
+    height: 13px;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .inlearn-page *,
