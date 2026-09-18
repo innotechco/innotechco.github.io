@@ -109,7 +109,29 @@ function InlearnNavbar({onAuthOpen, session}) {
           <span className="inlearn-nav-separator" aria-hidden="true" />
         </div>
 
+        {/* Closed, this is a round button with a magnifier in it. Open, the same
+            element is a field: the magnifier moves inside it as a label, the
+            input fills what is left, and the button at the end becomes the way
+            out. One element in two states rather than two that swap over, so
+            nothing has to be positioned on top of anything else - which is what
+            the old version did, with offsets measured against one pill size. */}
         <div className="inlearn-search-shell">
+          <span className="inlearn-search-label" aria-hidden="true">
+            <SearchIcon />
+          </span>
+
+          <input
+            ref={searchInputRef}
+            value={searchValue}
+            onChange={(event) => setSearchValue(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") closeSearch();
+            }}
+            placeholder="Search"
+            aria-label="Search"
+            tabIndex={isSearchOpen ? 0 : -1}
+          />
+
           <button
             type="button"
             className="inlearn-search-toggle"
@@ -123,19 +145,20 @@ function InlearnNavbar({onAuthOpen, session}) {
               }
             }}
           >
-            {isSearchOpen ? <span aria-hidden="true">x</span> : <SearchIcon />}
+            {isSearchOpen ? (
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            ) : (
+              <SearchIcon />
+            )}
           </button>
-          <input
-            ref={searchInputRef}
-            value={searchValue}
-            onChange={(event) => setSearchValue(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Escape") closeSearch();
-            }}
-            placeholder="Search"
-            aria-label="Search"
-            tabIndex={isSearchOpen ? 0 : -1}
-          />
           </div>
         </div>
       </nav>

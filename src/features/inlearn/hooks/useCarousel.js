@@ -69,9 +69,11 @@ export default function useCarousel(count, perView = 1) {
     const dx = event.clientX - start.x;
     const dy = event.clientY - start.y;
 
-    /* Claim the gesture only once it is clearly sideways. Capturing a vertical
-       drag would stop the page scrolling under the visitor's finger. */
-    if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+    /* Claim the gesture only once it is clearly sideways - far enough to be
+       deliberate, and further sideways than down. Capturing a vertical drag
+       would stop the page scrolling under the visitor's finger; counting one
+       later would move the row while they scroll past it. */
+    if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.5) {
       start.captured = true;
       event.currentTarget.setPointerCapture?.(start.id);
     }
@@ -84,6 +86,18 @@ export default function useCarousel(count, perView = 1) {
       if (!start) return;
 
       event.currentTarget.releasePointerCapture?.(start.id);
+
+      /* Only a gesture that was claimed as sideways can move the row. A finger
+         travelling down the page crosses these cards on the way and drifts a
+         little to one side while it does; measuring only the sideways distance
+         at the end counts that drift as a swipe, and the row steps under a
+         visitor who was reading, not swiping.
+
+         Claiming happens in onPointerMove, and only once the movement is
+         clearly more sideways than down - so this is the same test, asked
+         again at the end rather than forgotten. */
+      if (!start.captured) return;
+
       const dx = event.clientX - start.x;
       if (Math.abs(dx) < SWIPE_THRESHOLD) return;
       step(dx < 0 ? 1 : -1);

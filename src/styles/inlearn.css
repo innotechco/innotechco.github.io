@@ -502,12 +502,31 @@
   font-size: 11px;
 }
 
+/* Closed: a round button and nothing else. The icon that labels the open field
+   is not drawn yet, and the input has no width, so the shell is the button. */
 .inlearn-search-shell {
   display: flex;
   min-width: 29px;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 0;
+  border-radius: 999px;
+  transition: background 260ms ease, padding 260ms ease, gap 260ms ease;
+}
+
+/* The magnifier that labels the open field. A different class from the icon
+   inside the button - that one is called .inlearn-search-icon and belongs to
+   the SearchIcon component, and hiding this one by that name hid both. */
+.inlearn-search-label {
+  display: none;
+  flex: none;
+  opacity: 0.65;
+}
+
+.inlearn-search-label img,
+.inlearn-search-label svg {
+  width: 16px;
+  height: 16px;
 }
 
 .inlearn-search-toggle {
@@ -515,8 +534,22 @@
   height: 29px;
   flex: 0 0 29px;
   padding: 0;
+  border-radius: 50%;
   font-size: 14px;
   line-height: 1;
+  transition: background 200ms ease;
+}
+
+.inlearn-nav.is-searching .inlearn-search-toggle {
+  width: clamp(26px, 6vw, 30px);
+  height: clamp(26px, 6vw, 30px);
+  flex: none;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.inlearn-nav.is-searching .inlearn-search-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
 }
 
 .inlearn-search-icon {
@@ -529,8 +562,8 @@
 .inlearn-search-shell input {
   width: 0;
   min-width: 0;
+  padding: 0;
   border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.56);
   background: transparent;
   color: #fff;
   opacity: 0;
@@ -546,26 +579,43 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
-/* The hidden links still hold their row, so the field lands in the row under
-   them and is lifted back onto the pill's centre line. The lift is per pill
-   size: this one is the wide pill's, and the phone's is in its own block. */
+/* Open: the links step out of the grid entirely rather than staying in it
+   invisible. That is what removes every offset the old version needed - with
+   one thing left in the row there is one row, and the field is centred in the
+   pill by the same rule that centres everything else, at every pill size.
+
+   The field itself is a filled capsule inside the dark pill: icon, input, and
+   the button that closes it, spaced like a row rather than drawn on top of one
+   another. */
+.inlearn-nav.is-searching .inlearn-nav-links {
+  display: none;
+}
+
+.inlearn-nav.is-searching .inlearn-nav-content {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .inlearn-nav.is-searching .inlearn-search-shell {
-  grid-column: 1 / -1;
-  flex: 1;
   width: 100%;
   min-width: 0;
+  height: clamp(32px, 7vw, 38px);
+  padding: 0 4px 0 12px;
+  gap: 8px;
   justify-content: flex-start;
-  align-items: center;
-  transform: translateY(-24px);
-  margin-left: -12px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.inlearn-nav.is-searching .inlearn-search-label {
+  display: flex;
 }
 
 .inlearn-nav.is-searching .inlearn-search-shell input {
-  width: calc(100% - 25px);
-  height: 22px;
-  padding: 0 0 2px;
+  width: auto;
+  flex: 1;
+  height: 100%;
   opacity: 1;
   pointer-events: auto;
+  font-size: clamp(12px, 1.1vw, 14px);
 }
 
 /* Above the navbar: the panel slides over the brand pill, and leaving the pill
@@ -2344,16 +2394,49 @@
   }
 }
 
-/* Tablets and phones: both marks with the divider between them, and no name.
-   The INLEARN mark says which site this is and the INNOTECH dots say whose it
-   is, which is the whole lockup in the width of two circles - and it leaves the
-   right-hand pill the room to space its five controls properly. The name comes
-   back on a laptop.
+/* Anything without a mouse gets the pill already open: both marks with the
+   divider between them, the INLEARN mark named underneath, and no wordmark.
 
-   This is the shape the pill takes when it is opened on a monitor, held open
-   from the start here: there is no hovering on a phone, so a brand that only
-   shows the second mark on hover never shows it at all. Both marks are links
-   either way. */
+   Keyed on hover rather than on width, because it is hovering that is missing,
+   not room. A tablet held in landscape is wider than some laptops and still has
+   no pointer to hover with, so a brand that only opens on hover never opens
+   there - the second mark, the name under it and the link to innotech.global
+   would all be things that device could never reach. */
+@media (hover: none) {
+  .inlearn-brand-wordmark {
+    display: none;
+  }
+
+  .inlearn-brand .inlearn-brand-mark-wide {
+    width: 32px;
+  }
+
+  .inlearn-brand .inlearn-brand-divider {
+    padding-left: 13px;
+    opacity: 1;
+  }
+
+  .inlearn-brand .inlearn-brand-divider::before {
+    transform: scaleY(1);
+  }
+
+  .inlearn-brand .inlearn-brand-link-innotech {
+    padding-left: 13px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* The name that a pointer would have brought up by resting on the mark. Only
+     INLEARN's: it says which of the two marks is the site you are on, which is
+     the thing hovering was there to answer. */
+  .inlearn-brand .inlearn-brand-link:not(.inlearn-brand-link-innotech) .inlearn-brand-tip {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* The same shape below a laptop even where there is a pointer, because there is
+   no room for the wordmark beside a full right-hand pill. */
 @media (max-width: 1023px) {
   .inlearn-brand-wordmark {
     display: none;
@@ -2471,11 +2554,12 @@
     max-width: none;
   }
 
+  /* No clipping: the name tag under the mark hangs outside the pill by design,
+     and the wordmark that once needed trimming is not drawn at this width. */
   .inlearn-brand,
   .inlearn-brand.is-open {
     flex: 0 1 auto;
     min-width: 0;
-    overflow: hidden;
   }
 
   /* Everything in the right-hand pill tightens by a few pixels so the brand
@@ -2509,19 +2593,11 @@
      control. */
 
 
-  /* And the field takes the pill, rather than a share of the window that knows
-     nothing about how much of the row the brand beside it is using. */
-  .inlearn-nav.is-searching .inlearn-search-shell input {
-    width: 100%;
-    min-width: 0;
-  }
-
-  /* The wide pill's lift and pull are wrong in a pill this size: the pull put
-     the close button outside it altogether, and the lift is measured against a
-     taller row. Both are set for this pill here. */
+  /* Nothing to correct for this pill size any more: the field sits in the row
+     rather than over it, so it centres itself here the same way it does on a
+     monitor. All this width asks for is a little less padding inside it. */
   .inlearn-nav.is-searching .inlearn-search-shell {
-    transform: translateY(-14px);
-    margin-left: 0;
+    padding-left: 10px;
   }
 }
 
