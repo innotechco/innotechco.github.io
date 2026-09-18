@@ -37,6 +37,60 @@
     />
     <meta name="twitter:image" content="https://innotech.global/og-image.webp" />
 
+    <!-- The first visit paints before the stylesheet, before the fonts and
+         before React: without a curtain the page appears mid-assembly and
+         settles as the network catches up. These rules are inline on purpose -
+         they have to be right with no CSS file loaded yet - and
+         src/app/bootCurtain.js lifts the curtain once the page has stopped
+         moving. -->
+    <style>
+      #boot-curtain {
+        position: fixed;
+        inset: 0;
+        z-index: 300;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: #050505;
+        color: rgba(255, 255, 255, 0.7);
+        font-family: "Gotham", system-ui, sans-serif;
+        font-size: 14px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        transition: opacity 300ms ease;
+      }
+
+      #boot-curtain .boot-curtain-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 9999px;
+        background: #37b478;
+        animation: boot-curtain-pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes boot-curtain-pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+
+    </style>
+
+    <!-- Without scripting nothing can ever lift the curtain, so it must not
+         be there at all. -->
+    <noscript>
+      <style>
+        #boot-curtain {
+          display: none;
+        }
+      </style>
+    </noscript>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4R9YRYP8L1"></script>
     <script>
@@ -48,6 +102,32 @@
     </script>
   </head>
   <body>
+    <div id="boot-curtain">
+      <span class="boot-curtain-dot"></span>
+      <span id="boot-curtain-label">Loading</span>
+    </div>
+    <script>
+      (function () {
+        /* The curtain is painted before any bundle runs, so the word on it has
+           to come from the same place the language switcher writes to. */
+        var labels = {ar: "جارٍ التحميل", tr: "Yükleniyor"};
+        try {
+          var locale = window.localStorage.getItem("innotech-language");
+          if (labels[locale]) {
+            document.getElementById("boot-curtain-label").textContent = labels[locale];
+          }
+        } catch (error) {
+          /* Blocked storage is not a reason to hold up the page. */
+        }
+
+        /* If the bundle never runs - a chunk that fails to download, a blocked
+           script - the curtain must not hide the site for ever. */
+        window.setTimeout(function () {
+          var curtain = document.getElementById("boot-curtain");
+          if (curtain) curtain.remove();
+        }, 10000);
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/app/main.jsx"></script>
   </body>

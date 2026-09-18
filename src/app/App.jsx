@@ -2,6 +2,7 @@ import {lazy, Suspense, useEffect, useRef, useState} from "react";
 import {Routes, Route, useLocation} from "react-router-dom";
 
 import {ThemeProvider} from "./providers/theme/ThemeContext.jsx";
+import {dismissBootCurtain} from "./bootCurtain.js";
 
 import ContactModal from "../shared/components/modals/ContactModal.jsx";
 import {useLanguage} from "./providers/language/useLanguage.js";
@@ -125,12 +126,109 @@ function LoadingMark({fullScreen = true}) {
   );
 }
 
+/* The marker matters: while this is on screen the real page is still a dynamic
+   import, so nothing of it is in the document yet and measuring readiness would
+   measure this fallback. waitForContentToSettle() waits for it to go away. */
 function RouteFallback() {
   return (
-    <main>
+    <main data-route-loading="">
       <LoadingMark />
     </main>
   );
+}
+
+/* Long enough for a slow connection to finish assembling the page, short
+   enough that a curtain which cannot lift still lifts. */
+const FIRST_VISIT_MAX_WAIT_MS = 6000;
+const ROUTE_CHANGE_MAX_WAIT_MS = 2500;
+const MINIMUM_CURTAIN_MS = 450;
+
+/* requestAnimationFrame never fires while the tab is in the background, so a
+   bare await on it hangs for as long as the visitor looks somewhere else - with
+   the curtain still up when they come back. The timer is the way out. */
+function nextFrame() {
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+    requestAnimationFrame(finish);
+    window.setTimeout(finish, 100);
+  });
+}
+
+function wait(ms) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+function untilDeadline(promise, deadline) {
+  return Promise.race([promise, wait(Math.max(0, deadline - performance.now()))]);
+}
+
+/* Deliberately the whole document, not "main img": the home page has no <main>
+   at all, so that older query found nothing to wait for and the curtain came
+   down on a page that had not started loading its pictures.
+
+   Only what the visitor is about to look at counts. Waiting for every image on
+   the page would mean waiting for ones far below the fold that a lazy loader
+   will not even request until they are scrolled to - the curtain would then sit
+   there until its deadline on every single visit. */
+function pendingVisibleImages() {
+  return Array.from(document.images).filter((image) => {
+    if (image.complete) return false;
+
+    const rect = image.getBoundingClientRect();
+    /* No box yet: either hidden or not laid out. A later round picks it up once
+       it has a size, so there is nothing to wait for now. */
+    if (!rect.width && !rect.height) return false;
+
+    return rect.top < window.innerHeight * 1.25 && rect.bottom > 0;
+  });
+}
+
+/* A single pass is what made the first visit look broken: it ran while <main>
+   was still the Suspense fallback, found nothing to wait for, and let the
+   curtain go before the page existed. So this waits in rounds, and only stops
+   once the route has mounted and two rounds in a row find nothing left
+   loading - or once the deadline passes, because a curtain that never lifts is
+   worse than one that lifts early. */
+async function waitForContentToSettle(deadline) {
+  let quietRounds = 0;
+
+  while (performance.now() < deadline && quietRounds < 2) {
+    await nextFrame();
+    await nextFrame();
+
+    if (document.querySelector("[data-route-loading]")) {
+      quietRounds = 0;
+      await wait(80);
+      continue;
+    }
+
+    const pending = pendingVisibleImages();
+
+    if (!pending.length) {
+      quietRounds += 1;
+      await wait(120);
+      continue;
+    }
+
+    quietRounds = 0;
+    await untilDeadline(
+      Promise.all(
+        pending.map(
+          (image) =>
+            new Promise((resolve) => {
+              image.addEventListener("load", resolve, {once: true});
+              image.addEventListener("error", resolve, {once: true});
+            }),
+        ),
+      ),
+      deadline,
+    );
+  }
 }
 
 function RouteLoadingOverlay() {
@@ -183,54 +281,56 @@ function RouteLoadingOverlay() {
   useEffect(() => {
     const cameFromInlearn = isInlearnPath(previousPathname.current);
     previousPathname.current = location.pathname;
-    if (cameFromInlearn && isInlearnPath(location.pathname)) return undefined;
+    /* The first visit never takes this shortcut: landing straight on /inlearn
+       looks like a move inside INLEARN, and skipping it there would leave the
+       curtain from index.html with nothing to take it down. */
+    if (
+      !isFirstRender.current &&
+      cameFromInlearn &&
+      isInlearnPath(location.pathname)
+    ) {
+      return undefined;
+    }
 
     let timeoutId;
     let isCancelled = false;
 
     const waitForPageReady = async () => {
-      if (isFirstRender.current) {
+      const isFirstVisit = isFirstRender.current;
+
+      if (isFirstVisit) {
         isFirstRender.current = false;
+        /* index.html already has a curtain over the screen on a first visit,
+           painted before this bundle existed. Raising a second one over it
+           would only risk a seam between the two. */
       } else {
         setIsVisible(true);
       }
 
       const startedAt = performance.now();
+      const deadline =
+        startedAt +
+        (isFirstVisit ? FIRST_VISIT_MAX_WAIT_MS : ROUTE_CHANGE_MAX_WAIT_MS);
 
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await nextFrame();
+      await nextFrame();
 
       if (document.fonts?.ready) {
-        await Promise.race([
-          document.fonts.ready,
-          new Promise((resolve) => window.setTimeout(resolve, 800)),
-        ]);
+        await untilDeadline(document.fonts.ready, deadline);
       }
 
-      const images = Array.from(document.querySelectorAll("main img")).filter(
-        (image) => !image.complete,
-      );
-
-      if (images.length) {
-        await Promise.race([
-          Promise.all(
-            images.map(
-              (image) =>
-                new Promise((resolve) => {
-                  image.addEventListener("load", resolve, {once: true});
-                  image.addEventListener("error", resolve, {once: true});
-                }),
-            ),
-          ),
-          new Promise((resolve) => window.setTimeout(resolve, 1600)),
-        ]);
-      }
+      await waitForContentToSettle(deadline);
 
       const elapsed = performance.now() - startedAt;
-      const minimumDelay = Math.max(0, 450 - elapsed);
+      const minimumDelay = Math.max(0, MINIMUM_CURTAIN_MS - elapsed);
 
       timeoutId = window.setTimeout(() => {
-        if (!isCancelled) setIsVisible(false);
+        if (isCancelled) return;
+        setIsVisible(false);
+        /* Unconditional, and idempotent: if this run was cut short by a
+           navigation, the run that replaces it still has to take the first
+           curtain down. */
+        dismissBootCurtain();
       }, minimumDelay);
     };
 
