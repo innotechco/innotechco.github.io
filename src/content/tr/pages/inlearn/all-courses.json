@@ -1,0 +1,219 @@
+{
+  "title": "Tüm Kurslar",
+  "readMore": "Devamını oku",
+  "showAll": "Tümünü göster",
+  "loading": "Yükleniyor",
+  "save": "Bu kursu kaydet",
+  "share": "Bu kursu paylaş",
+  "empty": "Bu kategoride henüz kurs yok.",
+  "allTag": "Tümü",
+  "modes": {
+    "on-site": "Yüz yüze",
+    "online": "Çevrimiçi",
+    "offline": "Çevrimdışı"
+  },
+  "tags": [
+    {
+      "id": "business-management",
+      "label": "İş ve Yönetim"
+    },
+    {
+      "id": "science-mathematics",
+      "label": "Bilim ve Matematik"
+    },
+    {
+      "id": "engineering",
+      "label": "Mühendislik"
+    },
+    {
+      "id": "energy-materials",
+      "label": "Enerji ve Malzemeler"
+    },
+    {
+      "id": "health",
+      "label": "Sağlık"
+    },
+    {
+      "id": "high-tech",
+      "label": "İleri Teknoloji"
+    },
+    {
+      "id": "automotive",
+      "label": "Otomotiv"
+    },
+    {
+      "id": "metals-mining",
+      "label": "Metaller ve Madencilik"
+    },
+    {
+      "id": "sustainability",
+      "label": "Sürdürülebilirlik"
+    },
+    {
+      "id": "data-ai",
+      "label": "Veri ve Yapay Zeka"
+    }
+  ],
+  "courses": [
+    {
+      "id": "innovations-in-teamwork",
+      "title": "Sağlık Hizmetlerinde Ekip Çalışması Yenilikleri",
+      "summary": "Sağlık hizmeti bir ekip işidir. Danışmadaki görevliden hemşireye kadar her rol sonucun bir parçasını taşır.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "İş başındaki sağlık ekipleri",
+      "tag": "health",
+      "mode": "on-site"
+    },
+    {
+      "id": "lpg-patent-landscape",
+      "title": "Sıvılaştırılmış Petrol Gazı Patent Görünümü Raporu",
+      "summary": "Patentlerin nerede yoğunlaştığı, kimin başvurduğu ve bunun gaz işlemenin önümüzdeki on yılı için ne anlama geldiği.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir gaz işleme tesisi",
+      "tag": "energy-materials",
+      "mode": "online"
+    },
+    {
+      "id": "industrial-ai-foundations",
+      "title": "Tesis Mühendisleri için Endüstriyel Yapay Zekâ Temelleri",
+      "summary": "Kestirimci bakımın arkasındaki modeller, makineleri zaten bilenler için anlatılıyor.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Tesis göstergelerini okuyan bir mühendis",
+      "tag": "data-ai",
+      "mode": "online"
+    },
+    {
+      "id": "energy-transition-strategy",
+      "title": "Ağır Sanayi için Enerji Dönüşümü Stratejisi",
+      "summary": "Varlık yoğun bir işletme, iki kez yanılmayı kaldıramayacağı bir dönüşümü nasıl planlar.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Endüstriyel enerji altyapısı",
+      "tag": "sustainability",
+      "mode": "offline"
+    },
+    {
+      "id": "digital-twin-operations",
+      "title": "Pilottan Tesise Dijital İkiz Operasyonları",
+      "summary": "Dijital ikizlerin çoğu pilotta kalır. Bu ders, birini günlük operasyona taşıyan işi anlatır.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Tesisin yanındaki kontrol odası ekranı",
+      "tag": "engineering",
+      "mode": "online"
+    },
+    {
+      "id": "supply-chain-resilience",
+      "title": "Gerçek Kısıtlar Altında Tedarik Zinciri Dayanıklılığı",
+      "summary": "Gerçekten sahip olduğunuz bağımlılıkların ve yalnızca sahip olduğunuzu sandıklarınızın haritası.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir terminalden geçen yük",
+      "tag": "business-management",
+      "mode": "on-site"
+    },
+    {
+      "id": "process-safety-leadership",
+      "title": "Yüksek Riskli Sahalarda Proses Güvenliği Liderliği",
+      "summary": "Yüksek riskli bir sahayı kendisine karşı dürüst tutan alışkanlıklar, raporlama hatları ve zor konuşmalar.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Endüstriyel sahada güvenlik denetimi",
+      "tag": "engineering",
+      "mode": "offline"
+    },
+    {
+      "id": "materials-for-harsh-environments",
+      "title": "Zorlu Ortamlar için Malzeme Mühendisliği",
+      "summary": "Hiç dinmeyen ısı, basınç ve aşınma için alaşım, kaplama ve conta seçmek.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Yük altındaki çelik boru hattı",
+      "tag": "energy-materials",
+      "mode": "online"
+    },
+    {
+      "id": "advanced-materials-testing",
+      "title": "İleri Malzeme Testi ve Belgelendirme",
+      "summary": "Bir test düzeneğinin neyi kanıtlayıp neyi kanıtlayamayacağı ve sertifikanın ona güvenmek zorunda olanlarca nasıl okunduğu.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir malzeme test laboratuvarı",
+      "tag": "science-mathematics",
+      "mode": "on-site"
+    },
+    {
+      "id": "hydrogen-economy-fundamentals",
+      "title": "Hidrojen Ekonomisinin Temelleri",
+      "summary": "Hidrojenin bugün gerçekten nerede rekabet ettiği, nerede henüz edemediği ve bir projenin yönünü neyin belirlediği.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir hidrojen üretim tesisi",
+      "tag": "sustainability",
+      "mode": "online"
+    },
+    {
+      "id": "patent-analytics-for-rnd",
+      "title": "Ar-Ge Liderleri için Patent Analitiği",
+      "summary": "Patent haritasını bir yığın hukuki belge olarak değil, rakiplerin nereye harcadığının haritası olarak okumak.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Ekranda bir patent haritası",
+      "tag": "business-management",
+      "mode": "online"
+    },
+    {
+      "id": "battery-manufacturing-quality",
+      "title": "Batarya Üretiminde Kalite Sistemleri",
+      "summary": "Bir hücre kusurunu iki yıl sonra araçta değil, hatta bandın üzerinde yakalayan ölçümler.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir batarya üretim hattı",
+      "tag": "automotive",
+      "mode": "on-site"
+    },
+    {
+      "id": "smart-grid-operations",
+      "title": "Akıllı Şebeke İşletimi ve Kontrolü",
+      "summary": "Artık her yerden güç alan bir şebekenin dakika dakika nasıl dengede tutulduğu.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir şebeke kontrol odası",
+      "tag": "high-tech",
+      "mode": "offline"
+    },
+    {
+      "id": "clinical-data-governance",
+      "title": "Klinik Veri Yönetişimi",
+      "summary": "Hangi kaydı kimin görebileceği, bunun hesabını kimin vereceği ve denetimden nasıl geçtiği.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "İncelenen klinik kayıtlar",
+      "tag": "health",
+      "mode": "online"
+    },
+    {
+      "id": "semiconductor-supply-strategy",
+      "title": "Yarı İletken Tedarik Stratejisi",
+      "summary": "Darboğazı yer değiştiren bir tedarik zincirini okumak ve bir sonraki durağına hazırlanmak.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir yarı iletken üretim tesisi",
+      "tag": "high-tech",
+      "mode": "offline"
+    },
+    {
+      "id": "mining-automation-safety",
+      "title": "Madencilikte Otomasyon ve Güvenlik",
+      "summary": "Otomasyonun bir madenden neyi kaldırdığı, neyi eklediği ve ancak geldikten sonra ortaya çıkan olaylar.",
+      "date": "15 Kasım 2025",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Otomatikleştirilmiş bir maden işletmesi",
+      "tag": "metals-mining",
+      "mode": "on-site"
+    }
+  ]
+}

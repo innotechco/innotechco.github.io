@@ -21,6 +21,7 @@ const staticRoutes = [
   "what-we-think",
   "who-we-are",
   "inlearn",
+  "inlearn/courses",
   "request-for-proposal",
   "what-we-do/inception",
   "what-we-do/insight",
@@ -263,7 +264,12 @@ for (const route of routes) {
 }
 
 fs.writeFileSync(path.join(distRoot, "404.html"), html);
-writeSitemap(routes.filter((route) => route !== "inlearn" || inlearnLinked));
+/* Every INLEARN route, not just the first page: while the module is unpublished
+   none of them belongs in the sitemap, and listing one of its inside pages
+   would invite a crawler in through the side door. */
+writeSitemap(
+  routes.filter((route) => inlearnLinked || !route.startsWith("inlearn")),
+);
 
 console.log(
   `Generated ${routes.length} static route fallbacks ` +

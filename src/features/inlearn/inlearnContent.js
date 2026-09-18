@@ -15,16 +15,59 @@ import {
   learningSolutionsImage,
 } from "./inlearn.config.js";
 
-export function getInlearnFirstPage() {
-  const modules = import.meta.glob("../../content/{en,ar,tr}/pages/inlearn/*.json", {
+/* How many of the catalogue's courses the first page's row carries. */
+const TOP_COURSES_COUNT = 8;
+
+function inlearnModules() {
+  return import.meta.glob("../../content/{en,ar,tr}/pages/inlearn/*.json", {
     eager: true,
     import: "default",
   });
-  const page = localizedModule(modules, "../../content/en/pages/inlearn/first-page.json");
+}
+
+/* Every course the module knows about, in one list, in one file per locale.
+
+   The first page used to carry its own eight courses and All Courses would have
+   carried sixteen, with the first eight written twice - two owners for the same
+   sentences, and the day one of them is edited they disagree. The catalogue is
+   the owner now; the first page takes the first eight from it.
+
+   This is also the shape WordPress will fill later: one list of courses, each
+   carrying the id of its tag. */
+export function getInlearnCourses() {
+  const catalogue = localizedModule(
+    inlearnModules(),
+    "../../content/en/pages/inlearn/all-courses.json",
+  );
+
+  return {
+    ...catalogue,
+    courses: (catalogue.courses ?? []).map((course) => ({
+      ...course,
+      image: courseImages[course.id] ?? courseImageFallback,
+      /* The delivery mode is stored as an id and turned into words here, so a
+         course carries no language of its own in that field and a translator
+         edits one line per locale rather than sixteen. */
+      modeLabel: catalogue.modes?.[course.mode] ?? "",
+    })),
+  };
+}
+
+export function getInlearnFirstPage() {
+  const page = localizedModule(
+    inlearnModules(),
+    "../../content/en/pages/inlearn/first-page.json",
+  );
+  const catalogue = getInlearnCourses();
 
   return {
     ...page,
-    topCourses: withCourseImages(page.topCourses),
+    topCourses: {
+      ...page.topCourses,
+      /* The row shows the head of the catalogue. Which eight is a decision, so
+         it lives here rather than in the section that draws them. */
+      items: catalogue.courses.slice(0, TOP_COURSES_COUNT),
+    },
     learningSolutions: page.learningSolutions
       ? {...page.learningSolutions, image: learningSolutionsImage}
       : null,
@@ -33,16 +76,3 @@ export function getInlearnFirstPage() {
   };
 }
 
-/* The words come from the JSON and the pictures from the config; this is the
-   one place they meet, so neither file has to know about the other. */
-function withCourseImages(topCourses) {
-  if (!topCourses?.items?.length) return topCourses;
-
-  return {
-    ...topCourses,
-    items: topCourses.items.map((course) => ({
-      ...course,
-      image: courseImages[course.id] ?? courseImageFallback,
-    })),
-  };
-}

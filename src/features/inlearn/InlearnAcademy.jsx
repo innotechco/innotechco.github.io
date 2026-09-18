@@ -1,5 +1,7 @@
 import {useEffect, useRef, useState} from "react";
+import {Route, Routes} from "react-router-dom";
 
+import AllCoursesPage from "./all-courses/AllCoursesPage.jsx";
 import AuthSidebar from "./components/AuthSidebar.jsx";
 import FirstPage from "./first-page/FirstPage.jsx";
 import InlearnNavbar from "./components/InlearnNavbar.jsx";
@@ -73,7 +75,18 @@ function InlearnAcademy() {
           );
         }}
       />
-      <FirstPage />
+      {/* INLEARN owns everything under /inlearn, so its pages are routed here
+          rather than in the site's router: the navbar, the sign-in panel and
+          the session above are shared by all of them and would otherwise be
+          mounted again on every move between two INLEARN pages.
+
+          Relative paths, because this whole tree is mounted at /inlearn/*.
+          Anything unrecognised lands on the first page rather than on a blank
+          screen - a mistyped INLEARN address is still an INLEARN visit. */}
+      <Routes>
+        <Route path="courses" element={<AllCoursesPage />} />
+        <Route path="*" element={<FirstPage />} />
+      </Routes>
     </main>
   );
 }

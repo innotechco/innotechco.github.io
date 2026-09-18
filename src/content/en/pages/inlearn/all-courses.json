@@ -1,0 +1,219 @@
+{
+  "title": "All Courses",
+  "readMore": "Read more",
+  "showAll": "Show all",
+  "loading": "Loading",
+  "save": "Save this course",
+  "share": "Share this course",
+  "empty": "No courses in this category yet.",
+  "allTag": "All",
+  "modes": {
+    "on-site": "On-site",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "tags": [
+    {
+      "id": "business-management",
+      "label": "Business & Management"
+    },
+    {
+      "id": "science-mathematics",
+      "label": "Science & Mathematics"
+    },
+    {
+      "id": "engineering",
+      "label": "Engineering"
+    },
+    {
+      "id": "energy-materials",
+      "label": "Energy & Materials"
+    },
+    {
+      "id": "health",
+      "label": "Health"
+    },
+    {
+      "id": "high-tech",
+      "label": "High-Tech"
+    },
+    {
+      "id": "automotive",
+      "label": "Automotive"
+    },
+    {
+      "id": "metals-mining",
+      "label": "Metals & Mining"
+    },
+    {
+      "id": "sustainability",
+      "label": "Sustainability"
+    },
+    {
+      "id": "data-ai",
+      "label": "Data & AI"
+    }
+  ],
+  "courses": [
+    {
+      "id": "innovations-in-teamwork",
+      "title": "Innovations in Teamwork for Health Care",
+      "summary": "Health care is a team effort. From the front desk administrators to the nurses, every role carries part of the outcome.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "Health care teams at work",
+      "tag": "health",
+      "mode": "on-site"
+    },
+    {
+      "id": "lpg-patent-landscape",
+      "title": "Liquefied Petroleum Gas Patent Landscape Report",
+      "summary": "Where the patents cluster, who is filing them, and what that says about the next decade of gas processing.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "A gas processing plant",
+      "tag": "energy-materials",
+      "mode": "online"
+    },
+    {
+      "id": "industrial-ai-foundations",
+      "title": "Industrial AI Foundations for Plant Engineers",
+      "summary": "The models behind predictive maintenance, explained for the people who already know the machines.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "An engineer reading plant instruments",
+      "tag": "data-ai",
+      "mode": "online"
+    },
+    {
+      "id": "energy-transition-strategy",
+      "title": "Energy Transition Strategy for Heavy Industry",
+      "summary": "How an asset-heavy business plans a transition it cannot afford to get wrong twice.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "Industrial energy infrastructure",
+      "tag": "sustainability",
+      "mode": "offline"
+    },
+    {
+      "id": "digital-twin-operations",
+      "title": "Digital Twin Operations from Pilot to Plant",
+      "summary": "Most digital twins stop at the pilot. This is the work that carries one into daily operations.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "A control room screen beside a plant",
+      "tag": "engineering",
+      "mode": "online"
+    },
+    {
+      "id": "supply-chain-resilience",
+      "title": "Supply Chain Resilience Under Real Constraints",
+      "summary": "Mapping the dependencies you actually have, and the ones you only think you have.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "Freight moving through a terminal",
+      "tag": "business-management",
+      "mode": "on-site"
+    },
+    {
+      "id": "process-safety-leadership",
+      "title": "Process Safety Leadership in High-Risk Sites",
+      "summary": "The habits, reporting lines and hard conversations that keep a high-risk site honest with itself.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "Safety inspection on an industrial site",
+      "tag": "engineering",
+      "mode": "offline"
+    },
+    {
+      "id": "materials-for-harsh-environments",
+      "title": "Materials Engineering for Harsh Environments",
+      "summary": "Choosing alloys, coatings and seals for heat, pressure and abrasion that never let up.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "Steel pipework under load",
+      "tag": "energy-materials",
+      "mode": "online"
+    },
+    {
+      "id": "advanced-materials-testing",
+      "title": "Advanced Materials Testing and Certification",
+      "summary": "What a test rig can and cannot prove, and how a certificate is read by the people who have to trust it.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "A materials testing laboratory",
+      "tag": "science-mathematics",
+      "mode": "on-site"
+    },
+    {
+      "id": "hydrogen-economy-fundamentals",
+      "title": "Hydrogen Economy Fundamentals",
+      "summary": "Where hydrogen genuinely competes today, where it does not yet, and what decides which way a project falls.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "A hydrogen production facility",
+      "tag": "sustainability",
+      "mode": "online"
+    },
+    {
+      "id": "patent-analytics-for-rnd",
+      "title": "Patent Analytics for R&D Leaders",
+      "summary": "Reading a patent landscape as a map of where competitors are spending, not as a pile of legal documents.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "A patent landscape on screen",
+      "tag": "business-management",
+      "mode": "online"
+    },
+    {
+      "id": "battery-manufacturing-quality",
+      "title": "Battery Manufacturing Quality Systems",
+      "summary": "The measurements that catch a cell defect on the line rather than in a vehicle two years later.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "A battery production line",
+      "tag": "automotive",
+      "mode": "on-site"
+    },
+    {
+      "id": "smart-grid-operations",
+      "title": "Smart Grid Operations and Control",
+      "summary": "How a grid that now takes power from everywhere is kept steady, minute by minute.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "A grid control room",
+      "tag": "high-tech",
+      "mode": "offline"
+    },
+    {
+      "id": "clinical-data-governance",
+      "title": "Clinical Data Governance",
+      "summary": "Who may see which record, who answers for it, and how that survives an audit.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "Clinical records being reviewed",
+      "tag": "health",
+      "mode": "online"
+    },
+    {
+      "id": "semiconductor-supply-strategy",
+      "title": "Semiconductor Supply Strategy",
+      "summary": "Reading a supply chain whose bottleneck moves, and planning for the one it moves to next.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "A semiconductor fabrication plant",
+      "tag": "high-tech",
+      "mode": "offline"
+    },
+    {
+      "id": "mining-automation-safety",
+      "title": "Mining Automation and Safety",
+      "summary": "What automation removes from a mine, what it adds, and the incidents that only appear after it arrives.",
+      "date": "November 15, 2025",
+      "effort": "4-6 hours per week",
+      "imageAlt": "An automated mining operation",
+      "tag": "metals-mining",
+      "mode": "on-site"
+    }
+  ]
+}
