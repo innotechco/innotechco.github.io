@@ -2426,13 +2426,9 @@
     pointer-events: auto;
   }
 
-  /* The name that a pointer would have brought up by resting on the mark. Only
-     INLEARN's: it says which of the two marks is the site you are on, which is
-     the thing hovering was there to answer. */
-  .inlearn-brand .inlearn-brand-link:not(.inlearn-brand-link-innotech) .inlearn-brand-tip {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+  /* No name tag here. It is what a pointer brings up by resting on a mark, and
+     with no pointer it would simply be a label hanging under the pill at all
+     times - the two marks say enough on their own. */
 }
 
 /* The same shape below a laptop even where there is a pointer, because there is
@@ -2612,21 +2608,25 @@
 @media (max-width: 400px) {
   .inlearn-nav-links > button,
   .inlearn-language > button {
-    font-size: 11px;
+    font-size: 12px;
   }
 
+  /* Less tight than it was. These numbers were set while the brand still
+     carried its name and every pixel was spoken for; with two marks in that
+     pill there is room, and controls pressed against each other read as one
+     dense object rather than five things to press. */
   .inlearn-nav-content {
-    padding: 0 8px;
-    gap: 4px;
+    padding: 0 10px;
+    gap: 7px;
   }
 
   .inlearn-nav-links {
-    column-gap: 4px;
+    column-gap: 7px;
   }
 
   .inlearn-language {
-    width: 30px;
-    min-width: 30px;
+    width: 34px;
+    min-width: 34px;
   }
 
   /* The two icons carry their own box sizes, so the box is what has to come
@@ -2673,6 +2673,30 @@
   .inlearn-brand-mark {
     width: 23px;
     height: 23px;
+  }
+}
+
+/* The last thirteen pixels, for the 320px phones only. Everything wider keeps
+   the spacing above; this is the one width where the row genuinely cannot hold
+   it. */
+@media (max-width: 340px) {
+  .inlearn-nav-content {
+    padding: 0 8px;
+    gap: 5px;
+  }
+
+  .inlearn-nav-links {
+    column-gap: 5px;
+  }
+
+  .inlearn-language {
+    width: 30px;
+    min-width: 30px;
+  }
+
+  .inlearn-nav-links > button,
+  .inlearn-language > button {
+    font-size: 11px;
   }
 }
 

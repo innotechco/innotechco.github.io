@@ -11,7 +11,7 @@ import {usePointerGlow} from "../../../shared/hooks/usePointerGlow.js";
    way so it also happens on keyboard focus, which a JavaScript mouseenter
    handler would miss, and so the reduced-motion block at the foot of the
    stylesheet can switch all of it off in one rule. */
-function CourseCard({course, readMore, href}) {
+function CourseCard({course, readMore, href, isVisible = false}) {
   const Wrapper = href ? "a" : "article";
   const linkProps = href ? {href} : {};
   const {position, handlers} = usePointerGlow();
@@ -45,7 +45,16 @@ function CourseCard({course, readMore, href}) {
         />
 
         <div className="inlearn-course-media">
-          <img src={course.image} alt={course.imageAlt || ""} loading="lazy" />
+          {/* The cards already on screen load straight away; the ones waiting
+              off the side wait with them. lazy on every card means the four a
+              visitor is looking at only start downloading once something else
+              has finished, which is the wait that showed. */}
+          <img
+            src={course.image}
+            alt={course.imageAlt || ""}
+            loading={isVisible ? "eager" : "lazy"}
+            fetchPriority={isVisible ? "high" : "auto"}
+          />
 
           {/* One control in two states rather than two elements swapped over:
               the circle is the pill with its label collapsed, so the green

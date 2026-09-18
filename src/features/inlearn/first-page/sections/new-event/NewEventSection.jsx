@@ -61,7 +61,12 @@ function NewEventSection({newEvent}) {
                    reader is not handed three headlines for one visible card. */
                 aria-hidden={slideIndex !== index}
               >
-                <EventCard event={event} readMore={newEvent.readMore} isLoading={isLoading} />
+                <EventCard
+                  event={event}
+                  readMore={newEvent.readMore}
+                  isLoading={isLoading}
+                  isVisible={slideIndex === index}
+                />
               </div>
             ))}
           </div>
@@ -123,7 +128,7 @@ function CarouselArrow({direction, label, disabled, onClick}) {
   );
 }
 
-function EventCard({event, readMore, isLoading}) {
+function EventCard({event, readMore, isLoading, isVisible = false}) {
   const articlePath = getArticlePath(event.slug);
 
   return (
@@ -132,7 +137,18 @@ function EventCard({event, readMore, isLoading}) {
         {isLoading || !event.image ? (
           <ContentSkeleton className="h-full w-full" isDarkMode rounded="rounded-none" />
         ) : (
-          <img src={event.image} alt={event.imageAlt || ""} loading="lazy" />
+          /* srcSet lists what WordPress has; sizes tells the browser how wide
+             this picture will actually be drawn, so it can choose before the
+             layout exists. The column is 42% of the card on a monitor and the
+             whole card below 860, where the card stacks. */
+          <img
+            src={event.image}
+            srcSet={event.imageSrcSet || undefined}
+            sizes="(max-width: 860px) 100vw, 42vw"
+            alt={event.imageAlt || ""}
+            loading={isVisible ? "eager" : "lazy"}
+            fetchPriority={isVisible ? "high" : "auto"}
+          />
         )}
       </div>
 

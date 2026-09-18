@@ -20,6 +20,8 @@ export function buildLatestNewsFromPost(defaultLatestNews = {}, post) {
     readTime: post.readTime || "",
     summary: truncateWords(post.description) || defaultLatestNews.summary,
     image: post.image || defaultLatestNews.image,
+    /* Empty for the bundled fallback card, whose picture ships in one size. */
+    imageSrcSet: post.imageSrcSet || "",
     imageAlt: post.title || defaultLatestNews.imageAlt,
     slug: post.slug,
   };

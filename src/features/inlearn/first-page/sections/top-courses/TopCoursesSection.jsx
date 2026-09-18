@@ -70,7 +70,11 @@ function TopCoursesSection({topCourses}) {
                    screen reader is handed the cards actually on show. */
                 aria-hidden={cardIndex < index || cardIndex >= index + perView}
               >
-                <CourseCard course={course} readMore={topCourses.readMore} />
+                <CourseCard
+                  course={course}
+                  readMore={topCourses.readMore}
+                  isVisible={cardIndex >= index && cardIndex < index + perView}
+                />
               </div>
             ))}
           </div>

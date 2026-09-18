@@ -61,8 +61,51 @@ function stripHtml(value) {
   return doc.body.textContent || "";
 }
 
+/* The widest the site ever draws one of these: the event card's picture column
+   on a large monitor. Anything bigger is pixels nobody sees. */
+const LARGEST_RENDITION_NEEDED = 1000;
+
+/* WordPress keeps several renditions of every upload and answers with all of
+   them; source_url is the untouched original. Editors upload what the camera or
+   the image generator gave them, so that original is routinely two or three
+   megabytes of PNG for a card 500px wide - which is why these pictures arrived
+   long after the words did.
+ *
+ * This picks the smallest rendition that is still big enough to draw sharply,
+ * and only falls back to the original when WordPress has nothing else. */
 function getFeaturedImage(post) {
-  return post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  const media = post?._embedded?.["wp:featuredmedia"]?.[0];
+  if (!media) return undefined;
+
+  const renditions = Object.values(media.media_details?.sizes ?? {})
+    .filter((size) => size?.source_url && Number(size.width) > 0)
+    .sort((a, b) => a.width - b.width);
+
+  const bigEnough = renditions.find((size) => size.width >= LARGEST_RENDITION_NEEDED);
+  const largest = renditions[renditions.length - 1];
+
+  return bigEnough?.source_url ?? largest?.source_url ?? media.source_url;
+}
+
+/* Every rendition worth offering, as a srcset, so the browser can pick by the
+   width it is actually drawing and by the screen it is drawing on. A phone
+   showing this card 375px wide then takes the 768 - a third of the bytes of the
+   one a monitor takes - without the page having to know which is which.
+ *
+ * The thumbnails are left out: 150 and 300 are too small for any card here, and
+ * an entry the browser might choose on a slow connection is an entry that can
+ * come back blurred. */
+const SMALLEST_RENDITION_OFFERED = 700;
+
+function getFeaturedImageSrcSet(post) {
+  const sizes = post?._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes ?? {};
+
+  const entries = Object.values(sizes)
+    .filter((size) => size?.source_url && Number(size.width) >= SMALLEST_RENDITION_OFFERED)
+    .sort((a, b) => a.width - b.width)
+    .map((size) => `${size.source_url} ${size.width}w`);
+
+  return entries.length > 1 ? entries.join(", ") : "";
 }
 
 function getField(post, ...names) {
@@ -257,6 +300,7 @@ function normalizePost(post) {
     .trim();
   const readTime = getField(post, "innotech_read_time");
   const image = getFeaturedImage(post) || "";
+  const imageSrcSet = getFeaturedImageSrcSet(post);
   const categoryTerms = getWordPressCategoryTerms(post);
   const primaryCategory = categoryTerms.find((term) => term.slug !== "what-we-think") ?? categoryTerms[0];
   /* Always key off the real WordPress slug: it stays stable when a category is
@@ -271,6 +315,7 @@ function normalizePost(post) {
     id: String(post.id),
     wpId: post.id,
     isCmsArticle: true,
+    imageSrcSet,
     slug: post.slug,
     title,
     description,
