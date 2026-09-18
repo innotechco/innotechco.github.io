@@ -2597,15 +2597,22 @@
   }
 }
 
-/* The narrowest phones. The row cannot hold the spacing the wider phones get,
+/* The narrower phones. The row cannot hold the spacing the wider phones get,
    so a few pixels come out of it - but nothing is dropped and nothing is
    squeezed against its neighbour.
+
+   430 rather than the 400 this started at, and the number is measured rather
+   than chosen: at 412 the two pills want 125 + 8 + 267 = 400 pixels of a row
+   that is 388 wide, so the right-hand pill ran twelve pixels past the edge of
+   the screen. The window where that happens ends around 425 - at 430 the row
+   is wide enough again - and every phone inside it was showing a navbar that
+   hung off the side. The declarations here give back about thirty.
 
    At the end of the file on purpose. This used to sit nested inside the 620px
    block, and the navbar's own 620px block is written later in the file, so half
    of these declarations were quietly losing to it: same weight, and the one
    written last wins. */
-@media (max-width: 400px) {
+@media (max-width: 430px) {
   .inlearn-nav-links > button,
   .inlearn-language > button {
     font-size: 12px;
