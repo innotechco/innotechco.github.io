@@ -170,7 +170,13 @@ const renderCarouselCard = (card) => (
         ) : (
           <>
           <div className="lg:hidden">
-            <ResponsiveCarousel ariaLabel={title} isDarkMode={isDarkMode}>
+            {/* The same travel the home page's Live Insights uses. */}
+            <ResponsiveCarousel
+              ariaLabel={title}
+              isDarkMode={isDarkMode}
+              variant="travel"
+              bleedClassName="-mx-6 md:-mx-16 xl:-mx-[120px]"
+            >
               {displayCards.map(renderCarouselCard)}
             </ResponsiveCarousel>
           </div>

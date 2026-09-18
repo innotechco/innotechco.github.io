@@ -5,7 +5,7 @@ import RemoteImage from "../../../../../shared/components/ui/RemoteImage.jsx";
 import {buildLatestNewsFromPost, getArticlePath} from "../../../../../shared/content/blogSections.js";
 import {t} from "../../../../../shared/i18n/ui.js";
 import {useBlogPosts} from "../../../../../shared/hooks/useBlogPosts.js";
-import useCarousel from "../../../hooks/useCarousel.js";
+import useCarousel from "../../../../../shared/hooks/useCarousel.js";
 
 const EVENT_COUNT = 3;
 

@@ -1,5 +1,5 @@
 import CourseCard from "../../../components/CourseCard.jsx";
-import useCarousel from "../../../hooks/useCarousel.js";
+import useCarousel from "../../../../../shared/hooks/useCarousel.js";
 import useMediaQuery from "../../../hooks/useMediaQuery.js";
 
 /* How many cards stand side by side, and where each count begins. The widest

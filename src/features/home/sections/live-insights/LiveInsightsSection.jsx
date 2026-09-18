@@ -111,9 +111,15 @@ function LiveInsightsSection() {
           <>
           {/* CONTENT section */}
           <div className="min-[1400px]:hidden">
+            {/* Same movement as INLEARN's New Event card: one card leaves
+                before the next arrives, rather than a strip sliding by. */}
             <ResponsiveCarousel
               ariaLabel={liveInsights.title}
               isDarkMode={isDarkMode}
+              variant="travel"
+              /* Out to the section's own edges - the same distance its padding
+                 holds the content in by. */
+              bleedClassName="-mx-7 lg:-mx-35"
             >
               {liveInsights.cards.map((insight) => (
                 <MobileInsightCard
