@@ -96,12 +96,21 @@ function getFeaturedImage(post) {
  * an entry the browser might choose on a slow connection is an entry that can
  * come back blurred. */
 const SMALLEST_RENDITION_OFFERED = 700;
+/* And nothing above this. A retina screen asks for twice the drawn width, which
+   would reach for the 1536 or the original - another 700KB and 1.2MB of PNG for
+   detail nobody can see on a card this size. */
+const LARGEST_RENDITION_OFFERED = 1100;
 
 function getFeaturedImageSrcSet(post) {
   const sizes = post?._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes ?? {};
 
   const entries = Object.values(sizes)
-    .filter((size) => size?.source_url && Number(size.width) >= SMALLEST_RENDITION_OFFERED)
+    .filter(
+      (size) =>
+        size?.source_url &&
+        Number(size.width) >= SMALLEST_RENDITION_OFFERED &&
+        Number(size.width) <= LARGEST_RENDITION_OFFERED,
+    )
     .sort((a, b) => a.width - b.width)
     .map((size) => `${size.source_url} ${size.width}w`);
 

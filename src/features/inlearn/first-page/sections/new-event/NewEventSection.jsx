@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 
 import ContentSkeleton, {SkeletonStatus} from "../../../../../shared/components/ui/ContentSkeleton.jsx";
+import RemoteImage from "../../../../../shared/components/ui/RemoteImage.jsx";
 import {buildLatestNewsFromPost, getArticlePath} from "../../../../../shared/content/blogSections.js";
 import {t} from "../../../../../shared/i18n/ui.js";
 import {useBlogPosts} from "../../../../../shared/hooks/useBlogPosts.js";
@@ -66,6 +67,15 @@ function NewEventSection({newEvent}) {
                   readMore={newEvent.readMore}
                   isLoading={isLoading}
                   isVisible={slideIndex === index}
+                  /* The card on screen and the one it would move to, and no
+                     others. lazy did not hold the rest back: the slides sit
+                     beside the visible one inside the same box, which is near
+                     enough to the viewport for a browser to fetch them - so all
+                     three arrived at once, three quarters of it for cards
+                     nobody had asked to see. */
+                  hasPicture={
+                    slideIndex === index || slideIndex === (index + 1) % slides.length
+                  }
                 />
               </div>
             ))}
@@ -128,26 +138,27 @@ function CarouselArrow({direction, label, disabled, onClick}) {
   );
 }
 
-function EventCard({event, readMore, isLoading, isVisible = false}) {
+function EventCard({event, readMore, isLoading, isVisible = false, hasPicture = true}) {
   const articlePath = getArticlePath(event.slug);
 
   return (
     <article className="inlearn-event-card">
       <div className="inlearn-event-media">
-        {isLoading || !event.image ? (
+        {isLoading || !event.image || !hasPicture ? (
           <ContentSkeleton className="h-full w-full" isDarkMode rounded="rounded-none" />
         ) : (
           /* srcSet lists what WordPress has; sizes tells the browser how wide
              this picture will actually be drawn, so it can choose before the
              layout exists. The column is 42% of the card on a monitor and the
              whole card below 860, where the card stacks. */
-          <img
+          <RemoteImage
             src={event.image}
-            srcSet={event.imageSrcSet || undefined}
+            srcSet={event.imageSrcSet}
             sizes="(max-width: 860px) 100vw, 42vw"
             alt={event.imageAlt || ""}
             loading={isVisible ? "eager" : "lazy"}
             fetchPriority={isVisible ? "high" : "auto"}
+            decoding="async"
           />
         )}
       </div>
