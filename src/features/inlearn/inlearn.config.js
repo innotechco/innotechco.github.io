@@ -6,6 +6,7 @@
 
 import {
   coursePlaceholder,
+  instructorPlaceholder,
   firstPageArcRight,
   firstPageArcTopLeft,
   learningSolutionsPlaceholder,
@@ -75,6 +76,26 @@ export const courseImages = {
 
 export const courseImageFallback = coursePlaceholder;
 
+/* ===========================================================================
+   INSTRUCTOR PORTRAITS  -  which photograph belongs to which instructor
+   ===========================================================================
+
+   Keyed by the instructor id in the catalogue, for the same reason the courses
+   are: an id survives a name being respelled or translated.
+
+   An instructor is written once and pointed at from every course they teach,
+   so a portrait dropped in here appears on all of them at once.
+   =========================================================================== */
+
+export const instructorImages = {
+  "gholamreza-jamshidi": instructorPlaceholder,
+  "leyla-farhadi": instructorPlaceholder,
+  "omar-al-hashimi": instructorPlaceholder,
+  "sara-koc": instructorPlaceholder,
+};
+
+export const instructorImageFallback = instructorPlaceholder;
+
 /* The photograph beside "Learn more about our learning solutions". One line,
    because there is one picture: swap the import and this section has its
    photograph, with nothing else to change. */
@@ -122,7 +143,7 @@ export const inlearnConfig = {
       topLeft: {
         src: firstPageArcTopLeft,
         top: "-30vw",
-        left: "-38vw",
+        left: "-30vw",
         rotate: "0deg",
         flipX: false,
         flipY: false,
@@ -141,7 +162,7 @@ export const inlearnConfig = {
            Its width stays in vw: the arc should still get smaller with the
            window, it should just stop wandering up and down while it does. */
         top: "520px",
-        right: "-26vw",
+        right: "-10vw",
         rotate: "0deg",
         flipX: false,
         flipY: false,

@@ -1,0 +1,357 @@
+/* --------------------------------------------------------------------------
+   ONE COURSE
+   -------------------------------------------------------------------------- */
+
+.inlearn-course-page {
+  padding: clamp(96px, 12vw, 150px) clamp(20px, 5vw, 96px) 0;
+}
+
+/* The reading column and the buy card. Two columns where there is room for
+   them, and the card keeps its own width rather than sharing the space evenly:
+   a column of prose twice as wide as the card is what the design draws, and a
+   card that grows with the window only ends up with air in it. */
+.inlearn-course-layout {
+  display: grid;
+  max-width: 1320px;
+  margin: 0 auto;
+  gap: clamp(22px, 3vw, 40px) clamp(28px, 4vw, 64px);
+  /* One column, and the card between the title and the text rather than after
+     all of it. Named areas rather than source order, because the two layouts
+     want the same three blocks in different arrangements. */
+  grid-template-areas:
+    "head"
+    "card"
+    "body";
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 1024px) {
+  .inlearn-course-layout {
+    align-items: start;
+    grid-template-areas:
+      "head card"
+      "body card";
+    grid-template-columns: minmax(0, 1fr) clamp(258px, 22vw, 312px);
+  }
+}
+
+.inlearn-course-head {
+  grid-area: head;
+}
+
+.inlearn-course-main {
+  grid-area: body;
+}
+
+.inlearn-course-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.inlearn-course-heading {
+  margin: 0;
+  color: var(--inlearn-black);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+/* How the course is taught, beside its name: the one fact a visitor checks
+   before reading anything else. */
+.inlearn-course-mode {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid #d5d5d2;
+  border-radius: 999px;
+  color: var(--inlearn-muted);
+  font-size: 12px;
+  gap: 6px;
+}
+
+.inlearn-course-section {
+  margin-top: clamp(26px, 3.4vw, 42px);
+}
+
+.inlearn-course-subheading {
+  margin: 0 0 14px;
+  color: var(--inlearn-black);
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 700;
+}
+
+.inlearn-course-paragraph {
+  /* A measure rather than the width of the column. Left to fill the column the
+     lines ran far past what is comfortable to read, which is the same mistake
+     the learning-solutions block made: every ratio can match the design and the
+     block still look wrong, because line length is invisible in a ratio. */
+  max-width: 62ch;
+  margin: 0 0 12px;
+  color: var(--inlearn-course-text, #6f6f75);
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.65;
+}
+
+.inlearn-course-chips {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+/* The chips are links, not buttons: pressing one asks for the other courses in
+   that category, which is a different page. They borrow the All Courses chip
+   styling so the two cannot drift apart.
+
+   None of them is ever "on". On All Courses the green says "this is the filter
+   you are looking through"; here there is no filter to be looking through, and
+   a green chip would be saying something it does not mean. Green is the hover,
+   and only the hover. */
+.inlearn-course-chips .inlearn-course-tag {
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .inlearn-course-chips .inlearn-course-tag:hover {
+    border-color: var(--inlearn-green);
+    background: var(--inlearn-green);
+    color: #fff;
+  }
+}
+
+/* Name and value, in two columns where there is room. The pairs are a
+   description list, so a screen reader is told which value belongs to which
+   name rather than reading eight loose words. */
+.inlearn-course-specs {
+  display: grid;
+  margin: 0;
+  gap: 12px clamp(20px, 4vw, 70px);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  .inlearn-course-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.inlearn-course-spec {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.inlearn-course-spec dt {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 7px;
+  color: var(--inlearn-course-text, #6f6f75);
+  font-size: clamp(12px, 1vw, 14px);
+}
+
+.inlearn-course-spec dt svg {
+  flex: none;
+  color: var(--inlearn-green);
+}
+
+.inlearn-course-spec dd {
+  margin: 0;
+  color: var(--inlearn-black);
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 500;
+}
+
+/* The price now, and what it was. The old one is struck through and smaller
+   rather than greyed out: grey reads as unavailable, and this is a number the
+   visitor is meant to compare against. */
+.inlearn-course-price {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.inlearn-course-price-now {
+  color: #d94848;
+  font-weight: 600;
+}
+
+.inlearn-course-price-was {
+  color: var(--inlearn-muted);
+  font-size: 0.86em;
+}
+
+.inlearn-course-price.is-large {
+  gap: 4px 10px;
+}
+
+.inlearn-course-price.is-large .inlearn-course-price-now {
+  color: var(--inlearn-black);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 800;
+}
+
+.inlearn-course-instructor {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.inlearn-course-instructor-photo {
+  width: clamp(64px, 6.5vw, 84px);
+  height: clamp(64px, 6.5vw, 84px);
+  flex: none;
+  /* Straight down the left, a half circle on the right - the shape in the
+     design, and not a circle or a squircle.
+
+     Four values, one per corner, clockwise from the top left: the two on the
+     left barely rounded so that edge reads as straight, the two on the right at
+     half the box so they meet in the middle and close the curve. Percentages,
+     so the shape holds as the picture grows with the window. */
+  border-radius: 16% 50% 50% 16%;
+  object-fit: cover;
+  background: #e7e7e4;
+}
+
+.inlearn-course-instructor-name {
+  margin: 0;
+  color: var(--inlearn-black);
+  font-size: clamp(15px, 1.3vw, 19px);
+  font-weight: 700;
+}
+
+.inlearn-course-instructor-role {
+  margin: 4px 0 0;
+  color: var(--inlearn-course-text, #6f6f75);
+  font-size: clamp(12px, 1vw, 14px);
+}
+
+/* -------------------------------------------------------------------------- */
+
+.inlearn-buy {
+  display: flex;
+  grid-area: card;
+  flex-direction: column;
+  overflow: hidden;
+  /* On one column the card has the whole page to fill, and filling it turns a
+     tall picture into a wall: 738 wide at the drawn proportion is 870 of
+     height, and the price ends up below the fold on a tablet. Capped and
+     centred, it stays the object it was drawn as. */
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  border-radius: 18px;
+  background: #f4f4f1;
+}
+
+/* Sticky only where it has a column of its own to stick inside. Below that it
+   is simply the next block down the page, and a sticky element in a single
+   column follows the visitor around for no reason.
+
+   The offset clears the floating navbar, which is fixed and would otherwise
+   cover the top of the card as it stops. */
+@media (min-width: 1024px) {
+  .inlearn-buy {
+    position: sticky;
+    /* Its column is its own again, so the cap and the centring come off. */
+    max-width: none;
+    margin-inline: 0;
+    top: 104px;
+  }
+}
+
+.inlearn-buy-media {
+  position: relative;
+  /* 237 by 280 in the frame - taller than it is wide, which is what keeps
+     the card from turning into a letterbox beside a column of prose. */
+  aspect-ratio: 237 / 280;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #16161a;
+}
+
+.inlearn-buy-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The same panel the cards carry, except always on show: there is no hover to
+   reveal it on a page the visitor has already opened. */
+.inlearn-buy-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 7px 4px;
+  border-bottom-left-radius: 16px;
+  background: var(--inlearn-green);
+}
+
+.inlearn-buy-price {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: clamp(12px, 1.4vw, 18px) clamp(14px, 1.6vw, 20px);
+  gap: 8px;
+  color: var(--inlearn-course-text, #6f6f75);
+  font-size: clamp(12px, 1vw, 14px);
+}
+
+.inlearn-buy-price svg {
+  flex: none;
+  color: var(--inlearn-green);
+}
+
+.inlearn-buy-price-label {
+  margin-inline-end: 2px;
+}
+
+.inlearn-buy-button {
+  height: clamp(42px, 4vw, 48px);
+  margin: 0 clamp(14px, 1.6vw, 20px) clamp(14px, 1.6vw, 20px);
+  border: none;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.inlearn-buy-button:hover:not(:disabled) {
+  background: #2ea069;
+  transform: translateY(-1px);
+}
+
+.inlearn-buy-button:focus-visible {
+  outline: 2px solid var(--inlearn-black);
+  outline-offset: 3px;
+}
+
+/* Already in the basket: the button says so instead of going quiet, and stops
+   being pressable because there is nothing a second press could add. */
+.inlearn-buy-button.is-in {
+  background: #dfe9e3;
+  color: #33654f;
+  cursor: default;
+}
+
+.inlearn-course-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: clamp(70px, 9vw, 130px);
+  gap: 18px;
+  text-align: center;
+}
+

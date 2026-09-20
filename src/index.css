@@ -1,3 +1,24 @@
+/* The stylesheet every page of the site loads.
+
+   It is the order, and the Tailwind theme. Nothing else.
+
+   ORDER IS LOAD-BEARING - do not sort these lines. Tailwind comes second so
+   that everything written after it can override a utility class, and the page
+   stylesheets follow in the order they were written in.
+
+   Six of these are new only in the sense that they were carved out of this
+   file: base, partner, motion, layout-fixes, locale-rtl and home all used to
+   sit here as loose rules. They were moved so that each can be found by its
+   name - a hundred and thirty lines of Arabic and Turkish direction rules in
+   the file called index.css is the last place anyone looks for them.
+
+   Vite inlines these at build time, so the browser still receives one
+   stylesheet - the split costs no extra request, and equally it saves none.
+   partner.css and home.css still travel to every page even though only one
+   page uses each. Making them travel with their own page means importing them
+   from that feature's component, the way InlearnAcademy.jsx imports
+   inlearn.css; that is a separate change and has not been made. */
+
 @import "./styles/fonts.css";
 
 @import "tailwindcss";
@@ -9,345 +30,15 @@
 @import "./styles/toast.css";
 @import "./styles/scrollbar.css";
 
+@import "./styles/base.css";
+@import "./styles/partner.css";
+@import "./styles/motion.css";
+@import "./styles/layout-fixes.css";
+@import "./styles/locale-rtl.css";
+@import "./styles/home.css";
+
 @theme {
   --font-gotham: "Gotham", ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
   --default-font-family: var(--font-gotham);
-}
-
-:root {
-  color-scheme: dark;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 112px;
-}
-
-body {
-  min-height: 100vh;
-  margin: 0;
-  overflow-x: hidden;
-  background: #050505;
-  color: #ffffff;
-  font-family: var(--font-gotham);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-::selection {
-  background: rgba(55, 180, 120, 0.25);
-  color: white;
-}
-
-.search-result-highlight {
-  border-radius: 12px;
-  background: rgba(55, 180, 120, 0.28);
-  box-shadow: 0 0 0 6px rgba(55, 180, 120, 0.22);
-  transition:
-    background 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.partner-tools-card {
-  will-change: opacity, transform;
-}
-
-.partner-tools-card h3,
-.partner-tools-card p {
-  overflow: hidden;
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  text-overflow: clip;
-  max-width: 100%;
-  margin: 0;
-}
-
-.partner-tools-card h3 {
-  font-size: clamp(0.95rem, 1.4vw, 1.1rem) !important;
-  line-height: 1.2 !important;
-}
-
-.partner-tools-card p {
-  font-size: clamp(0.75rem, 1vw, 0.9rem) !important;
-  line-height: 1.4 !important;
-}
-
-.partner-tools-track--animating {
-  position: relative;
-  overflow: visible;
-  display: block;
-}
-
-.partner-tools-track--animating .partner-tools-card {
-  position: absolute;
-  left: var(--partner-tools-from-left);
-  top: var(--partner-tools-from-top);
-  width: var(--partner-tools-width);
-  height: var(--partner-tools-height);
-  opacity: var(--partner-tools-from-opacity, 1);
-  pointer-events: none;
-  animation: partner-tools-card-shift 680ms cubic-bezier(0.22, 1, 0.36, 1)
-    both;
-}
-
-@keyframes partner-tools-card-shift {
-  to {
-    left: var(--partner-tools-to-left);
-    opacity: var(--partner-tools-to-opacity, 1);
-  }
-}
-
-.intro-reveal {
-  will-change: opacity, transform;
-}
-
-.intro-reveal--heading {
-  opacity: 0;
-  transform: translateY(18px);
-  transition:
-    opacity 0.7s ease-out,
-    transform 0.7s ease-out;
-}
-
-.intro-reveal--copy {
-  opacity: 0;
-  transition: opacity 0.55s ease-out;
-}
-
-.intro-reveal--visible,
-.intro-reveal--done {
-  opacity: 1;
-}
-
-.intro-reveal--heading.intro-reveal--visible,
-.intro-reveal--heading.intro-reveal--done {
-  transform: translateY(0);
-}
-
-.intro-reveal--done {
-  transition: none;
-}
-
-@keyframes rfp-dropdown-in {
-  from {
-    opacity: 0;
-    transform: translateY(-8px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.rfp-dropdown-enter {
-  animation: rfp-dropdown-in 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .intro-reveal,
-  .partner-tools-card,
-  .rfp-dropdown-enter {
-    opacity: 1;
-    transform: none;
-    animation: none;
-    transition: none;
-  }
-
-  .rfp-dropdown-anim,
-  .rfp-dropdown-anim * {
-    transition: none !important;
-    transition-delay: 0ms !important;
-  }
-}
-
-@media (max-height: 740px) and (max-width: 480px) {
-  main > section:first-child,
-  main > main:first-child {
-    padding-top: max(8.5rem, calc(env(safe-area-inset-top) + 7.25rem));
-  }
-}
-
-@media (min-width: 380px) and (max-width: 450px) {
-  .footer-legal-links {
-    row-gap: 3px;
-    transform: translateY(10px);
-  }
-}
-
-/* Locale safety: preserve the existing geometry while making Arabic native RTL. */
-html[dir="rtl"] body {
-  font-family: "Tahoma", "Arial", sans-serif;
-  text-align: right;
-}
-
-html[dir="rtl"] input,
-html[dir="rtl"] textarea,
-html[dir="rtl"] select {
-  direction: rtl;
-  text-align: right;
-}
-
-html[dir="rtl"] svg,
-html[dir="rtl"] img {
-  /* Images remain unmirrored by default; directional controls opt in below. */
-}
-
-html[dir="rtl"] [class*="items-start"] {
-  text-align: start;
-}
-
-html[dir="rtl"] [class*="text-left"] {
-  text-align: right !important;
-}
-
-html[dir="rtl"] [class*="origin-left"] {
-  transform-origin: right !important;
-}
-
-html[dir="rtl"] [class*="origin-right"] {
-  transform-origin: left !important;
-}
-
-html[lang="ar"] nav,
-html[lang="ar"] footer,
-html[lang="ar"] .footer-legal-links {
-  direction: ltr;
-}
-
-html[lang="ar"] nav .nav-links {
-  column-gap: clamp(1.5rem, 2.4vw, 2.75rem);
-}
-
-html[lang="ar"] .locale-section-title {
-  direction: rtl;
-  text-align: right;
-}
-
-html[lang="ar"] .locale-section-title-circle {
-  left: auto !important;
-  right: -14px !important;
-}
-
-html[lang="ar"] .locale-section-title-circle-inset {
-  left: auto !important;
-  right: 17px !important;
-}
-
-html[lang="ar"] .locale-contact-title {
-  direction: rtl;
-  text-align: right;
-}
-
-html[lang="ar"] .locale-contact-title-circle {
-  left: auto !important;
-  right: 0 !important;
-}
-
-html[lang="ar"] .locale-contact-title-text {
-  text-align: right;
-}
-
-html[lang="ar"] .locale-hero-title {
-  direction: rtl;
-}
-
-html[lang="ar"] .locale-hero-title-circle {
-  left: auto !important;
-  right: 0 !important;
-}
-
-html[lang="ar"] .locale-hero-title-dot {
-  left: auto !important;
-  right: 4px !important;
-}
-
-html[lang="ar"] .locale-hero-title-text {
-  left: auto !important;
-  right: 22px !important;
-  text-align: right;
-}
-
-@media (min-width: 640px) {
-  html[lang="ar"] .locale-hero-title-text {
-    right: 25px !important;
-  }
-}
-
-@media (min-width: 1024px) {
-  html[lang="ar"] .locale-hero-title-text {
-    right: 27px !important;
-  }
-}
-
-html[dir="rtl"] [aria-label*="Previous"],
-html[dir="rtl"] [aria-label*="Next"],
-html[dir="rtl"] [aria-label*="السابق"],
-html[dir="rtl"] [aria-label*="التالي"] {
-  transform: scaleX(-1);
-}
-
-html[lang="ar"] h1,
-html[lang="ar"] h2,
-html[lang="ar"] h3,
-html[lang="ar"] h4,
-html[lang="ar"] p,
-html[lang="ar"] li,
-html[lang="ar"] button,
-html[lang="ar"] a,
-html[lang="tr"] h1,
-html[lang="tr"] h2,
-html[lang="tr"] h3,
-html[lang="tr"] h4,
-html[lang="tr"] p,
-html[lang="tr"] li,
-html[lang="tr"] button,
-html[lang="tr"] a {
-  overflow-wrap: anywhere;
-  word-break: normal;
-}
-
-
-/* Keep hero copy in normal flow; size it against the card's content width. */
-.home-hero-card { container-type: inline-size; }
-.home-hero-card .locale-hero-title {
-  height: auto;
-  min-height: 64px;
-  margin-bottom: 0;
-  flex-shrink: 0;
-}
-.home-hero-card .locale-hero-title-text {
-  position: relative;
-  inset: auto !important;
-  padding-inline-start: clamp(22px, 6.5cqi, 27px);
-  padding-top: 12px;
-  font-size: clamp(22px, 11.5cqi, 48px);
-  line-height: 1.08;
-  overflow-wrap: anywhere;
-}
-.home-hero-description {
-  font-size: clamp(15px, 6cqi, 24px);
-  overflow-wrap: anywhere;
-  flex-shrink: 0;
-}
-/* Endpoint centers measured in the 5060px-wide ecosystem artwork. */
-@media (min-width: 1480px) {
-  .home-ecosystem-art { width: 90vw; padding-inline: 0; margin-inline: auto; }
-  .home-ecosystem-art > div { width: 100%; }
-  .home-ecosystem-art img { width: 100%; }
-  .home-ecosystem-cards { width: 90vw; max-width: none; padding-inline: 0; }
-  .home-ecosystem-grid { display: grid; grid-template-columns: 1fr; direction: ltr; }
-  .home-ecosystem-grid > div {
-    grid-area: 1 / 1;
-    justify-self: start;
-    margin-left: calc((var(--endpoint) + var(--endpoint-offset, 0)) * 100% - 130px);
-  }
-  .home-ecosystem-grid > div:nth-child(1) { --endpoint: 0.1190711462; }
-  .home-ecosystem-grid > div:nth-child(2) { --endpoint: 0.3773715415; }
-  .home-ecosystem-grid > div:nth-child(3) { --endpoint: 0.6271739130; }
-  .home-ecosystem-grid > div:nth-child(4) { --endpoint: 0.8838932806; }
-  html[lang="ar"] .home-ecosystem-grid > div { direction: rtl; }
 }

@@ -1,0 +1,26 @@
+.inlearn-page {
+  --inlearn-green: #37b478;
+  --inlearn-black: #050505;
+  --inlearn-muted: #83838b;
+  min-height: 100vh;
+  /* White, not the off-white it started as. Everything that sits on this page
+     in white - the arrows, the select, the dialog, the discount field - was
+     already drawn with a border or a shadow, so nothing lost its edge when the
+     background came up to meet it. */
+  background: #ffffff;
+  color: #050505;
+  font-family: var(--font-gotham);
+}
+
+.inlearn-page button,
+.inlearn-page input,
+.inlearn-page select {
+  font: inherit;
+}
+
+.inlearn-stage {
+  position: relative;
+  min-height: 760px;
+  overflow: hidden;
+}
+

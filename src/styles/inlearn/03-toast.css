@@ -1,0 +1,119 @@
+/* Above the auth panel (100) and its dialog (110): the panel closes as this
+   appears, and a confirmation hidden behind what it is confirming is no
+   confirmation at all. */
+.inlearn-toast {
+  position: fixed;
+  z-index: 120;
+  /* Centred in the navbar's own band: the two pills sit at the far edges, so
+     the middle is empty and the message lands in it rather than below
+     everything. */
+  top: 45px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 13px 14px 13px 16px;
+  border-radius: 999px;
+  background: #0d1a14;
+  color: #fff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
+  transform: translateX(-50%);
+  animation: inlearn-toast-in 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes inlearn-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -18px);
+  }
+}
+
+.inlearn-toast-mark {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  color: #fff;
+}
+
+.inlearn-toast-mark svg {
+  width: 11px;
+  height: 9px;
+}
+
+.inlearn-toast p {
+  margin: 0;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.inlearn-toast button:not(.inlearn-toast-action) {
+  display: flex;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.inlearn-toast button:not(.inlearn-toast-action):hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.inlearn-toast button:not(.inlearn-toast-action) svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* ---- the one action a toast can carry ------------------------------------
+
+   The basket's Undo. It is a button inside the toast, so it used to be caught
+   by the dismiss button's rules above - 22px square, flex: 0 0 22px - which
+   squashed its label into a wide flat ellipse on hover. Those rules now say
+   which button they mean, and this one says its own size.
+
+   Sized in text rather than in pixels: the label is a word, and a word is a
+   different length in three languages. */
+.inlearn-toast-action {
+  flex: 0 0 auto;
+  width: auto;
+  height: 30px;
+  padding: 0 14px;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 999px;
+  background: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.inlearn-toast-action:hover {
+  border-color: #fff;
+  background: rgb(255 255 255 / 14%);
+}
+
+.inlearn-toast-action:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}

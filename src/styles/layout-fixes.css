@@ -1,0 +1,14 @@
+@media (max-height: 740px) and (max-width: 480px) {
+  main > section:first-child,
+  main > main:first-child {
+    padding-top: max(8.5rem, calc(env(safe-area-inset-top) + 7.25rem));
+  }
+}
+
+@media (min-width: 380px) and (max-width: 450px) {
+  .footer-legal-links {
+    row-gap: 3px;
+    transform: translateY(10px);
+  }
+}
+

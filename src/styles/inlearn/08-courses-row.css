@@ -1,0 +1,174 @@
+/* --------------------------------------------------------------------------
+   TOP ESSENTIAL COURSES
+   -------------------------------------------------------------------------- */
+
+.inlearn-courses {
+  position: relative;
+  z-index: 1;
+  padding: 0 clamp(20px, 5vw, 96px) clamp(70px, 9vw, 130px);
+}
+
+.inlearn-courses-title {
+  max-width: 1320px;
+  margin: 0 auto clamp(20px, 2.4vw, 34px);
+  color: var(--inlearn-black);
+}
+
+/* arrow / cards / arrow, with the cards taking whatever is left. minmax(0, 1fr)
+   rather than 1fr: a grid track will otherwise refuse to shrink below the width
+   of its content, and the track inside is eight cards long. */
+.inlearn-courses-row {
+  /* ---------------------------------------------------------------------
+     HOW HIGH THE TWO ARROWS SIT  -  the only number to touch
+     ---------------------------------------------------------------------
+     0 leaves them level with the middle of the card. A negative value lifts
+     them both, a positive one drops them both:
+
+       -60px   level with the middle of the picture
+         0     level with the middle of the card      <- now
+        40px   down towards the dates
+
+     Both arrows read the same value, so they can never drift apart. */
+  --inlearn-courses-arrow-shift: -60px;
+  display: grid;
+  max-width: 1400px;
+  margin: 0 auto;
+  /* Centred by the grid rather than by a measured offset: the row is as tall as
+     the cards, so the arrow lands in the middle of one at every width without a
+     number to keep in step. The shift above then moves it from there. */
+  align-items: center;
+  /* Wider than the row's clipping boundary reaches, always.
+
+     That boundary is pushed outwards on purpose, to let the green light past
+     it - but it lets the cards past it too. Anything nearer to the row than
+     that is stood on by a card sliding in or out, which is what put the cards
+     on top of the arrows. The gap here is what keeps the arrows outside it. */
+  gap: clamp(26px, 2.6vw, 40px);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.inlearn-courses-arrow {
+  position: relative;
+  /* Above the row, so a card caught mid-slide passes behind the arrow rather
+     than through it. The gap above is what keeps them apart; this is what keeps
+     the order right if one ever does reach. */
+  z-index: 1;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  /* No ring. The design wants the arrow to read as a disc lifted off the page
+     rather than a circle drawn on it, so the edge is shadow rather than
+     border.
+
+     This used to be a white hairline, which worked only while the page behind
+     it was off-white. The page is white now, and a white edge on white is no
+     edge - so the depth comes from the shadow, and there are two: a tight one
+     that stands in for the missing hairline, and a soft one that lifts it. */
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgb(5 5 5 / 7%),
+    0 2px 12px rgb(5 5 5 / 10%);
+  color: var(--inlearn-black);
+  cursor: pointer;
+  place-items: center;
+  transform: translateY(var(--inlearn-courses-arrow-shift));
+  transition: color 180ms ease, transform 180ms ease, opacity 180ms ease;
+}
+
+/* The shift is repeated in the hover rule because one transform replaces
+   another: writing only the scale here would snap both arrows back to centre
+   the moment the pointer reached one. */
+.inlearn-courses-arrow:hover:not(:disabled) {
+  color: var(--inlearn-green);
+  transform: translateY(var(--inlearn-courses-arrow-shift)) scale(1.12);
+}
+
+/* Still there, still readable, but plainly not offering anything: the row has
+   reached its end, and an arrow that vanishes makes the pair jump sideways. */
+.inlearn-courses-arrow:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+.inlearn-courses-arrow:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+/* The gap between two cards, named once: the slide width, the step the track
+   travels and the room the cards leave each other are all derived from it, so
+   they cannot drift apart. */
+.inlearn-courses-viewport {
+  --inlearn-course-gap: clamp(20px, 2.2vw, 32px);
+  /* clip, not hidden: the cards off to the side are trimmed without turning
+     this into a scroll container that swallows the page's own scrolling.
+
+     Two things have to get past that boundary without the ninth card getting
+     past it too - the lift on hover, and the green light behind a card.
+
+     Above and below there is nothing to hide, so the room is made with padding
+     and taken straight back with a negative margin: the box grows, the layout
+     does not move.
+
+     Left and right, overflow-clip-margin pushes the boundary out to just under
+     the gap between two cards: that is as far as the light can reach, and the
+     ninth card begins beyond it, so the light spreads freely and the card stays
+     hidden.
+
+     It is written as a plain length, and repeated per width below, because
+     overflow-clip-margin takes nothing else: a var(), a calc() or a clamp()
+     there is dropped and the property falls back to 0 - silently, with no
+     warning anywhere. Checked in the browser, not assumed. */
+  overflow: clip;
+  overflow-clip-margin: 18px;
+  padding-block: 52px;
+  margin-block: -52px;
+  /* The browser keeps vertical scrolling and hands sideways drags to the
+     pointer handlers, so a swipe never fights the page. */
+  touch-action: pan-y;
+}
+
+/* The gap grows with the window, so the room for the light grows with it. Both
+   numbers stay just inside the gap at that width. */
+@media (min-width: 1024px) {
+  .inlearn-courses-viewport {
+    overflow-clip-margin: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .inlearn-courses-viewport {
+    overflow-clip-margin: 24px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .inlearn-courses-viewport {
+    overflow-clip-margin: 30px;
+  }
+}
+
+.inlearn-courses-viewport:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 6px;
+}
+
+.inlearn-courses-track {
+  display: flex;
+  gap: var(--inlearn-course-gap);
+  /* Long and soft, matching the New Event row: a slide that snaps reads as a
+     jump cut rather than a movement. */
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Whatever is left of the row once the gaps between the visible cards are
+   taken out, shared equally. --per-view is set on the element by the section,
+   which is the only place that knows how many cards are on show. */
+.inlearn-courses-slide {
+  flex: 0 0
+    calc((100% - (var(--per-view) - 1) * var(--inlearn-course-gap)) / var(--per-view));
+  min-width: 0;
+}
+

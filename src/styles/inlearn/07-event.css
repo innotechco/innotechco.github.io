@@ -1,0 +1,305 @@
+/* -------------------------------------------------------------------------- */
+
+.inlearn-event {
+  position: relative;
+  z-index: 1;
+  padding: 0 clamp(20px, 5vw, 96px) clamp(60px, 8vw, 120px);
+}
+
+/* 1320, the same as the course row's heading and the learning-solutions block,
+   so the three headings start on one line down the page. It was 1180 when this
+   was the only section with a heading, and a heading centred in a narrower
+   container sits 70px further in than its neighbours. */
+.inlearn-event-title {
+  max-width: 1320px;
+  margin: 0 auto clamp(18px, 2vw, 28px);
+  color: var(--inlearn-black);
+}
+
+/* One card wide, with the arrows lying on top of it at either edge rather than
+   standing beside it.
+
+   That is what lets a card leave: in a row of arrow / card / arrow the card can
+   only travel as far as the arrow's inside edge, so it stops in plain sight and
+   the movement reads as a panel being swapped. With the arrows on top, the card
+   runs to the end of the section and out of it, passing underneath them - the
+   way a car crosses a camera's frame rather than being lifted out of it. */
+.inlearn-carousel {
+  position: relative;
+  /* Out past the section's own margins, to the edges of the window: a card that
+     stops short of the screen is a card being hidden, not a card leaving.
+
+     The page clips its horizontal overflow (.inlearn-first-page), so reaching
+     past the section cannot put a scrollbar on the page. */
+  margin-inline: calc(-1 * clamp(20px, 5vw, 96px));
+}
+
+.inlearn-carousel-arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #d5d5d2;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--inlearn-black);
+  cursor: pointer;
+  place-items: center;
+  /* The centring lives in the transform, so every rule that changes the
+     transform has to carry it: one transform replaces another. */
+  transform: translateY(-50%);
+  transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+/* The arrows stay where the section's own margin is, not out at the window
+   edge with the clipping: they belong to the card, and the card is centred. */
+.inlearn-carousel-arrow.is-prev {
+  left: clamp(20px, 5vw, 96px);
+}
+
+.inlearn-carousel-arrow.is-next {
+  right: clamp(20px, 5vw, 96px);
+}
+
+.inlearn-carousel-arrow:hover:not(:disabled) {
+  border-color: var(--inlearn-green);
+  color: var(--inlearn-green);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.inlearn-carousel-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* clip, not hidden: the neighbouring slides must be trimmed without turning
+   this into a scroll container that swallows the page's own scrolling. */
+.inlearn-carousel-viewport {
+  overflow-x: clip;
+  border-radius: clamp(20px, 2.4vw, 34px);
+  /* The browser keeps vertical scrolling for itself and hands sideways drags to
+     the pointer handlers, so a swipe never fights the page. */
+  touch-action: pan-y;
+}
+
+.inlearn-carousel-viewport:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 4px;
+}
+
+/* The empty road between two cards. It is what makes the movement read as one
+   card leaving and another arriving, rather than two panels sliding as a strip:
+   by the time the next card's edge appears, the last one is gone.
+
+   A percentage, so the distance keeps its proportion to the card at every
+   width, and the same value the section's travel is calculated from - see the
+   transform in NewEventSection.jsx. */
+.inlearn-carousel-track {
+  --inlearn-event-gap: 34%;
+  display: flex;
+  gap: var(--inlearn-event-gap);
+  /* Slow on purpose. The card now crosses the whole window rather than stepping
+     from one edge of a box to the other, and a long journey taken quickly reads
+     as a flick; taken slowly it reads as something passing through. */
+  transition: transform 1400ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-carousel-slide {
+  width: 100%;
+  flex: 0 0 100%;
+}
+
+.inlearn-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.inlearn-carousel-dots button {
+  width: 8px;
+  height: 8px;
+  border: none;
+  border-radius: 50%;
+  background: #c9c9c5;
+  cursor: pointer;
+  transition: width 220ms ease, background 220ms ease;
+}
+
+.inlearn-carousel-dots button.is-current {
+  width: 22px;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+}
+
+/* -------------------------------------------------------------------------- */
+
+.inlearn-event-card {
+  display: grid;
+  /* The width the card had when the arrows stood beside it in a row: the old
+     1320 container, less an arrow and its gap at each end. The arrows lie on
+     top of the track now, and this keeps them clear of the card while it is at
+     rest - they only cover it while it is travelling past them.
+
+     The second term is the page's own margin plus the room an arrow needs.
+     The track runs to the edges of the window so a card can leave the screen,
+     and without this the card ran to the edges with it.
+
+     Both halves of that term matter, and they used to live in two rules that
+     could disagree: the card was sized by the margin alone while the arrows sat
+     at the margin, so anywhere the margin was the binding limit - around a
+     1024-wide window - the arrows ended up lying on the card. One formula, one
+     answer. Below 620 the arrows leave the card's sides altogether and it takes
+     that room back. */
+  max-width: min(
+    calc(1320px - 2 * (44px + clamp(8px, 1.4vw, 20px))),
+    calc(100% - 2 * (clamp(20px, 5vw, 96px) + 44px + 10px))
+  );
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: clamp(20px, 2.4vw, 34px);
+  background: var(--inlearn-black);
+  color: #fff;
+  /* The image column is fixed and the text takes what is left, so a long
+     headline grows the card downwards rather than squeezing the photograph. */
+  grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+}
+
+/* The card is a fixed shape rather than as tall as its text: side by side in a
+   row, three cards of different heights would make the track jump on every
+   step. The ratio is the one the design draws, near 2.2 : 1. */
+.inlearn-event-media {
+  position: relative;
+  min-height: clamp(300px, 34vw, 500px);
+  background: #16161a;
+}
+
+.inlearn-event-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.inlearn-event-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(20px, 3.6vw, 56px);
+}
+
+.inlearn-event-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.inlearn-event-headline {
+  margin: 0;
+  font-size: clamp(16px, 1.9vw, 26px);
+  font-weight: 700;
+  line-height: 1.32;
+}
+
+.inlearn-event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  margin: clamp(16px, 1.8vw, 26px) 0 0;
+  column-gap: 26px;
+  row-gap: 4px;
+  font-size: clamp(12px, 1vw, 14px);
+}
+
+.inlearn-event-meta .is-accent {
+  color: var(--inlearn-green);
+}
+
+.inlearn-event-summary {
+  margin: clamp(16px, 1.8vw, 26px) 0 0;
+  color: #b9b9c0;
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.6;
+}
+
+.inlearn-event-more {
+  margin-top: clamp(20px, 2.4vw, 34px);
+  align-self: flex-start;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: clamp(12px, 1vw, 14px);
+}
+
+.inlearn-event-more:hover {
+  color: var(--inlearn-green);
+}
+
+/* Narrower than this there is no room beside the card worth taking from it, so
+   the arrows come down and stand either side of the dots: still one arrow left
+   and one right, still nothing covering the card.
+
+   The viewport takes a whole row and the three controls wrap onto the next one.
+   Their order is set here rather than in the markup, where the arrows have to
+   stay either side of the viewport for the wider layout. */
+@media (max-width: 620px) {
+  .inlearn-carousel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .inlearn-carousel-viewport {
+    flex: 0 0 100%;
+    /* See the note on the course row: a flex item does not shrink below its
+       contents, and the contents are the whole track. */
+    min-width: 0;
+    order: 1;
+  }
+
+  .inlearn-carousel-arrow {
+    position: static;
+    order: 2;
+    width: 36px;
+    height: 36px;
+    /* The centring transform belongs to the absolute layout above; here the row
+       does the centring and a leftover translate would push the arrow up. */
+    transform: none;
+  }
+
+  .inlearn-carousel-arrow:hover:not(:disabled) {
+    transform: scale(1.06);
+  }
+
+  .inlearn-carousel-arrow.is-next {
+    order: 4;
+  }
+
+  .inlearn-carousel-dots {
+    order: 3;
+    margin-top: 0;
+  }
+
+  /* Nothing stands beside the card here, so it takes the page's full measure
+     back - the room reserved above is only owed while the arrows are in it. */
+  .inlearn-event-card {
+    max-width: calc(100% - 2 * clamp(20px, 5vw, 96px));
+  }
+}
+
+@media (max-width: 860px) {
+  /* One column below this: side by side, the text column becomes too narrow to
+     hold a headline without breaking it across five lines. */
+  .inlearn-event-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .inlearn-event-media {
+    min-height: 210px;
+  }
+}
+

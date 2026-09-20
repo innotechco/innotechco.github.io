@@ -720,10 +720,13 @@ test("non-critical content images use native lazy loading", () => {
     path.join(srcRoot, "features", "inlearn", "InlearnAcademy.jsx"),
     /* INLEARN's own navbar, exempt for the same reason as the site navbar:
        its icons are above the fold on every page of the module. */
-    path.join(srcRoot, "features", "inlearn", "components", "InlearnNavbar.jsx"),
+    path.join(srcRoot, "features", "inlearn", "shell", "InlearnNavbar.jsx"),
+    /* The course picture is the first thing on a course page and the largest
+       thing on it - the one image on that page that must not wait. */
+    path.join(srcRoot, "features", "inlearn", "pages", "course", "CourseBuyCard.jsx"),
     /* The arc behind the hero is painted before anything is scrolled; the one
        below it asks for loading="lazy" in the same component. */
-    path.join(srcRoot, "features", "inlearn", "first-page", "PageDecorations.jsx"),
+    path.join(srcRoot, "features", "inlearn", "pages", "first-page", "PageDecorations.jsx"),
     path.join(
       srcRoot,
       "features",

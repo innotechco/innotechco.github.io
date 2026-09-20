@@ -16,35 +16,43 @@ import {useCallback, useRef, useState} from "react";
    enough that a deliberate flick does. */
 const SWIPE_THRESHOLD = 48;
 
-export default function useCarousel(count, perView = 1) {
+export default function useCarousel(count, perView = 1, {loop = false} = {}) {
   const [index, setIndex] = useState(0);
   const viewportRef = useRef(null);
   const gesture = useRef(null);
 
   /* The last index worth resting on: past it the track would show empty space
      where the row runs out of cards. With one card in view that is the last
-     card; with four in view it is four cards from the end. */
-  const maxIndex = Math.max(count - perView, 0);
+     card; with four in view it is four cards from the end.
+
+     A looping row has no such index. It is drawn as several copies of the same
+     list, so the track can keep travelling in either direction for ever and the
+     caller moves it back a whole copy when it reaches one - see
+     RelatedCourses.jsx. Clamping here would stop it at the end of the first
+     copy, which is the one thing a loop must not do. */
+  const maxIndex = loop ? Number.POSITIVE_INFINITY : Math.max(count - perView, 0);
 
   /* Slides disappear - WordPress answers with fewer posts than the bundled copy
      assumed - and the visible count changes when the window is resized, so the
      current index can fall outside the range between two renders. Clamped while
      rendering rather than corrected afterwards in an effect: an effect would
      paint the wrong frame first and fix it second. */
-  const safeIndex = Math.min(index, maxIndex);
+  const safeIndex = loop ? index : Math.min(index, maxIndex);
 
   const go = useCallback(
     (next) => {
       if (count < 1) return;
-      setIndex(Math.min(Math.max(next, 0), maxIndex));
+      setIndex(loop ? next : Math.min(Math.max(next, 0), maxIndex));
     },
-    [count, maxIndex],
+    [count, loop, maxIndex],
   );
 
   const step = useCallback(
     (delta) => {
       setIndex((current) => {
         if (count < 1) return 0;
+        /* A loop never reaches an end to be held at. */
+        if (loop) return current + delta;
         /* One card in view means every index is a whole view, so the last
            card's "next" can return to the first rather than leave the arrow
            looking broken. With several in view the ends are real ends: wrapping
@@ -53,7 +61,7 @@ export default function useCarousel(count, perView = 1) {
         return Math.min(Math.max(current + delta, 0), maxIndex);
       });
     },
-    [count, perView, maxIndex],
+    [count, loop, perView, maxIndex],
   );
 
   const onPointerDown = useCallback((event) => {

@@ -1,0 +1,18 @@
+<!--
+  Standing in until the real portraits arrive.
+
+  A drawing rather than a stock photograph, on purpose: a placeholder that looks
+  like a real person is one nobody notices is still a placeholder, and it ends
+  up shipped.
+
+  A plain rectangle here, deliberately. The shape of the frame - straight down
+  the left, a half circle on the right - is the stylesheet's, so the real
+  photograph is cut to exactly the same outline without anyone having to prepare
+  it first. Drop one in this folder, export it from inlearn.assets.js, and name
+  it on that instructor's line in inlearn.config.js.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-hidden="true">
+  <rect width="120" height="120" fill="#e7e7e4" />
+  <circle cx="60" cy="47" r="19" fill="#c3c3bd" />
+  <path d="M22 106c0-20 17-32 38-32s38 12 38 32v14H22Z" fill="#c3c3bd" />
+</svg>

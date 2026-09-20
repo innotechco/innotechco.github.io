@@ -1,0 +1,234 @@
+/* Both pills hang off one fixed bar so they keep the same top edge and matching
+   margins. The bar itself ignores the pointer; only the pills take clicks, or
+   the empty span between them would swallow clicks meant for the page. */
+.inlearn-topbar {
+  position: fixed;
+  z-index: 90;
+  top: 36px;
+  /* Just outside the column of content, at every width.
+
+     Two wrong answers came before this one. At 11vw the bar sat further IN than
+     the words under it - a smaller page floating on a bigger one. Pinned to the
+     window instead it went the other way, and on a wide screen the pills ended
+     up near the edges with the content far away in the middle; the two had
+     nothing to do with each other.
+
+     The frame draws the pill about forty pixels proud of the content on each
+     side. The content is at most 1320 wide and centred, so the bar is at most
+     1400 wide and centred - the same forty. The first term is the floor: on a
+     narrow window the centring term goes negative and the bar falls back to the
+     page's own margin. */
+  left: max(clamp(16px, 3.6vw, 96px), calc((100vw - 1335px) / 2));
+  right: max(clamp(16px, 3.6vw, 96px), calc((100vw - 1330px) / 2));
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.inlearn-topbar > * {
+  pointer-events: auto;
+}
+
+/* The zone is the pill's hit area for leaving. It pads out by more than the
+   pill draws in, so the pointer never ends up outside it just because the pill
+   got smaller. The padding only exists while open, so a closed pill leaves no
+   invisible strip sitting over the page. */
+.inlearn-brand-zone {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  padding-right: 0;
+}
+
+.inlearn-brand-zone.is-open {
+  padding-right: 56px;
+}
+
+.inlearn-brand {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 65px;
+  padding: 0 26px 0 20px;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+  transition: padding 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inlearn-brand.is-open {
+  padding: 0 20px;
+}
+
+/* Children stretch the full height and carry the spacing as padding rather than
+   margin, so the hoverable band runs unbroken from the INLEARN mark to the
+   INNOTECH one. With margins the gaps between them belong to no child, and the
+   pointer crossing one would drop the hover and make the pill snap shut. */
+.inlearn-brand-link {
+  position: relative;
+  display: inline-flex;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.inlearn-brand-link:hover,
+.inlearn-brand-link:focus-visible {
+  color: var(--inlearn-green);
+  outline: none;
+}
+
+/* currentColor fills the mask, so each SVG takes its link's colour - an <img>
+   could not be recoloured on hover. Vite resolves these paths at build time. */
+.inlearn-brand-mark {
+  display: block;
+  width: 34px;
+  height: 34px;
+  background: currentColor;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inlearn-brand-mark-inlearn {
+  -webkit-mask-image: url("../../features/inlearn/assets/inlearn-mark.svg");
+  mask-image: url("../../features/inlearn/assets/inlearn-mark.svg");
+}
+
+/* The dots mark is square, so it keeps the same box as the INLEARN circle. */
+.inlearn-brand-mark-wide {
+  width: 0;
+  height: 32px;
+  -webkit-mask-image: url("../../features/inlearn/assets/innotech-dots.svg");
+  mask-image: url("../../features/inlearn/assets/innotech-dots.svg");
+}
+
+.inlearn-brand.is-open .inlearn-brand-mark-wide {
+  width: 32px;
+}
+
+/* Makes it read as two separate brands rather than one wide logo. */
+.inlearn-brand-divider {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  padding-left: 0;
+  opacity: 0;
+  transition:
+    padding-left 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease 120ms;
+}
+
+.inlearn-brand-divider::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.55);
+  transform: scaleY(0.4);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+}
+
+.inlearn-brand.is-open .inlearn-brand-divider {
+  padding-left: 16px;
+  opacity: 1;
+}
+
+.inlearn-brand.is-open .inlearn-brand-divider::before {
+  transform: scaleY(1);
+}
+
+.inlearn-brand-wordmark {
+  display: flex;
+  max-width: 130px;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  align-self: stretch;
+  padding-left: 12px;
+  gap: 3px;
+  opacity: 1;
+  transition:
+    max-width 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding-left 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 280ms ease;
+}
+
+.inlearn-brand.is-open .inlearn-brand-wordmark {
+  max-width: 0;
+  padding-left: 0;
+  opacity: 0;
+}
+
+.inlearn-brand-wordmark strong {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.inlearn-brand-wordmark small {
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* No overflow clipping here - the name tag has to escape the pill. */
+.inlearn-brand-link-innotech {
+  padding-left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    padding-left 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms ease 140ms;
+}
+
+.inlearn-brand.is-open .inlearn-brand-link-innotech {
+  padding-left: 16px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inlearn-brand-tip {
+  position: absolute;
+  top: calc(100% + -10px);
+  left: 75%;
+  padding: 5px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -5px);
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+/* Only once both marks are side by side - naming a lone INLEARN pill that
+   already reads INLEARN would say nothing. */
+.inlearn-brand.is-open .inlearn-brand-link:hover .inlearn-brand-tip,
+.inlearn-brand.is-open .inlearn-brand-link:focus-visible .inlearn-brand-tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
