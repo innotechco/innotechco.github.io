@@ -5,7 +5,7 @@
   "loading": "Loading",
   "save": "Save this course",
   "share": "Share this course",
-  "empty": "No courses in this category yet.",
+  "empty": "No course carries all of those categories.",
   "allTag": "All",
   "modes": {
     "on-site": "On-site",
@@ -82,8 +82,7 @@
         "process-safety-leadership",
         "materials-for-harsh-environments",
         "smart-grid-operations",
-        "supply-chain-resilience",
-        "advanced-materials-testing"
+        "supply-chain-resilience"
       ],
       "publishedAt": "2026-09-12"
     },
@@ -114,8 +113,7 @@
         "supply-chain-resilience",
         "patent-analytics-for-rnd",
         "battery-manufacturing-quality",
-        "smart-grid-operations",
-        "mining-automation-safety"
+        "smart-grid-operations"
       ],
       "publishedAt": "2026-09-03"
     },
@@ -146,8 +144,7 @@
         "innovations-in-teamwork",
         "patent-analytics-for-rnd",
         "industrial-ai-foundations",
-        "supply-chain-resilience",
-        "process-safety-leadership"
+        "supply-chain-resilience"
       ],
       "publishedAt": "2026-08-21"
     },
@@ -178,8 +175,7 @@
         "energy-transition-strategy",
         "hydrogen-economy-fundamentals",
         "industrial-ai-foundations",
-        "digital-twin-operations",
-        "semiconductor-supply-strategy"
+        "digital-twin-operations"
       ],
       "publishedAt": "2026-08-09"
     },
@@ -210,8 +206,7 @@
         "advanced-materials-testing",
         "supply-chain-resilience",
         "digital-twin-operations",
-        "materials-for-harsh-environments",
-        "smart-grid-operations"
+        "materials-for-harsh-environments"
       ],
       "publishedAt": "2026-07-28"
     },
@@ -242,8 +237,7 @@
         "lpg-patent-landscape",
         "semiconductor-supply-strategy",
         "supply-chain-resilience",
-        "industrial-ai-foundations",
-        "clinical-data-governance"
+        "industrial-ai-foundations"
       ],
       "publishedAt": "2026-07-14"
     },
@@ -274,8 +268,7 @@
         "energy-transition-strategy",
         "smart-grid-operations",
         "lpg-patent-landscape",
-        "materials-for-harsh-environments",
-        "semiconductor-supply-strategy"
+        "materials-for-harsh-environments"
       ],
       "publishedAt": "2026-06-30"
     },
@@ -306,8 +299,7 @@
         "materials-for-harsh-environments",
         "battery-manufacturing-quality",
         "digital-twin-operations",
-        "lpg-patent-landscape",
-        "industrial-ai-foundations"
+        "lpg-patent-landscape"
       ],
       "publishedAt": "2026-06-17"
     },
@@ -338,8 +330,7 @@
         "advanced-materials-testing",
         "lpg-patent-landscape",
         "battery-manufacturing-quality",
-        "hydrogen-economy-fundamentals",
-        "process-safety-leadership"
+        "hydrogen-economy-fundamentals"
       ],
       "publishedAt": "2026-05-29"
     },
@@ -370,8 +361,7 @@
         "mining-automation-safety",
         "materials-for-harsh-environments",
         "innovations-in-teamwork",
-        "digital-twin-operations",
-        "industrial-ai-foundations"
+        "digital-twin-operations"
       ],
       "publishedAt": "2026-05-12"
     },
@@ -402,8 +392,7 @@
         "semiconductor-supply-strategy",
         "battery-manufacturing-quality",
         "patent-analytics-for-rnd",
-        "mining-automation-safety",
-        "energy-transition-strategy"
+        "mining-automation-safety"
       ],
       "publishedAt": "2026-04-24"
     },
@@ -434,8 +423,7 @@
         "industrial-ai-foundations",
         "battery-manufacturing-quality",
         "advanced-materials-testing",
-        "process-safety-leadership",
-        "smart-grid-operations"
+        "process-safety-leadership"
       ],
       "publishedAt": "2026-04-08"
     },
@@ -466,8 +454,7 @@
         "hydrogen-economy-fundamentals",
         "smart-grid-operations",
         "materials-for-harsh-environments",
-        "lpg-patent-landscape",
-        "supply-chain-resilience"
+        "lpg-patent-landscape"
       ],
       "publishedAt": "2026-03-26"
     },
@@ -498,8 +485,7 @@
         "digital-twin-operations",
         "smart-grid-operations",
         "process-safety-leadership",
-        "battery-manufacturing-quality",
-        "advanced-materials-testing"
+        "battery-manufacturing-quality"
       ],
       "publishedAt": "2026-03-11"
     },
@@ -530,8 +516,7 @@
         "patent-analytics-for-rnd",
         "materials-for-harsh-environments",
         "hydrogen-economy-fundamentals",
-        "energy-transition-strategy",
-        "semiconductor-supply-strategy"
+        "energy-transition-strategy"
       ],
       "publishedAt": "2026-02-24"
     },
@@ -562,8 +547,7 @@
         "clinical-data-governance",
         "process-safety-leadership",
         "supply-chain-resilience",
-        "industrial-ai-foundations",
-        "digital-twin-operations"
+        "industrial-ai-foundations"
       ],
       "publishedAt": "2026-02-06"
     }
@@ -608,5 +592,6 @@
       "name": "Sara Koç",
       "role": "Professor of Industrial Systems"
     }
-  }
+  },
+  "emptyHint": "Please choose different tags."
 }

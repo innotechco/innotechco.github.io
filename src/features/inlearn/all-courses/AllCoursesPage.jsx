@@ -39,9 +39,11 @@ function AllCoursesPage() {
      thing that travels with it is the address. A filtered view can be sent to
      somebody. And the back button then does what the visitor means by it.
 
-     Several at once: the filters are "show me any of these", so choosing
-     Engineering and Health shows both rather than the courses that are somehow
-     in both, of which there are usually none. */
+     Several at once, and they narrow rather than widen: a course has to carry
+     EVERY category that is on. Choosing Engineering and Health asks for the
+     courses that are both, not for the two piles added together - which is what
+     a filter is for, and it is why the page can end up with nothing to show and
+     has to say so. */
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTags = useMemo(() => {
     const raw = searchParams.get("tags");
@@ -77,7 +79,13 @@ function AllCoursesPage() {
   const courses = useMemo(
     () =>
       activeTags.length
-        ? catalogue.courses.filter((course) => activeTags.includes(course.tag))
+        ? catalogue.courses.filter((course) =>
+            /* Against every category the course carries, not just the one it is
+               filed under: with three chips on, a course filed under one of
+               them would never match all three and the page would always be
+               empty. */
+            activeTags.every((tag) => (course.categories ?? []).includes(tag)),
+          )
         : catalogue.courses,
     [activeTags, catalogue.courses],
   );
@@ -170,7 +178,14 @@ function AllCoursesPage() {
           ) : null}
         </>
       ) : (
-        <p className="inlearn-all-courses-empty">{catalogue.empty}</p>
+        /* Nothing carries all of those at once. Said in the middle of the page
+           rather than left as a blank space, and it says what to do next: the
+           visitor has not broken anything, they have asked a narrower question
+           than the catalogue can answer. */
+        <div className="inlearn-all-courses-empty">
+          <p>{catalogue.empty}</p>
+          <p className="inlearn-all-courses-empty-hint">{catalogue.emptyHint}</p>
+        </div>
       )}
     </div>
   );

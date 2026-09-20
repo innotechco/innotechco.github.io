@@ -22,14 +22,27 @@ import {routes} from "../../../app/routes.js";
    so nothing is seen to move. What is on screen is identical either side of the
    jump, because it is the same card from a different copy.
 
-   Two copies would be enough in one direction only. Three is what makes both
-   directions work from the first press. */
+   Two copies would be enough in one direction only. Three is the minimum that
+   makes both directions work from the first press, and a short list against a
+   wide row needs more than three - see copiesFor(). */
 const PER_VIEW = [
   {query: "(min-width: 1024px)", cards: 4},
   {query: "(min-width: 640px)", cards: 3},
 ];
 const PER_VIEW_ON_PHONE = 2;
-const COPIES = 3;
+
+/* How many copies of the list the track has to hold.
+
+   The row starts in the middle copy and wanders up to one whole list either
+   way, so what has to exist is that wandering plus a full row of cards beyond
+   it. With four courses and four in view, three copies is exactly enough; with
+   two courses and four in view it is not, and the row would run off the end of
+   its own track into empty space.
+
+   An odd number, always, so there is a middle copy to start in. */
+function copiesFor(count, perView) {
+  return Math.max(3, 2 * Math.ceil(perView / count) + 3);
+}
 
 /* The stylesheet's travel time for this track, plus a little. The index is
    brought home on a timer rather than on transitionend: transitionend does not
@@ -47,9 +60,15 @@ function RelatedCourses({courses, labels}) {
     : PER_VIEW_ON_PHONE;
 
   const count = courses?.length ?? 0;
-  /* Below this the loop has nothing to loop: the whole list is on screen at
-     once and moving it would only shuffle the same cards. */
-  const canLoop = count > perView;
+  /* Two is enough to loop. It used to be "more courses than fit on screen",
+     and that was the bug: four related courses with four in view is the ordinary
+     case on a monitor, and there the row could not move at all - both arrows
+     were live and pressing them did nothing.
+
+     A row that shows everything it has can still turn: pressing the arrow moves
+     it by one and the card that left comes back round the other side, which is
+     what makes it a carousel rather than a strip. */
+  const canLoop = count > 1;
 
   const {index, viewportRef, step, handlers} = useCarousel(count, perView, {
     loop: canLoop,
@@ -57,9 +76,10 @@ function RelatedCourses({courses, labels}) {
   const [isJumping, setIsJumping] = useState(false);
   const jumpTimer = useRef(0);
 
+  const copies = canLoop ? copiesFor(count, perView) : 1;
   /* Where the middle copy begins. Everything below is measured from here. */
-  const home = canLoop ? count : 0;
-  const slides = canLoop ? Array.from({length: COPIES}, () => courses).flat() : courses;
+  const home = canLoop ? count * Math.floor(copies / 2) : 0;
+  const slides = canLoop ? Array.from({length: copies}, () => courses).flat() : courses;
 
   /* The index the hook holds runs from `home` and drifts as the visitor moves.
      This is where it lands inside the list, which is what decides which card a

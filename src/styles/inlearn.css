@@ -2822,10 +2822,23 @@
 }
 
 .inlearn-all-courses-empty {
-  margin: clamp(40px, 6vw, 70px) 0 0;
+  margin: clamp(48px, 7vw, 90px) auto;
+  max-width: 34ch;
   color: var(--inlearn-muted);
   font-size: clamp(13px, 1.1vw, 15px);
   text-align: center;
+}
+
+.inlearn-all-courses-empty p {
+  margin: 0;
+}
+
+/* A shade lighter than the sentence above it: one says what happened, the
+   other says what to do about it, and they are not the same weight of
+   message. */
+.inlearn-all-courses-empty-hint {
+  margin-top: 8px;
+  color: #a3a3a9;
 }
 
 .inlearn-all-courses-more {
@@ -3270,7 +3283,7 @@
   /* A squircle, as drawn - a rounded square with a large radius, not a circle.
      A proportion rather than a fixed radius, so the corner keeps its shape as
      the picture grows with the window. */
-  border-radius: 28%;
+  border-radius: 32%;
   object-fit: cover;
   background: #e7e7e4;
 }
