@@ -20,6 +20,18 @@ import {
 /* How many of the catalogue's courses the first page's row carries. */
 const TOP_COURSES_COUNT = 8;
 
+/* Newest first. Sorted here rather than trusted from the file: the file is
+   written in that order today, and the day it is filled from WordPress it will
+   arrive in whatever order the API felt like.
+
+   publishedAt is the field to sort on, not the written date beside it - that
+   one is a sentence in three languages and sorts alphabetically. */
+function newestFirst(courses) {
+  return [...courses].sort((a, b) =>
+    String(b.publishedAt ?? "").localeCompare(String(a.publishedAt ?? "")),
+  );
+}
+
 function inlearnModules() {
   return import.meta.glob("../../content/{en,ar,tr}/pages/inlearn/*.json", {
     eager: true,
@@ -111,9 +123,10 @@ export function getInlearnFirstPage() {
     ...page,
     topCourses: {
       ...page.topCourses,
-      /* The row shows the head of the catalogue. Which eight is a decision, so
-         it lives here rather than in the section that draws them. */
-      items: catalogue.courses.slice(0, TOP_COURSES_COUNT),
+      /* The newest eight in the catalogue - that is what the row on the first
+         page means. Which eight is a decision, so it lives here rather than in
+         the section that draws them. */
+      items: newestFirst(catalogue.courses).slice(0, TOP_COURSES_COUNT),
     },
     learningSolutions: page.learningSolutions
       ? {...page.learningSolutions, image: learningSolutionsImage}

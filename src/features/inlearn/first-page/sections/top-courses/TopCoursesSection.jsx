@@ -75,6 +75,10 @@ function TopCoursesSection({topCourses}) {
               >
                 <CourseCard
                   course={course}
+                  /* Same destination as everywhere else: the course's own
+                     page. The row is the newest eight, and this is how a
+                     visitor gets from one of them to the whole thing. */
+                  to={`${routes.inlearnCourses}/${course.id}`}
                   readMore={topCourses.readMore}
                   isVisible={cardIndex >= index && cardIndex < index + perView}
                 />

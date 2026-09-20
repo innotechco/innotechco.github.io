@@ -3,6 +3,7 @@ import {useEffect, useMemo, useRef, useState} from "react";
 import CourseCard from "../components/CourseCard.jsx";
 import CourseTags from "./CourseTags.jsx";
 import useMediaQuery from "../hooks/useMediaQuery.js";
+import {routes} from "../../../app/routes.js";
 import {getInlearnCourses} from "../inlearnContent.js";
 
 /* How many cards stand side by side, and how many the page shows before the
@@ -98,6 +99,10 @@ function AllCoursesPage() {
                 <CourseCard
                   course={course}
                   layout="grid"
+                  /* The whole card is the link to that course's own page -
+                     every course has one, and it is the page a search engine
+                     indexes and the SEO editor will own in WordPress. */
+                  to={`${routes.inlearnCourses}/${course.id}`}
                   readMore={catalogue.readMore}
                   labels={{save: catalogue.save, share: catalogue.share}}
                   /* The first row is what the visitor is looking at; the rest

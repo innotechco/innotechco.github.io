@@ -56,475 +56,10 @@
   ],
   "courses": [
     {
-      "id": "innovations-in-teamwork",
-      "title": "ابتكارات العمل الجماعي في الرعاية الصحية",
-      "summary": "الرعاية الصحية عمل جماعي. من موظفي الاستقبال إلى الممرضين، يحمل كل دور جزءاً من النتيجة.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "فرق الرعاية الصحية أثناء العمل",
-      "tag": "health",
-      "mode": "on-site",
-      "about": [
-        "الرعاية الصحية عمل جماعي. من موظفي الاستقبال إلى الممرضين، يحمل كل دور جزءاً من النتيجة.",
-        "تتابع الدورة حالة واحدة من الاستقبال حتى الخروج، وتتوقف عند كل نقطة يكون فيها التسليم بين دورين هو ما يحدد النتيجة. ما تخرج به هو طريقة لقراءة وحدتك: أين تُفقد المعلومة، ومن ينتظر من، وأي من تلك الفجوات يمكن لتغيير في الإجراءات أن يسدّها فعلاً."
-      ],
-      "price": 4200,
-      "compareAtPrice": 4600,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "sara-koc",
-      "categories": [
-        "business-management",
-        "science-mathematics",
-        "health"
-      ],
-      "related": [
-        "clinical-data-governance",
-        "process-safety-leadership",
-        "supply-chain-resilience",
-        "industrial-ai-foundations",
-        "digital-twin-operations"
-      ]
-    },
-    {
-      "id": "lpg-patent-landscape",
-      "title": "تقرير مشهد براءات اختراع غاز البترول المسال",
-      "summary": "أين تتجمع براءات الاختراع، ومن يسجّلها، وماذا يعني ذلك للعقد القادم من معالجة الغاز.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "محطة لمعالجة الغاز",
-      "tag": "energy-materials",
-      "mode": "online",
-      "about": [
-        "أين تتجمع براءات الاختراع، ومن يسجّلها، وماذا يعني ذلك للعقد القادم من معالجة الغاز.",
-        "بيانات البراءات علنية وضخمة وتكاد تكون غير قابلة للقراءة بلا منهج. تمنحك هذه الدورة منهجاً: كيف تحدد نطاق المشهد، وكيف تفصل الإيداعات الدفاعية عن تلك التي تنوي الشركة البناء عليها، وكيف تميز تجمعاً يشير إلى اتجاه من تجمع يشير إلى طريق مسدود."
-      ],
-      "price": 5000,
-      "compareAtPrice": 5410,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "engineering",
-        "business-management",
-        "energy-materials"
-      ],
-      "related": [
-        "patent-analytics-for-rnd",
-        "materials-for-harsh-environments",
-        "hydrogen-economy-fundamentals",
-        "energy-transition-strategy",
-        "semiconductor-supply-strategy"
-      ]
-    },
-    {
-      "id": "industrial-ai-foundations",
-      "title": "أسس الذكاء الاصطناعي الصناعي لمهندسي المصانع",
-      "summary": "النماذج التي تقف خلف الصيانة التنبؤية، مشروحة لمن يعرفون الآلات أصلاً.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "مهندس يقرأ أجهزة القياس في مصنع",
-      "tag": "data-ai",
-      "mode": "online",
-      "about": [
-        "النماذج التي تقف خلف الصيانة التنبؤية، مشروحة لمن يعرفون الآلات أصلاً.",
-        "كُتبت للمهندسين الذين يعرفون الآلات ويريدون معرفة ما يفعله النموذج فعلاً. تتناول أين تستحق الصيانة التنبؤية تكلفتها، وكم يكلف الإنذار الكاذب على خط إنتاج حقيقي، ولماذا قد يكون نموذج ممتاز في الاختبار عديم الفائدة في المصنع."
-      ],
-      "price": 3800,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "leyla-farhadi",
-      "categories": [
-        "engineering",
-        "high-tech",
-        "data-ai"
-      ],
-      "related": [
-        "digital-twin-operations",
-        "smart-grid-operations",
-        "process-safety-leadership",
-        "battery-manufacturing-quality",
-        "advanced-materials-testing"
-      ]
-    },
-    {
-      "id": "energy-transition-strategy",
-      "title": "استراتيجية تحوّل الطاقة في الصناعات الثقيلة",
-      "summary": "كيف تخطط شركة كثيفة الأصول لتحوّل لا تحتمل أن تخطئ فيه مرتين.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "بنية تحتية صناعية للطاقة",
-      "tag": "sustainability",
-      "mode": "offline",
-      "about": [
-        "كيف تخطط شركة كثيفة الأصول لتحوّل لا تحتمل أن تخطئ فيه مرتين.",
-        "الشركة كثيفة الأصول أمامها محاولة أو اثنتان للتحول، والثانية أغلى بكثير من الأولى. تعالج الدورة مسألة الترتيب: ما الذي يجب أن يُقرر الآن، وما الذي يمكن أن ينتظر معلومات أفضل، وما الذي يصبح غير قابل للتراجع لحظة توقيعه."
-      ],
-      "price": 6400,
-      "compareAtPrice": 7000,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "energy-materials",
-        "business-management",
-        "sustainability"
-      ],
-      "related": [
-        "hydrogen-economy-fundamentals",
-        "smart-grid-operations",
-        "materials-for-harsh-environments",
-        "lpg-patent-landscape",
-        "supply-chain-resilience"
-      ]
-    },
-    {
-      "id": "digital-twin-operations",
-      "title": "تشغيل التوأم الرقمي من التجربة إلى المصنع",
-      "summary": "معظم التوائم الرقمية تتوقف عند التجربة. هذا هو العمل الذي ينقلها إلى التشغيل اليومي.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "شاشة غرفة تحكم بجوار مصنع",
-      "tag": "engineering",
-      "mode": "online",
-      "about": [
-        "معظم التوائم الرقمية تتوقف عند التجربة. هذا هو العمل الذي ينقلها إلى التشغيل اليومي.",
-        "التوأم الرقمي لا يستحق كلفة صيانته إلا إذا تصرّف أحد بناءً على ما يقوله. تبدأ الدورة من القرار الذي يُفترض أن يدعمه التوأم وتعود منه إلى النموذج والقياس ومعدل البيانات الذي يتطلبه كل منها فعلاً."
-      ],
-      "price": 4900,
-      "compareAtPrice": 5200,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "leyla-farhadi",
-      "categories": [
-        "high-tech",
-        "data-ai",
-        "engineering"
-      ],
-      "related": [
-        "industrial-ai-foundations",
-        "battery-manufacturing-quality",
-        "advanced-materials-testing",
-        "process-safety-leadership",
-        "smart-grid-operations"
-      ]
-    },
-    {
-      "id": "supply-chain-resilience",
-      "title": "مرونة سلسلة التوريد ضمن قيود واقعية",
-      "summary": "رسم خريطة الاعتماديات التي لديك فعلاً، وتلك التي تظن أنها لديك فقط.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "شحنات تمر عبر محطة",
-      "tag": "business-management",
-      "mode": "on-site",
-      "about": [
-        "رسم خريطة الاعتماديات التي لديك فعلاً، وتلك التي تظن أنها لديك فقط.",
-        "غالباً ما تُشترى المرونة على شكل مخزون، وهو أغلى أشكالها. تعرض الدورة الأشكال الأرخص - مصادر بديلة، مرونة في التصميم، خيارات تعاقدية - وكيفية تحديد أيها يتطلبه اضطراب بعينه."
-      ],
-      "price": 4400,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "sara-koc",
-      "categories": [
-        "metals-mining",
-        "automotive",
-        "business-management"
-      ],
-      "related": [
-        "semiconductor-supply-strategy",
-        "battery-manufacturing-quality",
-        "patent-analytics-for-rnd",
-        "mining-automation-safety",
-        "energy-transition-strategy"
-      ]
-    },
-    {
-      "id": "process-safety-leadership",
-      "title": "قيادة سلامة العمليات في المواقع عالية الخطورة",
-      "summary": "العادات وخطوط التبليغ والمحادثات الصعبة التي تُبقي موقعاً عالي الخطورة صادقاً مع نفسه.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "تفتيش السلامة في موقع صناعي",
-      "tag": "engineering",
-      "mode": "offline",
-      "about": [
-        "العادات وخطوط التبليغ والمحادثات الصعبة التي تُبقي موقعاً عالي الخطورة صادقاً مع نفسه.",
-        "تسبق معظم الحوادث الجسيمة أسابيع من إشارات صغيرة رآها أحدهم ولم يصعّدها أحد. تتناول هذه الدورة الظروف التي تحدد ما إذا كانت تلك الإشارات ستصل: ما الذي يُبلَّغ عنه، وما الذي يُكافأ، وما يعتقد مشرف الوردية أنه سيحدث إذا أوقف الخط."
-      ],
-      "price": 5600,
-      "compareAtPrice": 6100,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "gholamreza-jamshidi",
-      "categories": [
-        "energy-materials",
-        "metals-mining",
-        "engineering"
-      ],
-      "related": [
-        "mining-automation-safety",
-        "materials-for-harsh-environments",
-        "innovations-in-teamwork",
-        "digital-twin-operations",
-        "industrial-ai-foundations"
-      ]
-    },
-    {
-      "id": "materials-for-harsh-environments",
-      "title": "هندسة المواد للبيئات القاسية",
-      "summary": "اختيار السبائك والطلاءات والحشوات لحرارة وضغط وتآكل لا يتوقف.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "أنابيب فولاذية تحت الحمل",
-      "tag": "energy-materials",
-      "mode": "online",
-      "about": [
-        "اختيار السبائك والطلاءات والحشوات لحرارة وضغط وتآكل لا يتوقف.",
-        "الخدمة الحامضة والتشغيل عند درجات التبريد العميق والكلل عالي الدورات، لكل منها طريقته في الانهيار، والمادة المختارة لأحدها قد تكون الجواب الخاطئ لآخر. تعالج الدورة أسئلة الاختيار بالترتيب الذي يواجهها به المشروع فعلاً."
-      ],
-      "price": 5200,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "science-mathematics",
-        "engineering",
-        "energy-materials"
-      ],
-      "related": [
-        "advanced-materials-testing",
-        "lpg-patent-landscape",
-        "battery-manufacturing-quality",
-        "hydrogen-economy-fundamentals",
-        "process-safety-leadership"
-      ]
-    },
-    {
-      "id": "advanced-materials-testing",
-      "title": "اختبار المواد المتقدمة واعتمادها",
-      "summary": "ما الذي يمكن لمنصة الاختبار إثباته وما لا تستطيع، وكيف تُقرأ الشهادة عند من يعتمد عليها.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "مختبر اختبار المواد",
-      "tag": "science-mathematics",
-      "mode": "on-site",
-      "about": [
-        "ما الذي يمكن لمنصة الاختبار إثباته وما لا تستطيع، وكيف تُقرأ الشهادة عند من يعتمد عليها.",
-        "تجيب منصة الاختبار عن سؤال أضيق مما يفترضه الكثيرون. تتناول هذه الدورة ما يثبته كل اختبار معياري وما لا يثبته، وكيف يقرأ المهندس الذي سيعتمد عليها الشهادةَ، وأين تسبب الفجوة بين الاثنين مشكلة."
-      ],
-      "price": 4700,
-      "compareAtPrice": 5000,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "sara-koc",
-      "categories": [
-        "engineering",
-        "energy-materials",
-        "science-mathematics"
-      ],
-      "related": [
-        "materials-for-harsh-environments",
-        "battery-manufacturing-quality",
-        "digital-twin-operations",
-        "lpg-patent-landscape",
-        "industrial-ai-foundations"
-      ]
-    },
-    {
-      "id": "hydrogen-economy-fundamentals",
-      "title": "أساسيات اقتصاد الهيدروجين",
-      "summary": "أين ينافس الهيدروجين فعلياً اليوم، وأين لا ينافس بعد، وما الذي يحسم مصير أي مشروع.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "منشأة لإنتاج الهيدروجين",
-      "tag": "sustainability",
-      "mode": "online",
-      "about": [
-        "أين ينافس الهيدروجين فعلياً اليوم، وأين لا ينافس بعد، وما الذي يحسم مصير أي مشروع.",
-        "ينافس الهيدروجين على أساس التكلفة لكل جول مفيد يُسلَّم، لا على أساس الحماس. تعرض الدورة أين تنجح هذه الحسبة اليوم، وأين لا تنجح بعد، والمتغيرات الثلاثة أو الأربعة التي تحدد على أي جانب من الخط يقع مشروع بعينه."
-      ],
-      "price": 5800,
-      "compareAtPrice": 6200,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "energy-materials",
-        "engineering",
-        "sustainability"
-      ],
-      "related": [
-        "energy-transition-strategy",
-        "smart-grid-operations",
-        "lpg-patent-landscape",
-        "materials-for-harsh-environments",
-        "semiconductor-supply-strategy"
-      ]
-    },
-    {
-      "id": "patent-analytics-for-rnd",
-      "title": "تحليلات البراءات لقادة البحث والتطوير",
-      "summary": "قراءة مشهد البراءات كخريطة لمواضع إنفاق المنافسين، لا كركام من الوثائق القانونية.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "مشهد براءات الاختراع على الشاشة",
-      "tag": "business-management",
-      "mode": "online",
-      "about": [
-        "قراءة مشهد البراءات كخريطة لمواضع إنفاق المنافسين، لا كركام من الوثائق القانونية.",
-        "لمن يضعون ميزانيات البحث لا لمن يصوغون المطالبات. تتعامل مع مشهد البراءات كسجل لما أنفقه المنافسون فعلاً، وتبيّن كيف يُقرأ هذا السجل دون شهادة في القانون."
-      ],
-      "price": 4300,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "leyla-farhadi",
-      "categories": [
-        "data-ai",
-        "high-tech",
-        "business-management"
-      ],
-      "related": [
-        "lpg-patent-landscape",
-        "semiconductor-supply-strategy",
-        "supply-chain-resilience",
-        "industrial-ai-foundations",
-        "clinical-data-governance"
-      ]
-    },
-    {
-      "id": "battery-manufacturing-quality",
-      "title": "أنظمة الجودة في تصنيع البطاريات",
-      "summary": "القياسات التي تكشف عيب الخلية على خط الإنتاج بدل أن يظهر في مركبة بعد عامين.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "خط إنتاج البطاريات",
-      "tag": "automotive",
-      "mode": "on-site",
-      "about": [
-        "القياسات التي تكشف عيب الخلية على خط الإنتاج بدل أن يظهر في مركبة بعد عامين.",
-        "عيب الخلية المكتشف على الخط يكلف خلية. العيب نفسه مكتشفاً في مركبة يكلف حملة استدعاء. تتناول هذه الدورة القياسات التي تنقل الاكتشاف من الحالة الثانية إلى الأولى، وما الذي يمكن لكل منها رؤيته وما لا يمكنه."
-      ],
-      "price": 5100,
-      "compareAtPrice": 5500,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "sara-koc",
-      "categories": [
-        "engineering",
-        "sustainability",
-        "automotive"
-      ],
-      "related": [
-        "advanced-materials-testing",
-        "supply-chain-resilience",
-        "digital-twin-operations",
-        "materials-for-harsh-environments",
-        "smart-grid-operations"
-      ]
-    },
-    {
-      "id": "smart-grid-operations",
-      "title": "تشغيل الشبكات الذكية والتحكم بها",
-      "summary": "كيف تُبقى شبكة صارت تستقبل الطاقة من كل مكان مستقرة، دقيقة بدقيقة.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "غرفة تحكم بالشبكة الكهربائية",
-      "tag": "high-tech",
-      "mode": "offline",
-      "about": [
-        "كيف تُبقى شبكة صارت تستقبل الطاقة من كل مكان مستقرة، دقيقة بدقيقة.",
-        "الشبكة التي كانت تستقبل الطاقة من حفنة محطات صارت تستقبلها من آلاف النقاط التي لا تستأذن. تتناول الدورة كيف يُحفظ التوازن في هذه الظروف دقيقة بدقيقة، وما الذي تراه غرفة التحكم وما لا تراه."
-      ],
-      "price": 5300,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "gholamreza-jamshidi",
-      "categories": [
-        "energy-materials",
-        "sustainability",
-        "high-tech"
-      ],
-      "related": [
-        "energy-transition-strategy",
-        "hydrogen-economy-fundamentals",
-        "industrial-ai-foundations",
-        "digital-twin-operations",
-        "semiconductor-supply-strategy"
-      ]
-    },
-    {
-      "id": "clinical-data-governance",
-      "title": "حوكمة البيانات السريرية",
-      "summary": "من يحق له الاطلاع على أي سجل، ومن يتحمل المسؤولية، وكيف يصمد ذلك أمام التدقيق.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "مراجعة السجلات السريرية",
-      "tag": "health",
-      "mode": "online",
-      "about": [
-        "من يحق له الاطلاع على أي سجل، ومن يتحمل المسؤولية، وكيف يصمد ذلك أمام التدقيق.",
-        "تُكتب الحوكمة عادة كسياسة وتُكتشف كملاحظة تدقيق. تعمل الدورة من الطرف الآخر: من يحق له الاطلاع على أي سجل، ومن يتحمل مسؤولية ذلك القرار، وما الدليل الذي يجب أن يوجد قبل أن يسأل أحد."
-      ],
-      "price": 4600,
-      "compareAtPrice": 4900,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "leyla-farhadi",
-      "categories": [
-        "data-ai",
-        "business-management",
-        "health"
-      ],
-      "related": [
-        "innovations-in-teamwork",
-        "patent-analytics-for-rnd",
-        "industrial-ai-foundations",
-        "supply-chain-resilience",
-        "process-safety-leadership"
-      ]
-    },
-    {
-      "id": "semiconductor-supply-strategy",
-      "title": "استراتيجية توريد أشباه الموصلات",
-      "summary": "قراءة سلسلة توريد يتنقل فيها عنق الزجاجة، والتخطيط للموضع الذي سينتقل إليه.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
-      "effort": "٤-٦ ساعات أسبوعياً",
-      "imageAlt": "مصنع أشباه الموصلات",
-      "tag": "high-tech",
-      "mode": "offline",
-      "about": [
-        "قراءة سلسلة توريد يتنقل فيها عنق الزجاجة، والتخطيط للموضع الذي سينتقل إليه.",
-        "ينتقل عنق الزجاجة في سلسلة التوريد هذه كل بضع سنوات، والتخطيط للموضع السابق هو ما يوقع الشركات. تتناول الدورة كيف تقرأ موضعه الحالي وما يعنيه ذلك بشأن وجهته التالية."
-      ],
-      "price": 6100,
-      "compareAtPrice": 6600,
-      "certificate": true,
-      "language": "الإنجليزية",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "business-management",
-        "data-ai",
-        "high-tech"
-      ],
-      "related": [
-        "supply-chain-resilience",
-        "patent-analytics-for-rnd",
-        "battery-manufacturing-quality",
-        "smart-grid-operations",
-        "mining-automation-safety"
-      ]
-    },
-    {
       "id": "mining-automation-safety",
       "title": "الأتمتة والسلامة في التعدين",
       "summary": "ما الذي تزيله الأتمتة من المنجم، وما الذي تضيفه، والحوادث التي لا تظهر إلا بعد وصولها.",
-      "date": "١٥ نوفمبر ٢٠٢٥",
+      "date": "١٢ سبتمبر ٢٠٢٦",
       "effort": "٤-٦ ساعات أسبوعياً",
       "imageAlt": "عملية تعدين مؤتمتة",
       "tag": "metals-mining",
@@ -549,7 +84,488 @@
         "smart-grid-operations",
         "supply-chain-resilience",
         "advanced-materials-testing"
-      ]
+      ],
+      "publishedAt": "2026-09-12"
+    },
+    {
+      "id": "semiconductor-supply-strategy",
+      "title": "استراتيجية توريد أشباه الموصلات",
+      "summary": "قراءة سلسلة توريد يتنقل فيها عنق الزجاجة، والتخطيط للموضع الذي سينتقل إليه.",
+      "date": "٣ سبتمبر ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "مصنع أشباه الموصلات",
+      "tag": "high-tech",
+      "mode": "offline",
+      "about": [
+        "قراءة سلسلة توريد يتنقل فيها عنق الزجاجة، والتخطيط للموضع الذي سينتقل إليه.",
+        "ينتقل عنق الزجاجة في سلسلة التوريد هذه كل بضع سنوات، والتخطيط للموضع السابق هو ما يوقع الشركات. تتناول الدورة كيف تقرأ موضعه الحالي وما يعنيه ذلك بشأن وجهته التالية."
+      ],
+      "price": 6100,
+      "compareAtPrice": 6600,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "business-management",
+        "data-ai",
+        "high-tech"
+      ],
+      "related": [
+        "supply-chain-resilience",
+        "patent-analytics-for-rnd",
+        "battery-manufacturing-quality",
+        "smart-grid-operations",
+        "mining-automation-safety"
+      ],
+      "publishedAt": "2026-09-03"
+    },
+    {
+      "id": "clinical-data-governance",
+      "title": "حوكمة البيانات السريرية",
+      "summary": "من يحق له الاطلاع على أي سجل، ومن يتحمل المسؤولية، وكيف يصمد ذلك أمام التدقيق.",
+      "date": "٢١ أغسطس ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "مراجعة السجلات السريرية",
+      "tag": "health",
+      "mode": "online",
+      "about": [
+        "من يحق له الاطلاع على أي سجل، ومن يتحمل المسؤولية، وكيف يصمد ذلك أمام التدقيق.",
+        "تُكتب الحوكمة عادة كسياسة وتُكتشف كملاحظة تدقيق. تعمل الدورة من الطرف الآخر: من يحق له الاطلاع على أي سجل، ومن يتحمل مسؤولية ذلك القرار، وما الدليل الذي يجب أن يوجد قبل أن يسأل أحد."
+      ],
+      "price": 4600,
+      "compareAtPrice": 4900,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "leyla-farhadi",
+      "categories": [
+        "data-ai",
+        "business-management",
+        "health"
+      ],
+      "related": [
+        "innovations-in-teamwork",
+        "patent-analytics-for-rnd",
+        "industrial-ai-foundations",
+        "supply-chain-resilience",
+        "process-safety-leadership"
+      ],
+      "publishedAt": "2026-08-21"
+    },
+    {
+      "id": "smart-grid-operations",
+      "title": "تشغيل الشبكات الذكية والتحكم بها",
+      "summary": "كيف تُبقى شبكة صارت تستقبل الطاقة من كل مكان مستقرة، دقيقة بدقيقة.",
+      "date": "٩ أغسطس ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "غرفة تحكم بالشبكة الكهربائية",
+      "tag": "high-tech",
+      "mode": "offline",
+      "about": [
+        "كيف تُبقى شبكة صارت تستقبل الطاقة من كل مكان مستقرة، دقيقة بدقيقة.",
+        "الشبكة التي كانت تستقبل الطاقة من حفنة محطات صارت تستقبلها من آلاف النقاط التي لا تستأذن. تتناول الدورة كيف يُحفظ التوازن في هذه الظروف دقيقة بدقيقة، وما الذي تراه غرفة التحكم وما لا تراه."
+      ],
+      "price": 5300,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "gholamreza-jamshidi",
+      "categories": [
+        "energy-materials",
+        "sustainability",
+        "high-tech"
+      ],
+      "related": [
+        "energy-transition-strategy",
+        "hydrogen-economy-fundamentals",
+        "industrial-ai-foundations",
+        "digital-twin-operations",
+        "semiconductor-supply-strategy"
+      ],
+      "publishedAt": "2026-08-09"
+    },
+    {
+      "id": "battery-manufacturing-quality",
+      "title": "أنظمة الجودة في تصنيع البطاريات",
+      "summary": "القياسات التي تكشف عيب الخلية على خط الإنتاج بدل أن يظهر في مركبة بعد عامين.",
+      "date": "٢٨ يوليو ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "خط إنتاج البطاريات",
+      "tag": "automotive",
+      "mode": "on-site",
+      "about": [
+        "القياسات التي تكشف عيب الخلية على خط الإنتاج بدل أن يظهر في مركبة بعد عامين.",
+        "عيب الخلية المكتشف على الخط يكلف خلية. العيب نفسه مكتشفاً في مركبة يكلف حملة استدعاء. تتناول هذه الدورة القياسات التي تنقل الاكتشاف من الحالة الثانية إلى الأولى، وما الذي يمكن لكل منها رؤيته وما لا يمكنه."
+      ],
+      "price": 5100,
+      "compareAtPrice": 5500,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "sara-koc",
+      "categories": [
+        "engineering",
+        "sustainability",
+        "automotive"
+      ],
+      "related": [
+        "advanced-materials-testing",
+        "supply-chain-resilience",
+        "digital-twin-operations",
+        "materials-for-harsh-environments",
+        "smart-grid-operations"
+      ],
+      "publishedAt": "2026-07-28"
+    },
+    {
+      "id": "patent-analytics-for-rnd",
+      "title": "تحليلات البراءات لقادة البحث والتطوير",
+      "summary": "قراءة مشهد البراءات كخريطة لمواضع إنفاق المنافسين، لا كركام من الوثائق القانونية.",
+      "date": "١٤ يوليو ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "مشهد براءات الاختراع على الشاشة",
+      "tag": "business-management",
+      "mode": "online",
+      "about": [
+        "قراءة مشهد البراءات كخريطة لمواضع إنفاق المنافسين، لا كركام من الوثائق القانونية.",
+        "لمن يضعون ميزانيات البحث لا لمن يصوغون المطالبات. تتعامل مع مشهد البراءات كسجل لما أنفقه المنافسون فعلاً، وتبيّن كيف يُقرأ هذا السجل دون شهادة في القانون."
+      ],
+      "price": 4300,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "leyla-farhadi",
+      "categories": [
+        "data-ai",
+        "high-tech",
+        "business-management"
+      ],
+      "related": [
+        "lpg-patent-landscape",
+        "semiconductor-supply-strategy",
+        "supply-chain-resilience",
+        "industrial-ai-foundations",
+        "clinical-data-governance"
+      ],
+      "publishedAt": "2026-07-14"
+    },
+    {
+      "id": "hydrogen-economy-fundamentals",
+      "title": "أساسيات اقتصاد الهيدروجين",
+      "summary": "أين ينافس الهيدروجين فعلياً اليوم، وأين لا ينافس بعد، وما الذي يحسم مصير أي مشروع.",
+      "date": "٣٠ يونيو ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "منشأة لإنتاج الهيدروجين",
+      "tag": "sustainability",
+      "mode": "online",
+      "about": [
+        "أين ينافس الهيدروجين فعلياً اليوم، وأين لا ينافس بعد، وما الذي يحسم مصير أي مشروع.",
+        "ينافس الهيدروجين على أساس التكلفة لكل جول مفيد يُسلَّم، لا على أساس الحماس. تعرض الدورة أين تنجح هذه الحسبة اليوم، وأين لا تنجح بعد، والمتغيرات الثلاثة أو الأربعة التي تحدد على أي جانب من الخط يقع مشروع بعينه."
+      ],
+      "price": 5800,
+      "compareAtPrice": 6200,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "energy-materials",
+        "engineering",
+        "sustainability"
+      ],
+      "related": [
+        "energy-transition-strategy",
+        "smart-grid-operations",
+        "lpg-patent-landscape",
+        "materials-for-harsh-environments",
+        "semiconductor-supply-strategy"
+      ],
+      "publishedAt": "2026-06-30"
+    },
+    {
+      "id": "advanced-materials-testing",
+      "title": "اختبار المواد المتقدمة واعتمادها",
+      "summary": "ما الذي يمكن لمنصة الاختبار إثباته وما لا تستطيع، وكيف تُقرأ الشهادة عند من يعتمد عليها.",
+      "date": "١٧ يونيو ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "مختبر اختبار المواد",
+      "tag": "science-mathematics",
+      "mode": "on-site",
+      "about": [
+        "ما الذي يمكن لمنصة الاختبار إثباته وما لا تستطيع، وكيف تُقرأ الشهادة عند من يعتمد عليها.",
+        "تجيب منصة الاختبار عن سؤال أضيق مما يفترضه الكثيرون. تتناول هذه الدورة ما يثبته كل اختبار معياري وما لا يثبته، وكيف يقرأ المهندس الذي سيعتمد عليها الشهادةَ، وأين تسبب الفجوة بين الاثنين مشكلة."
+      ],
+      "price": 4700,
+      "compareAtPrice": 5000,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "sara-koc",
+      "categories": [
+        "engineering",
+        "energy-materials",
+        "science-mathematics"
+      ],
+      "related": [
+        "materials-for-harsh-environments",
+        "battery-manufacturing-quality",
+        "digital-twin-operations",
+        "lpg-patent-landscape",
+        "industrial-ai-foundations"
+      ],
+      "publishedAt": "2026-06-17"
+    },
+    {
+      "id": "materials-for-harsh-environments",
+      "title": "هندسة المواد للبيئات القاسية",
+      "summary": "اختيار السبائك والطلاءات والحشوات لحرارة وضغط وتآكل لا يتوقف.",
+      "date": "٢٩ مايو ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "أنابيب فولاذية تحت الحمل",
+      "tag": "energy-materials",
+      "mode": "online",
+      "about": [
+        "اختيار السبائك والطلاءات والحشوات لحرارة وضغط وتآكل لا يتوقف.",
+        "الخدمة الحامضة والتشغيل عند درجات التبريد العميق والكلل عالي الدورات، لكل منها طريقته في الانهيار، والمادة المختارة لأحدها قد تكون الجواب الخاطئ لآخر. تعالج الدورة أسئلة الاختيار بالترتيب الذي يواجهها به المشروع فعلاً."
+      ],
+      "price": 5200,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "science-mathematics",
+        "engineering",
+        "energy-materials"
+      ],
+      "related": [
+        "advanced-materials-testing",
+        "lpg-patent-landscape",
+        "battery-manufacturing-quality",
+        "hydrogen-economy-fundamentals",
+        "process-safety-leadership"
+      ],
+      "publishedAt": "2026-05-29"
+    },
+    {
+      "id": "process-safety-leadership",
+      "title": "قيادة سلامة العمليات في المواقع عالية الخطورة",
+      "summary": "العادات وخطوط التبليغ والمحادثات الصعبة التي تُبقي موقعاً عالي الخطورة صادقاً مع نفسه.",
+      "date": "١٢ مايو ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "تفتيش السلامة في موقع صناعي",
+      "tag": "engineering",
+      "mode": "offline",
+      "about": [
+        "العادات وخطوط التبليغ والمحادثات الصعبة التي تُبقي موقعاً عالي الخطورة صادقاً مع نفسه.",
+        "تسبق معظم الحوادث الجسيمة أسابيع من إشارات صغيرة رآها أحدهم ولم يصعّدها أحد. تتناول هذه الدورة الظروف التي تحدد ما إذا كانت تلك الإشارات ستصل: ما الذي يُبلَّغ عنه، وما الذي يُكافأ، وما يعتقد مشرف الوردية أنه سيحدث إذا أوقف الخط."
+      ],
+      "price": 5600,
+      "compareAtPrice": 6100,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "gholamreza-jamshidi",
+      "categories": [
+        "energy-materials",
+        "metals-mining",
+        "engineering"
+      ],
+      "related": [
+        "mining-automation-safety",
+        "materials-for-harsh-environments",
+        "innovations-in-teamwork",
+        "digital-twin-operations",
+        "industrial-ai-foundations"
+      ],
+      "publishedAt": "2026-05-12"
+    },
+    {
+      "id": "supply-chain-resilience",
+      "title": "مرونة سلسلة التوريد ضمن قيود واقعية",
+      "summary": "رسم خريطة الاعتماديات التي لديك فعلاً، وتلك التي تظن أنها لديك فقط.",
+      "date": "٢٤ أبريل ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "شحنات تمر عبر محطة",
+      "tag": "business-management",
+      "mode": "on-site",
+      "about": [
+        "رسم خريطة الاعتماديات التي لديك فعلاً، وتلك التي تظن أنها لديك فقط.",
+        "غالباً ما تُشترى المرونة على شكل مخزون، وهو أغلى أشكالها. تعرض الدورة الأشكال الأرخص - مصادر بديلة، مرونة في التصميم، خيارات تعاقدية - وكيفية تحديد أيها يتطلبه اضطراب بعينه."
+      ],
+      "price": 4400,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "sara-koc",
+      "categories": [
+        "metals-mining",
+        "automotive",
+        "business-management"
+      ],
+      "related": [
+        "semiconductor-supply-strategy",
+        "battery-manufacturing-quality",
+        "patent-analytics-for-rnd",
+        "mining-automation-safety",
+        "energy-transition-strategy"
+      ],
+      "publishedAt": "2026-04-24"
+    },
+    {
+      "id": "digital-twin-operations",
+      "title": "تشغيل التوأم الرقمي من التجربة إلى المصنع",
+      "summary": "معظم التوائم الرقمية تتوقف عند التجربة. هذا هو العمل الذي ينقلها إلى التشغيل اليومي.",
+      "date": "٨ أبريل ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "شاشة غرفة تحكم بجوار مصنع",
+      "tag": "engineering",
+      "mode": "online",
+      "about": [
+        "معظم التوائم الرقمية تتوقف عند التجربة. هذا هو العمل الذي ينقلها إلى التشغيل اليومي.",
+        "التوأم الرقمي لا يستحق كلفة صيانته إلا إذا تصرّف أحد بناءً على ما يقوله. تبدأ الدورة من القرار الذي يُفترض أن يدعمه التوأم وتعود منه إلى النموذج والقياس ومعدل البيانات الذي يتطلبه كل منها فعلاً."
+      ],
+      "price": 4900,
+      "compareAtPrice": 5200,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "leyla-farhadi",
+      "categories": [
+        "high-tech",
+        "data-ai",
+        "engineering"
+      ],
+      "related": [
+        "industrial-ai-foundations",
+        "battery-manufacturing-quality",
+        "advanced-materials-testing",
+        "process-safety-leadership",
+        "smart-grid-operations"
+      ],
+      "publishedAt": "2026-04-08"
+    },
+    {
+      "id": "energy-transition-strategy",
+      "title": "استراتيجية تحوّل الطاقة في الصناعات الثقيلة",
+      "summary": "كيف تخطط شركة كثيفة الأصول لتحوّل لا تحتمل أن تخطئ فيه مرتين.",
+      "date": "٢٦ مارس ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "بنية تحتية صناعية للطاقة",
+      "tag": "sustainability",
+      "mode": "offline",
+      "about": [
+        "كيف تخطط شركة كثيفة الأصول لتحوّل لا تحتمل أن تخطئ فيه مرتين.",
+        "الشركة كثيفة الأصول أمامها محاولة أو اثنتان للتحول، والثانية أغلى بكثير من الأولى. تعالج الدورة مسألة الترتيب: ما الذي يجب أن يُقرر الآن، وما الذي يمكن أن ينتظر معلومات أفضل، وما الذي يصبح غير قابل للتراجع لحظة توقيعه."
+      ],
+      "price": 6400,
+      "compareAtPrice": 7000,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "energy-materials",
+        "business-management",
+        "sustainability"
+      ],
+      "related": [
+        "hydrogen-economy-fundamentals",
+        "smart-grid-operations",
+        "materials-for-harsh-environments",
+        "lpg-patent-landscape",
+        "supply-chain-resilience"
+      ],
+      "publishedAt": "2026-03-26"
+    },
+    {
+      "id": "industrial-ai-foundations",
+      "title": "أسس الذكاء الاصطناعي الصناعي لمهندسي المصانع",
+      "summary": "النماذج التي تقف خلف الصيانة التنبؤية، مشروحة لمن يعرفون الآلات أصلاً.",
+      "date": "١١ مارس ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "مهندس يقرأ أجهزة القياس في مصنع",
+      "tag": "data-ai",
+      "mode": "online",
+      "about": [
+        "النماذج التي تقف خلف الصيانة التنبؤية، مشروحة لمن يعرفون الآلات أصلاً.",
+        "كُتبت للمهندسين الذين يعرفون الآلات ويريدون معرفة ما يفعله النموذج فعلاً. تتناول أين تستحق الصيانة التنبؤية تكلفتها، وكم يكلف الإنذار الكاذب على خط إنتاج حقيقي، ولماذا قد يكون نموذج ممتاز في الاختبار عديم الفائدة في المصنع."
+      ],
+      "price": 3800,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "leyla-farhadi",
+      "categories": [
+        "engineering",
+        "high-tech",
+        "data-ai"
+      ],
+      "related": [
+        "digital-twin-operations",
+        "smart-grid-operations",
+        "process-safety-leadership",
+        "battery-manufacturing-quality",
+        "advanced-materials-testing"
+      ],
+      "publishedAt": "2026-03-11"
+    },
+    {
+      "id": "lpg-patent-landscape",
+      "title": "تقرير مشهد براءات اختراع غاز البترول المسال",
+      "summary": "أين تتجمع براءات الاختراع، ومن يسجّلها، وماذا يعني ذلك للعقد القادم من معالجة الغاز.",
+      "date": "٢٤ فبراير ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "محطة لمعالجة الغاز",
+      "tag": "energy-materials",
+      "mode": "online",
+      "about": [
+        "أين تتجمع براءات الاختراع، ومن يسجّلها، وماذا يعني ذلك للعقد القادم من معالجة الغاز.",
+        "بيانات البراءات علنية وضخمة وتكاد تكون غير قابلة للقراءة بلا منهج. تمنحك هذه الدورة منهجاً: كيف تحدد نطاق المشهد، وكيف تفصل الإيداعات الدفاعية عن تلك التي تنوي الشركة البناء عليها، وكيف تميز تجمعاً يشير إلى اتجاه من تجمع يشير إلى طريق مسدود."
+      ],
+      "price": 5000,
+      "compareAtPrice": 5410,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "engineering",
+        "business-management",
+        "energy-materials"
+      ],
+      "related": [
+        "patent-analytics-for-rnd",
+        "materials-for-harsh-environments",
+        "hydrogen-economy-fundamentals",
+        "energy-transition-strategy",
+        "semiconductor-supply-strategy"
+      ],
+      "publishedAt": "2026-02-24"
+    },
+    {
+      "id": "innovations-in-teamwork",
+      "title": "ابتكارات العمل الجماعي في الرعاية الصحية",
+      "summary": "الرعاية الصحية عمل جماعي. من موظفي الاستقبال إلى الممرضين، يحمل كل دور جزءاً من النتيجة.",
+      "date": "٦ فبراير ٢٠٢٦",
+      "effort": "٤-٦ ساعات أسبوعياً",
+      "imageAlt": "فرق الرعاية الصحية أثناء العمل",
+      "tag": "health",
+      "mode": "on-site",
+      "about": [
+        "الرعاية الصحية عمل جماعي. من موظفي الاستقبال إلى الممرضين، يحمل كل دور جزءاً من النتيجة.",
+        "تتابع الدورة حالة واحدة من الاستقبال حتى الخروج، وتتوقف عند كل نقطة يكون فيها التسليم بين دورين هو ما يحدد النتيجة. ما تخرج به هو طريقة لقراءة وحدتك: أين تُفقد المعلومة، ومن ينتظر من، وأي من تلك الفجوات يمكن لتغيير في الإجراءات أن يسدّها فعلاً."
+      ],
+      "price": 4200,
+      "compareAtPrice": 4600,
+      "certificate": true,
+      "language": "الإنجليزية",
+      "instructor": "sara-koc",
+      "categories": [
+        "business-management",
+        "science-mathematics",
+        "health"
+      ],
+      "related": [
+        "clinical-data-governance",
+        "process-safety-leadership",
+        "supply-chain-resilience",
+        "industrial-ai-foundations",
+        "digital-twin-operations"
+      ],
+      "publishedAt": "2026-02-06"
     }
   ],
   "detail": {

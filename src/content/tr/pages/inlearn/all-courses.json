@@ -56,475 +56,10 @@
   ],
   "courses": [
     {
-      "id": "innovations-in-teamwork",
-      "title": "Sağlık Hizmetlerinde Ekip Çalışması Yenilikleri",
-      "summary": "Sağlık hizmeti bir ekip işidir. Danışmadaki görevliden hemşireye kadar her rol sonucun bir parçasını taşır.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "İş başındaki sağlık ekipleri",
-      "tag": "health",
-      "mode": "on-site",
-      "about": [
-        "Sağlık hizmeti bir ekip işidir. Danışmadaki görevliden hemşireye kadar her rol sonucun bir parçasını taşır.",
-        "Kurs, bir hastayı kabulden taburcuya kadar izler ve sonucu iki rol arasındaki devrin belirlediği her noktada durur. Geriye kalan, kendi biriminizi okuma biçimidir: bilginin nerede kaybolduğu, kimin kimi beklediği ve bu boşlukların hangisinin bir süreç değişikliğiyle gerçekten kapanabileceği."
-      ],
-      "price": 4200,
-      "compareAtPrice": 4600,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "sara-koc",
-      "categories": [
-        "business-management",
-        "science-mathematics",
-        "health"
-      ],
-      "related": [
-        "clinical-data-governance",
-        "process-safety-leadership",
-        "supply-chain-resilience",
-        "industrial-ai-foundations",
-        "digital-twin-operations"
-      ]
-    },
-    {
-      "id": "lpg-patent-landscape",
-      "title": "Sıvılaştırılmış Petrol Gazı Patent Görünümü Raporu",
-      "summary": "Patentlerin nerede yoğunlaştığı, kimin başvurduğu ve bunun gaz işlemenin önümüzdeki on yılı için ne anlama geldiği.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Bir gaz işleme tesisi",
-      "tag": "energy-materials",
-      "mode": "online",
-      "about": [
-        "Patentlerin nerede yoğunlaştığı, kimin başvurduğu ve bunun gaz işlemenin önümüzdeki on yılı için ne anlama geldiği.",
-        "Patent verisi kamuya açık, devasa ve yöntemsiz neredeyse okunamaz. Bu kurs size bir yöntem verir: bir haritanın kapsamını belirlemek, savunma amaçlı başvuruları şirketin üzerine inşa etmeyi düşündüklerinden ayırmak ve yön gösteren bir kümeyi çıkmaz sokağa işaret edenden ayırt etmek."
-      ],
-      "price": 5000,
-      "compareAtPrice": 5410,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "engineering",
-        "business-management",
-        "energy-materials"
-      ],
-      "related": [
-        "patent-analytics-for-rnd",
-        "materials-for-harsh-environments",
-        "hydrogen-economy-fundamentals",
-        "energy-transition-strategy",
-        "semiconductor-supply-strategy"
-      ]
-    },
-    {
-      "id": "industrial-ai-foundations",
-      "title": "Tesis Mühendisleri için Endüstriyel Yapay Zekâ Temelleri",
-      "summary": "Kestirimci bakımın arkasındaki modeller, makineleri zaten bilenler için anlatılıyor.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Tesis göstergelerini okuyan bir mühendis",
-      "tag": "data-ai",
-      "mode": "online",
-      "about": [
-        "Kestirimci bakımın arkasındaki modeller, makineleri zaten bilenler için anlatılıyor.",
-        "Makineleri zaten bilen ve modelin gerçekte ne yaptığını merak eden mühendisler için yazıldı. Kestirimci bakımın nerede kendini amorti ettiğini, gerçek bir hatta yanlış alarmın maliyetini ve bir not defterinde iyi puan alan bir modelin tesiste neden işe yaramayabileceğini ele alır."
-      ],
-      "price": 3800,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "leyla-farhadi",
-      "categories": [
-        "engineering",
-        "high-tech",
-        "data-ai"
-      ],
-      "related": [
-        "digital-twin-operations",
-        "smart-grid-operations",
-        "process-safety-leadership",
-        "battery-manufacturing-quality",
-        "advanced-materials-testing"
-      ]
-    },
-    {
-      "id": "energy-transition-strategy",
-      "title": "Ağır Sanayi için Enerji Dönüşümü Stratejisi",
-      "summary": "Varlık yoğun bir işletme, iki kez yanılmayı kaldıramayacağı bir dönüşümü nasıl planlar.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Endüstriyel enerji altyapısı",
-      "tag": "sustainability",
-      "mode": "offline",
-      "about": [
-        "Varlık yoğun bir işletme, iki kez yanılmayı kaldıramayacağı bir dönüşümü nasıl planlar.",
-        "Varlık yoğun bir işletmenin dönüşüm için bir ya da iki denemesi vardır ve ikincisi birincisinden çok daha pahalıdır. Kurs sıralama sorusunu işler: şimdi neye karar verilmeli, ne daha iyi bilgi için bekleyebilir ve imzalandığı anda geri dönüşü olmayan nedir."
-      ],
-      "price": 6400,
-      "compareAtPrice": 7000,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "energy-materials",
-        "business-management",
-        "sustainability"
-      ],
-      "related": [
-        "hydrogen-economy-fundamentals",
-        "smart-grid-operations",
-        "materials-for-harsh-environments",
-        "lpg-patent-landscape",
-        "supply-chain-resilience"
-      ]
-    },
-    {
-      "id": "digital-twin-operations",
-      "title": "Pilottan Tesise Dijital İkiz Operasyonları",
-      "summary": "Dijital ikizlerin çoğu pilotta kalır. Bu ders, birini günlük operasyona taşıyan işi anlatır.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Tesisin yanındaki kontrol odası ekranı",
-      "tag": "engineering",
-      "mode": "online",
-      "about": [
-        "Dijital ikizlerin çoğu pilotta kalır. Bu ders, birini günlük operasyona taşıyan işi anlatır.",
-        "Bir dijital ikiz, ancak söylediğine göre biri hareket ederse bakım masrafını hak eder. Bu kurs, ikizin desteklemesi beklenen karardan başlar ve geriye doğru modele, ölçüme ve her birinin gerçekte gerektirdiği veri hızına gider."
-      ],
-      "price": 4900,
-      "compareAtPrice": 5200,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "leyla-farhadi",
-      "categories": [
-        "high-tech",
-        "data-ai",
-        "engineering"
-      ],
-      "related": [
-        "industrial-ai-foundations",
-        "battery-manufacturing-quality",
-        "advanced-materials-testing",
-        "process-safety-leadership",
-        "smart-grid-operations"
-      ]
-    },
-    {
-      "id": "supply-chain-resilience",
-      "title": "Gerçek Kısıtlar Altında Tedarik Zinciri Dayanıklılığı",
-      "summary": "Gerçekten sahip olduğunuz bağımlılıkların ve yalnızca sahip olduğunuzu sandıklarınızın haritası.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Bir terminalden geçen yük",
-      "tag": "business-management",
-      "mode": "on-site",
-      "about": [
-        "Gerçekten sahip olduğunuz bağımlılıkların ve yalnızca sahip olduğunuzu sandıklarınızın haritası.",
-        "Dayanıklılık genellikle stok olarak satın alınır ki bu en pahalı biçimidir. Kurs daha ucuz biçimleri - ikinci kaynaklar, tasarım esnekliği, sözleşmeye dayalı opsiyonlar - ve belirli bir kesintinin hangisini gerektirdiğine nasıl karar verileceğini ortaya koyar."
-      ],
-      "price": 4400,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "sara-koc",
-      "categories": [
-        "metals-mining",
-        "automotive",
-        "business-management"
-      ],
-      "related": [
-        "semiconductor-supply-strategy",
-        "battery-manufacturing-quality",
-        "patent-analytics-for-rnd",
-        "mining-automation-safety",
-        "energy-transition-strategy"
-      ]
-    },
-    {
-      "id": "process-safety-leadership",
-      "title": "Yüksek Riskli Sahalarda Proses Güvenliği Liderliği",
-      "summary": "Yüksek riskli bir sahayı kendisine karşı dürüst tutan alışkanlıklar, raporlama hatları ve zor konuşmalar.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Endüstriyel sahada güvenlik denetimi",
-      "tag": "engineering",
-      "mode": "offline",
-      "about": [
-        "Yüksek riskli bir sahayı kendisine karşı dürüst tutan alışkanlıklar, raporlama hatları ve zor konuşmalar.",
-        "Ciddi kazaların çoğundan önce, birinin gördüğü ama kimsenin yukarı taşımadığı haftalarca küçük sinyal vardır. Bu kurs, o sinyallerin yol alıp almayacağını belirleyen koşullarla ilgilidir: neyin raporlandığı, neyin ödüllendirildiği ve vardiya amirinin hattı durdurursa ne olacağına dair inancı."
-      ],
-      "price": 5600,
-      "compareAtPrice": 6100,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "gholamreza-jamshidi",
-      "categories": [
-        "energy-materials",
-        "metals-mining",
-        "engineering"
-      ],
-      "related": [
-        "mining-automation-safety",
-        "materials-for-harsh-environments",
-        "innovations-in-teamwork",
-        "digital-twin-operations",
-        "industrial-ai-foundations"
-      ]
-    },
-    {
-      "id": "materials-for-harsh-environments",
-      "title": "Zorlu Ortamlar için Malzeme Mühendisliği",
-      "summary": "Hiç dinmeyen ısı, basınç ve aşınma için alaşım, kaplama ve conta seçmek.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Yük altındaki çelik boru hattı",
-      "tag": "energy-materials",
-      "mode": "online",
-      "about": [
-        "Hiç dinmeyen ısı, basınç ve aşınma için alaşım, kaplama ve conta seçmek.",
-        "Asidik servis, kriyojenik çalışma ve yüksek çevrimli yorulma; her biri kendince başarısız olur ve biri için seçilen malzeme diğeri için yanlış cevap olabilir. Kurs, seçim sorularını bir projenin onlarla gerçekte karşılaştığı sırayla işler."
-      ],
-      "price": 5200,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "science-mathematics",
-        "engineering",
-        "energy-materials"
-      ],
-      "related": [
-        "advanced-materials-testing",
-        "lpg-patent-landscape",
-        "battery-manufacturing-quality",
-        "hydrogen-economy-fundamentals",
-        "process-safety-leadership"
-      ]
-    },
-    {
-      "id": "advanced-materials-testing",
-      "title": "İleri Malzeme Testi ve Belgelendirme",
-      "summary": "Bir test düzeneğinin neyi kanıtlayıp neyi kanıtlayamayacağı ve sertifikanın ona güvenmek zorunda olanlarca nasıl okunduğu.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Bir malzeme test laboratuvarı",
-      "tag": "science-mathematics",
-      "mode": "on-site",
-      "about": [
-        "Bir test düzeneğinin neyi kanıtlayıp neyi kanıtlayamayacağı ve sertifikanın ona güvenmek zorunda olanlarca nasıl okunduğu.",
-        "Bir test düzeneği, çoğu kişinin sandığından daha dar bir soruyu yanıtlar. Bu kurs her standart testin neyi kanıtlayıp neyi kanıtlamadığını, sertifikanın ona güvenecek mühendis tarafından nasıl okunduğunu ve ikisi arasındaki farkın nerede sorun çıkardığını ele alır."
-      ],
-      "price": 4700,
-      "compareAtPrice": 5000,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "sara-koc",
-      "categories": [
-        "engineering",
-        "energy-materials",
-        "science-mathematics"
-      ],
-      "related": [
-        "materials-for-harsh-environments",
-        "battery-manufacturing-quality",
-        "digital-twin-operations",
-        "lpg-patent-landscape",
-        "industrial-ai-foundations"
-      ]
-    },
-    {
-      "id": "hydrogen-economy-fundamentals",
-      "title": "Hidrojen Ekonomisinin Temelleri",
-      "summary": "Hidrojenin bugün gerçekten nerede rekabet ettiği, nerede henüz edemediği ve bir projenin yönünü neyin belirlediği.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Bir hidrojen üretim tesisi",
-      "tag": "sustainability",
-      "mode": "online",
-      "about": [
-        "Hidrojenin bugün gerçekten nerede rekabet ettiği, nerede henüz edemediği ve bir projenin yönünü neyin belirlediği.",
-        "Hidrojen, heyecana göre değil, teslim edilen yararlı joule başına maliyete göre rekabet eder. Kurs bu hesabın bugün nerede tuttuğunu, nerede henüz tutmadığını ve belirli bir projenin çizginin hangi tarafına düşeceğini belirleyen üç dört değişkeni ortaya koyar."
-      ],
-      "price": 5800,
-      "compareAtPrice": 6200,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "energy-materials",
-        "engineering",
-        "sustainability"
-      ],
-      "related": [
-        "energy-transition-strategy",
-        "smart-grid-operations",
-        "lpg-patent-landscape",
-        "materials-for-harsh-environments",
-        "semiconductor-supply-strategy"
-      ]
-    },
-    {
-      "id": "patent-analytics-for-rnd",
-      "title": "Ar-Ge Liderleri için Patent Analitiği",
-      "summary": "Patent haritasını bir yığın hukuki belge olarak değil, rakiplerin nereye harcadığının haritası olarak okumak.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Ekranda bir patent haritası",
-      "tag": "business-management",
-      "mode": "online",
-      "about": [
-        "Patent haritasını bir yığın hukuki belge olarak değil, rakiplerin nereye harcadığının haritası olarak okumak.",
-        "İstem yazanlar için değil, araştırma bütçesi belirleyenler için. Patent haritasını rakiplerin parayı nereye harcadığının kaydı olarak ele alır ve bu kaydın hukuk diploması olmadan nasıl okunacağını gösterir."
-      ],
-      "price": 4300,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "leyla-farhadi",
-      "categories": [
-        "data-ai",
-        "high-tech",
-        "business-management"
-      ],
-      "related": [
-        "lpg-patent-landscape",
-        "semiconductor-supply-strategy",
-        "supply-chain-resilience",
-        "industrial-ai-foundations",
-        "clinical-data-governance"
-      ]
-    },
-    {
-      "id": "battery-manufacturing-quality",
-      "title": "Batarya Üretiminde Kalite Sistemleri",
-      "summary": "Bir hücre kusurunu iki yıl sonra araçta değil, hatta bandın üzerinde yakalayan ölçümler.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Bir batarya üretim hattı",
-      "tag": "automotive",
-      "mode": "on-site",
-      "about": [
-        "Bir hücre kusurunu iki yıl sonra araçta değil, hatta bandın üzerinde yakalayan ölçümler.",
-        "Hatta bulunan bir hücre kusuru bir hücreye mal olur. Aynı kusur araçta bulunursa geri çağırmaya mal olur. Bu kurs, keşfi ikinci durumdan birinciye taşıyan ölçümlerle ve her birinin neyi görüp göremediğiyle ilgilidir."
-      ],
-      "price": 5100,
-      "compareAtPrice": 5500,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "sara-koc",
-      "categories": [
-        "engineering",
-        "sustainability",
-        "automotive"
-      ],
-      "related": [
-        "advanced-materials-testing",
-        "supply-chain-resilience",
-        "digital-twin-operations",
-        "materials-for-harsh-environments",
-        "smart-grid-operations"
-      ]
-    },
-    {
-      "id": "smart-grid-operations",
-      "title": "Akıllı Şebeke İşletimi ve Kontrolü",
-      "summary": "Artık her yerden güç alan bir şebekenin dakika dakika nasıl dengede tutulduğu.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Bir şebeke kontrol odası",
-      "tag": "high-tech",
-      "mode": "offline",
-      "about": [
-        "Artık her yerden güç alan bir şebekenin dakika dakika nasıl dengede tutulduğu.",
-        "Bir zamanlar gücü birkaç santralden alan şebeke, artık izin istemeyen binlerce noktadan alıyor. Kurs bu koşullarda dengenin dakika dakika nasıl tutulduğunu ve kontrol odasının neyi görüp göremediğini ele alır."
-      ],
-      "price": 5300,
-      "compareAtPrice": null,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "gholamreza-jamshidi",
-      "categories": [
-        "energy-materials",
-        "sustainability",
-        "high-tech"
-      ],
-      "related": [
-        "energy-transition-strategy",
-        "hydrogen-economy-fundamentals",
-        "industrial-ai-foundations",
-        "digital-twin-operations",
-        "semiconductor-supply-strategy"
-      ]
-    },
-    {
-      "id": "clinical-data-governance",
-      "title": "Klinik Veri Yönetişimi",
-      "summary": "Hangi kaydı kimin görebileceği, bunun hesabını kimin vereceği ve denetimden nasıl geçtiği.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "İncelenen klinik kayıtlar",
-      "tag": "health",
-      "mode": "online",
-      "about": [
-        "Hangi kaydı kimin görebileceği, bunun hesabını kimin vereceği ve denetimden nasıl geçtiği.",
-        "Yönetişim genellikle bir politika olarak yazılır ve bir denetim bulgusu olarak keşfedilir. Kurs diğer uçtan çalışır: hangi kaydı kim görebilir, bu kararın hesabını kim verir ve kimse sormadan önce hangi kanıt var olmalıdır."
-      ],
-      "price": 4600,
-      "compareAtPrice": 4900,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "leyla-farhadi",
-      "categories": [
-        "data-ai",
-        "business-management",
-        "health"
-      ],
-      "related": [
-        "innovations-in-teamwork",
-        "patent-analytics-for-rnd",
-        "industrial-ai-foundations",
-        "supply-chain-resilience",
-        "process-safety-leadership"
-      ]
-    },
-    {
-      "id": "semiconductor-supply-strategy",
-      "title": "Yarı İletken Tedarik Stratejisi",
-      "summary": "Darboğazı yer değiştiren bir tedarik zincirini okumak ve bir sonraki durağına hazırlanmak.",
-      "date": "15 Kasım 2025",
-      "effort": "Haftada 4-6 saat",
-      "imageAlt": "Bir yarı iletken üretim tesisi",
-      "tag": "high-tech",
-      "mode": "offline",
-      "about": [
-        "Darboğazı yer değiştiren bir tedarik zincirini okumak ve bir sonraki durağına hazırlanmak.",
-        "Bu tedarik zincirinde darboğaz birkaç yılda bir yer değiştirir ve şirketler bir öncekine göre planlayarak yakalanır. Kurs, darboğazın şimdi nerede olduğunu okumayı ve bunun bir sonraki durağı hakkında ne söylediğini ele alır."
-      ],
-      "price": 6100,
-      "compareAtPrice": 6600,
-      "certificate": true,
-      "language": "İngilizce",
-      "instructor": "omar-al-hashimi",
-      "categories": [
-        "business-management",
-        "data-ai",
-        "high-tech"
-      ],
-      "related": [
-        "supply-chain-resilience",
-        "patent-analytics-for-rnd",
-        "battery-manufacturing-quality",
-        "smart-grid-operations",
-        "mining-automation-safety"
-      ]
-    },
-    {
       "id": "mining-automation-safety",
       "title": "Madencilikte Otomasyon ve Güvenlik",
       "summary": "Otomasyonun bir madenden neyi kaldırdığı, neyi eklediği ve ancak geldikten sonra ortaya çıkan olaylar.",
-      "date": "15 Kasım 2025",
+      "date": "12 Eylül 2026",
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Otomatikleştirilmiş bir maden işletmesi",
       "tag": "metals-mining",
@@ -549,7 +84,488 @@
         "smart-grid-operations",
         "supply-chain-resilience",
         "advanced-materials-testing"
-      ]
+      ],
+      "publishedAt": "2026-09-12"
+    },
+    {
+      "id": "semiconductor-supply-strategy",
+      "title": "Yarı İletken Tedarik Stratejisi",
+      "summary": "Darboğazı yer değiştiren bir tedarik zincirini okumak ve bir sonraki durağına hazırlanmak.",
+      "date": "3 Eylül 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir yarı iletken üretim tesisi",
+      "tag": "high-tech",
+      "mode": "offline",
+      "about": [
+        "Darboğazı yer değiştiren bir tedarik zincirini okumak ve bir sonraki durağına hazırlanmak.",
+        "Bu tedarik zincirinde darboğaz birkaç yılda bir yer değiştirir ve şirketler bir öncekine göre planlayarak yakalanır. Kurs, darboğazın şimdi nerede olduğunu okumayı ve bunun bir sonraki durağı hakkında ne söylediğini ele alır."
+      ],
+      "price": 6100,
+      "compareAtPrice": 6600,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "business-management",
+        "data-ai",
+        "high-tech"
+      ],
+      "related": [
+        "supply-chain-resilience",
+        "patent-analytics-for-rnd",
+        "battery-manufacturing-quality",
+        "smart-grid-operations",
+        "mining-automation-safety"
+      ],
+      "publishedAt": "2026-09-03"
+    },
+    {
+      "id": "clinical-data-governance",
+      "title": "Klinik Veri Yönetişimi",
+      "summary": "Hangi kaydı kimin görebileceği, bunun hesabını kimin vereceği ve denetimden nasıl geçtiği.",
+      "date": "21 Ağustos 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "İncelenen klinik kayıtlar",
+      "tag": "health",
+      "mode": "online",
+      "about": [
+        "Hangi kaydı kimin görebileceği, bunun hesabını kimin vereceği ve denetimden nasıl geçtiği.",
+        "Yönetişim genellikle bir politika olarak yazılır ve bir denetim bulgusu olarak keşfedilir. Kurs diğer uçtan çalışır: hangi kaydı kim görebilir, bu kararın hesabını kim verir ve kimse sormadan önce hangi kanıt var olmalıdır."
+      ],
+      "price": 4600,
+      "compareAtPrice": 4900,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "leyla-farhadi",
+      "categories": [
+        "data-ai",
+        "business-management",
+        "health"
+      ],
+      "related": [
+        "innovations-in-teamwork",
+        "patent-analytics-for-rnd",
+        "industrial-ai-foundations",
+        "supply-chain-resilience",
+        "process-safety-leadership"
+      ],
+      "publishedAt": "2026-08-21"
+    },
+    {
+      "id": "smart-grid-operations",
+      "title": "Akıllı Şebeke İşletimi ve Kontrolü",
+      "summary": "Artık her yerden güç alan bir şebekenin dakika dakika nasıl dengede tutulduğu.",
+      "date": "9 Ağustos 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir şebeke kontrol odası",
+      "tag": "high-tech",
+      "mode": "offline",
+      "about": [
+        "Artık her yerden güç alan bir şebekenin dakika dakika nasıl dengede tutulduğu.",
+        "Bir zamanlar gücü birkaç santralden alan şebeke, artık izin istemeyen binlerce noktadan alıyor. Kurs bu koşullarda dengenin dakika dakika nasıl tutulduğunu ve kontrol odasının neyi görüp göremediğini ele alır."
+      ],
+      "price": 5300,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "gholamreza-jamshidi",
+      "categories": [
+        "energy-materials",
+        "sustainability",
+        "high-tech"
+      ],
+      "related": [
+        "energy-transition-strategy",
+        "hydrogen-economy-fundamentals",
+        "industrial-ai-foundations",
+        "digital-twin-operations",
+        "semiconductor-supply-strategy"
+      ],
+      "publishedAt": "2026-08-09"
+    },
+    {
+      "id": "battery-manufacturing-quality",
+      "title": "Batarya Üretiminde Kalite Sistemleri",
+      "summary": "Bir hücre kusurunu iki yıl sonra araçta değil, hatta bandın üzerinde yakalayan ölçümler.",
+      "date": "28 Temmuz 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir batarya üretim hattı",
+      "tag": "automotive",
+      "mode": "on-site",
+      "about": [
+        "Bir hücre kusurunu iki yıl sonra araçta değil, hatta bandın üzerinde yakalayan ölçümler.",
+        "Hatta bulunan bir hücre kusuru bir hücreye mal olur. Aynı kusur araçta bulunursa geri çağırmaya mal olur. Bu kurs, keşfi ikinci durumdan birinciye taşıyan ölçümlerle ve her birinin neyi görüp göremediğiyle ilgilidir."
+      ],
+      "price": 5100,
+      "compareAtPrice": 5500,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "sara-koc",
+      "categories": [
+        "engineering",
+        "sustainability",
+        "automotive"
+      ],
+      "related": [
+        "advanced-materials-testing",
+        "supply-chain-resilience",
+        "digital-twin-operations",
+        "materials-for-harsh-environments",
+        "smart-grid-operations"
+      ],
+      "publishedAt": "2026-07-28"
+    },
+    {
+      "id": "patent-analytics-for-rnd",
+      "title": "Ar-Ge Liderleri için Patent Analitiği",
+      "summary": "Patent haritasını bir yığın hukuki belge olarak değil, rakiplerin nereye harcadığının haritası olarak okumak.",
+      "date": "14 Temmuz 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Ekranda bir patent haritası",
+      "tag": "business-management",
+      "mode": "online",
+      "about": [
+        "Patent haritasını bir yığın hukuki belge olarak değil, rakiplerin nereye harcadığının haritası olarak okumak.",
+        "İstem yazanlar için değil, araştırma bütçesi belirleyenler için. Patent haritasını rakiplerin parayı nereye harcadığının kaydı olarak ele alır ve bu kaydın hukuk diploması olmadan nasıl okunacağını gösterir."
+      ],
+      "price": 4300,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "leyla-farhadi",
+      "categories": [
+        "data-ai",
+        "high-tech",
+        "business-management"
+      ],
+      "related": [
+        "lpg-patent-landscape",
+        "semiconductor-supply-strategy",
+        "supply-chain-resilience",
+        "industrial-ai-foundations",
+        "clinical-data-governance"
+      ],
+      "publishedAt": "2026-07-14"
+    },
+    {
+      "id": "hydrogen-economy-fundamentals",
+      "title": "Hidrojen Ekonomisinin Temelleri",
+      "summary": "Hidrojenin bugün gerçekten nerede rekabet ettiği, nerede henüz edemediği ve bir projenin yönünü neyin belirlediği.",
+      "date": "30 Haziran 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir hidrojen üretim tesisi",
+      "tag": "sustainability",
+      "mode": "online",
+      "about": [
+        "Hidrojenin bugün gerçekten nerede rekabet ettiği, nerede henüz edemediği ve bir projenin yönünü neyin belirlediği.",
+        "Hidrojen, heyecana göre değil, teslim edilen yararlı joule başına maliyete göre rekabet eder. Kurs bu hesabın bugün nerede tuttuğunu, nerede henüz tutmadığını ve belirli bir projenin çizginin hangi tarafına düşeceğini belirleyen üç dört değişkeni ortaya koyar."
+      ],
+      "price": 5800,
+      "compareAtPrice": 6200,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "energy-materials",
+        "engineering",
+        "sustainability"
+      ],
+      "related": [
+        "energy-transition-strategy",
+        "smart-grid-operations",
+        "lpg-patent-landscape",
+        "materials-for-harsh-environments",
+        "semiconductor-supply-strategy"
+      ],
+      "publishedAt": "2026-06-30"
+    },
+    {
+      "id": "advanced-materials-testing",
+      "title": "İleri Malzeme Testi ve Belgelendirme",
+      "summary": "Bir test düzeneğinin neyi kanıtlayıp neyi kanıtlayamayacağı ve sertifikanın ona güvenmek zorunda olanlarca nasıl okunduğu.",
+      "date": "17 Haziran 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir malzeme test laboratuvarı",
+      "tag": "science-mathematics",
+      "mode": "on-site",
+      "about": [
+        "Bir test düzeneğinin neyi kanıtlayıp neyi kanıtlayamayacağı ve sertifikanın ona güvenmek zorunda olanlarca nasıl okunduğu.",
+        "Bir test düzeneği, çoğu kişinin sandığından daha dar bir soruyu yanıtlar. Bu kurs her standart testin neyi kanıtlayıp neyi kanıtlamadığını, sertifikanın ona güvenecek mühendis tarafından nasıl okunduğunu ve ikisi arasındaki farkın nerede sorun çıkardığını ele alır."
+      ],
+      "price": 4700,
+      "compareAtPrice": 5000,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "sara-koc",
+      "categories": [
+        "engineering",
+        "energy-materials",
+        "science-mathematics"
+      ],
+      "related": [
+        "materials-for-harsh-environments",
+        "battery-manufacturing-quality",
+        "digital-twin-operations",
+        "lpg-patent-landscape",
+        "industrial-ai-foundations"
+      ],
+      "publishedAt": "2026-06-17"
+    },
+    {
+      "id": "materials-for-harsh-environments",
+      "title": "Zorlu Ortamlar için Malzeme Mühendisliği",
+      "summary": "Hiç dinmeyen ısı, basınç ve aşınma için alaşım, kaplama ve conta seçmek.",
+      "date": "29 Mayıs 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Yük altındaki çelik boru hattı",
+      "tag": "energy-materials",
+      "mode": "online",
+      "about": [
+        "Hiç dinmeyen ısı, basınç ve aşınma için alaşım, kaplama ve conta seçmek.",
+        "Asidik servis, kriyojenik çalışma ve yüksek çevrimli yorulma; her biri kendince başarısız olur ve biri için seçilen malzeme diğeri için yanlış cevap olabilir. Kurs, seçim sorularını bir projenin onlarla gerçekte karşılaştığı sırayla işler."
+      ],
+      "price": 5200,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "science-mathematics",
+        "engineering",
+        "energy-materials"
+      ],
+      "related": [
+        "advanced-materials-testing",
+        "lpg-patent-landscape",
+        "battery-manufacturing-quality",
+        "hydrogen-economy-fundamentals",
+        "process-safety-leadership"
+      ],
+      "publishedAt": "2026-05-29"
+    },
+    {
+      "id": "process-safety-leadership",
+      "title": "Yüksek Riskli Sahalarda Proses Güvenliği Liderliği",
+      "summary": "Yüksek riskli bir sahayı kendisine karşı dürüst tutan alışkanlıklar, raporlama hatları ve zor konuşmalar.",
+      "date": "12 Mayıs 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Endüstriyel sahada güvenlik denetimi",
+      "tag": "engineering",
+      "mode": "offline",
+      "about": [
+        "Yüksek riskli bir sahayı kendisine karşı dürüst tutan alışkanlıklar, raporlama hatları ve zor konuşmalar.",
+        "Ciddi kazaların çoğundan önce, birinin gördüğü ama kimsenin yukarı taşımadığı haftalarca küçük sinyal vardır. Bu kurs, o sinyallerin yol alıp almayacağını belirleyen koşullarla ilgilidir: neyin raporlandığı, neyin ödüllendirildiği ve vardiya amirinin hattı durdurursa ne olacağına dair inancı."
+      ],
+      "price": 5600,
+      "compareAtPrice": 6100,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "gholamreza-jamshidi",
+      "categories": [
+        "energy-materials",
+        "metals-mining",
+        "engineering"
+      ],
+      "related": [
+        "mining-automation-safety",
+        "materials-for-harsh-environments",
+        "innovations-in-teamwork",
+        "digital-twin-operations",
+        "industrial-ai-foundations"
+      ],
+      "publishedAt": "2026-05-12"
+    },
+    {
+      "id": "supply-chain-resilience",
+      "title": "Gerçek Kısıtlar Altında Tedarik Zinciri Dayanıklılığı",
+      "summary": "Gerçekten sahip olduğunuz bağımlılıkların ve yalnızca sahip olduğunuzu sandıklarınızın haritası.",
+      "date": "24 Nisan 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir terminalden geçen yük",
+      "tag": "business-management",
+      "mode": "on-site",
+      "about": [
+        "Gerçekten sahip olduğunuz bağımlılıkların ve yalnızca sahip olduğunuzu sandıklarınızın haritası.",
+        "Dayanıklılık genellikle stok olarak satın alınır ki bu en pahalı biçimidir. Kurs daha ucuz biçimleri - ikinci kaynaklar, tasarım esnekliği, sözleşmeye dayalı opsiyonlar - ve belirli bir kesintinin hangisini gerektirdiğine nasıl karar verileceğini ortaya koyar."
+      ],
+      "price": 4400,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "sara-koc",
+      "categories": [
+        "metals-mining",
+        "automotive",
+        "business-management"
+      ],
+      "related": [
+        "semiconductor-supply-strategy",
+        "battery-manufacturing-quality",
+        "patent-analytics-for-rnd",
+        "mining-automation-safety",
+        "energy-transition-strategy"
+      ],
+      "publishedAt": "2026-04-24"
+    },
+    {
+      "id": "digital-twin-operations",
+      "title": "Pilottan Tesise Dijital İkiz Operasyonları",
+      "summary": "Dijital ikizlerin çoğu pilotta kalır. Bu ders, birini günlük operasyona taşıyan işi anlatır.",
+      "date": "8 Nisan 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Tesisin yanındaki kontrol odası ekranı",
+      "tag": "engineering",
+      "mode": "online",
+      "about": [
+        "Dijital ikizlerin çoğu pilotta kalır. Bu ders, birini günlük operasyona taşıyan işi anlatır.",
+        "Bir dijital ikiz, ancak söylediğine göre biri hareket ederse bakım masrafını hak eder. Bu kurs, ikizin desteklemesi beklenen karardan başlar ve geriye doğru modele, ölçüme ve her birinin gerçekte gerektirdiği veri hızına gider."
+      ],
+      "price": 4900,
+      "compareAtPrice": 5200,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "leyla-farhadi",
+      "categories": [
+        "high-tech",
+        "data-ai",
+        "engineering"
+      ],
+      "related": [
+        "industrial-ai-foundations",
+        "battery-manufacturing-quality",
+        "advanced-materials-testing",
+        "process-safety-leadership",
+        "smart-grid-operations"
+      ],
+      "publishedAt": "2026-04-08"
+    },
+    {
+      "id": "energy-transition-strategy",
+      "title": "Ağır Sanayi için Enerji Dönüşümü Stratejisi",
+      "summary": "Varlık yoğun bir işletme, iki kez yanılmayı kaldıramayacağı bir dönüşümü nasıl planlar.",
+      "date": "26 Mart 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Endüstriyel enerji altyapısı",
+      "tag": "sustainability",
+      "mode": "offline",
+      "about": [
+        "Varlık yoğun bir işletme, iki kez yanılmayı kaldıramayacağı bir dönüşümü nasıl planlar.",
+        "Varlık yoğun bir işletmenin dönüşüm için bir ya da iki denemesi vardır ve ikincisi birincisinden çok daha pahalıdır. Kurs sıralama sorusunu işler: şimdi neye karar verilmeli, ne daha iyi bilgi için bekleyebilir ve imzalandığı anda geri dönüşü olmayan nedir."
+      ],
+      "price": 6400,
+      "compareAtPrice": 7000,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "energy-materials",
+        "business-management",
+        "sustainability"
+      ],
+      "related": [
+        "hydrogen-economy-fundamentals",
+        "smart-grid-operations",
+        "materials-for-harsh-environments",
+        "lpg-patent-landscape",
+        "supply-chain-resilience"
+      ],
+      "publishedAt": "2026-03-26"
+    },
+    {
+      "id": "industrial-ai-foundations",
+      "title": "Tesis Mühendisleri için Endüstriyel Yapay Zekâ Temelleri",
+      "summary": "Kestirimci bakımın arkasındaki modeller, makineleri zaten bilenler için anlatılıyor.",
+      "date": "11 Mart 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Tesis göstergelerini okuyan bir mühendis",
+      "tag": "data-ai",
+      "mode": "online",
+      "about": [
+        "Kestirimci bakımın arkasındaki modeller, makineleri zaten bilenler için anlatılıyor.",
+        "Makineleri zaten bilen ve modelin gerçekte ne yaptığını merak eden mühendisler için yazıldı. Kestirimci bakımın nerede kendini amorti ettiğini, gerçek bir hatta yanlış alarmın maliyetini ve bir not defterinde iyi puan alan bir modelin tesiste neden işe yaramayabileceğini ele alır."
+      ],
+      "price": 3800,
+      "compareAtPrice": null,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "leyla-farhadi",
+      "categories": [
+        "engineering",
+        "high-tech",
+        "data-ai"
+      ],
+      "related": [
+        "digital-twin-operations",
+        "smart-grid-operations",
+        "process-safety-leadership",
+        "battery-manufacturing-quality",
+        "advanced-materials-testing"
+      ],
+      "publishedAt": "2026-03-11"
+    },
+    {
+      "id": "lpg-patent-landscape",
+      "title": "Sıvılaştırılmış Petrol Gazı Patent Görünümü Raporu",
+      "summary": "Patentlerin nerede yoğunlaştığı, kimin başvurduğu ve bunun gaz işlemenin önümüzdeki on yılı için ne anlama geldiği.",
+      "date": "24 Şubat 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "Bir gaz işleme tesisi",
+      "tag": "energy-materials",
+      "mode": "online",
+      "about": [
+        "Patentlerin nerede yoğunlaştığı, kimin başvurduğu ve bunun gaz işlemenin önümüzdeki on yılı için ne anlama geldiği.",
+        "Patent verisi kamuya açık, devasa ve yöntemsiz neredeyse okunamaz. Bu kurs size bir yöntem verir: bir haritanın kapsamını belirlemek, savunma amaçlı başvuruları şirketin üzerine inşa etmeyi düşündüklerinden ayırmak ve yön gösteren bir kümeyi çıkmaz sokağa işaret edenden ayırt etmek."
+      ],
+      "price": 5000,
+      "compareAtPrice": 5410,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "omar-al-hashimi",
+      "categories": [
+        "engineering",
+        "business-management",
+        "energy-materials"
+      ],
+      "related": [
+        "patent-analytics-for-rnd",
+        "materials-for-harsh-environments",
+        "hydrogen-economy-fundamentals",
+        "energy-transition-strategy",
+        "semiconductor-supply-strategy"
+      ],
+      "publishedAt": "2026-02-24"
+    },
+    {
+      "id": "innovations-in-teamwork",
+      "title": "Sağlık Hizmetlerinde Ekip Çalışması Yenilikleri",
+      "summary": "Sağlık hizmeti bir ekip işidir. Danışmadaki görevliden hemşireye kadar her rol sonucun bir parçasını taşır.",
+      "date": "6 Şubat 2026",
+      "effort": "Haftada 4-6 saat",
+      "imageAlt": "İş başındaki sağlık ekipleri",
+      "tag": "health",
+      "mode": "on-site",
+      "about": [
+        "Sağlık hizmeti bir ekip işidir. Danışmadaki görevliden hemşireye kadar her rol sonucun bir parçasını taşır.",
+        "Kurs, bir hastayı kabulden taburcuya kadar izler ve sonucu iki rol arasındaki devrin belirlediği her noktada durur. Geriye kalan, kendi biriminizi okuma biçimidir: bilginin nerede kaybolduğu, kimin kimi beklediği ve bu boşlukların hangisinin bir süreç değişikliğiyle gerçekten kapanabileceği."
+      ],
+      "price": 4200,
+      "compareAtPrice": 4600,
+      "certificate": true,
+      "language": "İngilizce",
+      "instructor": "sara-koc",
+      "categories": [
+        "business-management",
+        "science-mathematics",
+        "health"
+      ],
+      "related": [
+        "clinical-data-governance",
+        "process-safety-leadership",
+        "supply-chain-resilience",
+        "industrial-ai-foundations",
+        "digital-twin-operations"
+      ],
+      "publishedAt": "2026-02-06"
     }
   ],
   "detail": {
