@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-import {routes} from "../../../../../app/routes.js";
+import {routes} from "../../../../../../app/routes.js";
 
 /* The block above the fold: the mark, the name, the promise, and the one button
    the page is built around.

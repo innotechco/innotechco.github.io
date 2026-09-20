@@ -1,12 +1,12 @@
 import {Link} from "react-router-dom";
 
-import ContentSkeleton, {SkeletonStatus} from "../../../../../shared/components/ui/ContentSkeleton.jsx";
-import RemoteImage from "../../../../../shared/components/ui/RemoteImage.jsx";
-import {buildLatestNewsFromPost, getArticlePath} from "../../../../../shared/content/blogSections.js";
-import {t} from "../../../../../shared/i18n/ui.js";
-import {useBlogPosts} from "../../../../../shared/hooks/useBlogPosts.js";
-import useCarousel from "../../../../../shared/hooks/useCarousel.js";
-import CarouselArrow from "../../../components/CarouselArrow.jsx";
+import ContentSkeleton, {SkeletonStatus} from "../../../../../../shared/components/ui/ContentSkeleton.jsx";
+import RemoteImage from "../../../../../../shared/components/ui/RemoteImage.jsx";
+import {buildLatestNewsFromPost, getArticlePath} from "../../../../../../shared/content/blogSections.js";
+import {t} from "../../../../../../shared/i18n/ui.js";
+import {useBlogPosts} from "../../../../../../shared/hooks/useBlogPosts.js";
+import useCarousel from "../../../../../../shared/hooks/useCarousel.js";
+import CarouselArrow from "../../../../components/CarouselArrow.jsx";
 
 const EVENT_COUNT = 3;
 

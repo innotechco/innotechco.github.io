@@ -1,4 +1,4 @@
-import {useContactAction} from "../../../../../app/providers/contact-actions/useContactAction.js";
+import {useContactAction} from "../../../../../../app/providers/contact-actions/useContactAction.js";
 
 /* "Learn more about our learning solutions": the four sentences on the left,
    the photograph on the right, and the button that opens the site's own contact

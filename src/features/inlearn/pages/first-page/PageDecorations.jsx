@@ -1,5 +1,5 @@
-import {arcSize} from "../inlearn.config.js";
-import useMediaQuery from "../hooks/useMediaQuery.js";
+import {arcSize} from "../../inlearn.config.js";
+import useMediaQuery from "../../hooks/useMediaQuery.js";
 
 /* Draws the arcs behind the first page from the numbers in inlearn.config.js.
 

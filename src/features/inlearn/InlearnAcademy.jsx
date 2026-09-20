@@ -1,12 +1,12 @@
 import {useEffect, useRef, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 
-import AllCoursesPage from "./all-courses/AllCoursesPage.jsx";
-import CoursePage from "./course/CoursePage.jsx";
-import AuthSidebar from "./components/AuthSidebar.jsx";
-import FirstPage from "./first-page/FirstPage.jsx";
-import InlearnNavbar from "./components/InlearnNavbar.jsx";
-import InlearnToast from "./components/InlearnToast.jsx";
+import AllCoursesPage from "./pages/all-courses/AllCoursesPage.jsx";
+import CoursePage from "./pages/course/CoursePage.jsx";
+import AuthSidebar from "./auth/AuthSidebar.jsx";
+import FirstPage from "./pages/first-page/FirstPage.jsx";
+import InlearnNavbar from "./shell/InlearnNavbar.jsx";
+import InlearnToast from "./shell/InlearnToast.jsx";
 import {getBasketCount, subscribeToBasket} from "./services/basket.js";
 import {getInlearnCourses} from "./inlearnContent.js";
 import {restoreSession} from "./services/authService.js";

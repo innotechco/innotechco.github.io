@@ -1,4 +1,4 @@
-import {getInlearnFirstPage} from "../inlearnContent.js";
+import {getInlearnFirstPage} from "../../inlearnContent.js";
 import PageDecorations from "./PageDecorations.jsx";
 import HeroSection from "./sections/hero/HeroSection.jsx";
 import LearningSolutionsSection from "./sections/learning-solutions/LearningSolutionsSection.jsx";

@@ -11,9 +11,9 @@ import {
   GlobeIcon,
   LanguageIcon,
   TagIcon,
-} from "../components/icons.jsx";
-import {getInlearnCourse} from "../inlearnContent.js";
-import {routes} from "../../../app/routes.js";
+} from "../../components/icons.jsx";
+import {getInlearnCourse} from "../../inlearnContent.js";
+import {routes} from "../../../../app/routes.js";
 
 /* One course, at its own address.
 

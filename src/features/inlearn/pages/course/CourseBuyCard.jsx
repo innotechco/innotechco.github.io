@@ -1,7 +1,7 @@
 import {useSyncExternalStore} from "react";
 
 import Price from "./CoursePrice.jsx";
-import {addToBasket, isInBasket, subscribeToBasket} from "../services/basket.js";
+import {addToBasket, isInBasket, subscribeToBasket} from "../../services/basket.js";
 
 /* The picture, the price and the one button the page is built around.
 

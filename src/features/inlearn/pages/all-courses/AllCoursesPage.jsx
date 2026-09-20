@@ -1,11 +1,11 @@
 import {useEffect, useMemo, useRef, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 
-import CourseCard from "../components/CourseCard.jsx";
+import CourseCard from "../../components/CourseCard.jsx";
 import CourseTags from "./CourseTags.jsx";
-import useMediaQuery from "../hooks/useMediaQuery.js";
-import {routes} from "../../../app/routes.js";
-import {getInlearnCourses} from "../inlearnContent.js";
+import useMediaQuery from "../../hooks/useMediaQuery.js";
+import {routes} from "../../../../app/routes.js";
+import {getInlearnCourses} from "../../inlearnContent.js";
 
 /* How many cards stand side by side, and how many the page shows before the
    visitor asks for more. The widest entry that matches wins, so the list is

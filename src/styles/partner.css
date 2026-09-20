@@ -1,0 +1,50 @@
+
+.partner-tools-card {
+  will-change: opacity, transform;
+}
+
+.partner-tools-card h3,
+.partner-tools-card p {
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  max-width: 100%;
+  margin: 0;
+}
+
+.partner-tools-card h3 {
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem) !important;
+  line-height: 1.2 !important;
+}
+
+.partner-tools-card p {
+  font-size: clamp(0.75rem, 1vw, 0.9rem) !important;
+  line-height: 1.4 !important;
+}
+
+.partner-tools-track--animating {
+  position: relative;
+  overflow: visible;
+  display: block;
+}
+
+.partner-tools-track--animating .partner-tools-card {
+  position: absolute;
+  left: var(--partner-tools-from-left);
+  top: var(--partner-tools-from-top);
+  width: var(--partner-tools-width);
+  height: var(--partner-tools-height);
+  opacity: var(--partner-tools-from-opacity, 1);
+  pointer-events: none;
+  animation: partner-tools-card-shift 680ms cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes partner-tools-card-shift {
+  to {
+    left: var(--partner-tools-to-left);
+    opacity: var(--partner-tools-to-opacity, 1);
+  }
+}

@@ -1,10 +1,10 @@
 import {useEffect, useRef, useState} from "react";
 
-import CarouselArrow from "../components/CarouselArrow.jsx";
-import CourseCard from "../components/CourseCard.jsx";
-import useCarousel from "../../../shared/hooks/useCarousel.js";
-import useMediaQuery from "../hooks/useMediaQuery.js";
-import {routes} from "../../../app/routes.js";
+import CarouselArrow from "../../components/CarouselArrow.jsx";
+import CourseCard from "../../components/CourseCard.jsx";
+import useCarousel from "../../../../shared/hooks/useCarousel.js";
+import useMediaQuery from "../../hooks/useMediaQuery.js";
+import {routes} from "../../../../app/routes.js";
 
 /* The row under a course: more courses, and it never runs out.
 

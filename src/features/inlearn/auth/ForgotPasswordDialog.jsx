@@ -8,7 +8,7 @@ import {
   checkRequired,
   firstProblem,
 } from "../services/formValidation.js";
-import {useNoAutofill} from "../hooks/useNoAutofill.js";
+import {useNoAutofill} from "./useNoAutofill.js";
 import AutofillDecoys from "./AutofillDecoys.jsx";
 import PasswordField from "./PasswordField.jsx";
 

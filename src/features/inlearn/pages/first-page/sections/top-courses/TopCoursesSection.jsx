@@ -1,10 +1,10 @@
 import {Link} from "react-router-dom";
 
-import CarouselArrow from "../../../components/CarouselArrow.jsx";
-import CourseCard from "../../../components/CourseCard.jsx";
-import {routes} from "../../../../../app/routes.js";
-import useCarousel from "../../../../../shared/hooks/useCarousel.js";
-import useMediaQuery from "../../../hooks/useMediaQuery.js";
+import CarouselArrow from "../../../../components/CarouselArrow.jsx";
+import CourseCard from "../../../../components/CourseCard.jsx";
+import {routes} from "../../../../../../app/routes.js";
+import useCarousel from "../../../../../../shared/hooks/useCarousel.js";
+import useMediaQuery from "../../../../hooks/useMediaQuery.js";
 
 /* How many cards stand side by side, and where each count begins. The widest
    entry that matches wins, so the list is read from the bottom up.

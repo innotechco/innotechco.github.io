@@ -1,0 +1,35 @@
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 112px;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background: #050505;
+  color: #ffffff;
+  font-family: var(--font-gotham);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(55, 180, 120, 0.25);
+  color: white;
+}
+
+.search-result-highlight {
+  border-radius: 12px;
+  background: rgba(55, 180, 120, 0.28);
+  box-shadow: 0 0 0 6px rgba(55, 180, 120, 0.22);
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
