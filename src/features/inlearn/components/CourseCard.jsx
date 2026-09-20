@@ -29,14 +29,19 @@ function CourseCard({
      would reload the whole application to show a page it already has. */
   to,
   isVisible = false,
-  /* "row" is the first page's carousel, as drawn: the picture, the words, and
-     a Read more that grows out of its own circle.
+  /* "row" is the first page's carousel; "grid" is All Courses.
 
-     "grid" is All Courses, which adds the two controls in the corner and the
-     line saying how the course is taught. They are not in the row's design, and
-     a card that quietly grows a third line would push the row's dates out of
-     alignment with each other. */
+     What the layout still decides on its own is the third line under the title
+     - the one saying how the course is taught. A card that quietly grows a
+     third line would push the row's dates out of alignment with each other, so
+     only the grid gets it. */
   layout = "row",
+  /* The bookmark and share panel in the picture's corner. It follows the
+     layout by default, because the grid is where it was first drawn, but it is
+     its own prop: the two were a single flag until the first page's row was
+     asked for the panel without the third line, and one flag could not say
+     that. */
+  showActions,
   labels,
   onSave,
   onShare,
@@ -45,7 +50,8 @@ function CourseCard({
   const Wrapper = to ? Link : "article";
   const linkProps = to ? {to} : {};
   const {position, handlers} = usePointerGlow();
-  const hasActions = layout === "grid";
+  const isGrid = layout === "grid";
+  const hasActions = showActions ?? isGrid;
 
   return (
     <Wrapper
@@ -162,7 +168,7 @@ function CourseCard({
               <span>{course.effort}</span>
             </li>
           ) : null}
-          {hasActions && course.modeLabel ? (
+          {isGrid && course.modeLabel ? (
             <li>
               {/* The mark follows the meaning: a place for a course taught in
                   one, a globe for one taught over the network. */}

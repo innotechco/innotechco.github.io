@@ -76,6 +76,12 @@ function TopCoursesSection({topCourses}) {
               >
                 <CourseCard
                   course={course}
+                  /* The same bookmark and share panel All Courses draws. The
+                     third meta line stays off here: this row is the "row"
+                     layout, and a third line would push the cards' dates out
+                     of line with each other. */
+                  showActions
+                  labels={{save: topCourses.save, share: topCourses.share}}
                   /* Same destination as everywhere else: the course's own
                      page. The row is the newest eight, and this is how a
                      visitor gets from one of them to the whole thing. */

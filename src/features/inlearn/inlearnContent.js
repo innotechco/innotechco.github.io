@@ -123,6 +123,12 @@ export function getInlearnFirstPage() {
     ...page,
     topCourses: {
       ...page.topCourses,
+      /* The corner controls say the same two words here as they do on All
+         Courses, so they are taken from the catalogue rather than written into
+         first-page.json as well - one owner, and a translator edits one line
+         per locale instead of two. */
+      save: catalogue.save,
+      share: catalogue.share,
       /* The newest eight in the catalogue - that is what the row on the first
          page means. Which eight is a decision, so it lives here rather than in
          the section that draws them. */
