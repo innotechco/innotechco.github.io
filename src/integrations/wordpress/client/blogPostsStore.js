@@ -27,8 +27,12 @@ function loadCached(store, locale, loader) {
  * they always agree on content and ordering. Entries expire after one minute so
  * a newly published post shows up on the next fetch instead of a stale cache.
  */
-export function loadBlogPosts(locale = getActiveLocale()) {
-  return loadCached(cache, locale, () => fetchWordPressPosts({locale}));
+export function loadBlogPosts(locale = getActiveLocale(), limit) {
+  /* Keyed by the count as well as the locale. A page that wants four posts and
+     a page that wants all of them are two different answers, and handing the
+     second the first one's cached four would quietly empty the archive. */
+  const key = limit ? `${locale}:${limit}` : locale;
+  return loadCached(cache, key, () => fetchWordPressPosts({locale, limit}));
 }
 
 /**

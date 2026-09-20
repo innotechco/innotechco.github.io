@@ -19,7 +19,13 @@ import {useLanguage} from "../../app/providers/language/useLanguage.js";
  * With the blog disabled there is nothing to wait for, so the hook starts out
  * "ready" rather than flashing a skeleton for one frame.
  */
-export function useBlogPosts() {
+/*
+ * `limit` is how many posts the caller will actually draw. A section showing
+ * three cards asks for three: the request is an order of magnitude smaller and
+ * arrives in a third of the time. Leave it out to get every post, which is what
+ * the archive, What We Think and the industry pages need in order to filter.
+ */
+export function useBlogPosts({limit} = {}) {
   const {locale} = useLanguage();
   const [state, setState] = useState(() => ({
     posts: [],
@@ -33,7 +39,7 @@ export function useBlogPosts() {
 
     let isActive = true;
 
-    loadBlogPosts(locale)
+    loadBlogPosts(locale, limit)
       .then((posts) => {
         if (isActive) setState({posts: orderPosts(posts ?? []), status: "ready"});
       })
@@ -44,7 +50,7 @@ export function useBlogPosts() {
     return () => {
       isActive = false;
     };
-  }, [locale]);
+  }, [locale, limit]);
 
   return useMemo(() => state, [state]);
 }

@@ -2,6 +2,7 @@ import {useMemo, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 
 import {useTheme} from "../../app/providers/theme/useTheme.js";
+import RemoteImage from "../../shared/components/ui/RemoteImage.jsx";
 import SearchIcon from "../../shared/assets/icons/search.svg";
 import {decorationsBackgroundLight as ArchiveLightDecoration} from "./archives.assets.js";
 import {decorationsBackgroundDark as ArchiveDarkDecoration} from "./archives.assets.js";
@@ -72,12 +73,16 @@ function ArchiveCard({item, isDarkMode, selectedCategory, categoryLabels}) {
         to={getArticlePath(item.slug || item.id) ?? "#"}
       >
         <div className="archive-card-image">
-          <img
+          {/* Through RemoteImage, like every other card that shows a CMS
+              picture: WordPress serves the PNG the editor uploaded, and the
+              archive draws a lot of them at once. */}
+          <RemoteImage
             className="article-card-image-crop"
             src={item.image}
+            srcSet={item.imageSrcSet}
+            sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw"
             alt=""
             aria-hidden="true"
-            loading="lazy"
           />
         </div>
         <div className="archive-card-copy">

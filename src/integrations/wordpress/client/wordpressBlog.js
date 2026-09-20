@@ -341,17 +341,39 @@ function normalizePost(post) {
   };
 }
 
-function buildPostsUrl({slug, locale} = {}) {
+/* Everything a CARD needs, and nothing else.
+
+   content.rendered - the whole article body - is deliberately absent. It is
+   43% of a post's payload, and asking for fifty of them was 559KB on every
+   page of the site, including pages that never show an article body at all.
+
+   _links has to stay: it is what _embed hangs the featured image and the
+   category terms off, and without it a card loses its picture. */
+const CARD_FIELDS = "id,slug,link,date,title,excerpt,meta,categories,_links";
+
+/* The article page asks for the body as well, for one post at a time. */
+const ARTICLE_FIELDS = `${CARD_FIELDS},content`;
+
+/* `limit`      how many posts. Cards want a handful; the archive wants all.
+   `withContent`  only the article page, and only for the post it is showing.
+   `include`    specific post ids, for the related row - ordered by the caller,
+                because WordPress returns them by date. */
+function buildPostsUrl({slug, locale, limit, withContent = false, include} = {}) {
   const baseUrl = getBaseUrl();
   if (!baseUrl || !isBlogEnabled()) return null;
 
   const url = new URL("/wp-json/wp/v2/posts", `${baseUrl}/`);
   url.searchParams.set("_embed", "1");
-  url.searchParams.set("per_page", import.meta.env.VITE_CMS_BLOG_PER_PAGE || DEFAULT_BLOG_PER_PAGE);
+  url.searchParams.set("_fields", withContent ? ARTICLE_FIELDS : CARD_FIELDS);
+  url.searchParams.set(
+    "per_page",
+    String(limit ?? import.meta.env.VITE_CMS_BLOG_PER_PAGE ?? DEFAULT_BLOG_PER_PAGE),
+  );
   url.searchParams.set("orderby", "date");
   url.searchParams.set("order", "desc");
   url.searchParams.set("lang", normalizeLocale(locale));
   if (slug) url.searchParams.set("slug", slug);
+  if (include?.length) url.searchParams.set("include", include.join(","));
   return url.toString();
 }
 
@@ -405,13 +427,31 @@ export async function fetchWordPressPosts(options = {}) {
     .map(normalizePost);
 }
 
+/* One article, with its body, plus the handful it points at.
+
+   This used to pull the whole list and search it - which is why the body of
+   every post had to be in that list, and why a visitor reading one article
+   downloaded fifty of them. Now it asks for the one it is showing, and then
+   for the two or three it links to, as cards.
+
+   Two small requests instead of one large one, and the large one is no longer
+   large for everybody else either. */
 export async function fetchWordPressPost(slug, options = {}) {
-  const posts = await fetchWordPressPosts(options);
-  const article = posts?.find((post) => post.slug === slug);
+  const posts = await fetchWordPressPosts({...options, slug, limit: 1, withContent: true});
+  const article = posts?.[0];
   if (!article) return null;
 
-  const relationshipRelated = (article.relatedPostIds ?? [])
-    .map((relatedId) => posts.find((post) => Number(post.wpId) === Number(relatedId)))
+  const relatedIds = article.relatedPostIds ?? [];
+  /* No request at all when the editor picked nothing. */
+  const relatedPool = relatedIds.length
+    ? (await fetchWordPressPosts({...options, include: relatedIds, limit: relatedIds.length})) ?? []
+    : [];
+
+  /* Mapped over the editor's ids rather than over what came back, because the
+     order the editor chose is the order the cards appear in - and WordPress
+     returns them by date. */
+  const relationshipRelated = relatedIds
+    .map((relatedId) => relatedPool.find((post) => Number(post.wpId) === Number(relatedId)))
     .filter(Boolean);
   return {
     ...article,
@@ -422,6 +462,10 @@ export async function fetchWordPressPost(slug, options = {}) {
       date: post.date,
       readTime: post.readTime,
       image: post.image,
+      /* The renditions WordPress already made. Without this the related card
+         falls back to whatever the editor uploaded, which is the full-size
+         PNG - the same thing that made these cards sit empty. */
+      imageSrcSet: post.imageSrcSet,
     })),
   };
 }

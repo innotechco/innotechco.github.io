@@ -1,4 +1,5 @@
 import {t} from "../../../shared/i18n/ui.js";
+import RemoteImage from "../../../shared/components/ui/RemoteImage.jsx";
 
 function ArrowIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.6 19 12 5 20.4V3.6Z" fill="currentColor" /></svg>;
@@ -17,10 +18,11 @@ function RelatedNews({article}) {
           >
             <div className="related-card-image">
               {item.image ? (
-                <img
+                <RemoteImage
                   className="article-card-image-crop"
-                  loading="lazy"
                   src={item.image}
+                  srcSet={item.imageSrcSet}
+                  sizes="(max-width: 767px) 100vw, 33vw"
                   alt=""
                   aria-hidden="true"
                 />

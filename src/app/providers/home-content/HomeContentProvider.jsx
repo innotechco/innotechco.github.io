@@ -8,7 +8,10 @@ import {
   buildLiveInsightCards,
 } from "../../../shared/content/blogSections.js";
 import {useBlogPosts} from "../../../shared/hooks/useBlogPosts.js";
-import {HOME_LIVE_INSIGHTS_START_INDEX} from "../../../shared/config/articleCards.config.js";
+import {
+  HOME_LIVE_INSIGHTS_START_INDEX,
+  LIVE_INSIGHTS_CARD_COUNT,
+} from "../../../shared/config/articleCards.config.js";
 import {
   fetchWordPressHomeHero,
   isHomeHeroEnabled,
@@ -17,7 +20,13 @@ import {
 export function HomeContentProvider({children}) {
   const {locale} = useLanguage();
   const fallbackContent = useMemo(() => getHomePage(), []);
-  const {posts, status: postsStatus} = useBlogPosts();
+  /* One post for "Our latest news" and the three after it for Live Insights -
+     that is the whole of the home page's appetite, and it is written from the
+     two constants that decide it rather than as a number that could drift
+     away from them. */
+  const {posts, status: postsStatus} = useBlogPosts({
+    limit: HOME_LIVE_INSIGHTS_START_INDEX + LIVE_INSIGHTS_CARD_COUNT,
+  });
   const [state, setState] = useState({
     content: fallbackContent,
     source: "local",
