@@ -3,7 +3,11 @@
   --inlearn-black: #050505;
   --inlearn-muted: #83838b;
   min-height: 100vh;
-  background: #f5f5f3;
+  /* White, not the off-white it started as. Everything that sits on this page
+     in white - the arrows, the select, the dialog, the discount field - was
+     already drawn with a border or a shadow, so nothing lost its edge when the
+     background came up to meet it. */
+  background: #ffffff;
   color: #050505;
   font-family: var(--font-gotham);
 }

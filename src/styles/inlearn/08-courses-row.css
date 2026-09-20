@@ -56,13 +56,20 @@
   display: grid;
   width: 42px;
   height: 42px;
-  /* A hairline of white rather than no edge at all: on the page's off-white
-     background it reads as a disc the arrow sits in, without drawing a ring
-     around itself the way a grey border would. */
-  border: 1px solid #fff;
+  /* No ring. The design wants the arrow to read as a disc lifted off the page
+     rather than a circle drawn on it, so the edge is shadow rather than
+     border.
+
+     This used to be a white hairline, which worked only while the page behind
+     it was off-white. The page is white now, and a white edge on white is no
+     edge - so the depth comes from the shadow, and there are two: a tight one
+     that stands in for the missing hairline, and a soft one that lifts it. */
+  border: none;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 2px 10px rgb(5 5 5 / 6%);
+  box-shadow:
+    0 0 0 1px rgb(5 5 5 / 7%),
+    0 2px 12px rgb(5 5 5 / 10%);
   color: var(--inlearn-black);
   cursor: pointer;
   place-items: center;

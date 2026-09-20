@@ -138,11 +138,24 @@ export function getInlearnBasket(lines) {
     .map((line) => byId.get(line.id))
     .filter(Boolean);
 
+  const subtotal = items.reduce((sum, course) => sum + (course.price ?? 0), 0);
+
+  /* Tax is zero and has a line of its own from the first day.
+
+     It is written as a number here rather than left out, because a total that
+     grows a new row later is a layout nobody has looked at; one that starts
+     with the row and changes the figure is a number. When tax becomes real it
+     arrives from the CMS - by rate, most likely by region - and this is the
+     one line that changes. */
+  const tax = 0;
+
   return {
     copy,
     items,
     currency: catalogue.currency,
-    total: items.reduce((sum, course) => sum + (course.price ?? 0), 0),
+    subtotal,
+    tax,
+    grandTotal: subtotal + tax,
   };
 }
 

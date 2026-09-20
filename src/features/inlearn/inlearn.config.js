@@ -143,7 +143,7 @@ export const inlearnConfig = {
       topLeft: {
         src: firstPageArcTopLeft,
         top: "-30vw",
-        left: "-38vw",
+        left: "-30vw",
         rotate: "0deg",
         flipX: false,
         flipY: false,
@@ -162,7 +162,7 @@ export const inlearnConfig = {
            Its width stays in vw: the arc should still get smaller with the
            window, it should just stop wandering up and down while it does. */
         top: "520px",
-        right: "-26vw",
+        right: "-10vw",
         rotate: "0deg",
         flipX: false,
         flipY: false,

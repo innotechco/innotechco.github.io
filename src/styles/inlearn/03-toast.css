@@ -56,7 +56,7 @@
   text-overflow: ellipsis;
 }
 
-.inlearn-toast button {
+.inlearn-toast button:not(.inlearn-toast-action) {
   display: flex;
   width: 22px;
   height: 22px;
@@ -73,13 +73,47 @@
     background 160ms ease;
 }
 
-.inlearn-toast button:hover {
+.inlearn-toast button:not(.inlearn-toast-action):hover {
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
 }
 
-.inlearn-toast button svg {
+.inlearn-toast button:not(.inlearn-toast-action) svg {
   width: 10px;
   height: 10px;
 }
 
+/* ---- the one action a toast can carry ------------------------------------
+
+   The basket's Undo. It is a button inside the toast, so it used to be caught
+   by the dismiss button's rules above - 22px square, flex: 0 0 22px - which
+   squashed its label into a wide flat ellipse on hover. Those rules now say
+   which button they mean, and this one says its own size.
+
+   Sized in text rather than in pixels: the label is a word, and a word is a
+   different length in three languages. */
+.inlearn-toast-action {
+  flex: 0 0 auto;
+  width: auto;
+  height: 30px;
+  padding: 0 14px;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 999px;
+  background: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.inlearn-toast-action:hover {
+  border-color: #fff;
+  background: rgb(255 255 255 / 14%);
+}
+
+.inlearn-toast-action:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}

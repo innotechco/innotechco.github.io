@@ -19,7 +19,7 @@ import {routes} from "../../../../app/routes.js";
    reading, never for charging. */
 function CheckoutPage() {
   const lines = useSyncExternalStore(subscribeToBasket, getBasket, getServerBasket);
-  const {copy, items, currency, total} = getInlearnBasket(lines);
+  const {copy, items, currency, grandTotal} = getInlearnBasket(lines);
 
   return (
     <div className="inlearn-basket inlearn-checkout">
@@ -40,9 +40,9 @@ function CheckoutPage() {
           </ul>
 
           <dl className="inlearn-basket-total inlearn-checkout-total">
-            <dt>{copy.total}</dt>
-            <dd>
-              <Price amount={total} currency={currency} className="is-large" />
+            <dt className="is-grand">{copy.grandTotal}</dt>
+            <dd className="is-grand">
+              <Price amount={grandTotal} currency={currency} className="is-large" />
             </dd>
           </dl>
         </>

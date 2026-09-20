@@ -25,7 +25,7 @@ import {routes} from "../../../../app/routes.js";
    is a price a visitor can edit. */
 function BasketPage({onToast}) {
   const lines = useSyncExternalStore(subscribeToBasket, getBasket, getServerBasket);
-  const {copy, items, currency, total} = getInlearnBasket(lines);
+  const {copy, items, currency, subtotal, tax, grandTotal} = getInlearnBasket(lines);
   const navigate = useNavigate();
 
   /* Discount codes have no server to check them against yet, so the field is
@@ -131,13 +131,22 @@ function BasketPage({onToast}) {
           </button>
         </div>
 
-        {/* One line. There is nothing to deliver and nothing to add on, so a
-            subtotal that always equals the total would be a row that never
-            says anything. */}
+        {/* Three lines, and the tax one is here from the start even though it
+            is zero: a row that appears later is a layout nobody has checked. */}
         <dl className="inlearn-basket-total">
-          <dt>{copy.total}</dt>
+          <dt>{copy.subtotal}</dt>
           <dd>
-            <Price amount={total} currency={currency} className="is-large" />
+            <Price amount={subtotal} currency={currency} />
+          </dd>
+
+          <dt>{copy.tax}</dt>
+          <dd>
+            <Price amount={tax} currency={currency} />
+          </dd>
+
+          <dt className="is-grand">{copy.grandTotal}</dt>
+          <dd className="is-grand">
+            <Price amount={grandTotal} currency={currency} className="is-large" />
           </dd>
         </dl>
       </div>

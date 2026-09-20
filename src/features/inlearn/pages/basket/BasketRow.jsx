@@ -21,12 +21,6 @@ function BasketRow({course, currency, copy, onRemove}) {
       <div className="inlearn-basket-info">
         <div className="inlearn-basket-media">
           <img src={course.image} alt={course.imageAlt || ""} loading="lazy" />
-          {/* Only when there is something to compare against - the same test
-              the price itself uses, so the badge and the struck-through number
-              can never disagree. */}
-          {typeof course.compareAtPrice === "number" && course.compareAtPrice > course.price ? (
-            <span className="inlearn-basket-sale">{copy.sale}</span>
-          ) : null}
         </div>
 
         <div className="inlearn-basket-text">
@@ -43,8 +37,16 @@ function BasketRow({course, currency, copy, onRemove}) {
         </div>
       </div>
 
+      {/* Stacked rather than side by side: the design puts the old price
+          under the new one, and in a narrow column two prices on one line are
+          what pushes the row out of shape. */}
       <div className="inlearn-basket-price">
-        <Price amount={course.price} compareAt={course.compareAtPrice} currency={currency} />
+        <Price
+          amount={course.price}
+          compareAt={course.compareAtPrice}
+          currency={currency}
+          className="is-stacked"
+        />
       </div>
 
       {/* Named for a screen reader by the course it removes, so a page of these
