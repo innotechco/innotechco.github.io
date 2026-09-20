@@ -3,16 +3,16 @@
 
   A drawing rather than a stock photograph, on purpose: a placeholder that looks
   like a real person is one nobody notices is still a placeholder, and it ends
-  up shipped. It is dark and desaturated because the portraits in the design are
-  dark and desaturated, so the block sits in the page at the weight the real
-  photograph will - a pale grey box next to black type reads as a hole.
+  up shipped.
 
-  Drop a real portrait in this folder, export it from inlearn.assets.js, and
-  name it on that instructor's line in inlearn.config.js. The stylesheet rounds
-  it to the same squircle, so nothing here has to be cut to shape first.
+  A plain rectangle here, deliberately. The shape of the frame - straight down
+  the left, a half circle on the right - is the stylesheet's, so the real
+  photograph is cut to exactly the same outline without anyone having to prepare
+  it first. Drop one in this folder, export it from inlearn.assets.js, and name
+  it on that instructor's line in inlearn.config.js.
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-hidden="true">
-  <rect width="120" height="120" rx="38" fill="#26262a" />
-  <circle cx="60" cy="48" r="18" fill="#6f6f78" />
-  <path d="M24 108c0-19 16-30 36-30s36 11 36 30v12H24Z" fill="#6f6f78" />
+  <rect width="120" height="120" fill="#e7e7e4" />
+  <circle cx="60" cy="47" r="19" fill="#c3c3bd" />
+  <path d="M22 106c0-20 17-32 38-32s38 12 38 32v14H22Z" fill="#c3c3bd" />
 </svg>

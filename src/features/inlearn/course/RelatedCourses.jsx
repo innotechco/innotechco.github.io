@@ -26,7 +26,12 @@ import {routes} from "../../../app/routes.js";
    makes both directions work from the first press, and a short list against a
    wide row needs more than three - see copiesFor(). */
 const PER_VIEW = [
-  {query: "(min-width: 1024px)", cards: 4},
+  /* Four only where there is a mouse or a trackpad, not merely where the window
+     is wide. An iPad Pro is 1032 points across and is a tablet: on width alone
+     it was being handed the monitor's four-in-a-row with no arrows, which is
+     the one arrangement a tablet must not get. The pointer is the honest test
+     for "this is a laptop or a monitor"; the width is not. */
+  {query: "(min-width: 1024px) and (hover: hover) and (pointer: fine)", cards: 4},
   {query: "(min-width: 640px)", cards: 3},
 ];
 const PER_VIEW_ON_PHONE = 2;
@@ -60,15 +65,14 @@ function RelatedCourses({courses, labels}) {
     : PER_VIEW_ON_PHONE;
 
   const count = courses?.length ?? 0;
-  /* Two is enough to loop. It used to be "more courses than fit on screen",
-     and that was the bug: four related courses with four in view is the ordinary
-     case on a monitor, and there the row could not move at all - both arrows
-     were live and pressing them did nothing.
+  /* There are four related courses. On a monitor all four are on screen, so
+     there is nothing to scroll and no carousel: no arrows, no loop, four cards
+     in a row. The arrows appear where the row cannot hold them all - three at a
+     time on a tablet, two on a phone - and there it turns for ever.
 
-     A row that shows everything it has can still turn: pressing the arrow moves
-     it by one and the card that left comes back round the other side, which is
-     what makes it a carousel rather than a strip. */
-  const canLoop = count > 1;
+     A control that is there but cannot do anything is worse than no control:
+     it is pressed, nothing happens, and the page looks broken. */
+  const canLoop = count > perView;
 
   const {index, viewportRef, step, handlers} = useCarousel(count, perView, {
     loop: canLoop,
@@ -132,8 +136,10 @@ function RelatedCourses({courses, labels}) {
         {labels.related}
       </h2>
 
-      <div className="inlearn-courses-row">
-        <RelatedArrow direction="prev" label={labels.previous} onClick={() => step(-1)} />
+      <div className={`inlearn-courses-row${canLoop ? "" : " is-static"}`}>
+        {canLoop ? (
+          <RelatedArrow direction="prev" label={labels.previous} onClick={() => step(-1)} />
+        ) : null}
 
         <div className="inlearn-courses-viewport" ref={viewportRef} {...handlers}>
           <div
@@ -169,7 +175,9 @@ function RelatedCourses({courses, labels}) {
           </div>
         </div>
 
-        <RelatedArrow direction="next" label={labels.next} onClick={() => step(1)} />
+        {canLoop ? (
+          <RelatedArrow direction="next" label={labels.next} onClick={() => step(1)} />
+        ) : null}
       </div>
     </section>
   );

@@ -3280,10 +3280,14 @@
   width: clamp(64px, 6.5vw, 84px);
   height: clamp(64px, 6.5vw, 84px);
   flex: none;
-  /* A squircle, as drawn - a rounded square with a large radius, not a circle.
-     A proportion rather than a fixed radius, so the corner keeps its shape as
-     the picture grows with the window. */
-  border-radius: 32%;
+  /* Straight down the left, a half circle on the right - the shape in the
+     design, and not a circle or a squircle.
+
+     Four values, one per corner, clockwise from the top left: the two on the
+     left barely rounded so that edge reads as straight, the two on the right at
+     half the box so they meet in the middle and close the curve. Percentages,
+     so the shape holds as the picture grows with the window. */
+  border-radius: 16% 50% 50% 16%;
   object-fit: cover;
   background: #e7e7e4;
 }
@@ -3433,6 +3437,12 @@
    longer line up with the title above it. */
 .inlearn-related {
   padding: clamp(50px, 7vw, 90px) 0 clamp(70px, 9vw, 130px);
+}
+
+/* No arrows: the row holds everything it has, so the three-column layout above
+   would leave the cards in the narrow track meant for an arrow. */
+.inlearn-courses-row.is-static {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 /* The jump back into the middle copy. Everything else about the track is
