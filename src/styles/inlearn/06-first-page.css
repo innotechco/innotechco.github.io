@@ -1,0 +1,141 @@
+/* The page behind every section. overflow-x: clip rather than hidden: hidden
+   turns this into a scroll container, which quietly breaks any position: sticky
+   inside it, while clip only trims. The arcs hang past the right edge on
+   purpose and neither should put a horizontal scrollbar on the page. */
+.inlearn-first-page {
+  position: relative;
+  overflow-x: clip;
+}
+
+/* The arcs belong to the page, not to a section: the right one starts beside
+   the hero and ends level with the course list. Sized in vw so they keep their
+   proportion to the page rather than to the viewport height, which changes with
+   the browser chrome on a phone and would make them jump while scrolling. */
+.inlearn-first-page-decor {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Where each arc sits is set inline from inlearn.config.js - this only carries
+   what is true of all of them. */
+.inlearn-first-page-decor img {
+  position: absolute;
+  height: auto;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.inlearn-hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: min(760px, 88vh);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* The top padding clears the floating navbar, which is itself smaller on a
+     phone - so this is too, rather than holding a desktop-sized gap above a
+     phone-sized title. */
+  padding: clamp(104px, 20vw, 150px) clamp(18px, 6vw, 24px) clamp(56px, 11vw, 90px);
+  text-align: center;
+}
+
+.inlearn-hero-mark {
+  display: block;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 16px;
+  background: var(--inlearn-green);
+  -webkit-mask: url("../../shared/assets/brand/services/inlearn.svg") center / contain no-repeat;
+  mask: url("../../shared/assets/brand/services/inlearn.svg") center / contain no-repeat;
+}
+
+/* The floor is what matters on a phone: 5.6vw is 21px at 375, so the old floor
+   of 34 was the size that actually rendered there, and a 64px title reduced by
+   a third is still a desktop title on a 375px screen. Lowering the floor lets
+   the window have its say; the ceiling and the slope are untouched, so nothing
+   changes above it. */
+.inlearn-hero-title {
+  max-width: 14ch;
+  margin: 0;
+  font-size: clamp(26px, 5.6vw, 64px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+}
+
+/* Only the first syllable is green, and it is a span rather than ::first-letter
+   because the word is "IN", not "I". */
+.inlearn-hero-title-lead {
+  color: var(--inlearn-green);
+}
+
+.inlearn-hero-subtitle {
+  max-width: 18ch;
+  margin: 2px 0 0;
+  font-size: clamp(23px, 5vw, 58px);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+}
+
+.inlearn-hero-body {
+  max-width: 52ch;
+  margin: clamp(14px, 3vw, 20px) 0 0;
+  color: #55555c;
+  font-size: clamp(13px, 1.3vw, 17px);
+  line-height: 1.45;
+}
+
+.inlearn-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(140px, 42vw, 158px);
+  height: clamp(36px, 9vw, 40px);
+  margin-top: clamp(18px, 4vw, 24px);
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.inlearn-hero-cta:hover {
+  background: #2ea069;
+  transform: translateY(-1px);
+}
+
+/* The thin green ring that sits over the first letter of every section title.
+   Drawn rather than shipped as an image: it is one circle, and an image would
+   be a request and a file to keep in step with the type size. */
+.inlearn-section-title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding-left: 4px;
+  font-size: clamp(19px, 2.4vw, 30px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Sized from the heading rather than fixed: at 52px it was half again the
+   height of a 19px heading on a phone and read as a circle with a word in it. */
+.inlearn-section-title::before {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: clamp(-14px, -1.2vw, -9px);
+  width: clamp(36px, 4.4vw, 52px);
+  height: clamp(36px, 4.4vw, 52px);
+  border: 1px solid var(--inlearn-green);
+  border-radius: 50%;
+  content: "";
+  transform: translateY(-58%);
+}
+

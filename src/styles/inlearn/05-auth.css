@@ -1,0 +1,714 @@
+/* Above the navbar: the panel slides over the brand pill, and leaving the pill
+   sitting on top of it looked like a rendering mistake. */
+.inlearn-auth-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.inlearn-auth-layer.is-open {
+  pointer-events: auto;
+}
+
+.inlearn-auth-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.36);
+  opacity: 0;
+  cursor: default;
+  transition: opacity 260ms ease;
+}
+
+.inlearn-auth-layer.is-open .inlearn-auth-backdrop {
+  opacity: 1;
+}
+
+/* Flush to the left edge and the full height of the window: the panel is part
+   of the window frame, not a card floating on top of the page. */
+.inlearn-auth-sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: min(400px, 100vw);
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 48px 44px 44px;
+  background: #fff;
+  box-shadow: 15px 0 40px rgba(0, 0, 0, 0.14);
+  transform: translateX(-100%);
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  scrollbar-width: none;
+}
+
+.inlearn-auth-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.inlearn-auth-layer.is-open .inlearn-auth-sidebar {
+  transform: translateX(0);
+}
+
+.inlearn-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #050505;
+  font-weight: 800;
+}
+
+.inlearn-logo-dots {
+  display: grid;
+  grid-template-columns: repeat(2, 12px);
+  gap: 4px;
+}
+
+.inlearn-logo-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.inlearn-logo-text {
+  display: grid;
+  font-size: 10px;
+  line-height: 0.9;
+}
+
+.inlearn-logo-store {
+  align-self: center;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.inlearn-auth-heading {
+  margin-top: 38px;
+}
+
+.inlearn-auth-heading h2 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.inlearn-auth-heading p {
+  margin: 11px 0 0;
+  color: var(--inlearn-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.inlearn-auth-tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 44px;
+  margin-top: 30px;
+  border: 1px solid #d7d7d8;
+  border-radius: 999px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.inlearn-auth-tabs button {
+  position: relative;
+  z-index: 2;
+  border: 0;
+  background: transparent;
+  color: #8d8d92;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: color 220ms ease;
+}
+
+.inlearn-auth-tabs button[aria-selected="true"] {
+  color: #fff;
+}
+
+.inlearn-auth-tab-indicator {
+  position: absolute;
+  z-index: 1;
+  top: 3px;
+  width: calc(50% - 4px);
+  height: 38px;
+  border-radius: 999px;
+  background: #000;
+  transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inlearn-auth-tab-indicator.is-login {
+  transform: translateX(3px);
+}
+
+.inlearn-auth-tab-indicator.is-register {
+  transform: translateX(calc(100% + 5px));
+}
+
+.inlearn-auth-form {
+  margin-top: 20px;
+}
+
+/* The entry animation leaves a transform on this block, and a transform makes
+   a stacking context - so the Region menu's z-index only competes inside here,
+   and the checkbox below it painted on top. Raising the whole block puts the
+   open menu over everything that follows it. */
+/* The decoy pair an automatic fill lands in instead of the real fields. Moved
+   off-screen rather than hidden: a field with display:none or visibility:hidden
+   is skipped by autofill, and a decoy it skips is no decoy at all. */
+.inlearn-autofill-decoys {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Chrome runs an animation on any field it autofills. Naming one here is the
+   only way a page can be told that it happened: useNoAutofill listens for this
+   name starting and undoes the fill. The keyframes are deliberately empty -
+   nothing should move, the animation exists purely as a signal. */
+@keyframes inlearn-autofill-start {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.inlearn-auth-form input:-webkit-autofill,
+.inlearn-dialog input:-webkit-autofill {
+  animation-name: inlearn-autofill-start;
+  animation-duration: 1ms;
+}
+
+.inlearn-auth-fields {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 14px;
+  animation: inlearn-fields-in 240ms ease both;
+}
+
+/* Not the checkbox: its padding cannot be undone by a width, so it stretched
+   into a pill. */
+.inlearn-auth-form input:not([type="checkbox"]),
+.inlearn-auth-form select {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #d8d8da;
+  border-radius: 999px;
+  background: #fff;
+  color: #050505;
+  padding: 0 18px;
+  outline: none;
+  font-size: 13px;
+}
+
+/* Password and phone put something beside the input inside the same capsule.
+   The wrapper carries the border and the input goes transparent, so the pair
+   reads as one control and the focus ring surrounds both. */
+.inlearn-password-field,
+.inlearn-phone-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  border: 1px solid #d8d8da;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.inlearn-auth-form .inlearn-password-field input,
+.inlearn-auth-form .inlearn-phone-field input {
+  height: 100%;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.inlearn-password-field:focus-within,
+.inlearn-phone-field:focus-within {
+  border-color: var(--inlearn-green);
+  box-shadow: 0 0 0 3px rgba(55, 180, 120, 0.12);
+}
+
+.inlearn-auth-form .inlearn-password-field input {
+  padding-right: 46px;
+}
+
+.inlearn-password-reveal {
+  position: absolute;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #8a8a92;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.inlearn-password-reveal:hover {
+  color: #050505;
+  background: #f1f1f3;
+}
+
+.inlearn-phone-code {
+  flex: none;
+  padding-left: 18px;
+  padding-right: 10px;
+  color: #050505;
+  font-size: 13px;
+  /* A hairline rather than a gap: it says the code belongs to the number
+     without letting the eye read two separate fields. */
+  border-right: 1px solid #e6e6e9;
+  line-height: 1;
+}
+
+.inlearn-auth-form .inlearn-phone-field input {
+  padding-left: 12px;
+}
+
+.inlearn-phone-field.is-waiting .inlearn-phone-code {
+  color: #a2a2a8;
+}
+
+.inlearn-phone-field.is-waiting input {
+  cursor: not-allowed;
+}
+
+.inlearn-auth-form input:focus,
+.inlearn-auth-form select:focus {
+  border-color: var(--inlearn-green);
+  box-shadow: 0 0 0 3px rgba(55, 180, 120, 0.12);
+}
+
+.inlearn-auth-form input::placeholder {
+  color: #a2a2a8;
+}
+
+/* Same pill as the text fields beside it, so the row reads as one set. */
+.inlearn-select {
+  position: relative;
+}
+
+.inlearn-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #d8d8da;
+  border-radius: 999px;
+  background: #fff;
+  color: #050505;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.inlearn-select-trigger.is-placeholder {
+  color: #a2a2a8;
+}
+
+.inlearn-select-trigger:focus-visible,
+.inlearn-select.is-open .inlearn-select-trigger {
+  border-color: var(--inlearn-green);
+  box-shadow: 0 0 0 3px rgba(55, 180, 120, 0.12);
+  outline: none;
+}
+
+.inlearn-select-trigger svg {
+  width: 12px;
+  height: 8px;
+  flex: 0 0 12px;
+  color: #6f6f75;
+  transition: transform 200ms ease;
+}
+
+.inlearn-select.is-open .inlearn-select-trigger svg {
+  transform: rotate(180deg);
+}
+
+.inlearn-select-menu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 6px;
+  border: 1px solid #e4e4e6;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.14);
+  animation: inlearn-menu-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.inlearn-select-menu ul {
+  display: grid;
+  gap: 2px;
+  /* Roughly six rows, so the menu never runs off the panel. */
+  max-height: 232px;
+  margin: 0;
+  /* Room for the bar, so it never sits on the country names. */
+  padding: 0 4px 0 0;
+  overflow-y: auto;
+  list-style: none;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #d3d3d9 transparent;
+}
+
+/* The system scrollbar arrives wide and dark with stepper arrows, which reads
+   as an operating system control dropped into the panel. Chrome and Safari
+   take these instead; Firefox uses the two properties above. */
+.inlearn-select-menu ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+.inlearn-select-menu ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.inlearn-select-menu ul::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #d3d3d9;
+  transition: background 160ms ease;
+}
+
+.inlearn-select-menu ul::-webkit-scrollbar-thumb:hover {
+  background: #b4b4bc;
+}
+
+.inlearn-select-menu ul::-webkit-scrollbar-button {
+  display: none;
+}
+
+.inlearn-select-search {
+  width: 100%;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #e4e4e6;
+  border-radius: 12px;
+  background: #f7f7f8;
+  color: #050505;
+  outline: none;
+  font-size: 13px;
+}
+
+.inlearn-select-search:focus {
+  border-color: var(--inlearn-green);
+  background: #fff;
+}
+
+.inlearn-select-empty {
+  padding: 10px 14px;
+  color: var(--inlearn-muted);
+  font-size: 12px;
+}
+
+.inlearn-select-menu button {
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #050505;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 140ms ease;
+}
+
+.inlearn-select-menu button.is-active {
+  background: #f2f5f3;
+}
+
+.inlearn-select-menu button[aria-selected="true"] {
+  color: var(--inlearn-green);
+  font-weight: 700;
+}
+
+.inlearn-remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+  color: #1d1d1f;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.inlearn-remember input {
+  appearance: none;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  border: 1px solid var(--inlearn-green);
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.inlearn-remember input:checked {
+  background: var(--inlearn-green);
+}
+
+.inlearn-remember input:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+}
+
+.inlearn-forgot {
+  display: block;
+  margin-top: 12px;
+  border: 0;
+  background: transparent;
+  color: #77777d;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.inlearn-submit {
+  width: 100%;
+  height: 48px;
+  margin-top: 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.inlearn-submit:hover {
+  background: #2da268;
+  transform: translateY(-1px);
+}
+
+.inlearn-auth-divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 18px;
+  color: #9b9ba0;
+  font-size: 11px;
+}
+
+.inlearn-auth-divider span {
+  height: 1px;
+  background: #e2e2e4;
+}
+
+.inlearn-auth-divider b {
+  font-weight: 500;
+}
+
+.inlearn-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 46px;
+  margin-top: 12px;
+  border: 1px solid #dedee0;
+  border-radius: 999px;
+  background: #fff;
+  color: #050505;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 180ms ease;
+}
+
+.inlearn-social:hover {
+  border-color: #b9b9bd;
+}
+
+.inlearn-social img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* Same pill language as the fields it sits under, so a problem reads as part
+   of the form rather than a browser warning pasted on top. */
+.inlearn-auth-error,
+.inlearn-dialog-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 10px 14px;
+  border: 1px solid #f0c5bf;
+  border-radius: 16px;
+  background: #fdf3f1;
+  color: #b03a2b;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+  animation: inlearn-error-in 200ms ease both;
+}
+
+.inlearn-auth-error::before,
+.inlearn-dialog-error::before {
+  content: "!";
+  flex: 0 0 15px;
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  background: #d4604f;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 15px;
+  text-align: center;
+}
+
+@keyframes inlearn-error-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* Above the panel it belongs to, so the reset steps are not read as part of
+   the form behind them. */
+.inlearn-dialog-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  animation: inlearn-dialog-in 220ms ease both;
+}
+
+@keyframes inlearn-dialog-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.inlearn-dialog-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: default;
+}
+
+.inlearn-dialog {
+  position: relative;
+  width: min(380px, 100%);
+  padding: 32px 30px 26px;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.26);
+  animation: inlearn-dialog-rise 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes inlearn-dialog-rise {
+  from {
+    transform: translateY(10px);
+  }
+}
+
+.inlearn-dialog h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.inlearn-dialog p {
+  margin: 10px 0 0;
+  color: var(--inlearn-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.inlearn-dialog form {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.inlearn-dialog input {
+  width: 100%;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #d8d8da;
+  border-radius: 999px;
+  background: #fff;
+  color: #050505;
+  outline: none;
+  font-size: 13px;
+}
+
+.inlearn-dialog input:focus {
+  border-color: var(--inlearn-green);
+  box-shadow: 0 0 0 3px rgba(55, 180, 120, 0.12);
+}
+
+/* The password field's wrapper already draws the capsule and the focus ring;
+   without this the input inside it draws a second border against the first. */
+.inlearn-dialog .inlearn-password-field input {
+  height: 100%;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding-right: 46px;
+}
+
+.inlearn-dialog .inlearn-forgot {
+  margin: 14px auto 0;
+}
+
+.inlearn-submit:disabled {
+  opacity: 0.65;
+  cursor: progress;
+  transform: none;
+}
+
+.inlearn-auth-status {
+  min-height: 16px;
+  margin: 10px 0 0;
+  color: var(--inlearn-green);
+  font-size: 10px;
+}
+

@@ -1,0 +1,54 @@
+/* The related row is the first page's course row, so it borrows those styles
+   and only changes what this page needs.
+
+   The side padding is one of those: .inlearn-courses carries the first page's
+   own margins, and this page has already applied them - keeping both would set
+   the row in from the rest of the page by twice the amount and it would no
+   longer line up with the title above it. */
+.inlearn-related {
+  padding: clamp(50px, 7vw, 90px) 0 clamp(70px, 9vw, 130px);
+}
+
+/* No arrows: the row holds everything it has, so the three-column layout above
+   would leave the cards in the narrow track meant for an arrow. */
+.inlearn-courses-row.is-static {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* The jump back into the middle copy. Everything else about the track is
+   unchanged; this one class is what makes the jump invisible, because a
+   transition would show it travelling the whole way back. */
+.inlearn-courses-track.is-jumping {
+  transition: none;
+}
+
+/* How many are in the basket, on the basket itself. */
+.inlearn-cart-link {
+  position: relative;
+}
+
+.inlearn-cart-count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  display: grid;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  place-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-page *,
+  .inlearn-page *::before,
+  .inlearn-page *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

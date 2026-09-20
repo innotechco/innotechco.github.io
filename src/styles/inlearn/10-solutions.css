@@ -1,0 +1,165 @@
+/* --------------------------------------------------------------------------
+   LEARN MORE ABOUT OUR LEARNING SOLUTIONS
+   -------------------------------------------------------------------------- */
+
+.inlearn-solutions {
+  position: relative;
+  z-index: 1;
+  padding: 0 clamp(20px, 5vw, 96px) clamp(70px, 9vw, 130px);
+}
+
+/* Words then picture, in the proportion the Figma frame gives them.
+
+   Measured off the frame: the picture is 420 wide where the content is 980, so
+   it takes 43 per cent of the row, and the gap beside it is 33 of that same
+   980. Both are written as proportions rather than fixed widths, so the section
+   keeps the drawing's shape from a small laptop up to a wide monitor, with a
+   floor and a ceiling so it cannot collapse or sprawl past either. */
+.inlearn-solutions-grid {
+  display: grid;
+  max-width: 1320px;
+  margin: 0 auto;
+  /* The heading sits level with the top of the picture, as drawn. Centred, the
+     whole block floats down the page and the section stops looking like the
+     frame it came from - the single thing that made it read wrong. */
+  align-items: start;
+  gap: clamp(24px, 2.6vw, 46px);
+  grid-template-columns: minmax(0, 1fr) clamp(260px, 43%, 580px);
+}
+
+/* Two lines, broken where the design breaks it: "Learn more about our" then
+   "learning solutions". A measure in ch rather than a pixel width, so the break
+   holds when the type scales with the window.
+
+   Looser line spacing than the one-line titles elsewhere on the page: 1.1 is
+   right for a title that never wraps and too tight for one that does. */
+.inlearn-solutions-copy .inlearn-section-title {
+  max-width: 21ch;
+  color: var(--inlearn-black);
+  line-height: 1.37;
+}
+
+/* The ring belongs to the first letter, so it is centred on the first line.
+   The shared rule centres it on the whole heading, which is the same place
+   while a heading is one line and half a line too low the moment it is two. */
+.inlearn-solutions-copy .inlearn-section-title::before {
+  top: 0.685em;
+  /* -58% rather than -50%, the same nudge every other title on the page uses:
+     a ring centred on the line's box sits visibly low against the letters,
+     because a capital does not fill the height the line reserves under it. */
+  transform: translateY(-58%);
+}
+
+/* One gap value between the sentences, set here rather than as a margin on each
+   paragraph: margins collapse against their neighbours and the first and last
+   then behave differently from the ones between. */
+/* The sentences carry their own type size so that everything spaced around
+   them can be written in em and stay in proportion: one blank line between
+   paragraphs, and two of them between the heading and the first sentence -
+   both measured off the frame rather than chosen. */
+.inlearn-solutions-points {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  gap: 1.45em;
+  font-size: clamp(14px, 1.38vw, 20px);
+}
+
+/* How long a line is allowed to get, measured off the Figma: the sentences
+   there run to about 29 times their own type size and then wrap, which is what
+   gives that block its shape - four paragraphs of two, three, three and three
+   lines. 27 em is where those four break exactly as the drawing breaks them,
+   checked against the frame rather than guessed.
+
+   Left to fill its column, the same text runs to 48 em a line and every
+   paragraph collapses to two long lines. Same words, same type size, different
+   drawing. The measure is what was missing, and it is in em rather than pixels
+   so it follows the type when the type follows the window. */
+.inlearn-solutions-points p {
+  max-width: 27em;
+  margin: 0;
+  color: #2b2b30;
+  font-size: inherit;
+  line-height: 1.45;
+}
+
+/* The same pill as the hero's button, because it is the same kind of thing: one
+   green action at the foot of a block of words. */
+.inlearn-solutions-cta {
+  display: inline-flex;
+  height: 40px;
+  align-items: center;
+  margin-top: clamp(22px, 2.6vw, 38px);
+  padding: 0 24px;
+  border: none;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  color: #fff;
+  cursor: pointer;
+  font-size: clamp(13px, 1vw, 14px);
+  font-weight: 800;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.inlearn-solutions-cta:hover {
+  background: #2ea069;
+  transform: translateY(-1px);
+}
+
+.inlearn-solutions-cta:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 3px;
+}
+
+/* 420 by 660 in the design. A ratio rather than a height, so the photograph
+   keeps its shape at every width and whatever is dropped in later is cropped to
+   it instead of stretching. */
+.inlearn-solutions-media {
+  overflow: hidden;
+  aspect-ratio: 42 / 66;
+  border-radius: 24px;
+  background: #e9ecec;
+}
+
+.inlearn-solutions-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 860px) {
+  /* Stacked, with the picture above the words - the order the design draws on a
+     phone. The markup keeps the heading first for anything that reads rather
+     than looks, and this moves the picture up visually only. */
+  .inlearn-solutions-grid {
+    gap: clamp(24px, 5vw, 36px);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .inlearn-solutions-media {
+    order: -1;
+    /* Stacked, the picture is as wide as the page, and at the phone frame's
+       portrait shape that makes it taller than a tablet screen - a whole scroll
+       of photograph before a word of the section is reached. It keeps that
+       shape where the page is narrow enough for it to be read at, and lies down
+       above that. The ceiling catches every case in between. */
+    aspect-ratio: 16 / 10;
+    max-height: 62vh;
+  }
+
+  .inlearn-solutions-copy .inlearn-section-title {
+    max-width: none;
+  }
+}
+
+/* After the rule above, not before it: two rules of the same weight are decided
+   by which comes last, and this one was losing to a wider breakpoint written
+   further down the file. */
+@media (max-width: 560px) {
+  /* Narrow enough that the design's own phone frame fits: 465 by 678. */
+  .inlearn-solutions-media {
+    aspect-ratio: 47 / 68;
+    max-height: none;
+  }
+}
+

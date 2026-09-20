@@ -6,6 +6,7 @@ import {buildLatestNewsFromPost, getArticlePath} from "../../../../../shared/con
 import {t} from "../../../../../shared/i18n/ui.js";
 import {useBlogPosts} from "../../../../../shared/hooks/useBlogPosts.js";
 import useCarousel from "../../../../../shared/hooks/useCarousel.js";
+import CarouselArrow from "../../../components/CarouselArrow.jsx";
 
 const EVENT_COUNT = 3;
 
@@ -38,6 +39,7 @@ function NewEventSection({newEvent}) {
 
       <div className="inlearn-carousel">
         <CarouselArrow
+          kind="event"
           direction="prev"
           label={newEvent.previous}
           disabled={slides.length < 2}
@@ -74,6 +76,7 @@ function NewEventSection({newEvent}) {
         </div>
 
         <CarouselArrow
+          kind="event"
           direction="next"
           label={newEvent.next}
           disabled={slides.length < 2}
@@ -103,29 +106,6 @@ function NewEventSection({newEvent}) {
         ) : null}
       </div>
     </section>
-  );
-}
-
-function CarouselArrow({direction, label, disabled, onClick}) {
-  return (
-    <button
-      type="button"
-      className={`inlearn-carousel-arrow is-${direction}`}
-      aria-label={label}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-        <path
-          d={direction === "prev" ? "M15 4L7 12l8 8" : "M9 4l8 8-8 8"}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </button>
   );
 }
 

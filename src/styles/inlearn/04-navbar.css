@@ -1,0 +1,292 @@
+.inlearn-nav {
+  flex-shrink: 0;
+  width: 330px;
+  height: 65px;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+  transition:
+    width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms ease;
+}
+
+/* 330px is the room two buttons and a divider need. Signed in there is a name
+   there instead, and a short one leaves the rest of the pill as empty black - so
+   the pill takes its width from what is in it, with a ceiling so a long name
+   truncates rather than pushing the pill across the page. */
+.inlearn-nav.is-signed-in {
+  width: max-content;
+  max-width: 330px;
+}
+
+.inlearn-nav.is-searching {
+  width: 360px;
+}
+
+/* Searching wins over both: the field needs its full width whoever is signed
+   in, and the ceiling above would otherwise clip it. */
+.inlearn-nav.is-signed-in.is-searching {
+  width: 360px;
+  max-width: none;
+}
+
+.inlearn-nav-content {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  height: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 0 23px 0 28px;
+  overflow: visible;
+}
+
+.inlearn-nav-links {
+  display: grid;
+  grid-template-columns: 46px 1px 66px 24px 52px 1px;
+  align-items: center;
+  justify-items: center;
+  column-gap: 10px;
+  min-width: 0;
+  opacity: 1;
+  transition:
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Signed in there is one name where two buttons and a divider were, so the
+   track list changes with it. The name takes whatever is left and truncates
+   rather than pushing the cart and language out of the pill. */
+.inlearn-nav-links.is-signed-in {
+  grid-template-columns: minmax(0, 1fr) 24px 52px 1px;
+}
+
+.inlearn-nav-account {
+  overflow: hidden;
+  min-width: 0;
+  justify-self: start;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.inlearn-nav.is-searching .inlearn-nav-links {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-8px);
+  visibility: hidden;
+}
+
+.inlearn-nav button,
+.inlearn-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.inlearn-nav button:hover,
+.inlearn-nav a:hover,
+.inlearn-nav button:focus-visible,
+.inlearn-nav a:focus-visible {
+  color: var(--inlearn-green);
+  outline: none;
+}
+
+.inlearn-nav-links > button {
+  width: 100%;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.inlearn-nav-separator {
+  width: 1px;
+  height: 24px;
+  background: rgb(255, 255, 255);
+}
+
+.inlearn-cart-link {
+  width: 24px;
+  height: 28px;
+}
+
+.inlearn-cart-link img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.inlearn-language {
+  position: relative;
+  width: 52px;
+  min-width: 52px;
+}
+
+.inlearn-language > button {
+  width: 100%;
+  gap: 4px;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+.inlearn-language > button img {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+}
+
+.inlearn-language-menu {
+  position: absolute;
+  right: -22px;
+  top: 36px;
+  display: grid;
+  gap: 3px;
+  width: 106px;
+  padding: 7px;
+  border-radius: 15px;
+  background: #050505;
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.22);
+  animation: inlearn-menu-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.inlearn-language-menu button {
+  justify-content: flex-start;
+  border-radius: 10px;
+  padding: 8px 9px;
+  font-size: 11px;
+}
+
+/* Closed: a round button and nothing else. The icon that labels the open field
+   is not drawn yet, and the input has no width, so the shell is the button. */
+.inlearn-search-shell {
+  display: flex;
+  min-width: 29px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+  border-radius: 999px;
+  transition: background 260ms ease, padding 260ms ease, gap 260ms ease;
+}
+
+/* The magnifier that labels the open field. A different class from the icon
+   inside the button - that one is called .inlearn-search-icon and belongs to
+   the SearchIcon component, and hiding this one by that name hid both. */
+.inlearn-search-label {
+  display: none;
+  flex: none;
+  opacity: 0.65;
+}
+
+.inlearn-search-label img,
+.inlearn-search-label svg {
+  width: 16px;
+  height: 16px;
+}
+
+.inlearn-search-toggle {
+  width: 29px;
+  height: 29px;
+  flex: 0 0 29px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+  transition: background 200ms ease;
+}
+
+.inlearn-nav.is-searching .inlearn-search-toggle {
+  width: clamp(26px, 6vw, 30px);
+  height: clamp(26px, 6vw, 30px);
+  flex: none;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.inlearn-nav.is-searching .inlearn-search-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.inlearn-search-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  transform: none;
+}
+
+.inlearn-search-shell input {
+  width: 0;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  opacity: 0;
+  outline: none;
+  pointer-events: none;
+  font-size: 13px;
+  transition:
+    width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 180ms ease;
+}
+
+.inlearn-search-shell input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Open: the links step out of the grid entirely rather than staying in it
+   invisible. That is what removes every offset the old version needed - with
+   one thing left in the row there is one row, and the field is centred in the
+   pill by the same rule that centres everything else, at every pill size.
+
+   The field itself is a filled capsule inside the dark pill: icon, input, and
+   the button that closes it, spaced like a row rather than drawn on top of one
+   another. */
+.inlearn-nav.is-searching .inlearn-nav-links {
+  display: none;
+}
+
+.inlearn-nav.is-searching .inlearn-nav-content {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.inlearn-nav.is-searching .inlearn-search-shell {
+  width: 100%;
+  min-width: 0;
+  height: clamp(32px, 7vw, 38px);
+  padding: 0 4px 0 12px;
+  gap: 8px;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.inlearn-nav.is-searching .inlearn-search-label {
+  display: flex;
+}
+
+.inlearn-nav.is-searching .inlearn-search-shell input {
+  width: auto;
+  flex: 1;
+  height: 100%;
+  opacity: 1;
+  pointer-events: auto;
+  font-size: clamp(12px, 1.1vw, 14px);
+}
+

@@ -4,6 +4,14 @@ import {Link, useParams} from "react-router-dom";
 import CourseBuyCard from "./CourseBuyCard.jsx";
 import Price from "./CoursePrice.jsx";
 import RelatedCourses from "./RelatedCourses.jsx";
+import {
+  CalendarIcon,
+  CertificateIcon,
+  ClockIcon,
+  GlobeIcon,
+  LanguageIcon,
+  TagIcon,
+} from "../components/icons.jsx";
 import {getInlearnCourse} from "../inlearnContent.js";
 import {routes} from "../../../app/routes.js";
 
@@ -49,7 +57,7 @@ function CoursePage() {
 
           {course.modeLabel ? (
             <span className="inlearn-course-mode">
-              <GlobeIcon />
+              <GlobeIcon size={14} />
               {course.modeLabel}
             </span>
           ) : null}
@@ -178,59 +186,6 @@ function Spec({icon, label, value}) {
       </dt>
       <dd>{value}</dd>
     </div>
-  );
-}
-
-function CalendarIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
-      <rect x="3.5" y="5" width="17" height="15.5" rx="3" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M3.5 10h17M8 3.5v3M16 3.5v3" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function ClockIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function CertificateIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="9" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M8.5 13.5 7 21l5-2.5 5 2.5-1.5-7.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function LanguageIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
-      <path d="M3.5 6h9M8 4v2c0 4-2 6.5-4.5 8M6 10c1 2.5 3 4.5 6 5.5M13 20l4-10 4 10M14.5 17h5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function TagIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
-      <path d="M11.5 3.5H20v8.5l-8.7 8.7a1.5 1.5 0 0 1-2.1 0l-6.4-6.4a1.5 1.5 0 0 1 0-2.1Z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-      <circle cx="16.2" cy="7.8" r="1.6" fill="currentColor" />
-    </svg>
-  );
-}
-
-function GlobeIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M3.5 12h17M12 3.5c2.2 2.3 3.3 5.1 3.3 8.5S14.2 18.2 12 20.5c-2.2-2.3-3.3-5.1-3.3-8.5S9.8 5.8 12 3.5Z" fill="none" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
   );
 }
 

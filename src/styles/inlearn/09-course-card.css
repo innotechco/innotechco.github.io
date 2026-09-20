@@ -1,0 +1,262 @@
+/* -------------------------------------------------------------------------- */
+
+/* Every hover movement is deliberately slow and eased on both ends. The card
+   is a large object on the page, and a large object that moves quickly reads as
+   a flinch; the same movement stretched out reads as the card rising to meet
+   the pointer. Leaving takes slightly longer still, so the row settles rather
+   than snapping back. */
+.inlearn-course-card {
+  /* The body text of a card: the summary and the two lines under it. */
+  --inlearn-course-text: #6f6f75;
+  --inlearn-course-text-size: clamp(12px, 0.98vw, 14px);
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 780ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-course-card:hover,
+.inlearn-course-card:focus-visible {
+  transform: translateY(-10px);
+  transition-duration: 620ms;
+}
+
+.inlearn-course-card:focus-visible {
+  outline: none;
+}
+
+.inlearn-course-card:focus-visible .inlearn-course-media {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 3px;
+}
+
+/* The green light behind a card, the same build as Live Insights on the home
+   page: a sheet the exact size of what it sits behind, blurred, with the
+   opaque picture on top of it.
+
+   Because the picture covers it, the only part anyone sees is the rim the blur
+   carries past the edge - about twenty pixels of it. That is what keeps it
+   inside the row's clipping without being cut, and what keeps it from washing
+   over the page. */
+.inlearn-course-glow {
+  position: absolute;
+  z-index: 0;
+  /* Set in from the picture's edge rather than flush with it. The blur carries
+     the light outwards from wherever the sheet ends, so starting it inside the
+     picture is what decides how far the rim reaches - and the rim has to finish
+     before the row's clipping boundary, or its far edge is shaved off into a
+     straight line. Which is exactly what it looked like when this was 0. */
+  inset: 9px;
+  border-radius: 16px;
+  filter: blur(18px);
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+/* Narrower windows leave less room between the cards, so the boundary sits
+   closer and the light has to reach less far to stay clear of it. The cards are
+   smaller here too, so a smaller halo is the right size for them anyway. */
+@media (max-width: 1199px) {
+  .inlearn-course-glow {
+    filter: blur(13px);
+  }
+}
+
+/* The picture's own box. The picture clips its corners, so the light cannot
+   live inside it; this sits around it, clipping nothing. */
+.inlearn-course-frame {
+  position: relative;
+}
+
+/* Above the light, and opaque, so the light only shows around it. */
+.inlearn-course-media {
+  z-index: 1;
+}
+
+.inlearn-course-media {
+  position: relative;
+  overflow: hidden;
+  /* Taller than it is wide, as drawn - a fixed ratio rather than a fixed
+     height, so four narrow cards and one wide one both keep their proportion.
+     Measured off the Figma frame: 219 wide by 232 tall. */
+  aspect-ratio: 1 / 1.06;
+  border-radius: 14px;
+  background: #16161a;
+}
+
+/* The zoom and the blur are one transition on one element. The scale is what
+   hides the soft edge a blur leaves behind: blur alone would let the frame show
+   through at the corners. */
+.inlearn-course-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1100ms cubic-bezier(0.33, 0, 0.2, 1),
+    filter 900ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-course-card:hover .inlearn-course-media img,
+.inlearn-course-card:focus-visible .inlearn-course-media img {
+  filter: blur(2.5px) saturate(0.94);
+  transform: scale(1.07);
+  transition-duration: 900ms, 700ms;
+}
+
+/* The circle and the pill are the same element. Its label is there all along
+   with no width, so the shape grows out of itself rather than one control being
+   swapped for another - and the arrow never moves while it happens. */
+.inlearn-course-more {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  height: 36px;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  transition: box-shadow 700ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-course-more-label {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  transition: max-width 760ms cubic-bezier(0.33, 0, 0.2, 1),
+    margin-right 760ms cubic-bezier(0.33, 0, 0.2, 1), opacity 520ms ease;
+}
+
+.inlearn-course-card:hover .inlearn-course-more-label,
+.inlearn-course-card:focus-visible .inlearn-course-more-label {
+  /* A ceiling the longest translation still fits under, not a measured width:
+     max-width can be animated where width: auto cannot. */
+  max-width: 180px;
+  margin-right: 8px;
+  opacity: 1;
+  /* The label arrives a touch after the card has begun to lift, so the two
+     movements read as one gesture rather than two that started together. */
+  transition-delay: 90ms;
+}
+
+.inlearn-course-card:hover .inlearn-course-more,
+.inlearn-course-card:focus-visible .inlearn-course-more {
+  box-shadow: 0 10px 22px rgb(55 180 120 / 35%);
+}
+
+.inlearn-course-body {
+  padding: clamp(14px, 1.5vw, 22px) 2px 0;
+}
+
+.inlearn-course-title {
+  margin: 0;
+  color: var(--inlearn-black);
+  font-size: clamp(15px, 1.32vw, 19px);
+  font-weight: 700;
+  line-height: 1.32;
+}
+
+/* Two lines and then an ellipsis, so eight cards of different title lengths
+   still line their dates up. The clamp only works while this element is a
+   -webkit-box, which a stray display: flex on a parent would quietly undo. */
+.inlearn-course-summary {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 10px 0 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  color: var(--inlearn-course-text);
+  font-size: var(--inlearn-course-text-size);
+  line-height: 1.5;
+}
+
+.inlearn-course-meta {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0 0;
+  padding: 0;
+  gap: 7px;
+  list-style: none;
+  /* The same size and colour as the summary above: these two lines are the
+     same voice continuing, and a darker, larger date read as a second heading.
+     Both take their value from one place, so they cannot drift apart. */
+  color: var(--inlearn-course-text);
+  font-size: var(--inlearn-course-text-size);
+}
+
+.inlearn-course-meta li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inlearn-course-meta svg {
+  flex: none;
+  color: var(--inlearn-green);
+}
+
+/* One card wide: the arrows come down and stand either side of the dots, the
+   same arrangement the New Event row uses at this width. Nothing is hidden - a
+   control that disappears on a phone is a control the phone never had.
+
+   The card takes a whole row and the three controls wrap onto the next one.
+   Their order is set here because the markup has to keep the arrows either side
+   of the row for the wider layout. */
+@media (max-width: 716px) {
+  .inlearn-courses-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    /* The gap down the wrap is what sets the dots' distance from the cards. */
+    row-gap: clamp(18px, 5vw, 28px);
+    column-gap: 12px;
+  }
+
+  .inlearn-courses-viewport {
+    flex: 0 0 100%;
+    /* A flex item will not shrink below the width of its own contents unless it
+       is told it may, and the contents here are eight cards in a row. Without
+       this the viewport took the width of all eight and the cards ran off the
+       screen. The grid layout above says the same thing as minmax(0, 1fr). */
+    min-width: 0;
+    order: 1;
+  }
+
+  .inlearn-courses-arrow {
+    position: static;
+    order: 2;
+    width: 36px;
+    height: 36px;
+    /* The shift belongs to the row layout above; here the wrap does the
+       aligning and a leftover translate would lift the arrow off the line. */
+    transform: none;
+  }
+
+  .inlearn-courses-arrow:hover:not(:disabled) {
+    transform: scale(1.12);
+  }
+
+  .inlearn-courses-arrow.is-next {
+    order: 4;
+  }
+
+  .inlearn-courses-row .inlearn-carousel-dots {
+    order: 3;
+    margin-top: 0;
+  }
+
+  /* One card fills the row on a phone, so it can carry the taller frame the
+     design draws there. */
+  .inlearn-course-media {
+    aspect-ratio: 4 / 3.6;
+  }
+}
+

@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 
+import CarouselArrow from "../components/CarouselArrow.jsx";
 import CourseCard from "../components/CourseCard.jsx";
 import useCarousel from "../../../shared/hooks/useCarousel.js";
 import useMediaQuery from "../hooks/useMediaQuery.js";
@@ -138,7 +139,7 @@ function RelatedCourses({courses, labels}) {
 
       <div className={`inlearn-courses-row${canLoop ? "" : " is-static"}`}>
         {canLoop ? (
-          <RelatedArrow direction="prev" label={labels.previous} onClick={() => step(-1)} />
+          <CarouselArrow direction="prev" label={labels.previous} onClick={() => step(-1)} />
         ) : null}
 
         <div className="inlearn-courses-viewport" ref={viewportRef} {...handlers}>
@@ -176,33 +177,10 @@ function RelatedCourses({courses, labels}) {
         </div>
 
         {canLoop ? (
-          <RelatedArrow direction="next" label={labels.next} onClick={() => step(1)} />
+          <CarouselArrow direction="next" label={labels.next} onClick={() => step(1)} />
         ) : null}
       </div>
     </section>
-  );
-}
-
-/* Never disabled: there is always another card in that direction. */
-function RelatedArrow({direction, label, onClick}) {
-  return (
-    <button
-      type="button"
-      className={`inlearn-courses-arrow is-${direction}`}
-      aria-label={label}
-      onClick={onClick}
-    >
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-        <path
-          d={direction === "prev" ? "M15 4L7 12l8 8" : "M9 4l8 8-8 8"}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </button>
   );
 }
 

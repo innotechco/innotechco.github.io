@@ -1,6 +1,15 @@
 import {Link} from "react-router-dom";
 
 import {usePointerGlow} from "../../../shared/hooks/usePointerGlow.js";
+import {
+  BookmarkIcon,
+  CalendarIcon,
+  ChevronIcon,
+  ClockIcon,
+  GlobeIcon,
+  OnSiteIcon,
+  ShareIcon,
+} from "./icons.jsx";
 
 /* One course, as a card.
 
@@ -131,16 +140,7 @@ function CourseCard({
               another. */}
           <span className="inlearn-course-more" aria-hidden="true">
             <span className="inlearn-course-more-label">{readMore}</span>
-            <svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
-              <path
-                d="M9 4l8 8-8 8"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronIcon size={16} strokeWidth={2} />
           </span>
         </div>
       </div>
@@ -152,13 +152,13 @@ function CourseCard({
         <ul className="inlearn-course-meta">
           {course.date ? (
             <li>
-              <CalendarIcon />
+              <CalendarIcon size={15} />
               <span>{course.date}</span>
             </li>
           ) : null}
           {course.effort ? (
             <li>
-              <ClockIcon />
+              <ClockIcon size={15} />
               <span>{course.effort}</span>
             </li>
           ) : null}
@@ -166,116 +166,13 @@ function CourseCard({
             <li>
               {/* The mark follows the meaning: a place for a course taught in
                   one, a globe for one taught over the network. */}
-              {course.mode === "on-site" ? <OnSiteIcon /> : <GlobeIcon />}
+              {course.mode === "on-site" ? <OnSiteIcon /> : <GlobeIcon size={15} />}
               <span>{course.modeLabel}</span>
             </li>
           ) : null}
         </ul>
       </div>
     </Wrapper>
-  );
-}
-
-/* Inline SVG rather than two more files: each is a dozen characters of path
-   data, they take the card's own colour through currentColor, and a file each
-   would be two more requests for something this small. */
-function CalendarIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">
-      <rect
-        x="3.5"
-        y="5"
-        width="17"
-        height="15.5"
-        rx="3"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <path
-        d="M3.5 10h17M8 3.5v3M16 3.5v3"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function ClockIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      <path
-        d="M12 7.5V12l3 2"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function BookmarkIcon({filled}) {
-  return (
-    <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
-      <path
-        d="M7 4.5h10a1 1 0 0 1 1 1V20l-6-3.6L6 20V5.5a1 1 0 0 1 1-1Z"
-        fill={filled ? "currentColor" : "none"}
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ShareIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
-      <circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" strokeWidth="1.7" />
-      <circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" strokeWidth="1.7" />
-      <circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" strokeWidth="1.7" />
-      <path
-        d="m8.4 10.8 7.2-4.1M8.4 13.2l7.2 4.1"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function OnSiteIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="8" r="3.2" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      <path
-        d="M5.5 20c0-3.3 2.9-5.5 6.5-5.5s6.5 2.2 6.5 5.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function GlobeIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      <path
-        d="M3.5 12h17M12 3.5c2.2 2.3 3.3 5.1 3.3 8.5S14.2 18.2 12 20.5c-2.2-2.3-3.3-5.1-3.3-8.5S9.8 5.8 12 3.5Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-    </svg>
   );
 }
 

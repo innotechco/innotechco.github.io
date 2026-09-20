@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 
+import CarouselArrow from "../../../components/CarouselArrow.jsx";
 import CourseCard from "../../../components/CourseCard.jsx";
 import {routes} from "../../../../../app/routes.js";
 import useCarousel from "../../../../../shared/hooks/useCarousel.js";
@@ -43,7 +44,7 @@ function TopCoursesSection({topCourses}) {
           than over the cards: the row is arrow / cards / arrow, the same shape
           the New Event carousel uses. */}
       <div className="inlearn-courses-row">
-        <CoursesArrow
+        <CarouselArrow
           direction="prev"
           label={topCourses.previous}
           disabled={index === 0}
@@ -87,7 +88,7 @@ function TopCoursesSection({topCourses}) {
           </div>
         </div>
 
-        <CoursesArrow
+        <CarouselArrow
           direction="next"
           label={topCourses.next}
           disabled={index >= maxIndex}
@@ -134,29 +135,6 @@ function TopCoursesSection({topCourses}) {
         </div>
       ) : null}
     </section>
-  );
-}
-
-function CoursesArrow({direction, label, disabled, onClick}) {
-  return (
-    <button
-      type="button"
-      className={`inlearn-courses-arrow is-${direction}`}
-      aria-label={label}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-        <path
-          d={direction === "prev" ? "M15 4L7 12l8 8" : "M9 4l8 8-8 8"}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </button>
   );
 }
 
