@@ -21,7 +21,9 @@ const EVENT_COUNT = 3;
    bundled words and swapping them a moment later is the one behaviour that
    reliably looks broken. */
 function NewEventSection({newEvent}) {
-  const {posts, status} = useBlogPosts();
+  /* Three cards, so three posts. Asking for fifty and slicing to three was
+     559KB and two seconds before this section could paint. */
+  const {posts, status} = useBlogPosts({limit: EVENT_COUNT});
   const isLoading = status === "loading";
 
   const events = posts.slice(0, EVENT_COUNT).map((post) => buildLatestNewsFromPost(newEvent, post));
