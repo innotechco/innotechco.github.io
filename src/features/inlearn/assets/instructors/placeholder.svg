@@ -1,13 +1,16 @@
 <!--
   Standing in until the real portraits arrive.
 
-  Deliberately a drawing rather than a stock photograph: a placeholder that
-  looks like a real person is one nobody notices is still a placeholder, and it
-  ends up shipped. Drop a real portrait in this folder, export it from
+  A drawing rather than a stock photograph, on purpose: a placeholder that looks
+  like a real person is one nobody notices is still a placeholder, and it ends
+  up shipped. Drop a real portrait in this folder, export it from
   inlearn.assets.js, and name it on that instructor's line in inlearn.config.js.
+
+  The shape is a squircle, not a circle - that is how the frame is drawn, and it
+  is the stylesheet that rounds the real photograph the same way.
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-hidden="true">
-  <circle cx="60" cy="60" r="60" fill="#e7e7e4" />
-  <circle cx="60" cy="47" r="20" fill="#c3c3bd" />
-  <path d="M18 108c0-21 19-34 42-34s42 13 42 34v12H18Z" fill="#c3c3bd" />
+  <rect width="120" height="120" rx="34" fill="#e7e7e4" />
+  <circle cx="60" cy="47" r="19" fill="#c3c3bd" />
+  <path d="M22 106c0-20 17-32 38-32s38 12 38 32v14H22Z" fill="#c3c3bd" />
 </svg>

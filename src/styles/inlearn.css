@@ -3166,9 +3166,22 @@
 
 /* The chips are links, not buttons: pressing one asks for the other courses in
    that category, which is a different page. They borrow the All Courses chip
-   styling so the two cannot drift apart. */
+   styling so the two cannot drift apart.
+
+   None of them is ever "on". On All Courses the green says "this is the filter
+   you are looking through"; here there is no filter to be looking through, and
+   a green chip would be saying something it does not mean. Green is the hover,
+   and only the hover. */
 .inlearn-course-chips .inlearn-course-tag {
   text-decoration: none;
+}
+
+@media (hover: hover) {
+  .inlearn-course-chips .inlearn-course-tag:hover {
+    border-color: var(--inlearn-green);
+    background: var(--inlearn-green);
+    color: #fff;
+  }
 }
 
 /* Name and value, in two columns where there is room. The pairs are a
@@ -3251,10 +3264,13 @@
 }
 
 .inlearn-course-instructor-photo {
-  width: clamp(56px, 6vw, 72px);
-  height: clamp(56px, 6vw, 72px);
+  width: clamp(64px, 6.5vw, 84px);
+  height: clamp(64px, 6.5vw, 84px);
   flex: none;
-  border-radius: 50%;
+  /* A squircle, as drawn - a rounded square with a large radius, not a circle.
+     A proportion rather than a fixed radius, so the corner keeps its shape as
+     the picture grows with the window. */
+  border-radius: 28%;
   object-fit: cover;
   background: #e7e7e4;
 }
@@ -3396,9 +3412,14 @@
 }
 
 /* The related row is the first page's course row, so it borrows those styles
-   and only changes what the loop needs. */
+   and only changes what this page needs.
+
+   The side padding is one of those: .inlearn-courses carries the first page's
+   own margins, and this page has already applied them - keeping both would set
+   the row in from the rest of the page by twice the amount and it would no
+   longer line up with the title above it. */
 .inlearn-related {
-  padding-top: clamp(50px, 7vw, 90px);
+  padding: clamp(50px, 7vw, 90px) 0 clamp(70px, 9vw, 130px);
 }
 
 /* The jump back into the middle copy. Everything else about the track is

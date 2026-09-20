@@ -73,18 +73,26 @@ function CoursePage() {
             <h2 id="course-category" className="inlearn-course-subheading">
               {labels.category}
             </h2>
-            {/* The chips this course carries, with the one it is filed under in
-                green. They link into All Courses rather than filtering here: a
-                visitor who presses a category wants the other courses in it. */}
+            {/* Each chip opens All Courses in a new tab with that category
+                already chosen. A new tab because the visitor is in the middle of
+                reading this course - browsing a category is a side trip, and
+                taking the page away from under them to make it is rude.
+
+                A plain anchor rather than a Link: a new tab is a new document,
+                and the router has nothing to do with it. rel="noopener" because
+                any target="_blank" without it hands the new page a handle on
+                this one. */}
             <ul className="inlearn-course-chips">
               {course.categoryChips.map((chip) => (
                 <li key={chip.id}>
-                  <Link
-                    className={`inlearn-course-tag${chip.isPrimary ? " is-on" : ""}`}
-                    to={`${routes.inlearnCourses}?tag=${chip.id}`}
+                  <a
+                    className="inlearn-course-tag"
+                    href={`${routes.inlearnCourses}?tags=${chip.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {chip.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
