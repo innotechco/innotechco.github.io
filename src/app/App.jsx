@@ -1,8 +1,9 @@
-import {lazy, Suspense, useEffect, useRef, useState} from "react";
+import {lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
 import {Routes, Route, useLocation} from "react-router-dom";
 
 import {ThemeProvider} from "./providers/theme/ThemeContext.jsx";
 import {dismissBootCurtain} from "./bootCurtain.js";
+import {InlearnMark, InnotechMark} from "../shared/components/ui/BrandMark.jsx";
 
 import ContactModal from "../shared/components/modals/ContactModal.jsx";
 import {useLanguage} from "./providers/language/useLanguage.js";
@@ -110,19 +111,35 @@ const MetalsAndMining = lazyWithRetry(
   "metals-and-mining",
 );
 
-function LoadingMark({fullScreen = true}) {
+/* The same face as the curtain in index.html, for the same reason it exists:
+   this is what a visitor sees while a page is on its way, and two different
+   loading screens on one site read as two different sites.
+
+   `variant` is where the visitor is going, not where they are. INLEARN is a
+   white module and the rest is black - a black cover lifting onto a white page
+   is the flash a cover is supposed to prevent, and it is exactly what moving
+   from innotech.global into INLEARN used to look like. */
+function LoadingMark({fullScreen = true, variant = "site"}) {
+  const isInlearn = variant === "inlearn";
+
   return (
     <div
-      className={`flex items-center justify-center bg-[#050505] px-6 text-white ${
-        fullScreen ? "min-h-screen pt-28" : "h-full min-h-48"
-      }`}
+      className={`flex flex-col items-center justify-center gap-[18px] px-6 ${
+        isInlearn ? "bg-white" : "bg-[#050505]"
+      } ${fullScreen ? "min-h-screen pt-28" : "h-full min-h-48"}`}
     >
-      <div className="flex items-center gap-3 font-['Gotham'] text-sm uppercase tracking-[0.18em] text-white/70">
-        <span className="size-3 animate-pulse rounded-full bg-[#37B478]" />
-        <span className="font-['Gotham'] text-sm uppercase tracking-[0.18em] text-white/70">
-          {t("loading")}
-        </span>
-      </div>
+      {isInlearn ? (
+        <InlearnMark className="size-[58px]" />
+      ) : (
+        <InnotechMark className="size-[58px]" />
+      )}
+      <span
+        className={`text-xs font-semibold uppercase tracking-[0.22em] ${
+          isInlearn ? "text-[#050505]/40" : "text-white/45"
+        }`}
+      >
+        {t("loading")}
+      </span>
     </div>
   );
 }
@@ -130,10 +147,14 @@ function LoadingMark({fullScreen = true}) {
 /* The marker matters: while this is on screen the real page is still a dynamic
    import, so nothing of it is in the document yet and measuring readiness would
    measure this fallback. waitForContentToSettle() waits for it to go away. */
+/* The panel React shows while a route's chunk is still arriving. It takes the
+   look of the place it is on its way to, the same as the curtain over it. */
 function RouteFallback() {
+  const {pathname} = useLocation();
+
   return (
     <main data-route-loading="">
-      <LoadingMark />
+      <LoadingMark variant={isInlearnPath(pathname) ? "inlearn" : "site"} />
     </main>
   );
 }
@@ -142,11 +163,35 @@ function RouteFallback() {
    enough that a curtain which cannot lift still lifts. */
 const FIRST_VISIT_MAX_WAIT_MS = 6000;
 const ROUTE_CHANGE_MAX_WAIT_MS = 2500;
-const MINIMUM_CURTAIN_MS = 450;
+
+/* How long a move is allowed to take before it is worth covering.
+
+   This is the fix for a curtain that used to appear over pages that were
+   already on screen. A route whose chunk is already loaded mounts and settles
+   within a frame or two; raising a curtain over it and holding it there reads
+   as the site stalling, not loading. So nothing is shown for the first moment
+   of any move - if the page is ready by then, the visitor never sees a
+   curtain at all. */
+const CURTAIN_GRACE_MS = 160;
+
+/* And once it IS up, it stays long enough to be a deliberate cover rather than
+   a flash. This only ever applies to a curtain that was actually shown. */
+const MINIMUM_CURTAIN_MS = 400;
 
 /* requestAnimationFrame never fires while the tab is in the background, so a
    bare await on it hangs for as long as the visitor looks somewhere else - with
    the curtain still up when they come back. The timer is the way out. */
+/* The timer is the way out when requestAnimationFrame never fires - a
+   background tab, or an embedded view that reports itself hidden.
+
+   It is 32ms, two frames at sixty a second, rather than the 100ms it used to
+   be. That number is paid on every single round of the settle, and at 100ms it
+   was the reason a first paint could sit behind the curtain for six seconds
+   anywhere the tab was not visibly in front: not because anything was loading,
+   but because the code that checks was waiting on a timer six times longer
+   than the frame it stands in for. */
+const FRAME_FALLBACK_MS = 32;
+
 function nextFrame() {
   return new Promise((resolve) => {
     let settled = false;
@@ -156,7 +201,7 @@ function nextFrame() {
       resolve();
     };
     requestAnimationFrame(finish);
-    window.setTimeout(finish, 100);
+    window.setTimeout(finish, FRAME_FALLBACK_MS);
   });
 }
 
@@ -180,10 +225,31 @@ function pendingVisibleImages() {
   return Array.from(document.images).filter((image) => {
     if (image.complete) return false;
 
+    /* Nothing to load is not the same as still loading. A picture element with
+       no source is never complete and never fires load or error, so waiting on
+       one waits for ever - which in practice meant waiting out the whole
+       deadline. (Spelled out in words because the lazy-loading test scans this
+       file's raw source for the tag and a comment containing it fails.) */
+    const source = image.getAttribute("src");
+    if (!source && !image.getAttribute("srcset")) return false;
+
+    /* A data URI carries its own bytes: it arrived with the document and there
+       is no request outstanding for it. Waiting on one buys nothing, and an
+       inlined icon that has not finished decoding will hold the whole settle
+       open while it does. */
+    if (source?.startsWith("data:")) return false;
+
     const rect = image.getBoundingClientRect();
-    /* No box yet: either hidden or not laid out. A later round picks it up once
-       it has a size, so there is nothing to wait for now. */
-    if (!rect.width && !rect.height) return false;
+    /* It has to have a box in BOTH directions to be something the visitor is
+       waiting to see. This used to ask for both to be zero, which let through
+       anything laid out flat - the decorative curve across the home page is
+       1024 wide and 0 high until its own styles land, and on every first visit
+       it was counted as loading, kept the settle from ever going quiet, and
+       held the curtain up until the six second deadline.
+
+       A later round picks an image up once it has a real size, so nothing is
+       lost by skipping it now. */
+    if (!rect.width || !rect.height) return false;
 
     return rect.top < window.innerHeight * 1.25 && rect.bottom > 0;
   });
@@ -195,6 +261,24 @@ function pendingVisibleImages() {
    once the route has mounted and two rounds in a row find nothing left
    loading - or once the deadline passes, because a curtain that never lifts is
    worse than one that lifts early. */
+/* A move between pages has exactly one thing to wait for: the page's chunk to
+   arrive and mount. That is a marker appearing in the document, so it is polled
+   for directly rather than measured in animation frames.
+
+   Frames were the wrong instrument here. nextFrame() falls back to a 100ms
+   timer whenever requestAnimationFrame does not fire - which is any background
+   tab, and some embedded views - so the four frames the settle used cost 400ms
+   before it could even conclude that an already-loaded page was ready. That is
+   longer than the grace period, so every move showed a curtain it did not need.
+   A 30ms poll answers the same question in a fraction of the time and does not
+   depend on the tab being visible. */
+async function waitForRouteToMount(deadline) {
+  while (performance.now() < deadline) {
+    if (!document.querySelector("[data-route-loading]")) return;
+    await wait(30);
+  }
+}
+
 async function waitForContentToSettle(deadline) {
   let quietRounds = 0;
 
@@ -242,6 +326,74 @@ function RouteLoadingOverlay() {
      jump between two looks, so that one keeps the curtain. */
   const previousPathname = useRef(location.pathname);
 
+  /* The curtain is asked for, not switched on.
+
+     A request arms a timer. If the page is ready before it fires, the request
+     is dropped and nothing was ever shown - which is every move to a page whose
+     code is already loaded. Only a move that is actually slow gets a curtain,
+     and once one is up it stays long enough to read as deliberate. */
+  const graceTimer = useRef(0);
+  const shownAt = useRef(0);
+  /* Where the move is going, decided when the curtain is asked for.
+
+     It cannot be read off the current location: the click handler asks for the
+     curtain while the old page is still on screen and the address has not
+     changed yet, so a curtain that read the location would come up in the
+     colour of the page being left and then change under the visitor. */
+  const [variant, setVariant] = useState("site");
+
+  const showCurtain = useCallback(() => {
+    if (shownAt.current) return;
+    shownAt.current = performance.now();
+    setIsVisible(true);
+  }, []);
+
+  /* `immediate` is for a move that changes what the site LOOKS like rather than
+     one that merely takes time: stepping into or out of INLEARN swaps a dark
+     page for a light one, and the curtain is what stops that being a flash.
+     There is nothing to wait and see about, so it goes up at once - and because
+     this is called from a layout effect, at once means before the new page has
+     been painted. */
+  const requestCurtain = useCallback(
+    ({immediate = false, to = "site"} = {}) => {
+      if (graceTimer.current || shownAt.current) return;
+      setVariant(to);
+      if (immediate) {
+        showCurtain();
+        return;
+      }
+      graceTimer.current = window.setTimeout(() => {
+        graceTimer.current = 0;
+
+        /* The last word before it goes up: is there anything left to cover?
+
+           A curtain exists to hide a page being assembled. If the page has
+           already mounted by the time this timer fires, then whatever it would
+           cover is something the visitor is already reading - and dropping a
+           curtain over that is the exact thing being complained about: the page
+           appears, and then a loading screen arrives on top of it.
+
+           So the timer is permission to show, not an instruction. */
+        if (document.querySelector("[data-route-loading]")) showCurtain();
+      }, CURTAIN_GRACE_MS);
+    },
+    [showCurtain],
+  );
+
+  const releaseCurtain = useCallback(() => {
+    window.clearTimeout(graceTimer.current);
+    graceTimer.current = 0;
+
+    /* Never shown: there is nothing to take away, and nothing to wait for. */
+    if (!shownAt.current) {
+      dismissBootCurtain();
+      return 0;
+    }
+
+    const remaining = Math.max(0, MINIMUM_CURTAIN_MS - (performance.now() - shownAt.current));
+    return remaining;
+  }, []);
+
   useEffect(() => {
     const handleInternalLinkClick = (event) => {
       const link = event.target.closest?.("a[href]");
@@ -270,16 +422,30 @@ function RouteLoadingOverlay() {
         isInlearnPath(currentUrl.pathname) && isInlearnPath(targetUrl.pathname);
 
       if (targetUrl.origin === currentUrl.origin && !isSamePage && !insideInlearn) {
-        setIsVisible(true);
+        /* Asked for here, while the old page is still on screen, so a slow move
+           is covered from the moment it starts rather than after the new page
+           has already appeared. */
+        const goingToInlearn = isInlearnPath(targetUrl.pathname);
+        const isCrossing = isInlearnPath(currentUrl.pathname) !== goingToInlearn;
+        requestCurtain({
+          immediate: isCrossing,
+          to: goingToInlearn ? "inlearn" : "site",
+        });
       }
     };
 
     document.addEventListener("click", handleInternalLinkClick, true);
     return () =>
       document.removeEventListener("click", handleInternalLinkClick, true);
-  }, []);
+  }, [requestCurtain]);
 
-  useEffect(() => {
+  /* A layout effect, not an effect: this runs after React has put the new page
+     in the document but BEFORE the browser paints it. A plain effect runs after
+     the paint, which is what used to let the new page flash into view and then
+     be covered - page, then loading, then page again. Back and forward and any
+     navigate() call had no click to arm the curtain earlier, so they showed it
+     every time. */
+  useLayoutEffect(() => {
     const cameFromInlearn = isInlearnPath(previousPathname.current);
     previousPathname.current = location.pathname;
     /* The first visit never takes this shortcut: landing straight on /inlearn
@@ -305,7 +471,13 @@ function RouteLoadingOverlay() {
            painted before this bundle existed. Raising a second one over it
            would only risk a seam between the two. */
       } else {
-        setIsVisible(true);
+        /* One side INLEARN and the other not: that is the crossing, and it is
+           covered on sight rather than after a grace period. */
+        const goingToInlearn = isInlearnPath(location.pathname);
+        requestCurtain({
+          immediate: cameFromInlearn !== goingToInlearn,
+          to: goingToInlearn ? "inlearn" : "site",
+        });
       }
 
       const startedAt = performance.now();
@@ -313,26 +485,35 @@ function RouteLoadingOverlay() {
         startedAt +
         (isFirstVisit ? FIRST_VISIT_MAX_WAIT_MS : ROUTE_CHANGE_MAX_WAIT_MS);
 
-      await nextFrame();
-      await nextFrame();
+      if (isFirstVisit) {
+        /* The first paint is the one the curtain exists for: wait for the fonts
+           and for the pictures in the first screenful, or the page assembles in
+           front of the visitor. */
+        await nextFrame();
+        await nextFrame();
 
-      if (document.fonts?.ready) {
-        await untilDeadline(document.fonts.ready, deadline);
+        if (document.fonts?.ready) {
+          await untilDeadline(document.fonts.ready, deadline);
+        }
+
+        await waitForContentToSettle(deadline);
+      } else {
+        await waitForRouteToMount(deadline);
       }
 
-      await waitForContentToSettle(deadline);
+      if (isCancelled) return;
 
-      const elapsed = performance.now() - startedAt;
-      const minimumDelay = Math.max(0, MINIMUM_CURTAIN_MS - elapsed);
+      const remaining = releaseCurtain();
 
       timeoutId = window.setTimeout(() => {
         if (isCancelled) return;
+        shownAt.current = 0;
         setIsVisible(false);
         /* Unconditional, and idempotent: if this run was cut short by a
            navigation, the run that replaces it still has to take the first
            curtain down. */
         dismissBootCurtain();
-      }, minimumDelay);
+      }, remaining);
     };
 
     waitForPageReady();
@@ -340,17 +521,19 @@ function RouteLoadingOverlay() {
     return () => {
       isCancelled = true;
       window.clearTimeout(timeoutId);
+      window.clearTimeout(graceTimer.current);
+      graceTimer.current = 0;
     };
-  }, [location.key, location.pathname, location.search]);
+  }, [location.key, location.pathname, location.search, requestCurtain, releaseCurtain]);
 
   return (
     <div
       aria-hidden={!isVisible}
-      className={`fixed inset-0 z-[200] bg-[#050505] transition-opacity duration-300 ${
-        isVisible ? "opacity-100" : "pointer-events-none opacity-0"
-      }`}
+      className={`fixed inset-0 z-[200] transition-opacity duration-300 ${
+        variant === "inlearn" ? "bg-white" : "bg-[#050505]"
+      } ${isVisible ? "opacity-100" : "pointer-events-none opacity-0"}`}
     >
-      <LoadingMark fullScreen={false} />
+      <LoadingMark fullScreen={false} variant={variant} />
     </div>
   );
 }

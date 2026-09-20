@@ -33,3 +33,64 @@ body {
     background 0.25s ease,
     box-shadow 0.25s ease;
 }
+
+/* The loading marks, breathing.
+
+   These rules are the twin of the ones inline in index.html - that curtain is
+   painted before any stylesheet exists and has to carry its own copy. Change
+   the timing in one and change it in the other, or the cover over a move will
+   move at a different speed from the cover over the first paint.
+
+   Four parts breathing one after another reads as something working; four
+   breathing together reads as blinking. The delays are what make the
+   difference, and they only work because each mark is its own path. */
+.brand-mark-part {
+  animation: brand-mark-breathe 1.1s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+.brand-mark-part:nth-child(2) {
+  animation-delay: 0.14s;
+}
+
+.brand-mark-part:nth-child(3) {
+  animation-delay: 0.28s;
+}
+
+.brand-mark-part:nth-child(4) {
+  animation-delay: 0.42s;
+}
+
+@keyframes brand-mark-breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  45% {
+    opacity: 1;
+  }
+}
+
+/* One shape has no stagger to carry it, and on the white curtain a dip to 0.35
+   takes it close to invisible - which reads as flickering out rather than
+   breathing. */
+.brand-mark-part.is-single {
+  animation-name: brand-mark-breathe-soft;
+}
+
+@keyframes brand-mark-breathe-soft {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  45% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-mark-part {
+    animation: none;
+    opacity: 1;
+  }
+}

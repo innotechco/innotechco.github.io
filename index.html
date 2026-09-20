@@ -44,38 +44,117 @@
          src/app/bootCurtain.js lifts the curtain once the page has stopped
          moving. -->
     <style>
+      /* The colour is set on the element by the script below, from the address
+         being opened: INLEARN is a white module and the rest of the site is
+         black, and a curtain in the wrong one of the two is a flash at the
+         exact moment the curtain exists to prevent. Black is the default
+         because that is where most visits land. */
       #boot-curtain {
         position: fixed;
         inset: 0;
         z-index: 300;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 12px;
+        gap: 18px;
         background: #050505;
-        color: rgba(255, 255, 255, 0.7);
-        font-family: "Gotham", system-ui, sans-serif;
-        font-size: 14px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
         transition: opacity 300ms ease;
       }
 
-      #boot-curtain .boot-curtain-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 9999px;
-        background: #37b478;
-        animation: boot-curtain-pulse 2s ease-in-out infinite;
+      #boot-curtain svg {
+        width: 58px;
+        height: 58px;
+        display: block;
       }
 
-      @keyframes boot-curtain-pulse {
+      /* The four marks of the INNOTECH logo breathe one after another rather
+         than together, so the shape reads as something working rather than
+         something blinking. Each is its own path, so each can have its own
+         delay - which is the whole reason the logo is inline here instead of
+         a picture.
+
+         1.1s, not the 2s this used to run at: a load that finishes in under a
+         second showed less than half of one pulse, which on screen is a mark
+         that simply sits there. */
+      #boot-curtain .boot-mark-part {
+        animation: boot-curtain-breathe 1.1s ease-in-out infinite;
+        transform-origin: 50% 50%;
+      }
+
+      #boot-curtain .boot-mark-part:nth-child(2) {
+        animation-delay: 0.14s;
+      }
+
+      #boot-curtain .boot-mark-part:nth-child(3) {
+        animation-delay: 0.28s;
+      }
+
+      #boot-curtain .boot-mark-part:nth-child(4) {
+        animation-delay: 0.42s;
+      }
+
+      @keyframes boot-curtain-breathe {
         0%,
         100% {
+          opacity: 0.35;
+        }
+        45% {
           opacity: 1;
         }
-        50% {
-          opacity: 0.4;
+      }
+
+      /* The INLEARN mark is one shape, not four, so there is no stagger to
+         carry it - the whole thing fades at once. On a white curtain a dip to
+         0.35 takes it close to invisible, which reads as the mark flickering
+         out rather than breathing, so this one does not go as far down. */
+      #boot-curtain[data-brand="inlearn"] .boot-mark-part {
+        animation-name: boot-curtain-breathe-soft;
+      }
+
+      @keyframes boot-curtain-breathe-soft {
+        0%,
+        100% {
+          opacity: 0.55;
+        }
+        45% {
+          opacity: 1;
+        }
+      }
+
+      /* Under the mark, and quiet.
+
+         Gotham is deliberately NOT asked for here. This curtain is painted
+         before the stylesheet and before any font file exists, and Gotham is
+         declared font-display: swap - so naming it meant the word was drawn in
+         the system font, then redrawn in Gotham the moment it arrived. A word
+         that changes shape while you read it is worse than one that was never
+         in the brand font, especially one that is on screen for well under a
+         second.
+
+         So it asks for the system stack and stays in it. The size, the weight
+         and the letter-spacing are what make it look deliberate; the typeface
+         is not doing that work here. */
+      #boot-curtain-label {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      /* On the white curtain the same grey would disappear. */
+      #boot-curtain[data-brand="inlearn"] #boot-curtain-label {
+        color: rgba(5, 5, 5, 0.4);
+      }
+
+      /* Some people ask for no movement. They still get the curtain, just a
+         still one. */
+      @media (prefers-reduced-motion: reduce) {
+        #boot-curtain .boot-mark-part {
+          animation: none;
+          opacity: 1;
         }
       }
 
@@ -102,14 +181,52 @@
     </script>
   </head>
   <body>
-    <div id="boot-curtain">
-      <span class="boot-curtain-dot"></span>
+    <div id="boot-curtain" role="status" aria-live="polite">
+      <span id="boot-curtain-mark"></span>
       <span id="boot-curtain-label">Loading</span>
     </div>
     <script>
       (function () {
+        /* Everything here runs before any bundle, any stylesheet and any font,
+           so the marks are written out as SVG rather than imported. They are
+           the same two shapes the navbar uses. */
+        var INNOTECH_MARK =
+          '<svg viewBox="0 0 36 37" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<path class="boot-mark-part" d="M32.2465 32.7296C35.3954 30.9955 36.5206 27.0677 34.764 23.9591C33.0074 20.8505 29.0288 19.7397 25.8799 21.4738C22.731 23.2079 21.6058 27.1356 23.3624 30.2443C25.119 33.3529 29.0976 34.4637 32.2465 32.7296Z" fill="#37B478"/>' +
+          '<path class="boot-mark-part" d="M18.1211 22.4445C15.5145 17.8375 9.62142 16.1913 4.95876 18.7645C0.292059 21.3377 -1.37549 27.1554 1.23107 31.7584C3.83762 36.3654 9.7307 38.0116 14.3934 35.4384C19.056 32.8652 20.7276 27.0475 18.1211 22.4445Z" fill="#37B478"/>' +
+          '<path class="boot-mark-part" d="M33.8699 5.25115C32.4331 2.7139 29.187 1.80688 26.6169 3.22135C24.0468 4.63981 23.128 7.84433 24.5608 10.3816C25.9976 12.9188 29.2437 13.8258 31.8138 12.4114C34.3839 10.9969 35.3027 7.78839 33.8699 5.25115Z" fill="#37B478"/>' +
+          '<path class="boot-mark-part" d="M13.5354 14.6372C17.3521 12.5315 18.7161 7.77263 16.5871 4.00472C14.4541 0.236814 9.63362 -1.10972 5.81688 0.991994C2.00014 3.09771 0.636148 7.85654 2.7651 11.6245C4.89811 15.3924 9.71862 16.7389 13.5354 14.6372Z" fill="#37B478"/>' +
+          "</svg>";
+
+        var INLEARN_MARK =
+          '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<path class="boot-mark-part" d="M18 0C26.6687 0.000230111 33.9048 6.12862 35.6152 14.2891C31.5142 14.7571 27.5462 16.6058 24.4658 19.8174C20.2026 24.2623 18.6227 30.2967 19.6797 35.9209C19.1266 35.9721 18.5664 36 18 36C10.7326 36 4.47132 31.6928 1.62891 25.4922C6.0587 25.1364 10.3723 23.1816 13.627 19.6611C18.6847 14.1895 19.772 6.4657 17.0361 0.0253906C17.3551 0.00856787 17.6768 0 18 0ZM35.6826 21.3721C34.2267 29.0537 27.8909 35.0063 20.0205 35.8857C20.6901 32.6054 22.2623 29.4679 24.751 26.873C27.7768 23.7184 31.6591 21.8799 35.6826 21.3721ZM16.2305 0.0859375C16.5654 4.95121 14.9739 9.93909 11.4023 13.8027C8.31034 17.1472 4.2625 19.0786 0.0673828 19.5684C0.0227692 19.0515 0 18.5284 0 18C0 8.65579 7.11966 0.974687 16.2305 0.0859375Z" fill="#37B478"/>' +
+          "</svg>";
+
+        /* Which of the two, and what colour behind it, is decided by the
+           address being opened. INLEARN is a white module; the rest of the site
+           is black. Landing straight on /inlearn used to mean a black curtain
+           lifting onto a white page, which is the flash the curtain is for.
+
+           indexOf rather than a leading slash: this site is also served from a
+           project sub-path, where every address is prefixed. */
+        var isInlearn = window.location.pathname.indexOf("/inlearn") !== -1;
+        var curtain = document.getElementById("boot-curtain");
+
+        if (curtain) {
+          if (isInlearn) {
+            curtain.style.background = "#ffffff";
+            curtain.setAttribute("data-brand", "inlearn");
+          }
+          document.getElementById("boot-curtain-mark").innerHTML = isInlearn
+            ? INLEARN_MARK
+            : INNOTECH_MARK;
+        }
+
         /* The curtain is painted before any bundle runs, so the word on it has
-           to come from the same place the language switcher writes to. */
+           to come from the same place the language switcher writes to. It is
+           not drawn on screen - it is what a screen reader is given, which
+           otherwise meets a blank page with nothing to announce. */
         var labels = {ar: "جارٍ التحميل", tr: "Yükleniyor"};
         try {
           var locale = window.localStorage.getItem("innotech-language");
@@ -123,8 +240,8 @@
         /* If the bundle never runs - a chunk that fails to download, a blocked
            script - the curtain must not hide the site for ever. */
         window.setTimeout(function () {
-          var curtain = document.getElementById("boot-curtain");
-          if (curtain) curtain.remove();
+          var stale = document.getElementById("boot-curtain");
+          if (stale) stale.remove();
         }, 10000);
       })();
     </script>
