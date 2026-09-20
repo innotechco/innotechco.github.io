@@ -6,7 +6,7 @@ import {useEffect} from "react";
 
    role="status" rather than "alert": a screen reader announces it when it
    finishes what it is saying, instead of interrupting. Nothing here is urgent. */
-function InlearnToast({message, onDismiss, duration = 4000}) {
+function InlearnToast({message, action, onDismiss, duration = 4000}) {
   useEffect(() => {
     if (!message) return undefined;
     const timer = window.setTimeout(onDismiss, duration);
@@ -31,6 +31,23 @@ function InlearnToast({message, onDismiss, duration = 4000}) {
         </svg>
       </span>
       <p>{message}</p>
+
+      {/* One action, and only when there is one to offer. It runs and then
+          takes the toast away, because the thing it was offering to undo has
+          just been undone. */}
+      {action ? (
+        <button
+          type="button"
+          className="inlearn-toast-action"
+          onClick={() => {
+            action.run();
+            onDismiss();
+          }}
+        >
+          {action.label}
+        </button>
+      ) : null}
+
       <button type="button" onClick={onDismiss} aria-label="Dismiss">
         <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
           <path

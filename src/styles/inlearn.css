@@ -17,6 +17,10 @@
    Vite inlines these at build time, so the browser still receives one
    stylesheet - the split costs no extra request.
 
+   17-basket comes last because nothing overrides it - it is a page of its
+   own, and the reduced-motion rule in 16 carries !important so it still
+   reaches the basket from above.
+
    Each part is named for the thing it draws, and the numbers are there so the
    order is visible in the folder listing rather than hidden in this file. */
 
@@ -36,3 +40,4 @@
 @import "./inlearn/14-card-actions.css";
 @import "./inlearn/15-course-page.css";
 @import "./inlearn/16-tail.css";
+@import "./inlearn/17-basket.css";

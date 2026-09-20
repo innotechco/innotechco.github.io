@@ -1,0 +1,23 @@
+{
+  "title": "سلة التسوق",
+  "columnReport": "التقرير",
+  "columnPrice": "السعر",
+  "sale": "تخفيض",
+  "remove": "إزالة من السلة",
+  "removed": "تمت الإزالة من سلتك.",
+  "undo": "تراجع",
+  "restored": "أُعيد إلى سلتك.",
+  "discountPlaceholder": "رمز الخصم",
+  "apply": "تطبيق",
+  "discountRejected": "هذا الرمز غير صالح.",
+  "discountComing": "رموز الخصم غير مفعّلة بعد.",
+  "total": "الإجمالي",
+  "purchase": "إتمام الشراء",
+  "empty": "سلتك فارغة.",
+  "emptyHint": "ستظهر هنا الدورات التي تضيفها.",
+  "browse": "تصفح جميع الدورات",
+  "checkoutTitle": "إتمام الطلب",
+  "checkoutBody": "الدفع غير مفعّل بعد. سلتك محفوظة ولم يتم خصم أي مبلغ.",
+  "checkoutItems": "في سلتك",
+  "checkoutBack": "العودة إلى السلة"
+}

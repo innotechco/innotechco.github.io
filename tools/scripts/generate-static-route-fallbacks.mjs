@@ -22,6 +22,8 @@ const staticRoutes = [
   "who-we-are",
   "inlearn",
   "inlearn/courses",
+  "inlearn/basket",
+  "inlearn/checkout",
   "request-for-proposal",
   "what-we-do/inception",
   "what-we-do/insight",

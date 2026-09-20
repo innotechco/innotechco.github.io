@@ -112,6 +112,40 @@ export function getInlearnCourse(slug) {
   };
 }
 
+/* The basket, joined up: the words for the page, and the ids in this device's
+   storage turned into the courses they point at.
+
+   The lines are resolved here rather than in the page for the same reason the
+   course page's joins are: a page that looks courses up itself is a page that
+   has to know how the catalogue is shaped.
+
+   An id in storage that no longer exists in the catalogue is dropped. That
+   happens when a course is retired while it sits in somebody's basket, and a
+   row with no title and no price is worse than no row.
+
+   The total is added up here too - and it is a DISPLAY total only. When Strapi
+   arrives it is handed the ids and works out what they really cost; nothing
+   this function returns is ever what somebody is charged. */
+export function getInlearnBasket(lines) {
+  const copy = localizedModule(
+    inlearnModules(),
+    "../../content/en/pages/inlearn/basket.json",
+  );
+  const catalogue = getInlearnCourses();
+  const byId = new Map(catalogue.courses.map((course) => [course.id, course]));
+
+  const items = (lines ?? [])
+    .map((line) => byId.get(line.id))
+    .filter(Boolean);
+
+  return {
+    copy,
+    items,
+    currency: catalogue.currency,
+    total: items.reduce((sum, course) => sum + (course.price ?? 0), 0),
+  };
+}
+
 export function getInlearnFirstPage() {
   const page = localizedModule(
     inlearnModules(),

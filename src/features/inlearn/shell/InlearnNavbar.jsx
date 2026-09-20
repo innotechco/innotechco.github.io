@@ -2,6 +2,7 @@ import {useEffect, useRef, useState, useSyncExternalStore} from "react";
 import {Link} from "react-router-dom";
 
 import {useLanguage} from "../../../app/providers/language/useLanguage.js";
+import {routes} from "../../../app/routes.js";
 import InlearnBrand from "./InlearnBrand.jsx";
 import chevronDown from "../assets/chevron-down.svg";
 import searchIcon from "../assets/search.svg";
@@ -82,7 +83,7 @@ function InlearnNavbar({onAuthOpen, session}) {
               </button>
             </>
           )}
-          <Link to="/inlearn/basket" className="inlearn-cart-link" aria-label="Shopping basket">
+          <Link to={routes.inlearnBasket} className="inlearn-cart-link" aria-label="Shopping basket">
             <img src={shoppingCart} alt="" loading="lazy" />
             {/* Only when there is something in it. A permanent zero beside the
                 basket is a number that never means anything. */}

@@ -1,0 +1,388 @@
+/* --------------------------------------------------------------------------
+   SHOPPING BASKET, AND THE CHECKOUT IT LEADS TO
+   -------------------------------------------------------------------------- */
+
+.inlearn-basket {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(110px, 14vw, 170px) clamp(20px, 5vw, 96px) clamp(70px, 9vw, 130px);
+}
+
+.inlearn-basket-title {
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+/* The column headings. They sit on the same grid as a row, so "Price" lands
+   over the prices rather than being centred over nothing. Hidden from a screen
+   reader - each row already names its own parts - and taken away entirely
+   where the rows stop being columns. */
+.inlearn-basket-head {
+  display: grid;
+  grid-template-columns: 1fr auto 44px;
+  gap: 16px;
+  align-items: center;
+  padding: 0 4px 12px;
+  border-bottom: 1px solid var(--inlearn-green);
+  color: var(--inlearn-muted);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.inlearn-basket-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Same three columns as the heading above it. The picture and the words share
+   the first one, so the title can wrap without the price moving. */
+.inlearn-basket-row {
+  display: grid;
+  grid-template-columns: 1fr auto 44px;
+  gap: 16px;
+  align-items: center;
+  padding: clamp(14px, 2vw, 22px) 4px;
+  border-bottom: 1px solid #e6e6e2;
+}
+
+.inlearn-basket-media {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(64px, 8vw, 86px);
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.inlearn-basket-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Sits over the corner of the picture, the way the design draws it. Only
+   appears when there is a price to compare against. */
+.inlearn-basket-sale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 3px 8px;
+  border-bottom-right-radius: 10px;
+  background: #e8543f;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+/* The picture and the words, as one cell of the row. */
+.inlearn-basket-info {
+  grid-column: 1;
+  display: flex;
+  gap: clamp(12px, 1.6vw, 20px);
+  align-items: center;
+  min-width: 0;
+}
+
+/* The words beside the picture. min-width: 0 or a long title refuses to wrap
+   and pushes the price out of the row. */
+.inlearn-basket-text {
+  min-width: 0;
+}
+
+.inlearn-basket-name {
+  margin: 0;
+  font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* The same pill language as the chips elsewhere in the module. */
+.inlearn-basket-mode {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 8px;
+  padding: 4px 11px;
+  border: 1px solid #d9d9d4;
+  border-radius: 999px;
+  color: #55555c;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.inlearn-basket-price {
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.inlearn-basket-remove {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  justify-self: end;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: #55555c;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+
+.inlearn-basket-remove:hover {
+  background: #f1f1ee;
+  color: #e8543f;
+}
+
+.inlearn-basket-remove:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+/* ---- the foot: the code on the left, the total on the right -------------- */
+
+.inlearn-basket-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 60px);
+  align-items: start;
+  padding-top: clamp(20px, 3vw, 34px);
+}
+
+.inlearn-basket-discount form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.inlearn-basket-discount input {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 260px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #d9d9d4;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 14px;
+}
+
+.inlearn-basket-discount input:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 1px;
+}
+
+.inlearn-basket-apply {
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 26px;
+  border: none;
+  border-radius: 999px;
+  background: var(--inlearn-black);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.inlearn-basket-apply:hover {
+  background: #26262b;
+}
+
+/* In the accent red rather than the brand green: this one is a refusal. */
+.inlearn-basket-code-problem {
+  margin: 10px 0 0;
+  color: #c0392b;
+  font-size: 13px;
+}
+
+.inlearn-basket-purchase {
+  margin-top: clamp(14px, 2vw, 22px);
+  min-width: 150px;
+  height: 44px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.inlearn-basket-purchase:hover {
+  background: #2ea069;
+  transform: translateY(-1px);
+}
+
+.inlearn-basket-total {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px 20px;
+  align-items: baseline;
+  margin: 0;
+  padding-top: 6px;
+  border-top: 1px solid #e6e6e2;
+}
+
+.inlearn-basket-total dt {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.inlearn-basket-total dd {
+  margin: 0;
+  justify-self: end;
+}
+
+/* ---- nothing in it ------------------------------------------------------- */
+
+.inlearn-basket-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(50px, 8vw, 90px) 20px;
+  text-align: center;
+}
+
+.inlearn-basket-empty p {
+  margin: 0;
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 700;
+}
+
+.inlearn-basket-empty-hint {
+  color: var(--inlearn-muted);
+  font-size: 14px;
+  font-weight: 400 !important;
+}
+
+.inlearn-basket-empty .inlearn-hero-cta {
+  margin-top: 12px;
+}
+
+/* ---- the checkout placeholder -------------------------------------------- */
+
+.inlearn-checkout-body {
+  max-width: 52ch;
+  margin: 0 0 clamp(24px, 3vw, 36px);
+  color: #55555c;
+  font-size: clamp(14px, 1.3vw, 17px);
+  line-height: 1.5;
+}
+
+.inlearn-checkout-subheading {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.inlearn-checkout-list {
+  margin: 0 0 clamp(20px, 3vw, 30px);
+  padding: 0;
+  list-style: none;
+  max-width: 620px;
+}
+
+.inlearn-checkout-list li {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid #e6e6e2;
+  font-size: 14px;
+}
+
+.inlearn-checkout-total {
+  max-width: 620px;
+}
+
+.inlearn-checkout-back {
+  margin-top: clamp(24px, 3vw, 36px);
+}
+
+/* ---- the toast's one action ---------------------------------------------- */
+
+.inlearn-toast-action {
+  flex-shrink: 0;
+  margin-inline-start: 4px;
+  padding: 6px 14px;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.inlearn-toast-action:hover {
+  border-color: #fff;
+  background: rgb(255 255 255 / 14%);
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* Below this the row stops being three columns. The picture and the words stay
+   side by side, the price moves under them, and the bin stays in the corner
+   where it has always been - so nothing has to be hunted for. */
+@media (max-width: 720px) {
+  .inlearn-basket-head {
+    display: none;
+  }
+
+  .inlearn-basket-row {
+    grid-template-columns: minmax(0, 1fr) 40px;
+    gap: 10px 12px;
+  }
+
+  .inlearn-basket-info {
+    grid-column: 1;
+  }
+
+  .inlearn-basket-remove {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .inlearn-basket-price {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .inlearn-basket-foot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .inlearn-basket-total {
+    order: -1;
+  }
+}
+
+@media (max-width: 430px) {
+  .inlearn-basket-info {
+    gap: 12px;
+  }
+
+  .inlearn-basket-discount form {
+    flex-wrap: wrap;
+  }
+
+  .inlearn-basket-discount input {
+    max-width: none;
+  }
+
+  .inlearn-basket-purchase,
+  .inlearn-basket-apply {
+    width: 100%;
+  }
+}

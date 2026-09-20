@@ -1,0 +1,23 @@
+{
+  "title": "SEPET",
+  "columnReport": "Rapor",
+  "columnPrice": "Fiyat",
+  "sale": "İNDİRİM",
+  "remove": "Sepetten çıkar",
+  "removed": "Sepetinizden çıkarıldı.",
+  "undo": "Geri al",
+  "restored": "Sepetinize geri kondu.",
+  "discountPlaceholder": "İndirim Kodu",
+  "apply": "Uygula",
+  "discountRejected": "Bu kod geçerli değil.",
+  "discountComing": "İndirim kodları henüz bağlanmadı.",
+  "total": "TOPLAM",
+  "purchase": "Satın al",
+  "empty": "Sepetiniz boş.",
+  "emptyHint": "Eklediğiniz kurslar burada listelenir.",
+  "browse": "Tüm kurslara göz at",
+  "checkoutTitle": "ÖDEME",
+  "checkoutBody": "Ödeme henüz bağlanmadı. Sepetiniz duruyor ve hiçbir tahsilat yapılmadı.",
+  "checkoutItems": "Sepetinizde",
+  "checkoutBack": "Sepete dön"
+}

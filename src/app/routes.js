@@ -3,6 +3,8 @@ export const routes = {
   inlearnAcademy: "/inlearn",
   inlearnCourses: "/inlearn/courses",
   inlearnCourse: "/inlearn/courses/:slug",
+  inlearnBasket: "/inlearn/basket",
+  inlearnCheckout: "/inlearn/checkout",
   archives: "/archives",
   whatWeThink: "/what-we-think",
   whoWeAre: "/who-we-are",

@@ -1,0 +1,23 @@
+{
+  "title": "SHOPPING BASKET",
+  "columnReport": "Report",
+  "columnPrice": "Price",
+  "sale": "SALE",
+  "remove": "Remove from basket",
+  "removed": "Removed from your basket.",
+  "undo": "Undo",
+  "restored": "Put back in your basket.",
+  "discountPlaceholder": "Discount Code",
+  "apply": "Apply",
+  "discountRejected": "That code is not valid.",
+  "discountComing": "Discount codes are not connected yet.",
+  "total": "TOTAL",
+  "purchase": "Purchase",
+  "empty": "Your basket is empty.",
+  "emptyHint": "Courses you add will be listed here.",
+  "browse": "Browse all courses",
+  "checkoutTitle": "CHECKOUT",
+  "checkoutBody": "Payment is not connected yet. Your basket is safe and nothing has been charged.",
+  "checkoutItems": "In your basket",
+  "checkoutBack": "Back to basket"
+}
