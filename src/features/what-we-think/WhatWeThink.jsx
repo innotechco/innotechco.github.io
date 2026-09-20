@@ -6,6 +6,7 @@ import {decorationsRightDark as BlackExcludeRightWhatWeThink} from "./what-we-th
 import {decorationsLeftLight as ExcludeLeftWhatWeThink} from "./what-we-think.assets.js";
 import {decorationsRightLight as ExcludeRightWhatWeThink} from "./what-we-think.assets.js";
 import {cards} from "./what-we-think.content.js";
+import RemoteImage from "../../shared/components/ui/RemoteImage.jsx";
 import {useBlogPosts} from "../../shared/hooks/useBlogPosts.js";
 import {truncateWords} from "../../shared/content/cardSummary.js";
 import {getArticlePath} from "../../shared/content/blogSections.js";
@@ -42,6 +43,7 @@ function mergePostsIntoCards(defaultCards, posts = []) {
         description: truncateWords(post.description),
         slug: post.slug,
         image: post.image,
+        imageSrcSet: post.imageSrcSet,
       },
     };
   }, {});
@@ -70,10 +72,21 @@ function ImagePane({card}) {
 
   return (
     <div className="what-we-think-image">
-      <img
+      {/* RemoteImage rather than a plain tag, for the reason the INLEARN event
+          card already uses it: WordPress serves what the editor uploaded, which
+          is a PNG out of an image generator. One of these cards is 711KB as a
+          PNG and 53KB as WebP, and there are seven of them on this page - which
+          is why the cards sat empty for seconds while the words were already
+          there.
+
+          srcSet is what WordPress made itself (media_details.sizes); sizes says
+          how wide the picture will really be drawn, so the browser can choose
+          before the layout exists. Two cards across a monitor, one on a phone. */}
+      <RemoteImage
         className="article-card-image-crop"
-        loading="lazy"
         src={card.image}
+        srcSet={card.imageSrcSet}
+        sizes="(max-width: 1023px) 100vw, 50vw"
         alt=""
         aria-hidden="true"
         style={{objectPosition: card.imagePosition ?? "center center"}}
