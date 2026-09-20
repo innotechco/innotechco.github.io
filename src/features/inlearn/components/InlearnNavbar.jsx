@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState, useSyncExternalStore} from "react";
 import {Link} from "react-router-dom";
 
 import {useLanguage} from "../../../app/providers/language/useLanguage.js";
@@ -7,6 +7,7 @@ import chevronDown from "../assets/chevron-down.svg";
 import searchIcon from "../assets/search.svg";
 import shoppingCart from "../assets/shopping-cart.svg";
 import {inlearnLanguages} from "../data/inlearnContent.js";
+import {getBasketCount, subscribeToBasket} from "../services/basket.js";
 
 function SearchIcon() {
   return <img className="inlearn-search-icon" src={searchIcon} alt="" aria-hidden="true" />;
@@ -14,6 +15,10 @@ function SearchIcon() {
 
 function InlearnNavbar({onAuthOpen, session}) {
   const {locale, changeLanguage} = useLanguage();
+  /* The basket lives in this device's storage and changes from anywhere on the
+     page, or from another tab. useSyncExternalStore reads it where it is rather
+     than copying it into state and going one render out of date. */
+  const basketCount = useSyncExternalStore(subscribeToBasket, getBasketCount, () => 0);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -79,6 +84,13 @@ function InlearnNavbar({onAuthOpen, session}) {
           )}
           <Link to="/inlearn/basket" className="inlearn-cart-link" aria-label="Shopping basket">
             <img src={shoppingCart} alt="" loading="lazy" />
+            {/* Only when there is something in it. A permanent zero beside the
+                basket is a number that never means anything. */}
+            {basketCount ? (
+              <span className="inlearn-cart-count" aria-hidden="true">
+                {basketCount}
+              </span>
+            ) : null}
           </Link>
           <div className="inlearn-language">
             <button

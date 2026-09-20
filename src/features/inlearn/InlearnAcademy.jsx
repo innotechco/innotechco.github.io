@@ -2,10 +2,13 @@ import {useEffect, useRef, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 
 import AllCoursesPage from "./all-courses/AllCoursesPage.jsx";
+import CoursePage from "./course/CoursePage.jsx";
 import AuthSidebar from "./components/AuthSidebar.jsx";
 import FirstPage from "./first-page/FirstPage.jsx";
 import InlearnNavbar from "./components/InlearnNavbar.jsx";
 import InlearnToast from "./components/InlearnToast.jsx";
+import {getBasketCount, subscribeToBasket} from "./services/basket.js";
+import {getInlearnCourses} from "./inlearnContent.js";
 import {restoreSession} from "./services/authService.js";
 import {useTheme} from "../../app/providers/theme/useTheme.js";
 import "../../styles/inlearn.css";
@@ -17,6 +20,24 @@ function InlearnAcademy() {
   const [toast, setToast] = useState("");
   const {isDarkMode, setIsDarkMode} = useTheme();
   const themeOnEntry = useRef(isDarkMode);
+  const basketCount = useRef(0);
+
+  /* The message belongs here rather than in the button that caused it: the
+     toast is the shell's, and a course added from a card, from a course page or
+     from anywhere else later should say the same thing in the same place.
+
+     It compares against the count it last saw, so it speaks for an addition and
+     stays quiet when something is removed. */
+  useEffect(() => {
+    basketCount.current = getBasketCount();
+
+    return subscribeToBasket(() => {
+      const next = getBasketCount();
+      const added = next > basketCount.current;
+      basketCount.current = next;
+      if (added) setToast(getInlearnCourses().detail.addedToCart);
+    });
+  }, []);
 
   /* The access token only lives ten minutes, which is shorter than most visits
      away, so a stored one is almost certainly stale by now. Trading it for a
@@ -85,6 +106,7 @@ function InlearnAcademy() {
           screen - a mistyped INLEARN address is still an INLEARN visit. */}
       <Routes>
         <Route path="courses" element={<AllCoursesPage />} />
+        <Route path="courses/:slug" element={<CoursePage />} />
         <Route path="*" element={<FirstPage />} />
       </Routes>
     </main>

@@ -196,6 +196,24 @@ function stripHtml(value) {
   return collapse(decodeEntities(String(value ?? "").replace(/<[^>]*>/g, "")));
 }
 
+/* Course pages are a :slug route too, and the same rule applies: a route with
+   no entry here 404s on a direct link, however well it works when the visitor
+   arrives by clicking.
+
+   The courses come from the bundled catalogue rather than from WordPress -
+   that is where they live today. When they move, this is the one function that
+   changes, and it changes the same way getArticles() already works. */
+function getCourses() {
+  const catalogue = readContent(path.join("pages", "inlearn", "all-courses.json"));
+  if (!catalogue?.courses?.length) return [];
+
+  return catalogue.courses.map((course) => ({
+    route: `inlearn/courses/${course.id}`,
+    title: collapse(course.title),
+    description: collapse(course.summary).slice(0, 200),
+  }));
+}
+
 /* Partner pages are a :slug route, so they need an entry each just like the
    article pages do - without this every partner 404s on a direct link. The
    slugs come from the content tree rather than a second hand-kept list. */
@@ -248,7 +266,7 @@ const metadata = buildRouteMetadata();
 
 /* Every :slug route in App.jsx needs a generator here, or those pages 404 on
    a direct link while working fine through client-side navigation. */
-const generated = [...getPartners(), ...(await getArticles())];
+const generated = [...getPartners(), ...getCourses(), ...(await getArticles())];
 
 for (const page of generated) {
   if (page.title) {

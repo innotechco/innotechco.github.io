@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 import {usePointerGlow} from "../../../shared/hooks/usePointerGlow.js";
 
 /* One course, as a card.
@@ -14,7 +16,9 @@ import {usePointerGlow} from "../../../shared/hooks/usePointerGlow.js";
 function CourseCard({
   course,
   readMore,
-  href,
+  /* An in-site destination. A Link rather than a plain <a>, or every card press
+     would reload the whole application to show a page it already has. */
+  to,
   isVisible = false,
   /* "row" is the first page's carousel, as drawn: the picture, the words, and
      a Read more that grows out of its own circle.
@@ -29,8 +33,8 @@ function CourseCard({
   onShare,
   isSaved = false,
 }) {
-  const Wrapper = href ? "a" : "article";
-  const linkProps = href ? {href} : {};
+  const Wrapper = to ? Link : "article";
+  const linkProps = to ? {to} : {};
   const {position, handlers} = usePointerGlow();
   const hasActions = layout === "grid";
 

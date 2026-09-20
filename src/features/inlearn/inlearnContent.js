@@ -12,6 +12,8 @@ import {
   courseImageFallback,
   courseImages,
   inlearnConfig,
+  instructorImageFallback,
+  instructorImages,
   learningSolutionsImage,
 } from "./inlearn.config.js";
 
@@ -50,6 +52,51 @@ export function getInlearnCourses() {
          edits one line per locale rather than sixteen. */
       modeLabel: catalogue.modes?.[course.mode] ?? "",
     })),
+    /* The instructor is written once and pointed at from every course they
+       teach, so their portrait is resolved here in one place rather than once
+       per course. */
+    instructors: Object.fromEntries(
+      Object.entries(catalogue.instructors ?? {}).map(([id, instructor]) => [
+        id,
+        {...instructor, id, image: instructorImages[id] ?? instructorImageFallback},
+      ]),
+    ),
+  };
+}
+
+/* One course, with everything its own page draws already joined up: the
+   instructor, the words for its categories, and the courses it points at.
+
+   Resolved here rather than in the page because every one of those joins is a
+   lookup into the same catalogue, and a page that does its own lookups is a
+   page that has to know how the catalogue is shaped. */
+export function getInlearnCourse(slug) {
+  const catalogue = getInlearnCourses();
+  const course = catalogue.courses.find((entry) => entry.id === slug);
+
+  if (!course) return {catalogue, course: null};
+
+  const byId = new Map(catalogue.courses.map((entry) => [entry.id, entry]));
+  const labelFor = (id) => catalogue.tags?.find((tag) => tag.id === id)?.label;
+
+  return {
+    catalogue,
+    course: {
+      ...course,
+      instructor: catalogue.instructors[course.instructor] ?? null,
+      /* The green chip is the category the course is filed under; the grey ones
+         are the rest. Both come from the same list the All Courses filters use,
+         so a category renamed there is renamed here. */
+      categoryChips: (course.categories ?? [])
+        .map((id) => ({id, label: labelFor(id), isPrimary: id === course.tag}))
+        .filter((chip) => chip.label),
+      /* Written as ids, resolved here. A card then reads its own title, price
+         and picture from the course it points at - so changing what a card says
+         means editing that course, never this one. */
+      related: (course.related ?? [])
+        .map((id) => byId.get(id))
+        .filter(Boolean),
+    },
   };
 }
 

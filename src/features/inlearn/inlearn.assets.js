@@ -14,6 +14,12 @@ export {default as firstPageArcRight} from "./assets/first-page/arc-right.webp";
    gets its own export beside this one and its own line in the config. */
 export {default as coursePlaceholder} from "./assets/courses/placeholder.webp";
 
+/* One drawing stands in for every instructor until the real portraits arrive -
+   the same arrangement the courses have, and for the same reason: a placeholder
+   that looks like a real photograph is one nobody notices is still a
+   placeholder. */
+export {default as instructorPlaceholder} from "./assets/instructors/placeholder.svg";
+
 /* Standing in until the real photograph arrives. See the note inside the file
    itself for what replacing it involves. */
 export {default as learningSolutionsPlaceholder} from "./assets/first-page/learning-solutions-placeholder.svg";

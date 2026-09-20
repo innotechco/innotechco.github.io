@@ -1,0 +1,13 @@
+<!--
+  Standing in until the real portraits arrive.
+
+  Deliberately a drawing rather than a stock photograph: a placeholder that
+  looks like a real person is one nobody notices is still a placeholder, and it
+  ends up shipped. Drop a real portrait in this folder, export it from
+  inlearn.assets.js, and name it on that instructor's line in inlearn.config.js.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-hidden="true">
+  <circle cx="60" cy="60" r="60" fill="#e7e7e4" />
+  <circle cx="60" cy="47" r="20" fill="#c3c3bd" />
+  <path d="M18 108c0-21 19-34 42-34s42 13 42 34v12H18Z" fill="#c3c3bd" />
+</svg>
