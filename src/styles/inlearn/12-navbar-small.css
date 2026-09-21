@@ -142,6 +142,46 @@
     min-width: 0;
   }
 
+  /* Signed in, one of those controls is a person's name, and a name has no
+     width of its own. `flex: 0 0 auto` above means the pill asks for exactly
+     what its content needs - which is the right answer for five controls and
+     the wrong one for a name: at 360px "BARDIA AMIRI" already pushed the pill
+     four pixels off the screen, and a 25-character name pushed it 76, taking
+     the basket, the language and the search with it.
+
+     Signed in the pill shrinks instead, and the name is what gives way. It is
+     the only thing in that row that still reads when it is cut short; half a
+     basket icon is not half a basket.
+
+     Three declarations, and all three are needed. min-width on the pill lets
+     the flex item shrink at all; min-width on the grid inside lets its tracks
+     shrink with it, or the tracks keep their max-content size and the name is
+     drawn straight over the icons; and the name stretches to its track rather
+     than sitting at max-content beside it, which is what finally puts the
+     ellipsis within reach - text-overflow can only fire against a real limit. */
+  .inlearn-nav.is-signed-in {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .inlearn-nav.is-signed-in .inlearn-nav-content {
+    min-width: 0;
+  }
+
+  /* auto rather than the 24px/52px the wide layout reserves: the basket and
+     the language are smaller at this width, and a track that holds a monitor's
+     measurements inside a phone spends 18px the name could have used - enough
+     to truncate a name that fits. */
+  .inlearn-nav.is-signed-in .inlearn-nav-links {
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+  }
+
+  .inlearn-nav.is-signed-in .inlearn-nav-account {
+    justify-self: stretch;
+    max-width: 100%;
+  }
+
   /* While the field is open the pill takes the rest of the row instead of a
      width of its own: 360px is wider than the space left beside the brand on a
      phone, so the field ran off the right-hand edge of the screen. */
