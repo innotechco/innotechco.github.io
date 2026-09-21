@@ -1,23 +1,23 @@
 import {normalizeLocale} from "../../../shared/i18n/locale.js";
 import {getWordPressCategoryTerms} from "../adapters/blogOrdering.js";
+import {INDUSTRY_CATEGORY_LABELS} from "../../../shared/config/industries.config.js";
 
 const DEFAULT_BLOG_PER_PAGE = 50;
 const EXCLUDED_SLUGS = new Set(["hello", "hello-world"]);
 /* Structural buckets, not topics: never offered as an archive filter. */
 const EXCLUDED_CATEGORY_SLUGS = new Set(["uncategorized", "what-we-think"]);
+/* The five industry rows come from the registry, because the same wording is
+   also the navigation label for that page - written twice, the card pill and
+   the menu drift apart. The rest are categories with no page of their own. */
 const CATEGORY_LABELS = {
+  ...INDUSTRY_CATEGORY_LABELS,
   "ai-agents": "AI Agents",
-  automotive: "Automotive",
   "digital-transformation": "Digital Transformation",
-  "energy-materials": "Oil, Gas and Petrochemical",
   foresight: "Strategic Foresight",
-  health: "Healthcare and Life Sciences",
-  "high-tech": "High Tech and AI",
   inception: "INCEPTION",
   infinity: "INFINITY",
   insight: "INSIGHT",
   "market-research": "Market Research",
-  "metals-mining": "Steel and Mining",
   sustainability: "Sustainability",
   "what-we-think": "What We Think",
 };

@@ -20,9 +20,14 @@ import {
 } from "../src/integrations/wordpress/adapters/archiveCategories.js";
 import {
   CARD_SUMMARY_WORD_LIMIT,
+  CATEGORY_PILL_COLORS,
   HOME_LIVE_INSIGHTS_START_INDEX,
   INDUSTRY_CATEGORY_SLUGS,
 } from "../src/shared/config/articleCards.config.js";
+import {
+  canonicalCategorySlug,
+  INDUSTRIES,
+} from "../src/shared/config/industries.config.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const srcRoot = path.join(root, "src");
@@ -936,6 +941,73 @@ test("shared and integrations stay free of feature imports", () => {
             `src/${leaf} must not depend on src/features`,
         );
       }
+    }
+  }
+});
+
+test("one industry registry drives the route, the menu, the pill and the prerender", () => {
+  /* An industry is spelled three ways - "/metals-and-mining", "metalsAndMining",
+     "metals-mining" - across five files that no test used to compare. Missing
+     one of them never broke the build: the page went up with an empty Live
+     Insights section, or a raw slug where the label should be, and only a
+     visit to the deployed page showed it. Each assertion below is one of those
+     silent failures, made loud. */
+  const script = fs.readFileSync(
+    path.join(root, "tools", "scripts", "generate-static-route-fallbacks.mjs"),
+    "utf8",
+  );
+  const staticRouteList = script.slice(
+    script.indexOf("const staticRoutes = ["),
+    script.indexOf("];"),
+  );
+  const navigation = JSON.parse(
+    fs.readFileSync(path.join(srcRoot, "content", "en", "navigation.json"), "utf8"),
+  );
+  const menuById = new Map(
+    (navigation.industryMenuItems ?? []).map((item) => [item.id, item]),
+  );
+
+  assert.deepEqual(
+    INDUSTRIES.map(({route}) => `/${route}`).sort(),
+    [...industryRoutes].sort(),
+    "industries.config.js and industryRoutes in routes.js disagree",
+  );
+
+  assert.deepEqual(
+    Object.keys(INDUSTRY_CATEGORY_SLUGS).sort(),
+    INDUSTRIES.map(({route}) => route).sort(),
+  );
+
+  for (const industry of INDUSTRIES) {
+    const {id, route, label} = industry;
+    const slug = canonicalCategorySlug(industry);
+
+    /* Without the menu entry the page has no way in and no <title>: the
+       fallback script reads both from navigation.json, by this id. */
+    assert.ok(menuById.has(id), `navigation.json has no industryMenuItems entry "${id}"`);
+    assert.equal(
+      menuById.get(id).label,
+      label,
+      `"${id}" is labelled differently in navigation.json and industries.config.js`,
+    );
+
+    /* The same wording reaches an article card through CATEGORY_LABELS, which
+       is keyed by the WordPress slug rather than the route. */
+    assert.ok(
+      CATEGORY_PILL_COLORS[slug],
+      `no category pill colour for "${slug}" - the pill renders with the default grey`,
+    );
+
+    assert.ok(
+      staticRouteList.includes(`"${route}"`),
+      `"${route}" is missing from staticRoutes - a direct link to it 404s`,
+    );
+
+    for (const locale of ["en", "ar", "tr"]) {
+      assert.ok(
+        fs.existsSync(path.join(srcRoot, "content", locale, "industries", `${route}.json`)),
+        `content/${locale}/industries/${route}.json does not exist`,
+      );
     }
   }
 });

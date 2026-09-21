@@ -1,3 +1,5 @@
+import {INDUSTRY_CATEGORY_SLUGS_BY_ROUTE} from "./industries.config.js";
+
 /**
  * Shared presentation rules for every article card in the site
  * (Home > Our latest news, Home > Live insights, Industries > Live insight,
@@ -28,26 +30,11 @@ export const ARTICLE_HERO_ASPECT_RATIO = "16 / 9";
  * WordPress category slugs for every industry page that renders a Live Insight
  * section. Frontend route slug -> accepted WordPress category slugs.
  *
- * Several spellings are accepted per industry so the CEO can create the
- * category in WordPress under the industry's real name without the page
- * silently going empty. Renaming an existing category keeps its slug, so the
- * first entry keeps working either way.
+ * Re-exported from the industry registry rather than written out again here,
+ * so the accepted spellings and the page's display label cannot drift apart.
+ * See shared/config/industries.config.js.
  */
-export const INDUSTRY_CATEGORY_SLUGS = {
-  automotive: ["automotive"],
-  "energy-and-materials": [
-    "energy-materials",
-    "energy-and-materials",
-    "oil-gas-and-petrochemical",
-  ],
-  health: ["health", "healthcare-and-life-sciences"],
-  "high-tech": ["high-tech", "high-tech-and-ai"],
-  "metals-and-mining": [
-    "metals-mining",
-    "metals-and-mining",
-    "steel-and-mining",
-  ],
-};
+export const INDUSTRY_CATEGORY_SLUGS = INDUSTRY_CATEGORY_SLUGS_BY_ROUTE;
 
 /**
  * Stable colour per archive category pill.

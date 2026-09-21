@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
+import {INDUSTRY_ROUTE_BY_ID} from "../../src/shared/config/industries.config.js";
+
 const distRoot = path.resolve("dist");
 const indexPath = path.join(distRoot, "index.html");
 const contentRoot = path.resolve("src/content/en");
@@ -74,15 +76,8 @@ function buildRouteMetadata() {
     add(`what-we-do/${item.id}`, item.label, item.description);
   }
 
-  const industrySlugs = {
-    energyAndMaterials: "energy-and-materials",
-    metalsAndMining: "metals-and-mining",
-    highTech: "high-tech",
-    health: "health",
-    automotive: "automotive",
-  };
   for (const item of navigation.industryMenuItems ?? []) {
-    const slug = industrySlugs[item.id];
+    const slug = INDUSTRY_ROUTE_BY_ID[item.id];
     const hero = slug ? heroOf(`industries/${slug}.json`) : {};
     if (slug) add(slug, item.label, hero.description);
   }
