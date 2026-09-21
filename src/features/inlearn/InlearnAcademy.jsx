@@ -15,6 +15,16 @@ import {restoreSession} from "./services/authService.js";
 import {useTheme} from "../../app/providers/theme/useTheme.js";
 import "../../styles/inlearn.css";
 
+/* Sat here beside the panel's own wording rather than in a content JSON file:
+   every other sentence the sign-in panel says is written in the components too,
+   and INLEARN is English-only so far. It moves with them on the day the module
+   is translated.
+
+   It says why, and it does not apologise or alarm. Running out after a month is
+   the system working, not a fault, and "signed out for your security" reads as
+   though something happened. */
+const SESSION_EXPIRED_MESSAGE = "You have been signed out. Please sign in again to continue.";
+
 function InlearnAcademy() {
   const [authMode, setAuthMode] = useState("register");
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -51,8 +61,13 @@ function InlearnAcademy() {
   useEffect(() => {
     let isActive = true;
     restoreSession()
-      .then((restored) => {
-        if (isActive) setSession(restored);
+      .then(({session: restored, expired}) => {
+        if (!isActive) return;
+        setSession(restored);
+        /* Only when a session that existed has run out. A first-time visitor
+           also arrives signed out, and telling them their session expired
+           would be a lie about an account they never had. */
+        if (expired) setToast({message: SESSION_EXPIRED_MESSAGE});
       })
       .catch(() => {
         if (isActive) setSession(null);

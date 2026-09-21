@@ -59,13 +59,26 @@ export function refreshSession() {
 /* Call once when INLEARN opens. The stored access token is very likely stale -
    ten minutes is shorter than most visits away - so this trades it for a fresh
    one before anything tries to use it, rather than letting the first real
-   request fail. */
+   request fail.
+
+   Returns {session, expired} rather than a bare session because there are two
+   ways to arrive with nobody signed in, and they are not the same thing to the
+   person looking at the page:
+
+     never signed in here    expired: false   say nothing, this is normal
+     signed in, ran out      expired: true    say so, or the page has silently
+                                              forgotten them and they are left
+                                              wondering whether the account is
+                                              gone
+
+   Only the second one is worth a word, and the caller cannot tell them apart
+   from a null. */
 export async function restoreSession() {
   const stored = getSession();
-  if (!stored || !API_URL) return stored;
+  if (!stored || !API_URL) return {session: stored ?? null, expired: false};
 
   const refreshed = await refreshSession();
-  return refreshed ?? null;
+  return {session: refreshed, expired: !refreshed};
 }
 
 /* Use this for anything that needs the signed-in user - their courses, their
