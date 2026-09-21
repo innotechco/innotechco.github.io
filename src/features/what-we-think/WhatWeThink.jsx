@@ -16,6 +16,11 @@ import {routes} from "../../app/routes.js";
 import {t} from "../../shared/i18n/ui.js";
 import ContentSkeleton, {SkeletonStatus} from "../../shared/components/ui/ContentSkeleton.jsx";
 
+/* The nine the grid draws, in the order it draws them. Also how many posts to
+   ask WordPress for: this page takes the newest nine and filters nothing, so
+   the fifty it used to request were forty-one posts fetched to draw nine -
+   330KB and 1.34s, against 81KB and 0.85s for the nine. Measured against the
+   live CMS, both numbers. */
 const cardOrder = [
   "heroTop",
   "tallLeft",
@@ -67,7 +72,7 @@ function ArticleCopy({card, metaLayout = "stack", isDarkMode}) {
   );
 }
 
-function ImagePane({card}) {
+function ImagePane({card, priority = false}) {
   if (!card.image) return null;
 
   return (
@@ -90,6 +95,12 @@ function ImagePane({card}) {
         alt=""
         aria-hidden="true"
         style={{objectPosition: card.imagePosition ?? "center center"}}
+        /* RemoteImage holds back every picture it draws, which is right for
+           eight of these nine - they are below the fold. The first card is not:
+           it is the largest thing in the opening screenful and the one the page
+           is measured by, so making it wait its turn behind the rest is the
+           delay the holding back exists to prevent. */
+        {...(priority ? {loading: "eager", fetchPriority: "high"} : {})}
       />
     </div>
   );
@@ -102,6 +113,7 @@ function ArticleCard({
   image = true,
   isDarkMode,
   className = "",
+  priority = false,
 }) {
   const {position, handlers} = usePointerGlow();
 
@@ -119,7 +131,7 @@ function ArticleCard({
       />
       <article className={`what-we-think-card what-we-think-card--${variant}`}>
         <div className="what-we-think-card-tint" aria-hidden="true" />
-        {image && <ImagePane card={card} />}
+        {image && <ImagePane card={card} priority={priority} />}
         <ArticleCopy
           card={card}
           metaLayout={metaLayout}
@@ -132,7 +144,7 @@ function ArticleCard({
 
 function WhatWeThink() {
   const {isDarkMode} = useTheme();
-  const {posts, status: postsStatus} = useBlogPosts();
+  const {posts, status: postsStatus} = useBlogPosts({limit: cardOrder.length});
   const displayCards = useMemo(
     () => posts.length >= cardOrder.length
       ? mergePostsIntoCards(cards, posts)
@@ -198,7 +210,15 @@ function WhatWeThink() {
       </header>
 
       {isLoadingPosts ? (
-        <section className="what-we-think-grid" aria-label={t("loading")}>
+        /* data-route-loading is what the route curtain in App.jsx polls for.
+           Without it the curtain lifts the moment this chunk mounts - 66ms -
+           and the visitor then watches grey boxes for the second it takes
+           WordPress to answer. Every card on this page comes from the CMS, so
+           "mounted" and "ready" are not the same event here, and the marker is
+           how the page says so. The curtain has its own 2.5s deadline, and an
+           error clears this branch, so it cannot be held open by a CMS that
+           never answers. */
+        <section className="what-we-think-grid" aria-label={t("loading")} data-route-loading="">
           <SkeletonStatus label={t("loading")} />
           {Array.from({length: 6}, (_, index) => (
             <ContentSkeleton
@@ -211,7 +231,7 @@ function WhatWeThink() {
         </section>
       ) : null}
       {displayCards ? <section className="what-we-think-grid" aria-label="What we think">
-        <ArticleCard card={displayCards.heroTop} variant="horizontal" metaLayout="between" isDarkMode={isDarkMode} />
+        <ArticleCard card={displayCards.heroTop} variant="horizontal" metaLayout="between" isDarkMode={isDarkMode} priority />
 
         <div className="what-we-think-row">
           <ArticleCard card={displayCards.tallLeft} variant="tall" metaLayout="row" isDarkMode={isDarkMode} />

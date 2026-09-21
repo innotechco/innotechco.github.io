@@ -200,7 +200,21 @@ test("What We Think waits for WordPress and never flashes local card content", (
   );
 
   assert.match(page, /posts\.length >= cardOrder\.length/);
-  assert.match(page, /useBlogPosts\(\)/);
+
+  /* Exactly the nine it draws. It used to take the hook's default, which is
+     every post WordPress has - forty-one fetched and 330KB downloaded for a
+     grid of nine, on a page that filters none of them. */
+  assert.match(page, /useBlogPosts\(\{limit: cardOrder\.length\}\)/);
+
+  /* The marker the route curtain polls for. Every card here comes from the
+     CMS, so this chunk mounting is not the page being ready: without this the
+     curtain lifts after 66ms onto a heading and six grey boxes, and the cards
+     drop in a second later.
+
+     Anchored to the opening tag rather than the bare name, because the name is
+     written in the comment beside it too - and a rule a comment can satisfy is
+     a rule that is not being checked. */
+  assert.match(page, /<section[^>]*data-route-loading/);
   assert.doesNotMatch(page, /getWhatWeThinkPosts/);
   assert.doesNotMatch(page, /post\.image \|\|/);
   assert.match(page, /displayCards \? <section/);
