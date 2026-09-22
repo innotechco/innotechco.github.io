@@ -1,4 +1,5 @@
-import {Link} from "react-router-dom";
+import {useSyncExternalStore} from "react";
+import {Link, useHref} from "react-router-dom";
 
 import {usePointerGlow} from "../../../shared/hooks/usePointerGlow.js";
 import {
@@ -10,6 +11,20 @@ import {
   OnSiteIcon,
   ShareIcon,
 } from "./icons.jsx";
+import {
+  getServerSavedCourses,
+  getSavedCourses,
+  subscribeToSavedCourses,
+  toggleSavedCourse,
+} from "../services/savedCourses.js";
+import {copyCourseLink} from "../services/courseShare.js";
+import {
+  clearCoursePreview,
+  getOpenCoursePreview,
+  getServerOpenCoursePreview,
+  openCoursePreview,
+  subscribeToCoursePreview,
+} from "../services/courseTouchPreview.js";
 
 /* One course, as a card.
 
@@ -45,19 +60,44 @@ function CourseCard({
   labels,
   onSave,
   onShare,
-  isSaved = false,
+  isSaved: savedOverride,
 }) {
   const Wrapper = to ? Link : "article";
   const linkProps = to ? {to} : {};
   const {position, handlers} = usePointerGlow();
   const isGrid = layout === "grid";
   const hasActions = showActions ?? isGrid;
+  const courseHref = useHref(to ?? ".");
+  const openTouchCourse = useSyncExternalStore(
+    subscribeToCoursePreview,
+    getOpenCoursePreview,
+    getServerOpenCoursePreview,
+  );
+  const isTouchOpen = openTouchCourse === course.id;
+  const savedIds = useSyncExternalStore(
+    subscribeToSavedCourses,
+    getSavedCourses,
+    getServerSavedCourses,
+  );
+  const isSaved = savedOverride ?? savedIds.includes(course.id);
 
   return (
     <Wrapper
-      className={`inlearn-course-card is-${layout}`}
+      className={`inlearn-course-card is-${layout}${isTouchOpen ? " is-touch-open" : ""}`}
       {...linkProps}
       {...handlers}
+      onClick={(event) => {
+        /* A touch screen has no hover. Its first tap opens the controls and
+           Read more; the second tap follows the card. Button taps never reach
+           this handler because each action stops propagation below. */
+        const needsTapPreview = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+        if (to && needsTapPreview && !isTouchOpen) {
+          event.preventDefault();
+          openCoursePreview(course.id);
+        } else if (to && needsTapPreview) {
+          clearCoursePreview();
+        }
+      }}
     >
       {/* The frame is the picture's own box, and the light is a sheet of
           exactly that size sitting behind it - the same way Live Insights on
@@ -116,7 +156,8 @@ function CourseCard({
                 onClick={(event) => {
                   event.preventDefault();
                   event.stopPropagation();
-                  onSave?.(course);
+                  const saved = toggleSavedCourse(course.id);
+                  onSave?.(course, saved);
                 }}
               >
                 <BookmarkIcon filled={isSaved} />
@@ -132,6 +173,7 @@ function CourseCard({
                 onClick={(event) => {
                   event.preventDefault();
                   event.stopPropagation();
+                  copyCourseLink(courseHref);
                   onShare?.(course);
                 }}
               >

@@ -5,6 +5,24 @@
     <link rel="icon" type="image/svg+xml" href="/src/shared/assets/brand/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Every card picture on What We Think, New Event and the archive is
+         fetched from the CMS through an image service that converts it to
+         WebP, and neither host is this one. Without these, the first picture
+         on the page pays for a DNS lookup and a TLS handshake before a single
+         byte of it arrives - measured at about 0.65s to images.weserv.nl
+         alone, on top of whatever the conversion itself takes.
+
+         Opening both connections while the page is still parsing takes that
+         out of the critical path, and every later picture reuses them.
+
+         crossorigin is required on the image one and is not decoration: an
+         <img> is fetched anonymously, so a connection opened without it is a
+         different connection and would be opened again. -->
+    <link rel="preconnect" href="https://images.weserv.nl" crossorigin />
+    <link rel="preconnect" href="https://blog.innotech.global" crossorigin />
+    <link rel="dns-prefetch" href="https://images.weserv.nl" />
+    <link rel="dns-prefetch" href="https://blog.innotech.global" />
+
     <title>INNOTECH.GLOBAL</title>
     <meta
       name="description"

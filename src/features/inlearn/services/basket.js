@@ -1,10 +1,10 @@
 /* What is in the basket, and nothing else.
 
    It holds course ids and quantities - never a price, never a total. A price
-   that travels through the browser is a price a visitor can edit, so when the
-   basket page and the checkout arrive, Strapi will be handed these ids and will
-   work out what they cost. Keeping that rule from the first line means the
-   basket does not have to be rewritten to obey it later.
+   that travels through the browser is a price a visitor can edit, so Strapi is
+   handed these ids and answers with what they cost and what is owed. Keeping
+   that rule from the first line is why the basket did not have to be rewritten
+   when buying became real.
 
    localStorage rather than a server, for now, and deliberately honest about it:
    this is a real basket that really persists on this device. Nothing here
@@ -101,6 +101,39 @@ export function addToBasket(courseId) {
 
 export function removeFromBasket(courseId) {
   return write(read().filter((line) => line.id !== courseId));
+}
+
+/* What an order takes out of the basket, in one go.
+ *
+ * Not a loop over removeFromBasket: each of those writes to storage and tells
+ * every listener, so a basket of six emptying itself would repaint the navbar
+ * six times and leave five intermediate baskets in storage on the way. It also
+ * takes only what was actually bought - a course dropped from the order for
+ * having no price is still in the basket afterwards, because it is still
+ * unbought. */
+export function removeManyFromBasket(courseIds) {
+  const gone = new Set(courseIds ?? []);
+  if (!gone.size) return read();
+  return write(read().filter((line) => !gone.has(line.id)));
+}
+
+/* Several courses into the basket at once, for an unpaid order being taken to
+ * the till a second time.
+ *
+ * One write, like its opposite above, rather than a loop that repaints the
+ * navbar once per course. Anything already in the basket is left where it is
+ * rather than added again - a course is bought once, and a line that jumped to
+ * the bottom of the list because somebody pressed Purchase twice would be a
+ * reordering nobody asked for. */
+export function addManyToBasket(courseIds) {
+  const lines = read();
+  const present = new Set(lines.map((line) => line.id));
+  const added = (courseIds ?? [])
+    .filter((id) => typeof id === "string" && id && !present.has(id))
+    .map((id) => ({id, quantity: 1}));
+
+  if (!added.length) return lines;
+  return write([...lines, ...added]);
 }
 
 /* Undo, after a removal. It takes the position back as well as the course,

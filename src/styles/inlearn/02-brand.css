@@ -18,7 +18,7 @@
      1400 wide and centred - the same forty. The first term is the floor: on a
      narrow window the centring term goes negative and the bar falls back to the
      page's own margin. */
-  left: max(clamp(16px, 3.6vw, 96px), calc((100vw - 1335px) / 2));
+  left: var(--inlearn-gutter);
   right: max(clamp(16px, 3.6vw, 96px), calc((100vw - 1330px) / 2));
   display: flex;
   align-items: flex-start;

@@ -625,11 +625,16 @@
   }
 }
 
+/* Soft as well as dark, the same as every other popup on the module. Dimming
+   alone leaves the page behind perfectly readable and the eye goes on reading
+   it instead of the thing that just opened. */
 .inlearn-dialog-backdrop {
   position: absolute;
   inset: 0;
   border: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.42);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   cursor: default;
 }
 
@@ -712,3 +717,47 @@
   font-size: 10px;
 }
 
+/* The two ways out of the sign-in-required dialog.
+ *
+ * Stacked rather than side by side: at this width two pills in a row leave
+ * each of them too narrow for its own words, and the choice here is not
+ * balanced anyway - most people pressing Purchase already have an account, so
+ * signing in leads and creating one follows it. */
+.inlearn-dialog-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+/* The second door, drawn as an outline so it reads as the alternative rather
+   than as a second primary action competing with the one above it. */
+.inlearn-dialog-secondary {
+  height: 46px;
+  padding: 0 20px;
+  border: 1px solid #d9d9d4;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--inlearn-black);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.inlearn-dialog-secondary:hover {
+  border-color: var(--inlearn-black);
+  background: #f5f5f3;
+}
+
+.inlearn-dialog-secondary:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-dialog-secondary {
+    transition: none;
+  }
+}

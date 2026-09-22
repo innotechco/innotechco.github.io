@@ -19,7 +19,8 @@
 }
 
 .inlearn-course-card:hover,
-.inlearn-course-card:focus-visible {
+.inlearn-course-card:focus-visible,
+.inlearn-course-card.is-touch-open {
   transform: translateY(-10px);
   transition-duration: 620ms;
 }
@@ -99,7 +100,8 @@
 }
 
 .inlearn-course-card:hover .inlearn-course-media img,
-.inlearn-course-card:focus-visible .inlearn-course-media img {
+.inlearn-course-card:focus-visible .inlearn-course-media img,
+.inlearn-course-card.is-touch-open .inlearn-course-media img {
   filter: blur(2.5px) saturate(0.94);
   transform: scale(1.07);
   transition-duration: 900ms, 700ms;
@@ -134,7 +136,8 @@
 }
 
 .inlearn-course-card:hover .inlearn-course-more-label,
-.inlearn-course-card:focus-visible .inlearn-course-more-label {
+.inlearn-course-card:focus-visible .inlearn-course-more-label,
+.inlearn-course-card.is-touch-open .inlearn-course-more-label {
   /* A ceiling the longest translation still fits under, not a measured width:
      max-width can be animated where width: auto cannot. */
   max-width: 180px;
@@ -146,7 +149,8 @@
 }
 
 .inlearn-course-card:hover .inlearn-course-more,
-.inlearn-course-card:focus-visible .inlearn-course-more {
+.inlearn-course-card:focus-visible .inlearn-course-more,
+.inlearn-course-card.is-touch-open .inlearn-course-more {
   box-shadow: 0 10px 22px rgb(55 180 120 / 35%);
 }
 

@@ -1,0 +1,883 @@
+/* Courses: what somebody owns, opened up.
+
+   The width is a share of the panel and named once, so these cards move with
+   the rail exactly as the saved courses and the bills do - a visitor crossing
+   between the three sections should never find the content starting somewhere
+   new. */
+.inlearn-courses-owned {
+  width: 100%;
+  padding: 0;
+  --inlearn-courses-width: 88%;
+}
+
+.inlearn-courses-list {
+  display: grid;
+  width: var(--inlearn-courses-width);
+  margin: 0;
+  padding: 0;
+  gap: clamp(14px, 1.6vw, 22px);
+  list-style: none;
+}
+
+.inlearn-course-owned {
+  min-width: 0;
+  padding: clamp(12px, 1.4vw, 18px);
+
+  /* Where a card stops when the dashboard's first page sends somebody here.
+     The brand bar is fixed - 36 from the top and 65 tall - so a card scrolled
+     to its own top edge would arrive underneath it. This is that 101 plus the
+     room to read as a card rather than as something wedged under a pill. */
+  scroll-margin-top: 124px;
+  border-radius: 20px;
+  background: #f7f7f8;
+  transition: box-shadow 260ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-course-owned.is-open {
+  box-shadow: 0 18px 40px rgba(5, 5, 5, 0.07);
+}
+
+/* ------------------------------------------------------------- the top row */
+
+.inlearn-course-owned-head {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+.inlearn-course-owned-image {
+  flex: 0 0 auto;
+  width: clamp(72px, 8vw, 104px);
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #e7e7e9;
+}
+
+.inlearn-course-owned-main {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.inlearn-course-owned-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.inlearn-course-owned-title {
+  margin: 0;
+  color: var(--inlearn-black);
+  font-size: clamp(15px, 1.35vw, 19px);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* The mode pill. An outline, like the bill's state - it names what this is
+   rather than offering to be pressed. */
+.inlearn-course-mode {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 6px;
+  align-items: center;
+  padding: 5px 12px;
+  border: 1px solid #d5d5d0;
+  border-radius: 999px;
+  color: var(--inlearn-black);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.inlearn-course-percent {
+  margin: clamp(10px, 1.4vw, 18px) 0 6px;
+  color: var(--inlearn-black);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* The bar fills from the left with the width React gives it, and the width is
+   a percentage so the movement is the same length whatever the card's size. */
+.inlearn-course-bar {
+  height: 7px;
+  border-radius: 999px;
+  background: #e2e2e4;
+  overflow: hidden;
+}
+
+.inlearn-course-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+  transition: width 520ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-course-bar-label {
+  margin: 6px 0 0;
+  color: var(--inlearn-black);
+  font-size: 12px;
+}
+
+/* --------------------------------------------------------- the opened half */
+
+/* Opening and closing.
+ *
+ * The height comes from the component, which measures it - see useReveal. A
+ * grid row moving from 0fr to 1fr was tried first and is what a lot of people
+ * recommend; on this card it settled at 199px while the content ran to 727,
+ * and since the box has to clip while it moves, everything below that line was
+ * cut off.
+ *
+ * overflow is hidden only while there is a number to clip to. Once the panel
+ * is open its height is released to `none` and the clipping goes with it, so
+ * nothing inside can be trimmed by a box that is no longer measuring anything
+ * - which is what was cutting the tails off "Open in maps".
+ *
+ * Closing is given longer than opening on purpose. Opening answers a press and
+ * should feel prompt; closing is the page putting something away, and that is
+ * the movement somebody watches.
+ */
+.inlearn-course-owned-detail {
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 620ms cubic-bezier(0.33, 0, 0.2, 1),
+    opacity 380ms ease,
+    margin-top 620ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-course-owned-detail[data-open="true"] {
+  margin-top: clamp(14px, 1.8vw, 22px);
+  opacity: 1;
+  transition:
+    max-height 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease 60ms,
+    margin-top 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* max-height: none is what the component sets once the panel has finished
+   opening, and it is the signal that nothing is being clipped any more. */
+.inlearn-course-owned-detail[style*="none"] {
+  overflow: visible;
+}
+
+.inlearn-course-owned-detail-inner {
+  min-height: 0;
+}
+
+/* One surface behind everything a course contains, so the place, the label and
+   every session read as parts of the same thing rather than as a stack of
+   loose cards that happen to sit near each other. */
+.inlearn-course-owned-panel {
+  padding-top: clamp(12px, 1.4vw, 16px);
+  border-top: 1px solid #e4e4e6;
+}
+
+.inlearn-course-location {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: clamp(12px, 1.4vw, 18px);
+  border: 1px solid #ececee;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.inlearn-course-location-mark {
+  flex: 0 0 auto;
+  color: var(--inlearn-green);
+}
+
+.inlearn-course-location-label {
+  margin: 0;
+  color: var(--inlearn-black);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.inlearn-course-location-address {
+  margin: 2px 0 0;
+  color: var(--inlearn-black);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* The line box has to be taller than the type, or the tails of the p and the
+   g in "Open in maps" reach below it and are cut off flat. An inline-block is
+   exactly as tall as its line-height, so at 1.2 there is nothing under the
+   baseline for a descender to live in. The padding is the second half of the
+   same guarantee: it keeps that room even if the line-height is ever tuned
+   down again. */
+.inlearn-course-location-link {
+  position: relative;
+  top: -4px;
+  display: inline-flex;
+  align-items: flex-start;
+  min-height: 24px;
+  margin-top: 6px;
+  padding-bottom: 4px;
+  color: var(--inlearn-green);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  overflow: visible;
+}
+
+.inlearn-course-sessions-label {
+  margin: clamp(14px, 1.8vw, 20px) 0 10px;
+  color: var(--inlearn-black);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.inlearn-course-sessions {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  gap: 10px;
+  list-style: none;
+}
+
+/* A white row on the grey card, so the sessions read as things sitting inside
+   the course rather than as more of it. */
+/* Each session is its own card, as the design draws them. They still sit
+   inside the one panel above, which is what says they belong to this course -
+   the separation is between sessions, not between a session and its course. */
+.inlearn-course-session {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid #ececee;
+  border-radius: 14px;
+  background: #ffffff;
+  transition:
+    background-color 260ms cubic-bezier(0.33, 0, 0.2, 1),
+    border-color 260ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-course-session:hover {
+  background: #fafafb;
+  border-color: #dedee2;
+}
+
+/* Finished rows step back rather than disappear - the receipt of having done
+   it is the point. */
+.inlearn-course-session.is-complete {
+  background: #f4f7f5;
+  border-color: #d9e8e0;
+}
+
+.inlearn-course-session-mark {
+  flex: 0 0 auto;
+  color: var(--inlearn-green);
+}
+
+.inlearn-course-session-body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.inlearn-course-session-title {
+  margin: 0;
+  color: var(--inlearn-black);
+  font-size: 13.5px;
+  line-height: 1.4;
+  /* An address is one long unbroken string of words, and a flex item will not
+     shrink below its longest one unless it is told it may. Without this the
+     row grew past the card instead of wrapping inside it. */
+  overflow-wrap: anywhere;
+}
+
+.inlearn-course-session-title strong {
+  font-weight: 700;
+}
+
+.inlearn-course-session-when {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 4px 0 0;
+  color: var(--inlearn-black);
+  font-size: 12px;
+}
+
+.inlearn-course-session-when span {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.inlearn-course-session-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  align-items: center;
+}
+
+/* The three media controls, as one object. */
+.inlearn-course-media-group {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* A hairline between what opens the session and what records having finished
+   it. Without it the tick was a fourth identical circle and read as a fourth
+   kind of media. It disappears when there is no media to divide it from. */
+.inlearn-course-session-divider {
+  width: 1px;
+  height: 20px;
+  background: #e0e0e4;
+}
+
+.inlearn-course-media-group:empty,
+.inlearn-course-media-group:empty + .inlearn-course-session-divider {
+  display: none;
+}
+
+/* The three media buttons. Round, outlined, and the video one filled - which
+   is the design's way of saying it is the main thing in the row. */
+.inlearn-course-media-button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #e0e0e4;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--inlearn-black);
+  cursor: pointer;
+  place-items: center;
+  transition:
+    background-color 240ms cubic-bezier(0.33, 0, 0.2, 1),
+    border-color 240ms cubic-bezier(0.33, 0, 0.2, 1),
+    color 240ms cubic-bezier(0.33, 0, 0.2, 1),
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Black is what a press looks like, not what one of them looks like.
+ *
+ * The video button used to be filled at rest, which made it read as the only
+ * live control in a row of three. They are the same kind of thing - open this
+ * session as video, as sound, as words - so they rest alike and each takes the
+ * filled state under the pointer. */
+.inlearn-course-media-button:hover,
+.inlearn-course-media-button:focus-visible {
+  border-color: var(--inlearn-black);
+  background: var(--inlearn-black);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.inlearn-course-media-button:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+.inlearn-course-done {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid #e0e0e4;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--inlearn-black);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 240ms cubic-bezier(0.33, 0, 0.2, 1),
+    border-color 240ms cubic-bezier(0.33, 0, 0.2, 1),
+    color 240ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-course-done:hover {
+  border-color: var(--inlearn-green);
+  color: var(--inlearn-green);
+}
+
+.inlearn-course-done.is-on {
+  border-color: var(--inlearn-green);
+  background: var(--inlearn-green);
+  color: #ffffff;
+}
+
+.inlearn-course-done:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.inlearn-course-done:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+/* Locked. An outline and a word, and nothing that can be pressed - there is
+   nothing behind it to press, and the server has not sent any. */
+.inlearn-course-upcoming {
+  flex: 0 0 auto;
+  padding: 6px 14px;
+  border: 1px solid #d5d5d0;
+  border-radius: 999px;
+  color: var(--inlearn-black);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* The opener at the foot of the card, full width so the whole bottom edge is
+   the target rather than a few words in the middle of it. */
+.inlearn-course-show-detail {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin-top: clamp(10px, 1.2vw, 14px);
+  padding: 8px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--inlearn-muted);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 240ms ease,
+    color 240ms ease;
+}
+
+.inlearn-course-show-detail:hover {
+  background: #efeff1;
+  color: var(--inlearn-black);
+}
+
+.inlearn-course-show-detail {
+  color: var(--inlearn-black);
+}
+
+.inlearn-course-show-detail:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+.inlearn-course-owned.is-waiting .inlearn-course-owned-title {
+  color: var(--inlearn-muted);
+}
+
+/* --------------------------------------------- loading, empty and trouble */
+
+.inlearn-courses-notice {
+  display: grid;
+  width: var(--inlearn-courses-width);
+  justify-items: center;
+  margin: 0;
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: 20px;
+  gap: 14px;
+  background: #f7f7f8;
+  color: var(--inlearn-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.inlearn-courses-problem {
+  margin: 0;
+  color: #d8453f;
+}
+
+.inlearn-courses-retry {
+  height: 40px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--inlearn-black);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inlearn-courses-owned.is-empty {
+  display: grid;
+  min-height: min(420px, 50vh);
+  place-content: center;
+  text-align: center;
+}
+
+.inlearn-courses-owned.is-empty h1 {
+  margin: 0;
+  color: var(--inlearn-black);
+  font-size: clamp(24px, 3vw, 36px);
+}
+
+.inlearn-courses-owned.is-empty p {
+  margin: 10px 0 0;
+  color: var(--inlearn-muted);
+  font-size: 14px;
+}
+
+/* -------------------------------------------------- the player over the page */
+
+/* The dialog is portalled to the body, which puts it outside .inlearn-page -
+   and that is where this module's colours are defined. Without them every
+   var() in here fails, and a failed var() on `color` does not fall back to
+   something sensible: the property is thrown away and the colour is inherited
+   instead, which made white text on a white card and buttons with no labels.
+   The tokens are restated on the layer so it carries them wherever it lands. */
+.inlearn-media-layer {
+  --inlearn-green: #37b478;
+  --inlearn-black: #050505;
+  --inlearn-muted: #83838b;
+
+  position: fixed;
+  inset: 0;
+  /* Over the navbar, which is fixed at 90, and over the toast at 120. This
+     only works because the dialog is portalled to the body - inside the
+     dashboard's own stacking context no number here could reach past it. */
+  z-index: 200;
+  display: grid;
+  padding: clamp(14px, 3vw, 32px);
+  place-items: center;
+  animation: inlearn-media-in 200ms ease both;
+}
+
+@keyframes inlearn-media-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The page behind goes soft as well as dark. Dimming alone leaves every line
+   of the dashboard still legible through it, and the eye keeps reading them
+   instead of the thing that just opened. */
+.inlearn-media-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  cursor: default;
+}
+
+.inlearn-media-dialog {
+  position: relative;
+  display: flex;
+  width: min(880px, 100%);
+  max-height: 90vh;
+  flex-direction: column;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: inlearn-media-rise 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Audio and notes need nothing like a film's width. */
+.inlearn-media-dialog.is-audio,
+.inlearn-media-dialog.is-text {
+  width: min(560px, 100%);
+}
+
+@keyframes inlearn-media-rise {
+  from {
+    transform: translateY(12px);
+  }
+}
+
+.inlearn-media-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #ececee;
+}
+
+.inlearn-media-kind {
+  margin: 0;
+  color: var(--inlearn-green);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.inlearn-media-title {
+  margin: 3px 0 0;
+  color: var(--inlearn-black);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.inlearn-media-close {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--inlearn-muted);
+  cursor: pointer;
+  place-items: center;
+  transition:
+    background-color 240ms ease,
+    color 240ms ease;
+}
+
+.inlearn-media-close:hover {
+  background: #ececee;
+  color: var(--inlearn-black);
+}
+
+.inlearn-media-close:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+.inlearn-media-body {
+  min-height: 0;
+  padding: 18px 20px 22px;
+  overflow: auto;
+}
+
+.inlearn-media-video {
+  display: block;
+  width: 100%;
+  max-height: 68vh;
+  border-radius: 14px;
+  background: #000000;
+}
+
+.inlearn-media-audio {
+  width: 100%;
+}
+
+.inlearn-media-skips {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.inlearn-media-skip {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid #e0e0e4;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--inlearn-black);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 220ms cubic-bezier(0.33, 0, 0.2, 1),
+    border-color 220ms cubic-bezier(0.33, 0, 0.2, 1),
+    color 220ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-media-skip:hover,
+.inlearn-media-skip:focus-visible {
+  border-color: var(--inlearn-black);
+  background: var(--inlearn-black);
+  color: #ffffff;
+}
+
+.inlearn-media-skip:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+.inlearn-media-text {
+  color: #2a2a2e;
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.inlearn-media-text :is(h1, h2, h3) {
+  margin: 18px 0 8px;
+  color: var(--inlearn-black);
+}
+
+.inlearn-media-text p {
+  margin: 0 0 12px;
+}
+
+.inlearn-media-note {
+  margin: 0;
+  color: var(--inlearn-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.inlearn-media-note.is-problem {
+  color: #d8453f;
+}
+
+/* ----------------------------------------------------------- narrower rooms */
+
+/* The rail stops sharing the row here, so the cards take the whole column -
+   the same width the other two sections take at this size. */
+@media (max-width: 900px) {
+  .inlearn-courses-owned {
+    --inlearn-courses-width: 100%;
+  }
+}
+
+/* The session row stops being one line.
+ *
+ * Below this the address, the date and three round buttons cannot share a row
+ * without the words being cut to nothing. The controls drop under the text and
+ * take the left edge, which keeps them in one predictable place instead of
+ * wherever the wrapping happened to leave them. */
+/* The session row stops being one line.
+ *
+ * It used to wrap at 720px while the rail was still sitting beside the panel,
+ * and at that point the column left for the words was narrow enough that the
+ * address broke one word per line. The row now wraps against the room it
+ * actually has rather than against the window, which is what the rail's own
+ * breakpoint is: below 900 the rail is over the section and the panel has the
+ * full width, above it the panel is the width the rail leaves.
+ *
+ * min-width: 0 on the text is what lets it wrap at all - without it a flex
+ * item refuses to shrink below its longest word and pushes the buttons out. */
+@media (max-width: 1100px) {
+  .inlearn-course-session {
+    flex-wrap: wrap;
+  }
+
+  .inlearn-course-session-body {
+    flex-basis: calc(100% - 30px);
+  }
+
+  .inlearn-course-session-actions,
+  .inlearn-course-upcoming {
+    margin-left: 30px;
+  }
+
+  .inlearn-course-session-actions {
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* Above that width the rail is beside the panel and takes about 270px of it,
+   so the row has less room than the window suggests - the same wrap applies
+   while the rail is open. */
+@media (min-width: 1101px) and (max-width: 1400px) {
+  .inlearn-dash[data-rail="open"] .inlearn-course-session {
+    flex-wrap: wrap;
+  }
+
+  .inlearn-dash[data-rail="open"] .inlearn-course-session-body {
+    flex-basis: calc(100% - 30px);
+  }
+
+  .inlearn-dash[data-rail="open"] .inlearn-course-session-actions {
+    flex-basis: 100%;
+    margin-left: 30px;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .inlearn-course-owned-title-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* The figure moves to the left edge with everything else.
+     Right-aligned it was the one thing on the card reaching for the far side,
+     and on a column this narrow that reads as a stray number rather than as
+     the label of the bar underneath it. */
+  .inlearn-course-percent {
+    text-align: left;
+  }
+
+  .inlearn-course-mode {
+    align-self: flex-start;
+  }
+
+  /* The label falls away and the tick stands alone: at this width the pill
+     with its word takes more of the row than the three buttons beside it.
+   *
+   * justify-content and the gap are the whole of the fix, and they are easy to
+   * miss: the pill is a flex row that only ever set align-items, because with
+   * a tick and a word in it the horizontal packing never showed. Take the word
+   * away and the mark is left packed to the start of a round box with a 6px
+   * gap still reserved after it - which is a tick sitting low and left of the
+   * circle it is meant to be in the middle of. */
+  .inlearn-course-done {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    gap: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .inlearn-course-done span {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .inlearn-course-owned {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .inlearn-course-owned-image {
+    width: 60px;
+  }
+
+  .inlearn-course-session-title {
+    font-size: 12.5px;
+  }
+
+  .inlearn-course-media-button,
+  .inlearn-course-done {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-course-owned,
+  .inlearn-course-bar > span,
+  .inlearn-course-session,
+  .inlearn-course-media-button,
+  .inlearn-course-done,
+  .inlearn-course-show-detail,
+  .inlearn-media-close {
+    transition: none;
+  }
+
+  .inlearn-course-owned-detail,
+  .inlearn-media-layer,
+  .inlearn-media-dialog {
+    animation: none;
+  }
+
+  .inlearn-course-media-button:hover {
+    transform: none;
+  }
+}

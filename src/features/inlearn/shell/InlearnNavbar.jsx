@@ -68,10 +68,19 @@ function InlearnNavbar({onAuthOpen, session}) {
           {session ? (
             /* The two buttons collapse to one name once there is someone to
                name, which is also the only outward sign that the session
-               survived - the token behind it is refreshed silently. */
-            <span className="inlearn-nav-account" title={session.user?.email}>
+               survived - the token behind it is refreshed silently.
+
+               A link rather than a label, because the name is the only way in
+               to the dashboard. Nothing about a name says "press me", so it
+               takes a grey pill under the pointer - the same shape the rows
+               inside the dashboard use, so the gesture is learnt once. */
+            <Link
+              to={routes.inlearnDashboard}
+              className="inlearn-nav-account"
+              title={session.user?.email}
+            >
               {session.displayName}
-            </span>
+            </Link>
           ) : (
             <>
               <button type="button" onClick={() => onAuthOpen("login")}>
@@ -84,7 +93,21 @@ function InlearnNavbar({onAuthOpen, session}) {
             </>
           )}
           <Link to={routes.inlearnBasket} className="inlearn-cart-link" aria-label="Shopping basket">
-            <img src={shoppingCart} alt="" loading="lazy" />
+            {/* Drawn as a mask rather than as a picture, so the mark takes
+                the colour of the text around it - which is what lets the
+                navbar's own green hover reach it. An <img> cannot be
+                recoloured by CSS, and this icon has to answer to the same
+                rule every other control in the pill already follows. */}
+            {/* The quotes around the URL are load-bearing. Vite inlines a
+                small SVG as a data: URI, and this one carries commas and
+                apostrophes from its own markup - unquoted, url(...) is
+                invalid CSS, the whole declaration is dropped in silence, and
+                the mark renders as a solid white square. */}
+            <span
+              className="inlearn-cart-mark"
+              style={{"--inlearn-cart-icon": `url("${shoppingCart}")`}}
+              aria-hidden="true"
+            />
             {/* Only when there is something in it. A permanent zero beside the
                 basket is a number that never means anything. */}
             {basketCount ? (

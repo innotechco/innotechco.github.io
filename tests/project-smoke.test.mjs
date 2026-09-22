@@ -12,6 +12,10 @@ import {
   orderPosts,
   orderPostsForArchives,
 } from "../src/integrations/wordpress/adapters/blogOrdering.js";
+import {
+  editablePart,
+  hasEdits,
+} from "../src/features/inlearn/pages/dashboard/sections/profileDraft.js";
 import {truncateWords} from "../src/shared/content/cardSummary.js";
 import {
   buildArchiveCategories,
@@ -1053,4 +1057,162 @@ test("a new page starts at the top without scrolling there", () => {
   const call = source.match(/window\.scrollTo\(\{[^}]*\}\)/s);
   assert.ok(call, "ScrollToTop no longer scrolls the window");
   assert.match(call[0], /behavior:\s*"instant"/, `route change scroll is ${call[0]}`);
+
+  /* The dashboard is a panel and a section beside it: pressing Courses while
+     Bill is open changes half the screen and moves nothing the visitor is
+     pointing at, so sending the window to the top there pulls the floor out
+     from under somebody mid-list. Arriving at the dashboard from anywhere else
+     is still a new page and still starts at the top, which is why the rule
+     needs the address being LEFT as well as the one arrived at - a check on
+     the destination alone would break that. */
+  assert.match(
+    source,
+    /IN_PAGE_SECTIONS[\s\S]*routes\.inlearnDashboard/,
+    "moving between dashboard sections must not scroll the window",
+  );
+  assert.match(
+    source,
+    /from\.startsWith\(root\)\s*&&\s*to\.startsWith\(root\)/,
+    "the rule must compare where the visitor came from, not only where they are going",
+  );
+});
+
+/* Comments are prose, and prose is allowed to mention anything. Every check
+   below that looks for an identifier looks for it in the code.
+
+   A comment is only recognised where this codebase actually writes one: at the
+   start of a line. Recognising an opener anywhere finds one inside
+   accept="image/*", and then everything from that attribute to the end of the
+   next real comment disappears - which is how this helper first read a
+   component as not containing half of its own markup. */
+function withoutComments(source) {
+  return source
+    .replace(/(^|\n)[ \t]*\{?\/\*[\s\S]*?\*\/\}?/g, "$1")
+    .replace(/(^|\n)[ \t]*\/\/[^\n]*/g, "$1");
+}
+
+test("an unsaved profile edit is measured against the server's copy", () => {
+  const stored = {fullName: "Ada", phone: "9120000000", region: "Iran", email: "a@b.c"};
+
+  assert.equal(hasEdits(stored, stored), false, "an untouched form has no edits");
+  assert.equal(hasEdits({...stored, phone: "9121111111"}, stored), true);
+
+  /* Typed, and taken back again. A flag set on the first keystroke would still
+     be warning about a change that no longer exists. */
+  assert.equal(hasEdits({...stored, fullName: "Adaa"}, stored), true);
+  assert.equal(hasEdits({...stored, fullName: "Ada"}, stored), false);
+
+  /* Until the server has answered there is nothing to compare against, and
+     "different from nothing" must not read as an edit - that is what would put
+     the page back to offering to save a profile it had never read. */
+  assert.equal(hasEdits(stored, null), false);
+
+  /* The picture and the address save themselves the moment they succeed, so
+     neither can ever be an unsaved change and neither belongs in the sum. */
+  assert.equal(hasEdits({...stored, email: "other@b.c", avatar: "/x.png"}, stored), false);
+  assert.deepEqual(Object.keys(editablePart(stored)).sort(), ["fullName", "phone", "region"]);
+});
+
+test("a half-typed profile waits in memory and never in storage", () => {
+  const source = fs.readFileSync(
+    path.join(srcRoot, "features/inlearn/pages/dashboard/sections/profileDraft.js"),
+    "utf8",
+  );
+
+  /* A name or a phone number somebody was halfway through typing is theirs for
+     as long as the tab is open and not a minute longer. Storage would leave it
+     on the machine after they had signed out and walked away. */
+  assert.doesNotMatch(
+    withoutComments(source),
+    /localStorage|sessionStorage|document\.cookie/,
+    "an unsaved draft must not outlive the tab",
+  );
+});
+
+test("the Profile page cannot save details it never managed to read", () => {
+  const source = withoutComments(
+    fs.readFileSync(
+      path.join(srcRoot, "features/inlearn/pages/dashboard/sections/ProfileSection.jsx"),
+      "utf8",
+    ),
+  );
+
+  /* A failed read used to leave the form open over empty rows, and the rows
+     this form sends are sent whether or not anybody filled them - so pressing
+     Apply wrote an empty phone number and region over the stored ones, and
+     said the details were saved. The form has to be gone rather than merely
+     disabled, so the check is that the failure is answered by a return before
+     anything renders a field at all. */
+  const guard = source.indexOf('status === "error"');
+  assert.ok(guard > 0, "a failed read must be a state of its own");
+  assert.ok(
+    guard < source.indexOf("<form"),
+    "the failed read must be answered and returned before any form is reached",
+  );
+
+  /* And with nothing changed there is nothing worth sending. */
+  assert.match(
+    source,
+    /disabled=\{isBusy \|\| !isDirty\}/,
+    "Apply Changes must be off until an edit exists",
+  );
+});
+
+test("an email change left half-finished is picked up where it stopped", () => {
+  const page = withoutComments(
+    fs.readFileSync(
+      path.join(srcRoot, "features/inlearn/pages/dashboard/sections/ProfileSection.jsx"),
+      "utf8",
+    ),
+  );
+  const step = withoutComments(
+    fs.readFileSync(
+      path.join(srcRoot, "features/inlearn/pages/dashboard/sections/EmailChange.jsx"),
+      "utf8",
+    ),
+  );
+
+  /* The server has always answered with the address that is waiting on a code,
+     and for a while nothing read it: somebody who asked for a code and went to
+     fetch it came back to the old address and a Change button, holding a live
+     code with nowhere to type it. */
+  assert.match(page, /pendingEmail=\{profile\.pendingEmail\}/, "the page must pass it down");
+  assert.match(step, /pendingEmail/, "and the step must resume from it");
+
+  /* Two of the three ways the server turns a code down end by telling the
+     visitor to ask for a new one, and there was nothing to ask with once the
+     first step was behind them. */
+  assert.match(step, /requestEmailChange/, "the code step must be able to send a fresh code");
+  assert.match(step, /inlearn-profile-link/, "and must offer that beside the code field");
+});
+
+test("the dashboard rail is never made sticky inside a box that cannot scroll", () => {
+  const css = withoutComments(
+    fs.readFileSync(path.join(srcRoot, "styles/inlearn/18-dashboard.css"), "utf8"),
+  );
+
+  /* The shell clips the decorative arc, and that clipping is what makes it the
+     nearest scrolling ancestor of everything inside it - a box which, being
+     exactly as tall as its content, never scrolls at all.
+
+     A sticky child of a box like that is not sticky. It is measured against a
+     scroll position that is always zero, so its offset is a plain constant
+     push downwards, held back only by how much spare room its own grid area
+     happens to have. The rail had `top: 96px`, and for as long as the rail and
+     the section were the same height there was no spare room and nothing moved
+     - so it looked correct. Opening the password or address form made the
+     section taller, the room appeared, and the rail sank by the full 96
+     pixels beside a card that had not moved.
+
+     Measured before removing it: with top set to 0, 20, 96 and 200 the rail
+     landed at exactly its own cell top plus that number, identically at every
+     scroll position. It never once stuck to anything. */
+  assert.ok(
+    css.includes("overflow: hidden"),
+    "this rule only matters while the shell still clips its arc",
+  );
+  assert.ok(
+    !css.includes("position: sticky"),
+    "nothing in the dashboard may be sticky while the shell clips, because the shell never scrolls",
+  );
 });

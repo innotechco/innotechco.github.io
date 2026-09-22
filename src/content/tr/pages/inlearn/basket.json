@@ -9,7 +9,6 @@
   "discountPlaceholder": "İndirim Kodu",
   "apply": "Uygula",
   "discountRejected": "Bu kod geçerli değil.",
-  "discountComing": "İndirim kodları henüz bağlanmadı.",
   "subtotal": "ARA TOPLAM:",
   "tax": "VERGİ:",
   "grandTotal": "GENEL TOPLAM:",
@@ -17,8 +16,7 @@
   "empty": "Sepetiniz boş.",
   "emptyHint": "Eklediğiniz kurslar burada listelenir.",
   "browse": "Tüm kurslara göz at",
-  "checkoutTitle": "ÖDEME",
-  "checkoutBody": "Ödeme henüz bağlanmadı. Sepetiniz duruyor ve hiçbir tahsilat yapılmadı.",
-  "checkoutItems": "Sepetinizde",
-  "checkoutBack": "Sepete dön"
+  "discount": "İNDİRİM:",
+  "purchasing": "Siparişiniz veriliyor…",
+  "discountSignedOut": "İndirim kodu kullanmak ve satın almak için giriş yapın."
 }

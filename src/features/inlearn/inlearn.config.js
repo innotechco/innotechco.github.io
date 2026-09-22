@@ -196,3 +196,88 @@ export const inlearnConfig = {
     },
   },
 };
+
+/* ===========================================================================
+   THE ARC BEHIND THE DASHBOARD  -  every number you might want to move
+   ===========================================================================
+
+   The black curve behind the panel on /inlearn/dashboard. One shape, one set
+   of numbers, no breakpoints - it scales, it does not jump.
+
+   HOW IT BEHAVES. The arc is a share of the screen, so a smaller monitor gets
+   a smaller arc, smoothly, with nothing snapping at a boundary. Its corner is
+   pinned and its offsets are shares of its own size, which is what keeps the
+   picture IDENTICAL at every width: the same part of the circle, in the same
+   place, just smaller. It cannot drift up the page or off to one side while
+   it shrinks, because there is nothing in these numbers that is free to.
+
+   The picture is assets/dashboard-curve.webp. To replace the artwork: drop the
+   new file in there, point the export in inlearn.assets.js at it, and leave
+   this block alone.
+
+   THE NUMBERS
+
+     width      how big, as a share of the screen. Bigger number, bigger arc.
+                "56vw" means 56% of the window - so it shrinks with the window.
+
+     minWidth   it never gets smaller than this, however narrow the phone.
+     maxWidth   it never gets bigger than this, however wide the monitor.
+
+                These two are the whole of the responsive behaviour. Between
+                them the arc scales smoothly; outside them it stops. Set
+                maxWidth to what looks right on your own screen and the arc
+                will never grow past it on a bigger one.
+
+     top        where its top edge sits, as a share of ITS OWN width.
+     left       where its left edge sits, the same way.
+
+                Written as percentages rather than pixels on purpose. A share
+                of the arc's own size scales with it, so the composition holds
+                together; a pixel value would stay put while the arc shrank
+                around it, and the picture would slowly change shape as the
+                window narrowed. Negative pushes it off the edge, which is how
+                this shape is meant to sit - only part of the circle was ever
+                intended to be on screen.
+
+     rotate     turns it. "0deg", "10deg", "-45deg".
+     flipX      mirrors it left to right.  true / false
+     flipY      mirrors it top to bottom.  true / false
+     opacity    how solid it is. 1 is full, 0.5 is half.
+
+   A note on rotate: it turns the picture about its own centre, and most of
+   that centre is off screen here. A few degrees moves the visible edge a long
+   way, so change it in small steps.
+   =========================================================================== */
+
+export const dashboardDecor = {
+  /* TWO PARTS, and the second is why the arc does not collapse on a phone.
+
+     A plain "56vw" shrinks in step with the window, which sounds right and is
+     not: from a 1314px laptop to a 328px handset the window loses three
+     quarters of its width, so the arc lost three quarters of its size and
+     turned into a scratch near the corner.
+
+     235px is the part that does not shrink - the arc's own presence, there at
+     any size. 38vw is the part that grows with the room available. Together
+     the arc still gets smaller on a smaller screen, just far more gently:
+
+        328px window  ->  360px arc     (a real sweep, not a scratch)
+        574px         ->  453px
+        900px         ->  577px
+       1314px         ->  734px         (about what 56vw used to give here)
+       1920px         ->  capped at 820
+
+     To make it shrink harder, raise the vw and lower the px. To make it more
+     nearly the same size everywhere, do the opposite. */
+  width: "calc(38vw + 235px)",
+  minWidth: "320px",
+  maxWidth: "820px",
+
+  top: "-9%",
+  left: "0%",
+
+  rotate: "10deg",
+  flipX: false,
+  flipY: false,
+  opacity: 1,
+};

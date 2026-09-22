@@ -1,0 +1,674 @@
+/* The dashboard: the panel on the left, the open section on the right.
+
+   THE PANEL IS ON THE LEFT AT EVERY WIDTH. It does not become a banner across
+   the top on a tablet or a phone, and there is no breakpoint below that would
+   let it: the sections it opens - courses, orders, saved things - are what the
+   page is for, and they are read beside it. What a narrow screen changes is how
+   much of the panel is showing, never where it is.
+
+   Folded, it is a column of marks about a quarter of its open width. The state
+   arrives as data-rail on the page, so every rule that depends on it says so in
+   front of itself.
+
+   Colours are the module's own tokens from 01-base - --inlearn-green,
+   --inlearn-black - so the panel cannot drift away from the rest of INLEARN
+   when one of them is retuned. The greys are the ones already in this
+   stylesheet: #f1f1f3 for a surface being hovered, #d3d3d9 for type on black. */
+
+.inlearn-dash {
+  position: relative;
+  min-height: 100vh;
+  padding: 132px 0 96px;
+  overflow: hidden;
+
+  /* The two widths the panel moves between, and the only place they are
+     written. Everything below reads them, and the narrow rooms at the end of
+     this file do nothing but change these two numbers. */
+  --rail-open: 288px;
+  --rail-folded: 76px;
+  --rail-width: var(--rail-open);
+
+  /* Folded, a row is a circle rather than a pill. A stadium shape needs two
+     different measurements to look like one thing; a circle needs one, and it
+     is the same one whichever row is green. */
+  --rail-dot: 44px;
+
+  /* One curve, one duration, so the panel and everything inside it arrive
+     together rather than in a ragged sequence. */
+  --rail-ease: 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inlearn-dash[data-rail="collapsed"] {
+  --rail-width: var(--rail-folded);
+}
+
+.inlearn-dash-curve {
+  position: absolute;
+
+  /* Where it sits and how big it is come from dashboardDecor in
+     inlearn.config.js, as inline styles - so there is no breakpoint for this
+     shape anywhere, and the numbers written there are the numbers used.
+
+     max-width is the exception, and it has to be here rather than there.
+     Preflight gives every picture on the page max-width: 100%, which is right
+     for a photograph in a column and wrong for a shape that is deliberately
+     wider than the window: on a 320px phone it quietly cut an 806px arc down
+     to 320 and called it responsive. That is exactly the shrinking this shape
+     is meant not to do, and the config cannot override it because a max-width
+     beats a width however it is written. */
+  max-width: none;
+
+  /* A decoration that swallows clicks breaks the row underneath it. */
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+
+  /* Desktop is the base. The two blocks below take over on smaller screens,
+     and each reads the set of numbers written for it in dashboardDecorSize -
+     the component hands all three over at once and the browser picks, so
+     nothing here has to ask how wide the window is. */
+  top: var(--curve-top-desktop);
+  bottom: var(--curve-bottom-desktop);
+  left: var(--curve-left-desktop);
+  right: var(--curve-right-desktop);
+  width: var(--curve-width-desktop);
+}
+
+/* tablet - 620px to 1023px */
+@media (max-width: 1023px) {
+  .inlearn-dash-curve {
+    top: var(--curve-top-tablet);
+    bottom: var(--curve-bottom-tablet);
+    left: var(--curve-left-tablet);
+    right: var(--curve-right-tablet);
+    width: var(--curve-width-tablet);
+  }
+}
+
+/* phone - below 620px */
+@media (max-width: 619px) {
+  .inlearn-dash-curve {
+    top: var(--curve-top-phone);
+    bottom: var(--curve-bottom-phone);
+    left: var(--curve-left-phone);
+    right: var(--curve-right-phone);
+    width: var(--curve-width-phone);
+  }
+}
+
+/* auto rather than the width itself, so the animation can live on the panel.
+   A grid track transitions badly and a custom property does not transition at
+   all unless it is registered; a width on the element does both properly. */
+.inlearn-dash-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  /* The same gutter the navbar uses, plus the step the design puts between
+     the brand pill and the panel below it. Centring the layout inside its own
+     max-width was what pushed the panel a long way in on a wide monitor: the
+     column was centred, the navbar was not, and the further the screen got
+     from 1335px the further apart the two drifted. This walks in from the
+     window's edge instead, so the panel sits under the brand at every width. */
+  padding-left: calc(var(--inlearn-gutter) + 30px);
+  padding-right: var(--inlearn-gutter);
+}
+
+/* --------------------------------------------------------------- the panel */
+
+/* One card, two halves: the black identity block runs to the card's own
+   corners, so the card clips rather than the block carrying a matching radius
+   that would have to be kept in step with it. */
+.inlearn-dash-rail {
+  display: flex;
+  flex-direction: column;
+  width: var(--rail-width);
+  overflow: hidden;
+  border-radius: 32px;
+  background: #ffffff;
+  box-shadow: 0 18px 44px rgba(5, 5, 5, 0.09);
+  transition: width var(--rail-ease);
+}
+
+.inlearn-dash-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 36px 24px 30px;
+  background: var(--inlearn-black);
+  color: #ffffff;
+  text-align: center;
+  transition: padding var(--rail-ease);
+}
+
+.inlearn-dash-avatar {
+  display: grid;
+  place-items: center;
+  /* Roughly a third of the open card, which is how it reads in the design. */
+  width: 96px;
+  height: 96px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--inlearn-black);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    width var(--rail-ease),
+    height var(--rail-ease),
+    margin-bottom var(--rail-ease),
+    font-size var(--rail-ease);
+}
+
+/* max-height rather than display, so the name leaves and arrives with the
+   width instead of blinking out of it. */
+/* max-height rather than display, so the name leaves and arrives with the
+   width instead of blinking out of it. */
+/* The disc when it holds a picture rather than a letter. Cropped, not
+   squashed: a portrait and a landscape both have to come out round. */
+.inlearn-dash-avatar-photo {
+  object-fit: cover;
+  font-size: 0;
+}
+
+.inlearn-dash-who {
+  width: 100%;
+  max-height: 80px;
+  overflow: hidden;
+  opacity: 1;
+  transition:
+    max-height var(--rail-ease),
+    opacity 200ms ease;
+}
+
+.inlearn-dash-name {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* Both lines are cut rather than wrapped: the panel has a set width, and a name
+   or an address long enough to wrap would push it taller than the rows beside
+   it - a worse answer than an ellipsis. */
+.inlearn-dash-name,
+.inlearn-dash-email {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.inlearn-dash-email {
+  margin: 0;
+  color: #d3d3d9;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.inlearn-dash-nav {
+  display: flex;
+  flex-direction: column;
+  /* The rows are clearly apart in the design rather than stacked against each
+     other - each one reads as its own thing to press. */
+  gap: 10px;
+  padding: 18px 15px 22px;
+  transition: padding var(--rail-ease);
+}
+
+/* ---------------------------------------------------------------- the rows */
+
+.inlearn-dash-link {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  /* 50px and 15px both come off the design: the green row measures 38px tall
+     and sits 11px inside a 218px card there, which is 50 and 15 once the page
+     is 1440 rather than 1089. */
+  min-height: 50px;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--inlearn-black);
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    padding var(--rail-ease);
+}
+
+.inlearn-dash-link-mark {
+  display: grid;
+  place-items: center;
+}
+
+/* Its own shape, not a row's.
+
+   A row is a place to go: it is as wide as the panel, it is a stadium, and it
+   turns green when the visitor is in that section. None of that is true here -
+   this goes nowhere and can never be current - so borrowing the row's class
+   gave it a row's hover, which is what looked wrong: a full-width slab with
+   one end rounded and a rule drawn under it.
+
+   It is a circle the size of a folded row's circle, so the two states agree
+   with each other, and its mark lines up with the marks below it. The 5px is
+   that alignment: a row's mark sits at the nav's padding plus the row's own,
+   and this button has only the nav's. */
+.inlearn-dash-fold {
+  display: grid;
+  place-items: center;
+  width: var(--rail-dot);
+  height: var(--rail-dot);
+  margin: 0 0 14px 5px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--inlearn-muted);
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    margin var(--rail-ease);
+}
+
+.inlearn-dash-fold:hover {
+  background: #f1f1f3;
+  color: var(--inlearn-black);
+}
+
+/* Set for as long as the pointer stays where it was when the button was
+   pressed. A button does not need to keep showing that it is under a cursor
+   which has already finished with it. */
+.inlearn-dash-fold.is-hover-muted:hover {
+  background: transparent;
+  color: var(--inlearn-muted);
+}
+
+/* Not green. Green in this panel means "the section you are in", and a ring of
+   it around a button that is not a section says something that is not true. */
+.inlearn-dash-fold:focus-visible {
+  outline: 2px solid var(--inlearn-black);
+  outline-offset: 2px;
+}
+
+.inlearn-dash-link-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Only the open row shows it. It keeps its column either way so that the
+   labels of every row start and end on the same two lines - a chevron that
+   took its column away on five rows out of six would shift them all sideways
+   as the visitor moved between sections. */
+.inlearn-dash-link-chevron {
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.inlearn-dash-link:hover {
+  background: #f1f1f3;
+}
+
+.inlearn-dash-link:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+/* Green wins over the hover grey: written after it, and the visitor pointing
+   at the row they are already on should not see it change into something else.
+   aria-current is what NavLink sets, so this follows the router rather than a
+   class we would have to keep in step with it. */
+.inlearn-dash-link.is-current,
+.inlearn-dash-link.is-current:hover {
+  background: var(--inlearn-green);
+  color: #ffffff;
+}
+
+.inlearn-dash-link.is-current .inlearn-dash-link-chevron {
+  opacity: 1;
+}
+
+/* The one row that takes the visitor out. Red in the text rather than a filled
+   red row: it is not a destructive action, it is the end of a session. */
+.inlearn-dash-exit {
+  margin-top: 8px;
+  color: #d8453f;
+}
+
+.inlearn-dash-exit:hover {
+  background: #fdf3f1;
+}
+
+/* ------------------------------------------------------------------ folded */
+
+/* The same panel, narrower. Nothing leaves the document - the rows keep their
+   marks, their links and their order - so folding and opening is one width
+   changing rather than two menus swapping places. */
+
+/* Snug round the disc. With the open block's padding it came out a tall black
+   lozenge with a small circle floating in it - more black than face. */
+.inlearn-dash[data-rail="collapsed"] .inlearn-dash-identity {
+  padding: 10px 8px 10px;
+}
+
+.inlearn-dash[data-rail="collapsed"] .inlearn-dash-avatar {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 0;
+  font-size: 19px;
+}
+
+.inlearn-dash[data-rail="collapsed"] .inlearn-dash-who {
+  max-height: 0;
+  opacity: 0;
+}
+
+.inlearn-dash[data-rail="collapsed"] .inlearn-dash-nav {
+  padding: 14px 12px 18px;
+}
+
+/* One column: the mark, centred - and the row is a circle, not a pill.
+   Width and height are the same number and the radius is half of it, which is
+   the only way a round thing stays round: give it a stadium radius and a row
+   that is wider than it is tall, and the green behind the mark comes out an
+   egg. */
+.inlearn-dash[data-rail="collapsed"] .inlearn-dash-nav {
+  align-items: center;
+}
+
+.inlearn-dash[data-rail="collapsed"] .inlearn-dash-link {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 0;
+  width: var(--rail-dot);
+  min-width: var(--rail-dot);
+  height: var(--rail-dot);
+  min-height: var(--rail-dot);
+  padding: 0;
+  border-radius: 50%;
+}
+
+/* Folded, it sits in the same column as the circles below it. */
+.inlearn-dash[data-rail="collapsed"] .inlearn-dash-fold {
+  margin: 0 0 10px;
+}
+
+.inlearn-dash[data-rail="collapsed"] .inlearn-dash-link-label,
+.inlearn-dash[data-rail="collapsed"] .inlearn-dash-link-chevron {
+  display: none;
+}
+
+/* --------------------------------------------------------------- the panel */
+
+.inlearn-dash-panel {
+  min-width: 0;
+  min-height: 420px;
+}
+
+/* Nothing on a wide screen, where the panel and the section sit side by side
+   and neither is in the other's way. Switched on in the narrow block below.
+
+   This line is load-bearing in a way that is easy to miss: without it the
+   scrim is a plain button, and a plain button inside a two-column grid is a
+   grid item - so it took the first column, the panel took the second and the
+   section was pushed into a row of its own. The layout came apart on a
+   monitor because of a rule that only matters on a phone. */
+.inlearn-dash-scrim {
+  display: none;
+}
+
+/* ----------------------------------------------------------- narrower rooms */
+
+/* Every block below changes how wide the panel is and nothing else. There is
+   no rule here that moves it, and that is the point of the page. */
+
+@media (max-width: 1180px) {
+  .inlearn-dash {
+    --rail-open: 258px;
+  }
+
+  .inlearn-dash-layout {
+    gap: 24px;
+  }
+
+  .inlearn-dash-avatar {
+    width: 84px;
+    height: 84px;
+    font-size: 35px;
+  }
+}
+
+/* THE PANEL STOPS SHARING THE ROW.
+
+   Below this there is not enough width for both. An open 236px panel beside a
+   section left the form about 120 pixels wide, with every label cut to three
+   letters and the button wrapped onto two lines - unusable, and squeezing it
+   further was never going to fix it.
+
+   So the panel lies OVER the section here: both go in the same grid cell and
+   the panel takes the higher layer. The section keeps the full width of the
+   page and is simply covered while the panel is open. Folded, the panel is a
+   strip of marks and the section is padded by exactly that strip, so nothing
+   is ever hidden behind it.
+
+   It is still on the left, as it is at every width. What changes is that it is
+   above the section rather than beside it. */
+@media (max-width: 900px) {
+  .inlearn-dash {
+    padding: 104px 0 72px;
+    --rail-open: 268px;
+    --rail-folded: 60px;
+  }
+
+  /* The navbar pins itself 18px from the edge here, and the section follows
+     it. There is no step to keep any more: the panel is not beside it. */
+  .inlearn-dash-layout {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 18px;
+    padding-right: 18px;
+    gap: 0;
+  }
+
+  .inlearn-dash-rail,
+  .inlearn-dash-panel {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .inlearn-dash-rail {
+    z-index: 3;
+    justify-self: start;
+    /* It starts at the top of the row and stays there. Nothing about how tall
+       the section beside it grows is the strip's business.
+     *
+     * There was a `position: sticky; top: 96px` here, meant to let the strip
+     * follow the page down a long section. It never did that, and it could
+     * not: a sticky element is measured against the nearest ancestor that
+     * scrolls, and the nearest one here is .inlearn-dash, which has
+     * overflow: hidden to clip the arc and therefore never scrolls. So the 96
+     * was not a threshold it would stick at, it was a plain downward shift -
+     * measured at four different values, the strip landed at exactly the top
+     * of its cell plus that number, identically at every scroll position.
+     *
+     * The shift was invisible while the strip and the section were the same
+     * height, because a sticky box cannot leave its own grid area and there
+     * was no room to move into. Opening the password or address form made the
+     * section taller, the room appeared, and the strip dropped by the full 96
+     * - which is the bug this replaces. */
+  }
+
+  /* The strip's width plus a gap, so the marks never sit on the section. When
+     the panel opens it grows over the top of this rather than pushing it. */
+  .inlearn-dash-panel {
+    padding-left: calc(var(--rail-folded) + 14px);
+  }
+
+  .inlearn-dash-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    border: 0;
+    padding: 0;
+    background: rgba(5, 5, 5, 0.42);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    animation: inlearn-dash-scrim-in 200ms ease both;
+  }
+
+  .inlearn-dash-rail {
+    border-radius: 28px;
+  }
+
+  .inlearn-dash-identity {
+    padding: 30px 18px 24px;
+  }
+
+  .inlearn-dash-avatar {
+    width: 72px;
+    height: 72px;
+    font-size: 30px;
+  }
+
+  .inlearn-dash-panel {
+    min-height: 240px;
+  }
+}
+
+/* Phones. Open, the panel is a little over half the screen and the section
+   beside it is still readable; folded, it is a column of marks and the section
+   has the rest. Which one a visitor meets first is decided in railState.js,
+   and after that it is theirs. */
+@media (max-width: 620px) {
+  .inlearn-dash {
+    padding: 92px 0 56px;
+    /* Wider than it was, because it no longer costs the section anything: it
+       lies over it. A 200px drawer was narrow enough to crowd its own labels
+       while the page behind it was already full width. */
+    --rail-open: 244px;
+    --rail-folded: 56px;
+    --rail-dot: 40px;
+  }
+
+  /* The navbar is 12px from the edge at this width. */
+  .inlearn-dash-layout {
+    padding-left: 20px;
+    padding-right: 12px;
+    gap: 12px;
+  }
+
+  .inlearn-dash-identity {
+    padding: 26px 14px 20px;
+  }
+
+  .inlearn-dash-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 26px;
+  }
+
+  .inlearn-dash-name {
+    font-size: 15px;
+  }
+
+  .inlearn-dash-email {
+    font-size: 11px;
+  }
+
+  .inlearn-dash-nav {
+    padding: 14px 10px 18px;
+  }
+
+  .inlearn-dash-link {
+    min-height: 46px;
+    padding: 0 12px;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .inlearn-dash[data-rail="collapsed"] .inlearn-dash-identity {
+    padding: 8px 6px;
+  }
+
+  .inlearn-dash[data-rail="collapsed"] .inlearn-dash-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+}
+
+/* The narrowest phones still in use. The last few pixels come out of padding
+   and type, never out of a row's height - these are touch targets before they
+   are anything else, and 44px is the floor. */
+@media (max-width: 380px) {
+  .inlearn-dash {
+    /* Still inside the narrowest phone with the page's own margins to spare:
+       320 less 18 either side is 284, and this is well under it. */
+    --rail-open: 220px;
+    --rail-folded: 52px;
+    --rail-dot: 38px;
+  }
+
+  /* Only the gap here. The padding is the one above: it is already as tight
+     as it can be while keeping the panel inside the brand rather than sticking
+     out past it, which is what a flat 10px did. */
+  .inlearn-dash-layout {
+    gap: 10px;
+  }
+
+  .inlearn-dash-nav {
+    padding: 12px 8px 16px;
+  }
+
+  .inlearn-dash-link {
+    min-height: 44px;
+    padding: 0 10px;
+    gap: 8px;
+    font-size: 13px;
+  }
+}
+
+@keyframes inlearn-dash-scrim-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* A visitor who has asked for less movement gets the same panel without the
+   slide: it still folds, it simply arrives. */
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-dash-rail,
+  .inlearn-dash-identity,
+  .inlearn-dash-fold,
+  .inlearn-dash-avatar,
+  .inlearn-dash-who,
+  .inlearn-dash-nav,
+  .inlearn-dash-link,
+  .inlearn-dash-link-chevron {
+    transition: none;
+  }
+
+  .inlearn-dash-scrim {
+    animation: none;
+  }
+}

@@ -117,3 +117,16 @@
   outline: 2px solid #fff;
   outline-offset: 2px;
 }
+
+.inlearn-toast-action.is-link {
+  border-color: transparent;
+  color: #63a9ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.inlearn-toast-action.is-link:hover {
+  border-color: transparent;
+  background: rgb(99 169 255 / 12%);
+  color: #8fc1ff;
+}

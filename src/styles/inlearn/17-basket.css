@@ -209,6 +209,21 @@
   font-size: 13px;
 }
 
+/* The same line in two other voices: one for a code that worked, and one for
+   the plain fact that a code cannot be checked until somebody has signed in.
+   Neither is a failure, so neither borrows the red above. */
+.inlearn-basket-code-good {
+  margin: 10px 0 0;
+  color: var(--inlearn-green);
+  font-size: 13px;
+}
+
+.inlearn-basket-code-note {
+  margin: 10px 0 0;
+  color: var(--inlearn-muted);
+  font-size: 13px;
+}
+
 .inlearn-basket-purchase {
   margin-top: clamp(14px, 2vw, 22px);
   min-width: 165px;
@@ -235,7 +250,15 @@
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 14px 24px;
-  align-items: baseline;
+  /* Centred, not baseline.
+   *
+   * Baseline is the right answer when a label and its figure are the same
+   * size, and the wrong one here: the grand total is set several steps larger
+   * than the words beside it, so sitting both on one baseline dropped the big
+   * number and left "GRAND TOTAL:" riding high above it. Centring each pair
+   * against each other puts the label opposite its own figure, which is how
+   * the row is read. */
+  align-items: center;
   margin: 0;
   padding: 2px 0 2px clamp(18px, 2.4vw, 34px);
   border-left: 1px solid #ddddd8;
@@ -268,11 +291,22 @@
   font-weight: 800;
 }
 
-/* The line above the last row, drawn on both cells so it reaches the full
-   width of the block - a border on the <dl> could only sit outside it. */
-.inlearn-basket-total .is-grand {
-  padding-top: 16px;
-  border-top: 1px solid #ddddd8;
+/* The line above the last row is its own element spanning both columns, and
+   it has to be.
+ *
+ * It used to be a border-top on each of the two cells, which broke it twice.
+ * The columns are 24px apart, so the line had a hole through the middle of it.
+ * And the two cells are not the same height - the grand total is set much
+ * larger than its label - so once they were centred against each other, the
+ * short cell's border sat lower than the tall one's: one line, drawn at two
+ * different heights, with a gap in between.
+ *
+ * One element in one grid cell spanning both columns cannot do either. */
+.inlearn-basket-rule {
+  grid-column: 1 / -1;
+  height: 1px;
+  margin: 2px 0 0;
+  background: #ddddd8;
 }
 
 .inlearn-basket-total dt.is-grand {
@@ -304,47 +338,6 @@
 
 .inlearn-basket-empty .inlearn-hero-cta {
   margin-top: 12px;
-}
-
-/* ---- the checkout placeholder -------------------------------------------- */
-
-.inlearn-checkout-body {
-  max-width: 52ch;
-  margin: 0 0 clamp(24px, 3vw, 36px);
-  color: #55555c;
-  font-size: clamp(14px, 1.3vw, 17px);
-  line-height: 1.5;
-}
-
-.inlearn-checkout-subheading {
-  margin: 0 0 12px;
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.inlearn-checkout-list {
-  margin: 0 0 clamp(20px, 3vw, 30px);
-  padding: 0;
-  list-style: none;
-  max-width: 620px;
-}
-
-.inlearn-checkout-list li {
-  display: flex;
-  gap: 20px;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 12px 0;
-  border-bottom: 1px solid #e6e6e2;
-  font-size: 14px;
-}
-
-.inlearn-checkout-total {
-  max-width: 620px;
-}
-
-.inlearn-checkout-back {
-  margin-top: clamp(24px, 3vw, 36px);
 }
 
 /* -------------------------------------------------------------------------- */

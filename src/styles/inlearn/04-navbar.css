@@ -17,7 +17,17 @@
    truncates rather than pushing the pill across the page. */
 .inlearn-nav.is-signed-in {
   width: max-content;
-  max-width: 330px;
+  /* 24px more than the signed-out 330, which is exactly the padding the name's
+     hover pill carries. Without it the pill's padding comes out of the name's
+     own room and a name that used to fit starts truncating. */
+  max-width: 354px;
+}
+
+/* The name sits nearer the pill's edge than the buttons it replaced, because
+   its hover pill carries padding of its own and two lots of inset in a row
+   read as the name being pushed into the middle of the black pill. */
+.inlearn-nav.is-signed-in .inlearn-nav-content {
+  padding-left: 16px;
 }
 
 .inlearn-nav.is-searching {
@@ -62,16 +72,73 @@
   grid-template-columns: minmax(0, 1fr) 24px 52px 1px;
 }
 
+/* The name is the door to the dashboard, and a name does not look like one.
+   The grey pill under the pointer is what says so - the same shape the rows
+   inside the dashboard take, so it is one gesture to learn rather than two.
+
+   The negative margin is what lets the pill have padding without the name
+   moving: the padding pushes the text in, the margin pulls the box back out,
+   and the row beside it is laid out as though neither existed. Without it,
+   every control in this pill shifts sideways the moment somebody signs in. */
 .inlearn-nav-account {
   overflow: hidden;
   min-width: 0;
-  justify-self: start;
+  /* Stretch, not start. At max-content the pill is sized by the name and sits
+     wherever that leaves it - which, once the black pill hits its ceiling, is
+     twelve pixels past its own grid column and on top of the basket. Stretched
+     it can only ever be as wide as its column, so the gap to the basket is the
+     column gap and nothing can eat it. */
+  justify-self: stretch;
+  max-width: 100%;
+  padding: 8px 12px;
+  border-radius: 999px;
   color: inherit;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   white-space: nowrap;
+  text-decoration: none;
   text-overflow: ellipsis;
+  transition: background-color 180ms ease;
+}
+
+/* The name has to be a block, and the selector has to be this long to say so.
+ *
+ * Every control in this pill is `.inlearn-nav a` or `.inlearn-nav button`,
+ * which makes them inline-flex and centres their contents - right for a cart
+ * and a magnifier, wrong for the one control whose content is a person's
+ * name. text-overflow needs a block box with inline text inside it; in a flex
+ * container the name becomes an anonymous flex item and the ellipsis has
+ * nothing to attach to, so a name too long for the row was simply cut - and
+ * cut at BOTH ends, because the rule above centres it.
+ *
+ * `.inlearn-nav-account` alone cannot undo that: one class loses to one class
+ * plus an element. Naming the pill as well as the link wins it back without
+ * reaching for !important.
+ *
+ * The centring is kept deliberately - it is how the name sits in the row when
+ * it fits - and moves from justify-content, which only flex understands, to
+ * text-align, which is the block equivalent. */
+.inlearn-nav .inlearn-nav-account {
+  display: block;
+  text-align: center;
+}
+
+.inlearn-nav-account:hover {
+  /* Inside a black pill, so the hover lifts away from the background rather
+     than towards it - the grey used elsewhere would disappear here. */
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.inlearn-nav-account:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-nav-account {
+    transition: none;
+  }
 }
 
 .inlearn-nav.is-searching .inlearn-nav-links {
@@ -122,11 +189,24 @@
   height: 28px;
 }
 
-.inlearn-cart-link img {
+/* The basket mark, painted rather than placed.
+ *
+ * background-color is what the mask shows through, and currentColor ties it to
+ * the link's own colour - so `.inlearn-nav a:hover` turning green, which every
+ * other control in this pill already obeys, now reaches the basket too. The
+ * picture itself arrives from the markup as a custom property, because the
+ * file is hashed at build time and this stylesheet cannot name it.
+ *
+ * The size is set here rather than by the image, so a mask that failed to load
+ * leaves a gap of the right shape instead of collapsing the row. */
+.inlearn-cart-mark {
   display: block;
   width: 24px;
   height: 24px;
-  object-fit: contain;
+  background-color: currentColor;
+  -webkit-mask: var(--inlearn-cart-icon) no-repeat center / contain;
+  mask: var(--inlearn-cart-icon) no-repeat center / contain;
+  transition: background-color 220ms ease;
 }
 
 .inlearn-language {
@@ -151,6 +231,20 @@
   width: 12px;
   height: 12px;
   flex: 0 0 12px;
+}
+
+/* The word and its arrow rise together under the pointer - they are one
+   control, and lifting only the letters would leave the arrow behind. Two
+   pixels: enough to feel, not enough to look like the row has moved. */
+.inlearn-language > button {
+  transition:
+    color 180ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inlearn-language > button:hover,
+.inlearn-language > button:focus-visible {
+  transform: translateY(-2px);
 }
 
 .inlearn-language-menu {
@@ -210,6 +304,17 @@
   font-size: 14px;
   line-height: 1;
   transition: background 200ms ease;
+}
+
+/* The glass grows rather than the button, so the ring the button draws when
+   the field is open stays exactly where it was. */
+.inlearn-search-icon {
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inlearn-search-toggle:hover .inlearn-search-icon,
+.inlearn-search-toggle:focus-visible .inlearn-search-icon {
+  transform: scale(1.18);
 }
 
 .inlearn-nav.is-searching .inlearn-search-toggle {
@@ -290,3 +395,21 @@
   font-size: clamp(12px, 1.1vw, 14px);
 }
 
+/* Everything above is decoration on a control that works without it. */
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-cart-mark,
+  .inlearn-language > button,
+  .inlearn-search-icon {
+    transition: none;
+  }
+
+  .inlearn-language > button:hover,
+  .inlearn-language > button:focus-visible {
+    transform: none;
+  }
+
+  .inlearn-search-toggle:hover .inlearn-search-icon,
+  .inlearn-search-toggle:focus-visible .inlearn-search-icon {
+    transform: none;
+  }
+}

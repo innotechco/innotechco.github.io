@@ -6,6 +6,11 @@
    they sit loses that answer. */
 
 export {default as firstPageArcTopLeft} from "./assets/first-page/arc-top-left.webp";
+
+/* The arc behind the dashboard rail. Supplied as a 3793px PNG and converted on
+   the way in: 99KB became 27KB at 1600 wide, which is wider than it is ever
+   drawn, and the shape is two flat tones with no detail to lose. */
+export {default as dashboardCurve} from "./assets/dashboard-curve.webp";
 export {default as firstPageArcRight} from "./assets/first-page/arc-right.webp";
 
 /* One photograph stands in for every course until the real ones arrive. It is
