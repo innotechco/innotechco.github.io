@@ -17,7 +17,17 @@
    truncates rather than pushing the pill across the page. */
 .inlearn-nav.is-signed-in {
   width: max-content;
-  max-width: 330px;
+  /* 24px more than the signed-out 330, which is exactly the padding the name's
+     hover pill carries. Without it the pill's padding comes out of the name's
+     own room and a name that used to fit starts truncating. */
+  max-width: 354px;
+}
+
+/* The name sits nearer the pill's edge than the buttons it replaced, because
+   its hover pill carries padding of its own and two lots of inset in a row
+   read as the name being pushed into the middle of the black pill. */
+.inlearn-nav.is-signed-in .inlearn-nav-content {
+  padding-left: 16px;
 }
 
 .inlearn-nav.is-searching {
@@ -62,16 +72,51 @@
   grid-template-columns: minmax(0, 1fr) 24px 52px 1px;
 }
 
+/* The name is the door to the dashboard, and a name does not look like one.
+   The grey pill under the pointer is what says so - the same shape the rows
+   inside the dashboard take, so it is one gesture to learn rather than two.
+
+   The negative margin is what lets the pill have padding without the name
+   moving: the padding pushes the text in, the margin pulls the box back out,
+   and the row beside it is laid out as though neither existed. Without it,
+   every control in this pill shifts sideways the moment somebody signs in. */
 .inlearn-nav-account {
   overflow: hidden;
   min-width: 0;
-  justify-self: start;
+  /* Stretch, not start. At max-content the pill is sized by the name and sits
+     wherever that leaves it - which, once the black pill hits its ceiling, is
+     twelve pixels past its own grid column and on top of the basket. Stretched
+     it can only ever be as wide as its column, so the gap to the basket is the
+     column gap and nothing can eat it. */
+  justify-self: stretch;
+  max-width: 100%;
+  padding: 8px 12px;
+  border-radius: 999px;
   color: inherit;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
   white-space: nowrap;
+  text-decoration: none;
   text-overflow: ellipsis;
+  transition: background-color 180ms ease;
+}
+
+.inlearn-nav-account:hover {
+  /* Inside a black pill, so the hover lifts away from the background rather
+     than towards it - the grey used elsewhere would disappear here. */
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.inlearn-nav-account:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-nav-account {
+    transition: none;
+  }
 }
 
 .inlearn-nav.is-searching .inlearn-nav-links {

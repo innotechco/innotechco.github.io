@@ -177,10 +177,10 @@
     grid-template-columns: minmax(0, 1fr) auto auto auto;
   }
 
-  .inlearn-nav.is-signed-in .inlearn-nav-account {
-    justify-self: stretch;
-    max-width: 100%;
-  }
+  /* The name stretching to its column is the base rule now - it is what keeps
+     the hover pill off the basket at every width, not only here - so this
+     block no longer repeats it. Two copies of one declaration is one of them
+     being edited and the other quietly disagreeing. */
 
   /* While the field is open the pill takes the rest of the row instead of a
      width of its own: 360px is wider than the space left beside the brand on a

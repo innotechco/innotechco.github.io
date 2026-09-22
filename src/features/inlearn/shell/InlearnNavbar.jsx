@@ -68,10 +68,19 @@ function InlearnNavbar({onAuthOpen, session}) {
           {session ? (
             /* The two buttons collapse to one name once there is someone to
                name, which is also the only outward sign that the session
-               survived - the token behind it is refreshed silently. */
-            <span className="inlearn-nav-account" title={session.user?.email}>
+               survived - the token behind it is refreshed silently.
+
+               A link rather than a label, because the name is the only way in
+               to the dashboard. Nothing about a name says "press me", so it
+               takes a grey pill under the pointer - the same shape the rows
+               inside the dashboard use, so the gesture is learnt once. */
+            <Link
+              to={routes.inlearnDashboard}
+              className="inlearn-nav-account"
+              title={session.user?.email}
+            >
               {session.displayName}
-            </span>
+            </Link>
           ) : (
             <>
               <button type="button" onClick={() => onAuthOpen("login")}>
