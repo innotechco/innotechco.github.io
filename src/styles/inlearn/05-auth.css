@@ -625,11 +625,16 @@
   }
 }
 
+/* Soft as well as dark, the same as every other popup on the module. Dimming
+   alone leaves the page behind perfectly readable and the eye goes on reading
+   it instead of the thing that just opened. */
 .inlearn-dialog-backdrop {
   position: absolute;
   inset: 0;
   border: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.42);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   cursor: default;
 }
 

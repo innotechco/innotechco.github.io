@@ -53,7 +53,7 @@ function mergeArchiveItems(wordpressPosts = [], localItems = []) {
     });
 }
 
-function ArchiveCard({item, isDarkMode, selectedCategory, categoryLabels}) {
+function ArchiveCard({item, isDarkMode, selectedCategory, categoryLabels, priority = false}) {
   const {position, handlers} = usePointerGlow();
   const category = getCardCategory(item, selectedCategory, categoryLabels);
   const readTime = item.readTime ||
@@ -83,6 +83,13 @@ function ArchiveCard({item, isDarkMode, selectedCategory, categoryLabels}) {
             sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw"
             alt=""
             aria-hidden="true"
+            /* The first row is on screen the moment the grid paints, so those
+               pictures are not "below the fold" and must not queue behind the
+               rest. Lazy on every card meant the three a visitor is actually
+               looking at only started downloading once the browser had worked
+               its way through the ones they cannot see - and each of those
+               goes through a converting proxy, so the wait showed. */
+            {...(priority ? {loading: "eager", fetchPriority: "high"} : {})}
           />
         </div>
         <div className="archive-card-copy">
@@ -248,13 +255,17 @@ function Archives() {
           </section>
         ) : visibleItems.length ? (
           <section className="archive-grid" aria-label="Archive articles">
-            {visibleItems.map((item) => (
+            {visibleItems.map((item, index) => (
               <ArchiveCard
                 key={item.id}
                 item={item}
                 isDarkMode={isDarkMode}
                 selectedCategory={selectedCategory}
                 categoryLabels={categoryLabels}
+                /* Three across on a wide screen, and never more than three
+                   are above the fold on a narrow one either - the cards are
+                   tall enough that a phone shows one. */
+                priority={index < 3}
               />
             ))}
           </section>

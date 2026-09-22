@@ -130,7 +130,14 @@ function BasketPage({session, onAuthOpen, onToast}) {
             ? `Order #${answer.order.orderNumber} is complete.`
             : `Order #${answer.order.orderNumber} is waiting for payment.`,
       });
-      navigate(routes.inlearnDashboardBill);
+      /* Straight to the courses rather than to the receipt: what somebody
+         wants the moment they have paid is the thing they paid for. The
+         invoice is in Bill for whenever they want it. */
+      navigate(
+        answer.order.status === "paid"
+          ? routes.inlearnDashboardCourses
+          : routes.inlearnDashboardBill,
+      );
     } catch (error) {
       setProblem(error.message);
       setIsWorking(false);
