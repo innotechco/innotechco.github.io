@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {NavLink} from "react-router-dom";
 
-import {avatarLetter, dashboardExit, dashboardSections} from "./dashboard.config.js";
+import {avatarLetter, avatarSrc, dashboardExit, dashboardSections} from "./dashboard.config.js";
 import {MenuIcon, RailChevron} from "./icons.jsx";
 
 /* The panel down the left: who is signed in, and where they can go.
@@ -31,9 +31,22 @@ function DashboardSidebar({session, onExit, isCollapsed, onToggle}) {
         {/* A letter, not a photograph: there is nowhere to upload one yet, and
             a grey silhouette for every account reads as something missing
             rather than something not yet offered. */}
-        <span className="inlearn-dash-avatar" aria-hidden="true">
-          {avatarLetter(session)}
-        </span>
+        {/* The picture once there is one, the letter until then. Same disc
+            either way, so folding the panel moves one thing rather than
+            swapping two. */}
+        {session?.avatar ? (
+          <img
+            className="inlearn-dash-avatar inlearn-dash-avatar-photo"
+            src={avatarSrc(session.avatar)}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+          />
+        ) : (
+          <span className="inlearn-dash-avatar" aria-hidden="true">
+            {avatarLetter(session)}
+          </span>
+        )}
 
         {/* Hidden from the reader AND from a screen reader when folded, rather
             than merely shrunk: a name read out by a rail that is showing only

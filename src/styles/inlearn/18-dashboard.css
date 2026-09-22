@@ -168,6 +168,13 @@
    width instead of blinking out of it. */
 /* max-height rather than display, so the name leaves and arrives with the
    width instead of blinking out of it. */
+/* The disc when it holds a picture rather than a letter. Cropped, not
+   squashed: a portrait and a landscape both have to come out round. */
+.inlearn-dash-avatar-photo {
+  object-fit: cover;
+  font-size: 0;
+}
+
 .inlearn-dash-who {
   width: 100%;
   max-height: 80px;
@@ -353,8 +360,10 @@
    marks, their links and their order - so folding and opening is one width
    changing rather than two menus swapping places. */
 
+/* Snug round the disc. With the open block's padding it came out a tall black
+   lozenge with a small circle floating in it - more black than face. */
 .inlearn-dash[data-rail="collapsed"] .inlearn-dash-identity {
-  padding: 20px 12px 18px;
+  padding: 10px 8px 10px;
 }
 
 .inlearn-dash[data-rail="collapsed"] .inlearn-dash-avatar {
@@ -411,6 +420,18 @@
   min-height: 420px;
 }
 
+/* Nothing on a wide screen, where the panel and the section sit side by side
+   and neither is in the other's way. Switched on in the narrow block below.
+
+   This line is load-bearing in a way that is easy to miss: without it the
+   scrim is a plain button, and a plain button inside a two-column grid is a
+   grid item - so it took the first column, the panel took the second and the
+   section was pushed into a row of its own. The layout came apart on a
+   monitor because of a rule that only matters on a phone. */
+.inlearn-dash-scrim {
+  display: none;
+}
+
 /* ----------------------------------------------------------- narrower rooms */
 
 /* Every block below changes how wide the panel is and nothing else. There is
@@ -432,21 +453,68 @@
   }
 }
 
+/* THE PANEL STOPS SHARING THE ROW.
+
+   Below this there is not enough width for both. An open 236px panel beside a
+   section left the form about 120 pixels wide, with every label cut to three
+   letters and the button wrapped onto two lines - unusable, and squeezing it
+   further was never going to fix it.
+
+   So the panel lies OVER the section here: both go in the same grid cell and
+   the panel takes the higher layer. The section keeps the full width of the
+   page and is simply covered while the panel is open. Folded, the panel is a
+   strip of marks and the section is padded by exactly that strip, so nothing
+   is ever hidden behind it.
+
+   It is still on the left, as it is at every width. What changes is that it is
+   above the section rather than beside it. */
 @media (max-width: 900px) {
   .inlearn-dash {
     padding: 104px 0 72px;
-    --rail-open: 236px;
-    --rail-folded: 68px;
+    --rail-open: 268px;
+    --rail-folded: 60px;
   }
 
-  /* The navbar drops the gutter here and pins itself 18px from the edge, so
-     the panel follows it rather than going on measuring from a column the
-     navbar has already left. The step between them narrows with everything
-     else - thirty pixels of indent is a lot of a tablet. */
+  /* The navbar pins itself 18px from the edge here, and the section follows
+     it. There is no step to keep any more: the panel is not beside it. */
   .inlearn-dash-layout {
-    padding-left: 30px;
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 18px;
     padding-right: 18px;
-    gap: 16px;
+    gap: 0;
+  }
+
+  .inlearn-dash-rail,
+  .inlearn-dash-panel {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .inlearn-dash-rail {
+    z-index: 3;
+    justify-self: start;
+    /* It follows the page down rather than scrolling off the top of a long
+       section, so the way out is always where it was. */
+    position: sticky;
+    top: 96px;
+  }
+
+  /* The strip's width plus a gap, so the marks never sit on the section. When
+     the panel opens it grows over the top of this rather than pushing it. */
+  .inlearn-dash-panel {
+    padding-left: calc(var(--rail-folded) + 14px);
+  }
+
+  .inlearn-dash-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    border: 0;
+    padding: 0;
+    background: rgba(5, 5, 5, 0.42);
+    cursor: pointer;
+    animation: inlearn-dash-scrim-in 200ms ease both;
   }
 
   .inlearn-dash-rail {
@@ -475,8 +543,11 @@
 @media (max-width: 620px) {
   .inlearn-dash {
     padding: 92px 0 56px;
-    --rail-open: 200px;
-    --rail-folded: 60px;
+    /* Wider than it was, because it no longer costs the section anything: it
+       lies over it. A 200px drawer was narrow enough to crowd its own labels
+       while the page behind it was already full width. */
+    --rail-open: 244px;
+    --rail-folded: 56px;
     --rail-dot: 40px;
   }
 
@@ -517,7 +588,7 @@
   }
 
   .inlearn-dash[data-rail="collapsed"] .inlearn-dash-identity {
-    padding: 18px 8px 16px;
+    padding: 8px 6px;
   }
 
   .inlearn-dash[data-rail="collapsed"] .inlearn-dash-avatar {
@@ -532,8 +603,10 @@
    are anything else, and 44px is the floor. */
 @media (max-width: 380px) {
   .inlearn-dash {
-    --rail-open: 176px;
-    --rail-folded: 56px;
+    /* Still inside the narrowest phone with the page's own margins to spare:
+       320 less 18 either side is 284, and this is well under it. */
+    --rail-open: 220px;
+    --rail-folded: 52px;
     --rail-dot: 38px;
   }
 
@@ -556,6 +629,16 @@
   }
 }
 
+@keyframes inlearn-dash-scrim-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 /* A visitor who has asked for less movement gets the same panel without the
    slide: it still folds, it simply arrives. */
 @media (prefers-reduced-motion: reduce) {
@@ -568,5 +651,9 @@
   .inlearn-dash-link,
   .inlearn-dash-link-chevron {
     transition: none;
+  }
+
+  .inlearn-dash-scrim {
+    animation: none;
   }
 }

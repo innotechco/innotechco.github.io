@@ -1,0 +1,505 @@
+/* The Profile section, inside the dashboard's right-hand panel.
+
+   It never has to think about the panel beside it. The shell gives it a grid
+   column with min-width: 0, so everything here measures itself against the
+   space it was handed rather than against the window - which is what lets the
+   panel fold and unfold underneath it without a single rule in this file
+   knowing that happened. */
+
+/* No centring and no ceiling: the card IS the column.
+
+   Centred inside a max-width it floated in the middle of the space left over,
+   with a wide gap between it and the panel - two objects on a page rather than
+   one page. Filling the column instead means it starts where the panel ends,
+   and it grows and shrinks as the panel folds and unfolds without a line of
+   JavaScript or a single rule here knowing the panel exists: the shell hands
+   this section a grid track of minmax(0, 1fr), and that track is exactly what
+   the panel is not using. */
+.inlearn-profile {
+  display: block;
+}
+
+.inlearn-profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: clamp(20px, 3vw, 36px) clamp(16px, 3vw, 32px) clamp(20px, 3vw, 30px);
+  border-radius: 28px;
+  background: #f7f7f8;
+}
+
+/* ------------------------------------------------------------- the portrait */
+
+.inlearn-profile-portrait {
+  position: relative;
+  margin-bottom: clamp(18px, 3vw, 28px);
+}
+
+.inlearn-profile-avatar {
+  display: grid;
+  place-items: center;
+  width: clamp(72px, 10vw, 92px);
+  height: clamp(72px, 10vw, 92px);
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--inlearn-black);
+  font-size: clamp(30px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* On the disc's own edge rather than beside it, which is where the design puts
+   it and also what keeps it within the portrait however big the disc gets. */
+.inlearn-profile-camera {
+  position: absolute;
+  right: -2px;
+  bottom: 2px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 2px solid #f7f7f8;
+  border-radius: 50%;
+  background: var(--inlearn-black);
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+}
+
+.inlearn-profile-camera:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.inlearn-profile-camera:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------- the fields */
+
+.inlearn-profile-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* The shared select and password field bring their own look from 05-auth, so
+   the plain inputs here are written to match them rather than the other way
+   round - one form, not two that resemble each other. */
+.inlearn-profile-input {
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  padding: 0 18px;
+  border: 1px solid #e4e4e6;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--inlearn-black);
+  font-size: 14px;
+}
+
+.inlearn-profile-input::placeholder {
+  color: #a2a2a8;
+}
+
+.inlearn-profile-input:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 1px;
+}
+
+.inlearn-profile-input:read-only {
+  color: #55555c;
+}
+
+.inlearn-profile-input:disabled {
+  opacity: 0.6;
+}
+
+/* The shared password and phone fields, in this card.
+
+   They come from the sign-up panel, and the rules that give their inner input
+   its padding are scoped to .inlearn-auth-form - which this is not. Inside the
+   card the input inherited nothing, so the password dots sat against the left
+   edge while every box above them was eighteen pixels in. These are the same
+   declarations, scoped here, so the five rows line up as one column. */
+.inlearn-profile-card .inlearn-password-field,
+.inlearn-profile-card .inlearn-phone-field {
+  height: 46px;
+}
+
+.inlearn-profile-card .inlearn-password-field input,
+.inlearn-profile-card .inlearn-phone-field input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--inlearn-black);
+  font-size: 14px;
+}
+
+.inlearn-profile-card .inlearn-password-field input {
+  padding: 0 46px 0 18px;
+}
+
+/* No ring on the inner box.
+
+   The pill is the wrapper; the input inside it is an ordinary rectangle with
+   no border and no radius of its own. So the browser's focus ring drew a
+   rectangle around a rounded field - a box with a pill inside it, which is
+   what looked wrong.
+
+   Focus is not lost, it moves to where the shape actually is: 05-auth already
+   turns the wrapper's border green and puts a soft green ring around it on
+   :focus-within, and that follows the rounding because the wrapper is the
+   thing that is round. */
+.inlearn-profile-card .inlearn-password-field input:focus,
+.inlearn-profile-card .inlearn-password-field input:focus-visible,
+.inlearn-profile-card .inlearn-phone-field input:focus,
+.inlearn-profile-card .inlearn-phone-field input:focus-visible {
+  outline: none;
+}
+
+/* The hairline had ten pixels on one side and twelve on the other, which at
+   this size reads as the line leaning into the words. Even room either side,
+   and the code keeps the same eighteen the other fields start at. */
+.inlearn-profile-card .inlearn-phone-code {
+  padding-left: 18px;
+  padding-right: 14px;
+  font-size: 14px;
+}
+
+.inlearn-profile-card .inlearn-phone-field input {
+  padding: 0 18px 0 14px;
+}
+
+/* The two rows that carry their own button. The field takes the room that is
+   left rather than a share of it, so the button keeps its size and the box
+   beside it does the shrinking. */
+.inlearn-profile-email,
+.inlearn-profile-password {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.inlearn-profile-email > .inlearn-profile-input,
+.inlearn-profile-password > * {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.inlearn-profile-email-change,
+.inlearn-profile-password-change {
+  flex: 0 0 auto;
+  height: 46px;
+  padding: 0 16px;
+  border: 1px solid #d8d8da;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--inlearn-black);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.inlearn-profile-email-change:hover,
+.inlearn-profile-password-change:hover {
+  background: #f1f1f3;
+}
+
+.inlearn-profile-email-change:disabled,
+.inlearn-profile-password-change:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.inlearn-profile-email-change:focus-visible,
+.inlearn-profile-password-change:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+/* The picture itself, once there is one. Same disc as the letter it replaces,
+   and cropped rather than squashed: a portrait and a landscape both have to
+   come out round. */
+.inlearn-profile-photo {
+  display: block;
+  width: clamp(72px, 10vw, 92px);
+  height: clamp(72px, 10vw, 92px);
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ffffff;
+}
+
+/* Hidden, not absent. display: none would take it out of the accessibility
+   tree and off the keyboard; this keeps it reachable and invisible. */
+.inlearn-profile-file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The dots where the password would be. A span rather than an input, because
+   there is nothing to type here and nothing to reveal - the password is
+   hashed on the server and this browser has never held it. */
+.inlearn-profile-dots {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  min-width: 0;
+  height: 46px;
+  padding: 0 18px;
+  border: 1px solid #e4e4e6;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #55555c;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+/* ------------------------------------------------- the two small journeys */
+
+/* Changing a password or an address opens in place rather than in a dialog:
+   the row it replaces is where the visitor was looking, and a panel that
+   appears somewhere else has to be found before it can be read. */
+.inlearn-profile-step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid #e4e4e6;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.inlearn-profile-step-title {
+  margin: 0 0 2px;
+  color: var(--inlearn-black);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.inlearn-profile-step-title strong {
+  font-weight: 700;
+  word-break: break-all;
+}
+
+/* Six digits, spaced out and centred, so the code reads as a code rather than
+   as another line of text. */
+.inlearn-profile-code {
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 8px;
+}
+
+/* Wrapping, and the buttons allowed to grow.
+
+   Side by side they need about 210px, and inside a 222px card on a 320px
+   phone Cancel was pushed out past the edge. Wrapped, the two share the row
+   wherever it fits and take one each where it does not - which is the answer
+   at every width rather than a breakpoint guessing which one this is. */
+.inlearn-profile-step-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.inlearn-profile-step-actions > button {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.inlearn-profile-ghost,
+.inlearn-profile-go {
+  height: 40px;
+  padding: 0 14px;
+  white-space: nowrap;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    opacity 180ms ease;
+}
+
+.inlearn-profile-ghost {
+  border: 1px solid #d8d8da;
+  background: #ffffff;
+  color: var(--inlearn-black);
+}
+
+.inlearn-profile-ghost:hover {
+  background: #f1f1f3;
+}
+
+.inlearn-profile-go {
+  border: 0;
+  background: var(--inlearn-black);
+  color: #ffffff;
+}
+
+.inlearn-profile-go:hover {
+  opacity: 0.88;
+}
+
+.inlearn-profile-go:disabled {
+  cursor: progress;
+  opacity: 0.55;
+}
+
+.inlearn-profile-ghost:focus-visible,
+.inlearn-profile-go:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+/* A line under the row it belongs to, rather than in the form's one message
+   slot at the bottom - these answer a question asked up here. */
+.inlearn-profile-note {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.inlearn-profile-note.is-good {
+  color: var(--inlearn-green);
+}
+
+.inlearn-profile-note.is-problem {
+  color: #d8453f;
+}
+
+/* --------------------------------------------------- the message and the button */
+
+/* It holds its line whether or not there is anything to say, so the button
+   below does not hop up and down as messages come and go. */
+.inlearn-profile-message {
+  width: 100%;
+  min-height: 20px;
+  margin: 10px 0 0;
+  color: var(--inlearn-green);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.inlearn-profile-message.is-problem {
+  color: #d8453f;
+}
+
+.inlearn-profile-apply {
+  align-self: flex-end;
+  height: 42px;
+  margin-top: 8px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--inlearn-black);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+}
+
+.inlearn-profile-apply:hover {
+  opacity: 0.88;
+}
+
+.inlearn-profile-apply:disabled {
+  cursor: progress;
+  opacity: 0.55;
+}
+
+.inlearn-profile-apply:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------ narrower rooms */
+
+/* The panel beside this one is folded or open, and either way the column this
+   card sits in has already been measured for it. What these change is the card
+   itself once the column gets tight - at the smallest sizes the two rows that
+   carry a button stop being rows, because a button and a field side by side
+   below about 380px leaves neither of them usable. */
+@media (max-width: 620px) {
+  .inlearn-profile-card {
+    border-radius: 22px;
+  }
+
+  .inlearn-profile-fields {
+    gap: 10px;
+  }
+
+  .inlearn-profile-input {
+    height: 44px;
+    padding: 0 15px;
+    font-size: 13.5px;
+  }
+
+  .inlearn-profile-email-change,
+  .inlearn-profile-password-change {
+    height: 44px;
+    padding: 0 13px;
+    font-size: 12.5px;
+  }
+}
+
+/* The two buttons stay ON their row here rather than dropping below it.
+
+   Stacked, they read as two stray pills floating under a field with nothing
+   saying what they belong to - and they cost a row of height each on the
+   screen with the least of it. Beside the field they are obviously its
+   button, and the field is the thing that gives up the width, which it can:
+   an address too long for the box scrolls inside it, and a password is dots. */
+@media (max-width: 440px) {
+  .inlearn-profile-email,
+  .inlearn-profile-password {
+    gap: 6px;
+  }
+
+  .inlearn-profile-email-change,
+  .inlearn-profile-password-change {
+    height: 44px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+
+  .inlearn-profile-camera {
+    width: 32px;
+    height: 32px;
+  }
+
+  .inlearn-profile-apply {
+    align-self: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-profile-camera,
+  .inlearn-profile-email-change,
+  .inlearn-profile-password-change,
+  .inlearn-profile-apply {
+    transition: none;
+  }
+}

@@ -1,3 +1,4 @@
+import {API_URL} from "../../services/authService.js";
 import {routes} from "../../../../app/routes.js";
 import {
   BillIcon,
@@ -39,6 +40,13 @@ export const dashboardExit = {id: "exit", label: "Exit", Icon: ExitIcon};
    or RHP depending on how the name is spaced, and a person who writes their
    name in one word would get one letter while their neighbour gets three. One
    letter is the same promise for everybody. */
+/* Strapi answers with a path rather than a URL, because the picture lives
+   beside the API and not beside the site. */
+export function avatarSrc(avatar) {
+  if (!avatar) return "";
+  return /^https?:\/\//.test(avatar) ? avatar : `${API_URL}${avatar}`;
+}
+
 export function avatarLetter(session) {
   const source = session?.displayName || session?.user?.email || "";
   const first = source.trim().charAt(0);

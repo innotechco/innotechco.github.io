@@ -112,3 +112,21 @@ export function MenuIcon() {
     </svg>
   );
 }
+
+/* The camera on the profile portrait. Filled rather than stroked, because it
+   sits on a dark disc over the picture rather than in a row of line icons. */
+export function CameraIcon() {
+  return (
+    <svg
+      width={14}
+      height={14}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M9.2 4h5.6l1.2 2H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4z" />
+      <circle cx="12" cy="13" r="3.6" fill="#050505" />
+    </svg>
+  );
+}

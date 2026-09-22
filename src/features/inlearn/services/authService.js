@@ -27,6 +27,16 @@ export {getSession, saveSession, signOut} from "./auth/session.js";
 
 export {authorizedFetch, refreshSession, restoreSession} from "./auth/tokens.js";
 
+export {
+  changePassword,
+  confirmEmailChange,
+  fetchProfile,
+  MAX_AVATAR_BYTES,
+  requestEmailChange,
+  saveProfile,
+  uploadAvatar,
+} from "./auth/profile.js";
+
 export {logIn, register} from "./auth/credentials.js";
 
 export {requestPasswordReset, resetPassword, verifyResetCode} from "./auth/passwordReset.js";

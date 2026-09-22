@@ -123,6 +123,24 @@ function DashboardPage({session, onExit}) {
       />
 
       <div className="inlearn-dash-layout">
+        {/* Only ever seen on a narrow screen, where the panel stops sharing
+            the row and lies over the section instead. It is what makes that
+            readable: it dims what is behind, it takes the taps that would
+            otherwise land on a half-covered form, and it closes the panel -
+            which is what anybody pressing beside an open drawer means.
+
+            Hidden above that width by the stylesheet rather than by a
+            condition here, because the width is the stylesheet's to know. */}
+        {isCollapsed ? null : (
+          <button
+            type="button"
+            className="inlearn-dash-scrim"
+            onClick={toggleRail}
+            aria-label="Close the menu"
+            tabIndex={-1}
+          />
+        )}
+
         <DashboardSidebar
           session={session}
           onExit={onExit}

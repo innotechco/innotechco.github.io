@@ -6,6 +6,7 @@ import BasketPage from "./pages/basket/BasketPage.jsx";
 import CheckoutPage from "./pages/checkout/CheckoutPage.jsx";
 import CoursePage from "./pages/course/CoursePage.jsx";
 import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
+import ProfileSection from "./pages/dashboard/sections/ProfileSection.jsx";
 import AuthSidebar from "./auth/AuthSidebar.jsx";
 import FirstPage from "./pages/first-page/FirstPage.jsx";
 import InlearnNavbar from "./shell/InlearnNavbar.jsx";
@@ -100,6 +101,23 @@ function InlearnAcademy() {
      that cleared it would be reaching past its own edge. The dashboard route
      then sees no session and sends the visitor to the first page by itself,
      so there is no navigation to write here. */
+  /* The Profile page has just been told what the server stored; the navbar and
+     the panel are showing the same person. Folding it back into the session
+     here is what keeps the three of them saying the same thing without any of
+     them asking the server again. */
+  const handleProfileChange = (profile) => {
+    setSession((current) =>
+      current
+        ? {
+            ...current,
+            displayName: profile.fullName || current.displayName,
+            avatar: profile.avatar ?? null,
+            user: {...current.user, email: profile.email ?? current.user?.email},
+          }
+        : current,
+    );
+  };
+
   const handleExit = () => {
     signOut();
     setSession(null);
@@ -177,7 +195,15 @@ function InlearnAcademy() {
           <Route path="bill" element={null} />
           <Route path="courses" element={null} />
           <Route path="save" element={null} />
-          <Route path="profile" element={null} />
+          <Route
+            path="profile"
+            element={
+              <ProfileSection
+                onProfileChange={handleProfileChange}
+                onToast={setToast}
+              />
+            }
+          />
         </Route>
 
         <Route path="*" element={<FirstPage />} />
