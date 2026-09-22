@@ -430,11 +430,18 @@
     font-size: 24px;
   }
 
-  /* The labels are two words each and there is no width left to fit them on
-     one line, so they are given the line break rather than left to find their
-     own - "Completed" over "Sessions" reads; "Completed Sess-" does not.
-     balance keeps the two lines a similar length. */
+  /* All three labels break, or none of them do.
+   *
+   * Each is two words. Left alone, the two long ones wrapped and "Active
+   * Courses" did not, so one card carried a single line of type where its
+   * neighbours carried two - and three figures that are meant to be read
+   * together stopped looking like three of the same thing.
+   *
+   * A width in ch is what forces the short one to break as well: it is
+   * measured in the card's own type, so it holds when the font size changes
+   * with the window. */
   .inlearn-home-stat-label {
+    max-width: 10ch;
     font-size: 10.5px;
     line-height: 1.2;
     text-wrap: balance;

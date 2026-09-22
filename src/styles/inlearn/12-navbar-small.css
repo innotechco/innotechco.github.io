@@ -285,6 +285,18 @@
   .inlearn-cart-link {
     width: 20px;
     height: 24px;
+
+    /* One gap widened rather than the column-gap raised.
+     *
+     * Every control here is 7px from its neighbour, but this gap is the only
+     * one with a drawn mark on one side and letters on the other: the basket
+     * ends where its ink ends, while the name beside it carries a hover pill
+     * that holds the eye off. So the same 7px reads as touching here and as
+     * room everywhere else.
+     *
+     * Raising column-gap would have fixed it by taking three gaps' worth of
+     * width off the name, which is the one thing in this pill that truncates. */
+    margin-right: 5px;
   }
 
   .inlearn-cart-link img,
