@@ -1,0 +1,488 @@
+/* The dashboard's first page.
+
+   The width is the same share of the panel the other three sections use, and
+   read from the same place, so somebody moving between Home, Courses, Save and
+   Bill never finds the content starting somewhere new. */
+.inlearn-home {
+  width: 100%;
+  padding: 0;
+  --inlearn-home-width: 88%;
+}
+
+/* ------------------------------------------------------------ the figures */
+
+/* Three across, and three across at every width.
+
+   Not auto-fit: auto-fit would drop to two and leave one figure alone on a
+   second row, which reads as one of them being different from the other two.
+   They are three answers to the same question and they belong on one line.
+
+   minmax(0, 1fr) rather than 1fr, so a long label wraps inside its card
+   instead of pushing the track wider than the third of the row it was given. */
+.inlearn-home-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: var(--inlearn-home-width);
+  margin: 0;
+  padding: 0;
+  gap: clamp(10px, 1.4vw, 20px);
+  list-style: none;
+}
+
+/* The dark rising through the card.
+ *
+ * Two copies of the same figure lie exactly on top of each other - the pale
+ * one in the flow, the dark one over it - and the hover reveals the dark one
+ * from the bottom edge upwards. Nothing inside either copy moves: the figure
+ * and its label are in the same place before, during and after, and only the
+ * line between the two colours travels.
+ *
+ * Done by clipping the upper copy rather than by growing a panel behind a
+ * single one. A panel would leave the text to change colour on its own, and
+ * since the dark reaches the top of a digit before its foot, there is no
+ * moment at which one colour for the whole word is right.
+ *
+ * Slow on purpose. This is the one flourish on the page and the point of it is
+ * to be watched; at the 200ms a hover usually gets, the card would simply be
+ * black instead of becoming black.
+ */
+.inlearn-home-stat {
+  position: relative;
+  min-width: 0;
+  border-radius: 20px;
+
+  /* One cell, so the covering copy has a box the size of the card to fill.
+     The three cards are made equal by the row above them, and the cover has to
+     match whichever of them ended up tallest. */
+  display: grid;
+  background: #f7f7f8;
+  color: var(--inlearn-black);
+  text-align: center;
+
+  /* The dark copy has square corners of its own; this is what rounds them. */
+  overflow: hidden;
+}
+
+.inlearn-home-stat-face {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.6vw, 8px);
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(14px, 1.8vw, 24px) clamp(8px, 1vw, 18px);
+}
+
+/* The copy that is uncovered. It sits over the first at every moment - what
+   changes is how much of it is drawn, and the clip travels from the bottom
+   edge to the top. */
+.inlearn-home-stat-face.is-over {
+  position: absolute;
+  inset: 0;
+  background: var(--inlearn-black);
+  color: #fff;
+
+  /* inset() reads top right bottom left: a full inset from the top is the
+     whole card hidden, and nought is the whole card shown. */
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 620ms cubic-bezier(0.32, 0.08, 0.24, 1);
+}
+
+/* The pointer state, and only the pointer state: a touch screen has no hover
+   to leave, so on one of those the card would stay black after being tapped
+   with nothing to say why. */
+@media (hover: hover) {
+  .inlearn-home-stat:hover .inlearn-home-stat-face.is-over {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.inlearn-home-stat-value {
+  display: block;
+  margin: 0;
+  font-size: clamp(26px, 3.4vw, 44px);
+  font-weight: 800;
+  line-height: 1.05;
+
+  /* The figures change as lessons are finished, and a proportional font moves
+     everything beside a number when its digits change width. These are tabular
+     so the row stays still. */
+  font-variant-numeric: tabular-nums;
+}
+
+.inlearn-home-stat-label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  margin: 0;
+  font-size: clamp(11px, 0.95vw, 14px);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+/* The mark keeps its size while the words beside it wrap. Without this it is
+   the flex item that gives way first, and a squashed tick is worse than a
+   label on two lines. */
+.inlearn-home-stat-label svg {
+  flex: 0 0 auto;
+}
+
+/* --------------------------------------------------------- the two lists */
+
+.inlearn-home-heading {
+  width: var(--inlearn-home-width);
+  margin: clamp(22px, 2.6vw, 34px) 0 clamp(10px, 1.2vw, 16px);
+  color: var(--inlearn-black);
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 700;
+}
+
+.inlearn-home-list {
+  display: grid;
+  width: var(--inlearn-home-width);
+  margin: 0;
+  padding: 0;
+  gap: clamp(10px, 1.2vw, 16px);
+  list-style: none;
+}
+
+/* A row is a button, so every default a button carries has to be undone before
+   it can look like the cards around it.
+ *
+ * Laid out as a grid with its areas named, rather than as a flex line that
+ * wraps. Wrapping was tried and is what made the narrow cards untidy: once a
+ * flex line breaks, every item after the break gets a line of its own at the
+ * far left, so the chevron ended up alone under the title. A grid puts each
+ * part where it is told at every width, which is also what makes one card look
+ * like the next - they share a set of columns instead of each arriving at its
+ * own arrangement. */
+.inlearn-home-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) clamp(110px, 16%, 190px) auto;
+  grid-template-areas: "img main prog go";
+  align-items: center;
+  gap: clamp(10px, 1.2vw, 18px);
+  width: 100%;
+  padding: clamp(10px, 1.1vw, 16px);
+  border: 0;
+  border-radius: 18px;
+  background: #f7f7f8;
+  color: var(--inlearn-black);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    box-shadow 240ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .inlearn-home-row:hover {
+    background: #f1f1f2;
+    box-shadow: 0 14px 30px rgba(5, 5, 5, 0.07);
+  }
+}
+
+/* Keyboard arrivals get a ring the pointer never sees. The row is pale and the
+   ring is the page's black, so it reads at a glance which row is armed. */
+.inlearn-home-row:focus-visible {
+  outline: 2px solid var(--inlearn-black);
+  outline-offset: 2px;
+}
+
+/* The date column is wider than the progress one: a date and a time need more
+   room than a percentage and a bar, and giving them the same width would
+   either waste it on one or break the other. */
+.inlearn-home-row.is-upcoming {
+  grid-template-columns: auto minmax(0, 1fr) clamp(130px, 19%, 220px) auto;
+  grid-template-areas: "img main when go";
+}
+
+.inlearn-home-row-image {
+  grid-area: img;
+  display: block;
+  width: clamp(52px, 5.4vw, 72px);
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #e7e7e9;
+}
+
+/* min-width: 0 is what lets the title truncate. Without it a grid item will
+   not go below the width of its own content, so the row would grow and push
+   the columns beside it off the end. */
+.inlearn-home-row-main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.inlearn-home-row-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: clamp(13px, 1.15vw, 17px);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.inlearn-home-row-sub {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
+  color: #5d5d60;
+  font-size: clamp(11px, 0.9vw, 13px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inlearn-home-row-sub svg {
+  flex: 0 0 auto;
+}
+
+/* ------------------------------------------------ the right-hand column */
+
+/* A column of the grid rather than whatever is left over: the bar has to be
+   the same length on every row or the eye cannot compare two of them, and a
+   bar sized by its neighbour's title is a different length on every line. */
+.inlearn-home-row-progress {
+  grid-area: prog;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.inlearn-home-row-percent {
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* The bar itself is the Courses page's, reused rather than redrawn - it is the
+   same measurement in the same colours, and two copies of it would be two
+   things to keep in step. Only the box model differs: a span in a button
+   cannot be a block by default. */
+.inlearn-home-row .inlearn-course-bar {
+  display: block;
+  width: 100%;
+}
+
+.inlearn-home-row-caption {
+  color: #5d5d60;
+  font-size: 11px;
+}
+
+.inlearn-home-row-when {
+  grid-area: when;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  color: #5d5d60;
+  font-size: clamp(11px, 0.88vw, 13px);
+}
+
+.inlearn-home-row-when > span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.inlearn-home-row-when svg {
+  flex: 0 0 auto;
+}
+
+.inlearn-home-row-undated {
+  font-style: italic;
+}
+
+/* The chevron points along the row rather than down it: this press goes
+   somewhere else, and the Courses page's identical mark opens in place. */
+.inlearn-home-row-go {
+  grid-area: go;
+  display: flex;
+  align-items: center;
+  color: #8a8a8d;
+  transform: rotate(-90deg);
+  transition: transform 200ms ease;
+}
+
+@media (hover: hover) {
+  .inlearn-home-row:hover .inlearn-home-row-go {
+    color: var(--inlearn-black);
+    transform: rotate(-90deg) translateY(-3px);
+  }
+}
+
+.inlearn-home-empty {
+  width: var(--inlearn-home-width);
+  margin: 0;
+  color: #5d5d60;
+  font-size: clamp(12px, 1vw, 14px);
+}
+
+/* ----------------------------------------------------------- narrow rooms */
+
+/* Below this the rail lies over the section instead of beside it, so the
+   content has the whole window and can afford its full width. The same number
+   the other sections use. */
+@media (max-width: 900px) {
+  .inlearn-home {
+    --inlearn-home-width: 100%;
+  }
+}
+
+/* The date column is the first thing to go. By here it is narrower than the
+   words inside it, and a date broken over three lines is not a date - so it
+   drops to a second row of the same grid, beside the picture rather than under
+   it, and lays its two parts out side by side now that it has the width.
+
+   The picture spans both rows, which is what keeps the second row lined up
+   with the title above it. There is no padding anywhere doing that job: a
+   padding that has to equal a column's width is a number copied from
+   somewhere else, and it goes wrong the moment that width changes. */
+@media (max-width: 760px) {
+  .inlearn-home-row.is-upcoming {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "img main go"
+      "img when when";
+    row-gap: 8px;
+  }
+
+  .inlearn-home-row.is-upcoming .inlearn-home-row-image {
+    align-self: start;
+  }
+
+  .inlearn-home-row-when {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+  }
+
+  /* The chevron has a row of its own to be centred in now, and centred in the
+     whole card it would sit level with nothing. It belongs beside the title
+     it points at. */
+  .inlearn-home-row.is-upcoming .inlearn-home-row-go {
+    align-self: center;
+  }
+}
+
+/* The progress column goes the same way and for the same reason: by here it is
+   about ninety pixels, which is not enough for a bar to mean anything. */
+@media (max-width: 560px) {
+  .inlearn-home-row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "img main go"
+      "img prog prog";
+    row-gap: 8px;
+  }
+
+  .inlearn-home-row-image {
+    align-self: start;
+  }
+
+  .inlearn-home-row-percent {
+    text-align: left;
+  }
+}
+
+/* Three figures still, but the words under them need the room more than the
+   figures do. The mark drops out rather than the label truncating: a label cut
+   to "Average Pro" tells a visitor less than no icon does. */
+@media (max-width: 520px) {
+  /* On the face, never on the card. The card is the frame both copies are cut
+     to; padding on it would inset them from its edges and the dark would stop
+     short of the corners it is supposed to fill. */
+  .inlearn-home-stat-face {
+    padding: 14px 6px;
+  }
+
+  .inlearn-home-stat-label svg {
+    display: none;
+  }
+}
+
+/* Below here the three figures are about ninety pixels each and the rows have
+   run out of everything. This is the width the page is judged at - an iPhone
+   SE is 375 and an S21 FE is 360, and both are under it. */
+@media (max-width: 420px) {
+  .inlearn-home-stats {
+    gap: 8px;
+  }
+
+  .inlearn-home-stat-face {
+    padding: 12px 4px;
+    gap: 2px;
+  }
+
+  .inlearn-home-stat-value {
+    font-size: 24px;
+  }
+
+  /* The labels are two words each and there is no width left to fit them on
+     one line, so they are given the line break rather than left to find their
+     own - "Completed" over "Sessions" reads; "Completed Sess-" does not.
+     balance keeps the two lines a similar length. */
+  .inlearn-home-stat-label {
+    font-size: 10.5px;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  /* At this width the thumbnail is taking a fifth of the row from the title.
+     The picture is the least of what a row says, so it is the one that
+     shrinks - and it shrinks by its own variable, so the grid's first column
+     follows it without a second number to keep in step. */
+  .inlearn-home-row {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .inlearn-home-row-image {
+    width: 44px;
+  }
+
+  /* Both lines of the sub-label are wanted here, so it stops being a single
+     truncating line: at this width "Session 04" was being cut to an ellipsis
+     beside an icon that had already said nothing. */
+  .inlearn-home-row-sub {
+    white-space: normal;
+    overflow: visible;
+  }
+
+  .inlearn-home-row-when {
+    /* Stacked again. Side by side they wrapped mid-date, which is the one
+       thing this section exists to say clearly. */
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+/* Somebody who has asked for less movement still gets the answer, just not the
+   journey: the floor and the faces arrive in place rather than travelling
+   there. The states are kept - the card still goes black on hover - because
+   that is information, and only the movement is a preference. */
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-home-stat-face.is-over,
+  .inlearn-home-row,
+  .inlearn-home-row-go {
+    transition: none;
+  }
+
+  @media (hover: hover) {
+    .inlearn-home-row:hover .inlearn-home-row-go {
+      transform: rotate(-90deg);
+    }
+  }
+}

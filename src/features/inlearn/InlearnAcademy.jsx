@@ -5,7 +5,9 @@ import AllCoursesPage from "./pages/all-courses/AllCoursesPage.jsx";
 import BasketPage from "./pages/basket/BasketPage.jsx";
 import CoursePage from "./pages/course/CoursePage.jsx";
 import BillSection from "./pages/dashboard/sections/BillSection.jsx";
+import CoursesSection from "./pages/dashboard/sections/CoursesSection.jsx";
 import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
+import HomeSection from "./pages/dashboard/sections/HomeSection.jsx";
 import ProfileSection from "./pages/dashboard/sections/ProfileSection.jsx";
 import SaveSection from "./pages/dashboard/sections/SaveSection.jsx";
 import AuthSidebar from "./auth/AuthSidebar.jsx";
@@ -225,9 +227,9 @@ function InlearnAcademy() {
               : <DashboardPage session={session} onExit={handleExit} />
           }
         >
-          <Route index element={null} />
+          <Route index element={<HomeSection />} />
           <Route path="bill" element={<BillSection />} />
-          <Route path="courses" element={null} />
+          <Route path="courses" element={<CoursesSection />} />
           <Route path="save" element={<SaveSection />} />
           <Route
             path="profile"

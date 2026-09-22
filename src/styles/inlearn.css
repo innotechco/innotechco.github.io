@@ -1,4 +1,4 @@
-/* INLEARN's stylesheet, in twenty-one parts.
+/* INLEARN's stylesheet, in twenty-three parts.
 
    This file is the order. Nothing else.
 
@@ -45,3 +45,5 @@
 @import "./inlearn/19-dashboard-profile.css";
 @import "./inlearn/20-dashboard-save.css";
 @import "./inlearn/21-dashboard-bill.css";
+@import "./inlearn/22-dashboard-courses.css";
+@import "./inlearn/23-dashboard-home.css";
