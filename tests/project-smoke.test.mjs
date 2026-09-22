@@ -1025,3 +1025,32 @@ test("one industry registry drives the route, the menu, the pill and the prerend
     }
   }
 });
+
+test("a new page starts at the top without scrolling there", () => {
+  /* html carries scroll-behavior: smooth so anchor links glide, and that turns
+     scrollTo({behavior: "auto"}) into an animation: "auto" means "use the
+     element's scroll-behavior", not "jump". So arriving on a new page from
+     halfway down an old one scrolled the visitor up through content they had
+     never seen, on a page they had not read yet.
+
+     Only this one call is pinned. SiteScrollbar scrolls smoothly on purpose
+     when its track is clicked - that is a gesture asking for an animation -
+     and it already says "instant" for the drag, in its own comment. */
+  const base = fs.readFileSync(path.join(srcRoot, "styles", "base.css"), "utf8");
+  assert.match(
+    base,
+    /html\s*\{[^}]*scroll-behavior:\s*smooth/,
+    "this rule exists only because html scrolls smoothly - if that is gone, so is the reason",
+  );
+
+  const source = fs.readFileSync(
+    path.join(srcRoot, "shared", "components", "layout", "ScrollToTop.jsx"),
+    "utf8",
+  );
+
+  /* Matched on the call, not the file: "auto" and "smooth" are both discussed
+     in the comment above it, and a rule a comment can break is not a rule. */
+  const call = source.match(/window\.scrollTo\(\{[^}]*\}\)/s);
+  assert.ok(call, "ScrollToTop no longer scrolls the window");
+  assert.match(call[0], /behavior:\s*"instant"/, `route change scroll is ${call[0]}`);
+});
