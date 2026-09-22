@@ -1,0 +1,484 @@
+/* Bill: a stack of receipts inside the dashboard column.
+
+   It follows the Save page's arrangement rather than inventing one, because
+   the two sit behind the same rail and a visitor moving between them should
+   not find the content starting in a different place. The width is a share of
+   the panel, so opening and folding the rail moves these cards exactly as it
+   moves the saved courses - one number, named once, and the stack below reads
+   it too. */
+.inlearn-bill {
+  width: 100%;
+  padding: 0;
+  --inlearn-bill-width: 78%;
+}
+
+.inlearn-bill-list {
+  display: grid;
+  width: var(--inlearn-bill-width);
+  margin: 0;
+  padding: 0;
+  gap: clamp(16px, 1.8vw, 24px);
+  list-style: none;
+}
+
+/* One receipt. The soft grey card and the generous radius are the dashboard's
+   own shapes - the Profile card is the same family - so the section belongs to
+   the page it is on rather than to the shop. */
+.inlearn-bill-card {
+  min-width: 0;
+  padding: clamp(16px, 1.8vw, 24px) clamp(16px, 2vw, 28px);
+  border-radius: 20px;
+  background: #f7f7f8;
+}
+
+/* -------------------------------------------------------------- the heading */
+
+.inlearn-bill-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.inlearn-bill-mark {
+  display: grid;
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--inlearn-black);
+  place-items: center;
+}
+
+/* Takes the room that is left, so the state pill keeps its size and the
+   heading is what gives way when the row runs out of width. */
+.inlearn-bill-heading {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.inlearn-bill-number {
+  margin: 0;
+  overflow: hidden;
+  color: var(--inlearn-black);
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 700;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inlearn-bill-date {
+  margin: 2px 0 0;
+  color: var(--inlearn-muted);
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+
+/* The state and the cross, as one piece. Centred against each other, so the
+   taller of the two decides the line and neither sits above it. */
+.inlearn-bill-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The cross earns its circle on hover rather than wearing one all the time: at
+   rest it is a small mark beside a label, and a permanent grey disc on every
+   card would read as a second button competing with the state beside it.
+ *
+ * The circle is the button's own background, so it grows from where the cross
+ * already is - and the box is round and sized from the start, which is what
+ * keeps anything beside it from moving when the colour arrives. */
+.inlearn-bill-remove {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--inlearn-muted);
+  cursor: pointer;
+  place-items: center;
+  transition:
+    background-color 260ms cubic-bezier(0.33, 0, 0.2, 1),
+    color 260ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-bill-remove:hover {
+  background: #ececee;
+  color: #d8453f;
+}
+
+.inlearn-bill-remove:focus-visible {
+  background: #ececee;
+  color: #d8453f;
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inlearn-bill-remove {
+    transition: none;
+  }
+}
+
+/* An outline rather than a filled pill: it is a label on a receipt, not a
+   button, and a solid green block here would pull the eye before the order
+   number does. */
+.inlearn-bill-state {
+  flex: 0 0 auto;
+  padding: 5px 12px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.inlearn-bill-state.is-paid {
+  color: var(--inlearn-green);
+}
+
+.inlearn-bill-state.is-pending {
+  color: #d8453f;
+}
+
+/* Neither green nor red: nothing went wrong here and nothing was bought here
+   either. Grey is the colour of a record being kept rather than a state
+   anybody has to act on. */
+.inlearn-bill-state.is-cancelled {
+  color: var(--inlearn-muted);
+}
+
+/* The whole card steps back with it. Still legible, still readable end to
+   end - it is a receipt, and a receipt nobody can read is no record at all -
+   but plainly behind the invoices that still mean something. */
+.inlearn-bill-card.is-cancelled {
+  opacity: 0.62;
+}
+
+/* Unpaid, the pill is a button, and it has to stop looking like the label the
+   settled one is. Under the pointer it fills in black and offers the word for
+   what pressing it does.
+ *
+ * The two words are stacked in one grid cell rather than swapped in the
+ * markup, so the box is always as wide as the longer of them - "Pending
+ * Payment" is wider than "Purchase", and a button that shrank on hover would
+ * pull the card's heading sideways under the pointer.
+ *
+ * Both the reset and the shape are spelled out because this element used to be
+ * a span: a button brings its own font, its own padding and its own border
+ * from the browser, and inheriting the page's type is not automatic. */
+button.inlearn-bill-state {
+  display: grid;
+  align-items: center;
+  /* The words travel a little way vertically, and the box has to crop them on
+     the way in and out or they would be read leaving the pill. */
+  overflow: hidden;
+  font-family: inherit;
+  cursor: pointer;
+  background: transparent;
+  /* The same curve the course card's controls use - slow to leave, settling
+     rather than stopping - so this belongs to the same set of movements
+     instead of being a faster one of its own. */
+  transition:
+    background-color 420ms cubic-bezier(0.33, 0, 0.2, 1),
+    color 420ms cubic-bezier(0.33, 0, 0.2, 1),
+    border-color 420ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+/* One on top of the other, and each moves through the box rather than simply
+   appearing: the status lifts out through the top as the offer rises into its
+   place, which reads as one word replacing another instead of two words
+   crossfading in the same spot. */
+.inlearn-bill-state-resting,
+.inlearn-bill-state-hover {
+  grid-area: 1 / 1;
+  transition:
+    opacity 300ms cubic-bezier(0.33, 0, 0.2, 1),
+    transform 420ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.inlearn-bill-state-hover {
+  opacity: 0;
+  transform: translateY(105%);
+}
+
+/* focus-visible as well as hover, so the same offer is made to somebody
+   arriving on the keyboard - who would otherwise be asked to press a button
+   still labelled with a status. */
+button.inlearn-bill-state:hover,
+button.inlearn-bill-state:focus-visible {
+  border-color: var(--inlearn-black);
+  background: var(--inlearn-black);
+  color: #ffffff;
+}
+
+button.inlearn-bill-state:hover .inlearn-bill-state-resting,
+button.inlearn-bill-state:focus-visible .inlearn-bill-state-resting {
+  opacity: 0;
+  transform: translateY(-105%);
+}
+
+button.inlearn-bill-state:hover .inlearn-bill-state-hover,
+button.inlearn-bill-state:focus-visible .inlearn-bill-state-hover {
+  opacity: 1;
+  transform: translateY(0);
+  /* A breath behind the fill, so the colour arrives first and the word settles
+     into it - the two landing together read as a flicker. */
+  transition-delay: 70ms;
+}
+
+button.inlearn-bill-state:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+/* A pointer that cannot hover has no hover state to discover, so the offer is
+   simply what the button says. */
+@media (hover: none) {
+  .inlearn-bill-state-resting {
+    opacity: 0;
+  }
+
+  .inlearn-bill-state-hover {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  button.inlearn-bill-state {
+    border-color: var(--inlearn-black);
+    background: var(--inlearn-black);
+    color: #ffffff;
+  }
+}
+
+/* Nothing slides for somebody who has asked for less movement. The swap still
+   happens - it is what the button is for - it simply happens at once. */
+@media (prefers-reduced-motion: reduce) {
+  button.inlearn-bill-state,
+  .inlearn-bill-state-resting,
+  .inlearn-bill-state-hover {
+    transition: none;
+  }
+
+  .inlearn-bill-state-hover {
+    transform: none;
+  }
+
+  button.inlearn-bill-state:hover .inlearn-bill-state-resting,
+  button.inlearn-bill-state:focus-visible .inlearn-bill-state-resting {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------- the lines */
+
+.inlearn-bill-lines {
+  margin: clamp(12px, 1.4vw, 18px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inlearn-bill-lines > li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px 0;
+  color: var(--inlearn-black);
+  font-size: 13.5px;
+}
+
+/* The title gives way, never the figure: a line whose price is cut in half is
+   a line that cannot be checked. */
+.inlearn-bill-line-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inlearn-bill-lines .inlearn-course-price {
+  flex: 0 0 auto;
+}
+
+/* ------------------------------------------------------------------ the sum */
+
+/* The green hairline is the design's divider between what was bought and what
+   it came to, and the grid is what keeps the figures in one column down the
+   card however long the words beside them are. */
+.inlearn-bill-sum {
+  display: grid;
+  margin: 10px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--inlearn-green);
+  gap: 4px 16px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.inlearn-bill-sum dt {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--inlearn-muted);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inlearn-bill-sum dd {
+  margin: 0;
+  color: var(--inlearn-muted);
+  font-size: 13px;
+  text-align: right;
+}
+
+.inlearn-bill-sum dt.is-grand,
+.inlearn-bill-sum dd.is-grand {
+  color: var(--inlearn-black);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------- loading, empty, trouble */
+
+.inlearn-bill-notice {
+  display: grid;
+  width: var(--inlearn-bill-width);
+  justify-items: center;
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: 20px;
+  margin: 0;
+  gap: 14px;
+  background: #f7f7f8;
+  color: var(--inlearn-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.inlearn-bill-problem {
+  margin: 0;
+  color: #d8453f;
+}
+
+.inlearn-bill-retry {
+  height: 40px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--inlearn-black);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+}
+
+.inlearn-bill-retry:hover {
+  opacity: 0.88;
+}
+
+.inlearn-bill-retry:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+}
+
+.inlearn-bill-empty {
+  display: grid;
+  min-height: min(420px, 50vh);
+  place-content: center;
+  text-align: center;
+}
+
+.inlearn-bill-empty h1,
+.inlearn-bill-empty p {
+  margin: 0;
+}
+
+.inlearn-bill-empty h1 {
+  color: var(--inlearn-black);
+  font-size: clamp(24px, 3vw, 36px);
+}
+
+.inlearn-bill-empty p {
+  margin-top: 10px;
+  color: var(--inlearn-muted);
+  font-size: 14px;
+}
+
+/* ----------------------------------------------------------- narrower rooms */
+
+/* The rail stops sharing the row here and lies over the section instead, so
+   the cards take the whole column - the same width the saved courses take at
+   this size, and for the same reason. */
+@media (max-width: 900px) {
+  .inlearn-bill {
+    --inlearn-bill-width: 100%;
+  }
+}
+
+/* The heading row stops being a row.
+ *
+ * Below this the order number and the state pill together need more width
+ * than there is, and the pill is the one that cannot be cut - "Pending
+ * Payment" shortened to "Pending Pay…" is a different thing. So the pill drops
+ * under the heading and takes the left edge with it, rather than squeezing
+ * against it. */
+@media (max-width: 520px) {
+  .inlearn-bill-head {
+    flex-wrap: wrap;
+  }
+
+  .inlearn-bill-actions {
+    order: 3;
+    margin-left: 34px;
+  }
+
+  .inlearn-bill-heading {
+    flex-basis: calc(100% - 34px);
+  }
+
+  .inlearn-bill-lines > li {
+    font-size: 12.5px;
+    gap: 10px;
+  }
+}
+
+/* The narrowest phones, where the rail's folded strip has already taken its
+   56 pixels off the front of this column. */
+@media (max-width: 400px) {
+  .inlearn-bill-card {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .inlearn-bill-actions {
+    margin-left: 0;
+  }
+
+  .inlearn-bill-state {
+    padding: 4px 9px;
+    font-size: 10.5px;
+  }
+
+  .inlearn-bill-heading {
+    flex-basis: calc(100% - 34px);
+  }
+
+  .inlearn-bill-lines > li {
+    font-size: 12px;
+    gap: 8px;
+    padding: 4px 0;
+  }
+
+  .inlearn-bill-sum dt,
+  .inlearn-bill-sum dd {
+    font-size: 12px;
+  }
+
+  .inlearn-bill-sum dt.is-grand,
+  .inlearn-bill-sum dd.is-grand {
+    font-size: 13px;
+  }
+}

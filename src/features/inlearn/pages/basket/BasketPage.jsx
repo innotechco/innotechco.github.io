@@ -1,37 +1,88 @@
-import {useState, useSyncExternalStore} from "react";
+import {useEffect, useState, useSyncExternalStore} from "react";
 import {Link, useNavigate} from "react-router-dom";
 
 import BasketRow from "./BasketRow.jsx";
+import SignInRequiredDialog from "./SignInRequiredDialog.jsx";
 import Price from "../course/CoursePrice.jsx";
 import {
   getBasket,
   getServerBasket,
   removeFromBasket,
+  removeManyFromBasket,
   restoreToBasket,
   subscribeToBasket,
 } from "../../services/basket.js";
 import {getInlearnBasket} from "../../inlearnContent.js";
+import {placeOrder, quoteBasket} from "../../services/shop.js";
 import {routes} from "../../../../app/routes.js";
 
-/* The basket.
+/* The basket, and the whole of buying.
+ *
+ * There is no second page. A checkout that only repeated this list and carried
+ * one button was a step between somebody deciding to buy and buying, and the
+ * step did nothing - so the code goes in here and Purchase finishes the order
+ * from here.
+ *
+ * What this page still never does is decide what anything costs. The basket
+ * holds ids; the server is handed those ids and answers with the subtotal,
+ * what the code takes off and what is left to pay. A price that travels
+ * through the browser is a price a visitor can edit.
+ */
 
-   It reads the basket where it lives rather than copying it into state:
-   useSyncExternalStore means a course added from a card, from a course page or
-   from another tab shows up here without this page having to be told.
+/* What the server says about a code, in words. The states are its, not this
+   page's, so a code that has been switched off reads differently from one that
+   was never real. */
+const CODE_NOTES = {
+  unknown: "We do not recognise that code.",
+  expired: "That code has expired.",
+  inactive: "That code is no longer being accepted.",
+};
 
-   What it never does is decide what anything costs. The numbers on screen are
-   added up for the visitor to read; the day Strapi arrives it is handed the
-   ids and works out the real total. A price that travels through the browser
-   is a price a visitor can edit. */
-function BasketPage({onToast}) {
+function BasketPage({session, onAuthOpen, onToast}) {
   const lines = useSyncExternalStore(subscribeToBasket, getBasket, getServerBasket);
   const {copy, items, currency, subtotal, tax, grandTotal} = getInlearnBasket(lines);
   const navigate = useNavigate();
 
-  /* Discount codes have no server to check them against yet, so the field is
-     here and honest about it rather than accepting anything typed into it. */
+  /* The basket as one comparable value: the same courses in the same order are
+     the same question to ask the server. */
+  const ids = items.map((course) => course.id).join(",");
+
   const [code, setCode] = useState("");
-  const [codeProblem, setCodeProblem] = useState("");
+  /* The code that has been sent, as opposed to the one being typed. Quoting on
+     every keystroke would tell somebody their code is wrong before they have
+     finished writing it. */
+  const [appliedCode, setAppliedCode] = useState("");
+  /* The answer together with what it answered, so a total can never outlive
+     the basket it was worked out for. */
+  const [quoted, setQuoted] = useState(null);
+  const [problem, setProblem] = useState("");
+  const [isWorking, setIsWorking] = useState(false);
+  const [isAskingToSignIn, setIsAskingToSignIn] = useState(false);
+
+  const quote = quoted && quoted.ids === ids && quoted.code === appliedCode ? quoted.data : null;
+
+  useEffect(() => {
+    if (!session || !items.length) return undefined;
+
+    /* Dropped by the cleanup rather than checked against a mounted flag, so a
+       slow answer to a basket that has since changed cannot overwrite the
+       newer one it lost the race to. */
+    let isCurrent = true;
+
+    quoteBasket(items, appliedCode)
+      .then((answer) => {
+        if (isCurrent) setQuoted({ids, code: appliedCode, data: answer});
+      })
+      .catch((error) => {
+        if (isCurrent) setProblem(error.message);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
+    /* items is rebuilt on every render, so ids stands in for it. */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, ids, appliedCode]);
 
   const handleRemove = (course) => {
     /* Where it was, not just what it was: undo has to put the line back in its
@@ -53,7 +104,37 @@ function BasketPage({onToast}) {
 
   const handleApply = (event) => {
     event.preventDefault();
-    setCodeProblem(code.trim() ? copy.discountRejected : copy.discountComing);
+    setProblem("");
+    setAppliedCode(code.trim());
+  };
+
+  const handlePurchase = async () => {
+    /* Signed out there is nobody for the order to belong to. The reason is
+       said before anything else happens - see the dialog - rather than the
+       visitor simply arriving somewhere else. */
+    if (!session) {
+      setIsAskingToSignIn(true);
+      return;
+    }
+
+    setIsWorking(true);
+    setProblem("");
+
+    try {
+      const answer = await placeOrder(items, appliedCode);
+      /* Only what the order actually covered leaves the basket. */
+      removeManyFromBasket(answer.purchased);
+      onToast?.({
+        message:
+          answer.order.status === "paid"
+            ? `Order #${answer.order.orderNumber} is complete.`
+            : `Order #${answer.order.orderNumber} is waiting for payment.`,
+      });
+      navigate(routes.inlearnDashboardBill);
+    } catch (error) {
+      setProblem(error.message);
+      setIsWorking(false);
+    }
   };
 
   if (!items.length) {
@@ -73,6 +154,16 @@ function BasketPage({onToast}) {
     );
   }
 
+  /* The server's figures once it has answered, and the catalogue's until then.
+     Signed out there is no answer to wait for, so the read-only sum is all
+     there is - and nothing can be bought from that state anyway. */
+  const shownSubtotal = quote ? quote.subtotal : subtotal;
+  const shownTotal = quote ? quote.total : grandTotal;
+  const shownCurrency = quote?.currency ?? currency;
+  const codeNote = quote && quote.codeState !== "applied" && quote.codeState !== "none"
+    ? CODE_NOTES[quote.codeState] ?? copy.discountRejected
+    : "";
+
   return (
     <div className="inlearn-basket">
       <h1 className="inlearn-section-title inlearn-basket-title">{copy.title}</h1>
@@ -91,7 +182,7 @@ function BasketPage({onToast}) {
           <BasketRow
             key={course.id}
             course={course}
-            currency={currency}
+            currency={shownCurrency}
             copy={copy}
             onRemove={handleRemove}
           />
@@ -106,28 +197,49 @@ function BasketPage({onToast}) {
               value={code}
               placeholder={copy.discountPlaceholder}
               aria-label={copy.discountPlaceholder}
+              autoComplete="off"
+              spellCheck="false"
               onChange={(event) => {
                 setCode(event.target.value);
-                setCodeProblem("");
+                setProblem("");
               }}
             />
-            <button type="submit" className="inlearn-basket-apply">
+            <button type="submit" className="inlearn-basket-apply" disabled={isWorking}>
               {copy.apply}
             </button>
           </form>
 
-          {codeProblem ? (
+          {/* A code can only be checked against the server, and the server
+              wants to know who is asking. */}
+          {!session ? (
+            <p className="inlearn-basket-code-note">{copy.discountSignedOut}</p>
+          ) : null}
+
+          {codeNote ? (
             <p className="inlearn-basket-code-problem" role="alert">
-              {codeProblem}
+              {codeNote}
+            </p>
+          ) : null}
+
+          {quote?.codeState === "applied" ? (
+            <p className="inlearn-basket-code-good">
+              {quote.discountCode} applied — {quote.discountPercent}% off.
+            </p>
+          ) : null}
+
+          {problem ? (
+            <p className="inlearn-basket-code-problem" role="alert">
+              {problem}
             </p>
           ) : null}
 
           <button
             type="button"
             className="inlearn-basket-purchase"
-            onClick={() => navigate(routes.inlearnCheckout)}
+            onClick={handlePurchase}
+            disabled={isWorking}
           >
-            {copy.purchase}
+            {isWorking ? copy.purchasing : copy.purchase}
           </button>
         </div>
 
@@ -136,20 +248,50 @@ function BasketPage({onToast}) {
         <dl className="inlearn-basket-total">
           <dt>{copy.subtotal}</dt>
           <dd>
-            <Price amount={subtotal} currency={currency} />
+            <Price amount={shownSubtotal} currency={shownCurrency} />
           </dd>
+
+          {/* Only when there is one. A discount row reading zero on every
+              other basket is noise on all of them. */}
+          {quote?.discountPercent ? (
+            <>
+              <dt>{copy.discount}</dt>
+              <dd>
+                −<Price amount={quote.discountAmount} currency={shownCurrency} />
+              </dd>
+            </>
+          ) : null}
 
           <dt>{copy.tax}</dt>
           <dd>
-            <Price amount={tax} currency={currency} />
+            <Price amount={tax} currency={shownCurrency} />
           </dd>
+
+          {/* The line above the last row. A real element because it has to
+              cross the gap between the two columns, which a border on either
+              cell cannot do. Decoration, so it is not announced. */}
+          <div className="inlearn-basket-rule" aria-hidden="true" />
 
           <dt className="is-grand">{copy.grandTotal}</dt>
           <dd className="is-grand">
-            <Price amount={grandTotal} currency={currency} className="is-large" />
+            <Price amount={shownTotal} currency={shownCurrency} className="is-large" />
           </dd>
         </dl>
       </div>
+
+      {isAskingToSignIn ? (
+        <SignInRequiredDialog
+          onClose={() => setIsAskingToSignIn(false)}
+          onSignIn={() => {
+            setIsAskingToSignIn(false);
+            onAuthOpen?.("login");
+          }}
+          onRegister={() => {
+            setIsAskingToSignIn(false);
+            onAuthOpen?.("register");
+          }}
+        />
+      ) : null}
     </div>
   );
 }

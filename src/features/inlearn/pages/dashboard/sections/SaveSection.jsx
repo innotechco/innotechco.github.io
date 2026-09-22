@@ -10,7 +10,17 @@ import {
 } from "../../../services/savedCourses.js";
 import {routes} from "../../../../../app/routes.js";
 
-const DESKTOP_QUERY = "(hover: hover) and (pointer: fine)";
+/* Three cards across, or two, is a question about how much room there is -
+   not about what the visitor is pointing with.
+ *
+ * It used to ask for a fine pointer and hover, and that answered a different
+ * question: a wide screen reporting touch - a laptop with a touchscreen, or a
+ * desktop browser with device emulation on - fell to two columns with most of
+ * the row left empty. The same width is what the stylesheet already uses to
+ * decide whether the rail sits beside this grid or lies over it, so asking it
+ * here keeps the two in step; when they disagreed, the grid was sized for a
+ * rail that was not there. */
+const WIDE_QUERY = "(min-width: 901px)";
 const REVEAL_MS = 450;
 
 function SaveSection() {
@@ -20,9 +30,9 @@ function SaveSection() {
     getSavedCourses,
     getServerSavedCourses,
   );
-  const isDesktop = useMediaQuery(DESKTOP_QUERY);
-  const batch = isDesktop ? 9 : 6;
-  const columns = isDesktop ? 3 : 2;
+  const isWide = useMediaQuery(WIDE_QUERY);
+  const batch = isWide ? 9 : 6;
+  const columns = isWide ? 3 : 2;
   const [visibleCount, setVisibleCount] = useState(batch);
   const [lastBatch, setLastBatch] = useState(batch);
   const [isRevealing, setIsRevealing] = useState(false);

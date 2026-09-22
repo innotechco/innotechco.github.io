@@ -9,7 +9,6 @@
   "discountPlaceholder": "رمز الخصم",
   "apply": "تطبيق",
   "discountRejected": "هذا الرمز غير صالح.",
-  "discountComing": "رموز الخصم غير مفعّلة بعد.",
   "subtotal": "المجموع الفرعي:",
   "tax": "الضريبة:",
   "grandTotal": "الإجمالي الكلي:",
@@ -17,8 +16,7 @@
   "empty": "سلتك فارغة.",
   "emptyHint": "ستظهر هنا الدورات التي تضيفها.",
   "browse": "تصفح جميع الدورات",
-  "checkoutTitle": "إتمام الطلب",
-  "checkoutBody": "الدفع غير مفعّل بعد. سلتك محفوظة ولم يتم خصم أي مبلغ.",
-  "checkoutItems": "في سلتك",
-  "checkoutBack": "العودة إلى السلة"
+  "discount": "الخصم:",
+  "purchasing": "جارٍ تسجيل طلبك…",
+  "discountSignedOut": "سجّل الدخول لاستخدام رمز الخصم وإتمام الشراء."
 }

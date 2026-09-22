@@ -9,7 +9,6 @@
   "discountPlaceholder": "Discount Code",
   "apply": "Apply",
   "discountRejected": "That code is not valid.",
-  "discountComing": "Discount codes are not connected yet.",
   "subtotal": "SUBTOTAL:",
   "tax": "TAX:",
   "grandTotal": "GRAND TOTAL:",
@@ -17,8 +16,7 @@
   "empty": "Your basket is empty.",
   "emptyHint": "Courses you add will be listed here.",
   "browse": "Browse all courses",
-  "checkoutTitle": "CHECKOUT",
-  "checkoutBody": "Payment is not connected yet. Your basket is safe and nothing has been charged.",
-  "checkoutItems": "In your basket",
-  "checkoutBack": "Back to basket"
+  "discount": "DISCOUNT:",
+  "purchasing": "Placing your order…",
+  "discountSignedOut": "Sign in to use a discount code and buy."
 }

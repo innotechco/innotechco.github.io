@@ -93,7 +93,21 @@ function InlearnNavbar({onAuthOpen, session}) {
             </>
           )}
           <Link to={routes.inlearnBasket} className="inlearn-cart-link" aria-label="Shopping basket">
-            <img src={shoppingCart} alt="" loading="lazy" />
+            {/* Drawn as a mask rather than as a picture, so the mark takes
+                the colour of the text around it - which is what lets the
+                navbar's own green hover reach it. An <img> cannot be
+                recoloured by CSS, and this icon has to answer to the same
+                rule every other control in the pill already follows. */}
+            {/* The quotes around the URL are load-bearing. Vite inlines a
+                small SVG as a data: URI, and this one carries commas and
+                apostrophes from its own markup - unquoted, url(...) is
+                invalid CSS, the whole declaration is dropped in silence, and
+                the mark renders as a solid white square. */}
+            <span
+              className="inlearn-cart-mark"
+              style={{"--inlearn-cart-icon": `url("${shoppingCart}")`}}
+              aria-hidden="true"
+            />
             {/* Only when there is something in it. A permanent zero beside the
                 basket is a number that never means anything. */}
             {basketCount ? (

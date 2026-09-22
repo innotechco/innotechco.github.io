@@ -3,8 +3,8 @@ import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 
 import AllCoursesPage from "./pages/all-courses/AllCoursesPage.jsx";
 import BasketPage from "./pages/basket/BasketPage.jsx";
-import CheckoutPage from "./pages/checkout/CheckoutPage.jsx";
 import CoursePage from "./pages/course/CoursePage.jsx";
+import BillSection from "./pages/dashboard/sections/BillSection.jsx";
 import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
 import ProfileSection from "./pages/dashboard/sections/ProfileSection.jsx";
 import SaveSection from "./pages/dashboard/sections/SaveSection.jsx";
@@ -201,8 +201,12 @@ function InlearnAcademy() {
         {/* The basket raises the shell's toast rather than one of its own:
             there is one place messages appear on this module, and a removal
             should be answered in the same place an addition is. */}
-        <Route path="basket" element={<BasketPage onToast={setToast} />} />
-        <Route path="checkout" element={<CheckoutPage />} />
+        <Route
+          path="basket"
+          element={
+            <BasketPage session={session} onAuthOpen={openAuth} onToast={setToast} />
+          }
+        />
 
         {/* Everything behind signing in, under one shell that draws the rail
             once. Signed out it is not a page at all: the visitor is sent to
@@ -222,7 +226,7 @@ function InlearnAcademy() {
           }
         >
           <Route index element={null} />
-          <Route path="bill" element={null} />
+          <Route path="bill" element={<BillSection />} />
           <Route path="courses" element={null} />
           <Route path="save" element={<SaveSection />} />
           <Route

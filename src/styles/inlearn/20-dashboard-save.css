@@ -5,11 +5,18 @@
 .inlearn-save {
   width: 100%;
   padding: 0;
+  /* How wide the cards run inside the panel, named once because two things
+     have to agree on it: the grid, and the row holding Show all underneath.
+     While the width lived only on the grid, that row was the full width of
+     the panel and centred the button in the panel - which put it to the right
+     of the middle column, and moved it by a different amount than the cards
+     whenever the rail opened. */
+  --inlearn-save-width: 78%;
 }
 
 .inlearn-save-grid {
   display: grid;
-  width: 78%;
+  width: var(--inlearn-save-width);
   margin: 0;
   padding: 0;
   gap: clamp(28px, 3vw, 46px) clamp(14px, 1.8vw, 26px);
@@ -26,8 +33,13 @@
   width: 100%;
 }
 
+/* The same width as the grid, so centring here is centring on the cards: the
+   button lands under the middle column, and it travels left and right with
+   that column as the rail folds and unfolds rather than drifting away from
+   it. */
 .inlearn-save-more {
   display: flex;
+  width: var(--inlearn-save-width);
   justify-content: center;
   margin-top: clamp(32px, 4vw, 54px);
 }
@@ -55,9 +67,18 @@
   font-size: 14px;
 }
 
-@media (max-width: 900px), (hover: none), (pointer: coarse) {
+/* Width alone, as the rail's own breakpoint is. The pointer tests that used to
+   be here sent a wide touchscreen down the phone path while the rail was still
+   sitting beside this grid, so the cards took the full column and ran under
+   it. What the layout needs to know is how much room there is. */
+@media (max-width: 900px) {
+  /* Set on the section rather than on the grid, so the Show all row below
+     widens with it and the button stays centred on the cards here too. */
+  .inlearn-save {
+    --inlearn-save-width: 100%;
+  }
+
   .inlearn-save-grid {
-    width: 100%;
     gap: clamp(24px, 5vw, 38px) clamp(10px, 3vw, 22px);
   }
 }

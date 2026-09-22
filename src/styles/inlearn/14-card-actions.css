@@ -163,3 +163,117 @@
   }
 }
 
+/* --------------------------------------------------------------------------
+   THE TWO CONTROLS ON A SMALL CARD
+   -------------------------------------------------------------------------- */
+
+/* Both controls were drawn for a card about 300px wide. Below 500px a grid
+   puts two cards in the row, so the picture they sit on is around 130-220px -
+   and at that size a 34px pair of buttons with a 36px pill under it is not a
+   control on a picture any more, it is most of the picture. The card stops
+   showing the course.
+
+   So they step down together. Nothing here changes what the controls are or
+   where they sit: the panel still comes from the top-right corner and the
+   pill still sits in the bottom-right, because moving them would make a small
+   card a different design rather than the same one drawn smaller.
+
+   The floor is the one thing that does not scale. 28px is below the 44px
+   comfortable target, which is why the whole card is also a link to the same
+   place - the pill is a picture of an action here, and the action is
+   reachable by pressing anything on the card. The save and share buttons keep
+   as much of their box as the picture can spare, and their hit area is padded
+   out by the panel around them.
+
+   Written after 09-course-card.css, which is what lets these win. */
+@media (max-width: 500px) {
+  .inlearn-course-actions {
+    padding: 4px 2px;
+    border-bottom-left-radius: 12px;
+  }
+
+  .inlearn-course-action {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* The marks are given their size in the markup, so they are taken back
+     here rather than there - one number in one place beats a prop that every
+     caller of the card would have to pass. */
+  .inlearn-course-action svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .inlearn-course-action-divider {
+    height: 14px;
+  }
+
+  .inlearn-course-more {
+    right: 8px;
+    bottom: 8px;
+    height: 28px;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+
+  .inlearn-course-more svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* The open pill is capped against the card rather than against the longest
+     translation: 180px was wider than the whole picture here, so a label that
+     grew to it pushed its own pill off the left-hand edge. */
+  .inlearn-course-card:hover .inlearn-course-more-label,
+  .inlearn-course-card:focus-visible .inlearn-course-more-label,
+  .inlearn-course-card.is-touch-open .inlearn-course-more-label {
+    max-width: 96px;
+    margin-right: 6px;
+  }
+}
+
+/* The narrowest phones. Inside the dashboard the rail takes its strip first,
+   so two cards here are about 107px wide and their picture is 107x96 - the
+   smallest frame these controls ever have to sit on, and the only place the
+   sizes above are still too big for what is behind them. */
+@media (max-width: 400px) {
+  .inlearn-course-actions {
+    padding: 3px 2px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .inlearn-course-action {
+    width: 20px;
+    height: 20px;
+  }
+
+  .inlearn-course-action svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .inlearn-course-action-divider {
+    height: 11px;
+  }
+
+  .inlearn-course-more {
+    right: 6px;
+    bottom: 6px;
+    height: 22px;
+    padding: 0 6px;
+    font-size: 10px;
+  }
+
+  .inlearn-course-more svg {
+    width: 11px;
+    height: 11px;
+  }
+
+  .inlearn-course-card:hover .inlearn-course-more-label,
+  .inlearn-course-card:focus-visible .inlearn-course-more-label,
+  .inlearn-course-card.is-touch-open .inlearn-course-more-label {
+    max-width: 74px;
+    margin-right: 5px;
+  }
+}

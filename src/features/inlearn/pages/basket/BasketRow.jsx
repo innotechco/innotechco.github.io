@@ -8,8 +8,9 @@ import {GlobeIcon, OnSiteIcon} from "../../components/icons.jsx";
    the same course is not a thing anybody can own. addToBasket already refuses
    to add one twice.
 
-   Its own file because the checkout page lists the same lines, and neither
-   page should have to import the other. */
+   Its own file because a basket line is its own piece of layout - a picture,
+   a title, its terms and a price, arranged three ways down the widths - and
+   the page that lists them should not also have to draw them. */
 function BasketRow({course, currency, copy, onRemove}) {
   const isOnSite = course.mode === "on-site";
 
