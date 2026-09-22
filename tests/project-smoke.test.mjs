@@ -1053,4 +1053,22 @@ test("a new page starts at the top without scrolling there", () => {
   const call = source.match(/window\.scrollTo\(\{[^}]*\}\)/s);
   assert.ok(call, "ScrollToTop no longer scrolls the window");
   assert.match(call[0], /behavior:\s*"instant"/, `route change scroll is ${call[0]}`);
+
+  /* The dashboard is a panel and a section beside it: pressing Courses while
+     Bill is open changes half the screen and moves nothing the visitor is
+     pointing at, so sending the window to the top there pulls the floor out
+     from under somebody mid-list. Arriving at the dashboard from anywhere else
+     is still a new page and still starts at the top, which is why the rule
+     needs the address being LEFT as well as the one arrived at - a check on
+     the destination alone would break that. */
+  assert.match(
+    source,
+    /IN_PAGE_SECTIONS[\s\S]*routes\.inlearnDashboard/,
+    "moving between dashboard sections must not scroll the window",
+  );
+  assert.match(
+    source,
+    /from\.startsWith\(root\)\s*&&\s*to\.startsWith\(root\)/,
+    "the rule must compare where the visitor came from, not only where they are going",
+  );
 });
