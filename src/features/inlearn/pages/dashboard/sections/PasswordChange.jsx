@@ -22,7 +22,7 @@ import {
 
 const EMPTY = {currentPassword: "", newPassword: "", confirmation: ""};
 
-function PasswordChange({onToast}) {
+function PasswordChange({isBusy, onToast}) {
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState(EMPTY);
   const [problem, setProblem] = useState("");
@@ -91,6 +91,7 @@ function PasswordChange({onToast}) {
         <button
           type="button"
           className="inlearn-profile-password-change"
+          disabled={isBusy}
           onClick={() => setIsOpen(true)}
         >
           Change

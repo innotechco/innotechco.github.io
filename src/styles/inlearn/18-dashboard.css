@@ -493,10 +493,23 @@
   .inlearn-dash-rail {
     z-index: 3;
     justify-self: start;
-    /* It follows the page down rather than scrolling off the top of a long
-       section, so the way out is always where it was. */
-    position: sticky;
-    top: 96px;
+    /* It starts at the top of the row and stays there. Nothing about how tall
+       the section beside it grows is the strip's business.
+     *
+     * There was a `position: sticky; top: 96px` here, meant to let the strip
+     * follow the page down a long section. It never did that, and it could
+     * not: a sticky element is measured against the nearest ancestor that
+     * scrolls, and the nearest one here is .inlearn-dash, which has
+     * overflow: hidden to clip the arc and therefore never scrolls. So the 96
+     * was not a threshold it would stick at, it was a plain downward shift -
+     * measured at four different values, the strip landed at exactly the top
+     * of its cell plus that number, identically at every scroll position.
+     *
+     * The shift was invisible while the strip and the section were the same
+     * height, because a sticky box cannot leave its own grid area and there
+     * was no room to move into. Opening the password or address form made the
+     * section taller, the room appeared, and the strip dropped by the full 96
+     * - which is the bug this replaces. */
   }
 
   /* The strip's width plus a gap, so the marks never sit on the section. When

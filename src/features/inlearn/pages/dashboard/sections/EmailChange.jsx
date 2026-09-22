@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import {confirmEmailChange, requestEmailChange} from "../../../services/authService.js";
 import {checkEmail, firstProblem} from "../../../services/formValidation.js";
@@ -14,41 +14,77 @@ import {checkEmail, firstProblem} from "../../../services/formValidation.js";
  * same question as whether the panel is open: closed, typing the address, and
  * typing the code.
  */
-function EmailChange({email, onChanged, onToast}) {
+function EmailChange({email, pendingEmail, isBusy, onChanged, onToast}) {
   const [step, setStep] = useState("closed");
   const [draft, setDraft] = useState("");
   const [code, setCode] = useState("");
   const [problem, setProblem] = useState("");
-  const [isBusy, setIsBusy] = useState(false);
+  const [isWorking, setIsWorking] = useState(false);
+  /* How long the code that was just sent is good for, as the server reported
+     it. Unknown when the step was resumed rather than started here - nothing
+     told this browser when that code was issued - and a duration is only shown
+     when it is actually known. */
+  const [minutes, setMinutes] = useState(0);
+  /* Set by Cancel, and only by Cancel. Without it, closing a step that the
+     server still considers open would reopen the moment this rendered again -
+     the visitor would be unable to put it down. */
+  const wasDismissed = useRef(false);
+
+  /* Picking up a change that was left half-finished.
+   *
+   * The server has been answering with the address waiting on a code since
+   * this page was built, and nothing read it - so somebody who asked for a
+   * code and went to fetch it came back to the old address and a Change
+   * button, with a live code in their inbox and nowhere to type it.
+   *
+   * It runs on the address rather than on mount because the profile arrives
+   * after the first render, so on mount there is nothing yet to resume. */
+  useEffect(() => {
+    if (!pendingEmail || wasDismissed.current || step !== "closed") return;
+    setDraft(pendingEmail);
+    setStep("code");
+  }, [pendingEmail, step]);
 
   const close = () => {
+    wasDismissed.current = true;
     setStep("closed");
     setDraft("");
     setCode("");
     setProblem("");
+    setMinutes(0);
   };
 
-  const ask = async () => {
+  /* Asking for a code, and asking again for another one: the same request
+     either way, and the server issues a fresh code and forgets the old one's
+     failed attempts. Told apart only in what is said afterwards. */
+  const send = async (address, isAgain) => {
+    setIsWorking(true);
+    setProblem("");
+
+    try {
+      const answer = await requestEmailChange(address);
+      setCode("");
+      setMinutes(answer?.ttlMinutes ?? 0);
+      setStep("code");
+      /* Said out loud as well as on the step, because the code is somewhere
+         else - in an inbox - and the visitor is about to leave this tab. */
+      onToast?.({
+        message: isAgain ? `We sent a new code to ${address}.` : `We sent a code to ${address}.`,
+      });
+    } catch (error) {
+      setProblem(error.message);
+    } finally {
+      setIsWorking(false);
+    }
+  };
+
+  const ask = () => {
     const trouble = firstProblem([checkEmail(draft)]);
     if (trouble) {
       setProblem(trouble);
       return;
     }
-
-    setIsBusy(true);
-    setProblem("");
-
-    try {
-      await requestEmailChange(draft.trim());
-      setStep("code");
-      /* Said out loud as well as on the step, because the code is somewhere
-         else - in an inbox - and the visitor is about to leave this tab. */
-      onToast?.({message: `We sent a code to ${draft.trim()}.`});
-    } catch (error) {
-      setProblem(error.message);
-    } finally {
-      setIsBusy(false);
-    }
+    send(draft.trim(), false);
   };
 
   const confirm = async () => {
@@ -57,7 +93,7 @@ function EmailChange({email, onChanged, onToast}) {
       return;
     }
 
-    setIsBusy(true);
+    setIsWorking(true);
     setProblem("");
 
     try {
@@ -70,7 +106,7 @@ function EmailChange({email, onChanged, onToast}) {
     } catch (error) {
       setProblem(error.message);
     } finally {
-      setIsBusy(false);
+      setIsWorking(false);
     }
   };
 
@@ -90,7 +126,11 @@ function EmailChange({email, onChanged, onToast}) {
         <button
           type="button"
           className="inlearn-profile-email-change"
-          onClick={() => setStep("email")}
+          disabled={isBusy}
+          onClick={() => {
+            wasDismissed.current = false;
+            setStep("email");
+          }}
         >
           Change
         </button>
@@ -135,6 +175,28 @@ function EmailChange({email, onChanged, onToast}) {
               setProblem("");
             }}
           />
+
+          {/* The way out of every dead end this step has.
+           *
+           * The server turns a code down for three reasons and two of them -
+           * expired, too many attempts - end with "ask for a new one". There
+           * was no way to ask: the only button that sent a code was on the
+           * step before, and getting back to it meant cancelling. Somebody who
+           * resumed a change from an earlier visit could not reach it at all.
+           *
+           * Beside the duration, because they answer each other: how long this
+           * code lasts, and what to do when it has not. */}
+          <p className="inlearn-profile-note">
+            {minutes ? `The code is good for ${minutes} minutes. ` : ""}
+            <button
+              type="button"
+              className="inlearn-profile-link"
+              disabled={isWorking}
+              onClick={() => send(draft, true)}
+            >
+              Send a new code
+            </button>
+          </p>
         </>
       )}
 
@@ -148,9 +210,9 @@ function EmailChange({email, onChanged, onToast}) {
           type="button"
           className="inlearn-profile-go"
           onClick={step === "email" ? ask : confirm}
-          disabled={isBusy}
+          disabled={isWorking}
         >
-          {isBusy ? "Working…" : step === "email" ? "Send code" : "Confirm"}
+          {isWorking ? "Working…" : step === "email" ? "Send code" : "Confirm"}
         </button>
       </div>
     </div>

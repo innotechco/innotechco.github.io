@@ -425,14 +425,65 @@
   opacity: 0.88;
 }
 
+/* Not `progress`. This button is now off for two different reasons - a save
+   is running, or there is nothing to save - and a spinning cursor over the
+   second one promises something is happening when nothing is. The label says
+   "Saving…" when it is, which is the honest signal. */
 .inlearn-profile-apply:disabled {
-  cursor: progress;
+  cursor: default;
   opacity: 0.55;
 }
 
 .inlearn-profile-apply:focus-visible {
   outline: 2px solid var(--inlearn-green);
   outline-offset: 2px;
+}
+
+/* The message slot is green because almost everything it says went well. An
+   unsaved change did not go anywhere yet - it is neither good news nor bad -
+   so it is said in the same grey the rest of the module uses for asides. */
+.inlearn-profile-message.is-pending {
+  color: var(--inlearn-muted);
+}
+
+/* A button that reads as a sentence, because it is inside one. Used for
+   sending a fresh code, which belongs next to how long the last one lasts
+   rather than in the row of real buttons underneath - it is a way out of a
+   dead end, not a third thing to weigh up against Cancel and Confirm. */
+.inlearn-profile-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--inlearn-black);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.inlearn-profile-link:hover {
+  color: var(--inlearn-green);
+}
+
+.inlearn-profile-link:disabled {
+  color: var(--inlearn-muted);
+  cursor: default;
+  text-decoration: none;
+}
+
+.inlearn-profile-link:focus-visible {
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* The card when there is no profile to show: the reason, and the way to ask
+   again. It borrows the card's own shape so the page does not appear to have
+   become a different page, and it is the only thing in it - a form over rows
+   that were never read is a form that can only do harm. */
+.inlearn-profile-trouble {
+  gap: 14px;
+  text-align: center;
 }
 
 /* ------------------------------------------------------------ narrower rooms */
