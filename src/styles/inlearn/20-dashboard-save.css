@@ -1,0 +1,69 @@
+/* Saved courses reuse the catalogue card, but live in the dashboard column.
+   On a fine pointer the rail and this grid share the row, so opening the rail
+   naturally narrows all three tracks. On touch devices the rail overlays the
+   panel and these two tracks keep the same width in either rail state. */
+.inlearn-save {
+  width: 100%;
+  padding: 0;
+}
+
+.inlearn-save-grid {
+  display: grid;
+  width: 78%;
+  margin: 0;
+  padding: 0;
+  gap: clamp(28px, 3vw, 46px) clamp(14px, 1.8vw, 26px);
+  grid-template-columns: repeat(var(--inlearn-save-columns), minmax(0, 1fr));
+  list-style: none;
+}
+
+.inlearn-save-grid > li {
+  display: flex;
+  min-width: 0;
+}
+
+.inlearn-save-grid .inlearn-course-card {
+  width: 100%;
+}
+
+.inlearn-save-more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(32px, 4vw, 54px);
+}
+
+.inlearn-save-empty {
+  display: grid;
+  min-height: min(420px, 50vh);
+  place-content: center;
+  text-align: center;
+}
+
+.inlearn-save-empty h1,
+.inlearn-save-empty p {
+  margin: 0;
+}
+
+.inlearn-save-empty h1 {
+  color: var(--inlearn-black);
+  font-size: clamp(24px, 3vw, 36px);
+}
+
+.inlearn-save-empty p {
+  margin-top: 10px;
+  color: var(--inlearn-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  .inlearn-save-grid {
+    width: 100%;
+    gap: clamp(24px, 5vw, 38px) clamp(10px, 3vw, 22px);
+  }
+}
+
+@media (max-width: 400px) {
+  .inlearn-save-grid {
+    column-gap: 8px;
+  }
+}

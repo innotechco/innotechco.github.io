@@ -2,6 +2,14 @@ import {useSyncExternalStore} from "react";
 
 import Price from "./CoursePrice.jsx";
 import {addToBasket, isInBasket, subscribeToBasket} from "../../services/basket.js";
+import {BookmarkIcon, ShareIcon, TagIcon} from "../../components/icons.jsx";
+import {
+  getServerSavedCourses,
+  getSavedCourses,
+  subscribeToSavedCourses,
+  toggleSavedCourse,
+} from "../../services/savedCourses.js";
+import {copyCourseLink} from "../../services/courseShare.js";
 
 /* The picture, the price and the one button the page is built around.
 
@@ -22,6 +30,12 @@ function CourseBuyCard({course, catalogue}) {
     () => isInBasket(course.id),
     () => false,
   );
+  const savedIds = useSyncExternalStore(
+    subscribeToSavedCourses,
+    getSavedCourses,
+    getServerSavedCourses,
+  );
+  const isSaved = savedIds.includes(course.id);
 
   return (
     <aside className="inlearn-buy" aria-label={course.title}>
@@ -34,11 +48,24 @@ function CourseBuyCard({course, catalogue}) {
             except here they are always on show, because there is no hover to
             reveal them on a page the visitor has already opened. */}
         <div className="inlearn-buy-actions">
-          <button type="button" className="inlearn-course-action" aria-label={catalogue.save} title={catalogue.save}>
-            <BookmarkIcon />
+          <button
+            type="button"
+            className={`inlearn-course-action${isSaved ? " is-on" : ""}`}
+            aria-label={catalogue.save}
+            aria-pressed={isSaved}
+            title={catalogue.save}
+            onClick={() => toggleSavedCourse(course.id)}
+          >
+            <BookmarkIcon filled={isSaved} />
           </button>
           <span className="inlearn-course-action-divider" aria-hidden="true" />
-          <button type="button" className="inlearn-course-action" aria-label={catalogue.share} title={catalogue.share}>
+          <button
+            type="button"
+            className="inlearn-course-action"
+            aria-label={catalogue.share}
+            title={catalogue.share}
+            onClick={() => copyCourseLink(window.location.href)}
+          >
             <ShareIcon />
           </button>
         </div>
@@ -67,34 +94,6 @@ function CourseBuyCard({course, catalogue}) {
         {inBasket ? labels.inBasket : labels.addToCart}
       </button>
     </aside>
-  );
-}
-
-function BookmarkIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
-      <path d="M7 4.5h10a1 1 0 0 1 1 1V20l-6-3.6L6 20V5.5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function ShareIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
-      <circle cx="18" cy="5.5" r="2.6" fill="none" stroke="currentColor" strokeWidth="1.7" />
-      <circle cx="6" cy="12" r="2.6" fill="none" stroke="currentColor" strokeWidth="1.7" />
-      <circle cx="18" cy="18.5" r="2.6" fill="none" stroke="currentColor" strokeWidth="1.7" />
-      <path d="m8.4 10.8 7.2-4.1M8.4 13.2l7.2 4.1" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function TagIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
-      <path d="M11.5 3.5H20v8.5l-8.7 8.7a1.5 1.5 0 0 1-2.1 0l-6.4-6.4a1.5 1.5 0 0 1 0-2.1Z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-      <circle cx="16.2" cy="7.8" r="1.6" fill="currentColor" />
-    </svg>
   );
 }
 

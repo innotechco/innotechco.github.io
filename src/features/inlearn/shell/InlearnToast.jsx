@@ -38,7 +38,7 @@ function InlearnToast({message, action, onDismiss, duration = 4000}) {
       {action ? (
         <button
           type="button"
-          className="inlearn-toast-action"
+          className={`inlearn-toast-action${action.tone ? ` is-${action.tone}` : ""}`}
           onClick={() => {
             action.run();
             onDismiss();

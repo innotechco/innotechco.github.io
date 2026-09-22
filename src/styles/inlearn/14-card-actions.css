@@ -25,7 +25,8 @@
 }
 
 .inlearn-course-card:hover .inlearn-course-actions,
-.inlearn-course-card:focus-within .inlearn-course-actions {
+.inlearn-course-card:focus-within .inlearn-course-actions,
+.inlearn-course-card.is-touch-open .inlearn-course-actions {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);

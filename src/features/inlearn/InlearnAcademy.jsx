@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 
 import AllCoursesPage from "./pages/all-courses/AllCoursesPage.jsx";
 import BasketPage from "./pages/basket/BasketPage.jsx";
@@ -7,11 +7,14 @@ import CheckoutPage from "./pages/checkout/CheckoutPage.jsx";
 import CoursePage from "./pages/course/CoursePage.jsx";
 import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
 import ProfileSection from "./pages/dashboard/sections/ProfileSection.jsx";
+import SaveSection from "./pages/dashboard/sections/SaveSection.jsx";
 import AuthSidebar from "./auth/AuthSidebar.jsx";
 import FirstPage from "./pages/first-page/FirstPage.jsx";
 import InlearnNavbar from "./shell/InlearnNavbar.jsx";
 import InlearnToast from "./shell/InlearnToast.jsx";
 import {getBasketCount, subscribeToBasket} from "./services/basket.js";
+import {subscribeToSavedCourses} from "./services/savedCourses.js";
+import {subscribeToCourseShare} from "./services/courseShare.js";
 import {getInlearnCourses} from "./inlearnContent.js";
 import {restoreSession, signOut} from "./services/authService.js";
 import {routes} from "../../app/routes.js";
@@ -29,6 +32,7 @@ import "../../styles/inlearn.css";
 const SESSION_EXPIRED_MESSAGE = "You have been signed out. Please sign in again to continue.";
 
 function InlearnAcademy() {
+  const navigate = useNavigate();
   const [authMode, setAuthMode] = useState("register");
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [session, setSession] = useState(null);
@@ -59,6 +63,32 @@ function InlearnAcademy() {
       if (added) setToast({message: getInlearnCourses().detail.addedToCart});
     });
   }, []);
+
+  useEffect(
+    () =>
+      subscribeToSavedCourses((change) => {
+        if (!change) return;
+        setToast({
+          message: change.saved ? "Course saved." : "Course removed from saved.",
+          action: {
+            label: "View",
+            tone: "link",
+            run: () => navigate(routes.inlearnDashboardSave),
+          },
+        });
+      }),
+    [navigate],
+  );
+
+  useEffect(
+    () =>
+      subscribeToCourseShare(({copied}) => {
+        setToast({
+          message: copied ? "Course link copied." : "Could not copy the course link.",
+        });
+      }),
+    [],
+  );
 
   /* The access token only lives ten minutes, which is shorter than most visits
      away, so a stored one is almost certainly stale by now. Trading it for a
@@ -194,7 +224,7 @@ function InlearnAcademy() {
           <Route index element={null} />
           <Route path="bill" element={null} />
           <Route path="courses" element={null} />
-          <Route path="save" element={null} />
+          <Route path="save" element={<SaveSection />} />
           <Route
             path="profile"
             element={
