@@ -23,11 +23,16 @@
   min-width: 0;
   padding: clamp(12px, 1.4vw, 18px);
 
-  /* Where a card stops when the dashboard's first page sends somebody here.
-     The brand bar is fixed - 36 from the top and 65 tall - so a card scrolled
-     to its own top edge would arrive underneath it. This is that 101 plus the
-     room to read as a card rather than as something wedged under a pill. */
-  scroll-margin-top: 124px;
+  /* No scroll-margin here, deliberately.
+   *
+   * Clearing the fixed brand bar is already somebody else's job: base.css
+   * gives the page scroll-padding-top: 112px, which is what every anchor on
+   * the site stops against. A margin of its own does not replace that number,
+   * it ADDS to it - measured at 270px from the top instead of 112, a gap big
+   * enough to look like the wrong card had been scrolled to.
+   *
+   * If this ever needs to sit lower, the number to change is the one in
+   * base.css, so that every anchor moves together. */
   border-radius: 20px;
   background: #f7f7f8;
   transition: box-shadow 260ms cubic-bezier(0.33, 0, 0.2, 1);
