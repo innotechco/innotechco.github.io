@@ -1,4 +1,12 @@
 .inlearn-page {
+  /* The distance from the window's edge to the module's own column.
+
+     The navbar worked this out first and the dashboard needs exactly the same
+     answer - a panel that does not line up with the brand above it reads as a
+     different page sliding underneath. Written once here so the two cannot
+     drift: the second term centres the column on a wide screen, the first is
+     the floor a narrow one falls back to. */
+  --inlearn-gutter: max(clamp(16px, 3.6vw, 96px), calc((100vw - 1335px) / 2));
   --inlearn-green: #37b478;
   --inlearn-black: #050505;
   --inlearn-muted: #83838b;
