@@ -1,4 +1,5 @@
 import {arcSize} from "../../inlearn.config.js";
+import {toDecorStyle} from "../../decorPlacement.js";
 import useMediaQuery from "../../hooks/useMediaQuery.js";
 
 /* Draws the arcs behind the first page from the numbers in inlearn.config.js.
@@ -20,27 +21,6 @@ import useMediaQuery from "../../hooks/useMediaQuery.js";
 
 const SMALL_SCREEN = "(max-width: 1023px)";
 const PHONE = "(max-width: 639px)";
-
-function toStyle({top, left, right, width, maxWidth, rotate, flipX, flipY, opacity}) {
-  /* One transform, not two: a second transform property on the same element
-     does not add to the first, it replaces it. */
-  const transform = [
-    rotate && rotate !== "0deg" ? `rotate(${rotate})` : "",
-    flipX || flipY ? `scale(${flipX ? -1 : 1}, ${flipY ? -1 : 1})` : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  return {
-    top,
-    left,
-    right,
-    width,
-    maxWidth,
-    opacity,
-    ...(transform ? {transform} : {}),
-  };
-}
 
 function PageDecorations({decorations, smallScreenDecorations = {}}) {
   const isSmallScreen = useMediaQuery(SMALL_SCREEN);
@@ -66,7 +46,7 @@ function PageDecorations({decorations, smallScreenDecorations = {}}) {
             /* Only the second arc starts below the fold; the first is painted
                before anything is scrolled. */
             {...(name === "topLeft" ? {} : {loading: "lazy"})}
-            style={toStyle(placement)}
+            style={toDecorStyle(placement)}
           />
         );
       })}
