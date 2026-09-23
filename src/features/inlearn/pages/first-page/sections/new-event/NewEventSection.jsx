@@ -5,6 +5,7 @@ import RemoteImage from "../../../../../../shared/components/ui/RemoteImage.jsx"
 import {t} from "../../../../../../shared/i18n/ui.js";
 import useCarousel from "../../../../../../shared/hooks/useCarousel.js";
 import CarouselArrow from "../../../../components/CarouselArrow.jsx";
+import {GlobeIcon, OnSiteIcon} from "../../../../components/icons.jsx";
 import {routes} from "../../../../../../app/routes.js";
 
 /* The newest three courses, in INLEARN's frame, one at a time.
@@ -31,8 +32,12 @@ function toEvent(course) {
        own advertised start - the same one printed on its card everywhere else
        - and the accent beside it says how it is taught. */
     date: course.startDate ? formatStartDate(course.startDate) : "",
-    readTime: course.modeLabel || "",
-    summary: course.summary,
+    mode: course.mode,
+    modeLabel: course.modeLabel || "",
+    /* The whole description rather than the one-line summary. The summary is
+       what a grid of sixteen cards has room for; this card is one card at a
+       time, at the top of the page, and it can say the rest. */
+    about: course.about?.length ? course.about : [course.summary].filter(Boolean),
     image: course.image,
     imageAlt: course.imageAlt || "",
     /* A course has one picture rather than the set of sizes WordPress hands
@@ -194,16 +199,42 @@ function EventCard({event, readMore, isLoading, isVisible = false}) {
 
             <p className="inlearn-event-meta">
               <span>{event.date}</span>
-              {event.readTime ? <span className="is-accent">{event.readTime}</span> : null}
+              {/* How it is taught, as a pill rather than a word in the line.
+                  It is the one fact here somebody scans for, and a pill is
+                  found at a glance where a fourth phrase in a sentence is
+                  read. */}
+              {event.modeLabel ? (
+                <span className="inlearn-event-mode">
+                  {event.mode === "on-site" ? <OnSiteIcon /> : <GlobeIcon size={15} />}
+                  {event.modeLabel}
+                </span>
+              ) : null}
             </p>
 
-            <p className="inlearn-event-summary">{event.summary}</p>
+            <div className="inlearn-event-summary">
+              {(event.about ?? []).map((paragraph, position) => (
+                <p key={position}>{paragraph}</p>
+              ))}
+            </div>
 
             {/* Only a link when there is a course behind it: a "Read more"
                 that goes nowhere is worse than none. */}
             {destination ? (
               <Link className="inlearn-event-more" to={destination}>
-                {readMore}
+                <span>{readMore}</span>
+                {/* Travels with the words on hover. Drawn here rather than
+                    written as a character, so it takes the link's colour and
+                    turns green with it. */}
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M5 12h13M12 5.5 18.5 12 12 18.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </Link>
             ) : null}
           </>
