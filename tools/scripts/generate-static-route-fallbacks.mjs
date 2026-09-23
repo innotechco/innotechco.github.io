@@ -7,6 +7,7 @@ const distRoot = path.resolve("dist");
 const indexPath = path.join(distRoot, "index.html");
 const contentRoot = path.resolve("src/content/en");
 const cmsBaseUrl = process.env.VITE_CMS_BASE_URL || "https://blog.innotech.global";
+const inlearnApiUrl = (process.env.VITE_INLEARN_API_URL || "").replace(/\/+$/, "");
 const siteBaseUrl = (process.env.SITE_BASE_URL || "https://innotech.global").replace(/\/+$/, "");
 const blogEnabled = process.env.VITE_CMS_ENABLED === "true" &&
   process.env.VITE_CMS_BLOG_ENABLED !== "false";
@@ -201,17 +202,34 @@ function stripHtml(value) {
    no entry here 404s on a direct link, however well it works when the visitor
    arrives by clicking.
 
-   The courses come from the bundled catalogue rather than from WordPress -
-   that is where they live today. When they move, this is the one function that
-   changes, and it changes the same way getArticles() already works. */
-function getCourses() {
-  const catalogue = readContent(path.join("pages", "inlearn", "all-courses.json"));
+   Strapi owns the catalogue, including each course's SEO fields. The bundled
+   English copy remains a build fallback: a temporary API outage must not turn
+   every existing course URL into a Pages 404 during an otherwise valid deploy. */
+async function getCourses() {
+  let catalogue = null;
+
+  if (inlearnApiUrl) {
+    const url = new URL("/api/inlearn/catalogue", `${inlearnApiUrl}/`);
+    url.searchParams.set("locale", "en");
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`catalogue request failed (${response.status})`);
+      }
+      catalogue = await response.json();
+    } catch (error) {
+      console.warn(`Could not read the INLEARN catalogue for SEO: ${error.message}. Using bundled copy.`);
+    }
+  }
+
+  catalogue ??= readContent(path.join("pages", "inlearn", "all-courses.json"));
   if (!catalogue?.courses?.length) return [];
 
   return catalogue.courses.map((course) => ({
     route: `inlearn/courses/${course.id}`,
-    title: collapse(course.title),
-    description: collapse(course.summary).slice(0, 200),
+    title: collapse(course.seo?.title || course.title),
+    description: collapse(course.seo?.description || course.summary).slice(0, 200),
   }));
 }
 
@@ -267,7 +285,7 @@ const metadata = buildRouteMetadata();
 
 /* Every :slug route in App.jsx needs a generator here, or those pages 404 on
    a direct link while working fine through client-side navigation. */
-const generated = [...getPartners(), ...getCourses(), ...(await getArticles())];
+const generated = [...getPartners(), ...(await getCourses()), ...(await getArticles())];
 
 for (const page of generated) {
   if (page.title) {

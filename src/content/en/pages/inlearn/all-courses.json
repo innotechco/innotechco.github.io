@@ -8,7 +8,7 @@
   "empty": "No course carries all of those categories.",
   "allTag": "All",
   "modes": {
-    "on-site": "On-site",
+    "on-site": "In-Person",
     "online": "Online",
     "offline": "Offline"
   },
@@ -59,17 +59,13 @@
       "id": "mining-automation-safety",
       "title": "Mining Automation and Safety",
       "summary": "What automation removes from a mine, what it adds, and the incidents that only appear after it arrives.",
-      "date": "September 12, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "An automated mining operation",
       "tag": "metals-mining",
-      "mode": "on-site",
       "about": [
         "What automation removes from a mine, what it adds, and the incidents that only appear after it arrives.",
         "Automation removes people from the places that used to hurt them and puts them in new ones. The course covers both halves: the exposures it ends, and the incident types that only start appearing once it arrives."
       ],
-      "price": 5400,
-      "compareAtPrice": 5800,
       "certificate": true,
       "language": "English",
       "instructor": "gholamreza-jamshidi",
@@ -83,24 +79,19 @@
         "materials-for-harsh-environments",
         "smart-grid-operations",
         "supply-chain-resilience"
-      ],
-      "publishedAt": "2026-09-12"
+      ]
     },
     {
       "id": "semiconductor-supply-strategy",
       "title": "Semiconductor Supply Strategy",
       "summary": "Reading a supply chain whose bottleneck moves, and planning for the one it moves to next.",
-      "date": "September 3, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "A semiconductor fabrication plant",
       "tag": "high-tech",
-      "mode": "offline",
       "about": [
         "Reading a supply chain whose bottleneck moves, and planning for the one it moves to next.",
         "The bottleneck in this supply chain moves every few years, and planning for the last one is how companies get caught. The course covers how to read where it sits now and what that says about where it goes next."
       ],
-      "price": 6100,
-      "compareAtPrice": 6600,
       "certificate": true,
       "language": "English",
       "instructor": "omar-al-hashimi",
@@ -114,24 +105,19 @@
         "patent-analytics-for-rnd",
         "battery-manufacturing-quality",
         "smart-grid-operations"
-      ],
-      "publishedAt": "2026-09-03"
+      ]
     },
     {
       "id": "clinical-data-governance",
       "title": "Clinical Data Governance",
       "summary": "Who may see which record, who answers for it, and how that survives an audit.",
-      "date": "August 21, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "Clinical records being reviewed",
       "tag": "health",
-      "mode": "online",
       "about": [
         "Who may see which record, who answers for it, and how that survives an audit.",
         "Governance is usually written as a policy and discovered as an audit finding. The course works from the other end: who may see which record, who answers for that decision, and what evidence of it has to exist before anyone asks."
       ],
-      "price": 4600,
-      "compareAtPrice": 4900,
       "certificate": true,
       "language": "English",
       "instructor": "leyla-farhadi",
@@ -145,24 +131,19 @@
         "patent-analytics-for-rnd",
         "industrial-ai-foundations",
         "supply-chain-resilience"
-      ],
-      "publishedAt": "2026-08-21"
+      ]
     },
     {
       "id": "smart-grid-operations",
       "title": "Smart Grid Operations and Control",
       "summary": "How a grid that now takes power from everywhere is kept steady, minute by minute.",
-      "date": "August 9, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "A grid control room",
       "tag": "high-tech",
-      "mode": "offline",
       "about": [
         "How a grid that now takes power from everywhere is kept steady, minute by minute.",
         "A grid that once took power from a handful of plants now takes it from thousands of points that do not ask permission. The course covers how balance is held under those conditions, minute by minute, and what the control room can and cannot see."
       ],
-      "price": 5300,
-      "compareAtPrice": null,
       "certificate": true,
       "language": "English",
       "instructor": "gholamreza-jamshidi",
@@ -176,24 +157,19 @@
         "hydrogen-economy-fundamentals",
         "industrial-ai-foundations",
         "digital-twin-operations"
-      ],
-      "publishedAt": "2026-08-09"
+      ]
     },
     {
       "id": "battery-manufacturing-quality",
       "title": "Battery Manufacturing Quality Systems",
       "summary": "The measurements that catch a cell defect on the line rather than in a vehicle two years later.",
-      "date": "July 28, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "A battery production line",
       "tag": "automotive",
-      "mode": "on-site",
       "about": [
         "The measurements that catch a cell defect on the line rather than in a vehicle two years later.",
         "A cell defect found on the line costs a cell. The same defect found in a vehicle costs a recall. This course is about the measurements that move the discovery from the second case to the first, and what each of them can and cannot see."
       ],
-      "price": 5100,
-      "compareAtPrice": 5500,
       "certificate": true,
       "language": "English",
       "instructor": "sara-koc",
@@ -207,24 +183,19 @@
         "supply-chain-resilience",
         "digital-twin-operations",
         "materials-for-harsh-environments"
-      ],
-      "publishedAt": "2026-07-28"
+      ]
     },
     {
       "id": "patent-analytics-for-rnd",
       "title": "Patent Analytics for R&D Leaders",
       "summary": "Reading a patent landscape as a map of where competitors are spending, not as a pile of legal documents.",
-      "date": "July 14, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "A patent landscape on screen",
       "tag": "business-management",
-      "mode": "online",
       "about": [
         "Reading a patent landscape as a map of where competitors are spending, not as a pile of legal documents.",
         "For the people who set research budgets rather than write claims. It treats a patent landscape as a record of where competitors have already spent money, and shows how to read that record without a law degree."
       ],
-      "price": 4300,
-      "compareAtPrice": null,
       "certificate": true,
       "language": "English",
       "instructor": "leyla-farhadi",
@@ -238,24 +209,19 @@
         "semiconductor-supply-strategy",
         "supply-chain-resilience",
         "industrial-ai-foundations"
-      ],
-      "publishedAt": "2026-07-14"
+      ]
     },
     {
       "id": "hydrogen-economy-fundamentals",
       "title": "Hydrogen Economy Fundamentals",
       "summary": "Where hydrogen genuinely competes today, where it does not yet, and what decides which way a project falls.",
-      "date": "June 30, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "A hydrogen production facility",
       "tag": "sustainability",
-      "mode": "online",
       "about": [
         "Where hydrogen genuinely competes today, where it does not yet, and what decides which way a project falls.",
         "Hydrogen competes on cost per useful joule delivered, not on enthusiasm. The course sets out where that maths works today, where it does not yet, and the three or four variables that decide which side of the line a given project lands on."
       ],
-      "price": 5800,
-      "compareAtPrice": 6200,
       "certificate": true,
       "language": "English",
       "instructor": "omar-al-hashimi",
@@ -269,24 +235,19 @@
         "smart-grid-operations",
         "lpg-patent-landscape",
         "materials-for-harsh-environments"
-      ],
-      "publishedAt": "2026-06-30"
+      ]
     },
     {
       "id": "advanced-materials-testing",
       "title": "Advanced Materials Testing and Certification",
       "summary": "What a test rig can and cannot prove, and how a certificate is read by the people who have to trust it.",
-      "date": "June 17, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "A materials testing laboratory",
       "tag": "science-mathematics",
-      "mode": "on-site",
       "about": [
         "What a test rig can and cannot prove, and how a certificate is read by the people who have to trust it.",
         "A test rig answers a narrower question than most people assume. This course covers what each standard test does and does not establish, how a certificate is read by the engineer who has to rely on it, and where the gap between the two causes trouble."
       ],
-      "price": 4700,
-      "compareAtPrice": 5000,
       "certificate": true,
       "language": "English",
       "instructor": "sara-koc",
@@ -300,24 +261,19 @@
         "battery-manufacturing-quality",
         "digital-twin-operations",
         "lpg-patent-landscape"
-      ],
-      "publishedAt": "2026-06-17"
+      ]
     },
     {
       "id": "materials-for-harsh-environments",
       "title": "Materials Engineering for Harsh Environments",
       "summary": "Choosing alloys, coatings and seals for heat, pressure and abrasion that never let up.",
-      "date": "May 29, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "Steel pipework under load",
       "tag": "energy-materials",
-      "mode": "online",
       "about": [
         "Choosing alloys, coatings and seals for heat, pressure and abrasion that never let up.",
         "Sour service, cryogenic duty and high-cycle fatigue each fail in their own way, and a material chosen for one can be the wrong answer to another. The course works through the selection questions in the order a project actually meets them."
       ],
-      "price": 5200,
-      "compareAtPrice": null,
       "certificate": true,
       "language": "English",
       "instructor": "omar-al-hashimi",
@@ -331,24 +287,19 @@
         "lpg-patent-landscape",
         "battery-manufacturing-quality",
         "hydrogen-economy-fundamentals"
-      ],
-      "publishedAt": "2026-05-29"
+      ]
     },
     {
       "id": "process-safety-leadership",
       "title": "Process Safety Leadership in High-Risk Sites",
       "summary": "The habits, reporting lines and hard conversations that keep a high-risk site honest with itself.",
-      "date": "May 12, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "Safety inspection on an industrial site",
       "tag": "engineering",
-      "mode": "offline",
       "about": [
         "The habits, reporting lines and hard conversations that keep a high-risk site honest with itself.",
         "Most serious incidents are preceded by weeks of small signals that someone saw and nobody escalated. This course is about the conditions that decide whether those signals travel: what gets reported, what gets rewarded, and what a shift supervisor believes will happen if they stop the line."
       ],
-      "price": 5600,
-      "compareAtPrice": 6100,
       "certificate": true,
       "language": "English",
       "instructor": "gholamreza-jamshidi",
@@ -362,24 +313,19 @@
         "materials-for-harsh-environments",
         "innovations-in-teamwork",
         "digital-twin-operations"
-      ],
-      "publishedAt": "2026-05-12"
+      ]
     },
     {
       "id": "supply-chain-resilience",
       "title": "Supply Chain Resilience Under Real Constraints",
       "summary": "Mapping the dependencies you actually have, and the ones you only think you have.",
-      "date": "April 24, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "Freight moving through a terminal",
       "tag": "business-management",
-      "mode": "on-site",
       "about": [
         "Mapping the dependencies you actually have, and the ones you only think you have.",
         "Resilience is usually bought as inventory, which is the most expensive form of it. The course sets out the cheaper forms - second sources, design flexibility, contractual options - and how to decide which of them a particular disruption actually calls for."
       ],
-      "price": 4400,
-      "compareAtPrice": null,
       "certificate": true,
       "language": "English",
       "instructor": "sara-koc",
@@ -393,24 +339,19 @@
         "battery-manufacturing-quality",
         "patent-analytics-for-rnd",
         "mining-automation-safety"
-      ],
-      "publishedAt": "2026-04-24"
+      ]
     },
     {
       "id": "digital-twin-operations",
       "title": "Digital Twin Operations from Pilot to Plant",
       "summary": "Most digital twins stop at the pilot. This is the work that carries one into daily operations.",
-      "date": "April 8, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "A control room screen beside a plant",
       "tag": "engineering",
-      "mode": "online",
       "about": [
         "Most digital twins stop at the pilot. This is the work that carries one into daily operations.",
         "A digital twin is only worth its upkeep if someone acts on what it says. This course starts from the decision the twin is meant to support and works backwards to the model, the instrumentation and the data rate each one actually requires."
       ],
-      "price": 4900,
-      "compareAtPrice": 5200,
       "certificate": true,
       "language": "English",
       "instructor": "leyla-farhadi",
@@ -424,24 +365,19 @@
         "battery-manufacturing-quality",
         "advanced-materials-testing",
         "process-safety-leadership"
-      ],
-      "publishedAt": "2026-04-08"
+      ]
     },
     {
       "id": "energy-transition-strategy",
       "title": "Energy Transition Strategy for Heavy Industry",
       "summary": "How an asset-heavy business plans a transition it cannot afford to get wrong twice.",
-      "date": "March 26, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "Industrial energy infrastructure",
       "tag": "sustainability",
-      "mode": "offline",
       "about": [
         "How an asset-heavy business plans a transition it cannot afford to get wrong twice.",
         "An asset-heavy business gets one or two attempts at a transition, and the second is far more expensive than the first. The course works through the sequencing question: what has to be decided now, what can wait for better information, and what is irreversible the moment it is signed."
       ],
-      "price": 6400,
-      "compareAtPrice": 7000,
       "certificate": true,
       "language": "English",
       "instructor": "omar-al-hashimi",
@@ -455,24 +391,19 @@
         "smart-grid-operations",
         "materials-for-harsh-environments",
         "lpg-patent-landscape"
-      ],
-      "publishedAt": "2026-03-26"
+      ]
     },
     {
       "id": "industrial-ai-foundations",
       "title": "Industrial AI Foundations for Plant Engineers",
       "summary": "The models behind predictive maintenance, explained for the people who already know the machines.",
-      "date": "March 11, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "An engineer reading plant instruments",
       "tag": "data-ai",
-      "mode": "online",
       "about": [
         "The models behind predictive maintenance, explained for the people who already know the machines.",
         "Written for engineers who already know the machines and want to know what the model is actually doing. It covers where predictive maintenance earns its keep, what a false alarm costs on a real line, and why a model that scores well in a notebook can still be useless in a plant."
       ],
-      "price": 3800,
-      "compareAtPrice": null,
       "certificate": true,
       "language": "English",
       "instructor": "leyla-farhadi",
@@ -486,24 +417,19 @@
         "smart-grid-operations",
         "process-safety-leadership",
         "battery-manufacturing-quality"
-      ],
-      "publishedAt": "2026-03-11"
+      ]
     },
     {
       "id": "lpg-patent-landscape",
       "title": "Liquefied Petroleum Gas Patent Landscape Report",
       "summary": "Where the patents cluster, who is filing them, and what that says about the next decade of gas processing.",
-      "date": "February 24, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "A gas processing plant",
       "tag": "energy-materials",
-      "mode": "online",
       "about": [
         "Where the patents cluster, who is filing them, and what that says about the next decade of gas processing.",
         "Patent data is public, enormous, and almost unreadable without a method. This course gives you one: how to scope a landscape, how to separate defensive filings from the ones a company intends to build on, and how to tell a cluster that signals a direction from a cluster that signals a dead end."
       ],
-      "price": 5000,
-      "compareAtPrice": 5410,
       "certificate": true,
       "language": "English",
       "instructor": "omar-al-hashimi",
@@ -517,24 +443,19 @@
         "materials-for-harsh-environments",
         "hydrogen-economy-fundamentals",
         "energy-transition-strategy"
-      ],
-      "publishedAt": "2026-02-24"
+      ]
     },
     {
       "id": "innovations-in-teamwork",
       "title": "Innovations in Teamwork for Health Care",
       "summary": "Health care is a team effort. From the front desk administrators to the nurses, every role carries part of the outcome.",
-      "date": "February 6, 2026",
       "effort": "4-6 hours per week",
       "imageAlt": "Health care teams at work",
       "tag": "health",
-      "mode": "on-site",
       "about": [
         "Health care is a team effort. From the front desk administrators to the nurses, every role carries part of the outcome.",
         "The course follows one admission from the front desk to discharge, and stops wherever the handover between two roles is what decides the outcome. What you take away is a way of reading your own unit: where information is lost, who is waiting on whom, and which of those gaps a change of process can actually close."
       ],
-      "price": 4200,
-      "compareAtPrice": 4600,
       "certificate": true,
       "language": "English",
       "instructor": "sara-koc",
@@ -548,12 +469,11 @@
         "process-safety-leadership",
         "supply-chain-resilience",
         "industrial-ai-foundations"
-      ],
-      "publishedAt": "2026-02-06"
+      ]
     }
   ],
   "detail": {
-    "about": "about",
+    "about": "About",
     "category": "Category",
     "details": "Details",
     "instructor": "Instructor",
