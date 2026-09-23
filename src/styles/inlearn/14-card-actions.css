@@ -277,3 +277,156 @@
     margin-right: 5px;
   }
 }
+/* ---------------------------------------------------------------- share dialog */
+
+.inlearn-share-layer {
+  position: fixed;
+  z-index: 1200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.inlearn-share-backdrop {
+  position: absolute;
+  border: 0;
+  background: rgb(5 5 5 / 58%);
+  inset: 0;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 700ms ease-out;
+}
+
+.inlearn-share-dialog {
+  position: relative;
+  width: min(100%, 560px);
+  max-height: calc(100dvh - 40px);
+  overflow: auto;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid #dededb;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgb(0 0 0 / 24%);
+  color: #090909;
+  opacity: 0;
+  transform: translateY(80px) scale(0.98);
+  transition: opacity 700ms ease-out, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inlearn-share-layer.is-visible .inlearn-share-backdrop {
+  opacity: 1;
+}
+
+.inlearn-share-layer.is-visible .inlearn-share-dialog {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.inlearn-share-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.inlearn-share-kicker,
+.inlearn-share-message {
+  margin: 0;
+  color: var(--inlearn-green);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.inlearn-share-head h2 {
+  margin: 6px 0 0;
+  color: #090909;
+  font-size: clamp(20px, 4vw, 28px);
+  line-height: 1.2;
+}
+
+.inlearn-share-close {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #dededb;
+  border-radius: 50%;
+  background: #fff;
+  color: #090909;
+  cursor: pointer;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.inlearn-share-grid {
+  display: grid;
+  margin-top: 26px;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.inlearn-share-grid a,
+.inlearn-share-grid button {
+  display: flex;
+  min-width: 0;
+  min-height: 54px;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid #e2e2df;
+  border-radius: 14px;
+  background: #f7f7f5;
+  color: #090909;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  gap: 10px;
+  text-align: left;
+  text-decoration: none;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.inlearn-share-grid a:hover,
+.inlearn-share-grid button:hover {
+  border-color: var(--inlearn-green);
+  background: #effaf4;
+  transform: translateY(-1px);
+}
+
+.inlearn-share-grid span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--inlearn-green);
+  color: #fff;
+}
+
+.inlearn-share-grid svg {
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
+}
+
+.inlearn-share-grid .is-telegram { background: #229ed9; }
+.inlearn-share-grid .is-whatsapp { background: #25d366; }
+.inlearn-share-grid .is-linkedin { background: #0a66c2; }
+.inlearn-share-grid .is-email { background: #5f6368; }
+.inlearn-share-grid .is-x { background: #050505; }
+.inlearn-share-grid .is-messenger { background: #0084ff; }
+.inlearn-share-grid .is-embed {
+  background: #ededeb;
+  color: #090909;
+}
+
+@media (max-width: 420px) {
+  .inlearn-share-layer { padding: 12px; }
+  .inlearn-share-dialog { padding: 20px 16px; border-radius: 18px; }
+  .inlearn-share-grid { grid-template-columns: minmax(0, 1fr); }
+}
