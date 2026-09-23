@@ -9,11 +9,10 @@ import {authorizedFetch} from "./auth/tokens.js";
  * one shown to somebody, and the one they are charged - and because the person
  * who sets prices works in the admin panel rather than in this repo.
  *
- * The JSON prices stay as a fallback rather than being deleted. If the API is
- * unreachable - it is not hosted yet, and the live site still points at
- * localhost - the pages go on showing the catalogue's own figures instead of
- * showing nothing. Nobody can buy in that state anyway, so a stale price can
- * only ever be read, never charged.
+ * Prices are not duplicated in the bundled JSON. Until Strapi answers, a
+ * course can still be read but it has no price and cannot be checked out. That
+ * is preferable to printing a stale figure that differs from the one the
+ * server will charge.
  */
 
 async function readProblem(response) {
@@ -41,8 +40,7 @@ export function getPrices() {
 }
 
 /* The snapshot a server render sees. It has never fetched anything, so it is
-   the empty one - and every reader falls back to the catalogue, which is what
-   a server render should print. */
+   the empty one. */
 export function getServerPrices() {
   return EMPTY;
 }
@@ -56,8 +54,7 @@ export function subscribeToPrices(listener) {
 }
 
 /* Once, ever. Several cards subscribing at the same moment must not become
-   several requests, and a failure is not retried in a loop - the catalogue is
-   already standing behind this. */
+   several requests, and a failure is not retried in a loop. */
 export function loadPrices() {
   if (loading || !API_URL) return loading;
 
@@ -67,7 +64,7 @@ export function loadPrices() {
       if (payload?.prices) publish(payload.prices);
     })
     .catch(() => {
-      /* Left as it was. The catalogue's own prices are still on the page. */
+      /* Left empty. A missing price cannot accidentally become a stale one. */
     });
 
   return loading;
@@ -75,10 +72,9 @@ export function loadPrices() {
 
 /* What to print for one course.
  *
- * The server's figure wins where there is one, and the catalogue's is used
- * where there is not - a course added to the site this morning has no row in
- * the price table yet, and showing its JSON price is better than showing a
- * blank where a price should be. */
+ * The live price table is authoritative. `course.price` remains a compatibility
+ * fallback for the Strapi catalogue response, whose public catalogue currently
+ * carries the same server-owned number; bundled JSON no longer supplies it. */
 export function priceOf(course, table = prices) {
   const live = table?.[course?.id];
   return {

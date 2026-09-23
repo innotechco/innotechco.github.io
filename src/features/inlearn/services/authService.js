@@ -33,6 +33,8 @@ export {
   fetchProfile,
   MAX_AVATAR_BYTES,
   requestEmailChange,
+  requestPhoneChange,
+  confirmPhoneChange,
   saveProfile,
   uploadAvatar,
 } from "./auth/profile.js";
