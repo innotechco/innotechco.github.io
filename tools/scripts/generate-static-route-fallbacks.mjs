@@ -119,7 +119,12 @@ function replaceOnce(html, pattern, replacement, label, route) {
 /* Rewrites the head of the prebuilt index.html for one route. The document is
    otherwise untouched, so the SPA still boots exactly as it does at "/". */
 function applyRouteMetadata(html, route, meta) {
-  const canonical = new URL(route ? `/${route}/` : "/", `${siteBaseUrl}/`).toString();
+  /* This page's own address, unless somebody has named a different one. A
+     canonical set in the admin panel is a deliberate instruction - "count this
+     as that page" - and working one out here regardless would quietly throw it
+     away. */
+  const canonical =
+    meta.canonical || new URL(route ? `/${route}/` : "/", `${siteBaseUrl}/`).toString();
   const title = escapeHtml(collapse(`${meta.title} | Innotech`));
   const description = collapse(meta.description);
 
@@ -227,9 +232,18 @@ async function getCourses() {
   if (!catalogue?.courses?.length) return [];
 
   return catalogue.courses.map((course) => ({
-    route: `inlearn/courses/${course.id}`,
+    /* The slug, which is the address, and not the courseId, which is the key
+       the data is filed under. They are the same string on a course nobody has
+       renamed; the moment somebody rewrites one for search engines they are
+       not, and the file written here has to carry the name the links use or
+       the new address 404s. */
+    route: `inlearn/courses/${course.slug || course.id}`,
     title: collapse(course.seo?.title || course.title),
     description: collapse(course.seo?.description || course.summary).slice(0, 200),
+    /* Only when somebody set one. A course that also lives at another address
+       says so here; every other course points at itself, which is what the
+       route below works out on its own. */
+    canonical: collapse(course.seo?.canonical || ""),
   }));
 }
 

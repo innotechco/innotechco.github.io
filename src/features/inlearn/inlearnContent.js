@@ -9,6 +9,7 @@
 
 import {getCatalogueSnapshot} from "./services/catalogueStore.js";
 import {localizedModule} from "../../shared/i18n/locale.js";
+import {routes} from "../../app/routes.js";
 import {
   courseImageFallback,
   courseImages,
@@ -115,9 +116,25 @@ export function getInlearnCourses(remote = getCatalogueSnapshot()) {
    Resolved here rather than in the page because every one of those joins is a
    lookup into the same catalogue, and a page that does its own lookups is a
    page that has to know how the catalogue is shaped. */
+/* The address a course is reached at.
+ *
+ * The slug, which is the one somebody may rewrite for search engines, and NOT
+ * the courseId, which is what orders and progress are filed under and must
+ * never move. Written here so the six places that link to a course cannot
+ * disagree about which of the two goes in the address.
+ *
+ * Falls back to the id for the bundled copy, which has no slug of its own. */
+export function inlearnCoursePath(course) {
+  return `${routes.inlearnCourses}/${course?.slug || course?.id || ""}`;
+}
+
 export function getInlearnCourse(slug, remote) {
   const catalogue = getInlearnCourses(remote);
-  const course = catalogue.courses.find((entry) => entry.id === slug);
+  /* Matched on either, so that an address somebody shared before the slug was
+     rewritten still finds the course rather than answering not-found. */
+  const course =
+    catalogue.courses.find((entry) => entry.slug === slug) ??
+    catalogue.courses.find((entry) => entry.id === slug);
 
   if (!course) return {catalogue, course: null};
 

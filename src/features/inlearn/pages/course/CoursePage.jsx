@@ -12,6 +12,7 @@ import {
   LanguageIcon,
   TagIcon,
 } from "../../components/icons.jsx";
+import {useLanguage} from "../../../../app/providers/language/useLanguage.js";
 import {useInlearnCatalogue} from "../../useInlearnCatalogue.js";
 import {getInlearnCourse} from "../../inlearnContent.js";
 import {routes} from "../../../../app/routes.js";
@@ -30,9 +31,11 @@ import {routes} from "../../../../app/routes.js";
    does not change. */
 function CoursePage() {
   const {slug} = useParams();
+  const {locale} = useLanguage();
   const snapshot = useInlearnCatalogue();
   const {catalogue, course} = useMemo(() => getInlearnCourse(slug, snapshot), [slug, snapshot]);
   const labels = catalogue.detail;
+  const startDate = formatStartDate(course?.startDate, locale);
 
   if (!course) {
     return (
@@ -117,7 +120,7 @@ function CoursePage() {
                 and that is what a screen reader is told they are. Two columns on
                 a wide screen is the stylesheet's business. */}
             <dl className="inlearn-course-specs">
-              <Spec icon={<CalendarIcon />} label={labels.startDate} value={course.date} />
+              <Spec icon={<CalendarIcon />} label={labels.startDate} value={startDate} />
               <Spec icon={<LanguageIcon />} label={labels.language} value={course.language} />
               <Spec icon={<ClockIcon />} label={labels.duration} value={course.effort} />
               <Spec
@@ -181,6 +184,21 @@ function CoursePage() {
       />
     </div>
   );
+}
+
+/* The start date, written in the language of the page.
+ *
+ * Strapi stores a date rather than a sentence, so one entry serves all three
+ * translations and nobody has to type "12 September 2026" three times. The
+ * catalogue used to ship the sentence already written, which is why this row
+ * quietly disappeared when the catalogue stopped carrying it: Spec draws
+ * nothing when it has nothing, so a missing field looked like a design
+ * decision rather than a fault. */
+function formatStartDate(value, locale) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString(locale, {year: "numeric", month: "long", day: "numeric"});
 }
 
 function Spec({icon, label, value}) {
