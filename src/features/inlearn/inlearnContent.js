@@ -123,12 +123,22 @@ export function getInlearnCourse(slug, remote) {
 
   const byId = new Map(catalogue.courses.map((entry) => [entry.id, entry]));
   const labelFor = (id) => catalogue.tags?.find((tag) => tag.id === id)?.label;
+  /* Strapi carries an ordered many-to-many list. The singular field is kept
+     only for the bundled legacy copy, so an old fallback course still shows
+     its one teacher while a live course can show every teacher assigned to it. */
+  const instructorIds = course.instructors?.length
+    ? course.instructors
+    : course.instructor
+      ? [course.instructor]
+      : [];
 
   return {
     catalogue,
     course: {
       ...course,
-      instructor: catalogue.instructors[course.instructor] ?? null,
+      instructors: instructorIds
+        .map((id) => catalogue.instructors[id])
+        .filter(Boolean),
       /* The green chip is the category the course is filed under; the grey ones
          are the rest. Both come from the same list the All Courses filters use,
          so a category renamed there is renamed here. */

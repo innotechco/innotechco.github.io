@@ -51,17 +51,7 @@ export function setSessionComplete(courseId, sessionId, isComplete) {
 /* The address a player is pointed at. Fetched at the moment of opening rather
    than kept with the session, so a ticket is never older than the click that
    asked for it. */
-export async function openMedia(courseId, sessionId, kind) {
-  const {ticket} = await post("/api/inlearn/media-ticket", {courseId, sessionId, kind});
+export async function openMedia(courseId, sessionId, kind, fileId) {
+  const {ticket} = await post("/api/inlearn/media-ticket", {courseId, sessionId, kind, fileId});
   return `${API_URL}/api/inlearn/media/${ticket}`;
-}
-
-/* Text comes back as JSON from the same route the player would use, because
-   the same ownership question has to be asked of it. */
-export async function readSessionText(courseId, sessionId) {
-  const url = await openMedia(courseId, sessionId, "text");
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(await readProblem(response));
-  const payload = await response.json();
-  return payload?.text ?? "";
 }

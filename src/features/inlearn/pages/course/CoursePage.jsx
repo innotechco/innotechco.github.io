@@ -68,7 +68,7 @@ function CoursePage() {
         <CourseBuyCard course={course} catalogue={catalogue} />
 
         <div className="inlearn-course-main">
-          <section className="inlearn-course-section" aria-labelledby="course-about">
+          <section className="inlearn-course-section is-about" aria-labelledby="course-about">
             <h2 id="course-about" className="inlearn-course-subheading">
               {labels.about}
             </h2>
@@ -139,24 +139,30 @@ function CoursePage() {
             </dl>
           </section>
 
-          {course.instructor ? (
+          {course.instructors.length ? (
             <section className="inlearn-course-section" aria-labelledby="course-instructor">
               <h2 id="course-instructor" className="inlearn-course-subheading">
                 {labels.instructor}
               </h2>
 
-              <div className="inlearn-course-instructor">
-                <img
-                  className="inlearn-course-instructor-photo"
-                  src={course.instructor.image}
-                  alt=""
-                  loading="lazy"
-                />
-                <div>
-                  <p className="inlearn-course-instructor-name">{course.instructor.name}</p>
-                  <p className="inlearn-course-instructor-role">{course.instructor.role}</p>
-                </div>
-              </div>
+              <ul className="inlearn-course-instructors">
+                {course.instructors.map((instructor) => (
+                  <li className="inlearn-course-instructor" key={instructor.id}>
+                    <img
+                      className="inlearn-course-instructor-photo"
+                      src={instructor.image}
+                      alt=""
+                      loading="lazy"
+                    />
+                    <div>
+                      <p className="inlearn-course-instructor-name">{instructor.name}</p>
+                      {instructor.role ? (
+                        <p className="inlearn-course-instructor-role">{instructor.role}</p>
+                      ) : null}
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </section>
           ) : null}
         </div>

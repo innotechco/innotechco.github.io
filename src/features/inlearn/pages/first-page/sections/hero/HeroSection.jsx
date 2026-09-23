@@ -1,7 +1,3 @@
-import {Link} from "react-router-dom";
-
-import {routes} from "../../../../../../app/routes.js";
-
 /* The block above the fold: the mark, the name, the promise, and the one button
    the page is built around.
 
@@ -26,9 +22,6 @@ function HeroSection({hero}) {
       <p className="inlearn-hero-subtitle">{hero.subtitle}</p>
       <p className="inlearn-hero-body">{hero.body}</p>
 
-      <Link className="inlearn-hero-cta" to={routes.inlearnCourses}>
-        {hero.cta}
-      </Link>
     </section>
   );
 }

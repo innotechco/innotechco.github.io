@@ -159,17 +159,15 @@ function SessionRow({courseId, mode, session, onOpen, onToggle, isBusy}) {
             </button>
           ) : null}
 
-          {session.media.text ? (
-            <button
-              type="button"
-              className="inlearn-course-media-button"
-              onClick={() => onOpen(session, "text")}
-              aria-label={`Read the notes for ${session.title}`}
-              title="Notes"
-            >
-              <DocumentIcon />
-            </button>
-          ) : null}
+          <button
+            type="button"
+            className="inlearn-course-media-button"
+            onClick={() => onOpen(session, "notes")}
+            aria-label={`Open the notes for ${session.title}`}
+            title="Notes"
+          >
+            <DocumentIcon />
+          </button>
 
           </span>
 
@@ -286,10 +284,11 @@ function CourseCardRow({course, catalogue, isOpen, onToggleOpen, onOpenMedia, on
           </div>
         ) : null}
 
-        <p className="inlearn-course-sessions-label">In-Person Sessions:</p>
-
-        <ul className="inlearn-course-sessions">
-          {course.sessions.map((session) => (
+        {course.sessions.length ? (
+          <>
+            <p className="inlearn-course-sessions-label">In-Person Sessions:</p>
+            <ul className="inlearn-course-sessions">
+              {course.sessions.map((session) => (
             <SessionRow
               key={session.id}
               courseId={course.courseId}
@@ -299,8 +298,12 @@ function CourseCardRow({course, catalogue, isOpen, onToggleOpen, onOpenMedia, on
               onToggle={onToggleDone}
               isBusy={busyId === `${course.courseId}:${session.id}`}
             />
-          ))}
-        </ul>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p className="inlearn-course-not-started">This course has not started yet.</p>
+        )}
           </div>
         </div>
       </div>

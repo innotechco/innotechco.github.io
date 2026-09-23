@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState, useSyncExternalStore} from "react";
+import {useCallback, useEffect, useRef, useState, useSyncExternalStore} from "react";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 
 import AllCoursesPage from "./pages/all-courses/AllCoursesPage.jsx";
@@ -24,6 +24,8 @@ import {subscribeToSavedCourses} from "./services/savedCourses.js";
 import {subscribeToCourseShare} from "./services/courseShare.js";
 import {getInlearnCourses} from "./inlearnContent.js";
 import {restoreSession, signOut} from "./services/authService.js";
+import {saveSession, storedIn} from "./services/auth/session.js";
+import {clearOwnedCourses, refreshOwnedCourses} from "./services/ownership.js";
 import {routes} from "../../app/routes.js";
 import {useLanguage} from "../../app/providers/language/useLanguage.js";
 import {useTheme} from "../../app/providers/theme/useTheme.js";
@@ -58,6 +60,10 @@ function InlearnAcademy() {
   const [authMode, setAuthMode] = useState("register");
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [session, setSession] = useState(null);
+  useEffect(() => {
+    if (session) refreshOwnedCourses();
+    else clearOwnedCourses();
+  }, [session]);
   /* Three states, not two: null means "nobody", and until restoreSession has
      answered we do not yet know which. The dashboard needs that distinction -
      see the route below. */
@@ -104,9 +110,9 @@ function InlearnAcademy() {
 
   useEffect(
     () =>
-      subscribeToCourseShare(({copied}) => {
+      subscribeToCourseShare(({copied, message}) => {
         setToast({
-          message: copied ? "Course link copied." : "Could not copy the course link.",
+          message: message || (copied ? "Course link copied." : "Could not copy the course link."),
         });
       }),
     [],
@@ -157,18 +163,19 @@ function InlearnAcademy() {
      the panel are showing the same person. Folding it back into the session
      here is what keeps the three of them saying the same thing without any of
      them asking the server again. */
-  const handleProfileChange = (profile) => {
-    setSession((current) =>
-      current
-        ? {
+  const handleProfileChange = useCallback((profile) => {
+    setSession((current) => {
+      if (!current) return current;
+      const next = {
             ...current,
             displayName: profile.fullName || current.displayName,
             avatar: profile.avatar ?? null,
             user: {...current.user, email: profile.email ?? current.user?.email},
-          }
-        : current,
-    );
-  };
+          };
+      saveSession(next, {remember: storedIn() === "local"});
+      return next;
+    });
+  }, []);
 
   const handleExit = () => {
     signOut();
@@ -256,6 +263,7 @@ function InlearnAcademy() {
             element={
               <ProfileSection
                 onProfileChange={handleProfileChange}
+                onSessionChange={setSession}
                 onToast={setToast}
               />
             }

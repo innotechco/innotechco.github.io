@@ -197,10 +197,29 @@
   font-weight: 800;
 }
 
+.inlearn-course-instructors {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inlearn-course-section.is-about .inlearn-course-subheading {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+}
+
 .inlearn-course-instructor {
   display: flex;
   align-items: center;
   gap: 16px;
+  min-width: 0;
+}
+
+.inlearn-course-instructor > div {
+  min-width: 0;
 }
 
 .inlearn-course-instructor-photo {
@@ -224,12 +243,26 @@
   color: var(--inlearn-black);
   font-size: clamp(15px, 1.3vw, 19px);
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .inlearn-course-instructor-role {
   margin: 4px 0 0;
   color: var(--inlearn-course-text, #6f6f75);
   font-size: clamp(12px, 1vw, 14px);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .inlearn-course-instructors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .inlearn-course-instructors {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -343,6 +376,13 @@
 .inlearn-buy-button.is-in {
   background: #dfe9e3;
   color: #33654f;
+  cursor: default;
+}
+
+.inlearn-buy-button.is-owned {
+  border: 1px solid var(--inlearn-green);
+  background: #f4fbf7;
+  color: #267b55;
   cursor: default;
 }
 

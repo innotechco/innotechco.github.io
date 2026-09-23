@@ -8,6 +8,6 @@ import {GlobeIcon, PersonPinIcon, ScreenIcon} from "./courseIcons.jsx";
    exports both stops hot reloading from working. */
 export const MODES = {
   online: {label: "Online", Icon: GlobeIcon, hasLocation: true},
-  onsite: {label: "On-site", Icon: PersonPinIcon, hasLocation: true},
+  onsite: {label: "In-Person", Icon: PersonPinIcon, hasLocation: true},
   offline: {label: "Offline", Icon: ScreenIcon, hasLocation: false},
 };

@@ -1,9 +1,17 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore} from "react";
 import {useNavigate} from "react-router-dom";
 
 import Price from "../../course/CoursePrice.jsx";
-import {addManyToBasket} from "../../../services/basket.js";
-import {deleteOrder, fetchOrders} from "../../../services/shop.js";
+import {
+  addManyToBasket,
+  getBasket,
+  getServerBasket,
+  removeManyFromBasket,
+  subscribeToBasket,
+} from "../../../services/basket.js";
+import {deleteOrder, fetchOrders, quoteBasket} from "../../../services/shop.js";
+import {useInlearnCatalogue} from "../../../useInlearnCatalogue.js";
+import {getInlearnBasket} from "../../../inlearnContent.js";
 import {routes} from "../../../../../app/routes.js";
 
 /* Bill: every order this account has placed, newest first.
@@ -52,6 +60,7 @@ function ParcelIcon() {
 
 function OrderCard({order, onPurchase, onRemove}) {
   const isPaid = order.status === "paid";
+  const isBasket = order.isBasket === true;
   /* Settled by a later order rather than by this one. It keeps its place in
      the list because it happened, and it offers nothing, because there is
      nothing left to pay. */
@@ -65,8 +74,12 @@ function OrderCard({order, onPurchase, onRemove}) {
         </span>
 
         <div className="inlearn-bill-heading">
-          <h2 className="inlearn-bill-number">Order #{order.orderNumber}</h2>
-          <p className="inlearn-bill-date">{formatDate(order.placedAt)}</p>
+          <h2 className="inlearn-bill-number">
+            {isBasket ? "Pending order" : `Order #${order.orderNumber}`}
+          </h2>
+          <p className="inlearn-bill-date">
+            {isBasket ? "In your shopping basket" : formatDate(order.placedAt)}
+          </p>
         </div>
 
         {/* The state is a word, not only a colour: a red outline and a green
@@ -167,7 +180,13 @@ function OrderCard({order, onPurchase, onRemove}) {
 
 function BillSection() {
   const navigate = useNavigate();
+  const basketLines = useSyncExternalStore(subscribeToBasket, getBasket, getServerBasket);
+  const catalogue = useInlearnCatalogue();
+  const {items: basketItems, currency: basketCurrency, subtotal: basketSubtotal} =
+    getInlearnBasket(basketLines, catalogue);
+  const basketIds = basketItems.map((course) => course.id).join(",");
   const [orders, setOrders] = useState([]);
+  const [basketQuote, setBasketQuote] = useState(null);
   const [status, setStatus] = useState("loading");
   const [problem, setProblem] = useState("");
   const isMounted = useRef(true);
@@ -195,6 +214,48 @@ function BillSection() {
 
   useEffect(load, [load]);
 
+  useEffect(() => {
+    if (!basketItems.length) return undefined;
+
+    let isCurrent = true;
+    quoteBasket(basketItems, "")
+      .then((answer) => {
+        if (isCurrent) setBasketQuote({ids: basketIds, answer});
+      })
+      .catch(() => {
+        if (isCurrent) setBasketQuote(null);
+      });
+    return () => {
+      isCurrent = false;
+    };
+    // basketIds is the stable identity of basketItems.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [basketIds]);
+
+  const basketOrder = useMemo(() => {
+    if (!basketItems.length) return null;
+    const quote = basketQuote?.ids === basketIds ? basketQuote.answer : null;
+    const items = quote?.items ?? basketItems.map((course) => ({
+      courseId: course.id,
+      title: course.title,
+      price: course.price ?? 0,
+    }));
+    return {
+      id: "basket-pending",
+      isBasket: true,
+      orderNumber: "Pending",
+      placedAt: new Date().toISOString(),
+      status: "pending",
+      currency: quote?.currency ?? basketCurrency,
+      items,
+      subtotal: quote?.subtotal ?? basketSubtotal,
+      discountPercent: 0,
+      discountCode: "",
+      discountAmount: 0,
+      total: quote?.total ?? basketSubtotal,
+    };
+  }, [basketCurrency, basketIds, basketItems, basketQuote, basketSubtotal]);
+
   const retry = () => {
     setStatus("loading");
     setProblem("");
@@ -221,8 +282,13 @@ function BillSection() {
    * worse than one that takes a moment to leave. */
   const removeOrder = async (order) => {
     setProblem("");
+    if (order.isBasket) {
+      removeManyFromBasket(order.items.map((item) => item.courseId));
+      return;
+    }
     try {
       await deleteOrder(order.id);
+      removeManyFromBasket(order.items.map((item) => item.courseId));
       setOrders((current) => current.filter((entry) => entry.id !== order.id));
     } catch (error) {
       setProblem(error.message);
@@ -254,7 +320,9 @@ function BillSection() {
     );
   }
 
-  if (!orders.length) {
+  const shownOrders = basketOrder ? [basketOrder, ...orders] : orders;
+
+  if (!shownOrders.length) {
     return (
       <section className="inlearn-bill inlearn-bill-empty" aria-labelledby="bill-empty-title">
         <h1 id="bill-empty-title">No orders yet</h1>
@@ -266,7 +334,7 @@ function BillSection() {
   return (
     <section className="inlearn-bill" aria-label="Bill">
       <ul className="inlearn-bill-list">
-        {orders.map((order) => (
+        {shownOrders.map((order) => (
           <OrderCard
             key={order.id}
             order={order}

@@ -126,7 +126,12 @@
    button, and a solid green block here would pull the eye before the order
    number does. */
 .inlearn-bill-state {
+  display: inline-grid;
+  width: 162px;
+  min-height: 32px;
   flex: 0 0 auto;
+  box-sizing: border-box;
+  place-items: center;
   padding: 5px 12px;
   border: 1px solid currentColor;
   border-radius: 999px;
@@ -177,6 +182,8 @@ button.inlearn-bill-state {
      the way in and out or they would be read leaving the pill. */
   overflow: hidden;
   font-family: inherit;
+  font-size: 11.5px;
+  line-height: 1.2;
   cursor: pointer;
   background: transparent;
   /* The same curve the course card's controls use - slow to leave, settling
