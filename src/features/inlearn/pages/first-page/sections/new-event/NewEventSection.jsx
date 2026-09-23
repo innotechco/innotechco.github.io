@@ -2,33 +2,64 @@ import {Link} from "react-router-dom";
 
 import ContentSkeleton, {SkeletonStatus} from "../../../../../../shared/components/ui/ContentSkeleton.jsx";
 import RemoteImage from "../../../../../../shared/components/ui/RemoteImage.jsx";
-import {buildLatestNewsFromPost, getArticlePath} from "../../../../../../shared/content/blogSections.js";
 import {t} from "../../../../../../shared/i18n/ui.js";
-import {useBlogPosts} from "../../../../../../shared/hooks/useBlogPosts.js";
 import useCarousel from "../../../../../../shared/hooks/useCarousel.js";
 import CarouselArrow from "../../../../components/CarouselArrow.jsx";
+import {routes} from "../../../../../../app/routes.js";
 
-const EVENT_COUNT = 3;
+/* The newest three courses, in INLEARN's frame, one at a time.
 
-/* The newest posts, in INLEARN's frame, one at a time.
+   It used to be the newest three ARTICLES - the same ones the home page leads
+   with. The frame is unchanged: the same card, the same carousel, the same
+   skeleton. What fills it is now the catalogue, because this is the academy's
+   own first page and what is new here is a course, not a piece of writing.
 
-   The articles are the same ones the home page leads with: this reads
-   useBlogPosts and buildLatestNewsFromPost directly rather than borrowing
-   HomeContentProvider, which would also fetch the home hero and the whole home
-   document for the sake of one card.
+   Which three is not decided in this file. The page hands them over already
+   chosen, so that the cut between this row and Top Essential below it is made
+   once - see getInlearnFirstPage. */
 
-   While WordPress is still answering, a skeleton stands in. Painting the
-   bundled words and swapping them a moment later is the one behaviour that
-   reliably looks broken. */
+/* A course, in the shape this card has always drawn.
+ *
+ * Mapped rather than renamed at the point of use: the card reads headline,
+ * meta and summary, and it should go on reading those whether they came from
+ * an article or a course. */
+function toEvent(course) {
+  return {
+    slug: course.id,
+    headline: course.title,
+    /* The two facts worth a line above the summary. The date is the course's
+       own advertised start - the same one printed on its card everywhere else
+       - and the accent beside it says how it is taught. */
+    date: course.startDate ? formatStartDate(course.startDate) : "",
+    readTime: course.modeLabel || "",
+    summary: course.summary,
+    image: course.image,
+    imageAlt: course.imageAlt || "",
+    /* A course has one picture rather than the set of sizes WordPress hands
+       out, so there is nothing for the browser to choose between. */
+    imageSrcSet: undefined,
+    readMoreTo: `${routes.inlearnCourses}/${course.id}`,
+  };
+}
+
+/* Written in the language of the page rather than stored as a sentence, so one
+   date serves three translations. */
+function formatStartDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString(undefined, {year: "numeric", month: "long", day: "numeric"});
+}
+
 function NewEventSection({newEvent}) {
-  /* Three cards, so three posts. Asking for fifty and slicing to three was
-     559KB and two seconds before this section could paint. */
-  const {posts, status} = useBlogPosts({limit: EVENT_COUNT});
-  const isLoading = status === "loading";
+  const courses = newEvent.items ?? [];
+  /* Nothing to wait for: the catalogue is either Strapi's or the copy bundled
+     with the site, and one of those is always there. The skeleton below stays
+     for the card that has no picture yet. */
+  const isLoading = false;
 
-  const events = posts.slice(0, EVENT_COUNT).map((post) => buildLatestNewsFromPost(newEvent, post));
-  /* One card either way: with nothing from WordPress the bundled copy is still
-     a card, so the section never collapses to an empty row. */
+  const events = courses.map(toEvent);
+  /* One card either way: with an empty catalogue the bundled copy is still a
+     card, so the section never collapses to an empty row. */
   const slides = events.length ? events : [newEvent];
 
   const {index, viewportRef, go, step, handlers} = useCarousel(slides.length);
@@ -112,7 +143,7 @@ function NewEventSection({newEvent}) {
 }
 
 function EventCard({event, readMore, isLoading, isVisible = false}) {
-  const articlePath = getArticlePath(event.slug);
+  const destination = event.readMoreTo;
 
   return (
     <article className="inlearn-event-card">
@@ -168,10 +199,10 @@ function EventCard({event, readMore, isLoading, isVisible = false}) {
 
             <p className="inlearn-event-summary">{event.summary}</p>
 
-            {/* Only a link when there is an article behind it: a "Read more"
+            {/* Only a link when there is a course behind it: a "Read more"
                 that goes nowhere is worse than none. */}
-            {articlePath ? (
-              <Link className="inlearn-event-more" to={articlePath}>
+            {destination ? (
+              <Link className="inlearn-event-more" to={destination}>
                 {readMore}
               </Link>
             ) : null}

@@ -18,7 +18,12 @@ import {
   learningSolutionsImage,
 } from "./inlearn.config.js";
 
-/* How many of the catalogue's courses the first page's row carries. */
+/* How the first page divides the catalogue between its two rows.
+ *
+ * New Event takes the newest three. Top Essential takes what follows - up to
+ * eight of them, which is what the carousel was built to hold; the rest are on
+ * All Courses, which is the page for the rest. */
+const NEW_EVENT_COUNT = 3;
 const TOP_COURSES_COUNT = 8;
 
 /* Newest first. Sorted here rather than trusted from the file: the file is
@@ -194,8 +199,25 @@ export function getInlearnFirstPage(remote) {
   );
   const catalogue = getInlearnCourses(remote);
 
+  /* One list, newest first, cut in two.
+   *
+   * New Event carries the three most recent courses and Top Essential carries
+   * everything behind them, so publishing a course moves the whole page along
+   * by one: the newest arrives in New Event, and the one that was third drops
+   * into the front of Top Essential.
+   *
+   * The cut is made here rather than in either section, because it is one
+   * decision about one list. Two sections each taking their own slice would be
+   * two places that have to agree about what newest means, and the day they
+   * disagree a course is either in both rows or in neither. */
+  const ordered = newestFirst(catalogue.courses);
+
   return {
     ...page,
+    newEvent: {
+      ...page.newEvent,
+      items: ordered.slice(0, NEW_EVENT_COUNT),
+    },
     topCourses: {
       ...page.topCourses,
       /* The corner controls say the same two words here as they do on All
@@ -204,10 +226,10 @@ export function getInlearnFirstPage(remote) {
          per locale instead of two. */
       save: catalogue.save,
       share: catalogue.share,
-      /* The newest eight in the catalogue - that is what the row on the first
-         page means. Which eight is a decision, so it lives here rather than in
-         the section that draws them. */
-      items: newestFirst(catalogue.courses).slice(0, TOP_COURSES_COUNT),
+      /* Everything the row above did not take, however many that is. Capped so
+         the carousel stays a carousel rather than becoming the whole catalogue
+         laid end to end; All Courses is where the whole catalogue lives. */
+      items: ordered.slice(NEW_EVENT_COUNT, NEW_EVENT_COUNT + TOP_COURSES_COUNT),
     },
     learningSolutions: page.learningSolutions
       ? {...page.learningSolutions, image: learningSolutionsImage}
