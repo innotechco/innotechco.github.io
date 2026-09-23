@@ -1,8 +1,8 @@
 import {useEffect, useRef, useState} from "react";
 import {createPortal} from "react-dom";
 
-import {CloseIcon} from "./courseIcons.jsx";
-import {openMedia, readSessionText} from "../../../services/learning.js";
+import {CloseIcon, DocumentIcon} from "./courseIcons.jsx";
+import {openMedia} from "../../../services/learning.js";
 
 /* Watching, listening or reading one session, over the page.
  *
@@ -42,19 +42,38 @@ function SkipIcon({back = false}) {
 
 function MediaDialog({courseId, session, kind, onClose}) {
   const [source, setSource] = useState("");
-  const [text, setText] = useState("");
   const [problem, setProblem] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(kind !== "notes");
   /* Nothing here is reset on the way in, because nothing needs to be: this
      dialog is mounted for one session and one kind and thrown away when it
      closes, so every visit starts from these values already. */
   const closeRef = useRef(null);
   const playerRef = useRef(null);
+  const layerRef = useRef(null);
+  const closeTimer = useRef(0);
+  const onCloseRef = useRef(onClose);
+  const isNotes = kind === "notes";
 
   useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
+  const requestClose = () => {
+    const layer = layerRef.current;
+    if (!layer || layer.classList.contains("is-closing")) return;
+    layer.classList.remove("is-visible");
+    layer.classList.add("is-closing");
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => onCloseRef.current(), 720);
+  };
+
+  useEffect(() => {
+    const showId = window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => layerRef.current?.classList.add("is-visible"));
+    });
     const focusId = window.setTimeout(() => closeRef.current?.focus(), 60);
     const onKeyDown = (event) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") requestClose();
     };
     document.addEventListener("keydown", onKeyDown);
 
@@ -64,23 +83,26 @@ function MediaDialog({courseId, session, kind, onClose}) {
     document.body.style.overflow = "hidden";
 
     return () => {
+      window.cancelAnimationFrame(showId);
+      window.clearTimeout(closeTimer.current);
       window.clearTimeout(focusId);
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = overflow;
     };
-  }, [onClose]);
+  }, []);
 
   useEffect(() => {
     let isCurrent = true;
 
-    const work =
-      kind === "text"
-        ? readSessionText(courseId, session.id).then((value) => {
-            if (isCurrent) setText(value);
-          })
-        : openMedia(courseId, session.id, kind).then((url) => {
-            if (isCurrent) setSource(url);
-          });
+    if (isNotes) {
+      return () => {
+        isCurrent = false;
+      };
+    }
+
+    const work = openMedia(courseId, session.id, kind).then((url) => {
+      if (isCurrent) setSource(url);
+    });
 
     work
       .catch((error) => {
@@ -93,7 +115,21 @@ function MediaDialog({courseId, session, kind, onClose}) {
     return () => {
       isCurrent = false;
     };
-  }, [courseId, session.id, kind]);
+  }, [courseId, session.id, kind, isNotes]);
+
+  const openNote = async (file) => {
+    setProblem("");
+    try {
+      const url = await openMedia(courseId, session.id, "note", file.id);
+      const link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.click();
+    } catch (error) {
+      setProblem(error.message);
+    }
+  };
 
   const skip = (seconds) => {
     const player = playerRef.current;
@@ -107,7 +143,7 @@ function MediaDialog({courseId, session, kind, onClose}) {
     player.currentTime = next;
   };
 
-  const title = {video: "Video", audio: "Audio", text: "Notes"}[kind] ?? "Session";
+  const title = {video: "Video", audio: "Audio", notes: "Notes"}[kind] ?? "Session";
 
   /* Rendered into the body rather than where it sits in the tree.
    *
@@ -117,12 +153,12 @@ function MediaDialog({courseId, session, kind, onClose}) {
    * own number went. A portal takes it out to where the numbers mean what they
    * say. */
   return createPortal(
-    <div className="inlearn-media-layer">
+    <div ref={layerRef} className="inlearn-media-layer">
       <button
         type="button"
         className="inlearn-media-backdrop"
         aria-label="Close"
-        onClick={onClose}
+        onClick={requestClose}
       />
 
       <div
@@ -140,7 +176,7 @@ function MediaDialog({courseId, session, kind, onClose}) {
             ref={closeRef}
             type="button"
             className="inlearn-media-close"
-            onClick={onClose}
+            onClick={requestClose}
             aria-label="Close"
           >
             <CloseIcon />
@@ -231,11 +267,21 @@ function MediaDialog({courseId, session, kind, onClose}) {
             </>
           ) : null}
 
-          {!isLoading && !problem && kind === "text" ? (
-            /* The notes are written in the admin panel's rich text, so they
-               arrive as markup. They are the shop's own words, entered by the
-               shop's own people, and they are shown as written. */
-            <div className="inlearn-media-text" dangerouslySetInnerHTML={{__html: text}} />
+          {!isLoading && kind === "notes" ? (
+            session.media.notes?.length ? (
+              <ul className="inlearn-media-files">
+                {session.media.notes.map((file) => (
+                  <li key={file.id}>
+                    <button type="button" onClick={() => openNote(file)}>
+                      <DocumentIcon />
+                      <span>{file.name}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="inlearn-media-note">No note files have been uploaded yet.</p>
+            )
           ) : null}
         </div>
       </div>

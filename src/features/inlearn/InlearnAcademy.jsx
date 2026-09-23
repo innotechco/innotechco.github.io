@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState, useSyncExternalStore} from "react";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 
 import AllCoursesPage from "./pages/all-courses/AllCoursesPage.jsx";
@@ -15,11 +15,19 @@ import FirstPage from "./pages/first-page/FirstPage.jsx";
 import InlearnNavbar from "./shell/InlearnNavbar.jsx";
 import InlearnToast from "./shell/InlearnToast.jsx";
 import {getBasketCount, subscribeToBasket} from "./services/basket.js";
+import {
+  ensureCatalogue,
+  getCatalogueSnapshot,
+  subscribeToCatalogue,
+} from "./services/catalogueStore.js";
 import {subscribeToSavedCourses} from "./services/savedCourses.js";
 import {subscribeToCourseShare} from "./services/courseShare.js";
 import {getInlearnCourses} from "./inlearnContent.js";
 import {restoreSession, signOut} from "./services/authService.js";
+import {saveSession, storedIn} from "./services/auth/session.js";
+import {clearOwnedCourses, refreshOwnedCourses} from "./services/ownership.js";
 import {routes} from "../../app/routes.js";
+import {useLanguage} from "../../app/providers/language/useLanguage.js";
 import {useTheme} from "../../app/providers/theme/useTheme.js";
 import "../../styles/inlearn.css";
 
@@ -35,9 +43,27 @@ const SESSION_EXPIRED_MESSAGE = "You have been signed out. Please sign in again 
 
 function InlearnAcademy() {
   const navigate = useNavigate();
+
+  /* The catalogue is fetched once here and read everywhere else through
+     getInlearnCourses(), which is an ordinary function. Subscribing to the
+     store is what connects the two: when Strapi answers, this shell re-renders
+     and every page below it reads the new catalogue out of the same call it
+     was already making.
+   *
+   * Until then - and for good, if the server cannot be reached - those calls
+   * hand back the copy bundled with the site, so the module opens with a
+   * catalogue rather than with a spinner. */
+  const {locale} = useLanguage();
+  useSyncExternalStore(subscribeToCatalogue, getCatalogueSnapshot, getCatalogueSnapshot);
+  useEffect(() => ensureCatalogue(locale), [locale]);
+
   const [authMode, setAuthMode] = useState("register");
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [session, setSession] = useState(null);
+  useEffect(() => {
+    if (session) refreshOwnedCourses();
+    else clearOwnedCourses();
+  }, [session]);
   /* Three states, not two: null means "nobody", and until restoreSession has
      answered we do not yet know which. The dashboard needs that distinction -
      see the route below. */
@@ -84,9 +110,9 @@ function InlearnAcademy() {
 
   useEffect(
     () =>
-      subscribeToCourseShare(({copied}) => {
+      subscribeToCourseShare(({copied, message}) => {
         setToast({
-          message: copied ? "Course link copied." : "Could not copy the course link.",
+          message: message || (copied ? "Course link copied." : "Could not copy the course link."),
         });
       }),
     [],
@@ -137,18 +163,19 @@ function InlearnAcademy() {
      the panel are showing the same person. Folding it back into the session
      here is what keeps the three of them saying the same thing without any of
      them asking the server again. */
-  const handleProfileChange = (profile) => {
-    setSession((current) =>
-      current
-        ? {
+  const handleProfileChange = useCallback((profile) => {
+    setSession((current) => {
+      if (!current) return current;
+      const next = {
             ...current,
             displayName: profile.fullName || current.displayName,
             avatar: profile.avatar ?? null,
             user: {...current.user, email: profile.email ?? current.user?.email},
-          }
-        : current,
-    );
-  };
+          };
+      saveSession(next, {remember: storedIn() === "local"});
+      return next;
+    });
+  }, []);
 
   const handleExit = () => {
     signOut();
@@ -236,6 +263,7 @@ function InlearnAcademy() {
             element={
               <ProfileSection
                 onProfileChange={handleProfileChange}
+                onSessionChange={setSession}
                 onToast={setToast}
               />
             }

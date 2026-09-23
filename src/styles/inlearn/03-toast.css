@@ -3,7 +3,7 @@
    confirmation at all. */
 .inlearn-toast {
   position: fixed;
-  z-index: 120;
+  z-index: 1400;
   /* Centred in the navbar's own band: the two pills sit at the far edges, so
      the middle is empty and the message lands in it rather than below
      everything. */

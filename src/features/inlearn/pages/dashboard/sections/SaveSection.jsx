@@ -2,6 +2,7 @@ import {useEffect, useMemo, useRef, useState, useSyncExternalStore} from "react"
 
 import CourseCard from "../../../components/CourseCard.jsx";
 import useMediaQuery from "../../../hooks/useMediaQuery.js";
+import {useInlearnCatalogue} from "../../../useInlearnCatalogue.js";
 import {getInlearnCourses} from "../../../inlearnContent.js";
 import {
   getSavedCourses,
@@ -24,7 +25,8 @@ const WIDE_QUERY = "(min-width: 901px)";
 const REVEAL_MS = 450;
 
 function SaveSection() {
-  const catalogue = useMemo(() => getInlearnCourses(), []);
+  const snapshot = useInlearnCatalogue();
+  const catalogue = useMemo(() => getInlearnCourses(snapshot), [snapshot]);
   const savedIds = useSyncExternalStore(
     subscribeToSavedCourses,
     getSavedCourses,

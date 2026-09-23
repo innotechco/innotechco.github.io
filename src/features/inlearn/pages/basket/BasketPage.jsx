@@ -12,9 +12,16 @@ import {
   restoreToBasket,
   subscribeToBasket,
 } from "../../services/basket.js";
+import {useInlearnCatalogue} from "../../useInlearnCatalogue.js";
 import {getInlearnBasket} from "../../inlearnContent.js";
 import {placeOrder, quoteBasket} from "../../services/shop.js";
 import {routes} from "../../../../app/routes.js";
+import {
+  getOwnedCourseIds,
+  getServerOwnedCourseIds,
+  refreshOwnedCourses,
+  subscribeToOwnedCourses,
+} from "../../services/ownership.js";
 
 /* The basket, and the whole of buying.
  *
@@ -40,8 +47,21 @@ const CODE_NOTES = {
 
 function BasketPage({session, onAuthOpen, onToast}) {
   const lines = useSyncExternalStore(subscribeToBasket, getBasket, getServerBasket);
-  const {copy, items, currency, subtotal, tax, grandTotal} = getInlearnBasket(lines);
+  /* Subscribed so this page redraws when the catalogue arrives. */
+  const {copy, items, currency, subtotal, tax, grandTotal} = getInlearnBasket(
+    lines,
+    useInlearnCatalogue(),
+  );
   const navigate = useNavigate();
+  const ownedIds = useSyncExternalStore(
+    subscribeToOwnedCourses,
+    getOwnedCourseIds,
+    getServerOwnedCourseIds,
+  );
+
+  useEffect(() => {
+    if (session && ownedIds.length) removeManyFromBasket(ownedIds);
+  }, [session, ownedIds]);
 
   /* The basket as one comparable value: the same courses in the same order are
      the same question to ask the server. */
@@ -124,6 +144,7 @@ function BasketPage({session, onAuthOpen, onToast}) {
       const answer = await placeOrder(items, appliedCode);
       /* Only what the order actually covered leaves the basket. */
       removeManyFromBasket(answer.purchased);
+      if (answer.order.status === "paid") await refreshOwnedCourses();
       onToast?.({
         message:
           answer.order.status === "paid"

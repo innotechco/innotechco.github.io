@@ -1,5 +1,7 @@
 import {useState} from "react";
+import {createPortal} from "react-dom";
 
+import ForgotPasswordDialog from "../../../auth/ForgotPasswordDialog.jsx";
 import PasswordField from "../../../auth/PasswordField.jsx";
 import {changePassword} from "../../../services/authService.js";
 import {
@@ -22,11 +24,13 @@ import {
 
 const EMPTY = {currentPassword: "", newPassword: "", confirmation: ""};
 
-function PasswordChange({isBusy, onToast}) {
+function PasswordChange({email, isBusy, onSessionChange, onToast}) {
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState(EMPTY);
   const [problem, setProblem] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [isForgotOpen, setIsForgotOpen] = useState(false);
 
   const change = (field) => (event) => {
     setForm((current) => ({...current, [field]: event.target.value}));
@@ -34,9 +38,13 @@ function PasswordChange({isBusy, onToast}) {
   };
 
   const close = () => {
-    setIsOpen(false);
-    setForm(EMPTY);
-    setProblem("");
+    setIsClosing(true);
+    window.setTimeout(() => {
+      setIsOpen(false);
+      setForm(EMPTY);
+      setProblem("");
+      setIsClosing(false);
+    }, 640);
   };
 
   const submit = async () => {
@@ -94,14 +102,15 @@ function PasswordChange({isBusy, onToast}) {
           disabled={isBusy}
           onClick={() => setIsOpen(true)}
         >
-          Change
+          Change password
         </button>
       </div>
     );
   }
 
   return (
-    <div className="inlearn-profile-step">
+    <div className={`inlearn-profile-step-reveal${isClosing ? " is-closing" : ""}`}>
+      <div className="inlearn-profile-step">
       <p className="inlearn-profile-step-title">Change your password</p>
 
       <PasswordField
@@ -125,6 +134,14 @@ function PasswordChange({isBusy, onToast}) {
 
       {problem ? <p className="inlearn-profile-note is-problem">{problem}</p> : null}
 
+      <button
+        type="button"
+        className="inlearn-profile-forgot"
+        onClick={() => setIsForgotOpen(true)}
+      >
+        Forgot your password?
+      </button>
+
       <div className="inlearn-profile-step-actions">
         <button type="button" className="inlearn-profile-ghost" onClick={close}>
           Cancel
@@ -139,6 +156,23 @@ function PasswordChange({isBusy, onToast}) {
         >
           {isSaving ? "Saving…" : "Save password"}
         </button>
+      </div>
+      {isForgotOpen
+        ? createPortal(
+            <ForgotPasswordDialog
+              initialEmail={email}
+              onClose={() => setIsForgotOpen(false)}
+              onSignedIn={(signedIn) => {
+                setIsForgotOpen(false);
+                setForm(EMPTY);
+                setIsOpen(false);
+                onSessionChange?.(signedIn);
+                onToast?.({message: "Your password is reset and you are signed in."});
+              }}
+            />,
+            document.body,
+          )
+        : null}
       </div>
     </div>
   );

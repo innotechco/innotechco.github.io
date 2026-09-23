@@ -1,4 +1,4 @@
-import {useSyncExternalStore} from "react";
+import {useState, useSyncExternalStore} from "react";
 import {Link, useHref} from "react-router-dom";
 
 import {usePointerGlow} from "../../../shared/hooks/usePointerGlow.js";
@@ -17,7 +17,12 @@ import {
   subscribeToSavedCourses,
   toggleSavedCourse,
 } from "../services/savedCourses.js";
-import {copyCourseLink} from "../services/courseShare.js";
+import CourseShareDialog from "./CourseShareDialog.jsx";
+import {
+  getOwnedCourseIds,
+  getServerOwnedCourseIds,
+  subscribeToOwnedCourses,
+} from "../services/ownership.js";
 import {
   clearCoursePreview,
   getOpenCoursePreview,
@@ -62,6 +67,7 @@ function CourseCard({
   onShare,
   isSaved: savedOverride,
 }) {
+  const [isSharing, setIsSharing] = useState(false);
   const Wrapper = to ? Link : "article";
   const linkProps = to ? {to} : {};
   const {position, handlers} = usePointerGlow();
@@ -80,6 +86,12 @@ function CourseCard({
     getServerSavedCourses,
   );
   const isSaved = savedOverride ?? savedIds.includes(course.id);
+  const ownedIds = useSyncExternalStore(
+    subscribeToOwnedCourses,
+    getOwnedCourseIds,
+    getServerOwnedCourseIds,
+  );
+  const isOwned = ownedIds.includes(course.id);
 
   return (
     <Wrapper
@@ -137,6 +149,8 @@ function CourseCard({
             fetchPriority={isVisible ? "high" : "auto"}
           />
 
+          {isOwned ? <span className="inlearn-course-owned-badge">Purchased</span> : null}
+
           {/* The two corner controls, on one green panel rather than two loose
               circles: that is how they are drawn, and it is also what lets them
               slide in as a single piece.
@@ -173,7 +187,7 @@ function CourseCard({
                 onClick={(event) => {
                   event.preventDefault();
                   event.stopPropagation();
-                  copyCourseLink(courseHref);
+                  setIsSharing(true);
                   onShare?.(course);
                 }}
               >
@@ -220,6 +234,9 @@ function CourseCard({
           ) : null}
         </ul>
       </div>
+      {isSharing ? (
+        <CourseShareDialog course={course} href={courseHref} onClose={() => setIsSharing(false)} />
+      ) : null}
     </Wrapper>
   );
 }

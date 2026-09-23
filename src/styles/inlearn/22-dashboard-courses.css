@@ -141,9 +141,8 @@
  * nothing inside can be trimmed by a box that is no longer measuring anything
  * - which is what was cutting the tails off "Open in maps".
  *
- * Closing is given longer than opening on purpose. Opening answers a press and
- * should feel prompt; closing is the page putting something away, and that is
- * the movement somebody watches.
+ * Opening and closing use the same duration so the detail panel never snaps
+ * open and then feels oddly slow only on the way back.
  */
 .inlearn-course-owned-detail {
   overflow: hidden;
@@ -158,9 +157,9 @@
   margin-top: clamp(14px, 1.8vw, 22px);
   opacity: 1;
   transition:
-    max-height 480ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 300ms ease 60ms,
-    margin-top 480ms cubic-bezier(0.22, 1, 0.36, 1);
+    max-height 620ms cubic-bezier(0.33, 0, 0.2, 1),
+    opacity 380ms ease 70ms,
+    margin-top 620ms cubic-bezier(0.33, 0, 0.2, 1);
 }
 
 /* max-height: none is what the component sets once the panel has finished
@@ -245,6 +244,59 @@
   padding: 0;
   gap: 10px;
   list-style: none;
+}
+
+.inlearn-course-not-started {
+  margin: clamp(14px, 1.8vw, 20px) 0 0;
+  padding: 14px 16px;
+  border: 1px solid #e3e4e6;
+  border-radius: 14px;
+  background: #fff;
+  color: #67676d;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.inlearn-media-files {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inlearn-media-files button {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-width: 0;
+  padding: 13px 15px;
+  border: 1px solid #dedfe2;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--inlearn-black);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+.inlearn-media-files button:hover,
+.inlearn-media-files button:focus-visible {
+  border-color: var(--inlearn-green);
+  background: #f5fbf8;
+  outline: none;
+}
+
+.inlearn-media-files svg {
+  flex: 0 0 auto;
+  color: var(--inlearn-green);
+}
+
+.inlearn-media-files span {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* A white row on the grey card, so the sessions read as things sitting inside
@@ -555,13 +607,7 @@
   display: grid;
   padding: clamp(14px, 3vw, 32px);
   place-items: center;
-  animation: inlearn-media-in 200ms ease both;
-}
-
-@keyframes inlearn-media-in {
-  from {
-    opacity: 0;
-  }
+  pointer-events: none;
 }
 
 /* The page behind goes soft as well as dark. Dimming alone leaves every line
@@ -575,6 +621,8 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   cursor: default;
+  opacity: 0;
+  transition: opacity 720ms cubic-bezier(0.33, 0, 0.2, 1);
 }
 
 .inlearn-media-dialog {
@@ -587,19 +635,34 @@
   background: #ffffff;
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-  animation: inlearn-media-rise 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 0;
+  transform: translateY(72px) scale(0.985);
+  transition:
+    opacity 560ms ease,
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inlearn-media-layer.is-visible {
+  pointer-events: auto;
+}
+
+.inlearn-media-layer.is-visible .inlearn-media-backdrop {
+  opacity: 1;
+}
+
+.inlearn-media-layer.is-visible .inlearn-media-dialog {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.inlearn-media-layer.is-closing {
+  pointer-events: none;
 }
 
 /* Audio and notes need nothing like a film's width. */
 .inlearn-media-dialog.is-audio,
-.inlearn-media-dialog.is-text {
+.inlearn-media-dialog.is-notes {
   width: min(560px, 100%);
-}
-
-@keyframes inlearn-media-rise {
-  from {
-    transform: translateY(12px);
-  }
 }
 
 .inlearn-media-head {
@@ -877,9 +940,9 @@
   }
 
   .inlearn-course-owned-detail,
-  .inlearn-media-layer,
+  .inlearn-media-backdrop,
   .inlearn-media-dialog {
-    animation: none;
+    transition: none;
   }
 
   .inlearn-course-media-button:hover {

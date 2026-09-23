@@ -5,6 +5,7 @@ import CourseCard from "../../components/CourseCard.jsx";
 import CourseTags from "./CourseTags.jsx";
 import useMediaQuery from "../../hooks/useMediaQuery.js";
 import {routes} from "../../../../app/routes.js";
+import {useInlearnCatalogue} from "../../useInlearnCatalogue.js";
 import {getInlearnCourses} from "../../inlearnContent.js";
 
 /* How many cards stand side by side, and how many the page shows before the
@@ -27,7 +28,8 @@ const PHONE_LAYOUT = {columns: 2, batch: 6};
 const REVEAL_MS = 450;
 
 function AllCoursesPage() {
-  const catalogue = useMemo(() => getInlearnCourses(), []);
+  const snapshot = useInlearnCatalogue();
+  const catalogue = useMemo(() => getInlearnCourses(snapshot), [snapshot]);
   const isDesktop = useMediaQuery(LAYOUTS[0].query);
   const isTablet = useMediaQuery(LAYOUTS[1].query);
   const layout = isDesktop ? LAYOUTS[0] : isTablet ? LAYOUTS[1] : PHONE_LAYOUT;

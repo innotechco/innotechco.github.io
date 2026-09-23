@@ -1,3 +1,4 @@
+import {useInlearnCatalogue} from "../../useInlearnCatalogue.js";
 import {getInlearnFirstPage} from "../../inlearnContent.js";
 import PageDecorations from "./PageDecorations.jsx";
 import HeroSection from "./sections/hero/HeroSection.jsx";
@@ -14,7 +15,8 @@ import TopCoursesSection from "./sections/top-courses/TopCoursesSection.jsx";
 
    Where each one sits is in inlearn.config.js, not here. */
 function FirstPage() {
-  const page = getInlearnFirstPage();
+  /* Subscribed so this page redraws when the catalogue arrives. */
+  const page = getInlearnFirstPage(useInlearnCatalogue());
 
   return (
     <div className="inlearn-first-page">

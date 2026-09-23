@@ -182,7 +182,8 @@
    left rather than a share of it, so the button keeps its size and the box
    beside it does the shrinking. */
 .inlearn-profile-email,
-.inlearn-profile-password {
+.inlearn-profile-password,
+.inlearn-profile-phone-change-row {
   position: relative;
   display: flex;
   align-items: center;
@@ -191,13 +192,15 @@
 }
 
 .inlearn-profile-email > .inlearn-profile-input,
-.inlearn-profile-password > * {
+.inlearn-profile-password > *,
+.inlearn-profile-phone-change-row > .inlearn-phone-field {
   flex: 1 1 auto;
   min-width: 0;
 }
 
 .inlearn-profile-email-change,
-.inlearn-profile-password-change {
+.inlearn-profile-password-change,
+.inlearn-profile-phone-change {
   flex: 0 0 auto;
   height: 46px;
   padding: 0 16px;
@@ -207,6 +210,7 @@
   color: var(--inlearn-black);
   font-size: 13px;
   font-weight: 600;
+  white-space: nowrap;
   cursor: pointer;
   transition:
     background-color 180ms ease,
@@ -214,18 +218,21 @@
 }
 
 .inlearn-profile-email-change:hover,
-.inlearn-profile-password-change:hover {
+.inlearn-profile-password-change:hover,
+.inlearn-profile-phone-change:hover {
   background: #f1f1f3;
 }
 
 .inlearn-profile-email-change:disabled,
-.inlearn-profile-password-change:disabled {
+.inlearn-profile-password-change:disabled,
+.inlearn-profile-phone-change:disabled {
   cursor: not-allowed;
   opacity: 0.45;
 }
 
 .inlearn-profile-email-change:focus-visible,
-.inlearn-profile-password-change:focus-visible {
+.inlearn-profile-password-change:focus-visible,
+.inlearn-profile-phone-change:focus-visible {
   outline: 2px solid var(--inlearn-green);
   outline-offset: 2px;
 }
@@ -287,6 +294,48 @@
   background: #ffffff;
 }
 
+.inlearn-profile-step-reveal {
+  --inlearn-profile-closed-height: 46px;
+  display: grid;
+  min-height: 0;
+  grid-template-rows: minmax(var(--inlearn-profile-closed-height), 0fr);
+  overflow: hidden;
+  opacity: 0;
+  animation: inlearn-profile-step-in 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.inlearn-profile-step-reveal > .inlearn-profile-step {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.inlearn-profile-step-reveal.is-closing {
+  pointer-events: none;
+  animation: inlearn-profile-step-out 620ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes inlearn-profile-step-in {
+  from {
+    opacity: 0;
+    grid-template-rows: minmax(var(--inlearn-profile-closed-height), 0fr);
+  }
+  to {
+    opacity: 1;
+    grid-template-rows: minmax(var(--inlearn-profile-closed-height), 1fr);
+  }
+}
+
+@keyframes inlearn-profile-step-out {
+  from {
+    opacity: 1;
+    grid-template-rows: minmax(var(--inlearn-profile-closed-height), 1fr);
+  }
+  to {
+    opacity: 0;
+    grid-template-rows: minmax(var(--inlearn-profile-closed-height), 0fr);
+  }
+}
+
 .inlearn-profile-step-title {
   margin: 0 0 2px;
   color: var(--inlearn-black);
@@ -320,6 +369,31 @@
   justify-content: flex-end;
   gap: 8px;
   margin-top: 2px;
+}
+
+.inlearn-profile-forgot {
+  width: fit-content;
+  margin: 2px 0 2px 4px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--inlearn-black);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.inlearn-profile-forgot:hover {
+  color: var(--inlearn-green);
+}
+
+.inlearn-profile-forgot:focus-visible {
+  border-radius: 3px;
+  outline: 2px solid var(--inlearn-green);
+  outline-offset: 4px;
 }
 
 .inlearn-profile-step-actions > button {
@@ -494,6 +568,10 @@
    carry a button stop being rows, because a button and a field side by side
    below about 380px leaves neither of them usable. */
 @media (max-width: 620px) {
+  .inlearn-profile-step-reveal {
+    --inlearn-profile-closed-height: 44px;
+  }
+
   .inlearn-profile-card {
     border-radius: 22px;
   }
@@ -509,7 +587,8 @@
   }
 
   .inlearn-profile-email-change,
-  .inlearn-profile-password-change {
+  .inlearn-profile-password-change,
+  .inlearn-profile-phone-change {
     height: 44px;
     padding: 0 13px;
     font-size: 12.5px;
@@ -525,12 +604,14 @@
    an address too long for the box scrolls inside it, and a password is dots. */
 @media (max-width: 440px) {
   .inlearn-profile-email,
-  .inlearn-profile-password {
+  .inlearn-profile-password,
+  .inlearn-profile-phone-change-row {
     gap: 6px;
   }
 
   .inlearn-profile-email-change,
-  .inlearn-profile-password-change {
+  .inlearn-profile-password-change,
+  .inlearn-profile-phone-change {
     height: 44px;
     padding: 0 11px;
     font-size: 12px;

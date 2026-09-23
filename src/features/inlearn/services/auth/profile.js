@@ -34,13 +34,13 @@ export async function fetchProfile() {
 /* Name, phone and region. Not the email: changing an address has to be proved
    against the new one first, so it is a journey rather than a field, and not
    the password, which has a route of Strapi's own. */
-export async function saveProfile({fullName, phone, region}) {
+export async function saveProfile({fullName, region}) {
   let response;
   try {
     response = await authorizedFetch("/api/inlearn/profile", {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({fullName, phone, region}),
+      body: JSON.stringify({fullName, region}),
     });
   } catch {
     throw new Error("Could not reach the server. Check your connection.");
@@ -92,6 +92,14 @@ export async function requestEmailChange(email) {
 
 export async function confirmEmailChange(code) {
   return post("/api/inlearn/change-email/confirm", {code});
+}
+
+export async function requestPhoneChange(phone) {
+  return post("/api/inlearn/change-phone", {phone});
+}
+
+export async function confirmPhoneChange(code) {
+  return post("/api/inlearn/change-phone/confirm", {code});
 }
 
 async function post(path, body) {

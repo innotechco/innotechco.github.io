@@ -3,7 +3,7 @@ import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import EmailChange from "./EmailChange.jsx";
 import InlearnSelect from "../../../auth/InlearnSelect.jsx";
 import PasswordChange from "./PasswordChange.jsx";
-import PhoneField from "../../../auth/PhoneField.jsx";
+import PhoneChange from "./PhoneChange.jsx";
 import {API_URL, fetchProfile, saveProfile, uploadAvatar} from "../../../services/authService.js";
 import {CameraIcon} from "../icons.jsx";
 import {checkRequired, firstProblem} from "../../../services/formValidation.js";
@@ -43,7 +43,7 @@ function initialOf(profile) {
   return first ? first.toUpperCase() : "?";
 }
 
-function ProfileSection({onProfileChange, onToast}) {
+function ProfileSection({onProfileChange, onSessionChange, onToast}) {
   /* A draft from an earlier visit to this page, if the visitor left mid-edit.
      Read here rather than after the answer so the fields never flash empty. */
   const [profile, setProfile] = useState(() => ({...EMPTY, ...(readDraft() ?? {})}));
@@ -81,13 +81,14 @@ function ProfileSection({onProfileChange, onToast}) {
            not for the one they are replacing. */
         setProfile({...EMPTY, ...answer, ...(readDraft() ?? {})});
         setStatus("ready");
+        onProfileChange?.(answer);
       })
       .catch((error) => {
         if (!isMounted.current) return;
         setProblem(error.message);
         setStatus("error");
       });
-  }, []);
+  }, [onProfileChange]);
 
   useEffect(load, [load]);
 
@@ -291,13 +292,20 @@ function ProfileSection({onProfileChange, onToast}) {
             onChange={(region) => edit("region", region)}
           />
 
-          <PhoneField
+          <PhoneChange
             dialCode={dialCode}
-            value={profile.phone}
-            onChange={(phone) => edit("phone", phone)}
+            phone={profile.phone}
+            isBusy={isBusy}
+            onChanged={adopt}
+            onToast={onToast}
           />
 
-          <PasswordChange isBusy={isBusy} onToast={onToast} />
+          <PasswordChange
+            email={profile.email}
+            isBusy={isBusy}
+            onSessionChange={onSessionChange}
+            onToast={onToast}
+          />
         </div>
 
         {/* One line, in one place, whichever way it went. role="status" so a

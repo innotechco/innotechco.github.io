@@ -1,4 +1,4 @@
-import {useSyncExternalStore} from "react";
+import {useState, useSyncExternalStore} from "react";
 
 import Price from "./CoursePrice.jsx";
 import {addToBasket, isInBasket, subscribeToBasket} from "../../services/basket.js";
@@ -9,7 +9,12 @@ import {
   subscribeToSavedCourses,
   toggleSavedCourse,
 } from "../../services/savedCourses.js";
-import {copyCourseLink} from "../../services/courseShare.js";
+import CourseShareDialog from "../../components/CourseShareDialog.jsx";
+import {
+  getOwnedCourseIds,
+  getServerOwnedCourseIds,
+  subscribeToOwnedCourses,
+} from "../../services/ownership.js";
 
 /* The picture, the price and the one button the page is built around.
 
@@ -18,6 +23,7 @@ import {copyCourseLink} from "../../services/courseShare.js";
    wherever the visitor has got to. On a phone it comes straight after the
    title, because the price is the first thing anybody asks. */
 function CourseBuyCard({course, catalogue}) {
+  const [isSharing, setIsSharing] = useState(false);
   const labels = catalogue.detail;
   /* The basket is a store outside React - it lives in this device's storage and
      changes from anywhere on the page, or from another tab. useSyncExternalStore
@@ -36,6 +42,12 @@ function CourseBuyCard({course, catalogue}) {
     getServerSavedCourses,
   );
   const isSaved = savedIds.includes(course.id);
+  const ownedIds = useSyncExternalStore(
+    subscribeToOwnedCourses,
+    getOwnedCourseIds,
+    getServerOwnedCourseIds,
+  );
+  const isOwned = ownedIds.includes(course.id);
 
   return (
     <aside className="inlearn-buy" aria-label={course.title}>
@@ -64,7 +76,7 @@ function CourseBuyCard({course, catalogue}) {
             className="inlearn-course-action"
             aria-label={catalogue.share}
             title={catalogue.share}
-            onClick={() => copyCourseLink(window.location.href)}
+            onClick={() => setIsSharing(true)}
           >
             <ShareIcon />
           </button>
@@ -87,12 +99,17 @@ function CourseBuyCard({course, catalogue}) {
           says which of the two states it is in rather than going quiet. */}
       <button
         type="button"
-        className={`inlearn-buy-button${inBasket ? " is-in" : ""}`}
-        onClick={() => addToBasket(course.id)}
-        disabled={inBasket}
+        className={`inlearn-buy-button${inBasket ? " is-in" : ""}${isOwned ? " is-owned" : ""}`}
+        onClick={() => {
+          if (!isOwned) addToBasket(course.id);
+        }}
+        disabled={inBasket || isOwned}
       >
-        {inBasket ? labels.inBasket : labels.addToCart}
+        {isOwned ? "Purchased" : inBasket ? labels.inBasket : labels.addToCart}
       </button>
+      {isSharing ? (
+        <CourseShareDialog course={course} href={window.location.href} onClose={() => setIsSharing(false)} />
+      ) : null}
     </aside>
   );
 }

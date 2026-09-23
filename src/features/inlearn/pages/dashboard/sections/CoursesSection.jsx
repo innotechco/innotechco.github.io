@@ -14,6 +14,7 @@ import {
 } from "./courseIcons.jsx";
 import {MODES} from "./courseModes.js";
 import {fetchMyCourses, setSessionComplete} from "../../../services/learning.js";
+import {useInlearnCatalogue} from "../../../useInlearnCatalogue.js";
 import {getInlearnCourses} from "../../../inlearnContent.js";
 
 /* Courses: what this account bought, and everything inside it.
@@ -158,17 +159,15 @@ function SessionRow({courseId, mode, session, onOpen, onToggle, isBusy}) {
             </button>
           ) : null}
 
-          {session.media.text ? (
-            <button
-              type="button"
-              className="inlearn-course-media-button"
-              onClick={() => onOpen(session, "text")}
-              aria-label={`Read the notes for ${session.title}`}
-              title="Notes"
-            >
-              <DocumentIcon />
-            </button>
-          ) : null}
+          <button
+            type="button"
+            className="inlearn-course-media-button"
+            onClick={() => onOpen(session, "notes")}
+            aria-label={`Open the notes for ${session.title}`}
+            title="Notes"
+          >
+            <DocumentIcon />
+          </button>
 
           </span>
 
@@ -285,10 +284,11 @@ function CourseCardRow({course, catalogue, isOpen, onToggleOpen, onOpenMedia, on
           </div>
         ) : null}
 
-        <p className="inlearn-course-sessions-label">In-Person Sessions:</p>
-
-        <ul className="inlearn-course-sessions">
-          {course.sessions.map((session) => (
+        {course.sessions.length ? (
+          <>
+            <p className="inlearn-course-sessions-label">In-Person Sessions:</p>
+            <ul className="inlearn-course-sessions">
+              {course.sessions.map((session) => (
             <SessionRow
               key={session.id}
               courseId={course.courseId}
@@ -298,8 +298,12 @@ function CourseCardRow({course, catalogue, isOpen, onToggleOpen, onOpenMedia, on
               onToggle={onToggleDone}
               isBusy={busyId === `${course.courseId}:${session.id}`}
             />
-          ))}
-        </ul>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p className="inlearn-course-not-started">This course has not started yet.</p>
+        )}
           </div>
         </div>
       </div>
@@ -318,10 +322,11 @@ function CourseCardRow({course, catalogue, isOpen, onToggleOpen, onOpenMedia, on
 }
 
 function CoursesSection() {
+  const snapshot = useInlearnCatalogue();
   const catalogue = useMemo(() => {
-    const {courses} = getInlearnCourses();
+    const {courses} = getInlearnCourses(snapshot);
     return new Map(courses.map((course) => [course.id, course]));
-  }, []);
+  }, [snapshot]);
 
   const [data, setData] = useState({owned: [], courses: []});
   const [status, setStatus] = useState("loading");

@@ -21,18 +21,20 @@ function fallbackCopy(text) {
   return copied;
 }
 
-export async function copyCourseLink(href) {
-  const url = new URL(href, window.location.origin).href;
-
+export async function copyCourseText(text, successMessage = "Course link copied.") {
   try {
-    if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(url);
-    else if (!fallbackCopy(url)) throw new Error("Clipboard is unavailable");
-    notify({copied: true});
+    if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text);
+    else if (!fallbackCopy(text)) throw new Error("Clipboard is unavailable");
+    notify({copied: true, message: successMessage});
     return true;
   } catch {
-    notify({copied: false});
+    notify({copied: false, message: "Could not copy."});
     return false;
   }
+}
+
+export function copyCourseLink(href) {
+  return copyCourseText(new URL(href, window.location.origin).href);
 }
 
 export function subscribeToCourseShare(listener) {

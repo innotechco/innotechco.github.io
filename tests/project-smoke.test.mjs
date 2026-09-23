@@ -828,6 +828,51 @@ test("GitHub Pages deployment supports organization and project site URLs", () =
   assert.doesNotMatch(workflow, /gh api/);
 });
 
+test("INLEARN prerender metadata comes from Strapi with a bundled fallback", () => {
+  const script = fs.readFileSync(
+    path.join(root, "tools", "scripts", "generate-static-route-fallbacks.mjs"),
+    "utf8",
+  );
+
+  assert.match(script, /VITE_INLEARN_API_URL/);
+  assert.match(script, /\/api\/inlearn\/catalogue/);
+  assert.match(script, /course\.seo\?\.title\s*\|\|\s*course\.title/);
+  assert.match(script, /course\.seo\?\.description\s*\|\|\s*course\.summary/);
+});
+
+test("bundled INLEARN courses do not duplicate server-owned commercial fields", () => {
+  for (const locale of ["en", "ar", "tr"]) {
+    const catalogue = JSON.parse(
+      fs.readFileSync(
+        path.join(srcRoot, "content", locale, "pages", "inlearn", "all-courses.json"),
+        "utf8",
+      ),
+    );
+
+    for (const course of catalogue.courses ?? []) {
+      for (const field of ["price", "compareAtPrice", "mode", "date", "publishedAt"]) {
+        assert.ok(!(field in course), `${locale}/${course.id} still carries ${field}`);
+      }
+    }
+  }
+});
+
+test("a course page renders every instructor assigned by Strapi", () => {
+  const content = fs.readFileSync(
+    path.join(srcRoot, "features", "inlearn", "inlearnContent.js"),
+    "utf8",
+  );
+  const page = fs.readFileSync(
+    path.join(srcRoot, "features", "inlearn", "pages", "course", "CoursePage.jsx"),
+    "utf8",
+  );
+
+  assert.match(content, /course\.instructors\?\.length/);
+  assert.match(content, /instructors:\s*instructorIds\s*\.map/);
+  assert.match(page, /course\.instructors\.map/);
+  assert.doesNotMatch(page, /course\.instructor\.(?:image|name|role)/);
+});
+
 test("every route App renders is prerendered by the Pages fallback script", () => {
   const app = fs.readFileSync(path.join(srcRoot, "app", "App.jsx"), "utf8");
   const script = fs.readFileSync(
@@ -1095,7 +1140,9 @@ test("an unsaved profile edit is measured against the server's copy", () => {
   const stored = {fullName: "Ada", phone: "9120000000", region: "Iran", email: "a@b.c"};
 
   assert.equal(hasEdits(stored, stored), false, "an untouched form has no edits");
-  assert.equal(hasEdits({...stored, phone: "9121111111"}, stored), true);
+  /* Phone has its own verified SMS flow and is never part of the unsaved
+     general-details draft. */
+  assert.equal(hasEdits({...stored, phone: "9121111111"}, stored), false);
 
   /* Typed, and taken back again. A flag set on the first keystroke would still
      be warning about a change that no longer exists. */
@@ -1110,7 +1157,7 @@ test("an unsaved profile edit is measured against the server's copy", () => {
   /* The picture and the address save themselves the moment they succeed, so
      neither can ever be an unsaved change and neither belongs in the sum. */
   assert.equal(hasEdits({...stored, email: "other@b.c", avatar: "/x.png"}, stored), false);
-  assert.deepEqual(Object.keys(editablePart(stored)).sort(), ["fullName", "phone", "region"]);
+  assert.deepEqual(Object.keys(editablePart(stored)).sort(), ["fullName", "region"]);
 });
 
 test("a half-typed profile waits in memory and never in storage", () => {
