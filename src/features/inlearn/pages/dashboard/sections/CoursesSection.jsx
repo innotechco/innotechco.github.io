@@ -14,6 +14,7 @@ import {
 } from "./courseIcons.jsx";
 import {MODES} from "./courseModes.js";
 import {fetchMyCourses, setSessionComplete} from "../../../services/learning.js";
+import {useInlearnCatalogue} from "../../../useInlearnCatalogue.js";
 import {getInlearnCourses} from "../../../inlearnContent.js";
 
 /* Courses: what this account bought, and everything inside it.
@@ -318,10 +319,11 @@ function CourseCardRow({course, catalogue, isOpen, onToggleOpen, onOpenMedia, on
 }
 
 function CoursesSection() {
+  const snapshot = useInlearnCatalogue();
   const catalogue = useMemo(() => {
-    const {courses} = getInlearnCourses();
+    const {courses} = getInlearnCourses(snapshot);
     return new Map(courses.map((course) => [course.id, course]));
-  }, []);
+  }, [snapshot]);
 
   const [data, setData] = useState({owned: [], courses: []});
   const [status, setStatus] = useState("loading");

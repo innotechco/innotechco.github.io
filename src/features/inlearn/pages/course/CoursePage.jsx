@@ -12,6 +12,7 @@ import {
   LanguageIcon,
   TagIcon,
 } from "../../components/icons.jsx";
+import {useInlearnCatalogue} from "../../useInlearnCatalogue.js";
 import {getInlearnCourse} from "../../inlearnContent.js";
 import {routes} from "../../../../app/routes.js";
 
@@ -29,7 +30,8 @@ import {routes} from "../../../../app/routes.js";
    does not change. */
 function CoursePage() {
   const {slug} = useParams();
-  const {catalogue, course} = useMemo(() => getInlearnCourse(slug), [slug]);
+  const snapshot = useInlearnCatalogue();
+  const {catalogue, course} = useMemo(() => getInlearnCourse(slug, snapshot), [slug, snapshot]);
   const labels = catalogue.detail;
 
   if (!course) {

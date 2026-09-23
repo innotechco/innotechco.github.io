@@ -7,6 +7,7 @@
    localizedModule falls back to English when a translation is missing, so a
    half-translated locale shows English sentences rather than blank space. */
 
+import {getCatalogueSnapshot} from "./services/catalogueStore.js";
 import {localizedModule} from "../../shared/i18n/locale.js";
 import {
   courseImageFallback,
@@ -48,17 +49,40 @@ function inlearnModules() {
 
    This is also the shape WordPress will fill later: one list of courses, each
    carrying the id of its tag. */
-export function getInlearnCourses() {
-  const catalogue = localizedModule(
+/* `remote` is the catalogue Strapi sent, and it is a parameter rather than
+   something this function reaches for on its own.
+ *
+ * A page works its list out inside a useMemo, and a memo can only be told to
+ * recompute by naming what it depends on. Hidden module state cannot be named,
+ * so it would have gone on drawing the bundled copy after Strapi had answered.
+ * Passed in, it is an ordinary dependency and the page redraws.
+ *
+ * It still defaults to the store, for the callers that are not React - the
+ * build script among them. */
+export function getInlearnCourses(remote = getCatalogueSnapshot()) {
+  const bundled = localizedModule(
     inlearnModules(),
     "../../content/en/pages/inlearn/all-courses.json",
   );
+
+  /* Strapi owns the courses, the filter buttons and the teachers. Everything
+     else in this file - the headings, the words for the modes, the labels in
+     the detail box - is page copy and stays with the page.
+
+     Null until the request has answered, and null again if it never does, in
+     which case what follows runs on the copy the site shipped with. */
+  const catalogue = remote
+    ? {...bundled, courses: remote.courses, tags: remote.tags, instructors: remote.instructors}
+    : bundled;
 
   return {
     ...catalogue,
     courses: (catalogue.courses ?? []).map((course) => ({
       ...course,
-      image: courseImages[course.id] ?? courseImageFallback,
+      /* A picture uploaded in the admin panel wins; a course that has none yet
+         falls back to the placeholder the site ships with, so a card is never
+         an empty frame while somebody is still gathering the artwork. */
+      image: course.image || courseImages[course.id] || courseImageFallback,
       /* The delivery mode is stored as an id and turned into words here, so a
          course carries no language of its own in that field and a translator
          edits one line per locale rather than sixteen. */
@@ -70,7 +94,11 @@ export function getInlearnCourses() {
     instructors: Object.fromEntries(
       Object.entries(catalogue.instructors ?? {}).map(([id, instructor]) => [
         id,
-        {...instructor, id, image: instructorImages[id] ?? instructorImageFallback},
+        {
+          ...instructor,
+          id,
+          image: instructor.image || instructorImages[id] || instructorImageFallback,
+        },
       ]),
     ),
   };
@@ -82,8 +110,8 @@ export function getInlearnCourses() {
    Resolved here rather than in the page because every one of those joins is a
    lookup into the same catalogue, and a page that does its own lookups is a
    page that has to know how the catalogue is shaped. */
-export function getInlearnCourse(slug) {
-  const catalogue = getInlearnCourses();
+export function getInlearnCourse(slug, remote) {
+  const catalogue = getInlearnCourses(remote);
   const course = catalogue.courses.find((entry) => entry.id === slug);
 
   if (!course) return {catalogue, course: null};
@@ -126,12 +154,12 @@ export function getInlearnCourse(slug) {
    The total is added up here too - and it is a DISPLAY total only. When Strapi
    arrives it is handed the ids and works out what they really cost; nothing
    this function returns is ever what somebody is charged. */
-export function getInlearnBasket(lines) {
+export function getInlearnBasket(lines, remote) {
   const copy = localizedModule(
     inlearnModules(),
     "../../content/en/pages/inlearn/basket.json",
   );
-  const catalogue = getInlearnCourses();
+  const catalogue = getInlearnCourses(remote);
   const byId = new Map(catalogue.courses.map((course) => [course.id, course]));
 
   const items = (lines ?? [])
@@ -159,12 +187,12 @@ export function getInlearnBasket(lines) {
   };
 }
 
-export function getInlearnFirstPage() {
+export function getInlearnFirstPage(remote) {
   const page = localizedModule(
     inlearnModules(),
     "../../content/en/pages/inlearn/first-page.json",
   );
-  const catalogue = getInlearnCourses();
+  const catalogue = getInlearnCourses(remote);
 
   return {
     ...page,

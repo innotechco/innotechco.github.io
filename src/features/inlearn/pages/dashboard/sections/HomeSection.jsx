@@ -5,6 +5,7 @@ import {ActiveCoursesIcon, CompletedIcon, ProgressIcon} from "./homeIcons.jsx";
 import {CalendarIcon, ChevronIcon, ClockIcon} from "./courseIcons.jsx";
 import {MODES} from "./courseModes.js";
 import {fetchMyCourses} from "../../../services/learning.js";
+import {useInlearnCatalogue} from "../../../useInlearnCatalogue.js";
 import {getInlearnCourses} from "../../../inlearnContent.js";
 import {routes} from "../../../../../app/routes.js";
 
@@ -283,10 +284,11 @@ function UpcomingRow({row, details, onOpen}) {
 function HomeSection() {
   const navigate = useNavigate();
 
+  const snapshot = useInlearnCatalogue();
   const catalogue = useMemo(() => {
-    const {courses} = getInlearnCourses();
+    const {courses} = getInlearnCourses(snapshot);
     return new Map(courses.map((course) => [course.id, course]));
-  }, []);
+  }, [snapshot]);
 
   const [data, setData] = useState({owned: [], courses: []});
   const [status, setStatus] = useState("loading");

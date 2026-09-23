@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState, useSyncExternalStore} from "react";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 
 import AllCoursesPage from "./pages/all-courses/AllCoursesPage.jsx";
@@ -15,11 +15,17 @@ import FirstPage from "./pages/first-page/FirstPage.jsx";
 import InlearnNavbar from "./shell/InlearnNavbar.jsx";
 import InlearnToast from "./shell/InlearnToast.jsx";
 import {getBasketCount, subscribeToBasket} from "./services/basket.js";
+import {
+  ensureCatalogue,
+  getCatalogueSnapshot,
+  subscribeToCatalogue,
+} from "./services/catalogueStore.js";
 import {subscribeToSavedCourses} from "./services/savedCourses.js";
 import {subscribeToCourseShare} from "./services/courseShare.js";
 import {getInlearnCourses} from "./inlearnContent.js";
 import {restoreSession, signOut} from "./services/authService.js";
 import {routes} from "../../app/routes.js";
+import {useLanguage} from "../../app/providers/language/useLanguage.js";
 import {useTheme} from "../../app/providers/theme/useTheme.js";
 import "../../styles/inlearn.css";
 
@@ -35,6 +41,20 @@ const SESSION_EXPIRED_MESSAGE = "You have been signed out. Please sign in again 
 
 function InlearnAcademy() {
   const navigate = useNavigate();
+
+  /* The catalogue is fetched once here and read everywhere else through
+     getInlearnCourses(), which is an ordinary function. Subscribing to the
+     store is what connects the two: when Strapi answers, this shell re-renders
+     and every page below it reads the new catalogue out of the same call it
+     was already making.
+   *
+   * Until then - and for good, if the server cannot be reached - those calls
+   * hand back the copy bundled with the site, so the module opens with a
+   * catalogue rather than with a spinner. */
+  const {locale} = useLanguage();
+  useSyncExternalStore(subscribeToCatalogue, getCatalogueSnapshot, getCatalogueSnapshot);
+  useEffect(() => ensureCatalogue(locale), [locale]);
+
   const [authMode, setAuthMode] = useState("register");
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [session, setSession] = useState(null);

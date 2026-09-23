@@ -12,6 +12,7 @@ import {
   restoreToBasket,
   subscribeToBasket,
 } from "../../services/basket.js";
+import {useInlearnCatalogue} from "../../useInlearnCatalogue.js";
 import {getInlearnBasket} from "../../inlearnContent.js";
 import {placeOrder, quoteBasket} from "../../services/shop.js";
 import {routes} from "../../../../app/routes.js";
@@ -40,7 +41,11 @@ const CODE_NOTES = {
 
 function BasketPage({session, onAuthOpen, onToast}) {
   const lines = useSyncExternalStore(subscribeToBasket, getBasket, getServerBasket);
-  const {copy, items, currency, subtotal, tax, grandTotal} = getInlearnBasket(lines);
+  /* Subscribed so this page redraws when the catalogue arrives. */
+  const {copy, items, currency, subtotal, tax, grandTotal} = getInlearnBasket(
+    lines,
+    useInlearnCatalogue(),
+  );
   const navigate = useNavigate();
 
   /* The basket as one comparable value: the same courses in the same order are
