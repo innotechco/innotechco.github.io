@@ -6,7 +6,7 @@ import {t} from "../../../../../../shared/i18n/ui.js";
 import useCarousel from "../../../../../../shared/hooks/useCarousel.js";
 import CarouselArrow from "../../../../components/CarouselArrow.jsx";
 import {GlobeIcon, OnSiteIcon} from "../../../../components/icons.jsx";
-import {routes} from "../../../../../../app/routes.js";
+import {inlearnCoursePath} from "../../../../inlearnContent.js";
 
 /* The newest three courses, in INLEARN's frame, one at a time.
 
@@ -43,7 +43,7 @@ function toEvent(course) {
     /* A course has one picture rather than the set of sizes WordPress hands
        out, so there is nothing for the browser to choose between. */
     imageSrcSet: undefined,
-    readMoreTo: `${routes.inlearnCourses}/${course.id}`,
+    readMoreTo: inlearnCoursePath(course),
   };
 }
 

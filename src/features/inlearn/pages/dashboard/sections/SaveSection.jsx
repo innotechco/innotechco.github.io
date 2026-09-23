@@ -9,7 +9,7 @@ import {
   getServerSavedCourses,
   subscribeToSavedCourses,
 } from "../../../services/savedCourses.js";
-import {routes} from "../../../../../app/routes.js";
+import {inlearnCoursePath} from "../../../inlearnContent.js";
 
 /* Three cards across, or two, is a question about how much room there is -
    not about what the visitor is pointing with.
@@ -85,7 +85,7 @@ function SaveSection() {
               layout="grid"
               readMore={catalogue.readMore}
               labels={{save: catalogue.save, share: catalogue.share}}
-              to={`${routes.inlearnCourses}/${course.id}`}
+              to={inlearnCoursePath(course)}
               isVisible={index < columns}
               showActions
             />

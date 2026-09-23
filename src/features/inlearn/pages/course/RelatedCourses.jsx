@@ -4,7 +4,7 @@ import CarouselArrow from "../../components/CarouselArrow.jsx";
 import CourseCard from "../../components/CourseCard.jsx";
 import useCarousel from "../../../../shared/hooks/useCarousel.js";
 import useMediaQuery from "../../hooks/useMediaQuery.js";
-import {routes} from "../../../../app/routes.js";
+import {inlearnCoursePath} from "../../inlearnContent.js";
 
 /* The row under a course: more courses, and it never runs out.
 
@@ -167,7 +167,7 @@ function RelatedCourses({courses, labels}) {
                     layout="grid"
                     readMore={labels.readMore}
                     labels={{save: labels.save, share: labels.share}}
-                    to={`${routes.inlearnCourses}/${course.id}`}
+                    to={inlearnCoursePath(course)}
                     isVisible={isVisible}
                   />
                 </div>

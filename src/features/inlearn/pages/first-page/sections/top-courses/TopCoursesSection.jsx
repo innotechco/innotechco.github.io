@@ -5,6 +5,7 @@ import CourseCard from "../../../../components/CourseCard.jsx";
 import {routes} from "../../../../../../app/routes.js";
 import useCarousel from "../../../../../../shared/hooks/useCarousel.js";
 import useMediaQuery from "../../../../hooks/useMediaQuery.js";
+import {inlearnCoursePath} from "../../../../inlearnContent.js";
 
 /* How many cards stand side by side, and where each count begins. The widest
    entry that matches wins, so the list is read from the bottom up.
@@ -85,7 +86,7 @@ function TopCoursesSection({topCourses}) {
                   /* Same destination as everywhere else: the course's own
                      page. The row is the newest eight, and this is how a
                      visitor gets from one of them to the whole thing. */
-                  to={`${routes.inlearnCourses}/${course.id}`}
+                  to={inlearnCoursePath(course)}
                   readMore={topCourses.readMore}
                   isVisible={cardIndex >= index && cardIndex < index + perView}
                 />
