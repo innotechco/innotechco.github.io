@@ -9,7 +9,7 @@
 /* The three rows Apply Changes sends. Not the email, the password or the
    picture: each of those saves itself the moment it succeeds, so none of them
    can ever be an unsaved change. */
-export const EDITABLE_FIELDS = ["fullName", "phone", "region"];
+export const EDITABLE_FIELDS = ["fullName", "region"];
 
 /* Only the editable rows, and every one of them - a field the answer never
    mentioned becomes "" rather than going missing, so two profiles can always

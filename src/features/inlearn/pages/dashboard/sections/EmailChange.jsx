@@ -20,6 +20,7 @@ function EmailChange({email, pendingEmail, isBusy, onChanged, onToast}) {
   const [code, setCode] = useState("");
   const [problem, setProblem] = useState("");
   const [isWorking, setIsWorking] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   /* How long the code that was just sent is good for, as the server reported
      it. Unknown when the step was resumed rather than started here - nothing
      told this browser when that code was issued - and a duration is only shown
@@ -47,11 +48,15 @@ function EmailChange({email, pendingEmail, isBusy, onChanged, onToast}) {
 
   const close = () => {
     wasDismissed.current = true;
-    setStep("closed");
-    setDraft("");
-    setCode("");
-    setProblem("");
-    setMinutes(0);
+    setIsClosing(true);
+    window.setTimeout(() => {
+      setStep("closed");
+      setDraft("");
+      setCode("");
+      setProblem("");
+      setMinutes(0);
+      setIsClosing(false);
+    }, 640);
   };
 
   /* Asking for a code, and asking again for another one: the same request
@@ -132,14 +137,15 @@ function EmailChange({email, pendingEmail, isBusy, onChanged, onToast}) {
             setStep("email");
           }}
         >
-          Change
+          Change email
         </button>
       </div>
     );
   }
 
   return (
-    <div className="inlearn-profile-step">
+    <div className={`inlearn-profile-step-reveal${isClosing ? " is-closing" : ""}`}>
+      <div className="inlearn-profile-step">
       {step === "email" ? (
         <>
           <p className="inlearn-profile-step-title">Change your address</p>
@@ -214,6 +220,7 @@ function EmailChange({email, pendingEmail, isBusy, onChanged, onToast}) {
         >
           {isWorking ? "Working…" : step === "email" ? "Send code" : "Confirm"}
         </button>
+      </div>
       </div>
     </div>
   );
