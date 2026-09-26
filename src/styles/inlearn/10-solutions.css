@@ -121,9 +121,15 @@
   background: #e9ecec;
 }
 
+/* The radius is repeated on the picture as well as on the box that clips it.
+   A rounded box with overflow hidden is meant to be enough, and mostly is - but
+   at some zoom levels a hairline of the image survives past the curve, and a
+   corner that is round except for one bright pixel reads as a mistake. Saying
+   it twice costs nothing. */
 .inlearn-solutions-media img {
   width: 100%;
   height: 100%;
+  border-radius: inherit;
   object-fit: cover;
 }
 
