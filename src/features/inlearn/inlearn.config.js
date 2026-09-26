@@ -9,7 +9,7 @@ import {
   instructorPlaceholder,
   firstPageArcRight,
   firstPageArcTopLeft,
-  learningSolutionsPlaceholder,
+  learningSolutionsPhoto,
 } from "./inlearn.assets.js";
 
 /* ===========================================================================
@@ -99,7 +99,7 @@ export const instructorImageFallback = instructorPlaceholder;
 /* The photograph beside "Learn more about our learning solutions". One line,
    because there is one picture: swap the import and this section has its
    photograph, with nothing else to change. */
-export const learningSolutionsImage = learningSolutionsPlaceholder;
+export const learningSolutionsImage = learningSolutionsPhoto;
 
 /* ===========================================================================
    HOW BIG THE TWO ARCS ARE  -  the only numbers to touch to resize them
