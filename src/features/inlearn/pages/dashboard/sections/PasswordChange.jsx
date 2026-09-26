@@ -139,6 +139,12 @@ function PasswordChange({email, isBusy, onSessionChange, onToast}) {
         className="inlearn-profile-forgot"
         onClick={() => setIsForgotOpen(true)}
       >
+        {/* A key, so the control is recognised before it is read. */}
+        <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+          fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="8" cy="12" r="4" />
+          <path d="M12 12h9M18 12v3M15.5 12v2.2" />
+        </svg>
         Forgot your password?
       </button>
 
