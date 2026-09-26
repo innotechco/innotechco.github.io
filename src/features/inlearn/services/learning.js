@@ -51,6 +51,19 @@ export function setSessionComplete(courseId, sessionId, isComplete) {
 /* The address a player is pointed at. Fetched at the moment of opening rather
    than kept with the session, so a ticket is never older than the click that
    asked for it. */
+/* The names the server answers to.
+ *
+ * Exported rather than typed at each call site. This one was written as "note"
+ * in one place and "notes" in four others, on both sides of the request, and
+ * every press of the Notes button was refused as an unknown kind - a fault
+ * that cost an afternoon and looked like a broken upload. A name shared
+ * between two programs is worth one constant. */
+export const MEDIA = {
+  video: "video",
+  audio: "audio",
+  notes: "notes",
+};
+
 export async function openMedia(courseId, sessionId, kind, fileId) {
   const {ticket} = await post("/api/inlearn/media-ticket", {courseId, sessionId, kind, fileId});
   return `${API_URL}/api/inlearn/media/${ticket}`;

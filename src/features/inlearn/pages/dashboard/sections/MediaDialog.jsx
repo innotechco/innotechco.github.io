@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import {createPortal} from "react-dom";
 
 import {CloseIcon, DocumentIcon} from "./courseIcons.jsx";
-import {openMedia} from "../../../services/learning.js";
+import {MEDIA, openMedia} from "../../../services/learning.js";
 
 /* Watching, listening or reading one session, over the page.
  *
@@ -43,7 +43,7 @@ function SkipIcon({back = false}) {
 function MediaDialog({courseId, session, kind, onClose}) {
   const [source, setSource] = useState("");
   const [problem, setProblem] = useState("");
-  const [isLoading, setIsLoading] = useState(kind !== "notes");
+  const [isLoading, setIsLoading] = useState(kind !== MEDIA.notes);
   /* Nothing here is reset on the way in, because nothing needs to be: this
      dialog is mounted for one session and one kind and thrown away when it
      closes, so every visit starts from these values already. */
@@ -52,7 +52,7 @@ function MediaDialog({courseId, session, kind, onClose}) {
   const layerRef = useRef(null);
   const closeTimer = useRef(0);
   const onCloseRef = useRef(onClose);
-  const isNotes = kind === "notes";
+  const isNotes = kind === MEDIA.notes;
 
   useEffect(() => {
     onCloseRef.current = onClose;
@@ -120,12 +120,23 @@ function MediaDialog({courseId, session, kind, onClose}) {
   const openNote = async (file) => {
     setProblem("");
     try {
-      const url = await openMedia(courseId, session.id, "note", file.id);
+      const url = await openMedia(courseId, session.id, MEDIA.notes, file.id);
+
+      /* Put in the document before it is pressed. A detached anchor is
+         ignored by some browsers, and this one has to survive whichever the
+         student happens to be using; it is taken out again straight after so
+         nothing is left behind.
+
+         A new tab rather than a download, because the address is a ticket good
+         for two minutes and a tab opens on it immediately - and because a PDF
+         is something people read where they are rather than file away. */
       const link = document.createElement("a");
       link.href = url;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
+      document.body.appendChild(link);
       link.click();
+      link.remove();
     } catch (error) {
       setProblem(error.message);
     }
@@ -267,7 +278,7 @@ function MediaDialog({courseId, session, kind, onClose}) {
             </>
           ) : null}
 
-          {!isLoading && kind === "notes" ? (
+          {!isLoading && isNotes ? (
             session.media.notes?.length ? (
               <ul className="inlearn-media-files">
                 {session.media.notes.map((file) => (

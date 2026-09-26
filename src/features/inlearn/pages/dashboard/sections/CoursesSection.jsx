@@ -13,7 +13,7 @@ import {
   TickIcon,
 } from "./courseIcons.jsx";
 import {MODES} from "./courseModes.js";
-import {fetchMyCourses, setSessionComplete} from "../../../services/learning.js";
+import {MEDIA, fetchMyCourses, setSessionComplete} from "../../../services/learning.js";
 import {useInlearnCatalogue} from "../../../useInlearnCatalogue.js";
 import {getInlearnCourses} from "../../../inlearnContent.js";
 
@@ -162,7 +162,7 @@ function SessionRow({courseId, mode, session, onOpen, onToggle, isBusy}) {
           <button
             type="button"
             className="inlearn-course-media-button"
-            onClick={() => onOpen(session, "notes")}
+            onClick={() => onOpen(session, MEDIA.notes)}
             aria-label={`Open the notes for ${session.title}`}
             title="Notes"
           >
