@@ -414,7 +414,11 @@
   fill: currentColor;
 }
 
-.inlearn-share-grid .is-telegram { background: #229ed9; }
+/* Instagram's mark is a gradient rather than a flat colour, which is the one
+   thing about it that has to be right or it reads as a counterfeit. */
+.inlearn-share-grid .is-instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+}
 .inlearn-share-grid .is-whatsapp { background: #25d366; }
 .inlearn-share-grid .is-linkedin { background: #0a66c2; }
 .inlearn-share-grid .is-email { background: #5f6368; }
