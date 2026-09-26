@@ -371,23 +371,47 @@
   margin-top: 2px;
 }
 
+/* Forgot your password.
+ *
+ * It used to be an underlined sentence sitting under three password fields,
+ * which read as a line of small print rather than as the way out of them. It
+ * is a pill now - outlined rather than filled, because it is the quieter of
+ * the two things somebody can do here and the one beside it saves the form.
+ *
+ * The key mark is there so it is found by shape before it is read. */
 .inlearn-profile-forgot {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
   width: fit-content;
-  margin: 2px 0 2px 4px;
-  padding: 0;
-  border: 0;
-  background: transparent;
+  margin: 4px 0 2px;
+  padding: 9px 16px;
+  border: 1px solid #dededf;
+  border-radius: 999px;
+  background: #fff;
   color: var(--inlearn-black);
   font: inherit;
   font-size: 13px;
   font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
   cursor: pointer;
+  transition:
+    border-color 200ms ease,
+    color 200ms ease,
+    background-color 200ms ease;
 }
 
-.inlearn-profile-forgot:hover {
+.inlearn-profile-forgot svg {
+  flex: 0 0 auto;
   color: var(--inlearn-green);
+  transition: color 200ms ease;
+}
+
+@media (hover: hover) {
+  .inlearn-profile-forgot:hover {
+    border-color: var(--inlearn-green);
+    background: #f2fbf6;
+    color: var(--inlearn-green);
+  }
 }
 
 .inlearn-profile-forgot:focus-visible {

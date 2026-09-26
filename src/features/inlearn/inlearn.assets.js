@@ -27,4 +27,8 @@ export {default as instructorPlaceholder} from "./assets/instructors/placeholder
 
 /* Standing in until the real photograph arrives. See the note inside the file
    itself for what replacing it involves. */
+/* The real photograph now. The placeholder beside it is kept as the file it
+   replaced, so the day this picture is swapped again there is something to
+   compare against rather than a hole. */
+export {default as learningSolutionsPhoto} from "./assets/first-page/learning-solutions.webp";
 export {default as learningSolutionsPlaceholder} from "./assets/first-page/learning-solutions-placeholder.svg";

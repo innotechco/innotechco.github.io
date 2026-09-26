@@ -609,6 +609,19 @@
 
 /* Above the panel it belongs to, so the reset steps are not read as part of
    the form behind them. */
+/* A dialog is portalled to the body so it can sit above the navbar, which
+   takes it OUT of .inlearn-page - and the module's colours are defined on
+   .inlearn-page.
+ *
+ * That is not a missing shade, it is invisible text. A var() that does not
+ * resolve does not fall back to something sensible: the whole declaration is
+ * thrown away and the colour is inherited instead, from a body that is nearly
+ * black. White words on a white card, with the heading and the explanation
+ * simply not there.
+ *
+ * So the tokens are repeated here, on the layer every portalled dialog is
+ * drawn inside. Anything that opens above the page carries the page's colours
+ * with it. */
 .inlearn-dialog-layer {
   position: fixed;
   inset: 0;
@@ -617,6 +630,12 @@
   place-items: center;
   padding: 24px;
   animation: inlearn-dialog-in 220ms ease both;
+
+  --inlearn-green: #37b478;
+  --inlearn-black: #050505;
+  --inlearn-muted: #83838b;
+  color: var(--inlearn-black);
+  font-family: var(--font-gotham);
 }
 
 @keyframes inlearn-dialog-in {
@@ -656,8 +675,10 @@
 
 .inlearn-dialog h3 {
   margin: 0;
+  color: var(--inlearn-black);
   font-size: 22px;
   font-weight: 800;
+  line-height: 1.25;
 }
 
 .inlearn-dialog p {
