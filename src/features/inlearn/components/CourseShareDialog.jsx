@@ -94,8 +94,17 @@ function CourseShareDialog({course, href, onClose}) {
       }
     }
 
-    await copyCourseText(url, "Course link copied - paste it into Instagram.");
-    window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
+    /* Open synchronously from the click before awaiting clipboard work. If the
+       tab is opened after `await`, Chrome treats it as a delayed popup and can
+       block it. Instagram has no public web URL that accepts a course link;
+       the supported desktop flow is copy first, then paste in Instagram. */
+    const instagramWindow = window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
+    try {
+      await copyCourseText(url, "Course link copied - paste it into Instagram.");
+    } catch {
+      /* Opening Instagram is still useful when clipboard permission is denied. */
+    }
+    instagramWindow?.focus?.();
   };
 
   const copy = (kind) => copyCourseText(

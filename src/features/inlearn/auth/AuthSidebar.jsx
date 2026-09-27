@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import {dialCodeFor} from "../data/countries.js";
 import {getInlearnFirstPage} from "../inlearnContent.js";
@@ -43,6 +43,16 @@ function AuthSidebar({isOpen, mode, onClose, onModeChange, onSignedIn, onProvide
   const [isForgotOpen, setIsForgotOpen] = useState(false);
   const {formRef, isGuarding} = useNoAutofill();
   const isLogin = mode === "login";
+
+  useEffect(() => {
+    if (!isOpen || !isLogin) return;
+    const passwordInputs = formRef.current?.querySelectorAll('input[type="password"]') ?? [];
+    for (const input of passwordInputs) {
+      const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")?.set;
+      setter?.call(input, "");
+      input.dispatchEvent(new Event("input", {bubbles: true}));
+    }
+  }, [formRef, isLogin, isOpen]);
 
   useProviderReturn({
     onSignedIn,

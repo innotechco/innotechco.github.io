@@ -8,19 +8,12 @@
 function AutofillDecoys() {
   return (
     <div className="inlearn-autofill-decoys" aria-hidden="true">
+      <input data-inlearn-decoy="" type="text" name="inlearn-helper" autoComplete="off" tabIndex={-1} defaultValue="" />
       <input
         data-inlearn-decoy=""
         type="text"
-        name="username"
-        autoComplete="username"
-        tabIndex={-1}
-        defaultValue=""
-      />
-      <input
-        data-inlearn-decoy=""
-        type="password"
-        name="password"
-        autoComplete="current-password"
+        name="inlearn-password-helper"
+        autoComplete="off"
         tabIndex={-1}
         defaultValue=""
       />

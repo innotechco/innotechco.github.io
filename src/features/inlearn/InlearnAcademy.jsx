@@ -23,7 +23,7 @@ import {
 import {getSavedCourses, replaceSavedCourses, subscribeToSavedCourses} from "./services/savedCourses.js";
 import {subscribeToCourseShare} from "./services/courseShare.js";
 import {getInlearnCourses} from "./inlearnContent.js";
-import {fetchPreferences, restoreSession, savePreferences, signOut} from "./services/authService.js";
+import {fetchPreferences, fetchProfile, restoreSession, savePreferences, signOut} from "./services/authService.js";
 import {saveSession, storedIn} from "./services/auth/session.js";
 import {clearOwnedCourses, refreshOwnedCourses} from "./services/ownership.js";
 import {routes} from "../../app/routes.js";
@@ -64,6 +64,20 @@ function InlearnAcademy() {
     if (session) refreshOwnedCourses();
     else clearOwnedCourses();
   }, [session]);
+  useEffect(() => {
+    if (!session || session.avatar) return undefined;
+    let active = true;
+    fetchProfile().then((profile) => {
+      if (!active || !profile?.avatar) return;
+      setSession((current) => {
+        if (!current || current.avatar) return current;
+        const next = {...current, avatar: profile.avatar};
+        saveSession(next, {remember: storedIn() === "local"});
+        return next;
+      });
+    }).catch(() => {});
+    return () => { active = false; };
+  }, [session]);
   const preferencesReady = useRef(false);
   useEffect(() => {
     preferencesReady.current = false;
@@ -100,6 +114,20 @@ function InlearnAcademy() {
      answered we do not yet know which. The dashboard needs that distinction -
      see the route below. */
   const [isSessionKnown, setIsSessionKnown] = useState(false);
+  useEffect(() => {
+    const handlePageShow = (event) => {
+      if (!event.persisted) return;
+      restoreSession().then(({session: restored}) => {
+        setSession(restored);
+        setIsSessionKnown(true);
+      }).catch(() => {
+        setSession(null);
+        setIsSessionKnown(true);
+      });
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => window.removeEventListener("pageshow", handlePageShow);
+  }, []);
   /* An object rather than a string, so a toast can carry one action with
      it - the basket's Undo. null when there is nothing to say. */
   const [toast, setToast] = useState(null);
@@ -216,6 +244,7 @@ function InlearnAcademy() {
     signOut();
     setSession(null);
     setIsSessionKnown(true);
+    navigate(routes.inlearnAcademy, {replace: true});
   };
 
   const openAuth = (mode) => {

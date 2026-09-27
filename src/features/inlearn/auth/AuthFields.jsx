@@ -61,7 +61,10 @@ function AuthFields({isLogin, form, dialCode, isOpen, onFieldChange, onRegionCha
 
       <PasswordField
         placeholder="Password"
-        autoComplete="off"
+        /* Login must start blank after logout. `off` is ignored by Chrome for
+           saved credentials; new-password explicitly tells it not to restore
+           the previous account password into this field. */
+        autoComplete="new-password"
         value={form.password}
         tabIndex={tabIndex}
         onChange={onFieldChange("password")}
