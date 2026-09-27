@@ -9,12 +9,21 @@ import {logIn} from "./credentials.js";
    code is only discovered after a password has been typed twice. /api/inlearn/*
    is where that third step lives. */
 
-/* Step one. The server answers with how long the code lives, and the panel
-   only repeats that number - so the two cannot disagree the first time it
-   changes. */
+/* Step one. Every number here is the server's, repeated rather than worked
+   out again, so the two cannot disagree the first time one of them changes.
+ *
+ * `sent` is false when a code was already on its way: pressing the button
+ * again does not send a second one, it reports how long the first has left.
+ * `retryInSeconds` is that remainder, and it is the same clock as the code's
+ * own life - when it reaches zero the code is dead and another is worth
+ * having. The dialog counts it down beside the field. */
 export async function requestPasswordReset(email) {
   const payload = await request("/api/inlearn/forgot-password", {email});
-  return {expiresInMinutes: payload?.expiresInMinutes ?? null};
+  return {
+    expiresInMinutes: payload?.expiresInMinutes ?? null,
+    sent: payload?.sent !== false,
+    retryInSeconds: payload?.retryInSeconds ?? 0,
+  };
 }
 
 /* Step two: the code alone. Answering here is what lets the panel move on. */
