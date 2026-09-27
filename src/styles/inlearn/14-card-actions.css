@@ -404,7 +404,13 @@
   flex: 0 0 auto;
   place-items: center;
   border-radius: 10px;
-  background: var(--inlearn-green);
+  /* Spelled out as well as named. This dialog is a portal on <body>, outside
+     the element the INLEARN tokens are defined on, so the name resolves to
+     nothing - and an unresolved var() does not fall back to a default, the
+     whole declaration is dropped. Without the literal, a tile with no colour
+     of its own is transparent with a white mark on it, which is what Copy
+     link was. */
+  background: var(--inlearn-green, #37b478);
   color: #fff;
 }
 
@@ -424,7 +430,11 @@
 .inlearn-share-grid .is-email { background: #5f6368; }
 .inlearn-share-grid .is-x { background: #050505; }
 .inlearn-share-grid .is-messenger { background: #0084ff; }
-.inlearn-share-grid .is-embed {
+/* The two marks that are not a brand. They look alike because they do the
+   same thing - put something on the clipboard - rather than send the course
+   anywhere, and neither has a colour of its own to be faithful to. */
+.inlearn-share-grid .is-embed,
+.inlearn-share-grid .is-copy {
   background: #ededeb;
   color: #090909;
 }
