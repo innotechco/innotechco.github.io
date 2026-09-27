@@ -10,6 +10,7 @@ import {
   toggleSavedCourse,
 } from "../../services/savedCourses.js";
 import CourseShareDialog from "../../components/CourseShareDialog.jsx";
+import {useCoursePrice} from "../../useCoursePrice.js";
 import {
   getOwnedCourseIds,
   getServerOwnedCourseIds,
@@ -24,6 +25,7 @@ import {
    title, because the price is the first thing anybody asks. */
 function CourseBuyCard({course, catalogue}) {
   const [isSharing, setIsSharing] = useState(false);
+  const {price, compareAtPrice} = useCoursePrice(course);
   const labels = catalogue.detail;
   /* The basket is a store outside React - it lives in this device's storage and
      changes from anywhere on the page, or from another tab. useSyncExternalStore
@@ -83,16 +85,21 @@ function CourseBuyCard({course, catalogue}) {
         </div>
       </div>
 
-      <p className="inlearn-buy-price">
-        <TagIcon />
-        <span className="inlearn-buy-price-label">{labels.priceTag}</span>
-        <Price
-          amount={course.price}
-          compareAt={course.compareAtPrice}
-          currency={catalogue.currency}
-          className="is-large"
-        />
-      </p>
+      {/* The whole line goes when there is no price, label and all. It sits
+          directly above the button, where a lone "price:" reads as a figure
+          that failed to load rather than as one that has not been set. */}
+      {typeof price === "number" ? (
+        <p className="inlearn-buy-price">
+          <TagIcon />
+          <span className="inlearn-buy-price-label">{labels.priceTag}</span>
+          <Price
+            amount={price}
+            compareAt={compareAtPrice}
+            currency={catalogue.currency}
+            className="is-large"
+          />
+        </p>
+      ) : null}
 
       {/* One press adds it; a second does nothing, because a course is bought
           once and watched for life - there is no second copy to own. The button

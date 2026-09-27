@@ -13,6 +13,7 @@ import {
   TagIcon,
 } from "../../components/icons.jsx";
 import {useLanguage} from "../../../../app/providers/language/useLanguage.js";
+import {useCoursePrice} from "../../useCoursePrice.js";
 import {useInlearnCatalogue} from "../../useInlearnCatalogue.js";
 import {getInlearnCourse} from "../../inlearnContent.js";
 import {routes} from "../../../../app/routes.js";
@@ -34,6 +35,7 @@ function CoursePage() {
   const {locale} = useLanguage();
   const snapshot = useInlearnCatalogue();
   const {catalogue, course} = useMemo(() => getInlearnCourse(slug, snapshot), [slug, snapshot]);
+  const {price, compareAtPrice} = useCoursePrice(course);
   const labels = catalogue.detail;
   const startDate = formatStartDate(course?.startDate, locale);
 
@@ -123,15 +125,21 @@ function CoursePage() {
               <Spec icon={<CalendarIcon />} label={labels.startDate} value={startDate} />
               <Spec icon={<LanguageIcon />} label={labels.language} value={course.language} />
               <Spec icon={<ClockIcon />} label={labels.duration} value={course.effort} />
+              {/* Nothing at all rather than a label with a gap after it. Price
+                  is the one line here that can be missing - it is the server's,
+                  and the server can be unreachable - and a row reading "Price:"
+                  with nothing beside it looks like a course nobody priced. */}
               <Spec
                 icon={<TagIcon />}
                 label={labels.price}
                 value={
-                  <Price
-                    amount={course.price}
-                    compareAt={course.compareAtPrice}
-                    currency={catalogue.currency}
-                  />
+                  typeof price === "number" ? (
+                    <Price
+                      amount={price}
+                      compareAt={compareAtPrice}
+                      currency={catalogue.currency}
+                    />
+                  ) : null
                 }
               />
               <Spec

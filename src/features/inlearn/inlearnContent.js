@@ -8,6 +8,7 @@
    half-translated locale shows English sentences rather than blank space. */
 
 import {getCatalogueSnapshot} from "./services/catalogueStore.js";
+import {priceOf} from "./services/shop.js";
 import {localizedModule} from "../../shared/i18n/locale.js";
 import {routes} from "../../app/routes.js";
 import {
@@ -186,7 +187,7 @@ export function getInlearnCourse(slug, remote) {
    The total is added up here too - and it is a DISPLAY total only. When Strapi
    arrives it is handed the ids and works out what they really cost; nothing
    this function returns is ever what somebody is charged. */
-export function getInlearnBasket(lines, remote) {
+export function getInlearnBasket(lines, remote, priceTable) {
   const copy = localizedModule(
     inlearnModules(),
     "../../content/en/pages/inlearn/basket.json",
@@ -194,9 +195,16 @@ export function getInlearnBasket(lines, remote) {
   const catalogue = getInlearnCourses(remote);
   const byId = new Map(catalogue.courses.map((course) => [course.id, course]));
 
+  /* The price is stamped on here rather than looked up again in the row.
+     Strapi owns it, and it reaches the browser two ways: on the course when
+     the catalogue arrives, and on its own from the price list. Reading both
+     in one place is what keeps a row and the subtotal underneath it from
+     disagreeing - and the copy the site ships with carries no price at all,
+     so without the list a basket full of courses would add up to nothing. */
   const items = (lines ?? [])
     .map((line) => byId.get(line.id))
-    .filter(Boolean);
+    .filter(Boolean)
+    .map((course) => ({...course, ...priceOf(course, priceTable)}));
 
   const subtotal = items.reduce((sum, course) => sum + (course.price ?? 0), 0);
 

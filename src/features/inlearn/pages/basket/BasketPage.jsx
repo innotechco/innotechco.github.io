@@ -13,6 +13,7 @@ import {
   subscribeToBasket,
 } from "../../services/basket.js";
 import {useInlearnCatalogue} from "../../useInlearnCatalogue.js";
+import {usePriceTable} from "../../useCoursePrice.js";
 import {getInlearnBasket} from "../../inlearnContent.js";
 import {placeOrder, quoteBasket} from "../../services/shop.js";
 import {routes} from "../../../../app/routes.js";
@@ -47,10 +48,12 @@ const CODE_NOTES = {
 
 function BasketPage({session, onAuthOpen, onToast}) {
   const lines = useSyncExternalStore(subscribeToBasket, getBasket, getServerBasket);
-  /* Subscribed so this page redraws when the catalogue arrives. */
+  /* Both subscribed, so this page redraws when the catalogue arrives and
+     again when the price list does. */
   const {copy, items, currency, subtotal, tax, grandTotal} = getInlearnBasket(
     lines,
     useInlearnCatalogue(),
+    usePriceTable(),
   );
   const navigate = useNavigate();
   const ownedIds = useSyncExternalStore(
