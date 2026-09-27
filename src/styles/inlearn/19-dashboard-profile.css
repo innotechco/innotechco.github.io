@@ -279,6 +279,77 @@
   letter-spacing: 2px;
 }
 
+/* The password row for an account that has none - one made with the Google
+   button, which never gives us a password to keep.
+
+   Built on the dots capsule rather than beside it: this row sits under Region
+   and Phone and next to a button of the same height, and a bare sentence in
+   that column reads as something that fell out of the form. Same 46, same
+   border, same radius, so the right-hand edges of all four rows line up.
+
+   Muted, because it is a statement of fact rather than a field: nothing here
+   is typed into. */
+.inlearn-profile-noauth {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  height: 46px;
+  padding: 0 18px;
+  border: 1px solid #e4e4e6;
+  border-radius: 999px;
+  background: #fafafa;
+  color: #6c6c74;
+  font-size: 13px;
+  /* Not 1. A line box exactly as tall as the type leaves the tails of g and y
+     hanging outside it, and the clip that keeps the sentence on one line cuts
+     them off - "sign in with Google" lost the bottom of both its g's. The
+     capsule centres the line either way, so the extra room costs nothing. */
+  line-height: 1.5;
+}
+
+.inlearn-profile-noauth svg {
+  flex: 0 0 auto;
+  color: var(--inlearn-green);
+}
+
+/* One line, cut with an ellipsis rather than wrapped: wrapping would grow the
+   capsule past the button beside it and break the row it was made to join.
+   The whole sentence is on the title attribute. */
+.inlearn-profile-noauth > span {
+  overflow: hidden;
+  min-width: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Narrow enough that the sentence has no room worth keeping: the lock and the
+   button say it between them, and the words go under rather than being cut to
+   three of them. */
+@media (max-width: 520px) {
+  .inlearn-profile-password:has(.inlearn-profile-noauth) {
+    flex-wrap: wrap;
+  }
+
+  .inlearn-profile-noauth {
+    flex: 1 0 100%;
+    order: 2;
+    height: auto;
+    padding: 10px 16px;
+    border-radius: 18px;
+    line-height: 1.45;
+  }
+
+  .inlearn-profile-noauth > span {
+    white-space: normal;
+  }
+
+  .inlearn-profile-password:has(.inlearn-profile-noauth) .inlearn-profile-password-change {
+    flex: 1 1 auto;
+  }
+}
+
 /* ------------------------------------------------- the two small journeys */
 
 /* Changing a password or an address opens in place rather than in a dialog:

@@ -52,6 +52,42 @@ export function checkRequired(value, label) {
   return value.trim() ? "" : `Please enter your ${label}.`;
 }
 
+/* The same rules the API applies, said here so they are said before the
+   request rather than after it. The API's copy is the one that decides; this
+   one is what makes the answer immediate. */
+export function checkName(name) {
+  const value = String(name ?? "").trim();
+  if (!value) return "Please enter your name.";
+  if (value.length > 80) return "That name is too long.";
+  if (/[<>]/.test(value)) return "A name cannot contain < or >.";
+  return "";
+}
+
+/* Empty passes: a number is not required, and clearing it is allowed. What is
+   checked is a number that has been typed and is not one.
+
+   `dialCode` is held beside the field rather than inside it, so what arrives
+   here is only the part after it - and a number with no region chosen has no
+   code to be dialled from anywhere, which is its own problem to name. */
+export function checkPhone(nationalPart, dialCode) {
+  const digits = String(nationalPart ?? "").replace(/\s/g, "");
+  if (!digits) return "";
+  if (!dialCode) return "Choose your region first, so we know the dialling code.";
+  if (!/^\d+$/.test(digits)) return "A phone number can only contain digits.";
+  if (!/^\+\d{7,15}$/.test(`${dialCode}${digits}`)) {
+    return "Please enter a valid phone number with its country code.";
+  }
+  return "";
+}
+
+/* A region typed rather than chosen is a region the server will refuse, so the
+   page refuses it first and in the same words. */
+export function checkRegion(region, known) {
+  const value = String(region ?? "").trim();
+  if (!value) return "";
+  return known.includes(value) ? "" : "Please choose a region from the list.";
+}
+
 /* Returns the first problem, because the forms show one line at a time. */
 export function firstProblem(checks) {
   return checks.find(Boolean) ?? "";

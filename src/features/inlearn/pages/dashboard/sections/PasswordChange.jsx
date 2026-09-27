@@ -16,6 +16,13 @@ import {
  * password change needs - the current one to prove it is them, the new one,
  * and the new one again because it is typed blind.
  *
+ * Unless there is no password to change. An account made with the Google
+ * button arrives without one, and asking such a person for their CURRENT
+ * password asks for something that does not exist - no answer they can give
+ * is right, and they only find that out after filling in three fields. That
+ * account is offered a first password instead, set the one way it can be
+ * proved: a code to the address on the account.
+ *
  * The rules are the ones the sign-up panel uses, from formValidation, rather
  * than a second copy written here. The server applies them too; only the
  * server's copy is a guarantee, and this one is what makes the answer
@@ -24,7 +31,15 @@ import {
 
 const EMPTY = {currentPassword: "", newPassword: "", confirmation: ""};
 
-function PasswordChange({email, isBusy, onSessionChange, onToast}) {
+function PasswordChange({
+  email,
+  hasPassword = true,
+  provider,
+  isBusy,
+  onPasswordSet,
+  onSessionChange,
+  onToast,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState(EMPTY);
   const [problem, setProblem] = useState("");
@@ -87,6 +102,71 @@ function PasswordChange({email, isBusy, onSessionChange, onToast}) {
     }
   };
 
+  /* --------------------------------------- no password on the account yet */
+
+  if (!hasPassword) {
+    const madeWith = {google: "Google", linkedin: "LinkedIn"}[provider] ?? "a connected account";
+
+    return (
+      <>
+        <div className="inlearn-profile-password">
+          {/* The same capsule the dots sit in, so this row lines up with the
+              ones above it instead of reading as a stray sentence. The whole
+              sentence is on the title, because the capsule is one line wide
+              and the end of it is the part that gets cut. */}
+          <span
+            className="inlearn-profile-noauth"
+            title={`You signed up with ${madeWith}, so this account has no password yet.`}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+              fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="4" y="10.5" width="16" height="10" rx="2.5" />
+              <path d="M8 10.5V7.5a4 4 0 0 1 8 0" />
+            </svg>
+            <span>{`No password yet — you sign in with ${madeWith}`}</span>
+          </span>
+          <button
+            type="button"
+            className="inlearn-profile-password-change"
+            disabled={isBusy}
+            onClick={() => setIsForgotOpen(true)}
+          >
+            Set a password
+          </button>
+        </div>
+
+        {/* The same dialog Forgot password opens, and for the same reason: the
+            only thing that can stand in for a password nobody has is a code
+            sent to the address on the account. It signs them in at the end,
+            and from then on this row is the ordinary three-field one. */}
+        {isForgotOpen
+          ? createPortal(
+              <ForgotPasswordDialog
+                /* Handed in rather than merely prefilled: this person is
+                   signed in, so the address is known and asking for it again
+                   is a question with only one right answer. */
+                lockedEmail={email}
+                onClose={() => setIsForgotOpen(false)}
+                onSignedIn={(signedIn) => {
+                  setIsForgotOpen(false);
+                  /* Said before the session is handed over, so the row turns
+                     into the ordinary three-field one in the same paint as the
+                     toast. Without it the page went on offering to set a
+                     password that had just been set, until a reload. */
+                  onPasswordSet?.();
+                  onSessionChange?.(signedIn);
+                  onToast?.({message: "Your password is set. You can now sign in with your email."});
+                }}
+              />,
+              document.body,
+            )
+          : null}
+      </>
+    );
+  }
+
+  /* ------------------------------------------------- the ordinary three */
+
   if (!isOpen) {
     return (
       <div className="inlearn-profile-password">
@@ -113,9 +193,23 @@ function PasswordChange({email, isBusy, onSessionChange, onToast}) {
       <div className="inlearn-profile-step">
       <p className="inlearn-profile-step-title">Change your password</p>
 
+      {/* "new-password" on the field asking for the CURRENT one, which reads
+          wrong and is right.
+       *
+       * The honest value, "current-password", is an instruction: it tells the
+       * browser this is the field to put the saved credential in, and once
+       * somebody has saved one for this site it arrives here already filled.
+       * That defeats the only thing this field is for. It is not a login - the
+       * person is already signed in - it is the proof that whoever is sitting
+       * at the keyboard is the account's owner rather than somebody who walked
+       * up to an open laptop, and a proof the browser types for you proves
+       * nothing.
+       *
+       * "new-password" is the one value Chrome reliably reads as "do not fill
+       * this from what you have saved". */}
       <PasswordField
         placeholder="Current password"
-        autoComplete="current-password"
+        autoComplete="new-password"
         value={form.currentPassword}
         onChange={change("currentPassword")}
       />

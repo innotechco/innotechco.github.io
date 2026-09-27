@@ -6,7 +6,7 @@ import PasswordChange from "./PasswordChange.jsx";
 import PhoneChange from "./PhoneChange.jsx";
 import {API_URL, fetchProfile, saveProfile, uploadAvatar} from "../../../services/authService.js";
 import {CameraIcon} from "../icons.jsx";
-import {checkRequired, firstProblem} from "../../../services/formValidation.js";
+import {checkName, checkPhone, checkRegion, firstProblem} from "../../../services/formValidation.js";
 import {clearDraft, editablePart, hasEdits, holdDraft, readDraft} from "./profileDraft.js";
 import {countries} from "../../../data/countries.js";
 
@@ -28,7 +28,18 @@ const countryNames = countries.map(({name}) => name);
 
 /* An empty profile rather than nothing, so the fields exist before the answer
    arrives and the layout does not jump when it does. */
-const EMPTY = {fullName: "", email: "", phone: "", region: "", avatar: null, pendingEmail: null};
+/* hasPassword defaults to true so a form that has not loaded yet shows the
+   ordinary three fields rather than flashing "you have no password". */
+const EMPTY = {
+  fullName: "",
+  email: "",
+  phone: "",
+  region: "",
+  avatar: null,
+  pendingEmail: null,
+  hasPassword: true,
+  provider: null,
+};
 
 /* Strapi answers with a path, not a URL: the picture lives beside the API, not
    beside the site. */
@@ -108,6 +119,14 @@ function ProfileSection({onProfileChange, onSessionChange, onToast}) {
     [profile.region],
   );
 
+  /* The part of the number that is actually typed, with the dialling code
+     taken off - the same split PhoneChange draws, needed here so the form can
+     check what was typed before sending it. */
+  const nationalPhone = useMemo(() => {
+    const value = String(profile.phone ?? "");
+    return dialCode && value.startsWith(dialCode) ? value.slice(dialCode.length) : value;
+  }, [profile.phone, dialCode]);
+
   const isDirty = hasEdits(profile, saved);
 
   /* The one case holding the draft cannot cover: the tab itself going away
@@ -145,6 +164,21 @@ function ProfileSection({onProfileChange, onSessionChange, onToast}) {
     onProfileChange?.(answer);
   };
 
+  /* The password row has just become the ordinary one, and this is what tells
+     it so.
+   *
+   * The whole profile is deliberately NOT re-read. Nothing this form holds has
+   * changed, and adopting a fresh answer would clear the draft - a name or a
+   * number half typed when they went to set a password would vanish in front
+   * of them. One fact changed, so one fact is corrected.
+   *
+   * Written to `saved` as well, so the two go on agreeing: they are compared
+   * to decide whether there is anything left to apply. */
+  const markPasswordSet = () => {
+    setProfile((current) => ({...current, hasPassword: true}));
+    setSaved((current) => (current ? {...current, hasPassword: true} : current));
+  };
+
   const pickPicture = async (event) => {
     const file = event.target.files?.[0];
     /* Cleared straight away so choosing the same file twice still counts as a
@@ -174,7 +208,14 @@ function ProfileSection({onProfileChange, onSessionChange, onToast}) {
   const submit = async (event) => {
     event.preventDefault();
 
-    const trouble = firstProblem([checkRequired(profile.fullName, "name")]);
+    /* Every row this form owns, in the order they appear, so the one named is
+       the first one to look at going down the page. */
+    const trouble = firstProblem([
+      checkName(profile.fullName),
+      checkRegion(profile.region, countryNames),
+      checkPhone(nationalPhone, dialCode),
+    ]);
+
     if (trouble) {
       setProblem(trouble);
       return;
@@ -295,14 +336,15 @@ function ProfileSection({onProfileChange, onSessionChange, onToast}) {
           <PhoneChange
             dialCode={dialCode}
             phone={profile.phone}
-            isBusy={isBusy}
-            onChanged={adopt}
-            onToast={onToast}
+            onEdit={(value) => edit("phone", value)}
           />
 
           <PasswordChange
             email={profile.email}
+            hasPassword={profile.hasPassword}
+            provider={profile.provider}
             isBusy={isBusy}
+            onPasswordSet={markPasswordSet}
             onSessionChange={onSessionChange}
             onToast={onToast}
           />

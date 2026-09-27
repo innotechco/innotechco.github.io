@@ -2,6 +2,7 @@ import {useEffect, useRef} from "react";
 import {useLocation} from "react-router-dom";
 
 import {routes} from "../../../app/routes.js";
+import {rememberScroll, scrollToRestore} from "./scrollMemory.js";
 
 /* Addresses that are sections of one page rather than pages of their own.
  *
@@ -48,7 +49,31 @@ function ScrollToTop() {
 
     if (isSameSectionMove(from, pathname)) return;
 
+    /* A reload is not a new page. Somebody who refreshes is asking for this
+       page again, not for the top of it, so the position they were at is put
+       back instead - by App, once the first paint has settled and while the
+       curtain still covers the screen. Sending the window to the top here
+       would be undone a moment later, visibly. */
+    if (from === null && scrollToRestore(pathname)) return;
+
     window.scrollTo({top: 0, left: 0, behavior: "instant"});
+  }, [pathname]);
+
+  /* Noted continuously rather than on the way out.
+   *
+   * pagehide is the event that actually fires on a reload in every browser -
+   * unload does not fire reliably on mobile, and beforeunload is not allowed
+   * to do work in some of them. Writing on every scroll would be a write per
+   * frame, so it is written on the way out and also whenever the address
+   * changes, which is the other moment the old position stops being true. */
+  useEffect(() => {
+    const remember = () => rememberScroll(pathname);
+
+    window.addEventListener("pagehide", remember);
+    return () => {
+      window.removeEventListener("pagehide", remember);
+      remember();
+    };
   }, [pathname]);
 
   return null;

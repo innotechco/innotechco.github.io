@@ -31,16 +31,22 @@ export async function fetchProfile() {
   return response.json();
 }
 
-/* Name, phone and region. Not the email: changing an address has to be proved
-   against the new one first, so it is a journey rather than a field, and not
-   the password, which has a route of Strapi's own. */
-export async function saveProfile({fullName, region}) {
+/* Name, region, and the phone number ONLY while there is not one yet.
+ *
+ * A first number is an ordinary field: nothing is being taken away from,
+ * and it is no more proven than the one sign-up would have accepted. A
+ * replacement is not, so the server refuses one here and the page sends the
+ * visitor through change-phone instead.
+ *
+ * Not the email: proving a new address comes first, so it is a journey rather
+ * than a field. Not the password either, which has a route of its own. */
+export async function saveProfile({fullName, region, phone}) {
   let response;
   try {
     response = await authorizedFetch("/api/inlearn/profile", {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({fullName, region}),
+      body: JSON.stringify({fullName, region, phone: phone ?? ""}),
     });
   } catch {
     throw new Error("Could not reach the server. Check your connection.");

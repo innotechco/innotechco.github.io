@@ -1122,6 +1122,16 @@ test("a new page starts at the top without scrolling there", () => {
   );
 });
 
+test("INLEARN first paint does not wait behind the curtain for fonts or pictures", () => {
+  const app = fs.readFileSync(path.join(srcRoot, "app", "App.jsx"), "utf8");
+
+  assert.match(app, /const INLEARN_FIRST_VISIT_MAX_WAIT_MS = 900/);
+  assert.match(
+    app,
+    /if \(isInlearnVisit\) \{[\s\S]*?waitForRouteToMount\(deadline\);[\s\S]*?await nextFrame\(\);[\s\S]*?await nextFrame\(\);[\s\S]*?\} else \{[\s\S]*?document\.fonts\?\.ready[\s\S]*?waitForContentToSettle\(deadline\)/,
+  );
+});
+
 /* Comments are prose, and prose is allowed to mention anything. Every check
    below that looks for an identifier looks for it in the code.
 
@@ -1140,9 +1150,21 @@ test("an unsaved profile edit is measured against the server's copy", () => {
   const stored = {fullName: "Ada", phone: "9120000000", region: "Iran", email: "a@b.c"};
 
   assert.equal(hasEdits(stored, stored), false, "an untouched form has no edits");
-  /* Phone has its own verified SMS flow and is never part of the unsaved
-     general-details draft. */
-  assert.equal(hasEdits({...stored, phone: "9121111111"}, stored), false);
+
+  /* The phone counts, and this assertion used to say the opposite.
+   *
+   * It was a verified journey of its own once - type a number, take a code by
+   * text message, confirm it - and while it was, it could never be an unsaved
+   * change. Verifying a number means paying for every message sent to verify
+   * it, so that was dropped and the number became an ordinary field saved with
+   * Apply Changes.
+   *
+   * Leaving it out of the sum broke it twice: Apply Changes stays off until
+   * something here has changed, so a typed number left the button greyed out
+   * and could not be saved at all - and the draft that survives leaving the
+   * page is built from the same list, so the number was thrown away on the way
+   * out too. */
+  assert.equal(hasEdits({...stored, phone: "9121111111"}, stored), true);
 
   /* Typed, and taken back again. A flag set on the first keystroke would still
      be warning about a change that no longer exists. */
@@ -1157,7 +1179,7 @@ test("an unsaved profile edit is measured against the server's copy", () => {
   /* The picture and the address save themselves the moment they succeed, so
      neither can ever be an unsaved change and neither belongs in the sum. */
   assert.equal(hasEdits({...stored, email: "other@b.c", avatar: "/x.png"}, stored), false);
-  assert.deepEqual(Object.keys(editablePart(stored)).sort(), ["fullName", "region"]);
+  assert.deepEqual(Object.keys(editablePart(stored)).sort(), ["fullName", "phone", "region"]);
 });
 
 test("a half-typed profile waits in memory and never in storage", () => {

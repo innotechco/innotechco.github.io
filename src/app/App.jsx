@@ -13,6 +13,7 @@ import {ContactActionsProvider} from "./providers/contact-actions/ContactActions
 import Footer from "../shared/components/layout/Footer.jsx";
 import Navbar from "../shared/components/layout/Navbar.jsx";
 import ScrollToTop from "../shared/components/layout/ScrollToTop.jsx";
+import {forgetScroll, scrollToRestore} from "../shared/components/layout/scrollMemory.js";
 import SiteScrollbar from "../shared/components/layout/SiteScrollbar.jsx";
 
 import {industryRoutes, serviceRoutes, routes} from "./routes.js";
@@ -162,6 +163,13 @@ function RouteFallback() {
 /* Long enough for a slow connection to finish assembling the page, short
    enough that a curtain which cannot lift still lifts. */
 const FIRST_VISIT_MAX_WAIT_MS = 6000;
+/* INLEARN ships its own visible shell and bundled fallback content, so once
+   its route has mounted there is already a complete first screen to show.
+   Waiting for every font and hero picture here made a refresh pay the full
+   first-visit deadline even though the navbar and page were ready. Keep a
+   short emergency ceiling for a genuinely slow chunk, but let its own images
+   finish after the curtain has gone. */
+const INLEARN_FIRST_VISIT_MAX_WAIT_MS = 900;
 const ROUTE_CHANGE_MAX_WAIT_MS = 2500;
 
 /* How long a move is allowed to take before it is worth covering.
@@ -279,41 +287,55 @@ async function waitForRouteToMount(deadline) {
   }
 }
 
+/* Waits for the page this visitor asked for, and for nothing that arrives
+ * after it.
+ *
+ * This used to hunt for quiet: go round, and if anything at all was still
+ * loading, start counting again. It never caught up. The home page's cards
+ * come from WordPress, which answers around a second in, and every card it
+ * brings arrives with a picture - so each answer put fresh pictures on the
+ * page, the count went back to zero, and the curtain sat there until the CMS
+ * had finished. Measured on a production build: the page itself was ready at
+ * 135ms and the curtain lifted at 1199ms, the whole difference being a wait
+ * for somebody else's server.
+ *
+ * Which also meant nobody ever saw the skeletons those sections draw while
+ * their content is on its way. They were built to be looked at; the curtain
+ * was covering them.
+ *
+ * So the wait is fixed now instead of chasing: the route's own chunk, and the
+ * pictures that are on the page once it has mounted. What those two cover is
+ * the page assembling itself, which is the thing worth hiding. What they do
+ * not cover is a section filling in later, which is not assembly - it is a
+ * skeleton doing its job.
+ */
 async function waitForContentToSettle(deadline) {
-  let quietRounds = 0;
+  /* The chunk first: until it has mounted there is no page to have pictures
+     in, and a list taken now would be a list of the fallback's. */
+  await waitForRouteToMount(deadline);
 
-  while (performance.now() < deadline && quietRounds < 2) {
-    await nextFrame();
-    await nextFrame();
+  /* Two frames for what it rendered to be laid out, so the pictures have real
+     boxes and pendingVisibleImages can tell which are on screen. */
+  await nextFrame();
+  await nextFrame();
 
-    if (document.querySelector("[data-route-loading]")) {
-      quietRounds = 0;
-      await wait(80);
-      continue;
-    }
+  /* Taken once. Anything that appears after this moment belongs to a section
+     still filling in, and waiting on it is what this stopped doing. */
+  const pending = pendingVisibleImages();
+  if (!pending.length) return;
 
-    const pending = pendingVisibleImages();
-
-    if (!pending.length) {
-      quietRounds += 1;
-      await wait(120);
-      continue;
-    }
-
-    quietRounds = 0;
-    await untilDeadline(
-      Promise.all(
-        pending.map(
-          (image) =>
-            new Promise((resolve) => {
-              image.addEventListener("load", resolve, {once: true});
-              image.addEventListener("error", resolve, {once: true});
-            }),
-        ),
+  await untilDeadline(
+    Promise.all(
+      pending.map(
+        (image) =>
+          new Promise((resolve) => {
+            image.addEventListener("load", resolve, {once: true});
+            image.addEventListener("error", resolve, {once: true});
+          }),
       ),
-      deadline,
-    );
-  }
+    ),
+    deadline,
+  );
 }
 
 function RouteLoadingOverlay() {
@@ -481,27 +503,53 @@ function RouteLoadingOverlay() {
       }
 
       const startedAt = performance.now();
+      const isInlearnVisit = isInlearnPath(location.pathname);
       const deadline =
         startedAt +
-        (isFirstVisit ? FIRST_VISIT_MAX_WAIT_MS : ROUTE_CHANGE_MAX_WAIT_MS);
+        (isFirstVisit
+          ? isInlearnVisit
+            ? INLEARN_FIRST_VISIT_MAX_WAIT_MS
+            : FIRST_VISIT_MAX_WAIT_MS
+          : ROUTE_CHANGE_MAX_WAIT_MS);
 
       if (isFirstVisit) {
-        /* The first paint is the one the curtain exists for: wait for the fonts
-           and for the pictures in the first screenful, or the page assembles in
-           front of the visitor. */
-        await nextFrame();
-        await nextFrame();
+        if (isInlearnVisit) {
+          /* INLEARN has a complete bundled first paint. Its course catalogue,
+             session restore, fonts and pictures may continue independently;
+             none of them should keep a full-screen white curtain over a shell
+             that is already usable. Two frames still give the mounted route
+             time to establish its layout before scroll restoration runs. */
+          await waitForRouteToMount(deadline);
+          await nextFrame();
+          await nextFrame();
+        } else {
+          /* The main site's first paint still waits for its fonts and the
+             pictures in the first screenful, or it visibly assembles after
+             the curtain leaves. */
+          await nextFrame();
+          await nextFrame();
 
-        if (document.fonts?.ready) {
-          await untilDeadline(document.fonts.ready, deadline);
+          if (document.fonts?.ready) {
+            await untilDeadline(document.fonts.ready, deadline);
+          }
+
+          await waitForContentToSettle(deadline);
         }
-
-        await waitForContentToSettle(deadline);
       } else {
         await waitForRouteToMount(deadline);
       }
 
       if (isCancelled) return;
+
+      /* The page is laid out and the curtain is still over it, which is the
+         one moment the window can be moved without anybody watching it move.
+         Only on a reload, and only back to where this same page was - see
+         scrollMemory. */
+      if (isFirstVisit) {
+        const y = scrollToRestore(location.pathname);
+        if (y) window.scrollTo({top: y, left: 0, behavior: "instant"});
+        forgetScroll();
+      }
 
       const remaining = releaseCurtain();
 

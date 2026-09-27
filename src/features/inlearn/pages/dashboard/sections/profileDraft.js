@@ -8,8 +8,15 @@
 
 /* The three rows Apply Changes sends. Not the email, the password or the
    picture: each of those saves itself the moment it succeeds, so none of them
-   can ever be an unsaved change. */
-export const EDITABLE_FIELDS = ["fullName", "region"];
+   can ever be an unsaved change.
+
+   The phone belongs here and was missing, which broke it twice over: Apply
+   Changes is off until this list says something has changed, so a typed number
+   left the button greyed out and could not be saved at all - and the draft that
+   survives leaving the page is built from this list too, so the number was also
+   thrown away on the way out. It stopped being a journey and became a field;
+   this is the list of fields. */
+export const EDITABLE_FIELDS = ["fullName", "region", "phone"];
 
 /* Only the editable rows, and every one of them - a field the answer never
    mentioned becomes "" rather than going missing, so two profiles can always
