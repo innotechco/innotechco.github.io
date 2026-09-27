@@ -14,16 +14,16 @@ import AuthSidebar from "./auth/AuthSidebar.jsx";
 import FirstPage from "./pages/first-page/FirstPage.jsx";
 import InlearnNavbar from "./shell/InlearnNavbar.jsx";
 import InlearnToast from "./shell/InlearnToast.jsx";
-import {getBasketCount, subscribeToBasket} from "./services/basket.js";
+import {getBasket, getBasketCount, replaceBasket, subscribeToBasket} from "./services/basket.js";
 import {
   ensureCatalogue,
   getCatalogueSnapshot,
   subscribeToCatalogue,
 } from "./services/catalogueStore.js";
-import {subscribeToSavedCourses} from "./services/savedCourses.js";
+import {getSavedCourses, replaceSavedCourses, subscribeToSavedCourses} from "./services/savedCourses.js";
 import {subscribeToCourseShare} from "./services/courseShare.js";
 import {getInlearnCourses} from "./inlearnContent.js";
-import {restoreSession, signOut} from "./services/authService.js";
+import {fetchPreferences, restoreSession, savePreferences, signOut} from "./services/authService.js";
 import {saveSession, storedIn} from "./services/auth/session.js";
 import {clearOwnedCourses, refreshOwnedCourses} from "./services/ownership.js";
 import {routes} from "../../app/routes.js";
@@ -64,6 +64,38 @@ function InlearnAcademy() {
     if (session) refreshOwnedCourses();
     else clearOwnedCourses();
   }, [session]);
+  const preferencesReady = useRef(false);
+  useEffect(() => {
+    preferencesReady.current = false;
+    if (!session) return undefined;
+    let active = true;
+    fetchPreferences().then((remote) => {
+      if (!active) return;
+      const localBasket = getBasket().map((line) => line.id);
+      const localSaved = getSavedCourses();
+      const basketIds = [...new Set([...remote.basketCourseIds ?? [], ...localBasket])];
+      const savedIds = [...new Set([...remote.savedCourseIds ?? [], ...localSaved])];
+      replaceBasket(basketIds);
+      replaceSavedCourses(savedIds);
+      return savePreferences({basketCourseIds: basketIds, savedCourseIds: savedIds});
+    }).catch(() => {}).finally(() => { if (active) preferencesReady.current = true; });
+    return () => { active = false; };
+  }, [session]);
+  useEffect(() => {
+    if (!session) return undefined;
+    let timer;
+    const push = () => {
+      if (!preferencesReady.current) return;
+      clearTimeout(timer);
+      timer = setTimeout(() => savePreferences({
+        basketCourseIds: getBasket().map((line) => line.id),
+        savedCourseIds: getSavedCourses(),
+      }).catch(() => {}), 350);
+    };
+    const offBasket = subscribeToBasket(push);
+    const offSaved = subscribeToSavedCourses(push);
+    return () => { clearTimeout(timer); offBasket(); offSaved(); };
+  }, [session]);
   /* Three states, not two: null means "nobody", and until restoreSession has
      answered we do not yet know which. The dashboard needs that distinction -
      see the route below. */
@@ -95,7 +127,10 @@ function InlearnAcademy() {
   useEffect(
     () =>
       subscribeToSavedCourses((change) => {
-        if (!change) return;
+        /* Reconciliation with the account also writes the local store, but it
+           is not a user action and must not announce "removed" while the
+           visitor is merely changing dashboard pages. */
+        if (!change || typeof change.saved !== "boolean") return;
         setToast({
           message: change.saved ? "Course saved." : "Course removed from saved.",
           action: {

@@ -31,6 +31,18 @@ export async function fetchProfile() {
   return response.json();
 }
 
+export async function fetchPreferences() {
+  let response;
+  try { response = await authorizedFetch("/api/inlearn/preferences"); }
+  catch { throw new Error("Could not reach the server. Check your connection."); }
+  if (!response.ok) throw new Error(await readProblem(response));
+  return response.json();
+}
+
+export async function savePreferences({basketCourseIds, savedCourseIds}) {
+  return put("/api/inlearn/preferences", {basketCourseIds, savedCourseIds});
+}
+
 /* Name, region, and the phone number ONLY while there is not one yet.
  *
  * A first number is an ordinary field: nothing is being taken away from,
@@ -120,6 +132,15 @@ async function post(path, body) {
     throw new Error("Could not reach the server. Check your connection.");
   }
 
+  if (!response.ok) throw new Error(await readProblem(response));
+  return response.json();
+}
+
+async function put(path, body) {
+  let response;
+  try {
+    response = await authorizedFetch(path, {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+  } catch { throw new Error("Could not reach the server. Check your connection."); }
   if (!response.ok) throw new Error(await readProblem(response));
   return response.json();
 }

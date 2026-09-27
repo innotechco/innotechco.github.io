@@ -30,6 +30,10 @@ export function getSession() {
 
 export function saveSession(session, {remember = true} = {}) {
   try {
+    /* The current Strapi setup does not issue a refresh cookie for every
+       existing local session. Keep the access token until cookie refresh is
+       enabled consistently, otherwise a restored dashboard renders but every
+       protected request is sent without Authorization and becomes 403. */
     readStore(remember).setItem(SESSION_KEY, JSON.stringify(session));
   } catch {
     /* Storage can be blocked outright; the session still works for this page. */

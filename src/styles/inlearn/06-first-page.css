@@ -118,7 +118,7 @@
   position: relative;
   z-index: 1;
   margin: 0;
-  padding-left: 4px;
+  padding-inline-start: 4px;
   font-size: clamp(19px, 2.4vw, 30px);
   font-weight: 700;
   line-height: 1.1;
@@ -130,7 +130,7 @@
   position: absolute;
   z-index: -1;
   top: 50%;
-  left: clamp(-14px, -1.2vw, -9px);
+  inset-inline-start: clamp(-14px, -1.2vw, -9px);
   width: clamp(36px, 4.4vw, 52px);
   height: clamp(36px, 4.4vw, 52px);
   border: 1px solid var(--inlearn-green);

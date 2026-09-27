@@ -83,6 +83,12 @@ export function getBasket() {
   return read();
 }
 
+export function replaceBasket(courseIds) {
+  const next = [...new Set((courseIds ?? []).filter((id) => typeof id === "string" && id))]
+    .map((id) => ({id, quantity: 1}));
+  return write(next);
+}
+
 export function getBasketCount() {
   return read().reduce((total, line) => total + (line.quantity ?? 1), 0);
 }

@@ -55,6 +55,11 @@ export function getServerSavedCourses() {
   return EMPTY;
 }
 
+export function replaceSavedCourses(ids) {
+  const next = [...new Set((ids ?? []).filter((id) => typeof id === "string" && id))];
+  return write(next, {type: "replace"});
+}
+
 export function isCourseSaved(courseId) {
   return read().includes(courseId);
 }

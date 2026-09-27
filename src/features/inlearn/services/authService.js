@@ -35,7 +35,9 @@ export {
   requestEmailChange,
   requestPhoneChange,
   confirmPhoneChange,
+  fetchPreferences,
   saveProfile,
+  savePreferences,
   uploadAvatar,
 } from "./auth/profile.js";
 
