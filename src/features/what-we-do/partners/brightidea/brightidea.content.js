@@ -4,7 +4,7 @@ import Idea from "../../../../shared/assets/partners/cards/idea.svg";
 import ProgramIcon from "../../../../shared/assets/partners/cards/program-icon.svg";
 import Rocket from "../../../../shared/assets/partners/cards/rocket.svg";
 import Transformation from "../../../../shared/assets/partners/cards/transformation.svg";
-import archery from "../../../../shared/assets/partners/cards/transformation.svg";
+import archery from "../../../../shared/assets/partners/cards/archery.svg";
 import ecosystem from "../../../../shared/assets/partners/cards/ecosystem.svg";
 
 export const brightideaAssets = {

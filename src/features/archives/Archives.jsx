@@ -145,8 +145,8 @@ function Archives() {
   );
   const categoryLabels = useMemo(() => buildCategoryLabels(categories), [categories]);
   const items = useMemo(
-    () => mergeArchiveItems(posts, archiveItems),
-    [posts],
+    () => mergeArchiveItems(posts, postsStatus === "error" ? archiveItems : []),
+    [posts, postsStatus],
   );
 
   const filteredItems = useMemo(() => {
