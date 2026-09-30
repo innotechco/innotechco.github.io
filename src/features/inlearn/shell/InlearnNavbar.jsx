@@ -1,5 +1,5 @@
-import {useEffect, useRef, useState, useSyncExternalStore} from "react";
-import {Link} from "react-router-dom";
+import {useEffect, useMemo, useRef, useState, useSyncExternalStore} from "react";
+import {Link, useNavigate} from "react-router-dom";
 
 import {useLanguage} from "../../../app/providers/language/useLanguage.js";
 import {routes} from "../../../app/routes.js";
@@ -9,6 +9,19 @@ import searchIcon from "../assets/search.svg";
 import shoppingCart from "../assets/shopping-cart.svg";
 import {inlearnLanguages} from "../data/inlearnContent.js";
 import {getBasketCount, subscribeToBasket} from "../services/basket.js";
+import {useInlearnCatalogue} from "../useInlearnCatalogue.js";
+import {getInlearnCourses, inlearnCoursePath} from "../inlearnContent.js";
+
+const MIN_SEARCH_LENGTH = 2;
+const MAX_SEARCH_RESULTS = 6;
+
+function normalizeSearchText(value) {
+  return String(value ?? "")
+    .toLocaleLowerCase()
+    .normalize("NFKC")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 function SearchIcon() {
   return <img className="inlearn-search-icon" src={searchIcon} alt="" aria-hidden="true" />;
@@ -16,6 +29,8 @@ function SearchIcon() {
 
 function InlearnNavbar({onAuthOpen, session}) {
   const {locale, changeLanguage} = useLanguage();
+  const navigate = useNavigate();
+  const catalogueSnapshot = useInlearnCatalogue();
   /* The basket lives in this device's storage and changes from anywhere on the
      page, or from another tab. useSyncExternalStore reads it where it is rather
      than copying it into state and going one render out of date. */
@@ -25,6 +40,18 @@ function InlearnNavbar({onAuthOpen, session}) {
   const [searchValue, setSearchValue] = useState("");
   const navRef = useRef(null);
   const searchInputRef = useRef(null);
+  const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
+  const catalogue = useMemo(() => getInlearnCourses(catalogueSnapshot), [catalogueSnapshot]);
+  const searchResults = useMemo(() => {
+    const query = normalizeSearchText(searchValue);
+    if (query.length < MIN_SEARCH_LENGTH) return [];
+
+    return catalogue.courses
+      .map((course) => ({course, title: normalizeSearchText(course.title)}))
+      .filter(({title}) => title.includes(query))
+      .slice(0, MAX_SEARCH_RESULTS)
+      .map(({course}) => course);
+  }, [catalogue.courses, searchValue]);
 
   useEffect(() => {
     const handlePointerDown = (event) => {
@@ -48,7 +75,15 @@ function InlearnNavbar({onAuthOpen, session}) {
   const closeSearch = () => {
     setIsSearchOpen(false);
     setSearchValue("");
+    setActiveSearchIndex(-1);
   };
+
+  const goToCourse = (course) => {
+    closeSearch();
+    navigate(inlearnCoursePath(course));
+  };
+
+  const searchListId = "inlearn-search-results";
 
   return (
     <div className="inlearn-topbar" dir="ltr">
@@ -159,14 +194,59 @@ function InlearnNavbar({onAuthOpen, session}) {
           <input
             ref={searchInputRef}
             value={searchValue}
-            onChange={(event) => setSearchValue(event.target.value)}
+            onChange={(event) => {
+              setSearchValue(event.target.value);
+              setActiveSearchIndex(-1);
+            }}
             onKeyDown={(event) => {
               if (event.key === "Escape") closeSearch();
+              if (event.key === "ArrowDown" && searchResults.length) {
+                event.preventDefault();
+                setActiveSearchIndex((index) => (index + 1) % searchResults.length);
+              }
+              if (event.key === "ArrowUp" && searchResults.length) {
+                event.preventDefault();
+                setActiveSearchIndex((index) => (index <= 0 ? searchResults.length - 1 : index - 1));
+              }
+              if (event.key === "Enter" && activeSearchIndex >= 0 && searchResults[activeSearchIndex]) {
+                event.preventDefault();
+                goToCourse(searchResults[activeSearchIndex]);
+              }
             }}
             placeholder="Search"
             aria-label="Search"
+            role="combobox"
+            aria-expanded={isSearchOpen && searchResults.length > 0}
+            aria-controls={searchListId}
+            aria-activedescendant={
+              activeSearchIndex >= 0 ? `inlearn-search-result-${activeSearchIndex}` : undefined
+            }
             tabIndex={isSearchOpen ? 0 : -1}
           />
+
+          {isSearchOpen && searchValue.trim().length >= MIN_SEARCH_LENGTH ? (
+            <div className="inlearn-search-results" id={searchListId} role="listbox">
+              {searchResults.length ? (
+                searchResults.map((course, index) => (
+                  <button
+                    key={course.id || course.slug}
+                    id={`inlearn-search-result-${index}`}
+                    type="button"
+                    role="option"
+                    aria-selected={activeSearchIndex === index}
+                    className={activeSearchIndex === index ? "is-active" : ""}
+                    onMouseEnter={() => setActiveSearchIndex(index)}
+                    onClick={() => goToCourse(course)}
+                  >
+                    <span>{course.title}</span>
+                    <small>View course</small>
+                  </button>
+                ))
+              ) : (
+                <p className="inlearn-search-empty">No courses found</p>
+              )}
+            </div>
+          ) : null}
 
           <button
             type="button"
