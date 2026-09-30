@@ -14,6 +14,7 @@ import AuthSidebar from "./auth/AuthSidebar.jsx";
 import FirstPage from "./pages/first-page/FirstPage.jsx";
 import InlearnNavbar from "./shell/InlearnNavbar.jsx";
 import InlearnToast from "./shell/InlearnToast.jsx";
+import SignInRequiredDialog from "./pages/basket/SignInRequiredDialog.jsx";
 import {getBasket, getBasketCount, replaceBasket, subscribeToBasket} from "./services/basket.js";
 import {
   ensureCatalogue,
@@ -131,6 +132,7 @@ function InlearnAcademy() {
   /* An object rather than a string, so a toast can carry one action with
      it - the basket's Undo. null when there is nothing to say. */
   const [toast, setToast] = useState(null);
+  const [isSavedSignInDialogOpen, setIsSavedSignInDialogOpen] = useState(false);
   const {isDarkMode, setIsDarkMode} = useTheme();
   const themeOnEntry = useRef(isDarkMode);
   const basketCount = useRef(0);
@@ -164,11 +166,14 @@ function InlearnAcademy() {
           action: {
             label: "View",
             tone: "link",
-            run: () => navigate(routes.inlearnDashboardSave),
+            run: () => {
+              if (session) navigate(routes.inlearnDashboardSave);
+              else setIsSavedSignInDialogOpen(true);
+            },
           },
         });
       }),
-    [navigate],
+    [navigate, session],
   );
 
   useEffect(
@@ -259,6 +264,19 @@ function InlearnAcademy() {
         action={toast?.action}
         onDismiss={() => setToast(null)}
       />
+      {isSavedSignInDialogOpen ? (
+        <SignInRequiredDialog
+          onClose={() => setIsSavedSignInDialogOpen(false)}
+          onSignIn={() => {
+            setIsSavedSignInDialogOpen(false);
+            openAuth("login");
+          }}
+          onRegister={() => {
+            setIsSavedSignInDialogOpen(false);
+            openAuth("register");
+          }}
+        />
+      ) : null}
       <InlearnNavbar onAuthOpen={openAuth} session={session} />
       <AuthSidebar
         isOpen={isAuthOpen}
