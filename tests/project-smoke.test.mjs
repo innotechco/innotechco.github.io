@@ -850,9 +850,10 @@ test("bundled INLEARN courses do not duplicate server-owned commercial fields", 
     );
 
     for (const course of catalogue.courses ?? []) {
-      for (const field of ["price", "compareAtPrice", "mode", "date", "publishedAt"]) {
+      for (const field of ["price", "compareAtPrice", "date", "publishedAt"]) {
         assert.ok(!(field in course), `${locale}/${course.id} still carries ${field}`);
       }
+      assert.ok(["online", "offline", "on-site"].includes(course.mode), `${locale}/${course.id} has no valid mode`);
     }
   }
 });

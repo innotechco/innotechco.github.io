@@ -62,6 +62,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Otomatikleştirilmiş bir maden işletmesi",
       "tag": "metals-mining",
+      "mode": "on-site",
       "about": [
         "Otomasyonun bir madenden neyi kaldırdığı, neyi eklediği ve ancak geldikten sonra ortaya çıkan olaylar.",
         "Otomasyon, insanları onlara zarar veren yerlerden çıkarır ve yenilerine koyar. Kurs her iki yarıyı da ele alır: sona erdirdiği maruziyetler ve ancak geldikten sonra görünmeye başlayan olay türleri."
@@ -88,6 +89,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Bir yarı iletken üretim tesisi",
       "tag": "high-tech",
+      "mode": "offline",
       "about": [
         "Darboğazı yer değiştiren bir tedarik zincirini okumak ve bir sonraki durağına hazırlanmak.",
         "Bu tedarik zincirinde darboğaz birkaç yılda bir yer değiştirir ve şirketler bir öncekine göre planlayarak yakalanır. Kurs, darboğazın şimdi nerede olduğunu okumayı ve bunun bir sonraki durağı hakkında ne söylediğini ele alır."
@@ -114,6 +116,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "İncelenen klinik kayıtlar",
       "tag": "health",
+      "mode": "online",
       "about": [
         "Hangi kaydı kimin görebileceği, bunun hesabını kimin vereceği ve denetimden nasıl geçtiği.",
         "Yönetişim genellikle bir politika olarak yazılır ve bir denetim bulgusu olarak keşfedilir. Kurs diğer uçtan çalışır: hangi kaydı kim görebilir, bu kararın hesabını kim verir ve kimse sormadan önce hangi kanıt var olmalıdır."
@@ -140,6 +143,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Bir şebeke kontrol odası",
       "tag": "high-tech",
+      "mode": "offline",
       "about": [
         "Artık her yerden güç alan bir şebekenin dakika dakika nasıl dengede tutulduğu.",
         "Bir zamanlar gücü birkaç santralden alan şebeke, artık izin istemeyen binlerce noktadan alıyor. Kurs bu koşullarda dengenin dakika dakika nasıl tutulduğunu ve kontrol odasının neyi görüp göremediğini ele alır."
@@ -166,6 +170,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Bir batarya üretim hattı",
       "tag": "automotive",
+      "mode": "on-site",
       "about": [
         "Bir hücre kusurunu iki yıl sonra araçta değil, hatta bandın üzerinde yakalayan ölçümler.",
         "Hatta bulunan bir hücre kusuru bir hücreye mal olur. Aynı kusur araçta bulunursa geri çağırmaya mal olur. Bu kurs, keşfi ikinci durumdan birinciye taşıyan ölçümlerle ve her birinin neyi görüp göremediğiyle ilgilidir."
@@ -192,6 +197,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Ekranda bir patent haritası",
       "tag": "business-management",
+      "mode": "online",
       "about": [
         "Patent haritasını bir yığın hukuki belge olarak değil, rakiplerin nereye harcadığının haritası olarak okumak.",
         "İstem yazanlar için değil, araştırma bütçesi belirleyenler için. Patent haritasını rakiplerin parayı nereye harcadığının kaydı olarak ele alır ve bu kaydın hukuk diploması olmadan nasıl okunacağını gösterir."
@@ -218,6 +224,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Bir hidrojen üretim tesisi",
       "tag": "sustainability",
+      "mode": "online",
       "about": [
         "Hidrojenin bugün gerçekten nerede rekabet ettiği, nerede henüz edemediği ve bir projenin yönünü neyin belirlediği.",
         "Hidrojen, heyecana göre değil, teslim edilen yararlı joule başına maliyete göre rekabet eder. Kurs bu hesabın bugün nerede tuttuğunu, nerede henüz tutmadığını ve belirli bir projenin çizginin hangi tarafına düşeceğini belirleyen üç dört değişkeni ortaya koyar."
@@ -244,6 +251,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Bir malzeme test laboratuvarı",
       "tag": "science-mathematics",
+      "mode": "on-site",
       "about": [
         "Bir test düzeneğinin neyi kanıtlayıp neyi kanıtlayamayacağı ve sertifikanın ona güvenmek zorunda olanlarca nasıl okunduğu.",
         "Bir test düzeneği, çoğu kişinin sandığından daha dar bir soruyu yanıtlar. Bu kurs her standart testin neyi kanıtlayıp neyi kanıtlamadığını, sertifikanın ona güvenecek mühendis tarafından nasıl okunduğunu ve ikisi arasındaki farkın nerede sorun çıkardığını ele alır."
@@ -270,6 +278,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Yük altındaki çelik boru hattı",
       "tag": "energy-materials",
+      "mode": "online",
       "about": [
         "Hiç dinmeyen ısı, basınç ve aşınma için alaşım, kaplama ve conta seçmek.",
         "Asidik servis, kriyojenik çalışma ve yüksek çevrimli yorulma; her biri kendince başarısız olur ve biri için seçilen malzeme diğeri için yanlış cevap olabilir. Kurs, seçim sorularını bir projenin onlarla gerçekte karşılaştığı sırayla işler."
@@ -296,6 +305,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Endüstriyel sahada güvenlik denetimi",
       "tag": "engineering",
+      "mode": "offline",
       "about": [
         "Yüksek riskli bir sahayı kendisine karşı dürüst tutan alışkanlıklar, raporlama hatları ve zor konuşmalar.",
         "Ciddi kazaların çoğundan önce, birinin gördüğü ama kimsenin yukarı taşımadığı haftalarca küçük sinyal vardır. Bu kurs, o sinyallerin yol alıp almayacağını belirleyen koşullarla ilgilidir: neyin raporlandığı, neyin ödüllendirildiği ve vardiya amirinin hattı durdurursa ne olacağına dair inancı."
@@ -322,6 +332,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Bir terminalden geçen yük",
       "tag": "business-management",
+      "mode": "on-site",
       "about": [
         "Gerçekten sahip olduğunuz bağımlılıkların ve yalnızca sahip olduğunuzu sandıklarınızın haritası.",
         "Dayanıklılık genellikle stok olarak satın alınır ki bu en pahalı biçimidir. Kurs daha ucuz biçimleri - ikinci kaynaklar, tasarım esnekliği, sözleşmeye dayalı opsiyonlar - ve belirli bir kesintinin hangisini gerektirdiğine nasıl karar verileceğini ortaya koyar."
@@ -348,6 +359,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Tesisin yanındaki kontrol odası ekranı",
       "tag": "engineering",
+      "mode": "online",
       "about": [
         "Dijital ikizlerin çoğu pilotta kalır. Bu ders, birini günlük operasyona taşıyan işi anlatır.",
         "Bir dijital ikiz, ancak söylediğine göre biri hareket ederse bakım masrafını hak eder. Bu kurs, ikizin desteklemesi beklenen karardan başlar ve geriye doğru modele, ölçüme ve her birinin gerçekte gerektirdiği veri hızına gider."
@@ -374,6 +386,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Endüstriyel enerji altyapısı",
       "tag": "sustainability",
+      "mode": "offline",
       "about": [
         "Varlık yoğun bir işletme, iki kez yanılmayı kaldıramayacağı bir dönüşümü nasıl planlar.",
         "Varlık yoğun bir işletmenin dönüşüm için bir ya da iki denemesi vardır ve ikincisi birincisinden çok daha pahalıdır. Kurs sıralama sorusunu işler: şimdi neye karar verilmeli, ne daha iyi bilgi için bekleyebilir ve imzalandığı anda geri dönüşü olmayan nedir."
@@ -400,6 +413,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Tesis göstergelerini okuyan bir mühendis",
       "tag": "data-ai",
+      "mode": "online",
       "about": [
         "Kestirimci bakımın arkasındaki modeller, makineleri zaten bilenler için anlatılıyor.",
         "Makineleri zaten bilen ve modelin gerçekte ne yaptığını merak eden mühendisler için yazıldı. Kestirimci bakımın nerede kendini amorti ettiğini, gerçek bir hatta yanlış alarmın maliyetini ve bir not defterinde iyi puan alan bir modelin tesiste neden işe yaramayabileceğini ele alır."
@@ -426,6 +440,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "Bir gaz işleme tesisi",
       "tag": "energy-materials",
+      "mode": "online",
       "about": [
         "Patentlerin nerede yoğunlaştığı, kimin başvurduğu ve bunun gaz işlemenin önümüzdeki on yılı için ne anlama geldiği.",
         "Patent verisi kamuya açık, devasa ve yöntemsiz neredeyse okunamaz. Bu kurs size bir yöntem verir: bir haritanın kapsamını belirlemek, savunma amaçlı başvuruları şirketin üzerine inşa etmeyi düşündüklerinden ayırmak ve yön gösteren bir kümeyi çıkmaz sokağa işaret edenden ayırt etmek."
@@ -452,6 +467,7 @@
       "effort": "Haftada 4-6 saat",
       "imageAlt": "İş başındaki sağlık ekipleri",
       "tag": "health",
+      "mode": "on-site",
       "about": [
         "Sağlık hizmeti bir ekip işidir. Danışmadaki görevliden hemşireye kadar her rol sonucun bir parçasını taşır.",
         "Kurs, bir hastayı kabulden taburcuya kadar izler ve sonucu iki rol arasındaki devrin belirlediği her noktada durur. Geriye kalan, kendi biriminizi okuma biçimidir: bilginin nerede kaybolduğu, kimin kimi beklediği ve bu boşlukların hangisinin bir süreç değişikliğiyle gerçekten kapanabileceği."
