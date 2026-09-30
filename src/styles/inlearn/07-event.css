@@ -239,11 +239,21 @@
   font-weight: 600;
   line-height: 1;
   white-space: nowrap;
+  /* Sit just under the headline instead of starting at the meta line's
+     default text inset. The small lift keeps the pill visually attached to
+     the title while leaving the surrounding summary flow unchanged. */
+  transform: translate(-18px, -6px);
 }
 
 .inlearn-event-mode svg {
   flex: 0 0 auto;
   color: var(--inlearn-green);
+}
+
+@media (max-width: 640px) {
+  .inlearn-event-mode {
+    transform: translate(-10px, -4px);
+  }
 }
 
 .inlearn-event-summary {
