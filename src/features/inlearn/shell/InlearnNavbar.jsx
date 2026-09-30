@@ -13,7 +13,6 @@ import {useInlearnCatalogue} from "../useInlearnCatalogue.js";
 import {getInlearnCourses, inlearnCoursePath} from "../inlearnContent.js";
 
 const MIN_SEARCH_LENGTH = 2;
-const MAX_SEARCH_RESULTS = 6;
 
 function normalizeSearchText(value) {
   return String(value ?? "")
@@ -49,7 +48,6 @@ function InlearnNavbar({onAuthOpen, session}) {
     return catalogue.courses
       .map((course) => ({course, title: normalizeSearchText(course.title)}))
       .filter(({title}) => title.includes(query))
-      .slice(0, MAX_SEARCH_RESULTS)
       .map(({course}) => course);
   }, [catalogue.courses, searchValue]);
 

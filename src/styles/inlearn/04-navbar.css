@@ -401,12 +401,38 @@
   z-index: 20;
   top: calc(100% + 10px);
   right: 0;
-  width: min(340px, 82vw);
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(390px, calc(100vh - 130px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 7px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   background: #080808;
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+  scrollbar-color: var(--inlearn-green) rgba(255, 255, 255, 0.08);
+  scrollbar-width: thin;
+}
+
+.inlearn-search-results::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inlearn-search-results::-webkit-scrollbar-track {
+  margin: 8px 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.inlearn-search-results::-webkit-scrollbar-thumb {
+  border: 2px solid #080808;
+  border-radius: 999px;
+  background: var(--inlearn-green);
+}
+
+.inlearn-search-results::-webkit-scrollbar-thumb:hover {
+  background: #b8e986;
 }
 
 .inlearn-search-results button {
@@ -447,6 +473,29 @@
   padding: 12px;
   color: rgba(255, 255, 255, 0.62);
   font-size: 12px;
+}
+
+@media (max-width: 520px) {
+  .inlearn-nav.is-searching {
+    width: min(100%, 360px);
+  }
+
+  .inlearn-nav.is-searching .inlearn-nav-content {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .inlearn-search-results {
+    right: -4px;
+    width: min(360px, calc(100vw - 24px));
+    max-height: min(55vh, 330px);
+    border-radius: 14px;
+  }
+
+  .inlearn-search-results button {
+    min-height: 46px;
+    padding: 12px 10px;
+  }
 }
 
 /* Everything above is decoration on a control that works without it. */
