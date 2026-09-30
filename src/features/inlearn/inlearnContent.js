@@ -14,6 +14,7 @@ import {routes} from "../../app/routes.js";
 import {
   courseImageFallback,
   courseImages,
+  coursePrices,
   inlearnConfig,
   instructorImageFallback,
   instructorImages,
@@ -90,6 +91,19 @@ export function getInlearnCourses(remote = getCatalogueSnapshot()) {
          falls back to the placeholder the site ships with, so a card is never
          an empty frame while somebody is still gathering the artwork. */
       image: course.image || courseImages[course.id] || courseImageFallback,
+      /* Only when the answer did not carry one, which is the same rule the
+         picture above follows.
+       *
+         Strapi owns the price, and when Strapi has answered, this line does
+         nothing - course.price is already its number and ?? keeps it. It is
+         read on the deployed site today, where the module is published and
+         the API is not hosted yet, and a card with an empty space where a
+         price goes reads as broken rather than as pending.
+
+         The live price list still outranks both; see priceOf in
+         services/shop.js. */
+      price: course.price ?? coursePrices[course.id]?.price,
+      compareAtPrice: course.compareAtPrice ?? coursePrices[course.id]?.compareAtPrice,
       /* The delivery mode is stored as an id and turned into words here, so a
          course carries no language of its own in that field and a translator
          edits one line per locale rather than sixteen. */

@@ -1198,6 +1198,54 @@ test("a half-typed profile waits in memory and never in storage", () => {
   );
 });
 
+test("a price shipped with the site never outranks the server's", () => {
+  /* The prices in inlearn.config.js are a fallback for the deployed site,
+     which has no API to ask yet - without them a course card shows an empty
+     space where a price goes, which reads as broken rather than as pending.
+
+     What makes a second copy of a price safe is that it always loses. The day
+     Strapi has a home, every one of those numbers stops being read, and
+     nobody has to remember to delete them. That only holds while these two
+     lines keep their order, so they are pinned here.
+
+     Not a runtime test: inlearnContent uses import.meta.glob and only loads
+     under Vite. The order is what is being protected, and the order is
+     readable in the source. */
+  const content = withoutComments(
+    fs.readFileSync(path.join(srcRoot, "features/inlearn/inlearnContent.js"), "utf8"),
+  );
+
+  /* The server's value first, the shipped one only when there is none. */
+  assert.match(content, /price:\s*course\.price\s*\?\?\s*coursePrices\[course\.id\]/);
+  assert.match(
+    content,
+    /compareAtPrice:\s*course\.compareAtPrice\s*\?\?\s*coursePrices\[course\.id\]/,
+  );
+
+  const shop = withoutComments(
+    fs.readFileSync(path.join(srcRoot, "features/inlearn/services/shop.js"), "utf8"),
+  );
+
+  /* And the live price list outranks the catalogue in turn, so the three sit
+     in one order: the list, then the catalogue, then this repository. */
+  assert.match(shop, /price:\s*live\?\.price\s*\?\?\s*course\?\.price/);
+  assert.match(shop, /compareAtPrice:\s*live\?\.compareAtPrice\s*\?\?\s*course\?\.compareAtPrice/);
+
+  /* Every course the catalogue ships has one, or the gap this closes is still
+     there for whichever course was missed. */
+  const config = fs.readFileSync(path.join(srcRoot, "features/inlearn/inlearn.config.js"), "utf8");
+  const priced = new Set(
+    [...config.matchAll(/"([a-z0-9-]+)":\s*\{price:/g)].map(([, id]) => id),
+  );
+  const catalogue = JSON.parse(
+    fs.readFileSync(path.join(srcRoot, "content/en/pages/inlearn/all-courses.json"), "utf8"),
+  );
+
+  for (const {id} of catalogue.courses) {
+    assert.ok(priced.has(id), `${id} ships without a price`);
+  }
+});
+
 test("the Profile page cannot save details it never managed to read", () => {
   const source = withoutComments(
     fs.readFileSync(

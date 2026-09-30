@@ -77,6 +77,56 @@ export const courseImages = {
 export const courseImageFallback = coursePlaceholder;
 
 /* ===========================================================================
+   COURSE PRICES  -  what a course costs when the server cannot say
+   ===========================================================================
+
+   Strapi owns the price. Somebody discounts a course in the admin panel and
+   the site shows it within the minute, because the page asks at runtime.
+   These numbers are not that, and they are not a second owner of it either.
+   They are what the page shows while there is no Strapi to ask, which today
+   is the deployed site: the module is published, the API is not hosted yet,
+   and a course card with an empty space where a price goes reads as broken
+   rather than as pending.
+
+   The order is decided in services/shop.js and is the whole point:
+
+     the live price list   /api/inlearn/prices, when it answers
+     the Strapi catalogue  when that has arrived
+     this file             only when neither has
+
+   So the day the API has a home, every one of these stops being read. Nothing
+   here has to be removed or remembered - it simply stops winning.
+
+   THE RISK, SAID PLAINLY. Two copies of a price means one can be edited while
+   the other goes on being printed. What makes that survivable is that this
+   copy is never what anybody is charged: the basket sends ids, and the server
+   works out the total and takes the payment (services/shop.js, quoteBasket and
+   placeOrder). The worst case is a figure on a card that is out of date, not a
+   wrong amount taken from somebody. Recovered from the catalogue as it stood
+   in 9d800f8, and identical to what Strapi holds today.
+   =========================================================================== */
+
+export const coursePrices = {
+  "mining-automation-safety": {price: 5400, compareAtPrice: 5800},
+  "semiconductor-supply-strategy": {price: 6100, compareAtPrice: 6600},
+  "clinical-data-governance": {price: 4600, compareAtPrice: 4900},
+  "smart-grid-operations": {price: 5300},
+  "battery-manufacturing-quality": {price: 5100, compareAtPrice: 5500},
+  "patent-analytics-for-rnd": {price: 4300},
+  "hydrogen-economy-fundamentals": {price: 5800, compareAtPrice: 6200},
+  "advanced-materials-testing": {price: 4700, compareAtPrice: 5000},
+  "materials-for-harsh-environments": {price: 5200},
+  "process-safety-leadership": {price: 5600, compareAtPrice: 6100},
+  "supply-chain-resilience": {price: 4400},
+  "digital-twin-operations": {price: 4900, compareAtPrice: 5200},
+  "energy-transition-strategy": {price: 6400, compareAtPrice: 7000},
+  "industrial-ai-foundations": {price: 3800},
+  "lpg-patent-landscape": {price: 5000, compareAtPrice: 5410},
+  "innovations-in-teamwork": {price: 4200, compareAtPrice: 4600},
+};
+
+
+/* ===========================================================================
    INSTRUCTOR PORTRAITS  -  which photograph belongs to which instructor
    ===========================================================================
 
