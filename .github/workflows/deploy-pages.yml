@@ -19,17 +19,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-wordpress-routes:
+  check-new-routes:
     runs-on: ubuntu-latest
     outputs:
       deploy-needed: ${{ steps.check.outputs.deploy-needed }}
     steps:
-      - name: Check for new WordPress article routes
+      # Both of the places content is written from, because both of them mint
+      # addresses this site has to have a real file for.
+      #
+      # An article and a course are the same shape of problem: somebody adds
+      # one in an admin panel, it shows up in its list straight away because
+      # the page asks at runtime, and then the link to it 404s - on static
+      # hosting an address with no file is not an address. The generator
+      # writes those files, and the generator only runs on a deploy.
+      #
+      # Courses were left out of this check, so a new one waited for somebody
+      # to publish an article or push a commit before it could be linked to.
+      - name: Check for new article or course routes
         id: check
         env:
           EVENT_NAME: ${{ github.event_name }}
           CMS_BASE_URL: "https://blog.innotech.global"
           SITE_BASE_URL: "https://innotech.global"
+          INLEARN_API_URL: ${{ vars.INLEARN_API_URL }}
         run: |
           if [ "$EVENT_NAME" != "schedule" ]; then
             echo "deploy-needed=true" >> "$GITHUB_OUTPUT"
@@ -39,20 +51,63 @@ jobs:
           node --input-type=module <<'EOF'
           import fs from "node:fs";
 
-          const postsUrl = new URL("/wp-json/wp/v2/posts", `${process.env.CMS_BASE_URL}/`);
-          postsUrl.searchParams.set("per_page", "50");
-          postsUrl.searchParams.set("_fields", "slug");
-          const postsResponse = await fetch(postsUrl);
-          if (!postsResponse.ok) throw new Error(`WordPress request failed: ${postsResponse.status}`);
+          const site = `${process.env.SITE_BASE_URL}/`;
 
-          const posts = await postsResponse.json();
+          /* Whether the live site already serves this address. A redirect is
+             not a page, so "manual" keeps one from being followed into a 200. */
+          async function isMissing(routePath) {
+            const url = new URL(routePath, site);
+            const response = await fetch(url, {redirect: "manual"});
+            if (response.status === 200) return false;
+            console.log(`Missing route: ${url} (${response.status})`);
+            return true;
+          }
+
+          async function articlePaths() {
+            const url = new URL("/wp-json/wp/v2/posts", `${process.env.CMS_BASE_URL}/`);
+            url.searchParams.set("per_page", "50");
+            url.searchParams.set("_fields", "slug");
+
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`WordPress request failed: ${response.status}`);
+
+            return (await response.json()).map(({slug}) => `/articles/${slug}/`);
+          }
+
+          /* Empty while INLEARN has no API, which is not a failure: the module
+             is not published then either, so there are no course addresses to
+             be missing.
+
+             A failure is not one either. WordPress is checked in the same
+             pass, and holding back a new article because Strapi happened to be
+             restarting would be the wrong trade. */
+          async function coursePaths() {
+            const api = process.env.INLEARN_API_URL;
+            if (!api) return [];
+
+            try {
+              const url = new URL("/api/inlearn/catalogue", `${api}/`);
+              url.searchParams.set("locale", "en");
+
+              const response = await fetch(url);
+              if (!response.ok) throw new Error(`status ${response.status}`);
+
+              const {courses = []} = await response.json();
+              /* The slug is the address; the id is the key the data is filed
+                 under. They part company the moment somebody rewrites one. */
+              return courses.map((course) => `/inlearn/courses/${course.slug || course.id}/`);
+            } catch (error) {
+              console.log(`Could not read the INLEARN catalogue: ${error.message}. Skipping course routes.`);
+              return [];
+            }
+          }
+
+          const routes = [...(await articlePaths()), ...(await coursePaths())];
+
           let deployNeeded = false;
-          for (const {slug} of posts) {
-            const articleUrl = new URL(`/articles/${slug}/`, `${process.env.SITE_BASE_URL}/`);
-            const response = await fetch(articleUrl, {redirect: "manual"});
-            if (response.status !== 200) {
+          for (const routePath of routes) {
+            if (await isMissing(routePath)) {
               deployNeeded = true;
-              console.log(`Missing article route: ${articleUrl} (${response.status})`);
               break;
             }
           }
@@ -61,8 +116,8 @@ jobs:
           EOF
 
   build:
-    needs: check-wordpress-routes
-    if: needs.check-wordpress-routes.outputs.deploy-needed == 'true'
+    needs: check-new-routes
+    if: needs.check-new-routes.outputs.deploy-needed == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -96,6 +151,19 @@ jobs:
           VITE_CMS_HOME_ENABLED: "false"
           VITE_CMS_BLOG_ENABLED: "true"
           VITE_CMS_BLOG_PER_PAGE: "50"
+          # INLEARN is switched on by there being somewhere for it to talk to.
+          #
+          # The address is a repository variable rather than a line in this
+          # file, so pointing the site at a newly hosted API is a change made
+          # in Settings and not a commit - and, more to the point, the module
+          # cannot go live by accident before that API exists. Without a
+          # server it would ship with no prices, no sign-in and no basket,
+          # which is worse than not shipping it.
+          #
+          # To publish it: Settings -> Secrets and variables -> Actions ->
+          # Variables -> INLEARN_API_URL = https://api.innotech.global
+          VITE_INLEARN_ENABLED: ${{ vars.INLEARN_API_URL != '' && 'true' || 'false' }}
+          VITE_INLEARN_API_URL: ${{ vars.INLEARN_API_URL }}
         run: npm run build
 
       - name: Add SPA fallback
@@ -106,6 +174,13 @@ jobs:
           VITE_CMS_BASE_URL: "https://blog.innotech.global"
           VITE_CMS_BLOG_ENABLED: "true"
           VITE_CMS_BLOG_PER_PAGE: "50"
+          # The same address again, and this step needs it for its own reason:
+          # it asks Strapi for the catalogue so every course gets a real file
+          # with its own title and description. Without it the script falls
+          # back to the copy bundled in the repository, and a course added in
+          # the admin panel has no page to be linked to.
+          VITE_INLEARN_ENABLED: ${{ vars.INLEARN_API_URL != '' && 'true' || 'false' }}
+          VITE_INLEARN_API_URL: ${{ vars.INLEARN_API_URL }}
         run: node tools/scripts/generate-static-route-fallbacks.mjs
 
       - name: Setup Pages
