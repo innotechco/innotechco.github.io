@@ -945,8 +945,15 @@
     margin-left: 30px;
   }
 
+  /* calc, not 100%: the indent below is part of this line, so a basis of
+     100% makes the box 30px longer than the row it sits in. Nothing showed,
+     because the controls are left-aligned and the overhang was empty - but it
+     is 30px of a promise the row cannot keep, and the first control that
+     reached the right edge would have been cut by it. */
   .inlearn-course-session-actions {
-    flex-basis: 100%;
+    flex-basis: calc(100% - 30px);
+    flex-wrap: wrap;
+    row-gap: 8px;
     justify-content: flex-start;
   }
 }
@@ -964,7 +971,9 @@
   }
 
   .inlearn-dash[data-rail="open"] .inlearn-course-session-actions {
-    flex-basis: 100%;
+    flex-basis: calc(100% - 30px);
+    flex-wrap: wrap;
+    row-gap: 8px;
     margin-left: 30px;
     justify-content: flex-start;
   }
