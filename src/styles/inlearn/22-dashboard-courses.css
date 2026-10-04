@@ -231,6 +231,110 @@
   overflow: visible;
 }
 
+/* The online platform, in the place the address sits for a course taught in a
+   room. Same frame as .inlearn-course-location on purpose - same padding,
+   same radius, same hairline - because one card should not look like two
+   different components depending on how its course happens to be taught.
+
+   Where it parts company: this one is a link in its entirety, so it answers
+   the pointer. The green edge and the lift are the whole of that answer; the
+   surface stays white, because a tinted panel beside a white one reads as a
+   different kind of thing rather than the same thing hovered. */
+.inlearn-course-platform {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: clamp(12px, 1.4vw, 18px);
+  border: 1px solid #ececee;
+  border-radius: 16px;
+  background: #ffffff;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.inlearn-course-platform:hover,
+.inlearn-course-platform:focus-visible {
+  border-color: var(--inlearn-green);
+  box-shadow: 0 6px 18px rgb(55 180 120 / 0.14);
+  transform: translateY(-1px);
+}
+
+/* The pointer belongs on the whole box, not only on the words at its end. */
+.inlearn-course-platform,
+.inlearn-course-platform * {
+  cursor: pointer;
+}
+
+.inlearn-course-platform-mark {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--inlearn-green);
+}
+
+/* min-width: 0 so a long platform name wraps inside the row instead of
+   pushing the control off the right edge. A flex item will not shrink past
+   its content without it. */
+.inlearn-course-platform-body {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.inlearn-course-platform-label {
+  color: var(--inlearn-black);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.inlearn-course-platform-name {
+  margin-top: 2px;
+  color: var(--inlearn-black);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.inlearn-course-platform-note {
+  margin-top: 1px;
+  color: var(--inlearn-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+/* The same descender guarantee the maps link carries: a line box taller than
+   the type, so the tail of the j in "Join" is not cut off flat. */
+.inlearn-course-platform-go {
+  flex: 0 0 auto;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 2px 2px;
+  color: var(--inlearn-green);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Narrow: the control drops under the words rather than squeezing them. The
+   mark stays on the first row and spans both, so the text keeps its left edge
+   the way the session rows do. */
+@media (max-width: 560px) {
+  .inlearn-course-platform {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "mark body" ". go";
+    align-items: start;
+    row-gap: 8px;
+  }
+
+  .inlearn-course-platform-mark { grid-area: mark; }
+  .inlearn-course-platform-body { grid-area: body; }
+  .inlearn-course-platform-go { grid-area: go; }
+}
+
 .inlearn-course-sessions-label {
   margin: clamp(14px, 1.8vw, 20px) 0 10px;
   color: var(--inlearn-black);

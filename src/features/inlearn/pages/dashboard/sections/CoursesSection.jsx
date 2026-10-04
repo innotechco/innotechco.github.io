@@ -3,16 +3,19 @@ import {useLocation} from "react-router-dom";
 
 import MediaDialog from "./MediaDialog.jsx";
 import {
+  ArrowOutIcon,
   CalendarIcon,
   ChevronIcon,
   ClockIcon,
   DocumentIcon,
   MapPinIcon,
+  OnlinePlatformIcon,
   PlayIcon,
   SpeakerIcon,
   TickIcon,
 } from "./courseIcons.jsx";
 import {MODES} from "./courseModes.js";
+import {ONLINE_PLATFORM} from "./onlinePlatform.js";
 import {MEDIA, fetchMyCourses, setSessionComplete} from "../../../services/learning.js";
 import {useInlearnCatalogue} from "../../../useInlearnCatalogue.js";
 import {getInlearnCourses} from "../../../inlearnContent.js";
@@ -284,9 +287,41 @@ function CourseCardRow({course, catalogue, isOpen, onToggleOpen, onOpenMedia, on
           </div>
         ) : null}
 
+        {/* Where an online course is taught, in the place an in-person one
+            says which room to walk into. The two never appear together: a
+            course is taught somewhere you go or somewhere you log in.
+
+            The whole box is the link rather than a word inside it, because
+            unlike the address above there is nothing here to read for its own
+            sake - the entire box exists to be pressed. */}
+        {mode.hasPlatform ? (
+          <a
+            className="inlearn-course-platform"
+            href={ONLINE_PLATFORM.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="inlearn-course-platform-mark" aria-hidden="true">
+              <OnlinePlatformIcon size={18} />
+            </span>
+            <span className="inlearn-course-platform-body">
+              <span className="inlearn-course-platform-label">Online platform:</span>
+              <span className="inlearn-course-platform-name">{ONLINE_PLATFORM.name}</span>
+              <span className="inlearn-course-platform-note">{ONLINE_PLATFORM.note}</span>
+            </span>
+            {/* aria-hidden: the anchor already reads as one link, and leaving
+                this visible to a screen reader would announce the destination
+                twice under one control. */}
+            <span className="inlearn-course-platform-go" aria-hidden="true">
+              {ONLINE_PLATFORM.action}
+              <ArrowOutIcon />
+            </span>
+          </a>
+        ) : null}
+
         {course.sessions.length ? (
           <>
-            <p className="inlearn-course-sessions-label">In-Person Sessions:</p>
+            <p className="inlearn-course-sessions-label">{mode.sessionsLabel}</p>
             <ul className="inlearn-course-sessions">
               {course.sessions.map((session) => (
             <SessionRow

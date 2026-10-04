@@ -136,3 +136,30 @@ export function CloseIcon({size = 16}) {
     </svg>
   );
 }
+
+/* The online platform's mark, and an arrow for the control beside it.
+ *
+ * PLACEHOLDER, and a different kind of one from the rest of this file. The
+ * others are drawn here because they are the site's own marks and take their
+ * colour from the text around them. This one stands in for somebody else's
+ * logo, which will almost certainly arrive as a file with its own colours in
+ * it - so when the real platform is chosen, expect this export to be replaced
+ * by an image rather than redrawn. Until then it is a stroke mark like its
+ * neighbours, so the box can be judged without a stranger's brand in it. */
+export function OnlinePlatformIcon({size = 18}) {
+  return (
+    <svg {...base} width={size} height={size} viewBox="0 0 24 24">
+      <rect x="2.5" y="5.5" width="13" height="13" rx="3" />
+      <path d="m15.5 10.5 5-3v9l-5-3z" />
+    </svg>
+  );
+}
+
+export function ArrowOutIcon({size = 13}) {
+  return (
+    <svg {...base} width={size} height={size} viewBox="0 0 24 24" strokeWidth={2}>
+      <path d="M8 16 16 8" />
+      <path d="M9.5 8H16v6.5" />
+    </svg>
+  );
+}
