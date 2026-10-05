@@ -161,8 +161,25 @@ function RouteFallback() {
 }
 
 /* Long enough for a slow connection to finish assembling the page, short
-   enough that a curtain which cannot lift still lifts. */
-const FIRST_VISIT_MAX_WAIT_MS = 6000;
+   enough that a curtain which cannot lift still lifts.
+
+   This was 6000, which on a filtered connection was not a ceiling anybody hit
+   by accident - it was the normal experience. Several of the bundled pictures
+   are over the ~59KB where such a connection stops delivering a response, so
+   the first-screen pictures never arrived, the settle never went quiet, and
+   every single first visit paid the whole six seconds behind a black screen
+   before showing a page that had in fact been ready since the first moment. */
+const FIRST_VISIT_MAX_WAIT_MS = 2500;
+
+/* What the fonts and the first screenful of pictures are allowed to add once
+   the page itself is up.
+
+   The page being ready and the page being pretty are two different waits, and
+   only the first one is worth a full-screen cover. Giving the second its own
+   small budget means a line that cannot deliver a hero picture costs a fifth
+   of a second of patience rather than the entire deadline - the curtain goes,
+   the page is there, and the picture arrives when it arrives. */
+const FIRST_VISIT_DECORATION_BUDGET_MS = 600;
 /* INLEARN ships its own visible shell and bundled fallback content, so once
    its route has mounted there is already a complete first screen to show.
    Waiting for every font and hero picture here made a refresh pay the full
@@ -523,17 +540,27 @@ function RouteLoadingOverlay() {
           await nextFrame();
           await nextFrame();
         } else {
-          /* The main site's first paint still waits for its fonts and the
-             pictures in the first screenful, or it visibly assembles after
-             the curtain leaves. */
+          /* The page first, with the whole deadline available to it: until the
+             route has mounted there is genuinely nothing to show. */
+          await waitForRouteToMount(deadline);
+
+          /* Then the fonts and the pictures in the first screenful, so the
+             page does not visibly assemble after the curtain leaves - but on
+             a budget of their own, because neither is a reason to keep a
+             black screen up over a page that is already laid out. */
+          const decorationDeadline = Math.min(
+            deadline,
+            performance.now() + FIRST_VISIT_DECORATION_BUDGET_MS,
+          );
+
           await nextFrame();
           await nextFrame();
 
           if (document.fonts?.ready) {
-            await untilDeadline(document.fonts.ready, deadline);
+            await untilDeadline(document.fonts.ready, decorationDeadline);
           }
 
-          await waitForContentToSettle(deadline);
+          await waitForContentToSettle(decorationDeadline);
         }
       } else {
         await waitForRouteToMount(deadline);

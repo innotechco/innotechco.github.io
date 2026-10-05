@@ -1129,8 +1129,45 @@ test("INLEARN first paint does not wait behind the curtain for fonts or pictures
   assert.match(app, /const INLEARN_FIRST_VISIT_MAX_WAIT_MS = 900/);
   assert.match(
     app,
-    /if \(isInlearnVisit\) \{[\s\S]*?waitForRouteToMount\(deadline\);[\s\S]*?await nextFrame\(\);[\s\S]*?await nextFrame\(\);[\s\S]*?\} else \{[\s\S]*?document\.fonts\?\.ready[\s\S]*?waitForContentToSettle\(deadline\)/,
+    /if \(isInlearnVisit\) \{[\s\S]*?waitForRouteToMount\(deadline\);[\s\S]*?await nextFrame\(\);[\s\S]*?await nextFrame\(\);[\s\S]*?\} else \{[\s\S]*?document\.fonts\?\.ready[\s\S]*?waitForContentToSettle\(/,
   );
+});
+
+/* The main site waits for its fonts and its first pictures, which INLEARN does
+   not - that is the test above. This one is about how long that wait is allowed
+   to be.
+ *
+ * It used to be the whole first-visit deadline. On a connection that stops
+ * delivering any response over about 59KB, several of the bundled pictures
+ * simply never arrive, so the wait was not a safety ceiling that a slow line
+ * occasionally reached - it was what every first visit paid, in full, behind a
+ * black screen, over a page that had been laid out from the first moment.
+ *
+ * So the decorations get a budget of their own, and the page is no longer held
+ * hostage to them. */
+test("fonts and first-screen pictures cannot hold the curtain for the whole deadline", () => {
+  const app = fs.readFileSync(path.join(srcRoot, "app", "App.jsx"), "utf8");
+
+  assert.match(app, /const FIRST_VISIT_DECORATION_BUDGET_MS = \d+/);
+
+  const budget = Number(app.match(/const FIRST_VISIT_DECORATION_BUDGET_MS = (\d+)/)[1]);
+  const deadline = Number(app.match(/const FIRST_VISIT_MAX_WAIT_MS = (\d+)/)[1]);
+  assert.ok(
+    budget < deadline,
+    "a decoration budget at or above the deadline is not a budget at all",
+  );
+
+  /* The page itself still gets the full deadline; only what comes after it is
+     capped. */
+  assert.match(
+    app,
+    /waitForRouteToMount\(deadline\);[\s\S]*?const decorationDeadline = Math\.min\([\s\S]*?deadline,[\s\S]*?performance\.now\(\) \+ FIRST_VISIT_DECORATION_BUDGET_MS/,
+  );
+
+  /* And both of the decoration waits are measured against that budget rather
+     than the deadline, or capping one of them achieves nothing. */
+  assert.match(app, /untilDeadline\(document\.fonts\.ready, decorationDeadline\)/);
+  assert.match(app, /waitForContentToSettle\(decorationDeadline\)/);
 });
 
 /* Comments are prose, and prose is allowed to mention anything. Every check
