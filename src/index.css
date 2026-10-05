@@ -37,6 +37,7 @@
 @import "./styles/locale-rtl.css";
 @import "./styles/home.css";
 
+
 @theme {
   --font-gotham: "Gotham", ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
