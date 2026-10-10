@@ -1,0 +1,44 @@
+# node_modules above all: the host's copy is built for Windows, and sharp
+# compiled for Windows cannot be loaded inside a Linux container.
+node_modules
+
+# Build output. The image builds its own; copying a stale dist in first only
+# risks it being the one served.
+dist
+dist-ssr
+
+# Local environment overrides. The build takes its VITE_* values from build
+# arguments, and a .env.local copied in here would silently win over them.
+.env
+.env.*
+!.env.example
+*.local
+
+# Not part of the build: documentation, tests, and the WordPress import tools.
+docs
+tests
+tools/wordpress
+
+# Git history, logs, editor and OS noise. None of it changes the output, and
+# all of it invalidates the build cache when it changes.
+.git
+.gitignore
+.github
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.idea
+.vscode
+.claude
+.agents
+.codex
+.DS_Store
+Thumbs.db
+
+# Docker's own files.
+Dockerfile
+Dockerfile.dev
+.dockerignore

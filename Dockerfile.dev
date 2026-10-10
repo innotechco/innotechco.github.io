@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+
+# The Vite dev server. The code is not copied in - compose mounts the working
+# copy over /app, so saving a file on the host is what triggers the reload.
+#
+# node_modules is here rather than on the host because sharp is a compiled
+# binary: the one npm installed on Windows cannot load inside a Linux
+# container. compose puts a named volume over /app/node_modules to keep the
+# host's copy from shadowing this one.
+
+FROM node:22-bookworm-slim
+
+ENV NODE_ENV=development
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+EXPOSE 5173
+
+# --host, because without it Vite listens on 127.0.0.1 INSIDE the container,
+# which is not an address the host can reach. The port mapping then looks
+# correct and the browser gets nothing.
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
