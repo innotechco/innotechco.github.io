@@ -210,12 +210,28 @@
 
 .inlearn-event-meta {
   display: flex;
+  /* wrap, not nowrap.
+   *
+   * nowrap was tried here and made the date disappear: the pill is
+   * flex: 0 0 auto and the date is not, so when the row ran out of width the
+   * date was the only item that could give, and it gave all of it. A line
+   * that drops one of its two facts is worse than a line that uses two rows.
+   *
+   * With wrap and the shrink turned off below, they sit side by side
+   * wherever they fit and both stay whole where they do not. */
   flex-wrap: wrap;
   align-items: center;
   margin: clamp(16px, 1.8vw, 26px) 0 0;
-  column-gap: clamp(12px, 1.4vw, 22px);
+  column-gap: clamp(14px, 1.5vw, 22px);
   row-gap: 10px;
   font-size: clamp(12px, 1vw, 14px);
+}
+
+/* The date: never squeezed, never broken mid-way. "September 12," above
+   "2026" would push the pill onto a row of its own for no reason. */
+.inlearn-event-meta > span {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .inlearn-event-meta .is-accent {
@@ -239,21 +255,21 @@
   font-weight: 600;
   line-height: 1;
   white-space: nowrap;
-  /* Sit just under the headline instead of starting at the meta line's
-     default text inset. The small lift keeps the pill visually attached to
-     the title while leaving the surrounding summary flow unchanged. */
-  transform: translate(-18px, -6px);
+  /* No transform here any more.
+   *
+   * It used to carry translate(-18px, -6px) to tuck the pill under the
+   * headline. The -18px pulled it back across the column-gap the flex row had
+   * just opened, so date and pill sat almost touching; the -6px lifted it off
+   * the date's baseline, so the two read as being on different lines. Both
+   * effects were invisible in the rule and showed up only on screen.
+   *
+   * align-items: center on the row does the alignment the lift was reaching
+   * for, and the gap is the gap. */
 }
 
 .inlearn-event-mode svg {
   flex: 0 0 auto;
   color: var(--inlearn-green);
-}
-
-@media (max-width: 640px) {
-  .inlearn-event-mode {
-    transform: translate(-10px, -4px);
-  }
 }
 
 .inlearn-event-summary {
