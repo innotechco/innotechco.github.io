@@ -5,7 +5,7 @@ import {navigationConfig} from "../../config/navigation.config.js";
    renders its menus on first paint. Everything the search panel needs lives in
    searchIndex.js and is fetched on demand - keep it that way, or the whole
    content tree lands back in the entry chunk. */
-const navigationModules = import.meta.glob("../../../content/{en,ar,tr}/navigation.json", {eager: true, import: "default"});
+const navigationModules = import.meta.glob("../../../content/en/navigation.json", {eager: true, import: "default"});
 
 export const navigationContent = localizedModule(navigationModules, "../../../content/en/navigation.json");
 

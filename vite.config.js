@@ -74,26 +74,33 @@ function chunkFor(id) {
    * that - but it turns one impossible request into three that each complete.
    * Wasteful and working beats economical and blank.
    */
+  /* The bundled page copy, split twice.
+   *
+   * By locale first. English is static and is what a build ships; Arabic and
+   * Turkish are fetched before the app is imported, and only by somebody who
+   * reads them - see loadLocaleOverrides() in shared/i18n/locale.js. Naming
+   * them apart is what lets the other two sit in chunks nobody else requests.
+   *
+   * Then by whether the file is needed to boot. Only four are: navigation.json
+   * for the navbar, contact.json and legal.json for the two modals the layout
+   * mounts, and contact-actions for the provider around the whole app. A few
+   * kilobytes between them. Everything else - every industry, every partner,
+   * every service, every page body - is reached only through a lazily loaded
+   * route, but a chunk is render-blocking if ANY eager module imports it, so
+   * without this navigation.json alone would drag all of it onto the critical
+   * path.
+   *
+   * Both halves were measured at 50KB/s with 300ms of latency, because this is
+   * exactly the kind of change that looks like a win on localhost and is not.
+   * The boot split ALONE was a regression - it moved 385KB of all-three-locale
+   * copy out of the first wave and into the second, one round trip later, and
+   * the route cannot mount until that lands: the page became visible at 5963ms
+   * against 5245ms before it. Cutting the locales first is what makes the split
+   * pay, and the two together land at 5282ms while halving what is downloaded.
+   * Removing the boot split again on top of the locale cut was worse than
+   * keeping it, so both stay. */
   const locale = path.match(/\/src\/content\/(en|ar|tr)\//);
   if (locale) {
-    /* And split again, by whether the file is needed to boot.
-     *
-     * Only four of these are: navigation.json for the navbar, contact.json and
-     * legal.json for the two modals the layout mounts, and contact-actions for
-     * the provider around the whole app. Between them they are a few kilobytes.
-     *
-     * Everything else - every industry, every partner, every service, every
-     * page body - is reached only through a lazily loaded route. But grouping
-     * all of /src/content/ into one chunk per locale put both kinds in the same
-     * file, and a file is render-blocking if ANY eager module imports it. So
-     * navigation.json, four kilobytes of menu labels, was dragging all of the
-     * English site copy onto the critical path: 116KB of partner pages and
-     * industry pages that the visitor had to wait for before the home page
-     * could paint, and would wait for again in Arabic and in Turkish.
-     *
-     * Named apart, the boot file is tiny and the rest becomes an ordinary
-     * chunk that only the route chunks import - so it is fetched when somebody
-     * actually opens that route, and never on first paint. */
     if (/\/src\/content\/(en|ar|tr)\/(navigation|contact|legal)\.json$/.test(path)) {
       return `app-content-boot-${locale[1]}`;
     }

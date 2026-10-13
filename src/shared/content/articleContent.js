@@ -2,7 +2,7 @@ import {fetchJsonFromApi} from "./utils.js";
 import {getActiveLocale} from "../i18n/locale.js";
 import {fetchWordPressPost} from "../../integrations/wordpress/client/wordpressBlog.js";
 
-const articleModules = import.meta.glob("../../content/{en,ar,tr}/articles/*.json", {
+const articleModules = import.meta.glob("../../content/en/articles/*.json", {
   eager: true,
   import: "default",
 });

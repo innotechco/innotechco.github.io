@@ -731,8 +731,8 @@ function App() {
   };
 
   const activeContactContent = {
-    ...localizedModule(import.meta.glob("../content/{en,ar,tr}/contact-actions/contact-actions.json", {eager: true, import: "default"}), "../content/en/contact-actions/contact-actions.json").default,
-    ...(localizedModule(import.meta.glob("../content/{en,ar,tr}/contact-actions/contact-actions.json", {eager: true, import: "default"}), "../content/en/contact-actions/contact-actions.json")[contactActionId] ?? {}),
+    ...localizedModule(import.meta.glob("../content/en/contact-actions/contact-actions.json", {eager: true, import: "default"}), "../content/en/contact-actions/contact-actions.json").default,
+    ...(localizedModule(import.meta.glob("../content/en/contact-actions/contact-actions.json", {eager: true, import: "default"}), "../content/en/contact-actions/contact-actions.json")[contactActionId] ?? {}),
   };
 
   return (
