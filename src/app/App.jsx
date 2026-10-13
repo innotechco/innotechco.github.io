@@ -171,15 +171,24 @@ function RouteFallback() {
    before showing a page that had in fact been ready since the first moment. */
 const FIRST_VISIT_MAX_WAIT_MS = 2500;
 
-/* What the fonts and the first screenful of pictures are allowed to add once
-   the page itself is up.
+/* What the first screenful of pictures is allowed to add once the page itself
+   is up.
 
    The page being ready and the page being pretty are two different waits, and
    only the first one is worth a full-screen cover. Giving the second its own
-   small budget means a line that cannot deliver a hero picture costs a fifth
+   small budget means a line that cannot deliver a hero picture costs a sixth
    of a second of patience rather than the entire deadline - the curtain goes,
-   the page is there, and the picture arrives when it arrives. */
-const FIRST_VISIT_DECORATION_BUDGET_MS = 600;
+   the page is there, and the picture arrives when it arrives.
+
+   It was 600, which was not a budget anybody underspent: there is always a
+   hero picture and always a map, so every single first visit paid all six
+   hundred milliseconds of it. Measured on a production build served from
+   localhost, with no network between the two: the route mounted at 146ms and
+   the curtain lifted at 1254ms. Over a second of black screen over a page
+   that had been finished for a second, on the fastest connection that exists.
+   150 is enough for a picture already in cache to be swapped in, which is the
+   case the budget is actually useful for. */
+const FIRST_VISIT_DECORATION_BUDGET_MS = 150;
 /* INLEARN ships its own visible shell and bundled fallback content, so once
    its route has mounted there is already a complete first screen to show.
    Waiting for every font and hero picture here made a refresh pay the full
@@ -200,8 +209,13 @@ const ROUTE_CHANGE_MAX_WAIT_MS = 2500;
 const CURTAIN_GRACE_MS = 160;
 
 /* And once it IS up, it stays long enough to be a deliberate cover rather than
-   a flash. This only ever applies to a curtain that was actually shown. */
-const MINIMUM_CURTAIN_MS = 400;
+   a flash. This only ever applies to a curtain that was actually shown.
+
+   200, not the 400 it was: this is a floor, so it is paid in full by every
+   load that is ready before it - which on a warm cache is all of them. A
+   cover is deliberate at two hundred milliseconds; the other two hundred were
+   only ever making a fast page look like a slow one. */
+const MINIMUM_CURTAIN_MS = 200;
 
 /* requestAnimationFrame never fires while the tab is in the background, so a
    bare await on it hangs for as long as the visitor looks somewhere else - with
@@ -544,10 +558,10 @@ function RouteLoadingOverlay() {
              route has mounted there is genuinely nothing to show. */
           await waitForRouteToMount(deadline);
 
-          /* Then the fonts and the pictures in the first screenful, so the
-             page does not visibly assemble after the curtain leaves - but on
-             a budget of their own, because neither is a reason to keep a
-             black screen up over a page that is already laid out. */
+          /* Then the pictures in the first screenful, so the page does not
+             visibly assemble after the curtain leaves - but on a budget of
+             their own, because a picture is not a reason to keep a black
+             screen up over a page that is already laid out. */
           const decorationDeadline = Math.min(
             deadline,
             performance.now() + FIRST_VISIT_DECORATION_BUDGET_MS,
@@ -556,9 +570,21 @@ function RouteLoadingOverlay() {
           await nextFrame();
           await nextFrame();
 
-          if (document.fonts?.ready) {
-            await untilDeadline(document.fonts.ready, decorationDeadline);
-          }
+          /* The fonts are deliberately NOT waited for here.
+           *
+           * Every face in styles/fonts.css is font-display: swap, which means
+           * the browser has already decided what happens: draw the text in the
+           * fallback now, redraw it when Gotham arrives. Holding the curtain
+           * cannot prevent that second draw - it can only make the visitor
+           * wait for it behind black and then still see it, because the
+           * curtain has a deadline and the font files do not.
+           *
+           * And the wait was for document.fonts.ready, which does not resolve
+           * until EVERY face has resolved - all five weights, 150KB of them.
+           * Measured: four arrived by 370ms and Gotham-Ultra, wanted by one
+           * heading, not until 931ms. One heading's weight was setting the
+           * pace for the whole first visit.
+           */
 
           await waitForContentToSettle(decorationDeadline);
         }

@@ -75,7 +75,31 @@ function chunkFor(id) {
    * Wasteful and working beats economical and blank.
    */
   const locale = path.match(/\/src\/content\/(en|ar|tr)\//);
-  if (locale) return `app-content-${locale[1]}`;
+  if (locale) {
+    /* And split again, by whether the file is needed to boot.
+     *
+     * Only four of these are: navigation.json for the navbar, contact.json and
+     * legal.json for the two modals the layout mounts, and contact-actions for
+     * the provider around the whole app. Between them they are a few kilobytes.
+     *
+     * Everything else - every industry, every partner, every service, every
+     * page body - is reached only through a lazily loaded route. But grouping
+     * all of /src/content/ into one chunk per locale put both kinds in the same
+     * file, and a file is render-blocking if ANY eager module imports it. So
+     * navigation.json, four kilobytes of menu labels, was dragging all of the
+     * English site copy onto the critical path: 116KB of partner pages and
+     * industry pages that the visitor had to wait for before the home page
+     * could paint, and would wait for again in Arabic and in Turkish.
+     *
+     * Named apart, the boot file is tiny and the rest becomes an ordinary
+     * chunk that only the route chunks import - so it is fetched when somebody
+     * actually opens that route, and never on first paint. */
+    if (/\/src\/content\/(en|ar|tr)\/(navigation|contact|legal)\.json$/.test(path)) {
+      return `app-content-boot-${locale[1]}`;
+    }
+    if (path.includes("/contact-actions/")) return `app-content-boot-${locale[1]}`;
+    return `app-content-${locale[1]}`;
+  }
 
   /* The app's own always-loaded code, split along the lines it is already
      organised by. Each of these is on every page, so none of it can be made

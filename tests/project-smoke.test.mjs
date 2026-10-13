@@ -1123,19 +1123,40 @@ test("a new page starts at the top without scrolling there", () => {
   );
 });
 
-test("INLEARN first paint does not wait behind the curtain for fonts or pictures", () => {
+test("INLEARN first paint does not wait behind the curtain for pictures", () => {
   const app = fs.readFileSync(path.join(srcRoot, "app", "App.jsx"), "utf8");
 
   assert.match(app, /const INLEARN_FIRST_VISIT_MAX_WAIT_MS = 900/);
   assert.match(
     app,
-    /if \(isInlearnVisit\) \{[\s\S]*?waitForRouteToMount\(deadline\);[\s\S]*?await nextFrame\(\);[\s\S]*?await nextFrame\(\);[\s\S]*?\} else \{[\s\S]*?document\.fonts\?\.ready[\s\S]*?waitForContentToSettle\(/,
+    /if \(isInlearnVisit\) \{[\s\S]*?waitForRouteToMount\(deadline\);[\s\S]*?await nextFrame\(\);[\s\S]*?await nextFrame\(\);[\s\S]*?\} else \{[\s\S]*?waitForContentToSettle\(/,
   );
 });
 
-/* The main site waits for its fonts and its first pictures, which INLEARN does
-   not - that is the test above. This one is about how long that wait is allowed
-   to be.
+/* Nobody waits behind the curtain for a font, on either side of that branch.
+ *
+ * Every face in styles/fonts.css is font-display: swap, so the browser has
+ * already committed to drawing the text in the fallback and redrawing it when
+ * Gotham lands. A curtain cannot prevent that second draw - it has a deadline
+ * and the font files do not - so holding it only means waiting for the redraw
+ * behind black and then still seeing it.
+ *
+ * And the wait was on document.fonts.ready, which does not resolve until every
+ * face does: five weights, 150KB. Measured, four were in by 370ms and
+ * Gotham-Ultra - wanted by one heading - not until 931ms. */
+test("the curtain does not wait for fonts", () => {
+  const app = fs.readFileSync(path.join(srcRoot, "app", "App.jsx"), "utf8");
+
+  const code = app.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+  assert.doesNotMatch(
+    code,
+    /document\.fonts/,
+    "a font wait here is paid by every first visit and buys nothing that font-display: swap does not already give",
+  );
+});
+
+/* The main site waits for its first pictures, which INLEARN does not - that is
+   the test above. This one is about how long that wait is allowed to be.
  *
  * It used to be the whole first-visit deadline. On a connection that stops
  * delivering any response over about 59KB, several of the bundled pictures
@@ -1145,7 +1166,7 @@ test("INLEARN first paint does not wait behind the curtain for fonts or pictures
  *
  * So the decorations get a budget of their own, and the page is no longer held
  * hostage to them. */
-test("fonts and first-screen pictures cannot hold the curtain for the whole deadline", () => {
+test("first-screen pictures cannot hold the curtain for the whole deadline", () => {
   const app = fs.readFileSync(path.join(srcRoot, "app", "App.jsx"), "utf8");
 
   assert.match(app, /const FIRST_VISIT_DECORATION_BUDGET_MS = \d+/);
@@ -1164,9 +1185,8 @@ test("fonts and first-screen pictures cannot hold the curtain for the whole dead
     /waitForRouteToMount\(deadline\);[\s\S]*?const decorationDeadline = Math\.min\([\s\S]*?deadline,[\s\S]*?performance\.now\(\) \+ FIRST_VISIT_DECORATION_BUDGET_MS/,
   );
 
-  /* And both of the decoration waits are measured against that budget rather
-     than the deadline, or capping one of them achieves nothing. */
-  assert.match(app, /untilDeadline\(document\.fonts\.ready, decorationDeadline\)/);
+  /* And the decoration wait is measured against that budget rather than the
+     deadline, or the cap achieves nothing. */
   assert.match(app, /waitForContentToSettle\(decorationDeadline\)/);
 });
 
