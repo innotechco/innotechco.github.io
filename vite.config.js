@@ -74,8 +74,39 @@ function chunkFor(id) {
    * that - but it turns one impossible request into three that each complete.
    * Wasteful and working beats economical and blank.
    */
+  /* The bundled page copy, split twice.
+   *
+   * By locale first. English is static and is what a build ships; Arabic and
+   * Turkish are fetched before the app is imported, and only by somebody who
+   * reads them - see loadLocaleOverrides() in shared/i18n/locale.js. Naming
+   * them apart is what lets the other two sit in chunks nobody else requests.
+   *
+   * Then by whether the file is needed to boot. Only four are: navigation.json
+   * for the navbar, contact.json and legal.json for the two modals the layout
+   * mounts, and contact-actions for the provider around the whole app. A few
+   * kilobytes between them. Everything else - every industry, every partner,
+   * every service, every page body - is reached only through a lazily loaded
+   * route, but a chunk is render-blocking if ANY eager module imports it, so
+   * without this navigation.json alone would drag all of it onto the critical
+   * path.
+   *
+   * Both halves were measured at 50KB/s with 300ms of latency, because this is
+   * exactly the kind of change that looks like a win on localhost and is not.
+   * The boot split ALONE was a regression - it moved 385KB of all-three-locale
+   * copy out of the first wave and into the second, one round trip later, and
+   * the route cannot mount until that lands: the page became visible at 5963ms
+   * against 5245ms before it. Cutting the locales first is what makes the split
+   * pay, and the two together land at 5282ms while halving what is downloaded.
+   * Removing the boot split again on top of the locale cut was worse than
+   * keeping it, so both stay. */
   const locale = path.match(/\/src\/content\/(en|ar|tr)\//);
-  if (locale) return `app-content-${locale[1]}`;
+  if (locale) {
+    if (/\/src\/content\/(en|ar|tr)\/(navigation|contact|legal)\.json$/.test(path)) {
+      return `app-content-boot-${locale[1]}`;
+    }
+    if (path.includes("/contact-actions/")) return `app-content-boot-${locale[1]}`;
+    return `app-content-${locale[1]}`;
+  }
 
   /* The app's own always-loaded code, split along the lines it is already
      organised by. Each of these is on every page, so none of it can be made

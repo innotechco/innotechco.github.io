@@ -42,7 +42,7 @@ function newestFirst(courses) {
 }
 
 function inlearnModules() {
-  return import.meta.glob("../../content/{en,ar,tr}/pages/inlearn/*.json", {
+  return import.meta.glob("../../content/en/pages/inlearn/*.json", {
     eager: true,
     import: "default",
   });

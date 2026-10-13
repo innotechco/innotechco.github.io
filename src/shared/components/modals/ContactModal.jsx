@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {localizedModule} from "../../i18n/locale.js";
 
-const contactContent = localizedModule(import.meta.glob("../../../content/{en,ar,tr}/contact.json", {eager: true, import: "default"}), "../../../content/en/contact.json");
+const contactContent = localizedModule(import.meta.glob("../../../content/en/contact.json", {eager: true, import: "default"}), "../../../content/en/contact.json");
 import {useTheme} from "../../../app/providers/theme/useTheme.js";
 import {countries} from "../../data/countries.js";
 import AnimatedModalShell from "./AnimatedModalShell.jsx";

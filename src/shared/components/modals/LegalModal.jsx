@@ -5,7 +5,7 @@ import AnimatedModalShell from "./AnimatedModalShell.jsx";
 import {localizedModule} from "../../i18n/locale.js";
 import {t} from "../../i18n/ui.js";
 
-const legalContent = localizedModule(import.meta.glob("../../../content/{en,ar,tr}/legal.json", {eager: true, import: "default"}), "../../../content/en/legal.json");
+const legalContent = localizedModule(import.meta.glob("../../../content/en/legal.json", {eager: true, import: "default"}), "../../../content/en/legal.json");
 
 function LegalModal({type, onClose}) {
   const {isDarkMode} = useTheme();

@@ -60,7 +60,7 @@ function buildHomePage(content, config = {}, options = {}) {
 }
 
 export function getHomePage() {
-  const modules = import.meta.glob("../../content/{en,ar,tr}/pages/**/*.json", {eager: true, import: "default"});
+  const modules = import.meta.glob("../../content/en/pages/**/*.json", {eager: true, import: "default"});
   return buildHomePage(localizedModule(modules, "../../content/en/pages/home/home.json"), homeConfig);
 }
 

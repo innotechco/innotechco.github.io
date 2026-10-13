@@ -1,8 +1,7 @@
 import ReactDOM from "react-dom/client";
 import {BrowserRouter} from "react-router-dom";
 
-import App from "./App.jsx";
-import {LanguageProvider} from "./providers/language/LanguageContext.jsx";
+import {loadLocaleOverrides} from "../shared/i18n/locale.js";
 import "../index.css";
 
 /* Where a page opens is this app's decision, not the browser's.
@@ -29,8 +28,34 @@ if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
   window.history.scrollRestoration = "manual";
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter basename={import.meta.env.BASE_URL}>
-    <LanguageProvider><App /></LanguageProvider>
-  </BrowserRouter>,
-);
+/* The app is imported rather than declared at the top, and that is the whole
+ * mechanism behind only shipping one language.
+ *
+ * Every content module in the app reads its copy once, at module evaluation -
+ * `export const {hero} = getIndustryPage("automotive")` and the like - through
+ * localizedModule(), which is synchronous. For a reader of Arabic or Turkish
+ * that copy has to already be in hand by the time those modules evaluate, and
+ * an ES import evaluates the whole graph before the importing file's body
+ * runs. So a static `import App` would evaluate every content module before
+ * this line could fetch anything, and the override would arrive for an app
+ * that had already read English.
+ *
+ * Importing it here instead puts the fetch first. English - the common visit,
+ * and the bundled default - resolves immediately and pays nothing for this.
+ */
+async function start() {
+  await loadLocaleOverrides();
+
+  const [{default: App}, {LanguageProvider}] = await Promise.all([
+    import("./App.jsx"),
+    import("./providers/language/LanguageContext.jsx"),
+  ]);
+
+  ReactDOM.createRoot(document.getElementById("root")).render(
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <LanguageProvider><App /></LanguageProvider>
+    </BrowserRouter>,
+  );
+}
+
+start();

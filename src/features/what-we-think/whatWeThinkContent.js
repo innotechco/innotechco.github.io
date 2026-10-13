@@ -16,13 +16,13 @@ function buildWhatWeThinkPage(content, config = {}) {
 }
 
 export function getWhatWeThinkPage() {
-  const modules = import.meta.glob("../../content/{en,ar,tr}/pages/what-we-think/*.json", {eager: true, import: "default"});
+  const modules = import.meta.glob("../../content/en/pages/what-we-think/*.json", {eager: true, import: "default"});
   const whatWeThinkPage = localizedModule(modules, "../../content/en/pages/what-we-think/what-we-think.json");
   return buildWhatWeThinkPage(whatWeThinkPage, whatWeThinkConfig);
 }
 
 export function getArchivesPage() {
-  const modules = import.meta.glob("../../content/{en,ar,tr}/pages/what-we-think/*.json", {eager: true, import: "default"});
+  const modules = import.meta.glob("../../content/en/pages/what-we-think/*.json", {eager: true, import: "default"});
   return localizedModule(modules, "../../content/en/pages/what-we-think/archives.json");
 }
 

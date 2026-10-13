@@ -11,7 +11,7 @@ function buildWhoWeArePage(content, config = {}) {
 }
 
 export function getWhoWeArePage() {
-  const modules = import.meta.glob("../../content/{en,ar,tr}/pages/who-we-are/*.json", {eager: true, import: "default"});
+  const modules = import.meta.glob("../../content/en/pages/who-we-are/*.json", {eager: true, import: "default"});
   const whoWeArePage = localizedModule(modules, "../../content/en/pages/who-we-are/who-we-are.json");
   return buildWhoWeArePage(whoWeArePage, whoWeAreConfig);
 }

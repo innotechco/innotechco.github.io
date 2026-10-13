@@ -2,7 +2,7 @@ import {localizedModule} from "../../../shared/i18n/locale.js";
 import {industryConfig} from "./industries.config.js";
 import {fetchJsonFromApi, mergeArrayById, mergeRecord} from "../../../shared/content/utils.js";
 
-const modules = import.meta.glob("../../../content/{en,ar,tr}/industries/*.json", {eager: true, import: "default"});
+const modules = import.meta.glob("../../../content/en/industries/*.json", {eager: true, import: "default"});
 const industryContent = Object.fromEntries(["automotive", "energy-and-materials", "health", "high-tech", "metals-and-mining"].map((slug) => [slug, localizedModule(modules, `../../../content/en/industries/${slug}.json`)]));
 
 function buildIndustryPage(content, config = {}, slug) {
