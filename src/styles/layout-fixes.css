@@ -5,10 +5,8 @@
   }
 }
 
-@media (min-width: 380px) and (max-width: 450px) {
-  .footer-legal-links {
-    row-gap: 3px;
-    transform: translateY(10px);
-  }
-}
+/* This band used to crush the legal links to a 3px row gap and shove them
+   down, to buy room back from a footer row that had nothing left to give.
+   The row now sizes its pills and its icons by width, so the links have the
+   space without being squeezed into it. */
 

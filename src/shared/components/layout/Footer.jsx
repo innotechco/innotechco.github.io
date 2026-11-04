@@ -20,6 +20,17 @@ function EmailIcon({className = ""}) {
   );
 }
 
+/* The bird is drawn here rather than loaded as a pair of light/dark files: it
+   is one path, and currentColor makes it follow the row's colour in both
+   themes without a second asset to keep in sync. */
+function TwitterIcon({className = ""}) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M23.953 4.57a10 10 0 0 1-2.825.775 4.958 4.958 0 0 0 2.163-2.723 9.99 9.99 0 0 1-3.127 1.184 4.92 4.92 0 0 0-8.384 4.482C7.691 8.094 4.066 6.13 1.64 3.161a4.822 4.822 0 0 0-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 0 1-2.228-.616v.061a4.923 4.923 0 0 0 3.946 4.827 4.996 4.996 0 0 1-2.212.085 4.936 4.936 0 0 0 4.604 3.417 9.867 9.867 0 0 1-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 0 0 7.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.935 9.935 0 0 0 2.46-2.548z" />
+    </svg>
+  );
+}
+
 const legalLinks = [
   {label: "GDPR", type: "gdpr"},
   {label: "Cookie Policy", type: "cookies"},
@@ -28,10 +39,10 @@ const legalLinks = [
 ];
 
 const footerTextLinkClassName =
-  "inline-flex h-7 w-[92px] items-center justify-center whitespace-nowrap rounded-full px-2 text-center text-[10px] leading-none transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-[#00C965] hover:text-black hover:shadow-[0_10px_24px_rgba(0,201,101,0.34)] active:translate-y-0.5 active:scale-95 sm:w-[108px] sm:text-xs lg:h-8 lg:w-[118px] lg:text-sm";
+  "inline-flex h-7 w-[72px] items-center justify-center whitespace-nowrap rounded-full px-1 text-center text-[9px] leading-none transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-[#00C965] hover:text-black hover:shadow-[0_10px_24px_rgba(0,201,101,0.34)] active:translate-y-0.5 active:scale-95 min-[360px]:w-[90px] min-[360px]:px-1.5 min-[360px]:text-[10px] min-[400px]:w-[100px] sm:w-[108px] sm:px-2 sm:text-xs lg:h-8 lg:w-[118px] lg:text-sm";
 
 const footerIconClassName =
-  "flex size-8 items-center justify-center rounded-full text-current transition-transform duration-300 hover:scale-110 active:scale-95 lg:size-10";
+  "flex size-6 shrink-0 items-center justify-center rounded-full text-current transition-transform duration-300 hover:scale-110 active:scale-95 min-[440px]:size-7 sm:size-8 lg:size-10";
 
 /* "curved" paints the footer with a full-width ellipse and lays the rows over
    it - that is the shape the innotech.global pages use. INLEARN asked for a
@@ -80,7 +91,7 @@ const Footer = ({onContactClick, topSpacingClassName = "", variant = "curved"}) 
           </div>
 
           <div className={`flex items-end justify-between px-6 sm:px-10 lg:px-[125px] ${bottomRowSpacing}`}>
-            <div className={`footer-legal-links grid max-w-[58%] grid-cols-2 place-items-center gap-x-4 gap-y-2 sm:max-w-[54%] sm:gap-x-6 md:max-w-none md:grid-cols-4 md:gap-x-4 md:gap-y-0 lg:gap-x-5 xl:gap-x-6 2xl:gap-x-8 ${textColor}`}>
+            <div className={`footer-legal-links grid grid-cols-2 place-items-center gap-x-1.5 gap-y-2.5 min-[360px]:gap-x-2 min-[400px]:gap-x-3 sm:max-w-[54%] sm:gap-x-6 sm:gap-y-2 md:max-w-none md:grid-cols-4 md:gap-x-4 md:gap-y-0 lg:gap-x-5 xl:gap-x-6 2xl:gap-x-8 ${textColor}`}>
               {legalLinks.map((item) => (
                 <button
                   key={item.type}
@@ -93,13 +104,13 @@ const Footer = ({onContactClick, topSpacingClassName = "", variant = "curved"}) 
               ))}
             </div>
 
-            <div className={`flex gap-3 sm:gap-4 ${textColor}`}>
+            <div className={`flex shrink-0 items-center gap-1 min-[440px]:gap-2 sm:gap-3 lg:gap-4 ${textColor}`}>
               <a
                 href="mailto:Info@innotech.global"
                 className={footerIconClassName}
                 aria-label="Email INNOTECH"
               >
-                <EmailIcon className="size-6 lg:size-8" />
+                <EmailIcon className="size-4 min-[440px]:size-5 sm:size-6 lg:size-8" />
               </a>
               <a
                 href="https://www.linkedin.com/company/innotech-management-consulting-co/"
@@ -108,7 +119,7 @@ const Footer = ({onContactClick, topSpacingClassName = "", variant = "curved"}) 
                 className={footerIconClassName}
                 aria-label="Open INNOTECH on LinkedIn"
               >
-                <img loading="lazy" src={isLightMode ? LinkedInDark : LinkedIn} className="size-6 lg:size-8" alt="" />
+                <img loading="lazy" src={isLightMode ? LinkedInDark : LinkedIn} className="size-4 min-[440px]:size-5 sm:size-6 lg:size-8" alt="" />
               </a>
               <a
                 href="https://wa.me/971543191316"
@@ -117,7 +128,16 @@ const Footer = ({onContactClick, topSpacingClassName = "", variant = "curved"}) 
                 className={footerIconClassName}
                 aria-label="Open WhatsApp chat"
               >
-                <img loading="lazy" src={isLightMode ? WhatsAppDark : WhatsApp} className="size-6 lg:size-8" alt="" />
+                <img loading="lazy" src={isLightMode ? WhatsAppDark : WhatsApp} className="size-4 min-[440px]:size-5 sm:size-6 lg:size-8" alt="" />
+              </a>
+              <a
+                href="https://x.com/Innotechinsight"
+                target="_blank"
+                rel="noreferrer"
+                className={footerIconClassName}
+                aria-label="Open INNOTECH on Twitter"
+              >
+                <TwitterIcon className="size-4 min-[440px]:size-5 sm:size-6 lg:size-8" />
               </a>
             </div>
           </div>
