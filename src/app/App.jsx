@@ -50,8 +50,11 @@ function lazyWithRetry(importer, name) {
 }
 
 const Home = lazyWithRetry(() => import("../features/home/Home.jsx"), "home");
+const isInlearnComingSoon = import.meta.env.VITE_INLEARN_COMING_SOON === "true";
 const InlearnAcademy = lazyWithRetry(
-  () => import("../features/inlearn/InlearnAcademy.jsx"),
+  import.meta.env.VITE_INLEARN_COMING_SOON === "true"
+    ? () => import("../features/inlearn-coming-soon/InlearnComingSoon.jsx")
+    : () => import("../features/inlearn/InlearnAcademy.jsx"),
   "inlearn",
 );
 const Archives = lazyWithRetry(
@@ -746,7 +749,7 @@ function App() {
         <SearchHighlightManager />
         <RouteLoadingOverlay />
         {isLanguageLoading ? <div className="fixed inset-0 z-[250] bg-[#050505]"><LoadingMark fullScreen={false} /></div> : null}
-        {isInlearnRoute ? null : <Navbar />}
+        {!isInlearnRoute || isInlearnComingSoon ? <Navbar /> : null}
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path={routes.home} element={<Home />} />
@@ -773,8 +776,7 @@ function App() {
             />
           </Routes>
         </Suspense>
-        {/* INLEARN keeps its own navbar but shares the site footer, as a plain
-            rectangle rather than the curved shape the other pages use. */}
+        {/* Both INLEARN views share the current site's flat footer. */}
         <Footer
           onContactClick={() => openContact("default")}
           topSpacingClassName={footerTopSpacing}

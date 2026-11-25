@@ -18,6 +18,7 @@ const blogEnabled = process.env.VITE_CMS_ENABLED === "true" &&
    file is written regardless, or typing the address on innotech.global would
    land on nothing. */
 const inlearnLinked = process.env.VITE_INLEARN_ENABLED === "true";
+const inlearnComingSoon = process.env.VITE_INLEARN_COMING_SOON === "true";
 
 const staticRoutes = [
   "archives",
@@ -299,7 +300,8 @@ const metadata = buildRouteMetadata();
 
 /* Every :slug route in App.jsx needs a generator here, or those pages 404 on
    a direct link while working fine through client-side navigation. */
-const generated = [...getPartners(), ...(await getCourses()), ...(await getArticles())];
+const courses = inlearnComingSoon ? [] : await getCourses();
+const generated = [...getPartners(), ...courses, ...(await getArticles())];
 
 for (const page of generated) {
   if (page.title) {
@@ -307,7 +309,10 @@ for (const page of generated) {
   }
 }
 
-const routes = [...staticRoutes, ...generated.map(({route}) => route)];
+const publishedRoutes = inlearnComingSoon
+  ? staticRoutes.filter((route) => !route.startsWith("inlearn/"))
+  : staticRoutes;
+const routes = [...publishedRoutes, ...generated.map(({route}) => route)];
 
 for (const route of routes) {
   const meta = metadata.get(route);

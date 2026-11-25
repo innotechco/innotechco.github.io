@@ -18,6 +18,9 @@ concurrency:
   group: pages-${{ github.repository }}
   cancel-in-progress: true
 
+env:
+  VITE_INLEARN_COMING_SOON: "true"
+
 jobs:
   check-new-routes:
     runs-on: ubuntu-latest
@@ -74,14 +77,9 @@ jobs:
             return (await response.json()).map(({slug}) => `/articles/${slug}/`);
           }
 
-          /* Empty while INLEARN has no API, which is not a failure: the module
-             is not published then either, so there are no course addresses to
-             be missing.
-
-             A failure is not one either. WordPress is checked in the same
-             pass, and holding back a new article because Strapi happened to be
-             restarting would be the wrong trade. */
           async function coursePaths() {
+            if (process.env.VITE_INLEARN_COMING_SOON === "true") return [];
+
             const api = process.env.INLEARN_API_URL;
             if (!api) return [];
 
@@ -151,19 +149,6 @@ jobs:
           VITE_CMS_HOME_ENABLED: "false"
           VITE_CMS_BLOG_ENABLED: "true"
           VITE_CMS_BLOG_PER_PAGE: "50"
-          # INLEARN is published: the navbar links to it, the routes get their
-          # files, and it is in the sitemap.
-          #
-          # Being seen and being able to sell are two different switches, and
-          # only the first one is on. The API has no home yet, so anything
-          # that needs the server - a price, signing in, buying - is not there
-          # to be used. That is a known and accepted state, not an oversight:
-          # somebody can read what is on offer and cannot yet act on it.
-          #
-          # The address is a repository variable rather than a line here, so
-          # the day Strapi goes up the site starts using it without a commit:
-          # Settings -> Secrets and variables -> Actions -> Variables ->
-          # INLEARN_API_URL = https://api.innotech.global
           VITE_INLEARN_ENABLED: "true"
           VITE_INLEARN_API_URL: ${{ vars.INLEARN_API_URL }}
         run: npm run build
@@ -176,12 +161,6 @@ jobs:
           VITE_CMS_BASE_URL: "https://blog.innotech.global"
           VITE_CMS_BLOG_ENABLED: "true"
           VITE_CMS_BLOG_PER_PAGE: "50"
-          # This step needs both for its own reason: the flag decides whether
-          # the INLEARN routes are written at all, and the address is what
-          # lets it ask Strapi for the catalogue so every course gets a file
-          # carrying its own title and description. With no address it falls
-          # back to the copy bundled here - sixteen courses, which is what the
-          # site can show until the admin panel is reachable.
           VITE_INLEARN_ENABLED: "true"
           VITE_INLEARN_API_URL: ${{ vars.INLEARN_API_URL }}
         run: node tools/scripts/generate-static-route-fallbacks.mjs
